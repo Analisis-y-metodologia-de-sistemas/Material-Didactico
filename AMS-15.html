@@ -1,0 +1,2570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 15: Casos de Uso Avanzados - Análisis y Metodología de Sistemas</title>
+    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
+    <meta name="author" content="Curso AMS HTML">
+    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c5aa0;
+            --secondary-color: #34495e;
+            --accent-color: #3498db;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --danger-color: #e74c3c;
+            --light-bg: #ecf0f1;
+            --dark-bg: #2c3e50;
+            --text-color: #333;
+            --light-text: #7f8c8d;
+            --border-color: #bdc3c7;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            box-shadow: var(--shadow);
+        }
+
+        .header {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: var(--light-bg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient-secondary);
+            width: 93.75%; /* 15/16 classes */
+            transition: width 0.3s ease;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: var(--light-bg);
+            border-bottom: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .nav-tab {
+            padding: 1rem 2rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            background: white;
+            color: var(--primary-color);
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: #f8f9fa;
+            border-radius: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .section h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .section h4 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .objectives {
+            background: linear-gradient(135deg, #667eea20, #764ba220);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+
+        .objectives h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .objectives li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .objectives li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .synoptic-chart {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        .synoptic-title {
+            text-align: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .comparison-table th {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .comparison-table tr:hover {
+            background: #e3f2fd;
+            transition: background 0.3s ease;
+        }
+
+        .diagram-container {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .diagram-title {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .uml-diagram {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .key-concepts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .concept-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .concept-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .concept-card h4 {
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #ffd89b 0%, #19547b 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .highlight-box::before {
+            content: '💡';
+            font-size: 2rem;
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            opacity: 0.7;
+        }
+
+        .quiz-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .quiz-header h3 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .question {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            display: none;
+        }
+
+        .question.active {
+            display: block;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .question-number {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin: 1rem 0;
+        }
+
+        .options {
+            display: grid;
+            gap: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .option {
+            padding: 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: var(--accent-color);
+            background: #e3f2fd;
+        }
+
+        .option.selected {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .option.correct {
+            border-color: var(--success-color);
+            background: var(--success-color);
+            color: white;
+        }
+
+        .option.incorrect {
+            border-color: var(--danger-color);
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .quiz-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .quiz-button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .quiz-button:disabled {
+            background: var(--light-text);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .score-display {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .explanation {
+            background: #e8f5e8;
+            border: 1px solid var(--success-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .explanation h5 {
+            color: var(--success-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .word-count {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+            z-index: 1000;
+        }
+
+        .flowchart-container {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tab {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .key-concepts {
+                grid-template-columns: 1fr;
+            }
+
+            .quiz-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .quiz-button {
+                width: 100%;
+                margin: 0.5rem 0;
+            }
+        }
+
+        .interactive-template {
+            background: #f0f8ff;
+            border: 2px dashed var(--accent-color);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .template-input {
+            width: 100%;
+            max-width: 600px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin: 0.5rem 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .template-output {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            text-align: left;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body role="document">
+    <div class="container" role="main">
+        <header class="header">
+            <h1 id="main-title">Clase 15: Casos de Uso Avanzados</h1>
+            <p class="subtitle">Análisis y Metodología de Sistemas - Semana 15</p>
+        </header>
+
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-fill"></div>
+        </div>
+
+        <nav class="nav-tabs">
+            <button class="nav-tab active" onclick="showTab('objetivos')">Objetivos</button>
+            <button class="nav-tab" onclick="showTab('cockburn')">Metodología Cockburn</button>
+            <button class="nav-tab" onclick="showTab('actores')">Identificación de Actores</button>
+            <button class="nav-tab" onclick="showTab('relaciones')">Relaciones UC</button>
+            <button class="nav-tab" onclick="showTab('validacion')">Validación</button>
+            <button class="nav-tab" onclick="showTab('diagramas')">Diagramas UML</button>
+            <button class="nav-tab" onclick="showTab('evaluacion')">Evaluación</button>
+        </nav>
+
+        <div class="content">
+            <!-- Tab 1: Objetivos -->
+            <div id="objetivos" class="tab-content active">
+                <div class="objectives">
+                    <h3>🎯 Objetivos de Aprendizaje</h3>
+                    <ul role="list">
+                        <li role="listitem">Dominar la especificación de casos de uso según la metodología de Alistair Cockburn</li>
+                        <li role="listitem">Comprender las relaciones entre casos de uso: include, extend y generalización</li>
+                        <li role="listitem">Analizar técnicas avanzadas de identificación y clasificación de actores</li>
+                        <li role="listitem">Implementar procesos de validación y verificación de casos de uso</li>
+                        <li role="listitem">Aplicar estándares UML para la documentación profesional</li>
+                    </ul>
+                </div>
+
+                <div class="section">
+                    <h2>📚 Introducción a Casos de Uso Avanzados</h2>
+                    <p>Los casos de uso representan una de las técnicas más poderosas y ampliamente adoptadas en el análisis de sistemas modernos. Como señala Alistair Cockburn en "Writing Effective Use Cases", un caso de uso "capta un contrato que describe el comportamiento del sistema en distintas condiciones en las que el sistema responde a una petición de alguno de sus participantes".</p>
+                    
+                    <p>En esta clase profunda exploraremos las técnicas avanzadas que distinguen a los analistas expertos de los principiantes. Mientras que muchos se enfocan excesivamente en los diagramas y relaciones visuales, los profesionales experimentados comprenden que <strong>la especificación de requisitos se hace escribiendo, no organizando casos de uso</strong>.</p>
+
+                    <div class="highlight-box">
+                        <h4>Principio Fundamental de Cockburn</h4>
+                        <p>"Como primera regla empírica, utilice siempre la relación include entre los casos de uso. La gente que sigue esta regla declara que existen menos malentendidos entre ellos y sus lectores sobre lo que escriben que la gente que mezcla include con extend y generalizes."</p>
+                    </div>
+
+                    <p>Esta clase aborda cuatro pilares fundamentales del análisis avanzado con casos de uso:</p>
+                    
+                    <div class="key-concepts">
+                        <div class="concept-card">
+                            <h4>🎭 Metodología Cockburn</h4>
+                            <p>Formato "completamente vestido" con niveles de detalle, precondiciones, postcondiciones y escenarios alternativos estructurados.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>👥 Identificación de Actores</h4>
+                            <p>Técnicas para identificar actores primarios, secundarios y de soporte, incluyendo sistemas externos y jerarquías de roles.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>🔗 Relaciones Avanzadas</h4>
+                            <p>Uso estratégico de include, extend y generalización para crear modelos mantenibles y reutilizables.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>✅ Validación Profesional</h4>
+                            <p>Técnicas de revisión con stakeholders, trazabilidad con requisitos y métricas de calidad.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h2>🏗️ Arquitectura del Conocimiento</h2>
+                    <p>Esta clase se estructura en cuatro módulos interconectados que construyen progresivamente la competencia en casos de uso avanzados:</p>
+
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Arquitectura de Aprendizaje - Casos de Uso Avanzados</div>
+                        <svg width="800" height="400" viewBox="0 0 800 400" class="uml-diagram">
+                            <!-- Background -->
+                            <defs>
+                                <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#667eea;stop-opacity:0.1"/>
+                                    <stop offset="100%" style="stop-color:#764ba2;stop-opacity:0.1"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="800" height="400" fill="url(#bgGradient)"/>
+                            
+                            <!-- Módulo 1: Metodología Cockburn -->
+                            <rect x="50" y="50" width="150" height="80" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="8"/>
+                            <text x="125" y="75" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Metodología</text>
+                            <text x="125" y="90" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Cockburn</text>
+                            <text x="125" y="110" text-anchor="middle" fill="white" font-size="10">Formato completo</text>
+                            <text x="125" y="122" text-anchor="middle" fill="white" font-size="10">Niveles detalle</text>
+                            
+                            <!-- Módulo 2: Actores -->
+                            <rect x="250" y="50" width="150" height="80" fill="#27ae60" stroke="#229954" stroke-width="2" rx="8"/>
+                            <text x="325" y="75" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Identificación</text>
+                            <text x="325" y="90" text-anchor="middle" fill="white" font-weight="bold" font-size="12">de Actores</text>
+                            <text x="325" y="110" text-anchor="middle" fill="white" font-size="10">Primarios</text>
+                            <text x="325" y="122" text-anchor="middle" fill="white" font-size="10">Secundarios</text>
+                            
+                            <!-- Módulo 3: Relaciones -->
+                            <rect x="450" y="50" width="150" height="80" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="8"/>
+                            <text x="525" y="75" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Relaciones</text>
+                            <text x="525" y="90" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Include/Extend</text>
+                            <text x="525" y="110" text-anchor="middle" fill="white" font-size="10">Generalización</text>
+                            <text x="525" y="122" text-anchor="middle" fill="white" font-size="10">Especialización</text>
+                            
+                            <!-- Módulo 4: Validación -->
+                            <rect x="650" y="50" width="120" height="80" fill="#9b59b6" stroke="#8e44ad" stroke-width="2" rx="8"/>
+                            <text x="710" y="75" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Validación</text>
+                            <text x="710" y="90" text-anchor="middle" fill="white" font-weight="bold" font-size="12">y Verificación</text>
+                            <text x="710" y="110" text-anchor="middle" fill="white" font-size="10">Stakeholders</text>
+                            <text x="710" y="122" text-anchor="middle" fill="white" font-size="10">Métricas</text>
+                            
+                            <!-- Conexiones -->
+                            <path d="M200 90 L250 90" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M400 90 L450 90" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M600 90 L650 90" stroke="#34495e" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Base de conocimiento -->
+                            <rect x="200" y="200" width="400" height="120" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="2" rx="8"/>
+                            <text x="400" y="225" text-anchor="middle" fill="#2c3e50" font-weight="bold" font-size="14">Base de Conocimiento UML</text>
+                            <text x="400" y="245" text-anchor="middle" fill="#7f8c8d" font-size="11">Diagramas de Casos de Uso • Especificaciones Textuales</text>
+                            <text x="400" y="260" text-anchor="middle" fill="#7f8c8d" font-size="11">Estereotipos • Restricciones • Trazabilidad</text>
+                            <text x="400" y="280" text-anchor="middle" fill="#7f8c8d" font-size="11">Casos de Uso Abstractos y Concretos</text>
+                            <text x="400" y="300" text-anchor="middle" fill="#7f8c8d" font-size="11">Procesos de Negocio Elementales (EBP)</text>
+                            
+                            <!-- Flechas hacia abajo -->
+                            <path d="M125 130 L300 200" stroke="#34495e" stroke-width="1" stroke-dasharray="4,4"/>
+                            <path d="M325 130 L400 200" stroke="#34495e" stroke-width="1" stroke-dasharray="4,4"/>
+                            <path d="M525 130 L500 200" stroke="#34495e" stroke-width="1" stroke-dasharray="4,4"/>
+                            <path d="M710 130 L500 200" stroke="#34495e" stroke-width="1" stroke-dasharray="4,4"/>
+                            
+                            <!-- Resultado final -->
+                            <ellipse cx="400" cy="360" rx="120" ry="25" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+                            <text x="400" y="365" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Competencia Profesional</text>
+                            <text x="400" y="378" text-anchor="middle" fill="white" font-size="10">en Casos de Uso Avanzados</text>
+                            
+                            <!-- Arrow markers -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#34495e"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Metodología Cockburn -->
+            <div id="cockburn" class="tab-content">
+                <div class="section">
+                    <h2>🎭 1. Metodología de Alistair Cockburn (1,200 palabras)</h2>
+                    
+                    <h3>1.1 Fundamentos Teóricos de la Metodología Cockburn</h3>
+                    <p>Alistair Cockburn revolucionó el análisis de sistemas con su enfoque estructurado para la especificación de casos de uso. Su metodología, documentada en "Writing Effective Use Cases", se basa en principios fundamentales que distinguen entre niveles de granularidad y propósitos específicos de cada caso de uso.</p>
+
+                    <p>La metodología Cockburn introduce el concepto de <strong>niveles de casos de uso</strong> basados en los objetivos que persiguen:</p>
+
+                    <div class="synoptic-chart">
+                        <div class="synoptic-title">Niveles de Casos de Uso según Cockburn</div>
+                        <table class="comparison-table">
+                            <thead role="rowgroup">
+                                <tr role="row">
+                                    <th role="columnheader">Nivel</th>
+                                    <th role="columnheader">Símbolo</th>
+                                    <th role="columnheader">Objetivo</th>
+                                    <th role="columnheader">Duración</th>
+                                    <th role="columnheader">Ejemplo</th>
+                                </tr>
+                            </thead>
+                            <tbody role="rowgroup">
+                                <tr role="row">
+                                    <td role="cell"><strong>Resumen</strong></td>
+                                    <td role="cell">☁️ (Nube)</td>
+                                    <td role="cell">Objetivo estratégico</td>
+                                    <td role="cell">Meses/Años</td>
+                                    <td role="cell">"Gestionar empresa exitosamente"</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Usuario</strong></td>
+                                    <td role="cell">🌊 (Ola)</td>
+                                    <td role="cell">Proceso de negocio elemental</td>
+                                    <td role="cell">2-20 minutos</td>
+                                    <td role="cell">"Procesar venta de producto"</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Subfunción</strong></td>
+                                    <td role="cell">🐠 (Pez)</td>
+                                    <td role="cell">Subfunción de soporte</td>
+                                    <td role="cell">Segundos/Minutos</td>
+                                    <td role="cell">"Validar código de producto"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>1.2 El Formato "Completamente Vestido"</h3>
+                    <p>Cockburn define el formato "completamente vestido" (fully dressed) como el estándar para casos de uso críticos o complejos. Este formato proporciona una estructura exhaustiva que minimiza ambigüedades y maximiza la comprensión entre stakeholders.</p>
+
+                    <div class="interactive-template">
+                        <h4>🎯 Plantilla Cockburn - Formato Completamente Vestido</h4>
+                        <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+                            <strong>Caso de Uso:</strong> <input type="text" class="template-input" placeholder="Ej: Procesar Venta de Producto" id="uc-name">
+                            <br><strong>Nivel:</strong> <select class="template-input" id="uc-level">
+                                <option value="Usuario">Usuario (🌊)</option>
+                                <option value="Subfunción">Subfunción (🐠)</option>
+                                <option value="Resumen">Resumen (☁️)</option>
+                            </select>
+                            <br><strong>Actor Primario:</strong> <input type="text" class="template-input" placeholder="Ej: Cajero" id="uc-actor">
+                            <br><strong>Stakeholders:</strong> <textarea class="template-input" rows="2" placeholder="Ej: Cliente, Gerente de tienda, Sistema contable" id="uc-stakeholders"></textarea>
+                            <br><strong>Precondición:</strong> <textarea class="template-input" rows="2" placeholder="Ej: El cajero se ha identificado y autenticado en el sistema" id="uc-precondition"></textarea>
+                            <br><strong>Postcondición de Éxito:</strong> <textarea class="template-input" rows="2" placeholder="Ej: La venta está registrada, el inventario actualizado y el recibo emitido" id="uc-postcondition"></textarea>
+                            <button class="quiz-button" onclick="generateUseCaseSpec()">Generar Especificación</button>
+                        </div>
+                        <div id="uc-output" class="template-output" style="display: none;"></div>
+                    </div>
+
+                    <h3>1.3 Estructura de Escenarios</h3>
+                    <p>La metodología Cockburn distingue claramente entre el <strong>escenario principal de éxito</strong> y los <strong>escenarios alternativos</strong> (extensiones). Esta distinción es crucial para mantener la claridad y permitir una lectura fluida del comportamiento normal del sistema.</p>
+
+                    <div class="concept-card">
+                        <h4>📋 Escenario Principal de Éxito</h4>
+                        <p>Describe el flujo normal desde el punto de vista del actor primario, asumiendo que todo funciona perfectamente. Debe seguir la secuencia lógica de interacciones entre el actor y el sistema.</p>
+                        
+                        <h4>🔀 Extensiones (Escenarios Alternativos)</h4>
+                        <p>Manejan situaciones excepcionales, errores, o flujos alternativos. Se referencian por número de paso (ej: "3a. Si el código del producto no existe...")</p>
+                    </div>
+
+                    <h3>1.4 Precondiciones y Postcondiciones</h3>
+                    <p>Las precondiciones y postcondiciones forman el "contrato" del caso de uso. Cockburn enfatiza que deben ser:</p>
+
+                    <ul role="list">
+                        <li role="listitem"><strong>Verificables:</strong> Se puede determinar objetivamente si se cumplen</li>
+                        <li role="listitem"><strong>Específicas:</strong> Evitan ambigüedades o interpretaciones múltiples</li>
+                        <li role="listitem"><strong>Relevantes:</strong> Directamente relacionadas con el objetivo del caso de uso</li>
+                        <li role="listitem"><strong>Mínimas:</strong> Solo las condiciones esenciales, evitando redundancia</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>💡 Principio de Responsabilidad Única</h4>
+                        <p>Cada caso de uso debe tener un objetivo único y bien definido. Si un caso de uso intenta lograr múltiples objetivos no relacionados, debe dividirse en casos de uso separados.</p>
+                    </div>
+
+                    <h3>1.5 Niveles de Detalle y Audiencia</h3>
+                    <p>Cockburn introduce tres niveles de detalle para adaptar la documentación a diferentes audiencias:</p>
+
+                    <div class="key-concepts">
+                        <div class="concept-card">
+                            <h4>🗂️ Breve (Brief)</h4>
+                            <p>Una o dos oraciones que resumen el caso de uso. Usado en fases tempranas para capturar ideas rápidamente.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>📄 Casual (Informal)</h4>
+                            <p>Varios párrafos que cubren variados escenarios. Útil para discusiones y refinamiento con stakeholders.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>📚 Completamente Vestido</h4>
+                            <p>Todos los pasos y variaciones detallados. Requerido para casos de uso críticos o complejos.</p>
+                        </div>
+                    </div>
+
+                    <h3>1.6 Identificación de Stakeholders e Intereses</h3>
+                    <p>Un aspecto distintivo de la metodología Cockburn es el énfasis en identificar todos los stakeholders y sus intereses específicos. Esto va más allá de simplemente listar actores, profundizando en las motivaciones y expectativas de cada parte interesada.</p>
+
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Ejemplo: Stakeholders y sus Intereses - Caso "Procesar Venta"</div>
+                        <svg width="700" height="300" viewBox="0 0 700 300" class="uml-diagram">
+                            <!-- Cliente -->
+                            <rect x="50" y="50" width="120" height="60" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="8"/>
+                            <text x="110" y="75" text-anchor="middle" fill="white" font-weight="bold">Cliente</text>
+                            <text x="110" y="90" text-anchor="middle" fill="white" font-size="10">Proceso rápido</text>
+                            <text x="110" y="102" text-anchor="middle" fill="white" font-size="10">Precio correcto</text>
+                            
+                            <!-- Cajero -->
+                            <rect x="200" y="50" width="120" height="60" fill="#27ae60" stroke="#229954" stroke-width="2" rx="8"/>
+                            <text x="260" y="75" text-anchor="middle" fill="white" font-weight="bold">Cajero</text>
+                            <text x="260" y="90" text-anchor="middle" fill="white" font-size="10">Proceso simple</text>
+                            <text x="260" y="102" text-anchor="middle" fill="white" font-size="10">Sin errores</text>
+                            
+                            <!-- Gerente -->
+                            <rect x="350" y="50" width="120" height="60" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="8"/>
+                            <text x="410" y="75" text-anchor="middle" fill="white" font-weight="bold">Gerente</text>
+                            <text x="410" y="90" text-anchor="middle" fill="white" font-size="10">Control ventas</text>
+                            <text x="410" y="102" text-anchor="middle" fill="white" font-size="10">Datos precisos</text>
+                            
+                            <!-- Auditor -->
+                            <rect x="500" y="50" width="120" height="60" fill="#9b59b6" stroke="#8e44ad" stroke-width="2" rx="8"/>
+                            <text x="560" y="75" text-anchor="middle" fill="white" font-weight="bold">Auditor</text>
+                            <text x="560" y="90" text-anchor="middle" fill="white" font-size="10">Trazabilidad</text>
+                            <text x="560" y="102" text-anchor="middle" fill="white" font-size="10">Compliance</text>
+                            
+                            <!-- Caso de Uso Central -->
+                            <ellipse cx="350" cy="200" rx="100" ry="40" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+                            <text x="350" y="195" text-anchor="middle" fill="white" font-weight="bold">Procesar</text>
+                            <text x="350" y="210" text-anchor="middle" fill="white" font-weight="bold">Venta</text>
+                            
+                            <!-- Conexiones -->
+                            <path d="M110 110 L320 160" stroke="#34495e" stroke-width="2"/>
+                            <path d="M260 110 L340 160" stroke="#34495e" stroke-width="2"/>
+                            <path d="M410 110 L360 160" stroke="#34495e" stroke-width="2"/>
+                            <path d="M560 110 L380 160" stroke="#34495e" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Identificación de Actores -->
+            <div id="actores" class="tab-content">
+                <div class="section">
+                    <h2>👥 2. Identificación de Actores (800 palabras)</h2>
+                    
+                    <h3>2.1 Definición y Conceptos Fundamentales</h3>
+                    <p>Un actor en el contexto de casos de uso representa un <strong>rol</strong> que desempeñan las personas, sistemas o dispositivos cuando interactúan con el sistema bajo análisis. Es fundamental comprender que un actor no es una persona específica, sino un papel o responsabilidad que puede ser asumida por múltiples entidades.</p>
+
+                    <div class="highlight-box">
+                        <h4>🎭 Principio Clave: Actor como Rol</h4>
+                        <p>Un mismo usuario puede asumir múltiples roles (ser varios actores), y un mismo rol puede ser desempeñado por múltiples usuarios. Por ejemplo, en un sistema hospitalario, "Dr. Juan Pérez" puede actuar como "Médico Tratante", "Investigador" o "Supervisor de Residentes" según el contexto.</p>
+                    </div>
+
+                    <h3>2.2 Clasificación de Actores según Cockburn</h3>
+                    <p>La metodología de Cockburn establece una clasificación precisa de actores basada en su relación con el sistema y el caso de uso específico:</p>
+
+                    <div class="synoptic-chart">
+                        <div class="synoptic-title">Taxonomía de Actores - Metodología Cockburn</div>
+                        <table class="comparison-table">
+                            <thead role="rowgroup">
+                                <tr role="row">
+                                    <th role="columnheader">Tipo de Actor</th>
+                                    <th role="columnheader">Definición</th>
+                                    <th role="columnheader">Característica Principal</th>
+                                    <th role="columnheader">Ejemplo</th>
+                                </tr>
+                            </thead>
+                            <tbody role="rowgroup">
+                                <tr role="row">
+                                    <td role="cell"><strong>Primario</strong></td>
+                                    <td role="cell">Inicia el caso de uso y tiene un objetivo específico</td>
+                                    <td role="cell">Beneficiario directo del éxito del caso</td>
+                                    <td role="cell">Cliente en "Realizar Compra"</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Secundario</strong></td>
+                                    <td role="cell">Proporciona servicios al sistema durante el caso</td>
+                                    <td role="cell">Consultado o notificado por el sistema</td>
+                                    <td role="cell">Sistema de Pagos en "Procesar Transacción"</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>De Soporte</strong></td>
+                                    <td role="cell">Facilita o mantiene el sistema</td>
+                                    <td role="cell">No participa directamente en casos de negocio</td>
+                                    <td role="cell">Administrador de Sistema</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>2.3 Técnicas de Identificación de Actores</h3>
+                    <p>Existen múltiples enfoques sistemáticos para identificar actores. La combinación de estas técnicas asegura una cobertura completa:</p>
+
+                    <div class="key-concepts">
+                        <div class="concept-card">
+                            <h4>🎯 Análisis de Objetivos</h4>
+                            <p>Identificar quién tiene objetivos que el sistema debe satisfacer. Pregunta clave: "¿Quién quiere lograr algo con este sistema?"</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>⚡ Análisis de Eventos</h4>
+                            <p>Identificar qué entidades externas generan eventos que el sistema debe procesar. Pregunta: "¿Qué o quién provoca que el sistema reaccione?"</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>🔄 Análisis de Interfaces</h4>
+                            <p>Examinar todos los puntos de entrada y salida del sistema. Pregunta: "¿Qué entidades se comunican con el sistema?"</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>📊 Análisis de Beneficiarios</h4>
+                            <p>Identificar quién se beneficia (directa o indirectamente) de las funciones del sistema. Pregunta: "¿Quién obtiene valor del sistema?"</p>
+                        </div>
+                    </div>
+
+                    <h3>2.4 Actores del Sistema vs. Actores Humanos</h3>
+                    <p>Una distinción crucial en el análisis moderno es diferenciar entre actores humanos y actores del sistema (otros sistemas informáticos). Esta diferenciación afecta el diseño de interfaces, protocolos de comunicación y requisitos de seguridad.</p>
+
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Tipos de Actores: Humanos vs. Sistemas</div>
+                        <svg width="600" height="300" viewBox="0 0 600 300" class="uml-diagram">
+                            <!-- Actores Humanos -->
+                            <g id="human-actors">
+                                <rect x="50" y="50" width="200" height="120" fill="#e8f4f8" stroke="#3498db" stroke-width="2" rx="8"/>
+                                <text x="150" y="35" text-anchor="middle" fill="#2c3e50" font-weight="bold">Actores Humanos</text>
+                                
+                                <!-- Cliente -->
+                                <ellipse cx="100" cy="90" rx="30" ry="20" fill="#3498db" stroke="#2980b9" stroke-width="1"/>
+                                <text x="100" y="95" text-anchor="middle" fill="white" font-size="10">Cliente</text>
+                                
+                                <!-- Empleado -->
+                                <ellipse cx="200" cy="90" rx="30" ry="20" fill="#3498db" stroke="#2980b9" stroke-width="1"/>
+                                <text x="200" y="95" text-anchor="middle" fill="white" font-size="10">Empleado</text>
+                                
+                                <!-- Gerente -->
+                                <ellipse cx="150" cy="130" rx="30" ry="20" fill="#3498db" stroke="#2980b9" stroke-width="1"/>
+                                <text x="150" y="135" text-anchor="middle" fill="white" font-size="10">Gerente</text>
+                                
+                                <text x="150" y="180" text-anchor="middle" fill="#7f8c8d" font-size="10">• Interfaces amigables</text>
+                                <text x="150" y="195" text-anchor="middle" fill="#7f8c8d" font-size="10">• Autenticación</text>
+                                <text x="150" y="210" text-anchor="middle" fill="#7f8c8d" font-size="10">• Usabilidad</text>
+                            </g>
+                            
+                            <!-- Actores del Sistema -->
+                            <g id="system-actors">
+                                <rect x="350" y="50" width="200" height="120" fill="#fef9e7" stroke="#f39c12" stroke-width="2" rx="8"/>
+                                <text x="450" y="35" text-anchor="middle" fill="#2c3e50" font-weight="bold">Actores del Sistema</text>
+                                
+                                <!-- Sistema de Pagos -->
+                                <rect x="370" y="75" width="60" height="25" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+                                <text x="400" y="90" text-anchor="middle" fill="white" font-size="9">Pagos</text>
+                                
+                                <!-- Base de Datos -->
+                                <rect x="470" y="75" width="60" height="25" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+                                <text x="500" y="90" text-anchor="middle" fill="white" font-size="9">DB Externa</text>
+                                
+                                <!-- API Externa -->
+                                <rect x="420" y="120" width="60" height="25" fill="#f39c12" stroke="#e67e22" stroke-width="1"/>
+                                <text x="450" y="135" text-anchor="middle" fill="white" font-size="9">API REST</text>
+                                
+                                <text x="450" y="180" text-anchor="middle" fill="#7f8c8d" font-size="10">• Protocolos estándar</text>
+                                <text x="450" y="195" text-anchor="middle" fill="#7f8c8d" font-size="10">• APIs robustas</text>
+                                <text x="450" y="210" text-anchor="middle" fill="#7f8c8d" font-size="10">• Manejo de errores</text>
+                            </g>
+                            
+                            <!-- Sistema Central -->
+                            <rect x="250" y="230" width="100" height="40" fill="#2c3e50" stroke="#34495e" stroke-width="2" rx="5"/>
+                            <text x="300" y="245" text-anchor="middle" fill="white" font-weight="bold">Sistema</text>
+                            <text x="300" y="258" text-anchor="middle" fill="white" font-weight="bold">Central</text>
+                            
+                            <!-- Conexiones -->
+                            <path d="M150 170 L280 230" stroke="#3498db" stroke-width="2" stroke-dasharray="4,4"/>
+                            <path d="M450 170 L320 230" stroke="#f39c12" stroke-width="2" stroke-dasharray="4,4"/>
+                        </svg>
+                    </div>
+
+                    <h3>2.5 Jerarquías y Generalizaciones de Actores</h3>
+                    <p>En sistemas complejos, es común encontrar jerarquías de actores donde algunos roles especializan comportamientos de roles más generales. UML permite modelar estas relaciones mediante generalizaciones.</p>
+
+                    <div class="concept-card">
+                        <h4>🏗️ Ejemplo de Jerarquía: Sistema Bancario</h4>
+                        <ul role="list">
+                            <li role="listitem"><strong>Cliente</strong> (actor general)
+                                <ul role="list">
+                                    <li role="listitem"><strong>Cliente Individual</strong> (especialización)</li>
+                                    <li role="listitem"><strong>Cliente Corporativo</strong> (especialización)</li>
+                                </ul>
+                            </li>
+                            <li role="listitem"><strong>Empleado Bancario</strong> (actor general)
+                                <ul role="list">
+                                    <li role="listitem"><strong>Cajero</strong> (especialización)</li>
+                                    <li role="listitem"><strong>Oficial de Créditos</strong> (especialización)</li>
+                                    <li role="listitem"><strong>Gerente de Sucursal</strong> (especialización)</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3>2.6 Validación de Actores Identificados</h3>
+                    <p>La validación de actores es un proceso crítico que debe realizarse con stakeholders reales. Las técnicas incluyen:</p>
+
+                    <ul role="list">
+                        <li role="listitem"><strong>Revisiones con usuarios finales:</strong> Confirmar que los roles identificados corresponden a realidades organizacionales</li>
+                        <li role="listitem"><strong>Análisis de casos de uso cruzado:</strong> Verificar que cada actor participa en al menos un caso de uso</li>
+                        <li role="listitem"><strong>Validación de autoridades:</strong> Confirmar que cada actor tiene los permisos necesarios para sus acciones</li>
+                        <li role="listitem"><strong>Análisis temporal:</strong> Verificar que los actores están disponibles cuando el sistema los necesita</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>⚠️ Errores Comunes en Identificación de Actores</h4>
+                        <ul role="list">
+                            <li role="listitem">Confundir personas específicas con roles</li>
+                            <li role="listitem">Omitir sistemas externos que proporcionan servicios</li>
+                            <li role="listitem">Incluir como actores a entidades internas del sistema</li>
+                            <li role="listitem">No considerar actores indirectos pero importantes (auditores, reguladores)</li>
+                            <li role="listitem">Crear demasiados actores similares sin justificación clara</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Relaciones entre Casos de Uso -->
+            <div id="relaciones" class="tab-content">
+                <div class="section">
+                    <h2>🔗 3. Relaciones entre Casos de Uso (1,200 palabras)</h2>
+                    
+                    <h3>3.1 Filosofía de las Relaciones en UML</h3>
+                    <p>Las relaciones entre casos de uso en UML sirven para organizar y estructurar la especificación de requisitos, reduciendo duplicación y mejorando la comprensión. Sin embargo, como advierte Cockburn, <strong>la organización de los casos de uso utilizando relaciones es secundaria al trabajo fundamental: escribir texto</strong>.</p>
+
+                    <p>Existen tres tipos principales de relaciones entre casos de uso:</p>
+                    <ul role="list">
+                        <li role="listitem"><strong>Inclusión (include):</strong> Factorización de comportamiento común</li>
+                        <li role="listitem"><strong>Extensión (extend):</strong> Adición condicional de comportamiento</li>
+                        <li role="listitem"><strong>Generalización:</strong> Especialización de casos de uso abstractos</li>
+                    </ul>
+
+                    <h3>3.2 La Relación de Inclusión (include) - La Más Importante</h3>
+                    <p>La relación de inclusión es la más común e importante. Se utiliza cuando existe comportamiento parcial común a varios casos de uso. En lugar de duplicar texto, se factoriza en un caso de uso de subfunción separado.</p>
+
+                    <div class="highlight-box">
+                        <h4>🎯 Principio de Cockburn sobre Include</h4>
+                        <p>"Como primera regla empírica, utilice siempre la relación include entre los casos de uso. La gente que sigue esta regla declara que existen menos malentendidos entre ellos y sus lectores."</p>
+                    </div>
+
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Relación Include - Ejemplo: Sistema de Ventas</div>
+                        <svg width="700" height="400" viewBox="0 0 700 400" class="uml-diagram">
+                            <!-- Actor Cajero -->
+                            <ellipse cx="80" cy="200" rx="25" ry="40" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                            <circle cx="80" cy="180" r="8" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                            <path d="M80 188 L80 212 M65 200 L95 200 M80 212 L70 235 M80 212 L90 235" stroke="#2c3e50" stroke-width="2" fill="none"/>
+                            <text x="80" y="250" text-anchor="middle" fill="#2c3e50" font-weight="bold">Cajero</text>
+                            
+                            <!-- Caso de Uso: Procesar Venta -->
+                            <ellipse cx="250" cy="120" rx="80" ry="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="250" y="125" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Procesar Venta</text>
+                            
+                            <!-- Caso de Uso: Procesar Alquiler -->
+                            <ellipse cx="250" cy="280" rx="80" ry="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="250" y="285" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Procesar Alquiler</text>
+                            
+                            <!-- Caso de Uso Incluido: Gestionar Pago Crédito -->
+                            <ellipse cx="500" cy="200" rx="90" ry="25" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                            <text x="500" y="195" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Gestionar Pago</text>
+                            <text x="500" y="208" text-anchor="middle" fill="white" font-weight="bold" font-size="10">a Crédito</text>
+                            
+                            <!-- Conexiones Actor-Casos de Uso -->
+                            <path d="M105 190 L170 130" stroke="#2c3e50" stroke-width="2"/>
+                            <path d="M105 210 L170 270" stroke="#2c3e50" stroke-width="2"/>
+                            
+                            <!-- Relaciones Include -->
+                            <path d="M330 130 L410 185" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowhead-include)"/>
+                            <text x="370" y="150" fill="#e74c3c" font-size="10" font-weight="bold">«include»</text>
+                            
+                            <path d="M330 270 L410 215" stroke="#e74c3c" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowhead-include)"/>
+                            <text x="370" y="250" fill="#e74c3c" font-size="10" font-weight="bold">«include»</text>
+                            
+                            <!-- Especificaciones textuales -->
+                            <rect x="20" y="320" width="300" height="70" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1" rx="5"/>
+                            <text x="25" y="335" fill="#2c3e50" font-weight="bold" font-size="11">UC1: Procesar Venta</text>
+                            <text x="25" y="350" fill="#2c3e50" font-size="10">7b. Pago a crédito: Incluye Gestionar Pago a Crédito</text>
+                            <text x="25" y="365" fill="#2c3e50" font-size="10">UC2: Procesar Alquiler</text>
+                            <text x="25" y="380" fill="#2c3e50" font-size="10">6b. Pago a crédito: Incluye Gestionar Pago a Crédito</text>
+                            
+                            <rect x="380" y="320" width="300" height="70" fill="#e8f5e8" stroke="#27ae60" stroke-width="1" rx="5"/>
+                            <text x="385" y="335" fill="#2c3e50" font-weight="bold" font-size="11">UC12: Gestionar Pago a Crédito</text>
+                            <text x="385" y="350" fill="#2c3e50" font-size="10">Nivel: Subfunción</text>
+                            <text x="385" y="365" fill="#2c3e50" font-size="10">1. Cliente introduce información de crédito</text>
+                            <text x="385" y="380" fill="#2c3e50" font-size="10">2. Sistema solicita autorización externa...</text>
+                            
+                            <!-- Arrow marker for include -->
+                            <defs>
+                                <marker id="arrowhead-include" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <h3>3.3 La Relación de Extensión (extend) - Uso Cuidadoso</h3>
+                    <p>La relación de extensión se utiliza cuando un caso de uso base no debe modificarse, pero necesita manejar comportamiento adicional condicional. El caso de uso de extensión describe dónde y bajo qué condiciones extiende al caso base.</p>
+
+                    <div class="synoptic-chart">
+                        <div class="synoptic-title">Include vs. Extend: Diferencias Fundamentales</div>
+                        <table class="comparison-table">
+                            <thead role="rowgroup">
+                                <tr role="row">
+                                    <th role="columnheader">Aspecto</th>
+                                    <th role="columnheader">Include</th>
+                                    <th role="columnheader">Extend</th>
+                                </tr>
+                            </thead>
+                            <tbody role="rowgroup">
+                                <tr role="row">
+                                    <td role="cell"><strong>Propósito</strong></td>
+                                    <td role="cell">Factorizar comportamiento común</td>
+                                    <td role="cell">Añadir comportamiento opcional</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Invocación</strong></td>
+                                    <td role="cell">Obligatoria (siempre se ejecuta)</td>
+                                    <td role="cell">Condicional (bajo ciertas condiciones)</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Conocimiento</strong></td>
+                                    <td role="cell">El caso base conoce al incluido</td>
+                                    <td role="cell">El caso base NO conoce la extensión</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Modificación</strong></td>
+                                    <td role="cell">El caso base puede modificarse</td>
+                                    <td role="cell">El caso base permanece inalterado</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Punto de Inserción</strong></td>
+                                    <td role="cell">Explícito en el flujo</td>
+                                    <td role="cell">Definido como "extension point"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="concept-card">
+                        <h4>📋 Ejemplo de Extend: Procesamiento de Ventas VIP</h4>
+                        <p><strong>UC1: Procesar Venta</strong> (caso base)<br>
+                        Puntos de Extensión: Cliente VIP (paso 1), Descuento Especial (paso 7)</p>
+                        
+                        <p><strong>UC15: Aplicar Beneficios VIP</strong> (extensión)<br>
+                        Extiende: Procesar Venta en punto "Cliente VIP"<br>
+                        Condición: Si el cliente tiene status VIP</p>
+                    </div>
+
+                    <h3>3.4 Generalización de Casos de Uso</h3>
+                    <p>La generalización permite crear casos de uso abstractos que capturan comportamiento común, mientras que casos de uso concretos especializan este comportamiento para situaciones específicas.</p>
+
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Generalización de Casos de Uso: Sistema de Autenticación</div>
+                        <svg width="600" height="300" viewBox="0 0 600 300" class="uml-diagram">
+                            <!-- Caso de Uso Abstracto -->
+                            <ellipse cx="300" cy="80" rx="80" ry="25" fill="#95a5a6" stroke="#7f8c8d" stroke-width="2"/>
+                            <text x="300" y="75" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Autenticar</text>
+                            <text x="300" y="88" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Usuario</text>
+                            <text x="300" y="98" text-anchor="middle" fill="white" font-style="italic" font-size="9">(abstracto)</text>
+                            
+                            <!-- Casos de Uso Concretos -->
+                            <ellipse cx="150" cy="200" rx="80" ry="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="150" y="195" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Autenticar con</text>
+                            <text x="150" y="208" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Usuario/Password</text>
+                            
+                            <ellipse cx="300" cy="200" rx="80" ry="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="300" y="195" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Autenticar con</text>
+                            <text x="300" y="208" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Biometría</text>
+                            
+                            <ellipse cx="450" cy="200" rx="80" ry="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="450" y="195" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Autenticar con</text>
+                            <text x="450" y="208" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Token</text>
+                            
+                            <!-- Flechas de Generalización -->
+                            <path d="M150 175 L270 105" stroke="#2c3e50" stroke-width="2" marker-end="url(#generalization-arrow)"/>
+                            <path d="M300 175 L300 105" stroke="#2c3e50" stroke-width="2" marker-end="url(#generalization-arrow)"/>
+                            <path d="M450 175 L330 105" stroke="#2c3e50" stroke-width="2" marker-end="url(#generalization-arrow)"/>
+                            
+                            <!-- Marker para generalización -->
+                            <defs>
+                                <marker id="generalization-arrow" markerWidth="15" markerHeight="10" refX="14" refY="5" orient="auto">
+                                    <polygon points="0 0, 15 5, 0 10" fill="white" stroke="#2c3e50" stroke-width="2"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <h3>3.5 Casos de Uso Concretos vs. Abstractos</h3>
+                    <p>Es fundamental distinguir entre casos de uso concretos y abstractos:</p>
+
+                    <div class="key-concepts">
+                        <div class="concept-card">
+                            <h4>🎯 Casos de Uso Concretos</h4>
+                            <ul role="list">
+                                <li role="listitem">Son iniciados por un actor</li>
+                                <li role="listitem">Proporcionan valor completo al actor</li>
+                                <li role="listitem">Representan procesos de negocio elementales</li>
+                                <li role="listitem">Pueden ejecutarse independientemente</li>
+                            </ul>
+                        </div>
+                        <div class="concept-card">
+                            <h4>🧩 Casos de Uso Abstractos</h4>
+                            <ul role="list">
+                                <li role="listitem">Nunca se instancian por sí solos</li>
+                                <li role="listitem">Son subfunciones de otros casos de uso</li>
+                                <li role="listitem">Factorizan comportamiento común</li>
+                                <li role="listitem">Facilitan reutilización y mantenimiento</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>3.6 Términos: Casos de Uso Base y Adicional</h3>
+                    <p>En el contexto de relaciones entre casos de uso, utilizamos terminología específica:</p>
+
+                    <ul role="list">
+                        <li role="listitem"><strong>Caso de Uso Base:</strong> El que incluye, es extendido, o especializa otro caso de uso</li>
+                        <li role="listitem"><strong>Caso de Uso Adicional:</strong> El que es incluido, extiende, o es una especialización</li>
+                    </ul>
+
+                    <p>Los casos de uso adicionales normalmente son abstractos, mientras que los casos de uso base generalmente son concretos.</p>
+
+                    <h3>3.7 Cuándo Usar Cada Relación</h3>
+                    
+                    <div class="highlight-box">
+                        <h4>🎯 Guías de Decisión para Relaciones</h4>
+                        <p><strong>Use Include cuando:</strong></p>
+                        <ul role="list">
+                            <li role="listitem">Existe comportamiento duplicado en múltiples casos de uso</li>
+                            <li role="listitem">Un caso de uso es muy complejo y necesita dividirse</li>
+                            <li role="listitem">Quiere reutilizar funcionalidad común</li>
+                        </ul>
+                        
+                        <p><strong>Use Extend cuando:</strong></p>
+                        <ul role="list">
+                            <li role="listitem">No puede modificar el caso de uso base</li>
+                            <li role="listitem">El comportamiento adicional es opcional</li>
+                            <li role="listitem">Quiere mantener el caso base simple</li>
+                        </ul>
+                        
+                        <p><strong>Use Generalización cuando:</strong></p>
+                        <ul role="list">
+                            <li role="listitem">Múltiples casos de uso comparten estructura similar</li>
+                            <li role="listitem">Existen variaciones de un mismo proceso básico</li>
+                            <li role="listitem">Quiere capturar políticas o reglas comunes</li>
+                        </ul>
+                    </div>
+
+                    <h3>3.8 Advertencias sobre el Abuso de Relaciones</h3>
+                    <p>Cockburn advierte sobre los peligros de dedicar demasiado tiempo a las relaciones entre casos de uso en lugar de escribir contenido de calidad. Algunos antipatrones comunes incluyen:</p>
+
+                    <ul role="list">
+                        <li role="listitem"><strong>Sobre-fragmentación:</strong> Crear demasiados casos de uso de subfunción muy pequeños</li>
+                        <li role="listitem"><strong>Extend innecesario:</strong> Usar extend cuando include sería más simple</li>
+                        <li role="listitem"><strong>Jerarquías profundas:</strong> Crear generalizaciones excesivamente complejas</li>
+                        <li role="listitem"><strong>Relaciones circulares:</strong> Casos de uso que se incluyen mutuamente</li>
+                    </ul>
+
+                    <div class="concept-card">
+                        <h4>⚠️ Principio de Simplicidad</h4>
+                        <p>Si un equipo dedica horas (o días) discutiendo si usar include o extend, es probable que esté perdiendo el enfoque. El valor está en escribir especificaciones claras y completas, no en optimizar diagramas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 5: Validación y Verificación -->
+            <div id="validacion" class="tab-content">
+                <div class="section">
+                    <h2>✅ 4. Validación y Verificación (800 palabras)</h2>
+                    
+                    <h3>4.1 Conceptos Fundamentales</h3>
+                    <p>La validación y verificación de casos de uso constituyen procesos críticos que aseguran la calidad y completitud de la especificación de requisitos. Estos procesos deben distinguirse claramente:</p>
+
+                    <div class="synoptic-chart">
+                        <div class="synoptic-title">Validación vs. Verificación en Casos de Uso</div>
+                        <table class="comparison-table">
+                            <thead role="rowgroup">
+                                <tr role="row">
+                                    <th role="columnheader">Aspecto</th>
+                                    <th role="columnheader">Validación</th>
+                                    <th role="columnheader">Verificación</th>
+                                </tr>
+                            </thead>
+                            <tbody role="rowgroup">
+                                <tr role="row">
+                                    <td role="cell"><strong>Pregunta Clave</strong></td>
+                                    <td role="cell">"¿Estamos construyendo el producto correcto?"</td>
+                                    <td role="cell">"¿Estamos construyendo correctamente el producto?"</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Enfoque</strong></td>
+                                    <td role="cell">Conformidad con necesidades del usuario</td>
+                                    <td role="cell">Conformidad con especificaciones</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Participantes</strong></td>
+                                    <td role="cell">Stakeholders, usuarios finales</td>
+                                    <td role="cell">Equipo técnico, analistas</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Técnicas</strong></td>
+                                    <td role="cell">Revisiones, prototipos, simulaciones</td>
+                                    <td role="cell">Inspecciones, análisis formal, testing</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Momento</strong></td>
+                                    <td role="cell">Durante todo el ciclo de vida</td>
+                                    <td role="cell">Puntos específicos de control</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>4.2 Técnicas de Validación con Stakeholders</h3>
+                    <p>La validación efectiva requiere participación activa de stakeholders reales. Las técnicas más efectivas incluyen:</p>
+
+                    <div class="key-concepts">
+                        <div class="concept-card">
+                            <h4>🎭 Role Playing</h4>
+                            <p>Los stakeholders "actúan" los casos de uso, identificando pasos faltantes, flujos alternativos no considerados, y ambigüedades en la especificación.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>📋 Revisiones Estructuradas</h4>
+                            <p>Sesiones formales con agenda definida, roles asignados (autor, revisor, moderador) y criterios de aceptación claros.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>🔄 Prototipado Rápido</h4>
+                            <p>Creación de prototipos simples que permitan a los usuarios experimentar con los flujos descritos en los casos de uso.</p>
+                        </div>
+                        <div class="concept-card">
+                            <h4>📊 Simulaciones</h4>
+                            <p>Ejecución simulada de procesos de negocio usando los casos de uso como guía para identificar problemas operacionales.</p>
+                        </div>
+                    </div>
+
+                    <h3>4.3 Framework de Validación de Cockburn</h3>
+                    <p>Cockburn propone un framework sistemático para validar casos de uso que se centra en verificar que cada caso de uso satisface los criterios FURPS (Functionality, Usability, Reliability, Performance, Supportability):</p>
+
+                    <div class="interactive-template">
+                        <h4>🎯 Checklist de Validación Cockburn</h4>
+                        <div style="text-align: left;">
+                            <h5>📋 Validación de Contenido</h5>
+                            <input type="checkbox" id="val1"> <label for="val1">¿El caso de uso tiene un objetivo claro y específico?</label><br>
+                            <input type="checkbox" id="val2"> <label for="val2">¿Está definido el actor primario y sus intereses?</label><br>
+                            <input type="checkbox" id="val3"> <label for="val3">¿Las precondiciones son verificables?</label><br>
+                            <input type="checkbox" id="val4"> <label for="val4">¿Las postcondiciones garantizan el éxito del objetivo?</label><br>
+                            <input type="checkbox" id="val5"> <label for="val5">¿El escenario principal es completo y coherente?</label><br>
+                            
+                            <h5>🔍 Validación de Completitud</h5>
+                            <input type="checkbox" id="val6"> <label for="val6">¿Están cubiertas todas las extensiones importantes?</label><br>
+                            <input type="checkbox" id="val7"> <label for="val7">¿Se manejan adecuadamente las condiciones de error?</label><br>
+                            <input type="checkbox" id="val8"> <label for="val8">¿Están identificados todos los stakeholders relevantes?</label><br>
+                            
+                            <h5>✨ Validación de Calidad</h5>
+                            <input type="checkbox" id="val9"> <label for="val9">¿El lenguaje es claro y libre de ambigüedades?</label><br>
+                            <input type="checkbox" id="val10"> <label for="val10">¿El nivel de detalle es apropiado para la audiencia?</label><br>
+                            
+                            <button class="quiz-button" onclick="calculateValidationScore()">Calcular Puntuación</button>
+                            <div id="validation-score" style="margin-top: 1rem; font-weight: bold;"></div>
+                        </div>
+                    </div>
+
+                    <h3>4.4 Trazabilidad con Requisitos</h3>
+                    <p>La trazabilidad establece vínculos explícitos entre casos de uso y otros artefactos del proyecto, facilitando el análisis de impacto y la gestión de cambios.</p>
+
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Matriz de Trazabilidad: Casos de Uso ↔ Requisitos</div>
+                        <svg width="700" height="350" viewBox="0 0 700 350" class="uml-diagram">
+                            <!-- Encabezados -->
+                            <rect x="50" y="50" width="150" height="30" fill="#3498db" stroke="#2980b9" stroke-width="1"/>
+                            <text x="125" y="70" text-anchor="middle" fill="white" font-weight="bold">Casos de Uso</text>
+                            
+                            <rect x="200" y="50" width="100" height="30" fill="#27ae60" stroke="#229954" stroke-width="1"/>
+                            <text x="250" y="70" text-anchor="middle" fill="white" font-weight="bold">REQ-001</text>
+                            
+                            <rect x="300" y="50" width="100" height="30" fill="#27ae60" stroke="#229954" stroke-width="1"/>
+                            <text x="350" y="70" text-anchor="middle" fill="white" font-weight="bold">REQ-002</text>
+                            
+                            <rect x="400" y="50" width="100" height="30" fill="#27ae60" stroke="#229954" stroke-width="1"/>
+                            <text x="450" y="70" text-anchor="middle" fill="white" font-weight="bold">REQ-003</text>
+                            
+                            <rect x="500" y="50" width="100" height="30" fill="#27ae60" stroke="#229954" stroke-width="1"/>
+                            <text x="550" y="70" text-anchor="middle" fill="white" font-weight="bold">REQ-004</text>
+                            
+                            <!-- Casos de Uso -->
+                            <rect x="50" y="80" width="150" height="25" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+                            <text x="55" y="97" fill="#2c3e50" font-size="10">UC-01: Procesar Venta</text>
+                            
+                            <rect x="50" y="105" width="150" height="25" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+                            <text x="55" y="122" fill="#2c3e50" font-size="10">UC-02: Gestionar Inventario</text>
+                            
+                            <rect x="50" y="130" width="150" height="25" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+                            <text x="55" y="147" fill="#2c3e50" font-size="10">UC-03: Procesar Devolución</text>
+                            
+                            <rect x="50" y="155" width="150" height="25" fill="#ecf0f1" stroke="#bdc3c7" stroke-width="1"/>
+                            <text x="55" y="172" fill="#2c3e50" font-size="10">UC-04: Generar Reportes</text>
+                            
+                            <!-- Matriz de relaciones -->
+                            <!-- UC-01 relationships -->
+                            <circle cx="250" cy="92" r="8" fill="#e74c3c"/>
+                            <text x="250" y="97" text-anchor="middle" fill="white" font-weight="bold" font-size="10">✓</text>
+                            <circle cx="350" cy="92" r="8" fill="#e74c3c"/>
+                            <text x="350" y="97" text-anchor="middle" fill="white" font-weight="bold" font-size="10">✓</text>
+                            
+                            <!-- UC-02 relationships -->
+                            <circle cx="350" cy="117" r="8" fill="#e74c3c"/>
+                            <text x="350" y="122" text-anchor="middle" fill="white" font-weight="bold" font-size="10">✓</text>
+                            <circle cx="450" cy="117" r="8" fill="#e74c3c"/>
+                            <text x="450" y="122" text-anchor="middle" fill="white" font-weight="bold" font-size="10">✓</text>
+                            
+                            <!-- UC-03 relationships -->
+                            <circle cx="250" cy="142" r="8" fill="#e74c3c"/>
+                            <text x="250" y="147" text-anchor="middle" fill="white" font-weight="bold" font-size="10">✓</text>
+                            
+                            <!-- UC-04 relationships -->
+                            <circle cx="550" cy="167" r="8" fill="#e74c3c"/>
+                            <text x="550" y="172" text-anchor="middle" fill="white" font-weight="bold" font-size="10">✓</text>
+                            
+                            <!-- Leyenda -->
+                            <rect x="50" y="220" width="600" height="100" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                            <text x="60" y="240" fill="#2c3e50" font-weight="bold">Descripción de Requisitos:</text>
+                            <text x="60" y="255" fill="#2c3e50" font-size="10">REQ-001: El sistema debe procesar transacciones de venta</text>
+                            <text x="60" y="270" fill="#2c3e50" font-size="10">REQ-002: El sistema debe mantener inventario actualizado</text>
+                            <text x="60" y="285" fill="#2c3e50" font-size="10">REQ-003: El sistema debe manejar políticas de devolución</text>
+                            <text x="60" y="300" fill="#2c3e50" font-size="10">REQ-004: El sistema debe generar reportes de gestión</text>
+                        </svg>
+                    </div>
+
+                    <h3>4.5 Métricas de Calidad de Casos de Uso</h3>
+                    <p>La medición objetiva de la calidad de casos de uso permite identificar áreas de mejora y asegurar estándares consistentes:</p>
+
+                    <div class="synoptic-chart">
+                        <div class="synoptic-title">Métricas de Calidad para Casos de Uso</div>
+                        <table class="comparison-table">
+                            <thead role="rowgroup">
+                                <tr role="row">
+                                    <th role="columnheader">Métrica</th>
+                                    <th role="columnheader">Descripción</th>
+                                    <th role="columnheader">Rango Aceptable</th>
+                                    <th role="columnheader">Indicación</th>
+                                </tr>
+                            </thead>
+                            <tbody role="rowgroup">
+                                <tr role="row">
+                                    <td role="cell"><strong>Completitud</strong></td>
+                                    <td role="cell">% de elementos obligatorios presentes</td>
+                                    <td role="cell">90-100%</td>
+                                    <td role="cell">Especificación completa</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Complejidad</strong></td>
+                                    <td role="cell">Número de pasos en escenario principal</td>
+                                    <td role="cell">3-12 pasos</td>
+                                    <td role="cell">Granularidad apropiada</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Cobertura de Extensiones</strong></td>
+                                    <td role="cell">% de pasos con al menos una extensión</td>
+                                    <td role="cell">30-70%</td>
+                                    <td role="cell">Manejo de excepciones</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Claridad</strong></td>
+                                    <td role="cell">Índice de legibilidad (Flesch-Kincaid)</td>
+                                    <td role="cell">8-12 grado</td>
+                                    <td role="cell">Comprensibilidad</td>
+                                </tr>
+                                <tr role="row">
+                                    <td role="cell"><strong>Trazabilidad</strong></td>
+                                    <td role="cell">% de casos vinculados a requisitos</td>
+                                    <td role="cell">95-100%</td>
+                                    <td role="cell">Justificación del caso</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>4.6 Testing Basado en Casos de Uso</h3>
+                    <p>Los casos de uso proporcionan una base excelente para diseñar casos de prueba que verifican el comportamiento del sistema desde la perspectiva del usuario:</p>
+
+                    <div class="concept-card">
+                        <h4>🧪 Estrategias de Testing</h4>
+                        <ul role="list">
+                            <li role="listitem"><strong>Pruebas de Escenario Principal:</strong> Verificar el flujo normal exitoso</li>
+                            <li role="listitem"><strong>Pruebas de Extensiones:</strong> Validar manejo de excepciones y flujos alternativos</li>
+                            <li role="listitem"><strong>Pruebas de Precondiciones:</strong> Verificar comportamiento cuando no se cumplen</li>
+                            <li role="listitem"><strong>Pruebas de Postcondiciones:</strong> Validar que se alcanzan los objetivos</li>
+                            <li role="listitem"><strong>Pruebas de Integración:</strong> Verificar casos de uso que incluyen otros</li>
+                        </ul>
+                    </div>
+
+                    <h3>4.7 Herramientas de Validación Automatizada</h3>
+                    <p>Existen herramientas que pueden automatizar aspectos de la validación de casos de uso:</p>
+
+                    <ul role="list">
+                        <li role="listitem"><strong>Verificadores de Sintaxis:</strong> Validan formato y estructura</li>
+                        <li role="listitem"><strong>Analizadores de Completitud:</strong> Identifican elementos faltantes</li>
+                        <li role="listitem"><strong>Verificadores de Trazabilidad:</strong> Mantienen vínculos actualizados</li>
+                        <li role="listitem"><strong>Analizadores de Legibilidad:</strong> Evalúan claridad del texto</li>
+                        <li role="listitem"><strong>Generadores de Casos de Prueba:</strong> Crean tests basados en casos de uso</li>
+                    </ul>
+
+                    <div class="highlight-box">
+                        <h4>🎯 Principio de Validación Continua</h4>
+                        <p>La validación no es un evento único sino un proceso continuo. Los casos de uso deben validarse regularmente con stakeholders, especialmente cuando cambian requisitos o se descubren nuevos aspectos del dominio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 6: Diagramas UML -->
+            <div id="diagramas" class="tab-content">
+                <div class="section">
+                    <h2>📊 Diagramas UML para Casos de Uso</h2>
+                    
+                    <h3>Plantilla Completa de Caso de Uso - Metodología Cockburn</h3>
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Plantilla Cockburn - Caso de Uso Completamente Vestido</div>
+                        <svg width="800" height="600" viewBox="0 0 800 600" class="uml-diagram">
+                            <!-- Background -->
+                            <rect width="800" height="600" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2" rx="10"/>
+                            
+                            <!-- Header -->
+                            <rect x="20" y="20" width="760" height="40" fill="#007bff" stroke="#0056b3" stroke-width="2" rx="5"/>
+                            <text x="400" y="45" text-anchor="middle" fill="white" font-weight="bold" font-size="16">ESPECIFICACIÓN DE CASO DE USO - FORMATO COCKBURN</text>
+                            
+                            <!-- Basic Information Section -->
+                            <rect x="40" y="80" width="720" height="120" fill="white" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                            <text x="50" y="100" fill="#007bff" font-weight="bold" font-size="12">INFORMACIÓN BÁSICA</text>
+                            
+                            <text x="50" y="120" fill="#333" font-size="11">Caso de Uso:</text>
+                            <text x="150" y="120" fill="#666" font-size="11">[Nombre del caso de uso - Comenzar con verbo]</text>
+                            
+                            <text x="50" y="140" fill="#333" font-size="11">ID:</text>
+                            <text x="150" y="140" fill="#666" font-size="11">[UC-###]</text>
+                            
+                            <text x="400" y="120" fill="#333" font-size="11">Nivel:</text>
+                            <text x="460" y="120" fill="#666" font-size="11">[Usuario/Subfunción/Resumen]</text>
+                            
+                            <text x="400" y="140" fill="#333" font-size="11">Actor Primario:</text>
+                            <text x="500" y="140" fill="#666" font-size="11">[Quien inicia el caso de uso]</text>
+                            
+                            <text x="50" y="160" fill="#333" font-size="11">Stakeholders:</text>
+                            <text x="150" y="160" fill="#666" font-size="11">[Lista de partes interesadas y sus intereses]</text>
+                            
+                            <text x="50" y="180" fill="#333" font-size="11">Precondición:</text>
+                            <text x="150" y="180" fill="#666" font-size="11">[Estado que debe existir antes de ejecutar el caso]</text>
+                            
+                            <!-- Main Success Scenario -->
+                            <rect x="40" y="220" width="720" height="160" fill="white" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                            <text x="50" y="240" fill="#28a745" font-weight="bold" font-size="12">ESCENARIO PRINCIPAL DE ÉXITO</text>
+                            
+                            <text x="50" y="260" fill="#333" font-size="10">1. [Actor] [acción del actor]</text>
+                            <text x="50" y="275" fill="#333" font-size="10">2. [Sistema] [respuesta del sistema]</text>
+                            <text x="50" y="290" fill="#333" font-size="10">3. [Actor] [siguiente acción del actor]</text>
+                            <text x="50" y="305" fill="#333" font-size="10">4. [Sistema] [validación y procesamiento]</text>
+                            <text x="50" y="320" fill="#333" font-size="10">5. [Sistema] [informa resultado exitoso]</text>
+                            <text x="50" y="335" fill="#333" font-size="10">...</text>
+                            <text x="50" y="350" fill="#333" font-size="10">n. [Fin del caso de uso con éxito]</text>
+                            
+                            <text x="400" y="260" fill="#6c757d" font-size="9" font-style="italic">Principios para escribir pasos:</text>
+                            <text x="400" y="275" fill="#6c757d" font-size="9">• Alternar actor-sistema</text>
+                            <text x="400" y="290" fill="#6c757d" font-size="9">• Expresar intención, no mecánica</text>
+                            <text x="400" y="305" fill="#6c757d" font-size="9">• Mantener perspectiva del actor</text>
+                            <text x="400" y="320" fill="#6c757d" font-size="9">• 3-9 pasos típicamente</text>
+                            
+                            <!-- Extensions -->
+                            <rect x="40" y="400" width="720" height="120" fill="white" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                            <text x="50" y="420" fill="#dc3545" font-weight="bold" font-size="12">EXTENSIONES (ESCENARIOS ALTERNATIVOS)</text>
+                            
+                            <text x="50" y="440" fill="#333" font-size="10">2a. [Condición de excepción]:</text>
+                            <text x="70" y="455" fill="#333" font-size="10">2a1. [Sistema] [manejo de la excepción]</text>
+                            <text x="70" y="470" fill="#333" font-size="10">2a2. [Sistema] continúa en paso 3</text>
+                            
+                            <text x="400" y="440" fill="#333" font-size="10">*a. En cualquier momento [condición]:</text>
+                            <text x="420" y="455" fill="#333" font-size="10">*a1. [Sistema] [acción global]</text>
+                            <text x="420" y="470" fill="#333" font-size="10">*a2. El caso de uso termina</text>
+                            
+                            <text x="50" y="490" fill="#6c757d" font-size="9">4a. [Otra excepción]: [descripción del manejo]</text>
+                            <text x="400" y="490" fill="#6c757d" font-size="9">5b. [Flujo alternativo]: [descripción del flujo]</text>
+                            
+                            <!-- Post-conditions and additional info -->
+                            <rect x="40" y="540" width="350" height="50" fill="white" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                            <text x="50" y="558" fill="#007bff" font-weight="bold" font-size="11">POSTCONDICIÓN DE ÉXITO</text>
+                            <text x="50" y="575" fill="#333" font-size="10">[Estado garantizado al final del caso exitoso]</text>
+                            
+                            <rect x="410" y="540" width="350" height="50" fill="white" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                            <text x="420" y="558" fill="#6f42c1" font-weight="bold" font-size="11">REQUISITOS ESPECIALES</text>
+                            <text x="420" y="575" fill="#333" font-size="10">[Performance, usabilidad, etc.]</text>
+                        </svg>
+                    </div>
+
+                    <h3>Diagrama de Relaciones Include/Extend</h3>
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Ejemplo Completo: Sistema de E-commerce con Relaciones Avanzadas</div>
+                        <svg width="900" height="500" viewBox="0 0 900 500" class="uml-diagram">
+                            <!-- Cliente -->
+                            <g id="customer">
+                                <ellipse cx="80" cy="250" rx="25" ry="40" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <circle cx="80" cy="230" r="8" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <path d="M80 238 L80 262 M65 250 L95 250 M80 262 L70 285 M80 262 L90 285" stroke="#2c3e50" stroke-width="2" fill="none"/>
+                                <text x="80" y="300" text-anchor="middle" fill="#2c3e50" font-weight="bold">Cliente</text>
+                            </g>
+                            
+                            <!-- Admin -->
+                            <g id="admin">
+                                <ellipse cx="80" cy="100" rx="25" ry="40" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <circle cx="80" cy="80" r="8" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                                <path d="M80 88 L80 112 M65 100 L95 100 M80 112 L70 135 M80 112 L90 135" stroke="#2c3e50" stroke-width="2" fill="none"/>
+                                <text x="80" y="150" text-anchor="middle" fill="#2c3e50" font-weight="bold">Admin</text>
+                            </g>
+                            
+                            <!-- Sistema de Pagos -->
+                            <g id="payment-system">
+                                <rect x="60" y="380" width="60" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+                                <text x="90" y="400" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Sistema</text>
+                                <text x="90" y="412" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Pagos</text>
+                            </g>
+                            
+                            <!-- Casos de Uso Principales -->
+                            <ellipse cx="300" cy="180" rx="80" ry="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="300" y="175" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Realizar</text>
+                            <text x="300" y="188" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Compra</text>
+                            
+                            <ellipse cx="300" cy="250" rx="80" ry="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="300" y="245" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Gestionar</text>
+                            <text x="300" y="258" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Carrito</text>
+                            
+                            <ellipse cx="300" cy="100" rx="80" ry="25" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="300" y="95" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Gestionar</text>
+                            <text x="300" y="108" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Productos</text>
+                            
+                            <!-- Casos de Uso Incluidos -->
+                            <ellipse cx="550" cy="120" rx="70" ry="20" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                            <text x="550" y="115" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Validar</text>
+                            <text x="550" y="128" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Usuario</text>
+                            
+                            <ellipse cx="550" cy="200" rx="70" ry="20" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                            <text x="550" y="195" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Procesar</text>
+                            <text x="550" y="208" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Pago</text>
+                            
+                            <ellipse cx="550" cy="280" rx="70" ry="20" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                            <text x="550" y="275" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Calcular</text>
+                            <text x="550" y="288" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Total</text>
+                            
+                            <!-- Casos de Uso de Extensión -->
+                            <ellipse cx="700" cy="140" rx="70" ry="20" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                            <text x="700" y="135" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Aplicar</text>
+                            <text x="700" y="148" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Descuento VIP</text>
+                            
+                            <ellipse cx="700" cy="240" rx="70" ry="20" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                            <text x="700" y="235" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Envío</text>
+                            <text x="700" y="248" text-anchor="middle" fill="white" font-weight="bold" font-size="10">Express</text>
+                            
+                            <!-- Conexiones de Actor -->
+                            <path d="M105 100 L220 100" stroke="#2c3e50" stroke-width="2"/>
+                            <path d="M105 240 L220 190" stroke="#2c3e50" stroke-width="2"/>
+                            <path d="M105 260 L220 250" stroke="#2c3e50" stroke-width="2"/>
+                            <path d="M90 380 L280 210" stroke="#f39c12" stroke-width="2"/>
+                            
+                            <!-- Relaciones Include -->
+                            <path d="M370 105 L480 120" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#include-arrow)"/>
+                            <text x="425" y="110" fill="#27ae60" font-size="9" font-weight="bold">«include»</text>
+                            
+                            <path d="M370 170 L480 185" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#include-arrow)"/>
+                            <text x="425" y="175" fill="#27ae60" font-size="9" font-weight="bold">«include»</text>
+                            
+                            <path d="M370 190 L480 200" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#include-arrow)"/>
+                            <text x="425" y="195" fill="#27ae60" font-size="9" font-weight="bold">«include»</text>
+                            
+                            <path d="M370 260 L480 275" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#include-arrow)"/>
+                            <text x="425" y="265" fill="#27ae60" font-size="9" font-weight="bold">«include»</text>
+                            
+                            <!-- Relaciones Extend -->
+                            <path d="M630 145 L380 175" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3,6" marker-end="url(#extend-arrow)"/>
+                            <text x="500" y="155" fill="#e74c3c" font-size="9" font-weight="bold">«extend»</text>
+                            <text x="500" y="168" fill="#e74c3c" font-size="8">(Cliente VIP)</text>
+                            
+                            <path d="M630 235 L380 185" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3,6" marker-end="url(#extend-arrow)"/>
+                            <text x="500" y="205" fill="#e74c3c" font-size="9" font-weight="bold">«extend»</text>
+                            <text x="500" y="218" fill="#e74c3c" font-size="8">(Envío Urgente)</text>
+                            
+                            <!-- Extension Points -->
+                            <rect x="200" y="140" width="200" height="35" fill="#fff3cd" stroke="#ffc107" stroke-width="1" rx="3"/>
+                            <text x="205" y="153" fill="#856404" font-size="9" font-weight="bold">Extension Points:</text>
+                            <text x="205" y="165" fill="#856404" font-size="8">- Cliente VIP: paso 3</text>
+                            <text x="205" y="177" fill="#856404" font-size="8">- Envío Urgente: paso 7</text>
+                            
+                            <!-- Arrows -->
+                            <defs>
+                                <marker id="include-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
+                                </marker>
+                                <marker id="extend-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                    <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Leyenda -->
+                            <rect x="20" y="430" width="860" height="60" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                            <text x="30" y="450" fill="#2c3e50" font-weight="bold" font-size="11">LEYENDA DE RELACIONES</text>
+                            
+                            <line x1="30" y1="460" x2="60" y2="460" stroke="#27ae60" stroke-width="2" stroke-dasharray="6,3"/>
+                            <text x="70" y="465" fill="#27ae60" font-size="10" font-weight="bold">«include»</text>
+                            <text x="130" y="465" fill="#6c757d" font-size="9">: Factorización de comportamiento común (obligatorio)</text>
+                            
+                            <line x1="450" y1="460" x2="480" y2="460" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3,6"/>
+                            <text x="490" y="465" fill="#e74c3c" font-size="10" font-weight="bold">«extend»</text>
+                            <text x="540" y="465" fill="#6c757d" font-size="9">: Comportamiento adicional condicional (opcional)</text>
+                            
+                            <text x="30" y="485" fill="#6c757d" font-size="9">• Los casos de uso incluidos son subfunciones reutilizables</text>
+                            <text x="450" y="485" fill="#6c757d" font-size="9">• Las extensiones no modifican el caso base</text>
+                        </svg>
+                    </div>
+
+                    <h3>Jerarquía de Actores</h3>
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <div class="diagram-title">Jerarquía de Actores: Sistema Bancario</div>
+                        <svg width="600" height="400" viewBox="0 0 600 400" class="uml-diagram">
+                            <!-- Actor General: Usuario del Sistema -->
+                            <ellipse cx="300" cy="80" rx="35" ry="50" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                            <circle cx="300" cy="60" r="10" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                            <path d="M300 70 L300 100 M275 85 L325 85 M300 100 L280 130 M300 100 L320 130" stroke="#2c3e50" stroke-width="2" fill="none"/>
+                            <text x="300" y="145" text-anchor="middle" fill="#2c3e50" font-weight="bold">Usuario Sistema</text>
+                            
+                            <!-- Cliente -->
+                            <ellipse cx="180" cy="220" rx="30" ry="45" fill="none" stroke="#3498db" stroke-width="2"/>
+                            <circle cx="180" cy="205" r="8" fill="none" stroke="#3498db" stroke-width="2"/>
+                            <path d="M180 213 L180 235 M165 220 L195 220 M180 235 L170 255 M180 235 L190 255" stroke="#3498db" stroke-width="2" fill="none"/>
+                            <text x="180" y="275" text-anchor="middle" fill="#3498db" font-weight="bold">Cliente</text>
+                            
+                            <!-- Empleado -->
+                            <ellipse cx="420" cy="220" rx="30" ry="45" fill="none" stroke="#27ae60" stroke-width="2"/>
+                            <circle cx="420" cy="205" r="8" fill="none" stroke="#27ae60" stroke-width="2"/>
+                            <path d="M420 213 L420 235 M405 220 L435 220 M420 235 L410 255 M420 235 L430 255" stroke="#27ae60" stroke-width="2" fill="none"/>
+                            <text x="420" y="275" text-anchor="middle" fill="#27ae60" font-weight="bold">Empleado</text>
+                            
+                            <!-- Cliente Individual -->
+                            <ellipse cx="120" cy="330" rx="25" ry="35" fill="none" stroke="#3498db" stroke-width="1"/>
+                            <circle cx="120" cy="318" r="6" fill="none" stroke="#3498db" stroke-width="1"/>
+                            <path d="M120 324 L120 342 M110 330 L130 330 M120 342 L115 355 M120 342 L125 355" stroke="#3498db" stroke-width="1" fill="none"/>
+                            <text x="120" y="375" text-anchor="middle" fill="#3498db" font-size="10">Cliente Individual</text>
+                            
+                            <!-- Cliente Corporativo -->
+                            <ellipse cx="240" cy="330" rx="25" ry="35" fill="none" stroke="#3498db" stroke-width="1"/>
+                            <circle cx="240" cy="318" r="6" fill="none" stroke="#3498db" stroke-width="1"/>
+                            <path d="M240 324 L240 342 M230 330 L250 330 M240 342 L235 355 M240 342 L245 355" stroke="#3498db" stroke-width="1" fill="none"/>
+                            <text x="240" y="375" text-anchor="middle" fill="#3498db" font-size="10">Cliente Corporativo</text>
+                            
+                            <!-- Cajero -->
+                            <ellipse cx="360" cy="330" rx="25" ry="35" fill="none" stroke="#27ae60" stroke-width="1"/>
+                            <circle cx="360" cy="318" r="6" fill="none" stroke="#27ae60" stroke-width="1"/>
+                            <path d="M360 324 L360 342 M350 330 L370 330 M360 342 L355 355 M360 342 L365 355" stroke="#27ae60" stroke-width="1" fill="none"/>
+                            <text x="360" y="375" text-anchor="middle" fill="#27ae60" font-size="10">Cajero</text>
+                            
+                            <!-- Gerente -->
+                            <ellipse cx="480" cy="330" rx="25" ry="35" fill="none" stroke="#27ae60" stroke-width="1"/>
+                            <circle cx="480" cy="318" r="6" fill="none" stroke="#27ae60" stroke-width="1"/>
+                            <path d="M480 324 L480 342 M470 330 L490 330 M480 342 L475 355 M480 342 L485 355" stroke="#27ae60" stroke-width="1" fill="none"/>
+                            <text x="480" y="375" text-anchor="middle" fill="#27ae60" font-size="10">Gerente</text>
+                            
+                            <!-- Flechas de Generalización -->
+                            <path d="M180 175 L270 130" stroke="#2c3e50" stroke-width="2" marker-end="url(#generalization-triangle)"/>
+                            <path d="M420 175 L330 130" stroke="#2c3e50" stroke-width="2" marker-end="url(#generalization-triangle)"/>
+                            
+                            <path d="M120 295 L160 265" stroke="#3498db" stroke-width="1" marker-end="url(#specialization-triangle)"/>
+                            <path d="M240 295 L200 265" stroke="#3498db" stroke-width="1" marker-end="url(#specialization-triangle)"/>
+                            
+                            <path d="M360 295 L400 265" stroke="#27ae60" stroke-width="1" marker-end="url(#specialization-triangle)"/>
+                            <path d="M480 295 L440 265" stroke="#27ae60" stroke-width="1" marker-end="url(#specialization-triangle)"/>
+                            
+                            <!-- Triangulos de generalización -->
+                            <defs>
+                                <marker id="generalization-triangle" markerWidth="15" markerHeight="12" refX="13" refY="6" orient="auto">
+                                    <polygon points="0 0, 15 6, 0 12" fill="white" stroke="#2c3e50" stroke-width="2"/>
+                                </marker>
+                                <marker id="specialization-triangle" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto">
+                                    <polygon points="0 0, 12 5, 0 10" fill="white" stroke="#666" stroke-width="1"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Descripciones -->
+                            <rect x="50" y="20" width="200" height="40" fill="#e8f4f8" stroke="#3498db" stroke-width="1" rx="5"/>
+                            <text x="60" y="35" fill="#2c3e50" font-size="10" font-weight="bold">Jerarquía de Generalización</text>
+                            <text x="60" y="50" fill="#2c3e50" font-size="9">Los actores especializados heredan</text>
+                            <text x="60" y="62" fill="#2c3e50" font-size="9">el comportamiento del actor general</text>
+                            
+                            <rect x="350" y="20" width="200" height="40" fill="#f0f8e8" stroke="#27ae60" stroke-width="1" rx="5"/>
+                            <text x="360" y="35" fill="#2c3e50" font-size="10" font-weight="bold">Especialización de Roles</text>
+                            <text x="360" y="50" fill="#2c3e50" font-size="9">Cada especialización puede tener</text>
+                            <text x="360" y="62" fill="#2c3e50" font-size="9">casos de uso específicos adicionales</text>
+                        </svg>
+                    </div>
+
+                    <h3>Validación y Trazabilidad</h3>
+                    <div class="interactive-template">
+                        <h4>🎯 Validador de Casos de Uso</h4>
+                        <div style="text-align: left;">
+                            <textarea id="use-case-text" class="template-input" rows="8" placeholder="Pegue aquí el texto de su caso de uso para validar...
+Ejemplo:
+UC-01: Procesar Venta
+Actor Primario: Cajero
+Precondición: El cajero está autenticado en el sistema
+Escenario Principal:
+1. El cajero inicia una nueva transacción de venta
+2. El sistema presenta la interfaz de venta
+3. El cajero escanea el código del producto
+4. El sistema valida el producto y muestra información
+..."></textarea>
+                            <button class="quiz-button" onclick="validateUseCase()">Validar Caso de Uso</button>
+                            <div id="validation-results" style="margin-top: 1rem;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 7: Evaluación -->
+            <div id="evaluacion" class="tab-content">
+                <section class="quiz-container" role="region" aria-labelledby="quiz-title">
+                    <div class="quiz-header">
+                        <h3>📝 Evaluación: Casos de Uso Avanzados</h3>
+                        <p>20 preguntas de múltiple choice - 100 puntos total</p>
+                        <div class="score-display">
+                            Pregunta: <span id="current-question">1</span>/20 | 
+                            Puntuación: <span id="current-score">0</span>/100
+                        </div>
+                    </div>
+
+                    <div id="quiz-questions">
+                        <!-- Las preguntas se generarán dinámicamente -->
+                    </div>
+
+                    <div class="quiz-controls">
+                        <button class="quiz-button" id="prev-btn" onclick="previousQuestion()" disabled>⬅️ Anterior</button>
+                        <button class="quiz-button" id="next-btn" onclick="nextQuestion()">Siguiente ➡️</button>
+                        <button class="quiz-button" id="finish-btn" onclick="finishQuiz()" style="display: none;">✅ Finalizar Evaluación</button>
+                    </div>
+
+                    <div id="quiz-results" style="display: none;">
+                        <h3>🎯 Resultados de la Evaluación</h3>
+                        <div id="final-score"></div>
+                        <div id="performance-breakdown"></div>
+                        <button class="quiz-button" onclick="restartQuiz()">🔄 Reiniciar Evaluación</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="word-count" id="word-counter">Palabras: ~5,200</div>
+    </div>
+
+    <script>
+        // Navigation between tabs
+        function showTab(tabName) {
+            // Hide all tab contents
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabContents.forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Hide all tab buttons
+            const tabButtons = document.querySelectorAll('.nav-tab');
+            tabButtons.forEach(button => {
+                button.classList.remove('active');
+            });
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+            
+            // Activate selected tab button
+            event.target.classList.add('active');
+        }
+
+        // Interactive Use Case Template Generator
+        function generateUseCaseSpec() {
+            const name = document.getElementById('uc-name').value;
+            const level = document.getElementById('uc-level').value;
+            const actor = document.getElementById('uc-actor').value;
+            const stakeholders = document.getElementById('uc-stakeholders').value;
+            const precondition = document.getElementById('uc-precondition').value;
+            const postcondition = document.getElementById('uc-postcondition').value;
+
+            const template = `
+ESPECIFICACIÓN DE CASO DE USO - FORMATO COCKBURN
+
+═══════════════════════════════════════════════════════════════
+INFORMACIÓN BÁSICA
+═══════════════════════════════════════════════════════════════
+
+Caso de Uso: ${name || '[Nombre del caso de uso]'}
+Nivel: ${level} ${getLevelIcon(level)}
+Actor Primario: ${actor || '[Actor primario]'}
+Stakeholders e Intereses: ${stakeholders || '[Lista de stakeholders]'}
+
+Precondición: ${precondition || '[Condiciones que deben cumplirse antes de ejecutar]'}
+Postcondición de Éxito: ${postcondition || '[Estado garantizado tras éxito]'}
+
+═══════════════════════════════════════════════════════════════
+ESCENARIO PRINCIPAL DE ÉXITO
+═══════════════════════════════════════════════════════════════
+
+1. [Actor] [primera acción del actor]
+2. [Sistema] [respuesta del sistema]
+3. [Actor] [siguiente acción del actor]
+4. [Sistema] [procesamiento y validación]
+5. [Sistema] [confirmación de éxito]
+...
+
+═══════════════════════════════════════════════════════════════
+EXTENSIONES (ESCENARIOS ALTERNATIVOS)
+═══════════════════════════════════════════════════════════════
+
+2a. [Condición de excepción]:
+    2a1. [Sistema] [manejo de la excepción]
+    2a2. [Sistema] continúa en paso 3
+
+*a. En cualquier momento, [condición global]:
+    *a1. [Sistema] [acción de manejo global]
+    *a2. El caso de uso termina
+
+4a. [Otra excepción]: [descripción del manejo]
+
+═══════════════════════════════════════════════════════════════
+REQUISITOS ESPECIALES
+═══════════════════════════════════════════════════════════════
+
+- Performance: [especificar tiempos de respuesta]
+- Usabilidad: [especificar criterios de facilidad de uso]
+- Confiabilidad: [especificar disponibilidad y tolerancia a fallos]
+- Seguridad: [especificar requisitos de autenticación y autorización]
+
+═══════════════════════════════════════════════════════════════
+NOTAS Y CUESTIONES ABIERTAS
+═══════════════════════════════════════════════════════════════
+
+[Espacio para notas adicionales, asunciones y elementos por resolver]
+            `;
+
+            document.getElementById('uc-output').style.display = 'block';
+            document.getElementById('uc-output').textContent = template;
+        }
+
+        function getLevelIcon(level) {
+            switch(level) {
+                case 'Resumen': return '☁️';
+                case 'Usuario': return '🌊';
+                case 'Subfunción': return '🐠';
+                default: return '';
+            }
+        }
+
+        // Validation Checklist Calculator
+        function calculateValidationScore() {
+            const checkboxes = document.querySelectorAll('#validation-score').length ? 
+                document.querySelectorAll('input[type="checkbox"]:checked') : 
+                document.querySelectorAll('input[id^="val"]:checked');
+            
+            const total = document.querySelectorAll('input[id^="val"]').length;
+            const checked = checkboxes.length;
+            const percentage = Math.round((checked / total) * 100);
+            
+            let rating = '';
+            let color = '';
+            
+            if (percentage >= 90) {
+                rating = 'Excelente - Listo para desarrollo';
+                color = '#27ae60';
+            } else if (percentage >= 75) {
+                rating = 'Bueno - Revisiones menores necesarias';
+                color = '#f39c12';
+            } else if (percentage >= 60) {
+                rating = 'Aceptable - Requiere refinamiento';
+                color = '#e67e22';
+            } else {
+                rating = 'Insuficiente - Requiere trabajo significativo';
+                color = '#e74c3c';
+            }
+
+            document.getElementById('validation-score').innerHTML = `
+                <div style="color: ${color}; font-size: 1.2rem;">
+                    Puntuación: ${checked}/${total} (${percentage}%)<br>
+                    <span style="font-size: 1rem;">${rating}</span>
+                </div>
+            `;
+        }
+
+        // Use Case Text Validator
+        function validateUseCase() {
+            const text = document.getElementById('use-case-text').value;
+            const results = document.getElementById('validation-results');
+            
+            if (!text.trim()) {
+                results.innerHTML = '<div style="color: #e74c3c;">Por favor, ingrese el texto del caso de uso para validar.</div>';
+                return;
+            }
+
+            const validations = [
+                {
+                    name: 'Nombre del Caso de Uso',
+                    check: /UC[-_]\d+|Caso de [Uu]so/,
+                    message: 'Debe incluir identificador del caso de uso'
+                },
+                {
+                    name: 'Actor Primario',
+                    check: /[Aa]ctor [Pp]rimario|Actor:/,
+                    message: 'Debe especificar el actor primario'
+                },
+                {
+                    name: 'Precondición',
+                    check: /[Pp]reconcidión|Precondición:/,
+                    message: 'Debe incluir precondiciones'
+                },
+                {
+                    name: 'Escenario Principal',
+                    check: /[Ee]scenario [Pp]rincipal|[Ff]lujo [Pp]rincipal|\d+\./,
+                    message: 'Debe incluir pasos numerados del escenario principal'
+                },
+                {
+                    name: 'Postcondición',
+                    check: /[Pp]ostcondición|[Éé]xito/,
+                    message: 'Debe especificar postcondición de éxito'
+                },
+                {
+                    name: 'Extensiones',
+                    check: /[Ee]xtensiones|[Aa]lternativos|\d+[a-z]\./,
+                    message: 'Recomendado: incluir escenarios alternativos'
+                }
+            ];
+
+            let score = 0;
+            let resultHTML = '<h4>Resultados de Validación:</h4><ul role="list">';
+
+            validations.forEach(validation => {
+                const passed = validation.check.test(text);
+                if (passed) score++;
+                
+                const icon = passed ? '✅' : '❌';
+                const color = passed ? '#27ae60' : '#e74c3c';
+                
+                resultHTML += `<li style="color: ${color}; margin: 0.5rem 0;">
+                    ${icon} <strong>${validation.name}</strong>: ${passed ? 'Encontrado' : validation.message}
+                </li>`;
+            });
+
+            const percentage = Math.round((score / validations.length) * 100);
+            let overallRating = '';
+            
+            if (percentage >= 83) overallRating = 'Excelente';
+            else if (percentage >= 67) overallRating = 'Bueno';
+            else if (percentage >= 50) overallRating = 'Aceptable';
+            else overallRating = 'Necesita mejoras';
+
+            resultHTML += `</ul>
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-top: 1rem;">
+                    <strong>Puntuación General: ${score}/${validations.length} (${percentage}%)</strong><br>
+                    <span style="color: ${percentage >= 67 ? '#27ae60' : '#e74c3c'};">${overallRating}</span>
+                </div>`;
+
+            results.innerHTML = resultHTML;
+        }
+
+        // Quiz System
+        const quizQuestions = [
+            {
+                question: "¿Cuál es el principio fundamental de Cockburn sobre las relaciones entre casos de uso?",
+                options: [
+                    "Usar siempre extend en lugar de include",
+                    "Usar siempre la relación include como primera opción",
+                    "Evitar todas las relaciones entre casos de uso",
+                    "Usar generalización para todos los casos complejos"
+                ],
+                correct: 1,
+                explanation: "Cockburn aconseja usar siempre la relación include como primera regla empírica, ya que genera menos malentendidos."
+            },
+            {
+                question: "¿Cuál es la diferencia entre un caso de uso concreto y uno abstracto?",
+                options: [
+                    "Los concretos se escriben en UML, los abstractos en texto",
+                    "Los concretos son iniciados por actores, los abstractos nunca se instancian solos",
+                    "Los concretos son más detallados que los abstractos",
+                    "No hay diferencia real entre ambos tipos"
+                ],
+                correct: 1,
+                explanation: "Un caso de uso concreto es iniciado por un actor y proporciona valor completo, mientras que un abstracto es una subfunción que forma parte de otros casos."
+            },
+            {
+                question: "¿Qué representa el símbolo 🌊 (ola) en la metodología de Cockburn?",
+                options: [
+                    "Un caso de uso de nivel resumen",
+                    "Un caso de uso de nivel usuario",
+                    "Un caso de uso de nivel subfunción",
+                    "Un caso de uso abstracto"
+                ],
+                correct: 1,
+                explanation: "La ola (🌊) representa casos de uso de nivel usuario, que corresponden a procesos de negocio elementales."
+            },
+            {
+                question: "¿Cuándo se debe usar la relación 'extend' en lugar de 'include'?",
+                options: [
+                    "Cuando el comportamiento es obligatorio",
+                    "Cuando queremos factorizar código común",
+                    "Cuando no podemos modificar el caso base y necesitamos agregar comportamiento opcional",
+                    "Cuando queremos crear jerarquías de casos de uso"
+                ],
+                correct: 2,
+                explanation: "Extend se usa cuando no se puede modificar el caso base y se necesita añadir comportamiento opcional bajo ciertas condiciones."
+            },
+            {
+                question: "¿Qué significa que un actor represente un 'rol' y no una persona específica?",
+                options: [
+                    "Que los actores solo pueden ser sistemas informáticos",
+                    "Que una persona puede asumir múltiples roles y un rol puede ser asumido por múltiples personas",
+                    "Que los actores no pueden interactuar con el sistema",
+                    "Que todos los usuarios del sistema son el mismo actor"
+                ],
+                correct: 1,
+                explanation: "Un actor representa un papel o responsabilidad, por lo que una persona puede ser varios actores y un actor puede ser interpretado por varias personas."
+            },
+            {
+                question: "¿Cuál es la principal diferencia entre validación y verificación de casos de uso?",
+                options: [
+                    "No hay diferencia, son sinónimos",
+                    "Validación pregunta '¿producto correcto?', verificación '¿construir correctamente?'",
+                    "Validación es técnica, verificación es con usuarios",
+                    "Validación es al final, verificación es continua"
+                ],
+                correct: 1,
+                explanation: "Validación verifica si estamos construyendo el producto correcto (con stakeholders), verificación si lo construimos correctamente (técnicamente)."
+            },
+            {
+                question: "¿Qué caracteriza a un actor secundario en un caso de uso?",
+                options: [
+                    "Inicia el caso de uso",
+                    "No participa en el caso de uso",
+                    "Proporciona servicios al sistema durante el caso",
+                    "Solo aparece en casos de uso abstractos"
+                ],
+                correct: 2,
+                explanation: "Un actor secundario proporciona servicios al sistema durante la ejecución del caso de uso, siendo consultado o notificado por el sistema."
+            },
+            {
+                question: "¿Cuál es el rango típico de pasos recomendado para el escenario principal de un caso de uso?",
+                options: [
+                    "1-3 pasos",
+                    "3-12 pasos",
+                    "15-20 pasos",
+                    "No hay límite recomendado"
+                ],
+                correct: 1,
+                explanation: "Cockburn recomienda entre 3-12 pasos para mantener una granularidad apropiada y facilitar la comprensión."
+            },
+            {
+                question: "¿Qué debe incluir siempre la postcondición de éxito de un caso de uso?",
+                options: [
+                    "Los pasos específicos ejecutados",
+                    "El estado garantizado cuando el caso termina exitosamente",
+                    "Las extensiones posibles",
+                    "La lista de actores participantes"
+                ],
+                correct: 1,
+                explanation: "La postcondición describe el estado que se garantiza cuando el caso de uso termina exitosamente, formando parte del 'contrato'."
+            },
+            {
+                question: "¿Cuál es el propósito principal de los 'extension points' en un caso de uso?",
+                options: [
+                    "Indicar donde termina el caso de uso",
+                    "Marcar donde otras funciones pueden extender el comportamiento",
+                    "Señalar errores en el caso de uso",
+                    "Definir precondiciones adicionales"
+                ],
+                correct: 1,
+                explanation: "Los extension points marcan los lugares específicos donde otros casos de uso pueden extender el comportamiento del caso base."
+            },
+            {
+                question: "¿Qué nivel de caso de uso corresponde a un objetivo estratégico de larga duración?",
+                options: [
+                    "Usuario (🌊)",
+                    "Subfunción (🐠)",
+                    "Resumen (☁️)",
+                    "Concreto"
+                ],
+                correct: 2,
+                explanation: "El nivel resumen (☁️) corresponde a objetivos estratégicos que pueden durar meses o años."
+            },
+            {
+                question: "¿Cuál es la principal advertencia de Cockburn sobre el trabajo con casos de uso?",
+                options: [
+                    "Siempre usar diagramas UML complejos",
+                    "Enfocarse en escribir texto de calidad, no en organizar diagramas",
+                    "Nunca usar relaciones entre casos de uso",
+                    "Crear casos de uso solo para sistemas grandes"
+                ],
+                correct: 1,
+                explanation: "Cockburn enfatiza que el valor está en escribir especificaciones de calidad, no en perfeccionar diagramas y relaciones."
+            },
+            {
+                question: "¿Qué indica una métrica de 'cobertura de extensiones' del 30-70%?",
+                options: [
+                    "El caso de uso tiene errores",
+                    "Hay manejo apropiado de excepciones",
+                    "El caso de uso es demasiado complejo",
+                    "Faltan actores en el caso de uso"
+                ],
+                correct: 1,
+                explanation: "Una cobertura de extensiones del 30-70% indica un manejo apropiado de excepciones y flujos alternativos."
+            },
+            {
+                question: "¿Cuál es la diferencia entre un caso de uso 'base' y uno 'adicional'?",
+                options: [
+                    "El base es más importante que el adicional",
+                    "El base incluye/es extendido por el adicional",
+                    "El base es concreto, el adicional es abstracto siempre",
+                    "No existe diferencia conceptual"
+                ],
+                correct: 1,
+                explanation: "El caso de uso base es el que incluye, es extendido, o especializa a otro (adicional). El adicional es incluido, extiende, o es especialización."
+            },
+            {
+                question: "¿Qué técnica de validación involucra que los stakeholders 'actúen' los casos de uso?",
+                options: [
+                    "Revisiones estructuradas",
+                    "Role playing",
+                    "Prototipado rápido",
+                    "Análisis formal"
+                ],
+                correct: 1,
+                explanation: "El role playing involucra que los stakeholders 'actúen' los casos de uso para identificar pasos faltantes y ambigüedades."
+            },
+            {
+                question: "¿Cuál debe ser el enfoque principal al escribir el escenario principal de éxito?",
+                options: [
+                    "Incluir todos los detalles técnicos posibles",
+                    "Alternar entre acciones del actor y respuestas del sistema",
+                    "Escribir solo desde la perspectiva del sistema",
+                    "Incluir todas las excepciones posibles"
+                ],
+                correct: 1,
+                explanation: "El escenario principal debe alternar entre acciones del actor y respuestas del sistema, manteniendo la perspectiva del actor."
+            },
+            {
+                question: "¿Qué caracteriza a las precondiciones de un caso de uso según Cockburn?",
+                options: [
+                    "Deben ser verificables, específicas, relevantes y mínimas",
+                    "Deben incluir toda la historia previa del sistema",
+                    "Deben ser idénticas para todos los casos de uso",
+                    "Solo se aplican a casos de uso complejos"
+                ],
+                correct: 0,
+                explanation: "Las precondiciones deben ser verificables, específicas, relevantes y mínimas para formar un contrato claro."
+            },
+            {
+                question: "¿Cuál es el propósito de la trazabilidad entre casos de uso y requisitos?",
+                options: [
+                    "Hacer los documentos más largos",
+                    "Facilitar el análisis de impacto y gestión de cambios",
+                    "Cumplir con estándares de documentación",
+                    "Crear diagramas más complejos"
+                ],
+                correct: 1,
+                explanation: "La trazabilidad facilita el análisis de impacto de cambios y ayuda en la gestión efectiva de modificaciones."
+            },
+            {
+                question: "¿Cuándo es apropiado crear una jerarquía de actores con generalización?",
+                options: [
+                    "Siempre que hay más de dos actores",
+                    "Cuando múltiples roles comparten comportamiento común",
+                    "Solo en sistemas muy grandes",
+                    "Nunca, las jerarquías complican el modelo"
+                ],
+                correct: 1,
+                explanation: "Las jerarquías de actores son apropiadas cuando múltiples roles comparten comportamiento o características comunes."
+            },
+            {
+                question: "¿Qué distingue a un 'proceso de negocio elemental' en el contexto de casos de uso?",
+                options: [
+                    "Es el proceso más importante del sistema",
+                    "Se completa en una sesión de trabajo y proporciona valor medible",
+                    "Solo puede ser ejecutado por un actor",
+                    "No puede tener extensiones o excepciones"
+                ],
+                correct: 1,
+                explanation: "Un proceso de negocio elemental se completa en una sesión de trabajo por una persona en un lugar y tiempo, proporcionando valor medible."
+            }
+        ];
+
+        let currentQuestionIndex = 0;
+        let userAnswers = [];
+        let quizScore = 0;
+
+        function initializeQuiz() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizQuestions.length).fill(null);
+            quizScore = 0;
+            displayQuestion();
+            updateQuizControls();
+        }
+
+        function displayQuestion() {
+            const container = document.getElementById('quiz-questions');
+            const question = quizQuestions[currentQuestionIndex];
+            
+            container.innerHTML = `
+                <div class="question active">
+                    <div class="question-header">
+                        <span class="question-number">Pregunta ${currentQuestionIndex + 1}/20</span>
+                    </div>
+                    <div class="question-text">${question.question}</div>
+                    <div class="options" role="radiogroup">
+                        ${question.options.map((option, index) => `
+                            <div class="option" role="radio" tabindex="0" onclick="selectOption(${index})" data-option="${index}">
+                                ${String.fromCharCode(65 + index)}. ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                    <div class="explanation" id="explanation-${currentQuestionIndex}">
+                        <h5>💡 Explicación:</h5>
+                        <p>${question.explanation}</p>
+                    </div>
+                </div>
+            `;
+
+            // Restore previous answer if exists
+            if (userAnswers[currentQuestionIndex] !== null) {
+                const selectedOption = container.querySelector(`[data-option="${userAnswers[currentQuestionIndex]}"]`);
+                if (selectedOption) {
+                    selectedOption.classList.add('selected');
+                    showExplanation();
+                }
+            }
+
+            updateQuizProgress();
+        }
+
+        function selectOption(optionIndex) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+            
+            const selectedOption = document.querySelector(`[data-option="${optionIndex}"]`);
+            selectedOption.classList.add('selected');
+            
+            userAnswers[currentQuestionIndex] = optionIndex;
+            
+            // Show explanation after selection
+            setTimeout(showExplanation, 500);
+            updateQuizControls();
+        }
+
+        function showExplanation() {
+            const explanation = document.getElementById(`explanation-${currentQuestionIndex}`);
+            if (explanation) {
+                explanation.classList.add('show');
+                
+                const question = quizQuestions[currentQuestionIndex];
+                const selectedAnswer = userAnswers[currentQuestionIndex];
+                const options = document.querySelectorAll('.option');
+                
+                // Highlight correct and incorrect answers
+                options.forEach((option, index) => {
+                    if (index === question.correct) {
+                        option.classList.add('correct');
+                    } else if (index === selectedAnswer && index !== question.correct) {
+                        option.classList.add('incorrect');
+                    }
+                });
+            }
+        }
+
+        function nextQuestion() {
+            if (currentQuestionIndex < quizQuestions.length - 1) {
+                currentQuestionIndex++;
+                displayQuestion();
+                updateQuizControls();
+            }
+        }
+
+        function previousQuestion() {
+            if (currentQuestionIndex > 0) {
+                currentQuestionIndex--;
+                displayQuestion();
+                updateQuizControls();
+            }
+        }
+
+        function updateQuizControls() {
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const finishBtn = document.getElementById('finish-btn');
+
+            prevBtn.disabled = currentQuestionIndex === 0;
+            
+            if (currentQuestionIndex === quizQuestions.length - 1) {
+                nextBtn.style.display = 'none';
+                finishBtn.style.display = 'inline-block';
+            } else {
+                nextBtn.style.display = 'inline-block';
+                finishBtn.style.display = 'none';
+            }
+        }
+
+        function updateQuizProgress() {
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Calculate current score
+            let correct = 0;
+            for (let i = 0; i <= currentQuestionIndex; i++) {
+                if (userAnswers[i] === quizQuestions[i].correct) {
+                    correct++;
+                }
+            }
+            const currentScore = Math.round((correct / (currentQuestionIndex + 1)) * 100);
+            document.getElementById('current-score').textContent = currentScore;
+        }
+
+        function finishQuiz() {
+            calculateFinalScore();
+            showQuizResults();
+        }
+
+        function calculateFinalScore() {
+            quizScore = 0;
+            for (let i = 0; i < quizQuestions.length; i++) {
+                if (userAnswers[i] === quizQuestions[i].correct) {
+                    quizScore += 5; // 5 points per question
+                }
+            }
+        }
+
+        function showQuizResults() {
+            const resultsContainer = document.getElementById('quiz-results');
+            const quizContainer = document.querySelector('.quiz-container');
+            
+            quizContainer.style.display = 'none';
+            resultsContainer.style.display = 'block';
+
+            const percentage = (quizScore / 100) * 100;
+            let grade = '';
+            let color = '';
+            
+            if (percentage >= 90) {
+                grade = 'Excelente';
+                color = '#27ae60';
+            } else if (percentage >= 80) {
+                grade = 'Muy Bueno';
+                color = '#2ecc71';
+            } else if (percentage >= 70) {
+                grade = 'Bueno';
+                color = '#f39c12';
+            } else if (percentage >= 60) {
+                grade = 'Satisfactorio';
+                color = '#e67e22';
+            } else {
+                grade = 'Necesita Mejorar';
+                color = '#e74c3c';
+            }
+
+            document.getElementById('final-score').innerHTML = `
+                <h4 style="color: ${color};">Puntuación Final: ${quizScore}/100 (${percentage}%)</h4>
+                <p style="color: ${color}; font-size: 1.2rem; font-weight: bold;">${grade}</p>
+            `;
+
+            // Performance breakdown by topics
+            const topics = {
+                'Metodología Cockburn': [0, 1, 2, 7, 11, 16],
+                'Identificación de Actores': [4, 6, 10, 18],
+                'Relaciones UC': [3, 9, 13, 17],
+                'Validación': [5, 14, 15, 17, 19]
+            };
+
+            let breakdown = '<h4>📊 Desempeño por Tema:</h4>';
+            for (const [topic, questionIndices] of Object.entries(topics)) {
+                let correct = 0;
+                questionIndices.forEach(index => {
+                    if (userAnswers[index] === quizQuestions[index].correct) {
+                        correct++;
+                    }
+                });
+                const topicPercentage = Math.round((correct / questionIndices.length) * 100);
+                const topicColor = topicPercentage >= 70 ? '#27ae60' : topicPercentage >= 50 ? '#f39c12' : '#e74c3c';
+                
+                breakdown += `
+                    <div style="margin: 0.5rem 0; padding: 0.5rem; background: #f8f9fa; border-radius: 5px;">
+                        <strong>${topic}:</strong> 
+                        <span style="color: ${topicColor};">${correct}/${questionIndices.length} (${topicPercentage}%)</span>
+                    </div>
+                `;
+            }
+
+            document.getElementById('performance-breakdown').innerHTML = breakdown;
+        }
+
+        function restartQuiz() {
+            document.getElementById('quiz-results').style.display = 'none';
+            document.querySelector('.quiz-container').style.display = 'block';
+            initializeQuiz();
+        }
+
+        // Word counter
+        function updateWordCount() {
+            const contentSections = document.querySelectorAll('.section, .objectives');
+            let totalWords = 0;
+            
+            contentSections.forEach(section => {
+                const text = section.textContent || section.innerText;
+                const words = text.trim().split(/\s+/).length;
+                totalWords += words;
+            });
+            
+            document.getElementById('word-counter').textContent = `Palabras: ~${totalWords.toLocaleString()}`;
+        }
+
+        // Initialize when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeQuiz();
+            updateWordCount();
+            
+            // Add smooth scrolling for navigation
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                });
+            });
+        });
+
+        // Responsive handling
+        window.addEventListener('resize', function() {
+            // Adjust quiz layout for mobile
+            const quizContainer = document.querySelector('.quiz-container');
+            if (window.innerWidth < 768) {
+                quizContainer.style.padding = '1rem';
+            } else {
+                quizContainer.style.padding = '2rem';
+            }
+        });
+    </script>
+    <script src="keyboard-navigation.js"></script>
+</body>
+</html>

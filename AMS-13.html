@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 13: Fundamentos del Análisis Orientado a Objetos</title>
+    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
+    <meta name="author" content="Curso AMS HTML">
+    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #ecf0f1;
+            --text-color: #34495e;
+            --border-radius: 8px;
+            --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            border-bottom: 3px solid var(--secondary-color);
+            padding-bottom: 15px;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: var(--primary-color);
+            margin-top: 20px;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            text-align: center;
+        }
+
+        .mindmap {
+            background-color: #f0f8ff;
+            padding: 30px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+
+        .principle-box {
+            background-color: #e8f4f8;
+            border: 2px solid var(--secondary-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .concept-card {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .example-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .quiz-section {
+            background-color: #f8d7da;
+            border: 2px solid #f5c6cb;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .question {
+            background-color: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .options {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .highlight {
+            background-color: #fff3cd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .definition {
+            background-color: #e2e3e5;
+            padding: 15px;
+            border-left: 4px solid var(--primary-color);
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .svg-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body role="document">
+    <div class="container" role="main">
+        <h1 id="main-title">Clase 13: Fundamentos del Análisis Orientado a Objetos</h1>
+        
+        <div class="principle-box">
+            <h3>Objetivos de la Clase</h3>
+            <ul role="list">
+                <li role="listitem">Dominar los principios fundamentales del paradigma orientado a objetos</li>
+                <li role="listitem">Comprender los conceptos de abstracción, encapsulamiento, modularidad y jerarquía</li>
+                <li role="listitem">Analizar técnicas para la identificación de objetos y responsabilidades</li>
+                <li role="listitem">Desarrollar habilidades para el modelado conceptual orientado a objetos</li>
+            </ul>
+        </div>
+
+        <h2>1. Principios Fundamentales del Análisis Orientado a Objetos</h2>
+        
+        <p>El análisis orientado a objetos (AOO) representa un cambio paradigmático fundamental en la forma en que conceptualizamos, diseñamos y construimos sistemas de software. A diferencia del enfoque estructurado tradicional, que se centra en la descomposición funcional y el flujo de datos, el AOO se basa en la identificación y modelado de entidades del mundo real como objetos que encapsulan tanto datos como comportamiento.</p>
+
+        <h3>1.1 Abstracción: El Arte de Simplificar la Complejidad</h3>
+        
+        <p>La <span class="highlight">abstracción</span> es el principio fundamental que nos permite manejar la complejidad inherente de los sistemas del mundo real. Consiste en identificar las características esenciales de una entidad, ignorando los detalles irrelevantes para el contexto específico del problema que estamos resolviendo.</p>
+
+        <div class="definition">
+            <strong>Abstracción:</strong> Proceso de identificar y aislar los aspectos importantes de una entidad en el contexto del problema a resolver, ignorando las propiedades menos relevantes o accidentales.
+        </div>
+
+        <p>En el contexto del análisis orientado a objetos, la abstracción se manifiesta en varios niveles:</p>
+
+        <ul role="list">
+            <li role="listitem"><strong>Abstracción de datos:</strong> Identificamos qué información es relevante para representar una entidad. Por ejemplo, para un sistema de gestión universitaria, un estudiante tiene nombre, número de identificación y promedio académico, pero su color favorito probablemente sea irrelevante.</li>
+            
+            <li role="listitem"><strong>Abstracción de procesos:</strong> Determinamos qué operaciones o comportamientos son esenciales para el objeto. Un estudiante puede inscribirse en cursos, consultar calificaciones y actualizar datos personales.</li>
+            
+            <li role="listitem"><strong>Abstracción de control:</strong> Definimos cómo los objetos interactúan y coordinan sus actividades sin exponer los detalles internos de implementación.</li>
+        </ul>
+
+        <div class="example-box">
+            <h4>Ejemplo Práctico: Sistema de Biblioteca</h4>
+            <p>Consideremos la abstracción de un libro en un sistema de biblioteca:</p>
+            <ul role="list">
+                <li role="listitem"><strong>Características relevantes:</strong> ISBN, título, autor, editorial, año de publicación, estado (disponible/prestado)</li>
+                <li role="listitem"><strong>Características irrelevantes:</strong> peso del papel, tipo de fuente utilizada, color de la portada</li>
+                <li role="listitem"><strong>Comportamientos relevantes:</strong> prestar(), devolver(), reservar(), consultarDisponibilidad()</li>
+            </ul>
+        </div>
+
+        <p>La abstracción nos permite crear modelos que son a la vez simples y poderosos. Al enfocarnos solo en lo esencial, podemos construir sistemas que son más fáciles de entender, mantener y evolucionar. Este principio es fundamental porque establece la base sobre la cual construimos todos los demás conceptos orientados a objetos.</p>
+
+        <h3>1.2 Encapsulamiento: Protegiendo la Integridad del Objeto</h3>
+
+        <p>El <span class="highlight">encapsulamiento</span> es el mecanismo que agrupa los datos y los métodos que operan sobre esos datos en una única unidad llamada objeto, y que restringe el acceso directo a algunos de los componentes del objeto. Este principio es fundamental para lograr la modularidad y la seguridad en los sistemas orientados a objetos.</p>
+
+        <div class="definition">
+            <strong>Encapsulamiento:</strong> Principio que combina datos y métodos en una unidad cohesiva (objeto) y oculta los detalles de implementación internos, exponiendo solo una interfaz pública bien definida.
+        </div>
+
+        <p>El encapsulamiento proporciona varios beneficios críticos:</p>
+
+        <ol role="list">
+            <li role="listitem"><strong>Ocultamiento de información:</strong> Los detalles internos de implementación quedan ocultos, permitiendo cambios sin afectar a los clientes del objeto.</li>
+            
+            <li role="listitem"><strong>Control de acceso:</strong> Se puede controlar cómo y cuándo se accede a los datos, garantizando la consistencia y validez del estado del objeto.</li>
+            
+            <li role="listitem"><strong>Reducción de complejidad:</strong> Los usuarios del objeto solo necesitan conocer la interfaz pública, no los detalles internos.</li>
+            
+            <li role="listitem"><strong>Facilita el mantenimiento:</strong> Los cambios internos no propagan efectos secundarios al resto del sistema.</li>
+        </ol>
+
+        <div class="svg-container">
+            <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+                    </marker>
+                </defs>
+                
+                <!-- Objeto CuentaBancaria -->
+                <rect x="150" y="50" width="300" height="250" fill="#e8f4f8" stroke="#3498db" stroke-width="2" rx="10"/>
+                <text x="300" y="80" text-anchor="middle" font-size="18" font-weight="bold">CuentaBancaria</text>
+                
+                <!-- Parte Privada -->
+                <rect x="170" y="100" width="260" height="80" fill="#ffebee" stroke="#e74c3c" stroke-width="1" rx="5"/>
+                <text x="300" y="120" text-anchor="middle" font-size="14" font-weight="bold">Parte Privada (Oculta)</text>
+                <text x="180" y="140" font-size="12">- saldo: double</text>
+                <text x="180" y="160" font-size="12">- numeroTransacciones: int</text>
+                
+                <!-- Parte Pública -->
+                <rect x="170" y="200" width="260" height="80" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="5"/>
+                <text x="300" y="220" text-anchor="middle" font-size="14" font-weight="bold">Interfaz Pública</text>
+                <text x="180" y="240" font-size="12">+ depositar(monto: double)</text>
+                <text x="180" y="260" font-size="12">+ retirar(monto: double)</text>
+                
+                <!-- Cliente externo -->
+                <circle cx="50" cy="175" r="30" fill="#ffd54f" stroke="#f57c00" stroke-width="2"/>
+                <text x="50" y="180" text-anchor="middle" font-size="12">Cliente</text>
+                
+                <!-- Flecha de acceso -->
+                <path d="M 80 175 L 140 175" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="110" y="165" text-anchor="middle" font-size="10">Solo acceso público</text>
+                
+                <!-- Barrera -->
+                <line x1="150" y1="190" x2="450" y2="190" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,5"/>
+                <text x="300" y="195" text-anchor="middle" font-size="10" fill="#e74c3c">Barrera de Encapsulamiento</text>
+            </svg>
+        </div>
+
+        <p>El encapsulamiento implementa el principio de ocultamiento de información de Parnas, que establece que los módulos de un sistema deben diseñarse para ocultar las decisiones de diseño que probablemente cambien. Esto permite que el sistema evolucione con cambios mínimos en el código cliente.</p>
+
+        <h3>1.3 Modularidad: Dividir para Conquistar</h3>
+
+        <p>La <span class="highlight">modularidad</span> es el principio que nos permite descomponer un sistema complejo en partes más pequeñas, manejables e independientes llamadas módulos. En el contexto orientado a objetos, estos módulos son típicamente clases que agrupan objetos relacionados.</p>
+
+        <div class="definition">
+            <strong>Modularidad:</strong> Propiedad de un sistema que ha sido descompuesto en un conjunto de módulos cohesivos y débilmente acoplados.
+        </div>
+
+        <p>Los beneficios de la modularidad incluyen:</p>
+
+        <ul role="list">
+            <li role="listitem"><strong>Comprensibilidad:</strong> Es más fácil entender módulos pequeños que sistemas completos.</li>
+            <li role="listitem"><strong>Mantenibilidad:</strong> Los cambios se localizan en módulos específicos.</li>
+            <li role="listitem"><strong>Reusabilidad:</strong> Los módulos bien diseñados pueden reutilizarse en diferentes contextos.</li>
+            <li role="listitem"><strong>Desarrollo paralelo:</strong> Diferentes equipos pueden trabajar en módulos distintos simultáneamente.</li>
+        </ul>
+
+        <div class="principle-box">
+            <h4>Criterios para una Buena Modularidad</h4>
+            <ol role="list">
+                <li role="listitem"><strong>Alta cohesión:</strong> Los elementos dentro de un módulo deben estar fuertemente relacionados</li>
+                <li role="listitem"><strong>Bajo acoplamiento:</strong> Las dependencias entre módulos deben ser mínimas</li>
+                <li role="listitem"><strong>Interfaces bien definidas:</strong> La comunicación entre módulos debe ser clara y explícita</li>
+                <li role="listitem"><strong>Ocultamiento de información:</strong> Los detalles internos deben permanecer privados</li>
+            </ol>
+        </div>
+
+        <h3>1.4 Jerarquía: Organizando el Conocimiento</h3>
+
+        <p>La <span class="highlight">jerarquía</span> es el principio de ordenamiento que nos permite organizar las abstracciones en estructuras de clasificación. En el análisis orientado a objetos, encontramos dos tipos principales de jerarquías:</p>
+
+        <ol role="list">
+            <li role="listitem"><strong>Jerarquía de generalización/especialización (ES-UN):</strong> Representa relaciones de herencia donde las clases más específicas heredan características de clases más generales.</li>
+            
+            <li role="listitem"><strong>Jerarquía de agregación/composición (TIENE-UN):</strong> Representa relaciones donde objetos complejos se construyen a partir de objetos más simples.</li>
+        </ol>
+
+        <div class="svg-container">
+            <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg">
+                <!-- Jerarquía de Generalización -->
+                <text x="350" y="30" text-anchor="middle" font-size="16" font-weight="bold">Jerarquía de Generalización (ES-UN)</text>
+                
+                <!-- Clase Vehículo -->
+                <rect x="250" y="50" width="200" height="60" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
+                <text x="350" y="85" text-anchor="middle" font-size="14" font-weight="bold">Vehículo</text>
+                
+                <!-- Líneas de herencia -->
+                <line x1="350" y1="110" x2="200" y2="150" stroke="#333" stroke-width="2"/>
+                <line x1="350" y1="110" x2="350" y2="150" stroke="#333" stroke-width="2"/>
+                <line x1="350" y1="110" x2="500" y2="150" stroke="#333" stroke-width="2"/>
+                
+                <!-- Triángulos de herencia -->
+                <polygon points="340,110 350,130 360,110" fill="white" stroke="#333" stroke-width="2"/>
+                
+                <!-- Subclases -->
+                <rect x="100" y="150" width="150" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
+                <text x="175" y="185" text-anchor="middle" font-size="14">Automóvil</text>
+                
+                <rect x="275" y="150" width="150" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
+                <text x="350" y="185" text-anchor="middle" font-size="14">Motocicleta</text>
+                
+                <rect x="450" y="150" width="150" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
+                <text x="525" y="185" text-anchor="middle" font-size="14">Camión</text>
+                
+                <!-- Jerarquía de Composición -->
+                <text x="350" y="280" text-anchor="middle" font-size="16" font-weight="bold">Jerarquía de Composición (TIENE-UN)</text>
+                
+                <!-- Clase Computadora -->
+                <rect x="250" y="300" width="200" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+                <text x="350" y="335" text-anchor="middle" font-size="14" font-weight="bold">Computadora</text>
+                
+                <!-- Líneas de composición con diamantes -->
+                <line x1="250" y1="330" x2="150" y2="400" stroke="#333" stroke-width="2"/>
+                <line x1="350" y1="360" x2="350" y2="400" stroke="#333" stroke-width="2"/>
+                <line x1="450" y1="330" x2="550" y2="400" stroke="#333" stroke-width="2"/>
+                
+                <!-- Diamantes de composición -->
+                <polygon points="250,320 240,330 250,340 260,330" fill="#333"/>
+                <polygon points="350,350 340,360 350,370 360,360" fill="#333"/>
+                <polygon points="450,320 440,330 450,340 460,330" fill="#333"/>
+                
+                <!-- Componentes -->
+                <rect x="75" y="400" width="120" height="50" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
+                <text x="135" y="430" text-anchor="middle" font-size="12">Procesador</text>
+                
+                <rect x="290" y="400" width="120" height="50" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
+                <text x="350" y="430" text-anchor="middle" font-size="12">Memoria</text>
+                
+                <rect x="505" y="400" width="120" height="50" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
+                <text x="565" y="430" text-anchor="middle" font-size="12">Disco Duro</text>
+            </svg>
+        </div>
+
+        <p>Las jerarquías nos permiten gestionar la complejidad mediante la clasificación y la factorización de propiedades comunes. Esto facilita la comprensión del sistema y promueve la reutilización de código a través de la herencia y la composición.</p>
+
+        <h2>2. Conceptos Avanzados del Análisis Orientado a Objetos</h2>
+
+        <p>Una vez comprendidos los principios fundamentales, es esencial profundizar en conceptos más avanzados que nos permiten crear sistemas orientados a objetos más sofisticados y flexibles. Estos conceptos avanzados representan la evolución natural del pensamiento orientado a objetos y son cruciales para el desarrollo de sistemas empresariales complejos.</p>
+
+        <h3>2.1 Polimorfismo: La Flexibilidad del Comportamiento</h3>
+
+        <p>El <span class="highlight">polimorfismo</span> es uno de los conceptos más poderosos del paradigma orientado a objetos. Literalmente significa "muchas formas" y se refiere a la capacidad de objetos de diferentes tipos de responder al mismo mensaje de formas distintas.</p>
+
+        <div class="definition">
+            <strong>Polimorfismo:</strong> Capacidad de objetos de diferentes clases de responder a la misma interfaz o mensaje, cada uno según su propia implementación específica.
+        </div>
+
+        <p>Existen varios tipos de polimorfismo:</p>
+
+        <div class="concept-card">
+            <h4>Tipos de Polimorfismo</h4>
+            <ul role="list">
+                <li role="listitem"><strong>Polimorfismo de subtipo (herencia):</strong> Objetos de clases derivadas pueden ser tratados como objetos de la clase base</li>
+                <li role="listitem"><strong>Polimorfismo paramétrico (genéricos):</strong> El código puede escribirse de forma genérica para trabajar con cualquier tipo</li>
+                <li role="listitem"><strong>Polimorfismo ad-hoc (sobrecarga):</strong> Múltiples métodos con el mismo nombre pero diferentes parámetros</li>
+            </ul>
+        </div>
+
+        <div class="example-box">
+            <h4>Ejemplo de Polimorfismo: Sistema de Notificaciones</h4>
+            <p>Consideremos un sistema que envía notificaciones por diferentes medios:</p>
+            <pre>
+Interfaz Notificador {
+    enviar(mensaje: String, destinatario: String)
+}
+
+EmailNotificador implementa Notificador {
+    enviar(mensaje, destinatario) {
+        // Lógica específica para enviar email
+    }
+}
+
+SMSNotificador implementa Notificador {
+    enviar(mensaje, destinatario) {
+        // Lógica específica para enviar SMS
+    }
+}
+
+PushNotificador implementa Notificador {
+    enviar(mensaje, destinatario) {
+        // Lógica específica para notificación push
+    }
+}
+            </pre>
+        </div>
+
+        <p>El polimorfismo proporciona extensibilidad al sistema, permitiendo agregar nuevos tipos sin modificar el código existente, cumpliendo así con el Principio Abierto/Cerrado (Open/Closed Principle).</p>
+
+        <h3>2.2 Persistencia: Preservando el Estado</h3>
+
+        <p>La <span class="highlight">persistencia</span> se refiere a la capacidad de un objeto de mantener su estado más allá del tiempo de vida del programa que lo creó. Es un concepto fundamental en sistemas empresariales donde los datos deben sobrevivir entre ejecuciones.</p>
+
+        <div class="principle-box">
+            <h4>Estrategias de Persistencia</h4>
+            <ol role="list">
+                <li role="listitem"><strong>Serialización:</strong> Conversión del objeto a un formato almacenable (XML, JSON, binario)</li>
+                <li role="listitem"><strong>Mapeo Objeto-Relacional (ORM):</strong> Traducción entre objetos y tablas relacionales</li>
+                <li role="listitem"><strong>Bases de datos orientadas a objetos:</strong> Almacenamiento directo de objetos</li>
+                <li role="listitem"><strong>Bases de datos NoSQL:</strong> Almacenamiento flexible de documentos o grafos</li>
+            </ol>
+        </div>
+
+        <p>La persistencia introduce desafíos importantes como el mapeo de impedancia objeto-relacional, la gestión de identidad de objetos, y el mantenimiento de relaciones entre objetos persistentes.</p>
+
+        <h3>2.3 Concurrencia: Múltiples Flujos de Control</h3>
+
+        <p>La <span class="highlight">concurrencia</span> en sistemas orientados a objetos se refiere a la capacidad de ejecutar múltiples objetos o métodos simultáneamente. Con el auge de los procesadores multi-núcleo y sistemas distribuidos, la concurrencia se ha vuelto fundamental.</p>
+
+        <div class="concept-card">
+            <h4>Desafíos de la Concurrencia</h4>
+            <ul role="list">
+                <li role="listitem"><strong>Sincronización:</strong> Coordinar el acceso a recursos compartidos</li>
+                <li role="listitem"><strong>Deadlock:</strong> Evitar bloqueos mutuos entre objetos</li>
+                <li role="listitem"><strong>Condiciones de carrera:</strong> Prevenir resultados no determinísticos</li>
+                <li role="listitem"><strong>Comunicación entre objetos:</strong> Mensajes síncronos vs asíncronos</li>
+            </ul>
+        </div>
+
+        <p>Los patrones de diseño como Monitor, Active Object, y Future ayudan a gestionar la complejidad de la concurrencia en sistemas orientados a objetos.</p>
+
+        <h3>2.4 Reutilización: Maximizando el Valor del Código</h3>
+
+        <p>La <span class="highlight">reutilización</span> es uno de los principales beneficios prometidos por el paradigma orientado a objetos. Sin embargo, lograr reutilización efectiva requiere diseño cuidadoso y disciplina.</p>
+
+        <table role="table">
+            <thead role="rowgroup">
+                <tr role="row">
+                    <th role="columnheader">Mecanismo de Reutilización</th>
+                    <th role="columnheader">Descripción</th>
+                    <th role="columnheader">Ventajas</th>
+                    <th role="columnheader">Consideraciones</th>
+                </tr>
+            </thead>
+            <tbody role="rowgroup">
+                <tr role="row">
+                    <td role="cell">Herencia</td>
+                    <td role="cell">Reutilización mediante especialización de clases</td>
+                    <td role="cell">Fácil de implementar, promueve consistencia</td>
+                    <td role="cell">Puede crear jerarquías rígidas</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell">Composición</td>
+                    <td role="cell">Reutilización mediante agregación de objetos</td>
+                    <td role="cell">Mayor flexibilidad, favorece el bajo acoplamiento</td>
+                    <td role="cell">Requiere más código de delegación</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell">Interfaces</td>
+                    <td role="cell">Reutilización de contratos sin implementación</td>
+                    <td role="cell">Permite múltiple herencia de tipo</td>
+                    <td role="cell">No reutiliza implementación</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell">Frameworks</td>
+                    <td role="cell">Reutilización de arquitecturas completas</td>
+                    <td role="cell">Alto nivel de reutilización</td>
+                    <td role="cell">Curva de aprendizaje empinada</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h2>3. Identificación de Objetos</h2>
+
+        <p>La identificación de objetos es quizás la tarea más crítica y desafiante en el análisis orientado a objetos. No existe una fórmula mágica, pero sí técnicas probadas que nos guían en este proceso creativo y analítico.</p>
+
+        <h3>3.1 Técnicas de Descubrimiento de Clases</h3>
+
+        <p>Existen múltiples técnicas para identificar clases candidatas en un dominio de problema. Cada técnica ofrece una perspectiva diferente y, en la práctica, se utilizan de manera complementaria.</p>
+
+        <div class="mindmap">
+            <h4>Técnicas de Identificación de Clases</h4>
+            <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+                <!-- Nodo central -->
+                <circle cx="400" cy="300" r="80" fill="#3498db" stroke="#2c3e50" stroke-width="3"/>
+                <text x="400" y="305" text-anchor="middle" font-size="14" fill="white" font-weight="bold">Técnicas de</text>
+                <text x="400" y="320" text-anchor="middle" font-size="14" fill="white" font-weight="bold">Identificación</text>
+                
+                <!-- Análisis de Sustantivos -->
+                <circle cx="200" cy="150" r="60" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                <text x="200" y="145" text-anchor="middle" font-size="12" fill="white">Análisis de</text>
+                <text x="200" y="160" text-anchor="middle" font-size="12" fill="white">Sustantivos</text>
+                <line x1="340" y1="250" x2="250" y2="190" stroke="#333" stroke-width="2"/>
+                
+                <!-- CRC Cards -->
+                <circle cx="600" cy="150" r="60" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+                <text x="600" y="145" text-anchor="middle" font-size="12" fill="white">Tarjetas</text>
+                <text x="600" y="160" text-anchor="middle" font-size="12" fill="white">CRC</text>
+                <line x1="460" y1="250" x2="550" y2="190" stroke="#333" stroke-width="2"/>
+                
+                <!-- Casos de Uso -->
+                <circle cx="150" cy="350" r="60" fill="#f39c12" stroke="#d68910" stroke-width="2"/>
+                <text x="150" y="345" text-anchor="middle" font-size="12" fill="white">Análisis de</text>
+                <text x="150" y="360" text-anchor="middle" font-size="12" fill="white">Casos de Uso</text>
+                <line x1="330" y1="320" x2="205" y2="340" stroke="#333" stroke-width="2"/>
+                
+                <!-- Análisis de Dominio -->
+                <circle cx="400" cy="500" r="60" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+                <text x="400" y="495" text-anchor="middle" font-size="12" fill="white">Análisis de</text>
+                <text x="400" y="510" text-anchor="middle" font-size="12" fill="white">Dominio</text>
+                <line x1="400" y1="380" x2="400" y2="440" stroke="#333" stroke-width="2"/>
+                
+                <!-- Patrones de Análisis -->
+                <circle cx="650" cy="350" r="60" fill="#1abc9c" stroke="#16a085" stroke-width="2"/>
+                <text x="650" y="345" text-anchor="middle" font-size="12" fill="white">Patrones de</text>
+                <text x="650" y="360" text-anchor="middle" font-size="12" fill="white">Análisis</text>
+                <line x1="470" y1="320" x2="595" y2="340" stroke="#333" stroke-width="2"/>
+            </svg>
+        </div>
+
+        <h4>3.1.1 Análisis de Sustantivos</h4>
+
+        <p>Esta técnica clásica consiste en examinar la descripción del problema e identificar los sustantivos como clases candidatas. Aunque simple, es sorprendentemente efectiva como punto de partida.</p>
+
+        <div class="example-box">
+            <h4>Proceso de Análisis de Sustantivos</h4>
+            <p><strong>Descripción:</strong> "El <em>cliente</em> realiza un <em>pedido</em> que contiene múltiples <em>productos</em>. Cada <em>producto</em> tiene un <em>precio</em> y una <em>descripción</em>. El <em>sistema</em> calcula el <em>total</em> del <em>pedido</em> aplicando <em>descuentos</em> si corresponde."</p>
+            
+            <p><strong>Sustantivos identificados:</strong> cliente, pedido, productos, precio, descripción, sistema, total, descuentos</p>
+            
+            <p><strong>Clases candidatas después del filtrado:</strong></p>
+            <ul role="list">
+                <li role="listitem">Cliente (entidad del dominio)</li>
+                <li role="listitem">Pedido (entidad del dominio)</li>
+                <li role="listitem">Producto (entidad del dominio)</li>
+                <li role="listitem">Descuento (concepto del dominio)</li>
+            </ul>
+            
+            <p><strong>Atributos identificados:</strong> precio, descripción, total</p>
+        </div>
+
+        <h4>3.1.2 Tarjetas CRC (Clase-Responsabilidad-Colaborador)</h4>
+
+        <p>Las tarjetas CRC son una técnica interactiva y colaborativa desarrollada por Ward Cunningham y Kent Beck. Cada tarjeta representa una clase y contiene:</p>
+
+        <div class="principle-box">
+            <h4>Estructura de una Tarjeta CRC</h4>
+            <table style="width: 80%; margin: 0 auto;">
+                <tr role="row">
+                    <th colspan="2" style="background-color: #3498db; color: white;">Nombre de la Clase</th>
+                </tr>
+                <tr role="row">
+                    <td style="width: 60%; vertical-align: top;">
+                        <strong>Responsabilidades</strong>
+                        <ul style="margin: 10px 0;">
+                            <li role="listitem">Qué sabe la clase</li>
+                            <li role="listitem">Qué hace la clase</li>
+                        </ul>
+                    </td>
+                    <td style="width: 40%; vertical-align: top;">
+                        <strong>Colaboradores</strong>
+                        <ul style="margin: 10px 0;">
+                            <li role="listitem">Otras clases con las que interactúa</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <p>El proceso de trabajo con tarjetas CRC involucra sesiones colaborativas donde los participantes "juegan" los roles de las clases, simulando escenarios del sistema para descubrir responsabilidades y colaboraciones.</p>
+
+        <h3>3.2 Análisis de Responsabilidades</h3>
+
+        <p>Una vez identificadas las clases candidatas, el siguiente paso crucial es asignar responsabilidades apropiadas. Las responsabilidades se dividen en dos categorías principales:</p>
+
+        <ol role="list">
+            <li role="listitem"><strong>Responsabilidades de conocimiento:</strong> Qué información debe conocer y mantener el objeto</li>
+            <li role="listitem"><strong>Responsabilidades de comportamiento:</strong> Qué acciones debe poder realizar el objeto</li>
+        </ol>
+
+        <div class="concept-card">
+            <h4>Principios GRASP para Asignación de Responsabilidades</h4>
+            <p>Los patrones GRASP (General Responsibility Assignment Software Patterns) de Craig Larman proporcionan guías fundamentales:</p>
+            <ul role="list">
+                <li role="listitem"><strong>Experto en Información:</strong> Asignar responsabilidad a la clase que tiene la información necesaria</li>
+                <li role="listitem"><strong>Creador:</strong> Asignar la creación de objetos a la clase que tiene la información de inicialización</li>
+                <li role="listitem"><strong>Controlador:</strong> Asignar el manejo de eventos del sistema a clases controladoras</li>
+                <li role="listitem"><strong>Bajo Acoplamiento:</strong> Minimizar dependencias entre clases</li>
+                <li role="listitem"><strong>Alta Cohesión:</strong> Mantener responsabilidades relacionadas juntas</li>
+            </ul>
+        </div>
+
+        <h3>3.3 Colaboraciones entre Objetos</h3>
+
+        <p>Los objetos no existen en aislamiento; colaboran para realizar las funcionalidades del sistema. Identificar estas colaboraciones es esencial para un diseño robusto.</p>
+
+        <div class="svg-container">
+            <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                <text x="400" y="30" text-anchor="middle" font-size="16" font-weight="bold">Diagrama de Colaboración: Proceso de Venta</text>
+                
+                <!-- Objetos -->
+                <rect x="50" y="100" width="120" height="60" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
+                <text x="110" y="135" text-anchor="middle" font-size="14">:Cliente</text>
+                
+                <rect x="300" y="100" width="120" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
+                <text x="360" y="135" text-anchor="middle" font-size="14">:Venta</text>
+                
+                <rect x="550" y="100" width="120" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
+                <text x="610" y="135" text-anchor="middle" font-size="14">:Producto</text>
+                
+                <rect x="300" y="250" width="120" height="60" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
+                <text x="360" y="285" text-anchor="middle" font-size="14">:LineaVenta</text>
+                
+                <!-- Mensajes -->
+                <path d="M 170 130 L 290 130" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="230" y="120" text-anchor="middle" font-size="12">1: crear()</text>
+                
+                <path d="M 420 130 L 540 130" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="480" y="120" text-anchor="middle" font-size="12">2: obtenerPrecio()</text>
+                
+                <path d="M 360 160 L 360 240" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="380" y="200" font-size="12">3: agregar()</text>
+                
+                <path d="M 420 280 L 540 160" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="480" y="220" font-size="12">4: asociar()</text>
+            </svg>
+        </div>
+
+        <h3>3.4 Patrones de Análisis Comunes</h3>
+
+        <p>A lo largo de los años, la comunidad de desarrollo ha identificado patrones recurrentes en el análisis de dominios. Estos patrones aceleran el proceso de identificación de objetos y proporcionan soluciones probadas.</p>
+
+        <div class="principle-box">
+            <h4>Patrones de Análisis Fundamentales</h4>
+            <ol role="list">
+                <li role="listitem"><strong>Patrón Parte-Todo:</strong> Para modelar relaciones de composición y agregación</li>
+                <li role="listitem"><strong>Patrón Rol:</strong> Cuando objetos pueden asumir diferentes roles en diferentes contextos</li>
+                <li role="listitem"><strong>Patrón Estado:</strong> Para objetos con ciclos de vida complejos</li>
+                <li role="listitem"><strong>Patrón Grupo-Miembro:</strong> Para colecciones con comportamiento propio</li>
+                <li role="listitem"><strong>Patrón Transacción:</strong> Para operaciones que deben completarse atómicamente</li>
+            </ol>
+        </div>
+
+        <h2>4. Modelado Conceptual</h2>
+
+        <p>El modelado conceptual es la culminación del análisis orientado a objetos, donde creamos representaciones abstractas del dominio del problema que capturan la esencia del sistema sin comprometerse con decisiones de implementación.</p>
+
+        <h3>4.1 Modelo de Dominio vs Modelo de Diseño</h3>
+
+        <p>Es crucial distinguir entre estos dos tipos de modelos:</p>
+
+        <table role="table">
+            <thead role="rowgroup">
+                <tr role="row">
+                    <th role="columnheader">Aspecto</th>
+                    <th role="columnheader">Modelo de Dominio</th>
+                    <th role="columnheader">Modelo de Diseño</th>
+                </tr>
+            </thead>
+            <tbody role="rowgroup">
+                <tr role="row">
+                    <td role="cell">Propósito</td>
+                    <td role="cell">Entender el problema</td>
+                    <td role="cell">Especificar la solución</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell">Perspectiva</td>
+                    <td role="cell">Conceptual/Esencial</td>
+                    <td role="cell">Especificación/Implementación</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell">Elementos</td>
+                    <td role="cell">Conceptos del mundo real</td>
+                    <td role="cell">Clases de software</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell">Atributos</td>
+                    <td role="cell">Solo los esenciales del dominio</td>
+                    <td role="cell">Incluye atributos técnicos</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell">Operaciones</td>
+                    <td role="cell">Comportamientos del dominio</td>
+                    <td role="cell">Métodos de implementación</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>4.2 Estereotipos y Extensiones UML</h3>
+
+        <p>UML proporciona mecanismos de extensión que nos permiten adaptar la notación a dominios específicos:</p>
+
+        <ul role="list">
+            <li role="listitem"><strong>Estereotipos:</strong> Extienden el vocabulario de UML con nuevos tipos de elementos</li>
+            <li role="listitem"><strong>Valores etiquetados:</strong> Añaden propiedades a los elementos del modelo</li>
+            <li role="listitem"><strong>Restricciones:</strong> Especifican reglas que deben cumplir los elementos</li>
+        </ul>
+
+        <h3>4.3 Restricciones y Reglas de Negocio</h3>
+
+        <p>Las restricciones capturan las reglas invariantes del dominio que deben respetarse en cualquier implementación:</p>
+
+        <div class="example-box">
+            <h4>Ejemplos de Restricciones en OCL (Object Constraint Language)</h4>
+            <pre>
+context CuentaBancaria
+invariant saldoNoNegativo: self.saldo >= 0
+
+context Empleado
+invariant salarioMinimo: self.salario >= SalarioMinimo.valor
+
+context Pedido
+invariant alMenosUnItem: self.items->size() >= 1
+            </pre>
+        </div>
+
+        <h3>4.4 Validación del Modelo Conceptual</h3>
+
+        <p>La validación asegura que nuestro modelo representa adecuadamente el dominio:</p>
+
+        <div class="concept-card">
+            <h4>Criterios de Validación</h4>
+            <ul role="list">
+                <li role="listitem"><strong>Completitud:</strong> ¿Están representados todos los conceptos importantes?</li>
+                <li role="listitem"><strong>Consistencia:</strong> ¿Hay contradicciones en el modelo?</li>
+                <li role="listitem"><strong>Claridad:</strong> ¿Es comprensible para los stakeholders?</li>
+                <li role="listitem"><strong>Correctitud:</strong> ¿Refleja fielmente el dominio?</li>
+                <li role="listitem"><strong>Relevancia:</strong> ¿Todos los elementos son necesarios?</li>
+            </ul>
+        </div>
+
+        <div class="quiz-section">
+            <h2>Evaluación: 20 Preguntas de Opción Múltiple</h2>
+            
+            <div class="question" role="group">
+                <p><strong>1.</strong> ¿Cuál de los siguientes NO es uno de los cuatro principios fundamentales del análisis orientado a objetos según Booch?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Abstracción</p>
+                    <p>B) Polimorfismo</p>
+                    <p>C) Encapsulamiento</p>
+                    <p>D) Modularidad</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>2.</strong> El principio que permite identificar las características esenciales de una entidad ignorando los detalles irrelevantes se llama:</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Encapsulamiento</p>
+                    <p>B) Abstracción</p>
+                    <p>C) Modularidad</p>
+                    <p>D) Herencia</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>3.</strong> ¿Qué tipo de relación representa la jerarquía "ES-UN"?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Agregación</p>
+                    <p>B) Composición</p>
+                    <p>C) Generalización/Especialización</p>
+                    <p>D) Asociación</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>4.</strong> En el contexto del encapsulamiento, ¿qué significa "ocultamiento de información"?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Eliminar datos innecesarios</p>
+                    <p>B) Hacer privados los detalles de implementación interna</p>
+                    <p>C) Comprimir la información</p>
+                    <p>D) Encriptar los datos sensibles</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>5.</strong> ¿Cuál NO es un beneficio del polimorfismo?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Extensibilidad del sistema</p>
+                    <p>B) Reutilización de código</p>
+                    <p>C) Mayor velocidad de ejecución</p>
+                    <p>D) Cumplimiento del principio abierto/cerrado</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>6.</strong> Las tarjetas CRC significan:</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Clase-Relación-Colaboración</p>
+                    <p>B) Clase-Responsabilidad-Colaborador</p>
+                    <p>C) Código-Revisión-Corrección</p>
+                    <p>D) Concepto-Regla-Constraint</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>7.</strong> Según los principios GRASP, ¿a quién se debe asignar la responsabilidad de crear un objeto?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) A cualquier clase del sistema</p>
+                    <p>B) A la clase que tiene la información necesaria para inicializarlo</p>
+                    <p>C) Siempre a una clase Factory</p>
+                    <p>D) A la clase más grande del sistema</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>8.</strong> ¿Qué característica NO corresponde a un módulo bien diseñado?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Alta cohesión</p>
+                    <p>B) Bajo acoplamiento</p>
+                    <p>C) Muchas dependencias externas</p>
+                    <p>D) Interfaz bien definida</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>9.</strong> En el análisis de sustantivos, ¿cuál de los siguientes típicamente NO se convertiría en una clase?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Cliente</p>
+                    <p>B) Pedido</p>
+                    <p>C) Rápidamente</p>
+                    <p>D) Producto</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>10.</strong> La diferencia principal entre un modelo de dominio y un modelo de diseño es:</p>
+                <div class="options" role="radiogroup">
+                    <p>A) El modelo de dominio usa UML y el de diseño no</p>
+                    <p>B) El modelo de dominio representa conceptos del mundo real, el de diseño clases de software</p>
+                    <p>C) No hay diferencia, son sinónimos</p>
+                    <p>D) El modelo de diseño siempre es más simple</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>11.</strong> ¿Cuál es el tipo de polimorfismo que permite que múltiples métodos tengan el mismo nombre pero diferentes parámetros?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Polimorfismo de subtipo</p>
+                    <p>B) Polimorfismo paramétrico</p>
+                    <p>C) Polimorfismo ad-hoc</p>
+                    <p>D) Polimorfismo dinámico</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>12.</strong> ¿Qué patrón de análisis sería más apropiado para modelar un objeto que cambia su comportamiento según su estado interno?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Patrón Parte-Todo</p>
+                    <p>B) Patrón Estado</p>
+                    <p>C) Patrón Rol</p>
+                    <p>D) Patrón Grupo-Miembro</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>13.</strong> La persistencia en objetos se refiere a:</p>
+                <div class="options" role="radiogroup">
+                    <p>A) La velocidad de acceso a los datos</p>
+                    <p>B) La capacidad de mantener el estado más allá del tiempo de vida del programa</p>
+                    <p>C) La resistencia a cambios en el código</p>
+                    <p>D) La duplicación de objetos en memoria</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>14.</strong> ¿Cuál NO es un desafío típico de la concurrencia en sistemas orientados a objetos?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Deadlock</p>
+                    <p>B) Condiciones de carrera</p>
+                    <p>C) Herencia múltiple</p>
+                    <p>D) Sincronización</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>15.</strong> En una jerarquía de composición, si se elimina el objeto contenedor:</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Los objetos contenidos permanecen intactos</p>
+                    <p>B) Los objetos contenidos también se eliminan</p>
+                    <p>C) Se crea una copia de seguridad automática</p>
+                    <p>D) El sistema genera un error</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>16.</strong> ¿Qué principio GRASP sugiere minimizar las dependencias entre clases?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Experto en Información</p>
+                    <p>B) Creador</p>
+                    <p>C) Bajo Acoplamiento</p>
+                    <p>D) Controlador</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>17.</strong> Los estereotipos en UML se utilizan para:</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Eliminar elementos del diagrama</p>
+                    <p>B) Extender el vocabulario de UML con nuevos tipos de elementos</p>
+                    <p>C) Reducir la complejidad de los diagramas</p>
+                    <p>D) Convertir diagramas a código</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>18.</strong> ¿Cuál es la principal ventaja de la composición sobre la herencia para lograr reutilización?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Es más rápida en tiempo de ejecución</p>
+                    <p>B) Requiere menos código</p>
+                    <p>C) Proporciona mayor flexibilidad</p>
+                    <p>D) Es más fácil de entender</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>19.</strong> En el contexto de responsabilidades de objetos, ¿qué son las responsabilidades de conocimiento?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Las acciones que puede realizar el objeto</p>
+                    <p>B) La información que debe conocer y mantener el objeto</p>
+                    <p>C) Los otros objetos que conoce</p>
+                    <p>D) Los patrones de diseño que implementa</p>
+                </div>
+            </div>
+
+            <div class="question" role="group">
+                <p><strong>20.</strong> ¿Cuál NO es un criterio de validación para un modelo conceptual?</p>
+                <div class="options" role="radiogroup">
+                    <p>A) Completitud</p>
+                    <p>B) Velocidad de procesamiento</p>
+                    <p>C) Consistencia</p>
+                    <p>D) Claridad</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="principle-box" style="margin-top: 40px;">
+            <h3>Resumen de la Clase</h3>
+            <p>En esta clase hemos explorado los fundamentos del análisis orientado a objetos, desde los principios básicos de abstracción, encapsulamiento, modularidad y jerarquía, hasta conceptos avanzados como polimorfismo, persistencia y concurrencia. Hemos aprendido técnicas prácticas para identificar objetos y asignar responsabilidades, y hemos visto cómo crear modelos conceptuales que capturan la esencia del dominio del problema.</p>
+            
+            <p>Los conceptos presentados forman la base sobre la cual construiremos en las próximas clases, donde profundizaremos en la notación UML, los diagramas de clases, y los casos de uso avanzados. Recuerden que el análisis orientado a objetos es tanto un arte como una ciencia, y la práctica constante es esencial para dominar estas técnicas.</p>
+        </div>
+    </div>
+    <script src="keyboard-navigation.js"></script>
+</body>
+</html>

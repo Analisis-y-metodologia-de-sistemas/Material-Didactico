@@ -1,0 +1,1913 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLASE 4: Fundamentos de Metodologías Ágiles</title>
+    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
+    <meta name="author" content="Curso AMS HTML">
+    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #2563eb;
+            --secondary-blue: #3b82f6;
+            --light-blue: #eff6ff;
+            --dark-blue: #1e40af;
+            --success-green: #10b981;
+            --warning-orange: #f59e0b;
+            --danger-red: #ef4444;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --border-radius: 0.5rem;
+            --border-radius-lg: 0.75rem;
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-2xl: 3rem;
+        }
+
+        [data-theme="dark"] {
+            --gray-50: #111827;
+            --gray-100: #1f2937;
+            --gray-200: #374151;
+            --gray-300: #4b5563;
+            --gray-400: #6b7280;
+            --gray-500: #9ca3af;
+            --gray-600: #d1d5db;
+            --gray-700: #e5e7eb;
+            --gray-800: #f3f4f6;
+            --gray-900: #f9fafb;
+            --text-primary: #f9fafb;
+            --text-secondary: #d1d5db;
+            --light-blue: #1e3a8a;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--gray-50);
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-lg);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: var(--spacing-2xl) var(--spacing-lg);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)"/></svg>');
+            opacity: 0.1;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-md);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--gray-800);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            margin: var(--spacing-xl) 0;
+            overflow: hidden;
+        }
+
+        .nav-tabs ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .nav-tabs li {
+            flex: 1;
+        }
+
+        .nav-tabs button {
+            width: 100%;
+            padding: var(--spacing-lg);
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .nav-tabs button.active {
+            color: var(--primary-blue);
+            border-bottom-color: var(--primary-blue);
+            background: var(--light-blue);
+        }
+
+        .nav-tabs button:hover:not(.active) {
+            background: var(--gray-100);
+            color: var(--text-primary);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: block; /* Cambiar de none a block para mostrar todas las secciones */
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-md);
+            padding: var(--spacing-xl);
+            margin-bottom: var(--spacing-xl);
+            transition: all 0.3s ease;
+            border: 1px solid var(--gray-200);
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .card h2 {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-lg);
+            border-bottom: 2px solid var(--light-blue);
+            padding-bottom: var(--spacing-sm);
+        }
+
+        .card h3 {
+            color: var(--secondary-blue);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+        }
+
+        .card h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+        }
+
+        .card p {
+            margin-bottom: var(--spacing-md);
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .card ul, .card ol {
+            margin: var(--spacing-md) 0;
+            padding-left: var(--spacing-xl);
+        }
+
+        .card li {
+            margin-bottom: var(--spacing-sm);
+            color: var(--text-secondary);
+        }
+
+        /* Synoptic Chart */
+        .synoptic-chart {
+            background: linear-gradient(135deg, var(--light-blue), white);
+            border: 2px solid var(--primary-blue);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .synoptic-title {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: var(--spacing-xl);
+        }
+
+        .synoptic-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .synoptic-item {
+            background: white;
+            border: 2px solid var(--primary-blue);
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .synoptic-item:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .synoptic-item h4 {
+            color: var(--primary-blue);
+            margin-bottom: var(--spacing-sm);
+            font-size: 1.1rem;
+        }
+
+        .synoptic-item p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Quiz Section */
+        .quiz-container {
+            background: var(--gray-100);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-xl);
+            margin: var(--spacing-xl) 0;
+        }
+
+        .quiz-question {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: var(--spacing-lg);
+            margin-bottom: var(--spacing-lg);
+            border-left: 4px solid var(--primary-blue);
+        }
+
+        .quiz-question h4 {
+            color: var(--primary-blue);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .quiz-options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .quiz-options li {
+            margin: var(--spacing-sm) 0;
+        }
+
+        .quiz-options label {
+            display: flex;
+            align-items: center;
+            padding: var(--spacing-sm);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quiz-options label:hover {
+            background: var(--light-blue);
+        }
+
+        .quiz-options input[type="radio"] {
+            margin-right: var(--spacing-sm);
+        }
+
+        .quiz-result {
+            margin-top: var(--spacing-md);
+            padding: var(--spacing-md);
+            border-radius: var(--border-radius);
+            display: none;
+        }
+
+        .quiz-result.correct {
+            background: #ecfdf5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .quiz-result.incorrect {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .quiz-button {
+            background: var(--primary-blue);
+            color: white;
+            border: none;
+            padding: var(--spacing-sm) var(--spacing-lg);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: var(--spacing-md);
+        }
+
+        .quiz-button:hover {
+            background: var(--dark-blue);
+            transform: translateY(-2px);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: var(--gray-200);
+            border-radius: var(--border-radius);
+            height: 8px;
+            margin: var(--spacing-xl) 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--primary-blue), var(--success-green));
+            height: 100%;
+            width: 25%;
+            transition: width 0.3s ease;
+            border-radius: var(--border-radius);
+        }
+
+        /* Diagram containers */
+        .diagram-container {
+            background: white;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--border-radius-lg);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            text-align: center;
+        }
+
+        .mermaid {
+            background: transparent !important;
+        }
+
+        /* SVG Use Case Diagram */
+        .use-case-svg {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border: 2px solid var(--gray-300);
+            border-radius: var(--border-radius);
+            background: white;
+            margin: var(--spacing-lg) 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: var(--spacing-md);
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-tabs ul {
+                flex-direction: column;
+            }
+
+            .synoptic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: var(--spacing-lg);
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .theme-toggle, .nav-tabs {
+                display: none;
+            }
+
+            .content-section {
+                display: block !important;
+                page-break-inside: avoid;
+            }
+
+            .card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid var(--gray-300);
+            }
+        }
+
+        /* Additional animations */
+        .fade-in {
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(-30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Highlight boxes */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--warning-orange), #fbbf24);
+            color: white;
+            padding: var(--spacing-lg);
+            border-radius: var(--border-radius-lg);
+            margin: var(--spacing-lg) 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .highlight-box h4 {
+            color: white;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--gray-800);
+            color: var(--gray-300);
+            text-align: center;
+            padding: var(--spacing-xl);
+            margin-top: var(--spacing-2xl);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: var(--spacing-lg) 0;
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .comparison-table th {
+            background: var(--primary-blue);
+            color: white;
+            padding: var(--spacing-md);
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: var(--spacing-md);
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--gray-50);
+        }
+
+        .comparison-table tr:hover {
+            background: var(--light-blue);
+        }
+    </style>
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body role="document">
+    <button class="theme-toggle" id="themeToggle">🌙 Modo Oscuro</button>
+    
+    <header class="header">
+        <div class="header-content">
+            <h1 id="main-title">CLASE T4: Fundamentos de Metodologías Ágiles</h1>
+            <p class="header-subtitle">
+                Análisis del Manifiesto Ágil: 4 valores y 12 principios que revolucionaron el desarrollo de software
+            </p>
+        </div>
+    </header>
+
+    <div class="container" role="main">
+        <!-- OBJETIVOS -->
+        <section id="objetivos" class="content-section">
+            <div class="card fade-in">
+                <h2 id="objectives-title">🎯 Objetivos de Aprendizaje</h2>
+                <h3>Al finalizar esta clase, el estudiante será capaz de:</h3>
+                <ul role="list">
+                    <li role="listitem"><strong>Analizar</strong> el contexto histórico que llevó al surgimiento del Manifiesto Ágil en 2001</li>
+                    <li role="listitem"><strong>Comprender</strong> los 4 valores fundamentales del Manifiesto Ágil y su aplicación práctica</li>
+                    <li role="listitem"><strong>Identificar</strong> los 12 principios ágiles y su impacto en el desarrollo de software</li>
+                    <li role="listitem"><strong>Contrastar</strong> las metodologías ágiles con los enfoques tradicionales</li>
+                    <li role="listitem"><strong>Evaluar</strong> la transformación cultural necesaria para adoptar metodologías ágiles</li>
+                </ul>
+            </div>
+
+            <div class="card slide-in">
+                <h2>📚 Competencias Específicas</h2>
+                <div class="synoptic-chart">
+                    <div class="synoptic-title">Competencias a Desarrollar en la Unidad 2</div>
+                    <div class="synoptic-grid">
+                        <div class="synoptic-item">
+                            <h4>💭 Pensamiento Ágil</h4>
+                            <p>Capacidad para adoptar la mentalidad y filosofía ágil en el desarrollo</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>🔄 Adaptabilidad</h4>
+                            <p>Flexibilidad para responder al cambio y la incertidumbre</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>👥 Colaboración</h4>
+                            <p>Habilidades para trabajar en equipos auto-organizados</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>📋 Entrega de Valor</h4>
+                            <p>Enfoque en la entrega continua de software con valor</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>📖 Marco Teórico de la Clase</h4>
+                <p>Esta clase forma parte de la <strong>Unidad 2: Metodologías Ágiles</strong> del programa académico. Seguimos el contenido establecido en el plan de estudios que incluye:</p>
+                <ul style="margin: var(--spacing-sm) 0 0 var(--spacing-lg); color: white;">
+                    <li role="listitem">Modelo ágil, iterativo-incremental, valores</li>
+                    <li role="listitem">Fundamentos del Manifiesto Ágil</li>
+                    <li role="listitem">Preparación para Scrum y Kanban (próximas clases)</li>
+                    <li role="listitem">User stories y Story mapping</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- CONTENIDO TEÓRICO -->
+        <section id="contenido" class="content-section">
+            <div class="card">
+                <h2>📖 1. Contexto Histórico: Crisis del Software y Surgimiento del Agilismo (1990-2001)</h2>
+                
+                <h3>1.1 La Crisis de las Metodologías Tradicionales</h3>
+                <p>Durante la década de 1990, la industria del software enfrentó una crisis significativa. Según el Standish Group, solo el 16% de los proyectos de software se completaban exitosamente utilizando metodologías tradicionales como el modelo en cascada.</p>
+                
+                <h4>Problemas Identificados en las Metodologías Tradicionales:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Rigidez excesiva:</strong> Los procesos lineales no se adaptaban a los cambios de requisitos</li>
+                    <li role="listitem"><strong>Documentación excesiva:</strong> Se invertía más tiempo documentando que desarrollando</li>
+                    <li role="listitem"><strong>Poca participación del cliente:</strong> Los usuarios finales solo veían el producto al final</li>
+                    <li role="listitem"><strong>Entregas tardías:</strong> Los proyectos se extendían más allá de los plazos</li>
+                    <li role="listitem"><strong>Productos obsoletos:</strong> Para cuando se entregaba, las necesidades habían cambiado</li>
+                </ul>
+
+                <h3>1.2 Antecedentes del Movimiento Ágil</h3>
+                <p>Antes del 2001, varios enfoques ya estaban emergiendo como alternativas:</p>
+                <ul role="list">
+                    <li role="listitem"><strong>Extreme Programming (XP):</strong> Desarrollado por Kent Beck</li>
+                    <li role="listitem"><strong>Scrum:</strong> Creado por Jeff Sutherland y Ken Schwaber</li>
+                    <li role="listitem"><strong>Crystal:</strong> Propuesto por Alistair Cockburn</li>
+                    <li role="listitem"><strong>FDD (Feature-Driven Development):</strong> De Jeff De Luca</li>
+                </ul>
+
+                <h3>1.3 La Reunión de Snowbird (Febrero 2001)</h3>
+                <p>Del 11 al 13 de febrero de 2001, 17 desarrolladores de software se reunieron en el Snowbird Ski Resort en Utah. Este evento histórico marcó el nacimiento formal del movimiento ágil.</p>
+
+                <div class="synoptic-chart">
+                    <div class="synoptic-title">Los 17 Firmantes del Manifiesto Ágil</div>
+                    <div class="synoptic-grid">
+                        <div class="synoptic-item">
+                            <h4>Kent Beck</h4>
+                            <p>Creador de XP y TDD</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>Martin Fowler</h4>
+                            <p>Experto en refactoring</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>Jeff Sutherland</h4>
+                            <p>Co-creador de Scrum</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>Ken Schwaber</h4>
+                            <p>Co-creador de Scrum</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>Alistair Cockburn</h4>
+                            <p>Metodología Crystal</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>Robert C. Martin</h4>
+                            <p>"Uncle Bob", Clean Code</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📋 2. Los 4 Valores del Manifiesto Ágil</h2>
+                
+                <p>El Manifiesto Ágil establece cuatro valores fundamentales que priorizan ciertos aspectos sobre otros, sin descartar completamente los elementos de menor prioridad.</p>
+
+                <h3>2.1 Valor 1: Individuos e Interacciones sobre Procesos y Herramientas</h3>
+                
+                <div class="highlight-box">
+                    <h4>💡 Análisis Profundo</h4>
+                    <p>Este valor reconoce que el software es desarrollado por personas, no por procesos automatizados. Las herramientas y procesos son importantes, pero deben servir a las personas, no dominarlas.</p>
+                </div>
+
+                <h4>Implicaciones Prácticas:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Comunicación directa:</strong> Preferir conversaciones cara a cara sobre documentos</li>
+                    <li role="listitem"><strong>Equipos empoderados:</strong> Dar autonomía para tomar decisiones técnicas</li>
+                    <li role="listitem"><strong>Adaptación de herramientas:</strong> Modificar procesos según las necesidades del equipo</li>
+                    <li role="listitem"><strong>Creatividad e innovación:</strong> Valorar el talento humano por encima de la automatización</li>
+                </ul>
+
+                <h3>2.2 Valor 2: Software Funcionando sobre Documentación Exhaustiva</h3>
+                
+                <div class="highlight-box">
+                    <h4>💡 Análisis Profundo</h4>
+                    <p>El valor principal reside en entregar software que realmente funcione y agregue valor al usuario. La documentación debe ser <strong>suficiente y útil</strong>, pero no el objetivo principal.</p>
+                </div>
+
+                <h4>Implicaciones Prácticas:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Documentación justa:</strong> Crear solo la documentación necesaria</li>
+                    <li role="listitem"><strong>Código auto-documentado:</strong> Escribir código limpio y expresivo</li>
+                    <li role="listitem"><strong>Prototipos funcionales:</strong> Desarrollar versiones tempranas para validar</li>
+                    <li role="listitem"><strong>Tests como documentación:</strong> Usar pruebas para documentar comportamiento</li>
+                </ul>
+
+                <h3>2.3 Valor 3: Colaboración con el Cliente sobre Negociación Contractual</h3>
+                
+                <div class="highlight-box">
+                    <h4>💡 Análisis Profundo</h4>
+                    <p>Los contratos rígidos crean adversarios en lugar de colaboradores. La colaboración continua permite adaptar el producto a las necesidades reales que emergen durante el desarrollo.</p>
+                </div>
+
+                <h4>Implicaciones Prácticas:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Cliente como socio:</strong> Involucrar al cliente como parte del equipo</li>
+                    <li role="listitem"><strong>Feedback continuo:</strong> Obtener retroalimentación regular durante todo el proceso</li>
+                    <li role="listitem"><strong>Contratos adaptativos:</strong> Negociar contratos que permitan cambios y ajustes</li>
+                    <li role="listitem"><strong>Transparencia total:</strong> Compartir avances, obstáculos y decisiones abiertamente</li>
+                    <li role="listitem"><strong>Objetivos compartidos:</strong> Alinear los objetivos del cliente y del equipo</li>
+                </ul>
+
+                <h3>2.4 Valor 4: Respuesta ante el Cambio sobre Seguir un Plan</h3>
+                
+                <div class="highlight-box">
+                    <h4>💡 Análisis Profundo</h4>
+                    <p>Los mercados, tecnologías y necesidades de negocio cambian constantemente. La capacidad de adaptarse rápidamente es más valiosa que seguir rígidamente un plan obsoleto.</p>
+                </div>
+
+                <h4>Implicaciones Prácticas:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Planificación adaptativa:</strong> Crear planes flexibles que puedan ajustarse</li>
+                    <li role="listitem"><strong>Iteraciones cortas:</strong> Permitir evaluación y ajuste frecuente</li>
+                    <li role="listitem"><strong>Feedback temprano:</strong> Obtener información del mercado lo antes posible</li>
+                    <li role="listitem"><strong>Aprendizaje continuo:</strong> Incorporar nuevos conocimientos en las decisiones</li>
+                </ul>
+
+                <div class="synoptic-chart">
+                    <div class="synoptic-title">Comparación: Tradicional vs Ágil</div>
+                    <table class="comparison-table">
+                        <thead role="rowgroup">
+                            <tr role="row">
+                                <th role="columnheader">Aspecto</th>
+                                <th role="columnheader">Enfoque Tradicional</th>
+                                <th role="columnheader">Enfoque Ágil</th>
+                            </tr>
+                        </thead>
+                        <tbody role="rowgroup">
+                            <tr role="row">
+                                <td role="cell"><strong>Enfoque Principal</strong></td>
+                                <td role="cell">Procesos y herramientas</td>
+                                <td role="cell">Individuos e interacciones</td>
+                            </tr>
+                            <tr role="row">
+                                <td role="cell"><strong>Entregables</strong></td>
+                                <td role="cell">Documentación exhaustiva</td>
+                                <td role="cell">Software funcionando</td>
+                            </tr>
+                            <tr role="row">
+                                <td role="cell"><strong>Relación Cliente</strong></td>
+                                <td role="cell">Negociación contractual</td>
+                                <td role="cell">Colaboración continua</td>
+                            </tr>
+                            <tr role="row">
+                                <td role="cell"><strong>Gestión</strong></td>
+                                <td role="cell">Seguir un plan</td>
+                                <td role="cell">Responder ante el cambio</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>🎯 3. Los 12 Principios Ágiles: Análisis Detallado</h2>
+                
+                <p>Los 12 principios del Manifiesto Ágil proporcionan guías específicas para implementar los valores ágiles en la práctica diaria. Están organizados en cuatro grupos temáticos.</p>
+
+                <h3>3.1 Principios Orientados al Cliente (1-4)</h3>
+                
+                <h4>Principio 1: "Nuestra mayor prioridad es satisfacer al cliente mediante la entrega temprana y continua de software con valor"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Entrega temprana:</strong> Minimizar el time-to-market para obtener feedback real</li>
+                    <li role="listitem"><strong>Entrega continua:</strong> Mantener un flujo constante de valor hacia el cliente</li>
+                    <li role="listitem"><strong>Software con valor:</strong> Cada entrega debe aportar funcionalidad útil y medible</li>
+                    <li role="listitem"><strong>Satisfacción del cliente:</strong> El éxito se mide por la satisfacción real del usuario</li>
+                </ul>
+
+                <h4>Principio 2: "Aceptamos que los requisitos cambien, incluso en etapas tardías del desarrollo"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Flexibilidad de requisitos:</strong> Diseñar arquitecturas que permitan cambios</li>
+                    <li role="listitem"><strong>Cambios como ventaja:</strong> Los procesos ágiles aprovechan el cambio para proporcionar ventaja competitiva</li>
+                    <li role="listitem"><strong>Adaptación tardía:</strong> Mantener capacidad de cambio durante todo el proyecto</li>
+                </ul>
+
+                <h4>Principio 3: "Entregamos software funcional frecuentemente, entre dos semanas y dos meses, con preferencia al periodo de tiempo más corto posible"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Ciclos cortos:</strong> Iteraciones de 1-4 semanas típicamente</li>
+                    <li role="listitem"><strong>Software funcional:</strong> Cada entrega debe ser potencialmente desplegable</li>
+                    <li role="listitem"><strong>Feedback rápido:</strong> Validación temprana de suposiciones y decisiones</li>
+                </ul>
+
+                <h4>Principio 4: "Los responsables de negocio y los desarrolladores trabajamos juntos de forma cotidiana durante todo el proyecto"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Colaboración diaria:</strong> Comunicación constante entre business y técnico</li>
+                    <li role="listitem"><strong>Trabajo conjunto:</strong> Evitar silos organizacionales</li>
+                    <li role="listitem"><strong>Alineación continua:</strong> Evitar desviaciones entre expectativas y realidad</li>
+                </ul>
+
+                <h3>3.2 Principios Orientados al Equipo (5-8)</h3>
+
+                <h4>Principio 5: "Los proyectos se desarrollan en torno a individuos motivados. Hay que darles el entorno y el apoyo que necesitan, y confiarles la ejecución del trabajo"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Individuos motivados:</strong> Crear condiciones para la motivación intrínseca</li>
+                    <li role="listitem"><strong>Entorno adecuado:</strong> Proporcionar recursos, herramientas y ambiente</li>
+                    <li role="listitem"><strong>Confianza:</strong> Dar autonomía y responsabilidad a los miembros del equipo</li>
+                </ul>
+
+                <h4>Principio 6: "El método más eficiente y efectivo de comunicar información al equipo de desarrollo y entre sus miembros es la conversación cara a cara"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Comunicación directa:</strong> Minimizar intermediarios y malentendidos</li>
+                    <li role="listitem"><strong>Riqueza del canal:</strong> Aprovechar lenguaje corporal, tono y contexto</li>
+                    <li role="listitem"><strong>Eficiencia:</strong> Resolución rápida de dudas y problemas</li>
+                </ul>
+
+                <h4>Principio 7: "El software funcionando es la medida principal de progreso"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Métricas tangibles:</strong> Medir progreso por funcionalidad entregada</li>
+                    <li role="listitem"><strong>Valor real:</strong> Enfocarse en resultados, no en actividades</li>
+                    <li role="listitem"><strong>Transparencia:</strong> Progreso visible y verificable por todos</li>
+                </ul>
+
+                <h4>Principio 8: "Los procesos ágiles promueven el desarrollo sostenible. Los promotores, desarrolladores y usuarios debemos ser capaces de mantener un ritmo constante de forma indefinida"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Ritmo sostenible:</strong> Evitar el burnout y mantener productividad</li>
+                    <li role="listitem"><strong>Desarrollo sostenible:</strong> Balance entre trabajo y vida personal</li>
+                    <li role="listitem"><strong>Ritmo constante:</strong> Mantener un ritmo que se pueda sostener indefinidamente</li>
+                </ul>
+
+                <h3>3.3 Principios Orientados al Producto (9-12)</h3>
+
+                <h4>Principio 9: "La atención continua a la excelencia técnica y al buen diseño mejora la agilidad"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Excelencia técnica:</strong> Invertir en código limpio y arquitectura sólida</li>
+                    <li role="listitem"><strong>Buen diseño:</strong> Crear soluciones elegantes y mantenibles</li>
+                    <li role="listitem"><strong>Mejora la agilidad:</strong> La calidad técnica permite cambios futuros más fáciles</li>
+                </ul>
+
+                <h4>Principio 10: "La simplicidad, o el arte de maximizar la cantidad de trabajo no realizado, es esencial"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Simplicidad esencial:</strong> Preferir soluciones simples y directas</li>
+                    <li role="listitem"><strong>YAGNI:</strong> "You Aren't Gonna Need It" - No implementar hasta que sea necesario</li>
+                    <li role="listitem"><strong>Maximizar trabajo no realizado:</strong> Reducir el trabajo innecesario</li>
+                </ul>
+
+                <h4>Principio 11: "Las mejores arquitecturas, requisitos y diseños emergen de equipos auto-organizados"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Equipos auto-organizados:</strong> Los equipos deciden cómo trabajar</li>
+                    <li role="listitem"><strong>Emergencia:</strong> Las mejores soluciones surgen de la colaboración</li>
+                    <li role="listitem"><strong>Autonomía técnica:</strong> Los desarrolladores toman decisiones técnicas</li>
+                </ul>
+
+                <h4>Principio 12: "A intervalos regulares el equipo reflexiona sobre cómo ser más efectivo para a continuación ajustar y perfeccionar su comportamiento en consecuencia"</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Reflexión regular:</strong> Sesiones periódicas de análisis</li>
+                    <li role="listitem"><strong>Mejora continua:</strong> Ajustar comportamientos y procesos constantemente</li>
+                    <li role="listitem"><strong>Retrospectivas:</strong> Implementar cambios basados en aprendizajes</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2>🔄 4. Transformación Cultural: Cambio de Paradigma Organizacional</h2>
+                
+                <h3>4.1 De Metodologías Tradicionales a Ágiles</h3>
+                <p>La adopción de metodologías ágiles no es solo un cambio de proceso, sino una transformación cultural fundamental que afecta toda la organización.</p>
+
+                <h3>4.2 Desarrollo Iterativo e Incremental</h3>
+                <p>Como vimos en las clases anteriores del curso, las metodologías ágiles se basan en dos conceptos fundamentales:</p>
+                
+                <ul role="list">
+                    <li role="listitem"><strong>Iterativo:</strong> Repetir ciclos de desarrollo para refinar el producto</li>
+                    <li role="listitem"><strong>Incremental:</strong> Agregar funcionalidad en cada ciclo, entregando valor continuo</li>
+                </ul>
+
+                <h3>4.3 Cambio de Mindset Organizacional</h3>
+                
+                <div class="synoptic-chart">
+                    <div class="synoptic-title">Transformación del Mindset</div>
+                    <div class="synoptic-grid">
+                        <div class="synoptic-item">
+                            <h4>🏗️ Comando y Control</h4>
+                            <p>Jerarquía, predicción, conformidad, documentación</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>🚀 Colaborativo</h4>
+                            <p>Autonomía, adaptación, creatividad, comunicación</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>👥 Liderazgo Servicial</h4>
+                            <p>Facilitación, remoción de obstáculos, desarrollo de personas</p>
+                        </div>
+                        <div class="synoptic-item">
+                            <h4>📊 Métricas de Valor</h4>
+                            <p>De métricas de actividad a métricas de resultados y valor</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>4.4 Valores Culturales en las Metodologías Ágiles</h3>
+                <p>Según el contenido visto en clase 9, las metodologías ágiles promueven valores específicos:</p>
+                
+                <ul role="list">
+                    <li role="listitem"><strong>Honestidad:</strong> Transparencia en comunicación y reporte de estado</li>
+                    <li role="listitem"><strong>Coraje:</strong> Valentía para tomar decisiones difíciles y cambiar</li>
+                    <li role="listitem"><strong>Avance colectivo:</strong> Éxito del equipo por encima del individual</li>
+                    <li role="listitem"><strong>Respeto:</strong> Valorar las contribuciones y perspectivas de todos</li>
+                </ul>
+
+                <h3>4.5 Gestión del Cambio y Desvíos</h3>
+                <p>En las metodologías ágiles, los desvíos no son problemas sino oportunidades:</p>
+                
+                <ul role="list">
+                    <li role="listitem"><strong>Desvío como normalidad:</strong> Se espera y planifica para el cambio</li>
+                    <li role="listitem"><strong>Gestión efectiva:</strong> Procesos para manejar cambios rápidamente</li>
+                    <li role="listitem"><strong>Ambiente colaborativo:</strong> Trabajo en equipo para resolver desafíos</li>
+                    <li role="listitem"><strong>Comunicación abierta:</strong> Informar cambios de manera transparente</li>
+                </ul>
+
+                <h3>4.6 Implementación de la Transformación</h3>
+                
+                <h4>Fases de Adopción Ágil:</h4>
+                <ol role="list">
+                    <li role="listitem"><strong>Concienciación:</strong> Entender la necesidad de cambio</li>
+                    <li role="listitem"><strong>Educación:</strong> Capacitar en principios y valores ágiles</li>
+                    <li role="listitem"><strong>Experimentación:</strong> Pilotos controlados en equipos pequeños</li>
+                    <li role="listitem"><strong>Escalamiento:</strong> Expansión gradual a toda la organización</li>
+                    <li role="listitem"><strong>Institucionalización:</strong> Incorporación en la cultura organizacional</li>
+                </ol>
+
+                <h4>Factores Críticos de Éxito:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Sponsorship ejecutivo:</strong> Apoyo visible de la alta dirección</li>
+                    <li role="listitem"><strong>Comunicación clara:</strong> Explicar el "por qué" del cambio</li>
+                    <li role="listitem"><strong>Entrenamiento continuo:</strong> Capacitación sostenida en el tiempo</li>
+                    <li role="listitem"><strong>Paciencia:</strong> Reconocer que el cambio cultural toma tiempo</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- DIAGRAMAS -->
+        <section id="diagramas" class="content-section">
+            <div class="card">
+                <h2>📊 Diagramas Conceptuales y Visualizaciones</h2>
+                
+                <h3>Timeline: Evolución Histórica del Agilismo</h3>
+                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                    <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+%%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
+gantt
+    title Evolución de las Metodologías Ágiles (1990-2025)
+    dateFormat YYYY-MM-DD
+    axisFormat %Y
+    
+    section Crisis del Software
+    Metodologías rígidas       :crisis1, 1990-01-01, 1999-12-31
+    Proyectos fallidos         :crisis2, 1990-01-01, 1999-12-31
+    
+    section Precursores Ágiles
+    Scrum (Sutherland)         :scrum_early, 1995-01-01, 2000-12-31
+    Extreme Programming        :xp, 1996-01-01, 2000-12-31
+    Crystal Methods            :crystal, 1998-01-01, 2000-12-31
+    
+    section Nacimiento Formal
+    Reunión Snowbird           :milestone, 2001-02-11, 2001-02-13
+    Manifiesto Ágil            :manifesto, 2001-02-01, 2002-12-31
+    
+    section Adopción y Expansión
+    Refinamiento Scrum         :scrum_mature, 2002-01-01, 2008-12-31
+    Adopción empresarial       :enterprise, 2003-01-01, 2010-12-31
+    Certificaciones ágiles     :cert, 2005-01-01, 2012-12-31
+    
+    section Escalamiento
+    SAFe Framework             :safe, 2011-01-01, 2025-12-31
+    DevOps Integration         :devops, 2013-01-01, 2025-12-31
+    Agilidad Organizacional    :org_agility, 2015-01-01, 2025-12-31
+                    </div>
+                </div>
+
+                <h3>Mindmap: Los 12 Principios Organizados por Categorías</h3>
+                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                    <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+%%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
+mindmap
+  root((12 Principios Ágiles))
+    [Orientados al Cliente]
+      (1. Satisfacción cliente)
+        Entrega temprana
+        Entrega continua
+        Software con valor
+      (2. Cambios bienvenidos)
+        Flexibilidad
+        Ventaja competitiva
+        Etapas tardías
+      (3. Entregas frecuentes)
+        2 semanas - 2 meses
+        Software funcional
+        Períodos cortos
+      (4. Colaboración diaria)
+        Negocio + Desarrollo
+        Trabajo cotidiano
+        Todo el proyecto
+    
+    [Orientados al Equipo]
+      (5. Individuos motivados)
+        Entorno adecuado
+        Apoyo necesario
+        Confianza
+      (6. Conversación cara a cara)
+        Método más eficiente
+        Comunicación efectiva
+        Equipo desarrollo
+      (7. Software funcionando)
+        Medida principal
+        Progreso real
+        Resultados tangibles
+      (8. Desarrollo sostenible)
+        Ritmo constante
+        Forma indefinida
+        Promotores y usuarios
+    
+    [Orientados al Producto]
+      (9. Excelencia técnica)
+        Atención continua
+        Buen diseño
+        Mejora agilidad
+      (10. Simplicidad)
+        Arte de maximizar
+        Trabajo no realizado
+        Esencial
+      (11. Equipos auto-organizados)
+        Mejores arquitecturas
+        Requisitos emergentes
+        Diseños óptimos
+      (12. Reflexión regular)
+        Intervalos regulares
+        Más efectivo
+        Ajustar comportamiento
+        Comunicación efectiva
+        Equipo desarrollo
+      (7. Software funcionando)
+        Medida principal
+        Progreso real
+        Resultados tangibles
+      (8. Desarrollo sostenible)
+        Ritmo constante
+        Forma indefinida
+        Promotores y usuarios
+    
+    [Orientados al Producto]
+      (9. Excelencia técnica)
+        Atención continua
+        Buen diseño
+        Mejora agilidad
+      (10. Simplicidad)
+        Arte de maximizar
+        Trabajo no realizado
+        Esencial
+      (11. Equipos auto-organizados)
+        Mejores arquitecturas
+        Requisitos emergentes
+        Diseños óptimos
+      (12. Reflexión regular)
+        Intervalos regulares
+        Más efectivo
+        Ajustar comportamiento
+                    </div>
+                </div>
+
+                <h3>Diagrama de Flujo: Transformación Cultural Ágil</h3>
+                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                    <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+%%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
+flowchart TD
+    A["Organización Tradicional"] --> B{"¿Crisis o Necesidad<br/>de Cambio?"}
+    B -->|"Sí"| C["Concienciación sobre Agilismo"]
+    B -->|"No"| A
+    
+    C --> D["Educación en Valores<br/>y Principios Ágiles"]
+    D --> E["Piloto con Equipo Pequeño"]
+    E --> F{"¿Piloto<br/>Exitoso?"}
+    
+    F -->|"No"| G["Analizar Lecciones"]
+    G --> D
+    F -->|"Sí"| H["Escalamiento Gradual"]
+    
+    H --> I["Múltiples Equipos Ágiles"]
+    I --> J["Transformación Organizacional"]
+    J --> K["Cultura Ágil Institucionalizada"]
+    
+    K --> L["Mejora Continua"]
+    L --> M["Retrospectivas Organizacionales"]
+    M --> L
+    
+    style A fill:#ffcccb
+    style K fill:#90ee90
+    style C fill:#87ceeb
+    style H fill:#dda0dd
+                    </div>
+                </div>
+
+                <h3>Diagrama Comparativo: Valores Tradicionales vs Ágiles</h3>
+                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                    <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+%%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
+graph LR
+    subgraph "Enfoque Tradicional"
+        T1["Procesos y<br/>Herramientas"]
+        T2["Documentación<br/>Exhaustiva"]
+        T3["Negociación<br/>Contractual"]
+        T4["Seguir<br/>un Plan"]
+    end
+    
+    subgraph "Enfoque Ágil"
+        A1["Individuos e<br/>Interacciones"]
+        A2["Software<br/>Funcionando"]
+        A3["Colaboración<br/>con Cliente"]
+        A4["Respuesta ante<br/>el Cambio"]
+    end
+    
+    T1 -.->|"SOBRE"| A1
+    T2 -.->|"SOBRE"| A2
+    T3 -.->|"SOBRE"| A3
+    T4 -.->|"SOBRE"| A4
+    
+    style T1 fill:#ffcccb
+    style T2 fill:#ffcccb
+    style T3 fill:#ffcccb
+    style T4 fill:#ffcccb
+    style A1 fill:#90ee90
+    style A2 fill:#90ee90
+    style A3 fill:#90ee90
+    style A4 fill:#90ee90
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CASOS DE USO -->
+        <section id="casos-uso" class="content-section">
+            <div class="card">
+                <h2>🎯 Casos de Uso: Implementación de Principios Ágiles</h2>
+                
+                <h3>Caso de Uso Principal: Adopción del Manifiesto Ágil en una Organización</h3>
+                
+                <svg class="use-case-svg" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Título del Sistema -->
+                    <text x="450" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#2563eb">
+                        Sistema de Adopción del Manifiesto Ágil
+                    </text>
+                    
+                    <!-- Límites del sistema -->
+                    <rect x="200" y="60" width="500" height="480" fill="none" stroke="#2563eb" stroke-width="3" rx="15"/>
+                    <text x="450" y="85" text-anchor="middle" font-size="14" font-weight="bold" fill="#2563eb">
+                        Transformación Ágil Organizacional
+                    </text>
+                    
+                    <!-- ACTORES -->
+                    
+                    <!-- Equipo de Desarrollo -->
+                    <g id="dev-team">
+                        <circle cx="100" cy="150" r="18" fill="none" stroke="#2563eb" stroke-width="2"/>
+                        <text x="100" y="155" text-anchor="middle" font-size="10" fill="#2563eb">DEV</text>
+                        <line x1="100" y1="168" x2="100" y2="210" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="75" y1="185" x2="125" y2="185" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="100" y1="210" x2="80" y2="245" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="100" y1="210" x2="120" y2="245" stroke="#2563eb" stroke-width="2"/>
+                        <text x="100" y="265" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Equipo de</text>
+                        <text x="100" y="278" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Desarrollo</text>
+                    </g>
+                    
+                    <!-- Product Owner -->
+                    <g id="product-owner">
+                        <circle cx="100" cy="350" r="18" fill="none" stroke="#2563eb" stroke-width="2"/>
+                        <text x="100" y="355" text-anchor="middle" font-size="10" fill="#2563eb">PO</text>
+                        <line x1="100" y1="368" x2="100" y2="410" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="75" y1="385" x2="125" y2="385" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="100" y1="410" x2="80" y2="445" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="100" y1="410" x2="120" y2="445" stroke="#2563eb" stroke-width="2"/>
+                        <text x="100" y="465" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Product</text>
+                        <text x="100" y="478" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Owner</text>
+                    </g>
+                    
+                    <!-- Cliente -->
+                    <g id="cliente">
+                        <circle cx="800" cy="200" r="18" fill="none" stroke="#2563eb" stroke-width="2"/>
+                        <text x="800" y="205" text-anchor="middle" font-size="10" fill="#2563eb">CLI</text>
+                        <line x1="800" y1="218" x2="800" y2="260" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="775" y1="235" x2="825" y2="235" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="800" y1="260" x2="780" y2="295" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="800" y1="260" x2="820" y2="295" stroke="#2563eb" stroke-width="2"/>
+                        <text x="800" y="315" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Cliente</text>
+                    </g>
+                    
+                    <!-- Organización -->
+                    <g id="organizacion">
+                        <circle cx="800" cy="400" r="18" fill="none" stroke="#2563eb" stroke-width="2"/>
+                        <text x="800" y="405" text-anchor="middle" font-size="10" fill="#2563eb">ORG</text>
+                        <line x1="800" y1="418" x2="800" y2="460" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="775" y1="435" x2="825" y2="435" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="800" y1="460" x2="780" y2="495" stroke="#2563eb" stroke-width="2"/>
+                        <line x1="800" y1="460" x2="820" y2="495" stroke="#2563eb" stroke-width="2"/>
+                        <text x="800" y="515" text-anchor="middle" font-size="11" font-weight="bold" fill="#2563eb">Organización</text>
+                    </g>
+                    
+                    <!-- CASOS DE USO -->
+                    
+                    <!-- Aplicar Valores Ágiles -->
+                    <ellipse cx="300" cy="140" rx="75" ry="25" fill="#f0f9ff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="300" y="136" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Aplicar</text>
+                    <text x="300" y="148" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Valores Ágiles</text>
+                    
+                    <!-- Implementar Principios -->
+                    <ellipse cx="450" cy="180" rx="75" ry="25" fill="#f0f9ff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="450" y="176" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Implementar</text>
+                    <text x="450" y="188" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Principios</text>
+                    
+                    <!-- Entregar Valor Continuo -->
+                    <ellipse cx="350" cy="240" rx="75" ry="25" fill="#f0f9ff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="350" y="236" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Entregar Valor</text>
+                    <text x="350" y="248" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Continuo</text>
+                    
+                    <!-- Colaborar con Cliente -->
+                    <ellipse cx="550" cy="220" rx="75" ry="25" fill="#f0f9ff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="550" y="216" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Colaborar</text>
+                    <text x="550" y="228" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">con Cliente</text>
+                    
+                    <!-- Gestionar Product Backlog -->
+                    <ellipse cx="300" cy="320" rx="75" ry="25" fill="#f0f9ff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="300" y="316" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Gestionar</text>
+                    <text x="300" y="328" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Backlog</text>
+                    
+                    <!-- Responder al Cambio -->
+                    <ellipse cx="450" cy="280" rx="75" ry="25" fill="#f0f9ff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="450" y="276" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Responder</text>
+                    <text x="450" y="288" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">al Cambio</text>
+                    
+                    <!-- Realizar Retrospectivas -->
+                    <ellipse cx="380" cy="380" rx="75" ry="25" fill="#f0f9ff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="380" y="376" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Realizar</text>
+                    <text x="380" y="388" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Retrospectivas</text>
+                    
+                    <!-- Transformar Cultura -->
+                    <ellipse cx="500" cy="420" rx="75" ry="25" fill="#f0f9ff" stroke="#2563eb" stroke-width="2"/>
+                    <text x="500" y="416" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Transformar</text>
+                    <text x="500" y="428" text-anchor="middle" font-size="10" font-weight="bold" fill="#1e40af">Cultura</text>
+                    
+                    <!-- RELACIONES DE ASOCIACIÓN -->
+                    
+                    <!-- Equipo de Desarrollo -->
+                    <line x1="125" y1="160" x2="225" y2="145" stroke="#2563eb" stroke-width="2"/>
+                    <line x1="125" y1="170" x2="275" y2="235" stroke="#2563eb" stroke-width="2"/>
+                    <line x1="125" y1="180" x2="375" y2="175" stroke="#2563eb" stroke-width="2"/>
+                    
+                    <!-- Product Owner -->
+                    <line x1="125" y1="360" x2="225" y2="330" stroke="#2563eb" stroke-width="2"/>
+                    <line x1="125" y1="370" x2="305" y2="385" stroke="#2563eb" stroke-width="2"/>
+                    
+                    <!-- Cliente -->
+                    <line x1="775" y1="210" x2="625" y2="225" stroke="#2563eb" stroke-width="2"/>
+                    <line x1="775" y1="220" x2="425" y2="245" stroke="#2563eb" stroke-width="2"/>
+                    <line x1="775" y1="230" x2="525" y2="285" stroke="#2563eb" stroke-width="2"/>
+                    
+                    <!-- Organización -->
+                    <line x1="775" y1="410" x2="575" y2="425" stroke="#2563eb" stroke-width="2"/>
+                    <line x1="775" y1="420" x2="455" y2="385" stroke="#2563eb" stroke-width="2"/>
+                    
+                    <!-- RELACIONES INCLUDE -->
+                    <line x1="375" y1="150" x2="400" y2="170" stroke="#10b981" stroke-width="2" stroke-dasharray="6,3"/>
+                    <text x="390" y="158" font-size="9" fill="#10b981" font-style="italic">«include»</text>
+                    
+                    <line x1="380" y1="250" x2="420" y2="270" stroke="#10b981" stroke-width="2" stroke-dasharray="6,3"/>
+                    <text x="405" y="258" font-size="9" fill="#10b981" font-style="italic">«include»</text>
+                    
+                    <!-- RELACIONES EXTEND -->
+                    <line x1="430" y1="360" x2="460" y2="305" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,3"/>
+                    <text x="450" y="330" font-size="9" fill="#f59e0b" font-style="italic">«extend»</text>
+                    
+                    <line x1="470" y1="395" x2="480" y2="305" stroke="#f59e0b" stroke-width="2" stroke-dasharray="6,3"/>
+                    <text x="480" y="350" font-size="9" fill="#f59e0b" font-style="italic">«extend»</text>
+                </svg>
+
+                <h3>Especificación de Casos de Uso Principales</h3>
+                
+                <div class="card">
+                    <h4>Caso de Uso: Aplicar Valores Ágiles</h4>
+                    <p><strong>Actor Principal:</strong> Equipo de Desarrollo</p>
+                    <p><strong>Objetivo:</strong> Implementar los 4 valores del Manifiesto Ágil en el trabajo diario</p>
+                    <p><strong>Precondiciones:</strong> El equipo ha sido capacitado en metodologías ágiles</p>
+                    
+                    <h5>Flujo Principal:</h5>
+                    <ol role="list">
+                        <li role="listitem">El equipo prioriza individuos e interacciones sobre procesos</li>
+                        <li role="listitem">Se enfoca en entregar software funcionando sobre documentación</li>
+                        <li role="listitem">Establece colaboración continua con el cliente</li>
+                        <li role="listitem">Mantiene flexibilidad para responder al cambio</li>
+                        <li role="listitem">Evalúa el progreso basado en software funcionando</li>
+                    </ol>
+                    
+                    <p><strong>Postcondiciones:</strong> Los valores ágiles se reflejan en las prácticas diarias del equipo</p>
+                </div>
+
+                <div class="card">
+                    <h4>Caso de Uso: Colaborar con Cliente</h4>
+                    <p><strong>Actor Principal:</strong> Product Owner, Cliente</p>
+                    <p><strong>Objetivo:</strong> Establecer colaboración continua sobre negociación contractual</p>
+                    
+                    <h5>Flujo Principal:</h5>
+                    <ol role="list">
+                        <li role="listitem">El cliente se integra como parte del equipo</li>
+                        <li role="listitem">Se establecen canales de comunicación directa</li>
+                        <li role="listitem">Se programan sesiones regulares de feedback</li>
+                        <li role="listitem">Se ajustan prioridades basado en valor de negocio</li>
+                        <li role="listitem">Se mantiene transparencia total en el progreso</li>
+                    </ol>
+                    
+                    <h5>Flujos Alternativos:</h5>
+                    <ul role="list">
+                        <li role="listitem"><strong>2a.</strong> Si el cliente no puede participar diariamente, se establecen representantes dedicados</li>
+                        <li role="listitem"><strong>4a.</strong> Si surgen cambios urgentes, se repriorizan inmediatamente las tareas</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4>Caso de Uso: Transformar Cultura</h4>
+                    <p><strong>Actor Principal:</strong> Organización</p>
+                    <p><strong>Objetivo:</strong> Implementar la transformación cultural hacia agilidad</p>
+                    
+                    <h5>Flujo Principal:</h5>
+                    <ol role="list">
+                        <li role="listitem">La organización evalúa la cultura actual</li>
+                        <li role="listitem">Define la visión de cultura ágil deseada</li>
+                        <li role="listitem">Implementa programas de capacitación</li>
+                        <li role="listitem">Establece métricas de transformación cultural</li>
+                        <li role="listitem">Ajusta políticas y procedimientos organizacionales</li>
+                        <li role="listitem">Monitorea y refuerza los cambios culturales</li>
+                    </ol>
+                    
+                    <p><strong>Restricciones:</strong> La transformación debe ser gradual y sostenible</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- EVALUACIÓN -->
+        <section id="evaluacion" class="content-section">
+            <div class="card">
+                <h2>✅ Evaluación: Fundamentos de Metodologías Ágiles</h2>
+                <p>Complete el siguiente cuestionario para evaluar su comprensión de los conceptos vistos en esta clase.</p>
+                
+                <section class="quiz-container" role="region" aria-labelledby="quiz-title">
+                    <div class="quiz-question" data-question="1">
+                        <h4>1. ¿En qué año se firmó el Manifiesto Ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q1" value="a"> a) 1999</label></li>
+                            <li role="listitem"><label><input type="radio" name="q1" value="b"> b) 2001</label></li>
+                            <li role="listitem"><label><input type="radio" name="q1" value="c"> c) 2003</label></li>
+                            <li role="listitem"><label><input type="radio" name="q1" value="d"> d) 2005</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result1"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="2">
+                        <h4>2. ¿Cuál es el primer valor del Manifiesto Ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q2" value="a"> a) Software funcionando sobre documentación exhaustiva</label></li>
+                            <li role="listitem"><label><input type="radio" name="q2" value="b"> b) Individuos e interacciones sobre procesos y herramientas</label></li>
+                            <li role="listitem"><label><input type="radio" name="q2" value="c"> c) Colaboración con el cliente sobre negociación contractual</label></li>
+                            <li role="listitem"><label><input type="radio" name="q2" value="d"> d) Respuesta ante el cambio sobre seguir un plan</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result2"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="3">
+                        <h4>3. ¿Cuántos principios tiene el Manifiesto Ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q3" value="a"> a) 8 principios</label></li>
+                            <li role="listitem"><label><input type="radio" name="q3" value="b"> b) 10 principios</label></li>
+                            <li role="listitem"><label><input type="radio" name="q3" value="c"> c) 12 principios</label></li>
+                            <li role="listitem"><label><input type="radio" name="q3" value="d"> d) 16 principios</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result3"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="4">
+                        <h4>4. ¿Qué enfatiza el principio "La simplicidad es esencial"?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q4" value="a"> a) Usar tecnologías simples únicamente</label></li>
+                            <li role="listitem"><label><input type="radio" name="q4" value="b"> b) Maximizar la cantidad de trabajo no realizado</label></li>
+                            <li role="listitem"><label><input type="radio" name="q4" value="c"> c) Simplificar la documentación</label></li>
+                            <li role="listitem"><label><input type="radio" name="q4" value="d"> d) Reducir el tamaño del equipo</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result4"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="5">
+                        <h4>5. ¿Cuál es la frecuencia recomendada para entregar software funcionando?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q5" value="a"> a) Entre 1 semana y 1 mes</label></li>
+                            <li role="listitem"><label><input type="radio" name="q5" value="b"> b) Entre 2 semanas y 2 meses</label></li>
+                            <li role="listitem"><label><input type="radio" name="q5" value="c"> c) Entre 1 mes y 6 meses</label></li>
+                            <li role="listitem"><label><input type="radio" name="q5" value="d"> d) Cada 6 meses</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result5"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="6">
+                        <h4>6. ¿Quiénes fueron los co-creadores de Scrum que firmaron el Manifiesto?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q6" value="a"> a) Kent Beck y Martin Fowler</label></li>
+                            <li role="listitem"><label><input type="radio" name="q6" value="b"> b) Jeff Sutherland y Ken Schwaber</label></li>
+                            <li role="listitem"><label><input type="radio" name="q6" value="c"> c) Alistair Cockburn y Robert Martin</label></li>
+                            <li role="listitem"><label><input type="radio" name="q6" value="d"> d) Ward Cunningham y Dave Thomas</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result6"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="7">
+                        <h4>7. ¿Qué significa que las metodologías ágiles son "iterativas e incrementales"?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q7" value="a"> a) Se repiten procesos y se agrega funcionalidad gradualmente</label></li>
+                            <li role="listitem"><label><input type="radio" name="q7" value="b"> b) Se documenta todo y luego se implementa</li>
+                            <li role="listitem"><label><input type="radio" name="q7" value="c"> c) Se planifica todo al inicio y se ejecuta secuencialmente</li>
+                            <li role="listitem"><label><input type="radio" name="q7" value="d"> d) Se enfoca solo en la parte técnica del desarrollo</li>
+                        </ul>
+                        <div class="quiz-result" id="result7"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="8">
+                        <h4>8. ¿Cuál es la principal medida de progreso según los principios ágiles?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q8" value="a"> a) La cantidad de documentación producida</label></li>
+                            <li role="listitem"><label><input type="radio" name="q8" value="b"> b) El cumplimiento de fechas planificadas</label></li>
+                            <li role="listitem"><label><input type="radio" name="q8" value="c"> c) El software funcionando</label></li>
+                            <li role="listitem"><label><input type="radio" name="q8" value="d"> d) La satisfacción del equipo de desarrollo</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result8"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="9">
+                        <h4>9. ¿Qué caracteriza a los equipos auto-organizados?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q9" value="a"> a) Siguen órdenes estrictas de la gerencia</label></li>
+                            <li role="listitem"><label><input type="radio" name="q9" value="b"> b) Deciden cómo organizarse y qué tecnologías usar</label></li>
+                            <li role="listitem"><label><input type="radio" name="q9" value="c"> c) Trabajan sin ningún tipo de planificación</label></li>
+                            <li role="listitem"><label><input type="radio" name="q9" value="d"> d) Se enfocan únicamente en aspectos técnicos</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result9"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="10">
+                        <h4>10. ¿Qué es una retrospectiva en el contexto ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q8" value="d"> d) La satisfacción del equipo de desarrollo</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result8"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="9">
+                        <h4>9. ¿Qué caracteriza a los equipos auto-organizados?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q9" value="a"> a) Siguen órdenes estrictas de la gerencia</label></li>
+                            <li role="listitem"><label><input type="radio" name="q9" value="b"> b) Deciden cómo organizarse y qué tecnologías usar</label></li>
+                            <li role="listitem"><label><input type="radio" name="q9" value="c"> c) Trabajan sin ningún tipo de planificación</label></li>
+                            <li role="listitem"><label><input type="radio" name="q9" value="d"> d) Se enfocan únicamente en aspectos técnicos</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result9"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="10">
+                        <h4>10. ¿Qué es una retrospectiva en el contexto ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q10" value="a"> a) Una reunión para planificar el próximo sprint</label></li>
+                            <li role="listitem"><label><input type="radio" name="q10" value="b"> b) Una sesión donde el equipo reflexiona sobre cómo mejorar</label></li>
+                            <li role="listitem"><label><input type="radio" name="q10" value="c"> c) Una presentación del producto al cliente</label></li>
+                            <li role="listitem"><label><input type="radio" name="q10" value="d"> d) Una evaluación individual del desempeño</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result10"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="11">
+                        <h4>11. ¿Cuál fue uno de los principales problemas de las metodologías tradicionales en los años 90?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q11" value="a"> a) Falta de programadores calificados</label></li>
+                            <li role="listitem"><label><input type="radio" name="q11" value="b"> b) Productos obsoletos al momento de entrega</label></li>
+                            <li role="listitem"><label><input type="radio" name="q11" value="c"> c) Ausencia de metodologías definidas</label></li>
+                            <li role="listitem"><label><input type="radio" name="q11" value="d"> d) Falta de herramientas de desarrollo</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result11"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="12">
+                        <h4>12. ¿Qué significa "desarrollo sostenible" en metodologías ágiles?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q12" value="a"> a) Usar tecnologías que no dañen el medio ambiente</label></li>
+                            <li role="listitem"><label><input type="radio" name="q12" value="b"> b) Mantener un ritmo de trabajo que se pueda sostener indefinidamente</label></li>
+                            <li role="listitem"><label><input type="radio" name="q12" value="c"> c) Desarrollar software que dure muchos años</label></li>
+                            <li role="listitem"><label><input type="radio" name="q12" value="d"> d) Minimizar los costos de desarrollo</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result12"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="13">
+                        <h4>13. ¿Cuál es el método más eficiente de comunicación según los principios ágiles?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q13" value="a"> a) Documentos detallados</label></li>
+                            <li role="listitem"><label><input type="radio" name="q13" value="b"> b) Correos electrónicos</label></li>
+                            <li role="listitem"><label><input type="radio" name="q13" value="c"> c) Conversación cara a cara</label></li>
+                            <li role="listitem"><label><input type="radio" name="q13" value="d"> d) Videoconferencias programadas</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result13"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="14">
+                        <h4>14. ¿Qué enfoque promueve la agilidad respecto a los cambios?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q14" value="a"> a) Evitar los cambios a toda costa</label></li>
+                            <li role="listitem"><label><input type="radio" name="q14" value="b"> b) Aceptar cambios solo al final del proyecto</label></li>
+                            <li role="listitem"><label><input type="radio" name="q14" value="c"> c) Aprovechar los cambios como ventaja competitiva</label></li>
+                            <li role="listitem"><label><input type="radio" name="q14" value="d"> d) Documentar todos los cambios antes de implementarlos</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result14"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="15">
+                        <h4>15. ¿Qué caracteriza a la transformación cultural ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q15" value="a"> a) Cambio inmediato de todos los procesos</label></li>
+                            <li role="listitem"><label><input type="radio" name="q15" value="b"> b) Enfoque en herramientas tecnológicas únicamente</label></li>
+                            <li role="listitem"><label><input type="radio" name="q15" value="c"> c) Cambio gradual de mentalidad y valores organizacionales</label></li>
+                            <li role="listitem"><label><input type="radio" name="q15" value="d"> d) Implementación de nuevas políticas de recursos humanos</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result15"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="16">
+                        <h4>16. ¿Dónde se realizó la reunión que dio origen al Manifiesto Ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q16" value="a"> a) Silicon Valley, California</label></li>
+                            <li role="listitem"><label><input type="radio" name="q16" value="b"> b) Snowbird, Utah</label></li>
+                            <li role="listitem"><label><input type="radio" name="q16" value="c"> c) Seattle, Washington</label></li>
+                            <li role="listitem"><label><input type="radio" name="q16" value="d"> d) Boston, Massachusetts</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result16"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="17">
+                        <h4>17. ¿Qué significa "excelencia técnica" en el contexto ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q17" value="a"> a) Usar las tecnologías más avanzadas disponibles</label></li>
+                            <li role="listitem"><label><input type="radio" name="q17" value="b"> b) Atención continua a la calidad del código y buen diseño</label></li>
+                            <li role="listitem"><label><input type="radio" name="q17" value="c"> c) Completar todas las tareas en el menor tiempo posible</label></li>
+                            <li role="listitem"><label><input type="radio" name="q17" value="d"> d) Seguir estrictamente los estándares de la industria</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result17"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="18">
+                        <h4>18. ¿Cuántos desarrolladores firmaron originalmente el Manifiesto Ágil?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q18" value="a"> a) 12 desarrolladores</label></li>
+                            <li role="listitem"><label><input type="radio" name="q18" value="b"> b) 15 desarrolladores</label></li>
+                            <li role="listitem"><label><input type="radio" name="q18" value="c"> c) 17 desarrolladores</label></li>
+                            <li role="listitem"><label><input type="radio" name="q18" value="d"> d) 20 desarrolladores</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result18"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="19">
+                        <h4>19. ¿Qué implica "individuos motivados" en los principios ágiles?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q19" value="a"> a) Ofrecer incentivos económicos altos</label></li>
+                            <li role="listitem"><label><input type="radio" name="q19" value="b"> b) Darles entorno, apoyo y confianza para ejecutar el trabajo</label></li>
+                            <li role="listitem"><label><input type="radio" name="q19" value="c"> c) Supervisar constantemente su trabajo</label></li>
+                            <li role="listitem"><label><input type="radio" name="q19" value="d"> d) Asignarles tareas específicas sin autonomía</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result19"></div>
+                    </div>
+
+                    <div class="quiz-question" data-question="20">
+                        <h4>20. ¿Cuál es el objetivo principal de las metodologías ágiles según esta clase?</h4>
+                        <ul class="quiz-options">
+                            <li role="listitem"><label><input type="radio" name="q20" value="a"> a) Reducir costos de desarrollo</label></li>
+                            <li role="listitem"><label><input type="radio" name="q20" value="b"> b) Acelerar la entrega de productos</label></li>
+                            <li role="listitem"><label><input type="radio" name="q20" value="c"> c) Entregar valor continuo al cliente respondiendo al cambio</label></li>
+                            <li role="listitem"><label><input type="radio" name="q20" value="d"> d) Eliminar completamente la documentación</label></li>
+                        </ul>
+                        <div class="quiz-result" id="result20"></div>
+                    </div>
+
+                    <button class="quiz-button" onclick="checkAllAnswers()">Verificar Respuestas</button>
+                    
+                    <div id="finalScore" style="margin-top: 20px; padding: 15px; border-radius: 8px; display: none;">
+                        <h3>Resultado Final</h3>
+                        <p id="scoreText"></p>
+                        <p id="feedback"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Análisis y Metodología de Sistemas - Clase T4: Fundamentos de Metodologías Ágiles</p>
+        <p>Tecnicatura Superior en Análisis de Sistemas - Unidad 2</p>
+    </footer>
+
+    <script>
+        // Inicialización básica de Mermaid
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            gantt: {
+                useMaxWidth: true,
+                leftPadding: 150
+            },
+            timeline: {
+                useMaxWidth: true
+            }
+        });
+
+        // Tema toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+
+        themeToggle.addEventListener('click', () => {
+            body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            themeToggle.textContent = body.dataset.theme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Oscuro';
+        });
+
+        // Navigation con re-renderizado de Mermaid
+        function showSection(sectionId) {
+            // Ocultar todas las secciones
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada
+            document.getElementById(sectionId).classList.add('active');
+
+            // Actualizar botones de navegación
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Encontrar el botón correcto para marcar como activo
+            const activeButton = Array.from(buttons).find(btn => 
+                btn.onclick && btn.onclick.toString().includes(sectionId)
+            );
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+
+            // Actualizar barra de progreso
+            const progressMap = {
+                'objetivos': 20,
+                'contenido': 40,
+                'diagramas': 60,
+                'casos-uso': 80,
+                'evaluacion': 100
+            };
+            
+            const progressBar = document.getElementById('progressBar');
+            progressBar.style.width = progressMap[sectionId] + '%';
+
+            // Re-renderizar diagramas Mermaid cuando se muestra la sección de diagramas
+            if (sectionId === 'diagramas') {
+                console.log("Cambiando a sección de diagramas - renderizando");
+                // Dar tiempo para que la sección sea visible y luego renderizar
+                setTimeout(() => {
+                    try {
+                        // Usar la función renderMermaidDiagrams() mejorada
+                        renderMermaidDiagrams();
+                        
+                        // Intentar un segundo renderizado después de un tiempo adicional
+                        // esto ayuda con diagramas complejos
+                        setTimeout(() => {
+                            renderMermaidDiagrams();
+                        }, 300);
+                    } catch (e) {
+                        console.error('Mermaid re-render error:', e);
+                    }
+                }, 200);
+            }
+        }
+
+        // Respuestas correctas del cuestionario
+        const correctAnswers = {
+            q1: 'b', // 2001
+            q2: 'b', // Individuos e interacciones sobre procesos y herramientas
+            q3: 'c', // 12 principios
+            q4: 'b', // Maximizar la cantidad de trabajo no realizado
+            q5: 'b', // Entre 2 semanas y 2 meses
+            q6: 'b', // Jeff Sutherland y Ken Schwaber
+            q7: 'a', // Se repiten procesos y se agrega funcionalidad gradualmente
+            q8: 'c', // El software funcionando
+            q9: 'b', // Deciden cómo organizarse y qué tecnologías usar
+            q10: 'b', // Una sesión donde el equipo reflexiona sobre cómo mejorar
+            q11: 'b', // Productos obsoletos al momento de entrega
+            q12: 'b', // Mantener un ritmo de trabajo que se pueda sostener indefinidamente
+            q13: 'c', // Conversación cara a cara
+            q14: 'c', // Aprovechar los cambios como ventaja competitiva
+            q15: 'c', // Cambio gradual de mentalidad y valores organizacionales
+            q16: 'b', // Snowbird, Utah
+            q17: 'b', // Atención continua a la calidad del código y buen diseño
+            q18: 'c', // 17 desarrolladores
+            q19: 'b', // Darles entorno, apoyo y confianza para ejecutar el trabajo
+            q20: 'c'  // Entregar valor continuo al cliente respondiendo al cambio
+        };
+
+        // Explicaciones para cada respuesta
+        const explanations = {
+            q1: {
+                correct: "Correcto. El Manifiesto Ágil fue firmado en febrero de 2001 en Snowbird, Utah.",
+                incorrect: "Incorrecto. El Manifiesto Ágil fue firmado en 2001, no en "
+            },
+            q2: {
+                correct: "Correcto. El primer valor enfatiza que los individuos e interacciones son más importantes que los procesos y herramientas.",
+                incorrect: "Incorrecto. El primer valor del Manifiesto Ágil es 'Individuos e interacciones sobre procesos y herramientas'."
+            },
+            q3: {
+                correct: "Correcto. El Manifiesto Ágil establece exactamente 12 principios que complementan los 4 valores.",
+                incorrect: "Incorrecto. El Manifiesto Ágil tiene 12 principios fundamentales."
+            },
+            q4: {
+                correct: "Correcto. La simplicidad se define como 'el arte de maximizar la cantidad de trabajo no realizado'.",
+                incorrect: "Incorrecto. La simplicidad en agilidad se refiere a maximizar el trabajo no realizado, es decir, hacer solo lo necesario."
+            },
+            q5: {
+                correct: "Correcto. El tercer principio establece entregar software funcional 'entre dos semanas y dos meses, con preferencia al periodo más corto'.",
+                incorrect: "Incorrecto. La frecuencia recomendada es entre 2 semanas y 2 meses, con preferencia a períodos más cortos."
+            },
+            q6: {
+                correct: "Correcto. Jeff Sutherland y Ken Schwaber fueron los co-creadores de Scrum y firmantes del Manifiesto.",
+                incorrect: "Incorrecto. Los co-creadores de Scrum que firmaron el Manifiesto fueron Jeff Sutherland y Ken Schwaber."
+            },
+            q7: {
+                correct: "Correcto. Iterativo significa repetir ciclos, e incremental significa agregar funcionalidad en cada ciclo.",
+                incorrect: "Incorrecto. Iterativo e incremental significa repetir procesos de desarrollo agregando funcionalidad gradualmente."
+            },
+            q8: {
+                correct: "Correcto. El séptimo principio establece que 'el software funcionando es la medida principal de progreso'.",
+                incorrect: "Incorrecto. Según el principio 7, el software funcionando es la medida principal de progreso."
+            },
+            q9: {
+                correct: "Correcto. Los equipos auto-organizados tienen autonomía para decidir cómo trabajar y qué herramientas usar.",
+                incorrect: "Incorrecto. Los equipos auto-organizados se caracterizan por su autonomía para organizarse y tomar decisiones técnicas."
+            },
+            q10: {
+                correct: "Correcto. Las retrospectivas son sesiones donde el equipo reflexiona sobre cómo ser más efectivo.",
+                incorrect: "Incorrecto. Una retrospectiva es una sesión de reflexión del equipo para identificar mejoras."
+            },
+            q11: {
+                correct: "Correcto. Uno de los principales problemas era que los productos quedaban obsoletos para cuando se entregaban.",
+                incorrect: "Incorrecto. Un problema clave era que los productos quedaban obsoletos debido a los largos ciclos de desarrollo."
+            },
+            q12: {
+                correct: "Correcto. El desarrollo sostenible se refiere a mantener un ritmo de trabajo que se pueda sostener indefinidamente.",
+                incorrect: "Incorrecto. Desarrollo sostenible significa mantener un ritmo de trabajo sostenible en el tiempo."
+            },
+            q13: {
+                correct: "Correcto. El sexto principio establece que la conversación cara a cara es el método más eficiente de comunicación.",
+                incorrect: "Incorrecto. Según el principio 6, la conversación cara a cara es el método más eficiente de comunicación."
+            },
+            q14: {
+                correct: "Correcto. Los procesos ágiles aprovechan el cambio para proporcionar ventaja competitiva al cliente.",
+                incorrect: "Incorrecto. Las metodologías ágiles ven los cambios como una oportunidad de ventaja competitiva."
+            },
+            q15: {
+                correct: "Correcto. La transformación cultural ágil implica un cambio gradual de mentalidad y valores organizacionales.",
+                incorrect: "Incorrecto. La transformación cultural ágil es un cambio gradual de mentalidad y valores, no solo de procesos."
+            },
+            q16: {
+                correct: "Correcto. La reunión histórica se realizó en Snowbird Ski Resort, Utah, del 11 al 13 de febrero de 2001.",
+                incorrect: "Incorrecto. La reunión que originó el Manifiesto Ágil se realizó en Snowbird, Utah."
+            },
+            q17: {
+                correct: "Correcto. La excelencia técnica se refiere a la atención continua a la calidad del código y buen diseño.",
+                incorrect: "Incorrecto. Excelencia técnica significa atención continua a la calidad del código y el diseño."
+            },
+            q18: {
+                correct: "Correcto. Exactamente 17 desarrolladores de software se reunieron y firmaron el Manifiesto Ágil original.",
+                incorrect: "Incorrecto. Fueron 17 los desarrolladores que firmaron originalmente el Manifiesto Ágil."
+            },
+            q19: {
+                correct: "Correcto. Los individuos motivados necesitan entorno, apoyo y confianza para ejecutar el trabajo.",
+                incorrect: "Incorrecto. Los individuos motivados requieren entorno adecuado, apoyo y confianza, no supervisión constante."
+            },
+            q20: {
+                correct: "Correcto. El objetivo principal es entregar valor continuo al cliente siendo capaces de responder al cambio.",
+                incorrect: "Incorrecto. El objetivo principal de las metodologías ágiles es entregar valor continuo respondiendo efectivamente al cambio."
+            }
+        };
+
+        // Función para verificar una respuesta individual
+        function checkAnswer(questionNum) {
+            const selectedAnswer = document.querySelector(`input[name="q${questionNum}"]:checked`);
+            const resultDiv = document.getElementById(`result${questionNum}`);
+            
+            if (!selectedAnswer) {
+                resultDiv.style.display = 'block';
+                resultDiv.className = 'quiz-result incorrect';
+                resultDiv.innerHTML = 'Por favor selecciona una respuesta.';
+                return false;
+            }
+            
+            const isCorrect = selectedAnswer.value === correctAnswers[`q${questionNum}`];
+            const explanation = explanations[`q${questionNum}`];
+            
+            resultDiv.style.display = 'block';
+            resultDiv.className = isCorrect ? 'quiz-result correct' : 'quiz-result incorrect';
+            resultDiv.innerHTML = isCorrect ? 
+                `✅ ${explanation.correct}` : 
+                `❌ ${explanation.incorrect}`;
+                
+            return isCorrect;
+        }
+
+        // Función para verificar todas las respuestas
+        function checkAllAnswers() {
+            let correctCount = 0;
+            const totalQuestions = 20;
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                if (checkAnswer(i)) {
+                    correctCount++;
+                }
+            }
+            
+            const percentage = (correctCount / totalQuestions) * 100;
+            const finalScore = document.getElementById('finalScore');
+            const scoreText = document.getElementById('scoreText');
+            const feedback = document.getElementById('feedback');
+            
+            scoreText.textContent = `Puntuación: ${correctCount}/${totalQuestions} (${percentage.toFixed(1)}%)`;
+            
+            let feedbackText = '';
+            let scoreColor = '';
+            
+            if (percentage >= 90) {
+                feedbackText = '🎉 ¡Excelente! Tienes un dominio excepcional de los fundamentos de metodologías ágiles.';
+                scoreColor = '#10b981';
+            } else if (percentage >= 80) {
+                feedbackText = '👏 ¡Muy bien! Demuestras un buen entendimiento de los conceptos ágiles.';
+                scoreColor = '#3b82f6';
+            } else if (percentage >= 70) {
+                feedbackText = '👍 Bien. Tienes una base sólida, pero revisa algunos conceptos del Manifiesto Ágil.';
+                scoreColor = '#f59e0b';
+            } else if (percentage >= 60) {
+                feedbackText = '📚 Regular. Te recomendamos repasar el contenido, especialmente los 12 principios ágiles.';
+                scoreColor = '#f59e0b';
+            } else {
+                feedbackText = '📖 Necesitas estudiar más. Revisa cuidadosamente los 4 valores y 12 principios del Manifiesto Ágil.';
+                scoreColor = '#ef4444';
+            }
+            
+            feedback.textContent = feedbackText;
+            finalScore.style.display = 'block';
+            finalScore.style.backgroundColor = scoreColor + '20';
+            finalScore.style.borderLeft = `4px solid ${scoreColor}`;
+            
+            // Scroll to results
+            finalScore.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Agregar event listeners para respuestas individuales
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const questionNum = this.name.replace('q', '');
+                checkAnswer(parseInt(questionNum));
+            });
+        });
+
+        // Inicializar la página - REMOVER DUPLICADO
+        // (Esta función se movió arriba al DOMContentLoaded principal)
+
+        // Smooth scrolling para navegación
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', function() {
+                setTimeout(() => {
+                    this.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            });
+        });
+
+        // Auto-save respuestas en localStorage para no perder progreso
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                localStorage.setItem(this.name, this.value);
+            });
+        });
+
+        // Restaurar respuestas guardadas - REMOVER DUPLICADO
+        // (Esta función se movió arriba al DOMContentLoaded principal)
+
+        // Limpiar localStorage al enviar respuestas
+        function clearSavedAnswers() {
+            for (let i = 1; i <= 20; i++) {
+                localStorage.removeItem(`q${i}`);
+            }
+        }
+    </script>
+    <script src="keyboard-navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,2793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 2: Ciclos de Vida de Desarrollo de Software</title>
+    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
+    <meta name="author" content="Curso AMS HTML">
+    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        :root {
+            /* Colores principales */
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #17a2b8;
+            
+            /* Modo claro */
+            --light-bg-primary: #ffffff;
+            --light-bg-secondary: #f8f9fa;
+            --light-bg-accent: #e3f2fd;
+            --light-text-primary: #1a1a1a;
+            --light-text-secondary: #495057;
+            --light-border: #dee2e6;
+            --light-shadow: rgba(0, 0, 0, 0.1);
+            
+            /* Modo oscuro */
+            --dark-bg-primary: #1a1a1a;
+            --dark-bg-secondary: #2d3436;
+            --dark-bg-accent: #363636;
+            --dark-text-primary: #ffffff;
+            --dark-text-secondary: #b2bec3;
+            --dark-border: #495057;
+            --dark-shadow: rgba(0, 0, 0, 0.3);
+            
+            /* Variables activas (por defecto modo claro) */
+            --bg-primary: var(--light-bg-primary);
+            --bg-secondary: var(--light-bg-secondary);
+            --bg-accent: var(--light-bg-accent);
+            --text-primary: var(--light-text-primary);
+            --text-secondary: var(--light-text-secondary);
+            --border-color: var(--light-border);
+            --shadow-color: var(--light-shadow);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            .index-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Regla general para todos los elementos */
+        * {
+            color: inherit;
+        }
+
+        /* Modo oscuro - cambiar variables activas */
+        body.dark-mode {
+            background: linear-gradient(135deg, #0f0f0f 0%, #2d3436 100%);
+            --bg-primary: var(--dark-bg-primary);
+            --bg-secondary: var(--dark-bg-secondary);
+            --bg-accent: var(--dark-bg-accent);
+            --text-primary: var(--dark-text-primary);
+            --text-secondary: var(--dark-text-secondary);
+            --border-color: var(--dark-border);
+            --shadow-color: var(--dark-shadow);
+        }
+
+        /* Patrón de fondo animado */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(52, 152, 219, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(231, 76, 60, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(39, 174, 96, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: -1;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        body.dark-mode::before {
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(52, 152, 219, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(231, 76, 60, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(39, 174, 96, 0.05) 0%, transparent 50%);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+        
+        /* Asegurar que todos los elementos hereden el color en modo oscuro */
+        .dark-mode * {
+            color: inherit;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--bg-primary);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+            border-radius: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--secondary-color), var(--accent-color), var(--success-color));
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px var(--shadow-color);
+        }
+
+        .dark-mode .header {
+            color: white;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="40" cy="60" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            border-left: 5px solid var(--secondary-color);
+            box-shadow: 0 8px 25px var(--shadow-color);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, transparent, rgba(52, 152, 219, 0.02), transparent);
+            pointer-events: none;
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px var(--shadow-color);
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            margin: 20px 0 15px 0;
+            font-size: 1.4em;
+        }
+
+        .section h4 {
+            margin: 15px 0 10px 0;
+            font-size: 1.2em;
+        }
+
+        .diagram-container {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .mermaid {
+            text-align: center;
+            background: var(--bg-primary);
+        }
+
+        .objectives {
+            background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+            border-left-color: #27ae60;
+        }
+
+        .content-text {
+            background: linear-gradient(135deg, #f8f9ff, #ffffff);
+            border-left-color: #6c5ce7;
+        }
+
+        .examples {
+            background: linear-gradient(135deg, #fff8e1, #fffbf0);
+            border-left-color: #f39c12;
+        }
+
+        .theory {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            border-left-color: #3498db;
+        }
+
+        .practical {
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            border-left-color: #27ae60;
+        }
+
+        .models {
+            background: linear-gradient(135deg, #f3e5f5, #e1bee7);
+            border-left-color: #9b59b6;
+        }
+
+        .comparison {
+            background: linear-gradient(135deg, #fce4ec, #f8bbd9);
+            border-left-color: #e91e63;
+        }
+
+        .quiz {
+            background: linear-gradient(135deg, #ffeaea, #fff5f5);
+            border-left-color: #e74c3c;
+        }
+
+        .quiz-question {
+            background: var(--bg-primary);
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #e74c3c;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .quiz-options {
+            list-style: none;
+            margin: 10px 0;
+        }
+
+        .quiz-options li {
+            padding: 8px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .quiz-options li:hover {
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            padding-left: 10px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            font-weight: bold;
+        }
+
+        .comparison-table tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #f39c12;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 20px;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            border-radius: 10px;
+            transition: width 2s ease;
+        }
+
+        .index-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .index-column {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid #3498db;
+        }
+
+        .index-column h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
+        }
+
+        .index-column ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .index-column li {
+            margin: 8px 0;
+        }
+
+        .index-column a {
+            text-decoration: none;
+            color: #3498db;
+            font-size: 14px;
+            display: block;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .index-column a:hover {
+            background-color: #f8f9fa;
+            border-left-color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .flowchart-container {
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .synoptic-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .synoptic-cell {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .synoptic-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .synoptic-cell h4 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .model-characteristics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .characteristic-card {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            border-top: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .characteristic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .pros {
+            border-left: 5px solid #27ae60;
+        }
+
+        .cons {
+            border-left: 5px solid #e74c3c;
+        }
+
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            transform: scale(1.05);
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3498db;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #3498db;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -40px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -40px;
+        }
+
+        .flowchart-container {
+            overflow-x: auto;
+            padding: 20px 0;
+        }
+
+        .synoptic-table {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .synoptic-cell {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #3498db;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .synoptic-cell:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .synoptic-cell h4 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+
+        .model-characteristics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .characteristic-card {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px var(--shadow-color);
+            border-top: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .characteristic-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .pros, .cons {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .pros {
+            border-left: 5px solid #27ae60;
+        }
+
+        .cons {
+            border-left: 5px solid #e74c3c;
+        }
+
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            transform: scale(1.05);
+        }
+
+        .timeline {
+            position: relative;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3498db;
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 30px 0;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            width: 45%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 55%;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            background: #3498db;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .timeline-item:nth-child(odd)::before {
+            right: -40px;
+        }
+
+        .timeline-item:nth-child(even)::before {
+            left: -40px;
+        }
+
+        /* Toggle button for dark mode */
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.2em;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px var(--shadow-color);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toggle-btn:hover {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            transform: scale(1.1) rotate(180deg);
+            box-shadow: 0 8px 25px var(--shadow-color);
+        }
+
+        .toggle-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Estilos mejorados para elementos específicos */
+        .quiz-question {
+            background: var(--bg-accent);
+            border-radius: 15px;
+            border-left: 4px solid var(--secondary-color);
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+
+        .quiz-question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px var(--shadow-color);
+        }
+
+        .info-card {
+            background: var(--bg-accent);
+            border-radius: 12px;
+            padding: 20px;
+            border-left: 4px solid var(--secondary-color);
+            box-shadow: 0 4px 12px var(--shadow-color);
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px var(--shadow-color);
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, var(--warning-color), #f39c12);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px var(--shadow-color);
+        }
+
+        .mermaid {
+            background: var(--bg-primary);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px var(--shadow-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .navigation {
+            background: var(--bg-accent);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 30px 0;
+            border: 2px solid var(--secondary-color);
+            box-shadow: 0 6px 18px var(--shadow-color);
+        }
+
+        /* Estilos adicionales para secciones con fondos especiales */
+        .dark-mode .objectives {
+            background: linear-gradient(135deg, #1a2e1a, #2d5b2d);
+            color: #ffffff;
+        }
+
+        .dark-mode .examples {
+            background: linear-gradient(135deg, #3d2914, #5a3e1f);
+            color: #ffffff;
+        }
+
+        .dark-mode .theory {
+            background: linear-gradient(135deg, #1a2332, #2d3e50);
+            color: #ffffff;
+        }
+
+        .dark-mode .practical {
+            background: linear-gradient(135deg, #1a2e1a, #2d4a2d);
+            color: #ffffff;
+        }
+
+        .dark-mode .models {
+            background: linear-gradient(135deg, #2d1b3d, #4a2e5a);
+            color: #ffffff;
+        }
+
+        .dark-mode .comparison {
+            background: linear-gradient(135deg, #3d1a2e, #5a2d4a);
+            color: #ffffff;
+        }
+
+        .dark-mode .quiz {
+            background: linear-gradient(135deg, #3d1a1a, #5a2d2d);
+            color: #ffffff;
+        }
+
+        .dark-mode .content-text {
+            background: linear-gradient(135deg, #2d2d3d, #3d3d4a);
+            color: #ffffff;
+        }
+
+        /* Asegurar que los títulos dentro de secciones especiales sean blancos en modo oscuro */
+        .dark-mode .objectives h2,
+        .dark-mode .examples h2,
+        .dark-mode .theory h2,
+        .dark-mode .practical h2,
+        .dark-mode .models h2,
+        .dark-mode .comparison h2,
+        .dark-mode .quiz h2,
+        .dark-mode .content-text h2 {
+            color: #ffffff;
+        }
+
+        /* Los estilos de color para course-info ahora serán heredados del body */
+
+        .dark-mode .progress-indicator {
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+        }
+
+        /* Quiz styles for pie chart */
+        .option.selected {
+            background: rgba(52, 152, 219, 0.8) !important;
+            border: 2px solid #3498db;
+            transform: translateX(5px);
+        }
+
+        #results {
+            min-height: 300px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        #pie-chart svg {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+    </style>
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body role="document">
+    <button class="toggle-btn" onclick="toggleTheme()" aria-label="Cambiar a modo oscuro" title="Alternar modo oscuro/claro" role="switch" aria-checked="false">🌓</button>
+    
+    <div class="container" role="main">
+        <header class="header" role="banner">
+            <h1 id="main-title">🔄 Clase 2: Ciclos de Vida de Desarrollo de Software</h1>
+            <p class="subtitle">Análisis y Metodología de Sistemas | Tecnicatura Superior en Análisis de Sistemas</p>
+        </div>
+
+        <div class="section">
+            <h2>📋 Índice de Contenidos</h2>
+            <div class="index-container">
+                <div class="index-column">
+                    <h4>🏗️ 1. Modelos Tradicionales</h4>
+                    <ul role="list">
+                        <li role="listitem"><a href="#modelo-cascada">1.1 Modelo en Cascada</a></li>
+                        <li role="listitem"><a href="#modelo-v">1.2 Modelo en V</a></li>
+                        <li role="listitem"><a href="#modelo-espiral">1.3 Modelo en Espiral</a></li>
+                        <li role="listitem"><a href="#modelo-incremental">1.4 Modelo Incremental</a></li>
+                    </ul>
+                    
+                    <h4>🚀 2. Modelos Modernos</h4>
+                    <ul role="list">
+                        <li role="listitem"><a href="#prototipado">2.1 Prototipado Rápido</a></li>
+                        <li role="listitem"><a href="#rad">2.2 RAD</a></li>
+                        <li role="listitem"><a href="#iterativo-incremental">2.3 Iterativo-Incremental</a></li>
+                        <li role="listitem"><a href="#devops">2.4 DevOps</a></li>
+                    </ul>
+                </div>
+                
+                <div class="index-column">
+                    <h4>⚖️ 3. Criterios de Selección</h4>
+                    <ul role="list">
+                        <li role="listitem"><a href="#factores-proyecto">3.1 Factores del Proyecto</a></li>
+                        <li role="listitem"><a href="#factores-equipo">3.2 Factores del Equipo</a></li>
+                        <li role="listitem"><a href="#factores-cliente">3.3 Factores del Cliente</a></li>
+                        <li role="listitem"><a href="#factores-tecnologicos">3.4 Factores Tecnológicos</a></li>
+                    </ul>
+                    
+                    <h4>📊 4. Análisis Comparativo</h4>
+                    <ul role="list">
+                        <li role="listitem"><a href="#matriz-decision">4.1 Matriz de Decisión</a></li>
+                        <li role="listitem"><a href="#casos-industria">4.2 Casos por Industria</a></li>
+                        <li role="listitem"><a href="#metricas-exito">4.3 Métricas de Éxito</a></li>
+                        <li role="listitem"><a href="#tendencias">4.4 Tendencias Evolutivas</a></li>
+                    </ul>
+                </div>
+                
+                <div class="index-column">
+                    <h4>💡 5. Casos Prácticos</h4>
+                    <ul role="list">
+                        <li role="listitem"><a href="#caso-hospital">5.1 Sistema Hospitalario</a></li>
+                        <li role="listitem"><a href="#caso-fintech">5.2 App FinTech</a></li>
+                        <li role="listitem"><a href="#arbol-decision">5.3 Árbol de Decisión</a></li>
+                    </ul>
+                    
+                    <h4>🧠 6. Evaluación</h4>
+                    <ul role="list">
+                        <li role="listitem"><a href="#quiz">Quiz 20 Preguntas</a></li>
+                        <li role="listitem"><a href="#recursos">Recursos Adicionales</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section objectives">
+            <h2 id="objectives-title">🎯 Objetivos de Aprendizaje</h2>
+            <ul role="list">
+                <li role="listitem"><strong>Analizar</strong> modelos tradicionales vs modernos de ciclos de vida</li>
+                <li role="listitem"><strong>Comprender</strong> criterios de selección para cada paradigma</li>
+                <li role="listitem"><strong>Evaluar</strong> ventajas y limitaciones de cada enfoque</li>
+                <li role="listitem"><strong>Identificar</strong> el contexto apropiado para cada modelo</li>
+                <li role="listitem"><strong>Aplicar</strong> criterios de decisión en casos reales</li>
+            </ul>
+        </div>
+
+        <div class="section content-text">
+            <h2 id="modelos-tradicionales">📚 1. Modelos Tradicionales de Ciclo de Vida</h2>
+            
+            <h3 id="modelo-cascada">1.1 Modelo en Cascada (Waterfall)</h3>
+            <p>El modelo en cascada, también conocido como <em>ciclo de vida clásico</em>, representa el paradigma más antiguo de la ingeniería de software. Propuesto originalmente por Winston Royce en 1970, sugiere un enfoque sistemático y secuencial para el desarrollo del software.</p>
+
+            <div class="highlight">
+                <h4>🔑 Características Fundamentales del Modelo en Cascada:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Secuencialidad:</strong> Cada fase debe completarse antes de iniciar la siguiente</li>
+                    <li role="listitem"><strong>Documentación exhaustiva:</strong> Cada fase produce artefactos detallados</li>
+                    <li role="listitem"><strong>Verificación por etapas:</strong> Revisiones formales al final de cada fase</li>
+                    <li role="listitem"><strong>Compromiso temprano:</strong> Decisiones tomadas en fases iniciales son difíciles de cambiar</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    graph TD
+                        A[📋 Análisis de Requisitos] --> B[🏗️ Diseño del Sistema]
+                        B --> C[🎨 Diseño Detallado]
+                        C --> D[💻 Implementación]
+                        D --> E[🧪 Pruebas]
+                        E --> F[🚀 Despliegue]
+                        F --> G[🔧 Mantenimiento]
+                        
+                        A -.-> A1[Especificación de Requisitos]
+                        B -.-> B1[Arquitectura del Sistema]
+                        C -.-> C1[Diseño de Componentes]
+                        D -.-> D1[Código Fuente]
+                        E -.-> E1[Plan de Pruebas]
+                        F -.-> F1[Sistema en Producción]
+                        G -.-> G1[Actualizaciones y Correcciones]
+                        
+                        style A fill:#e8f5e8
+                        style B fill:#e8f0ff
+                        style C fill:#fff0e8
+                        style D fill:#f0e8ff
+                        style E fill:#ffe8e8
+                        style F fill:#e8ffe8
+                        style G fill:#ffe8f0
+                </div>
+            </div>
+
+            <h4>Fases del Modelo en Cascada:</h4>
+
+            <div class="model-characteristics">
+                <div class="characteristic-card">
+                    <h4>📋 1. Comunicación (Análisis de Requisitos)</h4>
+                    <p><strong>Objetivo:</strong> Recopilar y especificar completamente los requisitos del sistema.</p>
+                    <p><strong>Actividades:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Entrevistas con stakeholders</li>
+                        <li role="listitem">Análisis de procesos existentes</li>
+                        <li role="listitem">Documentación de requisitos funcionales y no funcionales</li>
+                        <li role="listitem">Validación y aprobación formal</li>
+                    </ul>
+                    <p><strong>Artefactos:</strong> Documento de Especificación de Requisitos de Software (SRS)</p>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🏗️ 2. Planeación (Diseño del Sistema)</h4>
+                    <p><strong>Objetivo:</strong> Transformar los requisitos en una arquitectura de sistema.</p>
+                    <p><strong>Actividades:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Diseño de la arquitectura general</li>
+                        <li role="listitem">Selección de tecnologías</li>
+                        <li role="listitem">Definición de interfaces</li>
+                        <li role="listitem">Estimación de recursos y tiempo</li>
+                    </ul>
+                    <p><strong>Artefactos:</strong> Documento de Diseño de Arquitectura, Diagramas de Sistema</p>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🎨 3. Modelado (Diseño Detallado)</h4>
+                    <p><strong>Objetivo:</strong> Especificar detalladamente cada componente del sistema.</p>
+                    <p><strong>Actividades:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Diseño de algoritmos</li>
+                        <li role="listitem">Diseño de base de datos</li>
+                        <li role="listitem">Especificación de interfaces</li>
+                        <li role="listitem">Diseño de la interfaz de usuario</li>
+                    </ul>
+                    <p><strong>Artefactos:</strong> Diagramas UML, Esquemas de BD, Mockups</p>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>💻 4. Construcción (Implementación)</h4>
+                    <p><strong>Objetivo:</strong> Traducir el diseño en código ejecutable.</p>
+                    <p><strong>Actividades:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Codificación de módulos</li>
+                        <li role="listitem">Pruebas unitarias</li>
+                        <li role="listitem">Integración de componentes</li>
+                        <li role="listitem">Documentación del código</li>
+                    </ul>
+                    <p><strong>Artefactos:</strong> Código fuente, Documentación técnica</p>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🧪 5. Despliegue (Pruebas)</h4>
+                    <p><strong>Objetivo:</strong> Verificar que el sistema cumple con los requisitos.</p>
+                    <p><strong>Actividades:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Pruebas de sistema</li>
+                        <li role="listitem">Pruebas de aceptación</li>
+                        <li role="listitem">Pruebas de rendimiento</li>
+                        <li role="listitem">Corrección de defectos</li>
+                    </ul>
+                    <p><strong>Artefactos:</strong> Reportes de pruebas, Plan de despliegue</p>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🔧 6. Mantenimiento</h4>
+                    <p><strong>Objetivo:</strong> Mantener y evolucionar el sistema en producción.</p>
+                    <p><strong>Actividades:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Corrección de errores</li>
+                        <li role="listitem">Adaptaciones al entorno</li>
+                        <li role="listitem">Mejoras funcionales</li>
+                        <li role="listitem">Optimizaciones de rendimiento</li>
+                    </ul>
+                    <p><strong>Artefactos:</strong> Parches, Actualizaciones, Documentación actualizada</p>
+                </div>
+            </div>
+
+            <h3 id="modelo-v">1.2 Modelo en V</h3>
+            <p>El modelo en V es una variante del modelo en cascada que enfatiza la relación entre las fases de desarrollo y las fases de prueba, proporcionando una visualización clara del proceso de verificación y validación.</p>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    graph TD
+                        subgraph "Lado Izquierdo - Desarrollo"
+                            A[📋 Requisitos del Usuario] 
+                            B[📊 Especificación del Sistema]
+                            C[🏗️ Diseño de Alto Nivel]
+                            D[🎨 Diseño Detallado]
+                            E[💻 Implementación]
+                        end
+                        
+                        subgraph "Lado Derecho - Pruebas"
+                            F[✅ Pruebas de Aceptación]
+                            G[🧪 Pruebas del Sistema]
+                            H[🔧 Pruebas de Integración]
+                            I[⚡ Pruebas Unitarias]
+                        end
+                        
+                        A --> B --> C --> D --> E
+                        E --> I --> H --> G --> F
+                        
+                        A -.->|Valida| F
+                        B -.->|Verifica| G
+                        C -.->|Confirma| H
+                        D -.->|Prueba| I
+                        
+                        style A fill:#e8f5e8
+                        style B fill:#e8f0ff
+                        style C fill:#fff0e8
+                        style D fill:#f0e8ff
+                        style E fill:#ffe8e8
+                        style I fill:#ffe8e8
+                        style H fill:#f0e8ff
+                        style G fill:#fff0e8
+                        style F fill:#e8f0ff
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h4>🎯 Principios del Modelo en V:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Verificación:</strong> ¿Estamos construyendo el producto correctamente?</li>
+                    <li role="listitem"><strong>Validación:</strong> ¿Estamos construyendo el producto correcto?</li>
+                    <li role="listitem"><strong>Trazabilidad:</strong> Cada fase de desarrollo tiene su correspondiente fase de prueba</li>
+                    <li role="listitem"><strong>Calidad temprana:</strong> La planificación de pruebas comienza desde el análisis</li>
+                </ul>
+            </div>
+
+            <h3 id="modelo-espiral">1.3 Modelo en Espiral</h3>
+            <p>Propuesto por Barry Boehm en 1986, el modelo en espiral combina elementos del modelo en cascada con la construcción de prototipos, incorporando una dimensión de análisis de riesgo que falta en otros modelos.</p>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    graph TD
+                        subgraph "Cuadrante 1: Planificación"
+                            A[📋 Determinar Objetivos]
+                            B[🎯 Identificar Alternativas]
+                            C[📊 Establecer Restricciones]
+                        end
+                        
+                        subgraph "Cuadrante 2: Análisis de Riesgo"
+                            D[⚠️ Evaluar Alternativas]
+                            E[🔍 Identificar Riesgos]
+                            F[🛡️ Resolver Riesgos]
+                            G[🔧 Construir Prototipos]
+                        end
+                        
+                        subgraph "Cuadrante 3: Desarrollo"
+                            H[🏗️ Desarrollar Producto]
+                            I[🧪 Verificar Producto]
+                        end
+                        
+                        subgraph "Cuadrante 4: Evaluación"
+                            J[📊 Evaluar Resultado]
+                            K[👥 Revisión con Cliente]
+                            L[📅 Planificar Siguiente Iteración]
+                        end
+                        
+                        A --> B --> C --> D
+                        D --> E --> F --> G
+                        G --> H --> I --> J
+                        J --> K --> L --> A
+                        
+                        style A fill:#e8f5e8
+                        style D fill:#ffe8e8
+                        style H fill:#e8f0ff
+                        style J fill:#fff0e8
+                </div>
+            </div>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>✅ Ventajas del Modelo en Espiral</h4>
+                    <ul role="list">
+                        <li role="listitem">Gestión explícita de riesgos</li>
+                        <li role="listitem">Desarrollo incremental</li>
+                        <li role="listitem">Flexibilidad en requisitos</li>
+                        <li role="listitem">Retroalimentación temprana</li>
+                        <li role="listitem">Adecuado para proyectos grandes</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h4>❌ Desventajas del Modelo en Espiral</h4>
+                    <ul role="list">
+                        <li role="listitem">Complejidad de gestión</li>
+                        <li role="listitem">Requiere experiencia en análisis de riesgo</li>
+                        <li role="listitem">Costo elevado</li>
+                        <li role="listitem">Tiempo de desarrollo largo</li>
+                        <li role="listitem">No adecuado para proyectos pequeños</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="modelo-incremental">1.4 Modelo Incremental</h3>
+            <p>El modelo incremental combina elementos lineales y paralelos del modelo en cascada. El sistema se desarrolla a través de una serie de incrementos, donde cada incremento entrega una porción operacional del software.</p>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    flowchart TD
+                        subgraph "Incremento 1"
+                            A1[📋 Análisis 1] --> D1[🏗️ Diseño 1]
+                            D1 --> C1[💻 Código 1]
+                            C1 --> P1[🧪 Pruebas 1]
+                            P1 --> R1[🚀 Release 1]
+                        end
+                        
+                        subgraph "Incremento 2"
+                            A2[📋 Análisis 2] --> D2[🏗️ Diseño 2]
+                            D2 --> C2[💻 Código 2]
+                            C2 --> P2[🧪 Pruebas 2]
+                            P2 --> R2[🚀 Release 2]
+                        end
+                        
+                        subgraph "Incremento 3"
+                            A3[📋 Análisis 3] --> D3[🏗️ Diseño 3]
+                            D3 --> C3[💻 Código 3]
+                            C3 --> P3[🧪 Pruebas 3]
+                            P3 --> R3[🚀 Release 3]
+                        end
+                        
+                        R1 --> A2
+                        R2 --> A3
+                        
+                        R1 -.-> U1[👥 Feedback Usuario 1]
+                        R2 -.-> U2[👥 Feedback Usuario 2]
+                        R3 -.-> U3[👥 Feedback Usuario 3]
+                        
+                        U1 -.-> A2
+                        U2 -.-> A3
+                        
+                        style R1 fill:#e8f5e8
+                        style R2 fill:#e8f5e8
+                        style R3 fill:#e8f5e8
+                        style U1 fill:#fff0e8
+                        style U2 fill:#fff0e8
+                        style U3 fill:#fff0e8
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h4>📈 Características del Desarrollo Incremental:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Entrega temprana:</strong> Funcionalidad útil disponible rápidamente</li>
+                    <li role="listitem"><strong>Retroalimentación continua:</strong> Los usuarios pueden evaluar incrementos</li>
+                    <li role="listitem"><strong>Reducción de riesgo:</strong> Problemas detectados tempranamente</li>
+                    <li role="listitem"><strong>Flexibilidad:</strong> Cambios pueden incorporarse en incrementos futuros</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section content-text">
+            <h2 id="modelos-modernos">🚀 2. Modelos Modernos de Ciclo de Vida</h2>
+            
+            <h3 id="prototipado">2.1 Prototipado Rápido</h3>
+            <p>El prototipado rápido se centra en el desarrollo temprano de versiones funcionales (prototipos) del software para validar requisitos y obtener retroalimentación de los usuarios antes del desarrollo completo.</p>
+
+            <div class="synoptic-table">
+                <div class="synoptic-cell">
+                    <h4>🎯 Tipos de Prototipos</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Evolutivo:</strong> Se desarrolla hasta convertirse en el sistema final</li>
+                        <li role="listitem"><strong>Desechable:</strong> Se usa solo para validación y luego se descarta</li>
+                        <li role="listitem"><strong>Horizontal:</strong> Muestra la amplitud de funcionalidades</li>
+                        <li role="listitem"><strong>Vertical:</strong> Profundiza en características específicas</li>
+                    </ul>
+                </div>
+                <div class="synoptic-cell">
+                    <h4>🔄 Proceso de Prototipado</h4>
+                    <ol role="list">
+                        <li role="listitem">Identificación de requisitos conocidos</li>
+                        <li role="listitem">Diseño rápido del prototipo</li>
+                        <li role="listitem">Construcción del prototipo</li>
+                        <li role="listitem">Evaluación con usuarios</li>
+                        <li role="listitem">Refinamiento del prototipo</li>
+                        <li role="listitem">Desarrollo del sistema final</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    flowchart TD
+                        A[📋 Recolección de Requisitos Iniciales] --> B[🎨 Diseño Rápido]
+                        B --> C[🔧 Construcción del Prototipo]
+                        C --> D[👥 Evaluación con Usuario]
+                        D --> E{¿Satisfecho?}
+                        E -->|No| F[📝 Refinamiento de Requisitos]
+                        F --> B
+                        E -->|Sí| G[🏗️ Desarrollo del Sistema Final]
+                        G --> H[🚀 Sistema Completado]
+                        
+                        style A fill:#e8f5e8
+                        style B fill:#e8f0ff
+                        style C fill:#fff0e8
+                        style D fill:#f0e8ff
+                        style E fill:#ffe8e8
+                        style F fill:#ffe8f0
+                        style G fill:#e8ffe8
+                        style H fill:#f0ffe8
+                </div>
+            </div>
+
+            <h3 id="rad">2.2 RAD (Rapid Application Development)</h3>
+            <p>RAD es un modelo de desarrollo que enfatiza un ciclo de desarrollo extremadamente corto (60-90 días), utilizando un enfoque de construcción basado en componentes.</p>
+
+            <div class="model-characteristics">
+                <div class="characteristic-card">
+                    <h4>📊 1. Modelado de Negocio</h4>
+                    <p>Se modela el flujo de información entre funciones de negocio para responder:</p>
+                    <ul role="list">
+                        <li role="listitem">¿Qué información conduce el proceso de negocio?</li>
+                        <li role="listitem">¿Qué información se genera?</li>
+                        <li role="listitem">¿Quién la genera?</li>
+                        <li role="listitem">¿A dónde va la información?</li>
+                        <li role="listitem">¿Quién la procesa?</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🎨 2. Modelado de Datos</h4>
+                    <p>El flujo de información se refina en un conjunto de objetos de datos:</p>
+                    <ul role="list">
+                        <li role="listitem">Características de cada objeto</li>
+                        <li role="listitem">Relaciones entre objetos</li>
+                        <li role="listitem">Definición de atributos</li>
+                        <li role="listitem">Identificación de relaciones</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>⚡ 3. Modelado del Proceso</h4>
+                    <p>Se transforman los objetos de datos para lograr el flujo de información:</p>
+                    <ul role="list">
+                        <li role="listitem">Procesamiento de objetos de datos</li>
+                        <li role="listitem">Transformaciones requeridas</li>
+                        <li role="listitem">Descripción de procesos</li>
+                        <li role="listitem">Interfaces entre procesos</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🔧 4. Generación de Aplicaciones</h4>
+                    <p>RAD utiliza herramientas de cuarta generación para:</p>
+                    <ul role="list">
+                        <li role="listitem">Reutilizar componentes existentes</li>
+                        <li role="listitem">Crear componentes reutilizables</li>
+                        <li role="listitem">Generar código automáticamente</li>
+                        <li role="listitem">Usar herramientas visuales</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🧪 5. Pruebas y Entrega</h4>
+                    <p>Como se reutilizan muchos componentes:</p>
+                    <ul role="list">
+                        <li role="listitem">Pruebas de nuevos componentes</li>
+                        <li role="listitem">Pruebas de interfaces</li>
+                        <li role="listitem">Pruebas de integración reducidas</li>
+                        <li role="listitem">Entrega rápida al usuario</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight">
+                <h4>⚡ Requisitos para el éxito de RAD:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Alcance limitado:</strong> Sistemas modulares que permitan división en equipos</li>
+                    <li role="listitem"><strong>Compromiso del desarrollador y cliente:</strong> Participación activa en actividades de modelado rápido</li>
+                    <li role="listitem"><strong>Recursos adecuados:</strong> Suficientes recursos humanos para equipos paralelos</li>
+                    <li role="listitem"><strong>Herramientas apropiadas:</strong> Herramientas CASE y generadores de código</li>
+                    <li role="listitem"><strong>Requisitos bien entendidos:</strong> Dominio de aplicación familiar</li>
+                </ul>
+            </div>
+
+            <h3 id="iterativo-incremental">2.3 Desarrollo Iterativo-Incremental</h3>
+            <p>Base fundamental de las metodologías ágiles modernas, combina los beneficios de los enfoques iterativo e incremental para proporcionar entregas frecuentes de valor.</p>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    timeline
+                        title Desarrollo Iterativo-Incremental
+                        
+                        section Iteración 1
+                            Semana 1-2 : Planificación
+                                      : Análisis
+                                      : Diseño inicial
+                            Semana 3-4 : Implementación
+                                      : Pruebas
+                                      : Entrega Incremento 1
+                        
+                        section Iteración 2
+                            Semana 5-6 : Refinamiento
+                                      : Nuevos requisitos
+                                      : Diseño evolutivo
+                            Semana 7-8 : Implementación
+                                      : Integración
+                                      : Entrega Incremento 2
+                        
+                        section Iteración 3
+                            Semana 9-10 : Optimización
+                                       : Características avanzadas
+                                       : Mejoras de rendimiento
+                            Semana 11-12 : Finalización
+                                        : Pruebas exhaustivas
+                                        : Entrega Final
+                </div>
+            </div>
+
+            <h3 id="devops">2.4 DevOps - Integración Desarrollo-Operaciones</h3>
+            <p>DevOps representa una evolución cultural y técnica que integra el desarrollo de software con las operaciones de TI, enfocándose en la automatización y el monitoreo en todas las fases del ciclo de vida del software.</p>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    graph TD
+                        subgraph "Desarrollo"
+                            A[💡 Planificación] --> B[👨‍💻 Codificación]
+                            B --> C[🔧 Construcción]
+                            C --> D[🧪 Pruebas]
+                        end
+                        
+                        subgraph "Operaciones"
+                            E[🚀 Despliegue] --> F[📊 Monitoreo]
+                            F --> G[🔄 Operación]
+                            G --> H[📋 Planificación]
+                        end
+                        
+                        D --> E
+                        H --> A
+                        
+                        subgraph "Herramientas DevOps"
+                            I[Git/SVN<br/>Control de Versiones]
+                            J[Jenkins/GitLab CI<br/>Integración Continua]
+                            K[Docker/Kubernetes<br/>Containerización]
+                            L[Prometheus/Grafana<br/>Monitoreo]
+                        end
+                        
+                        style A fill:#e8f5e8
+                        style B fill:#e8f0ff
+                        style C fill:#fff0e8
+                        style D fill:#f0e8ff
+                        style E fill:#ffe8e8
+                        style F fill:#ffe8f0
+                        style G fill:#e8ffe8
+                        style H fill:#f0ffe8
+                </div>
+            </div>
+
+            <div class="synoptic-table">
+                <div class="synoptic-cell">
+                    <h4>🎯 Principios DevOps</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Colaboración:</strong> Comunicación continua entre equipos</li>
+                        <li role="listitem"><strong>Automatización:</strong> Procesos automatizados de build, test y deploy</li>
+                        <li role="listitem"><strong>Medición:</strong> Métricas y monitoreo continuo</li>
+                        <li role="listitem"><strong>Compartir:</strong> Conocimiento y responsabilidad compartida</li>
+                    </ul>
+                </div>
+                <div class="synoptic-cell">
+                    <h4>🛠️ Prácticas Clave</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>CI/CD:</strong> Integración y entrega continua</li>
+                        <li role="listitem"><strong>IaC:</strong> Infraestructura como código</li>
+                        <li role="listitem"><strong>Microservicios:</strong> Arquitectura distribuida</li>
+                        <li role="listitem"><strong>Containers:</strong> Empaquetado y despliegue consistente</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section content-text">
+            <h2 id="criterios-seleccion">⚖️ 3. Criterios de Selección de Modelos</h2>
+            
+            <p>La selección del modelo de ciclo de vida apropiado es crucial para el éxito del proyecto. Esta decisión debe basarse en una evaluación cuidadosa de múltiples factores del proyecto, equipo, cliente y tecnología.</p>
+
+            <h3 id="factores-proyecto">3.1 Factores del Proyecto</h3>
+
+            <div class="model-characteristics">
+                <div class="characteristic-card">
+                    <h4>📏 Tamaño del Proyecto</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Pequeño (< 6 meses):</strong> Cascada, Prototipado</li>
+                        <li role="listitem"><strong>Mediano (6-18 meses):</strong> Incremental, RAD, Ágil</li>
+                        <li role="listitem"><strong>Grande (> 18 meses):</strong> Espiral, RUP, Híbrido</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🧩 Complejidad Técnica</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Baja:</strong> Cascada, RAD</li>
+                        <li role="listitem"><strong>Media:</strong> Incremental, Prototipado</li>
+                        <li role="listitem"><strong>Alta:</strong> Espiral, Iterativo</li>
+                        <li role="listitem"><strong>Muy Alta:</strong> Investigación + Prototipado</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>⚠️ Nivel de Riesgo</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Bajo:</strong> Cascada, Incremental</li>
+                        <li role="listitem"><strong>Medio:</strong> Prototipado, Ágil</li>
+                        <li role="listitem"><strong>Alto:</strong> Espiral, Iterativo</li>
+                        <li role="listitem"><strong>Crítico:</strong> Formal + Verificación</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🎯 Criticidad del Sistema</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>No crítico:</strong> RAD, Ágil</li>
+                        <li role="listitem"><strong>Moderadamente crítico:</strong> Incremental</li>
+                        <li role="listitem"><strong>Crítico:</strong> Cascada, Modelo V</li>
+                        <li role="listitem"><strong>Seguridad crítica:</strong> Métodos formales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="factores-equipo">3.2 Factores del Equipo</h3>
+
+            <div class="synoptic-table">
+                <div class="synoptic-cell">
+                    <h4>👥 Características del Equipo</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Experiencia:</strong> Junior vs Senior</li>
+                        <li role="listitem"><strong>Tamaño:</strong> Pequeño (2-8) vs Grande (>20)</li>
+                        <li role="listitem"><strong>Ubicación:</strong> Colocalizado vs Distribuido</li>
+                        <li role="listitem"><strong>Estabilidad:</strong> Estable vs Alta rotación</li>
+                        <li role="listitem"><strong>Cultura:</strong> Jerárquica vs Colaborativa</li>
+                    </ul>
+                </div>
+                <div class="synoptic-cell">
+                    <h4>🎓 Habilidades Requeridas</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Dominio del negocio:</strong> Conocimiento específico</li>
+                        <li role="listitem"><strong>Tecnología:</strong> Familiaridad con herramientas</li>
+                        <li role="listitem"><strong>Metodología:</strong> Experiencia previa</li>
+                        <li role="listitem"><strong>Comunicación:</strong> Habilidades interpersonales</li>
+                        <li role="listitem"><strong>Adaptabilidad:</strong> Gestión del cambio</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="factores-cliente">3.3 Factores del Cliente</h3>
+
+            <div class="comparison-table">
+                <thead role="rowgroup">
+                    <tr role="row">
+                        <th role="columnheader">Factor</th>
+                        <th role="columnheader">Cascada/V</th>
+                        <th role="columnheader">Incremental</th>
+                        <th role="columnheader">Ágil</th>
+                        <th role="columnheader">Espiral</th>
+                    </tr>
+                </thead>
+                <tbody role="rowgroup">
+                    <tr role="row">
+                        <td role="cell"><strong>Claridad de requisitos</strong></td>
+                        <td role="cell">Alta - Bien definidos</td>
+                        <td role="cell">Media - Priorizables</td>
+                        <td role="cell">Baja - Evolutivos</td>
+                        <td role="cell">Muy baja - Inciertos</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>Participación del cliente</strong></td>
+                        <td role="cell">Inicio y final</td>
+                        <td role="cell">En cada incremento</td>
+                        <td role="cell">Continua y activa</td>
+                        <td role="cell">En cada espiral</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>Tolerancia al cambio</strong></td>
+                        <td role="cell">Baja - Costoso</td>
+                        <td role="cell">Media - Planificado</td>
+                        <td role="cell">Alta - Esperado</td>
+                        <td role="cell">Muy alta - Gestionado</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>Experiencia del usuario</strong></td>
+                        <td role="cell">No necesaria</td>
+                        <td role="cell">Deseable</td>
+                        <td role="cell">Esencial</td>
+                        <td role="cell">Muy importante</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>Presión de tiempo</strong></td>
+                        <td role="cell">Baja - Fechas fijas</td>
+                        <td role="cell">Media - Entregas graduales</td>
+                        <td role="cell">Alta - Time-to-market</td>
+                        <td role="cell">Variable - Gestión de riesgo</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 id="factores-tecnologicos">3.4 Factores Tecnológicos</h3>
+
+            <div class="highlight">
+                <h4>🔧 Consideraciones Tecnológicas:</h4>
+                <ul role="list">
+                    <li role="listitem"><strong>Madurez de la tecnología:</strong> Nuevas tecnologías requieren más experimentación</li>
+                    <li role="listitem"><strong>Disponibilidad de herramientas:</strong> CASE tools, IDEs, frameworks</li>
+                    <li role="listitem"><strong>Estándares de la industria:</strong> Cumplimiento de normativas</li>
+                    <li role="listitem"><strong>Integración con sistemas existentes:</strong> Complejidad de legacy systems</li>
+                    <li role="listitem"><strong>Performance y escalabilidad:</strong> Requisitos no funcionales críticos</li>
+                    <li role="listitem"><strong>Seguridad:</strong> Niveles de seguridad requeridos</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section content-text">
+            <h2 id="analisis-comparativo">📊 4. Análisis Comparativo Integral</h2>
+
+            <h3 id="matriz-decision">4.1 Matriz de Decisión para Selección de Modelo</h3>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    graph TD
+                        A[🎯 Inicio del Proyecto] --> B{¿Requisitos claros<br/>y estables?}
+                        
+                        B -->|Sí| C{¿Proyecto crítico<br/>o regulado?}
+                        B -->|No| D{¿Alta incertidumbre<br/>o riesgo?}
+                        
+                        C -->|Sí| E[📋 Modelo en Cascada<br/>o Modelo V]
+                        C -->|No| F{¿Recursos<br/>limitados?}
+                        
+                        D -->|Sí| G[🌀 Modelo en Espiral]
+                        D -->|No| H{¿Feedback frecuente<br/>del usuario?}
+                        
+                        F -->|Sí| I[⚡ RAD]
+                        F -->|No| J[📈 Modelo Incremental]
+                        
+                        H -->|Sí| K[🔄 Metodología Ágil]
+                        H -->|No| L[🔧 Prototipado Rápido]
+                        
+                        style E fill:#e8f5e8
+                        style G fill:#ffe8e8
+                        style I fill:#fff0e8
+                        style J fill:#e8f0ff
+                        style K fill:#f0e8ff
+                        style L fill:#ffe8f0
+                </div>
+            </div>
+
+            <h3 id="casos-industria">4.2 Casos de Uso por Industria</h3>
+
+            <div class="model-characteristics">
+                <div class="characteristic-card">
+                    <h4>🏥 Sistemas Médicos/Farmacéuticos</h4>
+                    <p><strong>Modelo recomendado:</strong> Cascada + Modelo V</p>
+                    <p><strong>Razones:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Regulaciones estrictas (FDA, ISO 13485)</li>
+                        <li role="listitem">Documentación exhaustiva requerida</li>
+                        <li role="listitem">Trazabilidad completa</li>
+                        <li role="listitem">Validación rigurosa</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🚀 Aplicaciones Web/Mobile</h4>
+                    <p><strong>Modelo recomendado:</strong> Ágil + DevOps</p>
+                    <p><strong>Razones:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Time-to-market crítico</li>
+                        <li role="listitem">Requisitos evolutivos</li>
+                        <li role="listitem">Feedback continuo de usuarios</li>
+                        <li role="listitem">Entregas frecuentes</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🏭 Sistemas Industriales/ERP</h4>
+                    <p><strong>Modelo recomendado:</strong> Incremental + Espiral</p>
+                    <p><strong>Razones:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Complejidad alta</li>
+                        <li role="listitem">Integración con sistemas legacy</li>
+                        <li role="listitem">Riesgos técnicos significativos</li>
+                        <li role="listitem">Implementación por fases</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🎮 Videojuegos/Multimedia</h4>
+                    <p><strong>Modelo recomendado:</strong> Prototipado + Ágil</p>
+                    <p><strong>Razones:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Creatividad e innovación</li>
+                        <li role="listitem">Pruebas tempranas de jugabilidad</li>
+                        <li role="listitem">Iteraciones rápidas</li>
+                        <li role="listitem">Feedback de playtesting</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🏦 Sistemas Financieros</h4>
+                    <p><strong>Modelo recomendado:</strong> Híbrido (Cascada + Ágil)</p>
+                    <p><strong>Razones:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Regulaciones financieras</li>
+                        <li role="listitem">Seguridad crítica</li>
+                        <li role="listitem">Documentación auditoria</li>
+                        <li role="listitem">Necesidad de agilidad</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🔬 I+D/Investigación</h4>
+                    <p><strong>Modelo recomendado:</strong> Espiral + Prototipado</p>
+                    <p><strong>Razones:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Alta incertidumbre</li>
+                        <li role="listitem">Exploración de soluciones</li>
+                        <li role="listitem">Riesgos tecnológicos</li>
+                        <li role="listitem">Aprendizaje continuo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="metricas-exito">4.3 Métricas de Éxito por Modelo</h3>
+
+            <div class="content-text">
+                <p><strong>💡 ¿Qué son las métricas de éxito?</strong></p>
+                <p>Las métricas de éxito son indicadores cuantificables que nos permiten evaluar si un proyecto de desarrollo de software está alcanzando sus objetivos. Cada modelo de ciclo de vida prioriza diferentes aspectos del éxito según su filosofía y enfoque.</p>
+                
+                <p><strong>🎯 ¿Por qué son importantes?</strong></p>
+                <ul role="list">
+                    <li role="listitem"><strong>Medición objetiva:</strong> Proporcionan datos concretos sobre el progreso</li>
+                    <li role="listitem"><strong>Detección temprana:</strong> Identifican problemas antes de que se agraven</li>
+                    <li role="listitem"><strong>Toma de decisiones:</strong> Guían las acciones correctivas necesarias</li>
+                    <li role="listitem"><strong>Comunicación:</strong> Facilitan el reporte a stakeholders</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container" style="background: var(--bg-primary); padding: 30px; border-radius: 15px; margin: 30px 0;">
+                <h4 style="text-align: center; margin-bottom: 20px; color: var(--text-primary);">📊 Dashboard de Métricas por Modelo de Desarrollo</h4>
+                
+                <svg viewBox="0 0 1000 600" style="width: 100%; height: auto; background: var(--bg-secondary); border-radius: 10px;">
+                    <!-- Título principal -->
+                    <text x="500" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="var(--text-primary)">Métricas de Éxito - Comparativa por Modelo</text>
+                    
+                    <!-- Modelo Cascada -->
+                    <g transform="translate(50, 80)">
+                        <rect x="0" y="0" width="200" height="120" rx="10" fill="#3498db" fill-opacity="0.1" stroke="#3498db" stroke-width="2"/>
+                        <text x="100" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#3498db">🌊 CASCADA</text>
+                        
+                        <!-- Medidor de cronograma -->
+                        <circle cx="50" cy="50" r="20" fill="none" stroke="#ecf0f1" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="20" fill="none" stroke="#27ae60" stroke-width="4" 
+                                stroke-dasharray="75.4" stroke-dashoffset="18.85" transform="rotate(-90 50 50)"/>
+                        <text x="50" y="55" text-anchor="middle" font-size="10" fill="var(--text-primary)">75%</text>
+                        <text x="50" y="80" text-anchor="middle" font-size="8" fill="var(--text-primary)">Cronograma</text>
+                        
+                        <!-- Medidor de documentación -->
+                        <circle cx="150" cy="50" r="20" fill="none" stroke="#ecf0f1" stroke-width="4"/>
+                        <circle cx="150" cy="50" r="20" fill="none" stroke="#f39c12" stroke-width="4" 
+                                stroke-dasharray="75.4" stroke-dashoffset="30.16" transform="rotate(-90 150 50)"/>
+                        <text x="150" y="55" text-anchor="middle" font-size="10" fill="var(--text-primary)">60%</text>
+                        <text x="150" y="80" text-anchor="middle" font-size="8" fill="var(--text-primary)">Documentación</text>
+                        
+                        <!-- Indicador de riesgo -->
+                        <rect x="10" y="90" width="180" height="8" rx="4" fill="#ecf0f1"/>
+                        <rect x="10" y="90" width="54" height="8" rx="4" fill="#e74c3c"/>
+                        <text x="100" y="110" text-anchor="middle" font-size="8" fill="var(--text-primary)">Riesgo: Cambios frecuentes</text>
+                    </g>
+                    
+                    <!-- Modelo Ágil -->
+                    <g transform="translate(300, 80)">
+                        <rect x="0" y="0" width="200" height="120" rx="10" fill="#27ae60" fill-opacity="0.1" stroke="#27ae60" stroke-width="2"/>
+                        <text x="100" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#27ae60">⚡ ÁGIL</text>
+                        
+                        <!-- Velocity -->
+                        <rect x="20" y="35" width="60" height="40" rx="5" fill="#2ecc71" fill-opacity="0.3" stroke="#2ecc71"/>
+                        <rect x="25" y="65" width="10" height="10" fill="#2ecc71"/>
+                        <rect x="40" y="60" width="10" height="15" fill="#2ecc71"/>
+                        <rect x="55" y="55" width="10" height="20" fill="#2ecc71"/>
+                        <rect x="70" y="50" width="10" height="25" fill="#2ecc71"/>
+                        <text x="50" y="90" text-anchor="middle" font-size="8" fill="var(--text-primary)">Velocity ↗</text>
+                        
+                        <!-- Satisfacción cliente -->
+                        <g transform="translate(120, 35)">
+                            <circle cx="30" cy="25" r="25" fill="#f1c40f" fill-opacity="0.3" stroke="#f39c12"/>
+                            <circle cx="22" cy="20" r="3" fill="#2c3e50"/>
+                            <circle cx="38" cy="20" r="3" fill="#2c3e50"/>
+                            <path d="M 20 35 Q 30 45 40 35" stroke="#2c3e50" stroke-width="2" fill="none"/>
+                        </g>
+                        <text x="150" y="90" text-anchor="middle" font-size="8" fill="var(--text-primary)">Satisfacción</text>
+                        
+                        <text x="100" y="110" text-anchor="middle" font-size="8" fill="var(--text-primary)">Riesgo: Scope creep</text>
+                    </g>
+                    
+                    <!-- Modelo Espiral -->
+                    <g transform="translate(550, 80)">
+                        <rect x="0" y="0" width="200" height="120" rx="10" fill="#9b59b6" fill-opacity="0.1" stroke="#9b59b6" stroke-width="2"/>
+                        <text x="100" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#9b59b6">🌀 ESPIRAL</text>
+                        
+                        <!-- Espiral de riesgos -->
+                        <g transform="translate(50, 45)">
+                            <circle cx="25" cy="25" r="8" fill="none" stroke="#e74c3c" stroke-width="2"/>
+                            <circle cx="25" cy="25" r="15" fill="none" stroke="#f39c12" stroke-width="2"/>
+                            <circle cx="25" cy="25" r="22" fill="none" stroke="#27ae60" stroke-width="2"/>
+                            <text x="25" y="30" text-anchor="middle" font-size="8" fill="var(--text-primary)">RIESGO</text>
+                            <text x="25" y="55" text-anchor="middle" font-size="6" fill="#e74c3c">Alto</text>
+                            <text x="10" y="45" text-anchor="middle" font-size="6" fill="#f39c12">Medio</text>
+                            <text x="40" y="35" text-anchor="middle" font-size="6" fill="#27ae60">Bajo</text>
+                        </g>
+                        
+                        <!-- Prototipos -->
+                        <g transform="translate(120, 35)">
+                            <rect x="5" y="5" width="15" height="10" fill="#3498db" fill-opacity="0.7"/>
+                            <rect x="10" y="10" width="15" height="10" fill="#3498db" fill-opacity="0.5"/>
+                            <rect x="15" y="15" width="15" height="10" fill="#3498db" fill-opacity="0.3"/>
+                            <text x="22" y="40" text-anchor="middle" font-size="6" fill="var(--text-primary)">Prototipos</text>
+                        </g>
+                        
+                        <text x="100" y="110" text-anchor="middle" font-size="8" fill="var(--text-primary)">Riesgo: Costos excesivos</text>
+                    </g>
+                    
+                    <!-- Modelo Incremental -->
+                    <g transform="translate(800, 80)">
+                        <rect x="0" y="0" width="150" height="120" rx="10" fill="#e67e22" fill-opacity="0.1" stroke="#e67e22" stroke-width="2"/>
+                        <text x="75" y="20" text-anchor="middle" font-size="14" font-weight="bold" fill="#e67e22">📈 INCREMENTAL</text>
+                        
+                        <!-- Incrementos -->
+                        <rect x="20" y="35" width="20" height="30" fill="#27ae60" fill-opacity="0.8"/>
+                        <rect x="45" y="35" width="20" height="30" fill="#27ae60" fill-opacity="0.6"/>
+                        <rect x="70" y="35" width="20" height="30" fill="#f39c12" fill-opacity="0.4"/>
+                        <rect x="95" y="35" width="20" height="30" fill="#bdc3c7" fill-opacity="0.3"/>
+                        
+                        <text x="30" y="80" text-anchor="middle" font-size="6" fill="var(--text-primary)">V1</text>
+                        <text x="55" y="80" text-anchor="middle" font-size="6" fill="var(--text-primary)">V2</text>
+                        <text x="80" y="80" text-anchor="middle" font-size="6" fill="var(--text-primary)">V3</text>
+                        <text x="105" y="80" text-anchor="middle" font-size="6" fill="var(--text-primary)">V4</text>
+                        
+                        <text x="75" y="95" text-anchor="middle" font-size="8" fill="var(--text-primary)">Releases</text>
+                        <text x="75" y="110" text-anchor="middle" font-size="8" fill="var(--text-primary)">Riesgo: Deuda técnica</text>
+                    </g>
+                    
+                    <!-- Leyenda inferior -->
+                    <g transform="translate(50, 250)">
+                        <text x="0" y="0" font-size="14" font-weight="bold" fill="var(--text-primary)">🔍 Interpretación de Métricas:</text>
+                        
+                        <g transform="translate(0, 30)">
+                            <circle cx="10" cy="0" r="5" fill="#27ae60"/>
+                            <text x="25" y="5" font-size="12" fill="var(--text-primary)">Verde: Métrica en rango óptimo (80-100%)</text>
+                        </g>
+                        
+                        <g transform="translate(300, 30)">
+                            <circle cx="10" cy="0" r="5" fill="#f39c12"/>
+                            <text x="25" y="5" font-size="12" fill="var(--text-primary)">Amarillo: Métrica en rango aceptable (60-79%)</text>
+                        </g>
+                        
+                        <g transform="translate(600, 30)">
+                            <circle cx="10" cy="0" r="5" fill="#e74c3c"/>
+                            <text x="25" y="5" font-size="12" fill="var(--text-primary)">Rojo: Métrica crítica (< 60%)</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Comparativa de enfoques -->
+                    <g transform="translate(50, 320)">
+                        <text x="0" y="0" font-size="14" font-weight="bold" fill="var(--text-primary)">📋 Enfoque de Cada Modelo:</text>
+                        
+                        <g transform="translate(0, 40)">
+                            <rect x="0" y="0" width="200" height="80" rx="5" fill="#3498db" fill-opacity="0.1" stroke="#3498db"/>
+                            <text x="10" y="20" font-size="12" font-weight="bold" fill="#3498db">Cascada - Predictibilidad</text>
+                            <text x="10" y="35" font-size="10" fill="var(--text-primary)">• Cumplimiento de cronograma</text>
+                            <text x="10" y="50" font-size="10" fill="var(--text-primary)">• Conformidad con especificaciones</text>
+                            <text x="10" y="65" font-size="10" fill="var(--text-primary)">• Calidad de documentación</text>
+                        </g>
+                        
+                        <g transform="translate(220, 40)">
+                            <rect x="0" y="0" width="200" height="80" rx="5" fill="#27ae60" fill-opacity="0.1" stroke="#27ae60"/>
+                            <text x="10" y="20" font-size="12" font-weight="bold" fill="#27ae60">Ágil - Adaptabilidad</text>
+                            <text x="10" y="35" font-size="10" fill="var(--text-primary)">• Velocity del equipo</text>
+                            <text x="10" y="50" font-size="10" fill="var(--text-primary)">• Satisfacción del cliente</text>
+                            <text x="10" y="65" font-size="10" fill="var(--text-primary)">• Burndown rate</text>
+                        </g>
+                        
+                        <g transform="translate(440, 40)">
+                            <rect x="0" y="0" width="200" height="80" rx="5" fill="#9b59b6" fill-opacity="0.1" stroke="#9b59b6"/>
+                            <text x="10" y="20" font-size="12" font-weight="bold" fill="#9b59b6">Espiral - Gestión de Riesgo</text>
+                            <text x="10" y="35" font-size="10" fill="var(--text-primary)">• Reducción de riesgos</text>
+                            <text x="10" y="50" font-size="10" fill="var(--text-primary)">• Calidad de prototipos</text>
+                            <text x="10" y="65" font-size="10" fill="var(--text-primary)">• Precisión de estimaciones</text>
+                        </g>
+                        
+                        <g transform="translate(660, 40)">
+                            <rect x="0" y="0" width="200" height="80" rx="5" fill="#e67e22" fill-opacity="0.1" stroke="#e67e22"/>
+                            <text x="10" y="20" font-size="12" font-weight="bold" fill="#e67e22">Incremental - Entrega de Valor</text>
+                            <text x="10" y="35" font-size="10" fill="var(--text-primary)">• Funcionalidad entregada</text>
+                            <text x="10" y="50" font-size="10" fill="var(--text-primary)">• Tiempo entre releases</text>
+                            <text x="10" y="65" font-size="10" fill="var(--text-primary)">• Satisfacción por incremento</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="content-text">
+                <h4>🎯 Factores Críticos de Éxito por Modelo</h4>
+                
+                <div class="model-characteristics">
+                    <div class="characteristic-card">
+                        <h4>🌊 Modelo Cascada</h4>
+                        <p><strong>Enfoque:</strong> Predictibilidad y control</p>
+                        <ul role="list">
+                            <li role="listitem"><strong>✅ Factores de éxito:</strong> Requisitos estables, experiencia del equipo, procesos maduros</li>
+                            <li role="listitem"><strong>⚠️ Indicadores de riesgo:</strong> Cambios frecuentes, feedback tardío, complejidad técnica alta</li>
+                            <li role="listitem"><strong>📊 Métricas clave:</strong> % cumplimiento cronograma, conformidad especificaciones, calidad documentación</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="characteristic-card">
+                        <h4>⚡ Metodologías Ágiles</h4>
+                        <p><strong>Enfoque:</strong> Adaptabilidad y valor continuo</p>
+                        <ul role="list">
+                            <li role="listitem"><strong>✅ Factores de éxito:</strong> Participación activa del cliente, equipo auto-organizado, comunicación efectiva</li>
+                            <li role="listitem"><strong>⚠️ Indicadores de riesgo:</strong> Falta de compromiso, scope creep, resistencia al cambio</li>
+                            <li role="listitem"><strong>📊 Métricas clave:</strong> Velocity (puntos/sprint), satisfacción cliente, burndown rate</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="characteristic-card">
+                        <h4>🌀 Modelo Espiral</h4>
+                        <p><strong>Enfoque:</strong> Gestión proactiva de riesgos</p>
+                        <ul role="list">
+                            <li role="listitem"><strong>✅ Factores de éxito:</strong> Gestión eficaz de riesgos, prototipado efectivo, comunicación con stakeholders</li>
+                            <li role="listitem"><strong>⚠️ Indicadores de riesgo:</strong> Subestimación de riesgos, prototipos inadecuados, costos excesivos</li>
+                            <li role="listitem"><strong>📊 Métricas clave:</strong> % reducción riesgos, calidad prototipos, precisión estimaciones</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="characteristic-card">
+                        <h4>📈 Modelo Incremental</h4>
+                        <p><strong>Enfoque:</strong> Entrega temprana de valor</p>
+                        <ul role="list">
+                            <li role="listitem"><strong>✅ Factores de éxito:</strong> Arquitectura escalable, priorización efectiva, integración continua</li>
+                            <li role="listitem"><strong>⚠️ Indicadores de riesgo:</strong> Arquitectura inadecuada, dependencias complejas, deuda técnica acumulada</li>
+                            <li role="listitem"><strong>📊 Métricas clave:</strong> Funcionalidad entregada, tiempo entre releases, satisfacción por incremento</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-text">
+                <h4>💼 Ejemplo Práctico: Sistema de E-commerce</h4>
+                <p>Imaginemos el desarrollo de una plataforma de e-commerce. Veamos cómo cada modelo mediría el éxito:</p>
+                
+                <div class="comparison-table">
+                    <thead role="rowgroup">
+                        <tr role="row">
+                            <th role="columnheader">Aspecto</th>
+                            <th role="columnheader">Cascada</th>
+                            <th role="columnheader">Ágil</th>
+                            <th role="columnheader">Espiral</th>
+                            <th role="columnheader">Incremental</th>
+                        </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                        <tr role="row">
+                            <td role="cell"><strong>Medición Principal</strong></td>
+                            <td role="cell">¿Se entregó en 12 meses como se planificó?</td>
+                            <td role="cell">¿Los sprints entregan valor cada 2 semanas?</td>
+                            <td role="cell">¿Se identificaron y mitigaron los riesgos de seguridad?</td>
+                            <td role="cell">¿Se puede vender online después del primer incremento?</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Métrica de Calidad</strong></td>
+                            <td role="cell">Documentación completa y testing final</td>
+                            <td role="cell">Feedback continuo del cliente</td>
+                            <td role="cell">Prototipos validados por usuarios</td>
+                            <td role="cell">Funcionalidad estable en cada release</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Indicador de Alerta</strong></td>
+                            <td role="cell">Cambios en requisitos de pago</td>
+                            <td role="cell">Velocity descendente del equipo</td>
+                            <td role="cell">Riesgos de seguridad no resueltos</td>
+                            <td role="cell">Deuda técnica en la arquitectura</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3 id="tendencias">4.4 Tendencias Evolutivas en Ciclos de Vida</h3>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <h4>🏗️ Era de la Construcción (1970s-1980s)</h4>
+                    <p><strong>Característica:</strong> Enfoque en procesos estructurados y documentación</p>
+                    <p><strong>Modelos dominantes:</strong> Cascada, Modelo V</p>
+                    <p><strong>Metáfora:</strong> Software como construcción civil</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>🔄 Era de la Iteración (1990s)</h4>
+                    <p><strong>Característica:</strong> Reconocimiento de la naturaleza iterativa</p>
+                    <p><strong>Modelos dominantes:</strong> Espiral, RAD, Prototipado</p>
+                    <p><strong>Metáfora:</strong> Software como proceso de aprendizaje</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>🚀 Era Ágil (2000s)</h4>
+                    <p><strong>Característica:</strong> Enfoque en personas y colaboración</p>
+                    <p><strong>Modelos dominantes:</strong> Scrum, XP, Kanban</p>
+                    <p><strong>Metáfora:</strong> Software como artesanía colaborativa</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>⚡ Era DevOps (2010s)</h4>
+                    <p><strong>Característica:</strong> Integración desarrollo-operaciones</p>
+                    <p><strong>Modelos dominantes:</strong> CI/CD, Microservicios</p>
+                    <p><strong>Metáfora:</strong> Software como servicio continuo</p>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>🤖 Era de la IA (2020s)</h4>
+                    <p><strong>Característica:</strong> Desarrollo asistido por inteligencia artificial</p>
+                    <p><strong>Modelos emergentes:</strong> AI-Driven Development, No-Code/Low-Code</p>
+                    <p><strong>Metáfora:</strong> Software como colaboración humano-máquina</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section examples">
+            <h2 id="casos-practicos">💡 5. Casos Prácticos y Ejemplos</h2>
+            
+            <h3 id="caso-hospital">5.1 Caso de Estudio: Sistema de Gestión Hospitalaria</h3>
+            
+            <div class="highlight">
+                <h4>📋 Contexto del Proyecto</h4>
+                <p><strong>Cliente:</strong> Hospital Regional de 300 camas</p>
+                <p><strong>Objetivo:</strong> Modernizar sistema de gestión de pacientes legacy</p>
+                <p><strong>Restricciones:</strong> Cumplimiento HIPAA, integración con equipos médicos</p>
+                <p><strong>Plazo:</strong> 18 meses</p>
+                <p><strong>Presupuesto:</strong> $2.5M USD</p>
+            </div>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    flowchart TD
+                        A[📊 Análisis de Situación] --> B{Evaluación de Factores}
+                        
+                        B --> C[🔍 Factores del Proyecto]
+                        B --> D[👥 Factores del Equipo]
+                        B --> E[🏥 Factores del Cliente]
+                        B --> F[💻 Factores Tecnológicos]
+                        
+                        C --> C1[• Tamaño: Grande<br/>• Complejidad: Alta<br/>• Riesgo: Alto<br/>• Criticidad: Muy Alta]
+                        
+                        D --> D1[• Equipo: 15 personas<br/>• Experiencia: Media<br/>• Ubicación: Distribuido<br/>• Rotación: Baja]
+                        
+                        E --> E1[• Requisitos: Parcialmente claros<br/>• Participación: Media<br/>• Experiencia: Baja<br/>• Regulación: Alta]
+                        
+                        F --> F1[• Tecnología: Madura<br/>• Integración: Compleja<br/>• Seguridad: Crítica<br/>• Legacy: Extenso]
+                        
+                        C1 --> G[⚖️ Evaluación de Modelos]
+                        D1 --> G
+                        E1 --> G
+                        F1 --> G
+                        
+                        G --> H[🎯 Modelo Híbrido Seleccionado]
+                        
+                        H --> I[📋 Fase 1: Cascada<br/>Análisis y Arquitectura]
+                        H --> J[🔄 Fase 2: Incremental<br/>Desarrollo por módulos]
+                        H --> K[🧪 Fase 3: Iterativo<br/>Pruebas y refinamiento]
+                        
+                        style H fill:#e8f5e8
+                        style I fill:#e8f0ff
+                        style J fill:#fff0e8
+                        style K fill:#f0e8ff
+                </div>
+            </div>
+
+            <div class="synoptic-table">
+                <div class="synoptic-cell">
+                    <h4>✅ Justificación del Modelo Híbrido</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Cascada inicial:</strong> Análisis exhaustivo por regulaciones</li>
+                        <li role="listitem"><strong>Desarrollo incremental:</strong> Entregas por módulos funcionales</li>
+                        <li role="listitem"><strong>Iteraciones cortas:</strong> Feedback temprano del personal médico</li>
+                        <li role="listitem"><strong>Validación continua:</strong> Cumplimiento normativo</li>
+                    </ul>
+                </div>
+                <div class="synoptic-cell">
+                    <h4>📈 Resultados Obtenidos</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Tiempo:</strong> 17 meses (95% del plazo)</li>
+                        <li role="listitem"><strong>Presupuesto:</strong> $2.3M (92% del presupuesto)</li>
+                        <li role="listitem"><strong>Calidad:</strong> Certificación HIPAA exitosa</li>
+                        <li role="listitem"><strong>Satisfacción:</strong> 87% de usuarios satisfechos</li>
+                        <li role="listitem"><strong>ROI:</strong> 340% en 3 años</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="caso-fintech">5.2 Caso de Estudio: Aplicación FinTech Móvil</h3>
+
+            <div class="highlight">
+                <h4>📱 Contexto del Proyecto</h4>
+                <p><strong>Cliente:</strong> Startup de servicios financieros</p>
+                <p><strong>Objetivo:</strong> App móvil para transferencias P2P y pagos</p>
+                <p><strong>Restricciones:</strong> Time-to-market crítico, competencia intensa</p>
+                <p><strong>Plazo:</strong> 6 meses para MVP</p>
+                <p><strong>Presupuesto:</strong> $500K USD</p>
+            </div>
+
+            <div class="model-characteristics">
+                <div class="characteristic-card">
+                    <h4>🎯 Modelo Seleccionado: Ágil (Scrum)</h4>
+                    <p><strong>Sprints:</strong> 2 semanas</p>
+                    <p><strong>Equipo:</strong> 8 personas (Product Owner, Scrum Master, 6 developers)</p>
+                    <p><strong>Herramientas:</strong> Jira, Confluence, GitLab CI/CD</p>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>📊 Planificación por Sprints</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Sprints 1-3:</strong> Arquitectura base y autenticación</li>
+                        <li role="listitem"><strong>Sprints 4-6:</strong> Transferencias básicas</li>
+                        <li role="listitem"><strong>Sprints 7-9:</strong> Interfaz de usuario y UX</li>
+                        <li role="listitem"><strong>Sprints 10-12:</strong> Seguridad y compliance</li>
+                    </ul>
+                </div>
+
+                <div class="characteristic-card">
+                    <h4>🔄 Retrospectivas y Mejoras</h4>
+                    <ul role="list">
+                        <li role="listitem"><strong>Sprint 3:</strong> Implementación de CI/CD mejoró velocity en 25%</li>
+                        <li role="listitem"><strong>Sprint 6:</strong> Pair programming redujo bugs en 40%</li>
+                        <li role="listitem"><strong>Sprint 9:</strong> User testing cambió 60% de la UI</li>
+                        <li role="listitem"><strong>Sprint 12:</strong> Automated testing alcanzó 85% coverage</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pros-cons">
+                <div class="pros">
+                    <h4>✅ Factores de Éxito</h4>
+                    <ul role="list">
+                        <li role="listitem">Product Owner dedicado 100%</li>
+                        <li role="listitem">Feedback semanal de usuarios beta</li>
+                        <li role="listitem">Equipo colocalizado</li>
+                        <li role="listitem">Arquitectura microservicios desde inicio</li>
+                        <li role="listitem">Automatización de pruebas desde Sprint 1</li>
+                    </ul>
+                </div>
+                <div class="cons">
+                    <h4>⚠️ Desafíos Enfrentados</h4>
+                    <ul role="list">
+                        <li role="listitem">Cambios regulatorios durante desarrollo</li>
+                        <li role="listitem">Integración compleja con bancos</li>
+                        <li role="listitem">Presión por features vs seguridad</li>
+                        <li role="listitem">Escalabilidad no prevista inicialmente</li>
+                        <li role="listitem">Deuda técnica en sprints finales</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 id="arbol-decision">5.3 Selección de Modelo: Árbol de Decisión Interactivo</h3>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <div class="mermaid" role="img" aria-label="Diagrama explicativo del contenido">
+                    graph TD
+                        Start([🚀 Nuevo Proyecto]) --> Q1{¿Los requisitos están<br/>completamente definidos?}
+                        
+                        Q1 -->|Sí, muy claros| Q2{¿Es un sistema crítico<br/>o altamente regulado?}
+                        Q1 -->|Parcialmente| Q3{¿Hay alta incertidumbre<br/>técnica o de negocio?}
+                        Q1 -->|No, muy inciertos| Q4{¿El presupuesto es limitado<br/>y el tiempo crítico?}
+                        
+                        Q2 -->|Sí| Waterfall[📋 Modelo Cascada<br/>🎯 Ideal para: Sistemas médicos,<br/>aeroespaciales, financieros]
+                        Q2 -->|No| Q5{¿Necesita entregas<br/>tempranas de valor?}
+                        
+                        Q3 -->|Sí, muy alta| Spiral[🌀 Modelo Espiral<br/>🎯 Ideal para: I+D, sistemas<br/>complejos, nuevas tecnologías]
+                        Q3 -->|Media| Q6{¿El equipo es<br/>experimentado en ágil?}
+                        
+                        Q4 -->|Sí| RAD[⚡ RAD<br/>🎯 Ideal para: Prototipos rápidos,<br/>sistemas CRUD, demos]
+                        Q4 -->|No| Prototyping[🔧 Prototipado<br/>🎯 Ideal para: UI/UX crítico,<br/>validación de conceptos]
+                        
+                        Q5 -->|Sí| Incremental[📈 Incremental<br/>🎯 Ideal para: Sistemas grandes,<br/>migración de legacy]
+                        Q5 -->|No| Q7{¿Hay restricciones<br/>de documentación?}
+                        
+                        Q6 -->|Sí| Agile[🔄 Metodología Ágil<br/>🎯 Ideal para: Web apps,<br/>mobile, startups]
+                        Q6 -->|No| Q8{¿Proyecto pequeño<br/>< 6 meses?}
+                        
+                        Q7 -->|Muchas| VModel[📐 Modelo V<br/>🎯 Ideal para: Sistemas embedded,<br/>automotive, defensa]
+                        Q7 -->|Pocas| Incremental
+                        
+                        Q8 -->|Sí| Waterfall
+                        Q8 -->|No| Hybrid[🔀 Modelo Híbrido<br/>🎯 Ideal para: Proyectos complejos<br/>con múltiples restricciones]
+                        
+                        style Waterfall fill:#e8f5e8
+                        style Spiral fill:#ffe8e8
+                        style RAD fill:#fff0e8
+                        style Prototyping fill:#f0e8ff
+                        style Incremental fill:#e8f0ff
+                        style Agile fill:#e8ffe8
+                        style VModel fill:#ffe8f0
+                        style Hybrid fill:#f0f0f0
+                </div>
+            </div>
+        </div>
+
+        <div class="section quiz">
+            <h2 id="quiz">🧠 Evaluación de Conocimientos</h2>
+            <p>Test tu comprensión de los ciclos de vida de desarrollo de software con estas 20 preguntas.</p>
+
+            <div class="quiz-question">
+                <h4>1. ¿Cuál es la principal desventaja del modelo en cascada según Pressman?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Alto costo de desarrollo</li>
+                    <li role="listitem">B) Es raro que los proyectos reales sigan el flujo secuencial propuesto</li>
+                    <li role="listitem">C) Requiere mucha documentación</li>
+                    <li role="listitem">D) No es adecuado para equipos grandes</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> Pressman identifica que es raro que los proyectos reales sigan el flujo secuencial, y aunque el modelo acepta repeticiones, lo hace en forma indirecta, generando confusión cuando hay cambios.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>2. ¿Qué representa cada lado del Modelo en V?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Lado izquierdo: desarrollo, Lado derecho: mantenimiento</li>
+                    <li role="listitem">B) Lado izquierdo: análisis, Lado derecho: implementación</li>
+                    <li role="listitem">C) Lado izquierdo: desarrollo hacia abajo, Lado derecho: pruebas hacia arriba</li>
+                    <li role="listitem">D) Lado izquierdo: requisitos, Lado derecho: entrega</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: C)</strong> El modelo V muestra como el equipo avanza hacia abajo en el lado izquierdo con desarrollo cada vez más detallado, y luego sube por el lado derecho ejecutando pruebas que validan cada modelo creado.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>3. ¿Cuáles son los cuatro cuadrantes del modelo en espiral según Boehm?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Planificación, Análisis de riesgo, Desarrollo, Evaluación</li>
+                    <li role="listitem">B) Requisitos, Diseño, Implementación, Pruebas</li>
+                    <li role="listitem">C) Análisis, Construcción, Pruebas, Despliegue</li>
+                    <li role="listitem">D) Comunicación, Planificación, Modelado, Construcción</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: A)</strong> Los cuatro cuadrantes del modelo espiral son: 1) Planificación (determinar objetivos, alternativas, restricciones), 2) Análisis de riesgo, 3) Desarrollo, y 4) Evaluación del cliente.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>4. ¿Cuál es el tiempo máximo recomendado para el desarrollo RAD?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) 30-60 días</li>
+                    <li role="listitem">B) 60-90 días</li>
+                    <li role="listitem">C) 90-120 días</li>
+                    <li role="listitem">D) 6 meses</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> RAD enfatiza un ciclo de desarrollo extremadamente corto de 60-90 días, utilizando un enfoque de construcción basado en componentes.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>5. ¿Qué diferencia fundamental existe entre prototipado evolutivo y desechable?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) El evolutivo es más rápido de desarrollar</li>
+                    <li role="listitem">B) El evolutivo se convierte en el sistema final, el desechable se descarta</li>
+                    <li role="listitem">C) El desechable requiere más recursos</li>
+                    <li role="listitem">D) No hay diferencias significativas</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> El prototipo evolutivo se desarrolla y refina hasta convertirse en el sistema final, mientras que el desechable se usa solo para validación y luego se descarta.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>6. ¿Cuándo es MÁS apropiado usar el modelo en cascada?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Cuando los requisitos cambian frecuentemente</li>
+                    <li role="listitem">B) Cuando los requisitos están bien definidos y son estables</li>
+                    <li role="listitem">C) Para proyectos de investigación</li>
+                    <li role="listitem">D) Para aplicaciones web modernas</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> El modelo cascada es apropiado cuando los requisitos están bien definidos y tienen estabilidad razonable, y cuando se puede seguir un flujo lineal hacia el final.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>7. ¿Qué principio de DevOps enfatiza la responsabilidad compartida?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Automatización</li>
+                    <li role="listitem">B) Medición</li>
+                    <li role="listitem">C) Compartir (Sharing)</li>
+                    <li role="listitem">D) Colaboración</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: C)</strong> El principio de "Compartir" en DevOps se refiere al conocimiento y responsabilidad compartida entre equipos de desarrollo y operaciones.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>8. ¿Cuál es la principal ventaja del desarrollo incremental?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Menor costo total</li>
+                    <li role="listitem">B) Entrega temprana de funcionalidad útil</li>
+                    <li role="listitem">C) Menos documentación requerida</li>
+                    <li role="listitem">D) Equipos más pequeños</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> La principal ventaja del desarrollo incremental es que permite la entrega temprana de funcionalidad útil, proporcionando valor al usuario rápidamente y permitiendo retroalimentación continua.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>9. ¿Qué factor del proyecto sugiere usar el modelo en espiral?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Requisitos muy claros</li>
+                    <li role="listitem">B) Budget limitado</li>
+                    <li role="listitem">C) Alto nivel de riesgo e incertidumbre</li>
+                    <li role="listitem">D) Equipo pequeño</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: C)</strong> El modelo en espiral es ideal cuando hay alto nivel de riesgo e incertidumbre, ya que incorpora análisis de riesgo como elemento central del proceso.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>10. En RAD, ¿qué fase responde a "¿Qué información conduce el proceso de negocio?"</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Modelado de datos</li>
+                    <li role="listitem">B) Modelado de negocio</li>
+                    <li role="listitem">C) Modelado del proceso</li>
+                    <li role="listitem">D) Generación de aplicaciones</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> El modelado de negocio en RAD se enfoca en entender el flujo de información, incluyendo qué información conduce el proceso de negocio.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>11. ¿Cuál es un requisito crítico para el éxito de RAD?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Documentación exhaustiva</li>
+                    <li role="listitem">B) Alcance limitado que permita división en equipos</li>
+                    <li role="listitem">C) Proceso de pruebas extensivo</li>
+                    <li role="listitem">D) Arquitectura compleja</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> RAD requiere alcance limitado que permita división del sistema en módulos que puedan ser desarrollados por equipos paralelos en el mismo periodo de tiempo.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>12. ¿Qué característica distingue al desarrollo iterativo-incremental?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Desarrollo secuencial de fases</li>
+                    <li role="listitem">B) Ciclos cortos de retroalimentación</li>
+                    <li role="listitem">C) Documentación exhaustiva</li>
+                    <li role="listitem">D) Análisis de riesgo formal</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> El desarrollo iterativo-incremental se caracteriza por ciclos cortos de retroalimentación que permiten adaptación temprana a cambios y validación continua.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>13. ¿Para qué tipo de sistemas es MÁS apropiado el Modelo V?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Aplicaciones web</li>
+                    <li role="listitem">B) Sistemas embedded y automotrices</li>
+                    <li role="listitem">C) Videojuegos</li>
+                    <li role="listitem">D) Redes sociales</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> El Modelo V es ideal para sistemas embedded, automotrices y de defensa donde se requiere verificación y validación rigurosa en cada fase.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>14. ¿Cuál es la diferencia entre verificación y validación en el Modelo V?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) No hay diferencia</li>
+                    <li role="listitem">B) Verificación: ¿construimos el producto correcto?, Validación: ¿construimos correctamente?</li>
+                    <li role="listitem">C) Verificación: ¿construimos correctamente?, Validación: ¿construimos el producto correcto?</li>
+                    <li role="listitem">D) Verificación es para código, validación para requisitos</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: C)</strong> Verificación pregunta "¿estamos construyendo el producto correctamente?" mientras que validación pregunta "¿estamos construyendo el producto correcto?"
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>15. ¿Qué práctica clave caracteriza a DevOps?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Documentación extensiva</li>
+                    <li role="listitem">B) CI/CD (Integración y entrega continua)</li>
+                    <li role="listitem">C) Reuniones semanales</li>
+                    <li role="listitem">D) Testing manual</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> CI/CD (Continuous Integration/Continuous Delivery) es una práctica fundamental de DevOps que automatiza los procesos de integración y entrega.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>16. ¿Cuándo es apropiado un modelo híbrido?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Solo para proyectos pequeños</li>
+                    <li role="listitem">B) Cuando un solo modelo no satisface todas las necesidades del proyecto</li>
+                    <li role="listitem">C) Nunca, hay que elegir un modelo único</li>
+                    <li role="listitem">D) Solo para equipos inexpertos</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> Los modelos híbridos son apropiados cuando un solo modelo no puede satisfacer todas las necesidades, restricciones y características del proyecto.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>17. ¿Qué industria típicamente requiere el modelo en cascada?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Gaming</li>
+                    <li role="listitem">B) Sistemas médicos/farmacéuticos</li>
+                    <li role="listitem">C) Redes sociales</li>
+                    <li role="listitem">D) E-commerce</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> Los sistemas médicos y farmacéuticos requieren cascada debido a regulaciones estrictas (FDA, ISO 13485), documentación exhaustiva y trazabilidad completa.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>18. ¿Cuál es el enfoque principal del prototipado rápido?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Desarrollo completo del sistema</li>
+                    <li role="listitem">B) Validación temprana de requisitos y obtención de feedback</li>
+                    <li role="listitem">C) Documentación detallada</li>
+                    <li role="listitem">D) Testing exhaustivo</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> El prototipado rápido se centra en validar requisitos y obtener retroalimentación de usuarios antes del desarrollo completo.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>19. ¿Qué modelo es más apropiado para startups FinTech?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Cascada</li>
+                    <li role="listitem">B) Modelo V</li>
+                    <li role="listitem">C) Ágil con DevOps</li>
+                    <li role="listitem">D) Espiral</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: C)</strong> Las startups FinTech necesitan time-to-market crítico, requisitos evolutivos y entregas frecuentes, lo que hace ideal la combinación Ágil + DevOps.
+                </div>
+            </div>
+
+            <div class="quiz-question">
+                <h4>20. ¿Cuál es la tendencia actual en ciclos de vida de desarrollo?</h4>
+                <ul class="quiz-options">
+                    <li role="listitem">A) Retorno al modelo cascada</li>
+                    <li role="listitem">B) Desarrollo asistido por inteligencia artificial</li>
+                    <li role="listitem">C) Eliminación de todas las metodologías</li>
+                    <li role="listitem">D) Focus únicamente en documentación</li>
+                </ul>
+                <div class="highlight">
+                    <strong>Respuesta correcta: B)</strong> La tendencia actual (Era de la IA - 2020s) es hacia el desarrollo asistido por inteligencia artificial, incluyendo AI-Driven Development y plataformas No-Code/Low-Code.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 id="recursos">📚 Recursos Adicionales y Referencias</h2>
+            
+            <h3>📖 Bibliografía Principal</h3>
+            <ul role="list">
+                <li role="listitem"><strong>Pressman, Roger (1998).</strong> Ingeniería de Software. Un enfoque Práctico. 4ª ed. Mc Graw-Hill. México.</li>
+                <li role="listitem"><strong>Larman, C (2003).</strong> UML y patrones. Una Introducción al Análisis y Diseño Orientado a Objetos y al Proceso Unificado. Segunda edición. Prentice-Hall. México.</li>
+                <li role="listitem"><strong>Boehm, Barry (1986).</strong> "A Spiral Model of Software Development and Enhancement." ACM SIGSOFT Software Engineering Notes.</li>
+                <li role="listitem"><strong>Royce, Winston (1970).</strong> "Managing the Development of Large Software Systems." IEEE WESCON.</li>
+            </ul>
+
+            <h3>🔗 Enlaces de Interés</h3>
+            <ul role="list">
+                <li role="listitem"><strong>Software Engineering Institute (SEI):</strong> https://www.sei.cmu.edu/</li>
+                <li role="listitem"><strong>IEEE Computer Society:</strong> https://www.computer.org/</li>
+                <li role="listitem"><strong>Project Management Institute:</strong> https://www.pmi.org/</li>
+                <li role="listitem"><strong>DevOps Institute:</strong> https://devopsinstitute.com/</li>
+            </ul>
+
+            <h3>📊 Próxima Clase</h3>
+            <div class="highlight">
+                <h4>🔄 Clase 3: Desarrollo Iterativo e Incremental</h4>
+                <p><strong>Temas a cubrir:</strong></p>
+                <ul role="list">
+                    <li role="listitem">Fundamentos conceptuales iterativo vs incremental</li>
+                    <li role="listitem">Principios y prácticas de timeboxing</li>
+                    <li role="listitem">Herramientas de planificación ágil</li>
+                    <li role="listitem">Métricas y control de proyectos iterativos</li>
+                </ul>
+                <p><strong>Preparación recomendada:</strong> Revisar conceptos de user stories y product backlog</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuración de Mermaid
+        const mermaidConfig = {
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            gantt: {
+                useMaxWidth: true,
+                leftPadding: 150
+            },
+            timeline: {
+                useMaxWidth: true
+            }
+        };
+
+        // Inicializar Mermaid
+        mermaid.initialize(mermaidConfig);
+
+        // Función para renderizar diagramas Mermaid
+        function renderMermaid() {
+            try {
+                document.querySelectorAll('.mermaid').forEach(element => {
+                    if (element.getAttribute('data-processed') === 'true') {
+                        element.removeAttribute('data-processed');
+                        const originalContent = element.getAttribute('data-original-content');
+                        if (originalContent) {
+                            element.innerHTML = originalContent;
+                        }
+                    } else {
+                        element.setAttribute('data-original-content', element.innerHTML);
+                    }
+                });
+                
+                mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+            } catch (error) {
+                console.error('Error rendering Mermaid:', error);
+                setTimeout(() => {
+                    try {
+                        mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+                    } catch (e) {
+                        console.error('Fallback Mermaid render failed:', e);
+                    }
+                }, 2000);
+            }
+        }
+
+        // Función para cambiar tema
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+            setTimeout(renderMermaid, 100);
+        }
+
+        // Variables para el quiz
+        let selectedAnswers = {};
+
+        // Función para seleccionar opciones sin mostrar feedback inmediato
+        function selectQuizOption(element) {
+            const optionsList = element.parentNode;
+            const questionDiv = element.closest('.quiz-question');
+            const questionNumber = Array.from(document.querySelectorAll('.quiz-question')).indexOf(questionDiv) + 1;
+            
+            // Limpiar selecciones anteriores
+            optionsList.querySelectorAll('li').forEach(opt => {
+                opt.style.backgroundColor = '';
+                opt.style.color = '';
+                opt.style.fontWeight = '';
+                opt.classList.remove('selected');
+            });
+            
+            // Marcar opción seleccionada sin mostrar si es correcta
+            element.style.backgroundColor = '#3498db';
+            element.style.color = 'white';
+            element.style.fontWeight = 'bold';
+            element.classList.add('selected');
+            
+            // Determinar si es correcta basándose en la respuesta oculta
+            const highlight = questionDiv.querySelector('.highlight');
+            let isCorrect = false;
+            if (highlight) {
+                const textoRespuesta = highlight.textContent;
+                const match = textoRespuesta.match(/Respuesta correcta: ([A-D])/);
+                if (match) {
+                    const letraCorrecta = match[1];
+                    isCorrect = element.textContent.trim().startsWith(letraCorrecta + ')');
+                }
+            }
+            
+            selectedAnswers[questionNumber] = isCorrect;
+        }
+
+        // Función para verificar respuestas con gráfico de torta
+        function checkQuizAnswers() {
+            let correctCount = 0;
+            let totalAnswered = Object.keys(selectedAnswers).length;
+            
+            // Mostrar feedback visual en las opciones
+            document.querySelectorAll('.quiz-question').forEach((questionDiv, index) => {
+                const questionNumber = index + 1;
+                const isCorrect = selectedAnswers[questionNumber];
+                const highlight = questionDiv.querySelector('.highlight');
+                
+                // Mostrar respuesta correcta
+                if (highlight) highlight.style.display = 'block';
+                
+                questionDiv.querySelectorAll('.quiz-options li').forEach((opt) => {
+                    if (opt.classList.contains('selected')) {
+                        // Opción seleccionada
+                        opt.style.backgroundColor = isCorrect ? '#27ae60' : '#e74c3c';
+                    } else {
+                        // Mostrar respuesta correcta si no está seleccionada
+                        const textoRespuesta = highlight ? highlight.textContent : '';
+                        const match = textoRespuesta.match(/Respuesta correcta: ([A-D])/);
+                        if (match) {
+                            const letraCorrecta = match[1];
+                            if (opt.textContent.trim().startsWith(letraCorrecta + ')')) {
+                                opt.style.backgroundColor = 'rgba(39, 174, 96, 0.6)';
+                                opt.style.border = '2px solid #27ae60';
+                            }
+                        }
+                    }
+                });
+            });
+            
+            Object.values(selectedAnswers).forEach(isCorrect => {
+                if (isCorrect) correctCount++;
+            });
+            
+            const totalQuestions = document.querySelectorAll('.quiz-question').length;
+            const incorrectCount = totalAnswered - correctCount;
+            const percentage = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            
+            // Crear gráfico de torta
+            createPieChart(correctCount, incorrectCount, totalAnswered, totalQuestions, percentage);
+        }
+        
+        function createPieChart(correct, incorrect, total, totalQuestions, percentage) {
+            const quizSection = document.querySelector('.section.quiz');
+            let resultsDiv = document.querySelector('#results');
+            
+            if (!resultsDiv) {
+                resultsDiv = document.createElement('div');
+                resultsDiv.id = 'results';
+                quizSection.appendChild(resultsDiv);
+            }
+            
+            let statusMessage = '';
+            let statusColor = '';
+            
+            if (percentage >= 80) {
+                statusMessage = '¡Excelente trabajo! 🌟';
+                statusColor = '#27ae60';
+            } else if (percentage >= 60) {
+                statusMessage = 'Bien, pero puedes mejorar 📚';
+                statusColor = '#f39c12';
+            } else {
+                statusMessage = 'Necesitas repasar los conceptos 📖';
+                statusColor = '#e74c3c';
+            }
+            
+            const unanswered = totalQuestions - total;
+            
+            resultsDiv.innerHTML = `
+                <div style="display: flex; flex-direction: column; align-items: center; margin-top: 20px;">
+                    <h3 style="color: ${statusColor}; margin-bottom: 15px;">${statusMessage}</h3>
+                    <div style="display: flex; align-items: center; gap: 30px; flex-wrap: wrap; justify-content: center;">
+                        <div id="pie-chart" style="position: relative; width: 200px; height: 200px;"></div>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 20px; height: 20px; background: #27ae60; border-radius: 50%;"></div>
+                                <span style="color: white;">Correctas: ${correct} (${Math.round((correct/totalQuestions)*100)}%)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 20px; height: 20px; background: #e74c3c; border-radius: 50%;"></div>
+                                <span style="color: white;">Incorrectas: ${incorrect} (${Math.round((incorrect/totalQuestions)*100)}%)</span>
+                            </div>
+                            ${unanswered > 0 ? `<div style="display: flex; align-items: center; gap: 10px;">
+                                <div style="width: 20px; height: 20px; background: #95a5a6; border-radius: 50%;"></div>
+                                <span style="color: white;">Sin responder: ${unanswered} (${Math.round((unanswered/totalQuestions)*100)}%)</span>
+                            </div>` : ''}
+                            <div style="margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                                <strong style="color: white;">Puntaje: ${correct}/${totalQuestions} (${percentage}%)</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            drawPieChart(correct, incorrect, unanswered, totalQuestions);
+        }
+        
+        function drawPieChart(correct, incorrect, unanswered, total) {
+            const correctAngle = (correct / total) * 360;
+            const incorrectAngle = (incorrect / total) * 360;
+            const unansweredAngle = (unanswered / total) * 360;
+            
+            const chartContainer = document.getElementById('pie-chart');
+            
+            const svg = `
+                <svg width="200" height="200" viewBox="0 0 200 200" style="transform: rotate(-90deg);">
+                    <circle cx="100" cy="100" r="80" fill="#34495e" stroke="#2c3e50" stroke-width="2"/>
+                    
+                    ${correct > 0 ? createPieSlice(100, 100, 80, 0, correctAngle, '#27ae60') : ''}
+                    ${incorrect > 0 ? createPieSlice(100, 100, 80, correctAngle, correctAngle + incorrectAngle, '#e74c3c') : ''}
+                    ${unanswered > 0 ? createPieSlice(100, 100, 80, correctAngle + incorrectAngle, 360, '#95a5a6') : ''}
+                    
+                    <circle cx="100" cy="100" r="50" fill="#34495e"/>
+                    
+                    <text x="100" y="95" text-anchor="middle" fill="white" font-size="20" font-weight="bold" transform="rotate(90 100 100)">
+                        ${Math.round((correct/total)*100)}%
+                    </text>
+                    <text x="100" y="115" text-anchor="middle" fill="#bdc3c7" font-size="12" transform="rotate(90 100 100)">
+                        Correctas
+                    </text>
+                </svg>
+            `;
+            
+            chartContainer.innerHTML = svg;
+        }
+        
+        function createPieSlice(centerX, centerY, radius, startAngle, endAngle, color) {
+            const startAngleRad = (startAngle * Math.PI) / 180;
+            const endAngleRad = (endAngle * Math.PI) / 180;
+            
+            const x1 = centerX + radius * Math.cos(startAngleRad);
+            const y1 = centerY + radius * Math.sin(startAngleRad);
+            const x2 = centerX + radius * Math.cos(endAngleRad);
+            const y2 = centerY + radius * Math.sin(endAngleRad);
+            
+            const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+            
+            return `<path d="M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${x2} ${y2} Z" fill="${color}" stroke="#2c3e50" stroke-width="1"/>`;
+        }
+
+        // Inicialización
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+            setTimeout(renderMermaid, 1000);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(renderMermaid, 500);
+            
+            // Ocultar respuestas correctas al cargar
+            document.querySelectorAll('.quiz-question .highlight').forEach(answer => {
+                answer.style.display = 'none';
+            });
+
+            // Configurar opciones de quiz
+            document.querySelectorAll('.quiz-options li').forEach(option => {
+                option.addEventListener('click', function() {
+                    selectQuizOption(this);
+                });
+            });
+
+            // Crear botón de verificar respuestas
+            const quizSection = document.querySelector('.section.quiz');
+            if (quizSection) {
+                const checkBtn = document.createElement('button');
+                checkBtn.textContent = '✅ Verificar Respuestas';
+                checkBtn.style.cssText = 'display:block;margin:30px auto 10px auto;padding:15px 30px;font-size:1.1em;background:#27ae60;color:white;border:none;border-radius:25px;cursor:pointer;font-weight:bold;box-shadow: 0 4px 8px rgba(0,0,0,0.2);';
+                checkBtn.addEventListener('click', checkQuizAnswers);
+                quizSection.appendChild(checkBtn);
+            }
+        });
+    </script>
+    <script src="keyboard-navigation.js"></script>
+</body>
+</html>

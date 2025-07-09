@@ -1,0 +1,2153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 9: Teoría General de Sistemas - Análisis y Metodología de Sistemas</title>
+    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
+    <meta name="author" content="Curso AMS HTML">
+    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+            --border-color: #bdc3c7;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --light-bg: #ffffff;
+            --shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #ecf0f1;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #2c3e50;
+            --text-color: #ecf0f1;
+            --border-color: #34495e;
+            --light-bg: #34495e;
+            --shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            background-color: var(--light-bg);
+            border-radius: 10px;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .nav-tab {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: var(--text-color);
+            min-width: 120px;
+        }
+
+        .nav-tab.active {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .nav-tab:hover:not(.active) {
+            background: var(--border-color);
+            transform: translateY(-1px);
+        }
+
+        /* Content Sections */
+        .content-section {
+            background-color: var(--light-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.5s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Typography */
+        h2 {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 0;
+        }
+
+        h4 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        /* Text Blocks */
+        .text-block {
+            background: var(--background-color);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        [data-theme="dark"] .highlight-box {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+
+        .highlight-box::before {
+            content: "💡";
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 1.2em;
+        }
+
+        /* Theoretical Boxes */
+        .theory-box {
+            background: linear-gradient(135deg, #e8f4fd, #d4edda);
+            border: 3px solid var(--secondary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        [data-theme="dark"] .theory-box {
+            background: linear-gradient(135deg, #2c3e50, #27ae60);
+        }
+
+        .theory-box::before {
+            content: "📚 TEORÍA";
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        /* Comparison boxes */
+        .comparison-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .comparison-item {
+            background: var(--light-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .comparison-item.structured {
+            border-color: #e74c3c;
+        }
+
+        .comparison-item.object-oriented {
+            border-color: #27ae60;
+        }
+
+        .comparison-item h4 {
+            margin-top: 0;
+            text-align: center;
+            padding: 0.5rem;
+            border-radius: 5px;
+            color: white;
+        }
+
+        .comparison-item.structured h4 {
+            background: #e74c3c;
+        }
+
+        .comparison-item.object-oriented h4 {
+            background: #27ae60;
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+        }
+
+        li {
+            margin: 0.5rem 0;
+        }
+
+        /* Diagrams */
+        .diagram-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        [data-theme="dark"] .diagram-container {
+            background: #34495e;
+        }
+
+        .system-diagram {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+        }
+
+        /* Interactive Elements */
+        .interactive-element {
+            background: var(--light-bg);
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Tables */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--light-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .comparison-table th {
+            background: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table tr:hover {
+            background: var(--background-color);
+        }
+
+        /* Quiz Styles */
+        .quiz-container {
+            background: var(--light-bg);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .question {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--background-color);
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .question h4 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            margin: 0.5rem 0;
+            padding: 0.8rem;
+            background: var(--light-bg);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .options li:hover {
+            border-color: var(--secondary-color);
+            transform: translateX(5px);
+        }
+
+        .options li.selected {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .options li.correct {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .options li.incorrect {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2em;
+            box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            background: var(--border-color);
+            height: 8px;
+            border-radius: 4px;
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary-color), var(--success-color));
+            width: 0%;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        /* Yourdon methodology box */
+        .yourdon-box {
+            background: linear-gradient(135deg, #fff3cd, #f8d7da);
+            border: 3px solid #ffc107;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .yourdon-box::before {
+            content: "📖 YOURDON";
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: #ffc107;
+            color: #212529;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .nav-tabs {
+                flex-direction: column;
+            }
+
+            .nav-tab {
+                min-width: auto;
+            }
+
+            .content-section {
+                padding: 1rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .comparison-box {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 0.5rem;
+            }
+        }
+
+        /* Bibliography Box */
+        .bibliography-box {
+            background: linear-gradient(135deg, #f0f8ff, #e6f3ff);
+            border: 2px solid #0066cc;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        [data-theme="dark"] .bibliography-box {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+        }
+
+        .bibliography-box h4 {
+            color: #0066cc;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+
+        /* Key concepts highlight */
+        .key-concept {
+            background: var(--warning-color);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        /* Methodological boxes */
+        .method-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .method-box {
+            background: var(--light-bg);
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .method-box:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+
+        .method-box h4 {
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.5rem;
+            margin: -1.5rem -1.5rem 1rem -1.5rem;
+            border-radius: 8px 8px 0 0;
+        }
+    </style>
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body role="document">
+    <button class="theme-toggle" onclick="toggleTheme()" title="Cambiar tema">🌙</button>
+    
+    <div class="container" role="main">
+        <header class="header">
+            <h1 id="main-title">Clase 9: Teoría General de Sistemas</h1>
+            <p>Fundamentos del Análisis Estructurado | Unidad 3 | Análisis y Metodología de Sistemas</p>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Introduction Section -->
+        <section id="introduction" class="content-section active">
+            <h2>🎯 Introducción a la Teoría General de Sistemas</h2>
+
+            <div class="theory-box">
+                <h3>Contexto Histórico y Fundacional</h3>
+                <p>La <span class="key-concept">Teoría General de Sistemas</span> desarrollada por Ludwig von Bertalanffy en la década de 1940, establece los principios fundamentales para entender cualquier entidad compleja como un conjunto de elementos interrelacionados que funcionan como una totalidad organizada.</p>
+                
+                <p>En el contexto del desarrollo de software, esta teoría proporciona el marco conceptual para el <span class="key-concept">Análisis Estructurado</span>, metodología que descompone sistemas complejos en componentes manejables mediante la identificación de procesos, datos y sus interrelaciones.</p>
+            </div>
+
+            <div class="text-block">
+                <h3>Objetivos de Aprendizaje</h3>
+                <ul role="list">
+                    <li role="listitem"><strong>Comprender</strong> los fundamentos teóricos de la Teoría General de Sistemas aplicada al software</li>
+                    <li role="listitem"><strong>Identificar</strong> las características distintivas entre sistemas y subsistemas</li>
+                    <li role="listitem"><strong>Analizar</strong> las diferencias fundamentales entre análisis estructurado y orientado a objetos</li>
+                    <li role="listitem"><strong>Examinar</strong> las herramientas tradicionales del análisis estructurado</li>
+                    <li role="listitem"><strong>Evaluar</strong> criterios de selección entre paradigmas de análisis</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Importancia en el Programa Académico</h3>
+                <p>Esta clase constituye el pilar teórico de la <strong>Unidad 3: Análisis Estructurado</strong>. Los conceptos aquí desarrollados son prerequisitos para:</p>
+                <ul role="list">
+                    <li role="listitem">Comprensión del Modelo Esencial (Clase 2)</li>
+                    <li role="listitem">Diagramas de Flujo de Datos (Clase 11)</li>
+                    <li role="listitem">Diccionario de Datos (Clase 11)</li>
+                    <li role="listitem">Diagramas de Entidad-Relación (Clase 12)</li>
+                    <li role="listitem">Trazabilidad y Balanceo entre Modelos (Clase 12)</li>
+                </ul>
+            </div>
+
+            <div class="yourdon-box">
+                <h3>Edward Yourdon y el Análisis Estructurado Moderno</h3>
+                <p>Edward Yourdon, en su obra fundamental "Modern Structured Analysis" (1989), estableció las bases metodológicas del análisis estructurado que estudiaremos. Su enfoque sistemático para modelar sistemas mediante <span class="key-concept">descomposición funcional</span> sigue siendo relevante para entender sistemas complejos.</p>
+                
+                <blockquote style="font-style: italic; margin: 1rem 0; padding: 1rem; border-left: 4px solid #ffc107;">
+                "El análisis estructurado es más que una colección de herramientas y técnicas; es una filosofía de pensamiento sistemático sobre sistemas complejos."
+                <footer>- Edward Yourdon</footer>
+                </blockquote>
+            </div>
+
+            <div class="interactive-element" onclick="toggleElement(this)">
+                <h4>💡 Conexión con Contenidos Previos</h4>
+                <p>Esta clase integra conceptos vistos en clases anteriores...</p>
+                <div style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                    <h5>Relación con Clases Previas:</h5>
+                    <ul role="list">
+                        <li role="listitem"><strong>Clase 1-3:</strong> Ciclos de vida y metodologías como marco conceptual</li>
+                        <li role="listitem"><strong>Clase 2:</strong> El Modelo Esencial como aplicación práctica de la teoría de sistemas</li>
+                        <li role="listitem"><strong>Clases 4-8:</strong> Metodologías ágiles como contraste con el enfoque estructurado</li>
+                    </ul>
+                    <h5>Preparación para Clases Futuras:</h5>
+                    <ul role="list">
+                        <li role="listitem"><strong>Clase 10:</strong> Comparación detallada de paradigmas</li>
+                        <li role="listitem"><strong>Clases 11-12:</strong> Herramientas específicas del análisis estructurado</li>
+                        <li role="listitem"><strong>Clases 13-16:</strong> Análisis orientado a objetos como paradigma alternativo</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Foundations Section -->
+        <section id="foundations" class="content-section active">
+            <h2>🏗️ Fundamentos Teóricos de la Teoría de Sistemas</h2>
+
+            <div class="theory-box">
+                <h3>1. Definición Fundamental de Sistema</h3>
+                <p>Un <span class="key-concept">sistema</span> es un conjunto de elementos o componentes interrelacionados que actúan como una unidad para alcanzar un objetivo común. Esta definición implica tres características esenciales:</p>
+                
+                <div class="method-container">
+                    <div class="method-box">
+                        <h4>🔗 Elementos</h4>
+                        <p>Componentes individuales que forman parte del sistema. En software: módulos, funciones, datos, interfaces.</p>
+                    </div>
+                    <div class="method-box">
+                        <h4>🤝 Interrelaciones</h4>
+                        <p>Conexiones y dependencias entre elementos. En software: llamadas a funciones, flujos de datos, interfaces.</p>
+                    </div>
+                    <div class="method-box">
+                        <h4>🎯 Propósito</h4>
+                        <p>Objetivo común que justifica la existencia del sistema. En software: resolver un problema específico del dominio.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Anatomía de un Sistema de Software</h4>
+                <svg width="800" height="500" viewBox="0 0 800 500">
+                    <!-- Entorno del Sistema -->
+                    <rect x="20" y="20" width="760" height="460" fill="none" stroke="#bdc3c7" stroke-width="3" stroke-dasharray="10,5"/>
+                    <text x="40" y="45" fill="#7f8c8d" font-size="16" font-weight="bold">ENTORNO ORGANIZACIONAL</text>
+                    
+                    <!-- Sistema Principal -->
+                    <rect x="80" y="80" width="640" height="360" fill="#ecf0f1" stroke="#2c3e50" stroke-width="4" rx="15"/>
+                    <text x="400" y="110" text-anchor="middle" fill="#2c3e50" font-size="20" font-weight="bold">SISTEMA DE SOFTWARE</text>
+                    
+                    <!-- Subsistema de Entrada -->
+                    <rect x="120" y="140" width="150" height="100" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="8"/>
+                    <text x="195" y="165" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SUBSISTEMA</text>
+                    <text x="195" y="185" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DE ENTRADA</text>
+                    <text x="195" y="205" text-anchor="middle" fill="white" font-size="12">• Validación</text>
+                    <text x="195" y="220" text-anchor="middle" fill="white" font-size="12">• Captura</text>
+                    <text x="195" y="235" text-anchor="middle" fill="white" font-size="12">• Normalización</text>
+                    
+                    <!-- Subsistema de Procesamiento -->
+                    <rect x="325" y="140" width="150" height="100" fill="#e74c3c" stroke="#c0392b" stroke-width="2" rx="8"/>
+                    <text x="400" y="165" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SUBSISTEMA</text>
+                    <text x="400" y="185" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DE PROCESAMIENTO</text>
+                    <text x="400" y="205" text-anchor="middle" fill="white" font-size="12">• Lógica Negocio</text>
+                    <text x="400" y="220" text-anchor="middle" fill="white" font-size="12">• Cálculos</text>
+                    <text x="400" y="235" text-anchor="middle" fill="white" font-size="12">• Transformaciones</text>
+                    
+                    <!-- Subsistema de Salida -->
+                    <rect x="530" y="140" width="150" height="100" fill="#27ae60" stroke="#229954" stroke-width="2" rx="8"/>
+                    <text x="605" y="165" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SUBSISTEMA</text>
+                    <text x="605" y="185" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DE SALIDA</text>
+                    <text x="605" y="205" text-anchor="middle" fill="white" font-size="12">• Formateo</text>
+                    <text x="605" y="220" text-anchor="middle" fill="white" font-size="12">• Presentación</text>
+                    <text x="605" y="235" text-anchor="middle" fill="white" font-size="12">• Distribución</text>
+                    
+                    <!-- Subsistema de Almacenamiento -->
+                    <rect x="325" y="280" width="150" height="100" fill="#9b59b6" stroke="#8e44ad" stroke-width="2" rx="8"/>
+                    <text x="400" y="305" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SUBSISTEMA</text>
+                    <text x="400" y="325" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DE ALMACENAMIENTO</text>
+                    <text x="400" y="345" text-anchor="middle" fill="white" font-size="12">• Persistencia</text>
+                    <text x="400" y="360" text-anchor="middle" fill="white" font-size="12">• Recuperación</text>
+                    <text x="400" y="375" text-anchor="middle" fill="white" font-size="12">• Integridad</text>
+                    
+                    <!-- Flujos entre subsistemas -->
+                    <path d="M 270 190 L 325 190" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="297" y="185" text-anchor="middle" font-size="10" fill="#2c3e50">datos</text>
+                    
+                    <path d="M 475 190 L 530 190" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="502" y="185" text-anchor="middle" font-size="10" fill="#2c3e50">resultados</text>
+                    
+                    <path d="M 400 240 L 400 280" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="420" y="260" font-size="10" fill="#2c3e50">persistir</text>
+                    
+                    <path d="M 380 280 L 380 240" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    <text x="360" y="260" font-size="10" fill="#2c3e50">recuperar</text>
+                    
+                    <!-- Entradas externas -->
+                    <path d="M 20 190 L 80 190" stroke="#f39c12" stroke-width="4" marker-end="url(#arrowhead)"/>
+                    <text x="25" y="180" font-size="12" fill="#f39c12" font-weight="bold">Entradas</text>
+                    <text x="25" y="205" font-size="10" fill="#f39c12">• Usuarios</text>
+                    <text x="25" y="220" font-size="10" fill="#f39c12">• Otros Sistemas</text>
+                    
+                    <!-- Salidas externas -->
+                    <path d="M 720 190 L 780 190" stroke="#f39c12" stroke-width="4" marker-end="url(#arrowhead)"/>
+                    <text x="725" y="180" font-size="12" fill="#f39c12" font-weight="bold">Salidas</text>
+                    <text x="725" y="205" font-size="10" fill="#f39c12">• Reportes</text>
+                    <text x="725" y="220" font-size="10" fill="#f39c12">• Interfaces</text>
+                    
+                    <!-- Retroalimentación -->
+                    <path d="M 720 230 Q 400 470 80 230" stroke="#e67e22" stroke-width="3" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+                    <text x="400" y="460" text-anchor="middle" fill="#e67e22" font-size="14" font-weight="bold">RETROALIMENTACIÓN</text>
+                    <text x="400" y="475" text-anchor="middle" fill="#e67e22" font-size="10">(Control, Monitoreo, Ajustes)</text>
+                    
+                    <!-- Control y Supervisión -->
+                    <rect x="120" y="280" width="150" height="100" fill="#f39c12" stroke="#e67e22" stroke-width="2" rx="8"/>
+                    <text x="195" y="305" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SUBSISTEMA</text>
+                    <text x="195" y="325" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DE CONTROL</text>
+                    <text x="195" y="345" text-anchor="middle" fill="white" font-size="12">• Monitoreo</text>
+                    <text x="195" y="360" text-anchor="middle" fill="white" font-size="12">• Supervisión</text>
+                    <text x="195" y="375" text-anchor="middle" fill="white" font-size="12">• Coordinación</text>
+                    
+                    <!-- Comunicación y Seguridad -->
+                    <rect x="530" y="280" width="150" height="100" fill="#1abc9c" stroke="#16a085" stroke-width="2" rx="8"/>
+                    <text x="605" y="305" text-anchor="middle" fill="white" font-size="14" font-weight="bold">SUBSISTEMA</text>
+                    <text x="605" y="325" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DE SEGURIDAD</text>
+                    <text x="605" y="345" text-anchor="middle" fill="white" font-size="12">• Autenticación</text>
+                    <text x="605" y="360" text-anchor="middle" fill="white" font-size="12">• Autorización</text>
+                    <text x="605" y="375" text-anchor="middle" fill="white" font-size="12">• Auditoría</text>
+                    
+                    <!-- Conexiones de control -->
+                    <path d="M 195 280 L 195 240" stroke="#f39c12" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowhead)"/>
+                    <path d="M 270 330 L 325 330" stroke="#f39c12" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowhead)"/>
+                    <path d="M 475 330 L 530 330" stroke="#f39c12" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Definir marcadores de flecha -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="currentColor"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="text-block">
+                <h3>2. Propiedades Emergentes de los Sistemas</h3>
+                <p>Los sistemas poseen características que emergen de la interacción entre sus componentes y que no están presentes en los elementos individuales:</p>
+                
+                <table class="comparison-table">
+                    <thead role="rowgroup">
+                        <tr role="row">
+                            <th role="columnheader">Propiedad</th>
+                            <th role="columnheader">Definición Teórica</th>
+                            <th role="columnheader">Manifestación en Software</th>
+                            <th role="columnheader">Ejemplo Práctico</th>
+                        </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                        <tr role="row">
+                            <td role="cell"><strong>Sinergia</strong></td>
+                            <td role="cell">El resultado del sistema es mayor que la suma de sus partes</td>
+                            <td role="cell">Funcionalidad emergente de la integración de módulos</td>
+                            <td role="cell">Sistema ERP que integra contabilidad, inventario y ventas</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Entropía</strong></td>
+                            <td role="cell">Tendencia natural hacia el desorden sin mantenimiento</td>
+                            <td role="cell">Degradación del código sin refactoring continuo</td>
+                            <td role="cell">Software legacy con deuda técnica acumulada</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Homeostasis</strong></td>
+                            <td role="cell">Capacidad de autorregulación y mantenimiento de equilibrio</td>
+                            <td role="cell">Sistemas auto-correctivos y adaptativos</td>
+                            <td role="cell">Load balancers que redistribuyen carga automáticamente</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Equifinalidad</strong></td>
+                            <td role="cell">Múltiples caminos pueden llevar al mismo resultado</td>
+                            <td role="cell">Diferentes implementaciones para el mismo requisito</td>
+                            <td role="cell">Diversos algoritmos de ordenamiento con igual resultado</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Retroalimentación</strong></td>
+                            <td role="cell">El output influye en el input futuro del sistema</td>
+                            <td role="cell">Loops de control y monitoreo</td>
+                            <td role="cell">Sistemas de recomendación que mejoran con el uso</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <h3>3. Clasificación de Sistemas según Von Bertalanffy</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 1rem;">
+                    <div style="background: var(--background-color); padding: 1rem; border-radius: 8px; border-left: 4px solid #3498db;">
+                        <h4 style="color: #3498db; margin-top: 0;">🔄 Por Intercambio con el Entorno</h4>
+                        <ul role="list">
+                            <li role="listitem"><strong>Abiertos:</strong> Intercambian materia, energía e información</li>
+                            <li role="listitem"><strong>Cerrados:</strong> Solo intercambian energía</li>
+                            <li role="listitem"><strong>Aislados:</strong> No intercambian nada (teóricos)</li>
+                        </ul>
+                        <p><em>Relevancia:</em> Los sistemas de software son predominantemente abiertos.</p>
+                    </div>
+                    <div style="background: var(--background-color); padding: 1rem; border-radius: 8px; border-left: 4px solid #e74c3c;">
+                        <h4 style="color: #e74c3c; margin-top: 0;">⚙️ Por Comportamiento</h4>
+                        <ul role="list">
+                            <li role="listitem"><strong>Determinísticos:</strong> Salidas predecibles</li>
+                            <li role="listitem"><strong>Probabilísticos:</strong> Comportamiento estadístico</li>
+                            <li role="listitem"><strong>Adaptativos:</strong> Modifican su comportamiento</li>
+                        </ul>
+                        <p><em>Relevancia:</em> Determina estrategias de testing y validación.</p>
+                    </div>
+                    <div style="background: var(--background-color); padding: 1rem; border-radius: 8px; border-left: 4px solid #27ae60;">
+                        <h4 style="color: #27ae60; margin-top: 0;">🏗️ Por Complejidad</h4>
+                        <ul role="list">
+                            <li role="listitem"><strong>Simples:</strong> Pocos elementos y relaciones</li>
+                            <li role="listitem"><strong>Complejos:</strong> Muchos elementos interrelacionados</li>
+                            <li role="listitem"><strong>Complicados:</strong> Muchos elementos pero relaciones simples</li>
+                        </ul>
+                        <p><em>Relevancia:</em> Influye en la metodología de análisis a utilizar.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-element" onclick="toggleElement(this)">
+                <h4>🔍 Caso de Estudio: Sistema Bancario como Sistema Complejo</h4>
+                <p>Analicemos un sistema bancario desde la perspectiva de la teoría de sistemas...</p>
+                <div style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                    <h5>Elementos del Sistema:</h5>
+                    <ul role="list">
+                        <li role="listitem"><strong>Componentes Técnicos:</strong> Bases de datos, servidores, ATMs, aplicaciones móviles</li>
+                        <li role="listitem"><strong>Componentes Humanos:</strong> Cajeros, gerentes, clientes, analistas</li>
+                        <li role="listitem"><strong>Componentes Procedimentales:</strong> Políticas, regulaciones, procesos de negocio</li>
+                    </ul>
+                    <h5>Interrelaciones:</h5>
+                    <ul role="list">
+                        <li role="listitem"><strong>Flujos de Información:</strong> Datos de transacciones, reportes regulatorios</li>
+                        <li role="listitem"><strong>Flujos de Control:</strong> Autorizaciones, límites, auditorías</li>
+                        <li role="listitem"><strong>Flujos de Valor:</strong> Transferencias monetarias, servicios al cliente</li>
+                    </ul>
+                    <h5>Propiedades Emergentes:</h5>
+                    <ul role="list">
+                        <li role="listitem"><strong>Confiabilidad:</strong> Emerge de la redundancia y controles</li>
+                        <li role="listitem"><strong>Escalabilidad:</strong> Capacidad de crecer sin reestructuración</li>
+                        <li role="listitem"><strong>Compliance:</strong> Cumplimiento de múltiples regulaciones</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Structured Analysis Section -->
+        <section id="structured-analysis" class="content-section active">
+            <h2>📊 Análisis Estructurado: Fundamentos Teóricos</h2>
+
+            <div class="theory-box">
+                <h3>Paradigma del Análisis Estructurado</h3>
+                <p>El <span class="key-concept">análisis estructurado</span> es una metodología de desarrollo de sistemas que modela un sistema mediante la descripción de los datos y los procesos que los transforman. Se basa en la premisa de que <strong>datos y procesos son entidades conceptualmente separadas</strong>.</p>
+                
+                <p>Esta separación fundamental distingue al análisis estructurado del análisis orientado a objetos, donde datos y comportamientos se encapsulan en una sola entidad (el objeto).</p>
+            </div>
+
+            <div class="comparison-box">
+                <div class="comparison-item structured">
+                    <h4>🏗️ ANÁLISIS ESTRUCTURADO</h4>
+                    <p><strong>Filosofía Fundamental:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Separación conceptual entre datos y procesos</li>
+                        <li role="listitem">Descomposición funcional del sistema</li>
+                        <li role="listitem">Enfoque top-down (de general a específico)</li>
+                        <li role="listitem">Modelado del flujo de transformación de datos</li>
+                    </ul>
+                    <p><strong>Principio Central:</strong> "Un sistema es una red de procesos interconectados que transforman datos"</p>
+                    
+                    <p><strong>Ventajas Metodológicas:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Mapeo directo con procesos de negocio</li>
+                        <li role="listitem">Facilidad para entender el flujo de información</li>
+                        <li role="listitem">Herramientas gráficas claras (DFD, ERD)</li>
+                        <li role="listitem">Excelente para sistemas centrados en datos</li>
+                    </ul>
+                </div>
+                
+                <div class="comparison-item object-oriented">
+                    <h4>🎯 ANÁLISIS ORIENTADO A OBJETOS</h4>
+                    <p><strong>Filosofía Fundamental:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Encapsulamiento de datos y comportamiento</li>
+                        <li role="listitem">Descomposición por entidades del dominio</li>
+                        <li role="listitem">Enfoque bottom-up (de específico a general)</li>
+                        <li role="listitem">Modelado de interacciones entre objetos</li>
+                    </ul>
+                    <p><strong>Principio Central:</strong> "Un sistema es una colección de objetos que colaboran"</p>
+                    
+                    <p><strong>Ventajas Metodológicas:</strong></p>
+                    <ul role="list">
+                        <li role="listitem">Modelado natural del mundo real</li>
+                        <li role="listitem">Reutilización de componentes</li>
+                        <li role="listitem">Mantenibilidad y extensibilidad</li>
+                        <li role="listitem">Soporte para herencia y polimorfismo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-block">
+                <h3>Características del Modelo Esencial en Análisis Estructurado</h3>
+                <p>Según las clases previas del curso, el <span class="key-concept">modelo esencial</span> es una suite de diagramas que permite modelar un sistema para generar software de manera incremental e iterativa. Este modelo sirve para:</p>
+                
+                <ol role="list">
+                    <li role="listitem"><strong>Obtener Requerimientos:</strong> Capturar las necesidades del negocio</li>
+                    <li role="listitem"><strong>Validar Requerimientos:</strong> Verificar que el modelo refleje la realidad</li>
+                    <li role="listitem"><strong>Garantizar Entrega:</strong> Asegurar que el software satisface las necesidades</li>
+                    <li role="listitem"><strong>Comunicar Efectivamente:</strong> Proporcionar un lenguaje común entre stakeholders</li>
+                </ol>
+            </div>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Descomposición Funcional en Análisis Estructurado</h4>
+                <svg width="700" height="600" viewBox="0 0 700 600">
+                    <!-- Nivel 0 - Sistema completo -->
+                    <circle cx="350" cy="80" r="50" fill="#2c3e50" stroke="#34495e" stroke-width="3"/>
+                    <text x="350" y="75" text-anchor="middle" fill="white" font-size="12" font-weight="bold">SISTEMA</text>
+                    <text x="350" y="90" text-anchor="middle" fill="white" font-size="12" font-weight="bold">COMPLETO</text>
+                    <text x="350" y="50" text-anchor="middle" fill="#2c3e50" font-size="14" font-weight="bold">Nivel 0</text>
+                    
+                    <!-- Descomposición Nivel 1 -->
+                    <path d="M 330 120 L 200 180" stroke="#7f8c8d" stroke-width="2"/>
+                    <path d="M 350 130 L 350 180" stroke="#7f8c8d" stroke-width="2"/>
+                    <path d="M 370 120 L 500 180" stroke="#7f8c8d" stroke-width="2"/>
+                    
+                    <circle cx="200" cy="200" r="40" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                    <text x="200" y="195" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Proceso</text>
+                    <text x="200" y="208" text-anchor="middle" fill="white" font-size="11" font-weight="bold">A</text>
+                    
+                    <circle cx="350" cy="200" r="40" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                    <text x="350" y="195" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Proceso</text>
+                    <text x="350" y="208" text-anchor="middle" fill="white" font-size="11" font-weight="bold">B</text>
+                    
+                    <circle cx="500" cy="200" r="40" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                    <text x="500" y="195" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Proceso</text>
+                    <text x="500" y="208" text-anchor="middle" fill="white" font-size="11" font-weight="bold">C</text>
+                    
+                    <text x="350" y="170" text-anchor="middle" fill="#3498db" font-size="14" font-weight="bold">Nivel 1</text>
+                    
+                    <!-- Descomposición Nivel 2 - Solo proceso B -->
+                    <path d="M 330 240 L 250 300" stroke="#7f8c8d" stroke-width="2"/>
+                    <path d="M 350 240 L 350 300" stroke="#7f8c8d" stroke-width="2"/>
+                    <path d="M 370 240 L 450 300" stroke="#7f8c8d" stroke-width="2"/>
+                    
+                    <circle cx="250" cy="320" r="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                    <text x="250" y="318" text-anchor="middle" fill="white" font-size="10" font-weight="bold">B.1</text>
+                    <text x="250" y="330" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Validar</text>
+                    
+                    <circle cx="350" cy="320" r="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                    <text x="350" y="318" text-anchor="middle" fill="white" font-size="10" font-weight="bold">B.2</text>
+                    <text x="350" y="330" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Procesar</text>
+                    
+                    <circle cx="450" cy="320" r="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                    <text x="450" y="318" text-anchor="middle" fill="white" font-size="10" font-weight="bold">B.3</text>
+                    <text x="450" y="330" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Generar</text>
+                    
+                    <text x="350" y="290" text-anchor="middle" fill="#e74c3c" font-size="14" font-weight="bold">Nivel 2</text>
+                    
+                    <!-- Descomposición Nivel 3 - Solo proceso B.2 -->
+                    <path d="M 330 350 L 280 410" stroke="#7f8c8d" stroke-width="2"/>
+                    <path d="M 350 350 L 350 410" stroke="#7f8c8d" stroke-width="2"/>
+                    <path d="M 370 350 L 420 410" stroke="#7f8c8d" stroke-width="2"/>
+                    
+                    <circle cx="280" cy="430" r="25" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                    <text x="280" y="428" text-anchor="middle" fill="white" font-size="9" font-weight="bold">B.2.1</text>
+                    <text x="280" y="439" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Calc</text>
+                    
+                    <circle cx="350" cy="430" r="25" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                    <text x="350" y="428" text-anchor="middle" fill="white" font-size="9" font-weight="bold">B.2.2</text>
+                    <text x="350" y="439" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Trans</text>
+                    
+                    <circle cx="420" cy="430" r="25" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                    <text x="420" y="428" text-anchor="middle" fill="white" font-size="9" font-weight="bold">B.2.3</text>
+                    <text x="420" y="439" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Valid</text>
+                    
+                    <text x="350" y="400" text-anchor="middle" fill="#27ae60" font-size="14" font-weight="bold">Nivel 3</text>
+                    
+                    <!-- Nivel 4 - Procesos Primitivos -->
+                    <path d="M 330 455 L 300 510" stroke="#7f8c8d" stroke-width="2"/>
+                    <path d="M 350 455 L 350 510" stroke="#7f8c8d" stroke-width="2"/>
+                    <path d="M 370 455 L 400 510" stroke="#7f8c8d" stroke-width="2"/>
+                    
+                    <rect x="280" y="520" width="40" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="2" rx="5"/>
+                    <text x="300" y="532" text-anchor="middle" fill="white" font-size="8" font-weight="bold">Suma</text>
+                    <text x="300" y="543" text-anchor="middle" fill="white" font-size="8" font-weight="bold">Total</text>
+                    
+                    <rect x="330" y="520" width="40" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="2" rx="5"/>
+                    <text x="350" y="532" text-anchor="middle" fill="white" font-size="8" font-weight="bold">Aplica</text>
+                    <text x="350" y="543" text-anchor="middle" fill="white" font-size="8" font-weight="bold">Desc</text>
+                    
+                    <rect x="380" y="520" width="40" height="30" fill="#f39c12" stroke="#e67e22" stroke-width="2" rx="5"/>
+                    <text x="400" y="532" text-anchor="middle" fill="white" font-size="8" font-weight="bold">Calc</text>
+                    <text x="400" y="543" text-anchor="middle" fill="white" font-size="8" font-weight="bold">IVA</text>
+                    
+                    <text x="350" y="510" text-anchor="middle" fill="#f39c12" font-size="14" font-weight="bold">Nivel 4 - Primitivos</text>
+                    
+                    <!-- Flujos de datos entre niveles -->
+                    <path d="M 240 200 L 310 200" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="275" y="195" text-anchor="middle" font-size="10" fill="#9b59b6">datos</text>
+                    
+                    <path d="M 390 200 L 460 200" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="425" y="195" text-anchor="middle" font-size="10" fill="#9b59b6">result</text>
+                    
+                    <!-- Almacenes de datos -->
+                    <rect x="520" y="320" width="80" height="20" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <rect x="525" y="325" width="80" height="20" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <text x="565" y="337" text-anchor="middle" fill="#2c3e50" font-size="10">Datos Cliente</text>
+                    
+                    <rect x="520" y="380" width="80" height="20" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <rect x="525" y="385" width="80" height="20" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <text x="565" y="397" text-anchor="middle" fill="#2c3e50" font-size="10">Histórico</text>
+                    
+                    <!-- Conexiones a almacenes -->
+                    <path d="M 480 320 L 520 330" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,3"/>
+                    <path d="M 480 340 L 520 385" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,3"/>
+                    
+                    <!-- Etiquetas de propiedades -->
+                    <text x="50" y="200" fill="#7f8c8d" font-size="11" font-weight="bold">• Descomposición Top-Down</text>
+                    <text x="50" y="220" fill="#7f8c8d" font-size="11" font-weight="bold">• Refinamiento Funcional</text>
+                    <text x="50" y="240" fill="#7f8c8d" font-size="11" font-weight="bold">• Separación Datos-Procesos</text>
+                    <text x="50" y="260" fill="#7f8c8d" font-size="11" font-weight="bold">• Flujos de Transformación</text>
+                    
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#9b59b6"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="yourdon-box">
+                <h3>El Modelo Ambiental según Yourdon</h3>
+                <p>Edward Yourdon introduce el concepto de <span class="key-concept">modelo ambiental</span> que define la frontera entre el sistema y su contexto. Este modelo identifica:</p>
+                
+                <div class="method-container">
+                    <div class="method-box">
+                        <h4>🎯 Alcance del Sistema</h4>
+                        <p>Define qué funcionalidades están dentro del sistema que se desarrollará.</p>
+                        <ul role="list">
+                            <li role="listitem">Funciones core del negocio</li>
+                            <li role="listitem">Procesos automatizables</li>
+                            <li role="listitem">Interfaces requeridas</li>
+                        </ul>
+                    </div>
+                    <div class="method-box">
+                        <h4>🌍 Entorno del Sistema</h4>
+                        <p>Identifica elementos externos que interactúan con el sistema.</p>
+                        <ul role="list">
+                            <li role="listitem">Actores externos</li>
+                            <li role="listitem">Sistemas legacy</li>
+                            <li role="listitem">Regulaciones y restricciones</li>
+                        </ul>
+                    </div>
+                    <div class="method-box">
+                        <h4>⚫ Zona Gris</h4>
+                        <p>Área negociable donde no está claro si las funciones pertenecen al sistema.</p>
+                        <ul role="list">
+                            <li role="listitem">Funciones opcionales</li>
+                            <li role="listitem">Integraciones futuras</li>
+                            <li role="listitem">Responsabilidades compartidas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <p><strong>Importancia:</strong> La correcta definición del modelo ambiental evita <em>scope creep</em> y establece expectativas claras con los stakeholders sobre qué se incluye y qué no en el proyecto.</p>
+            </div>
+        </section>
+
+        <!-- Paradigms Section -->
+        <section id="paradigms" class="content-section active">
+            <h2>⚖️ Paradigmas de Análisis: Comparación Teórica</h2>
+
+            <div class="theory-box">
+                <h3>Diferencias Fundamentales entre Paradigmas</h3>
+                <p>La diferencia esencial entre análisis estructurado y orientado a objetos radica en la <span class="key-concept">dimensión de descomposición</span> utilizada para abordar la complejidad:</p>
+                
+                <blockquote style="font-style: italic; margin: 1rem 0; padding: 1rem; border-left: 4px solid var(--secondary-color); background: var(--background-color);">
+                "En el análisis estructurado, la dimensión de la descomposición es por procesos o por funciones. En el análisis orientado a objetos, la dimensión de la descomposición es fundamentalmente por cosas o entidades del dominio."
+                <footer>- Craig Larman, UML y Patrones</footer>
+                </blockquote>
+            </div>
+
+            <div class="text-block">
+                <h3>Análisis Detallado de las Diferencias</h3>
+                
+                <table class="comparison-table">
+                    <thead role="rowgroup">
+                        <tr role="row">
+                            <th role="columnheader">Aspecto</th>
+                            <th role="columnheader">Análisis Estructurado</th>
+                            <th role="columnheader">Análisis Orientado a Objetos</th>
+                        </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                        <tr role="row">
+                            <td role="cell"><strong>Unidad de Descomposición</strong></td>
+                            <td role="cell">Funciones y procesos</td>
+                            <td role="cell">Clases conceptuales (objetos)</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Enfoque Principal</strong></td>
+                            <td role="cell">¿Qué hace el sistema?</td>
+                            <td role="cell">¿Qué entidades maneja el sistema?</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Modelado de Datos</strong></td>
+                            <td role="cell">Separado de los procesos</td>
+                            <td role="cell">Encapsulado con comportamiento</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Estrategia de Diseño</strong></td>
+                            <td role="cell">Top-down (funcional)</td>
+                            <td role="cell">Bottom-up (por entidades)</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Herramientas Principales</strong></td>
+                            <td role="cell">DFD, ERD, Diccionario de Datos</td>
+                            <td role="cell">Diagramas de Clase, Casos de Uso</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Reutilización</strong></td>
+                            <td role="cell">Módulos funcionales</td>
+                            <td role="cell">Clases y frameworks</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Mantenibilidad</strong></td>
+                            <td role="cell">Cambios pueden propagar por flujos</td>
+                            <td role="cell">Cambios localizados en clases</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Complejidad de Aprendizaje</strong></td>
+                            <td role="cell">Conceptos familiares (procesos)</td>
+                            <td role="cell">Requiere pensamiento abstracto</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Comparación Visual: Enfoques de Modelado</h4>
+                <svg width="800" height="400" viewBox="0 0 800 400">
+                    <!-- Análisis Estructurado - Lado Izquierdo -->
+                    <text x="200" y="30" text-anchor="middle" fill="#e74c3c" font-size="18" font-weight="bold">ANÁLISIS ESTRUCTURADO</text>
+                    
+                    <!-- Procesos principales -->
+                    <circle cx="100" cy="80" r="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                    <text x="100" y="75" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Validar</text>
+                    <text x="100" y="88" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Entrada</text>
+                    
+                    <circle cx="200" cy="80" r="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                    <text x="200" y="75" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Procesar</text>
+                    <text x="200" y="88" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Datos</text>
+                    
+                    <circle cx="300" cy="80" r="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                    <text x="300" y="75" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Generar</text>
+                    <text x="300" y="88" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Reporte</text>
+                    
+                    <!-- Almacenes de datos separados -->
+                    <rect x="50" y="150" width="80" height="15" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <rect x="55" y="155" width="80" height="15" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <text x="95" y="167" text-anchor="middle" fill="#2c3e50" font-size="9">Datos Cliente</text>
+                    
+                    <rect x="150" y="150" width="80" height="15" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <rect x="155" y="155" width="80" height="15" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <text x="195" y="167" text-anchor="middle" fill="#2c3e50" font-size="9">Productos</text>
+                    
+                    <rect x="250" y="150" width="80" height="15" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <rect x="255" y="155" width="80" height="15" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                    <text x="295" y="167" text-anchor="middle" fill="#2c3e50" font-size="9">Transacciones</text>
+                    
+                    <!-- Flujos de datos -->
+                    <path d="M 130 80 L 170 80" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M 230 80 L 270 80" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Conexiones a datos -->
+                    <path d="M 100 110 L 95 150" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,3"/>
+                    <path d="M 200 110 L 195 150" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,3"/>
+                    <path d="M 300 110 L 295 150" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,3"/>
+                    
+                    <!-- Características del enfoque -->
+                    <text x="200" y="200" text-anchor="middle" fill="#e74c3c" font-size="12" font-weight="bold">Características:</text>
+                    <text x="200" y="220" text-anchor="middle" fill="#2c3e50" font-size="10">• Enfoque en transformación de datos</text>
+                    <text x="200" y="235" text-anchor="middle" fill="#2c3e50" font-size="10">• Separación datos-procesos</text>
+                    <text x="200" y="250" text-anchor="middle" fill="#2c3e50" font-size="10">• Descomposición funcional</text>
+                    <text x="200" y="265" text-anchor="middle" fill="#2c3e50" font-size="10">• Modelado de flujos</text>
+                    
+                    <!-- Línea divisoria -->
+                    <line x1="400" y1="10" x2="400" y2="390" stroke="#bdc3c7" stroke-width="2" stroke-dasharray="5,5"/>
+                    
+                    <!-- Análisis Orientado a Objetos - Lado Derecho -->
+                    <text x="600" y="30" text-anchor="middle" fill="#27ae60" font-size="18" font-weight="bold">ANÁLISIS ORIENTADO A OBJETOS</text>
+                    
+                    <!-- Objetos del dominio -->
+                    <rect x="450" y="60" width="80" height="60" fill="#27ae60" stroke="#229954" stroke-width="2" rx="5"/>
+                    <text x="490" y="78" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Cliente</text>
+                    <line x1="455" y1="85" x2="525" y2="85" stroke="white" stroke-width="1"/>
+                    <text x="490" y="98" text-anchor="middle" fill="white" font-size="9">+ nombre</text>
+                    <text x="490" y="110" text-anchor="middle" fill="white" font-size="9">+ validar()</text>
+                    
+                    <rect x="550" y="60" width="80" height="60" fill="#27ae60" stroke="#229954" stroke-width="2" rx="5"/>
+                    <text x="590" y="78" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Producto</text>
+                    <line x1="555" y1="85" x2="625" y2="85" stroke="white" stroke-width="1"/>
+                    <text x="590" y="98" text-anchor="middle" fill="white" font-size="9">+ precio</text>
+                    <text x="590" y="110" text-anchor="middle" fill="white" font-size="9">+ calcular()</text>
+                    
+                    <rect x="650" y="60" width="80" height="60" fill="#27ae60" stroke="#229954" stroke-width="2" rx="5"/>
+                    <text x="690" y="78" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Venta</text>
+                    <line x1="655" y1="85" x2="725" y2="85" stroke="white" stroke-width="1"/>
+                    <text x="690" y="98" text-anchor="middle" fill="white" font-size="9">+ total</text>
+                    <text x="690" y="110" text-anchor="middle" fill="white" font-size="9">+ procesar()</text>
+                    
+                    <!-- Objeto controlador -->
+                    <rect x="550" y="150" width="80" height="60" fill="#3498db" stroke="#2980b9" stroke-width="2" rx="5"/>
+                    <text x="590" y="168" text-anchor="middle" fill="white" font-size="11" font-weight="bold">VentaControl</text>
+                    <line x1="555" y1="175" x2="625" y2="175" stroke="white" stroke-width="1"/>
+                    <text x="590" y="188" text-anchor="middle" fill="white" font-size="9">+ gestionar()</text>
+                    <text x="590" y="200" text-anchor="middle" fill="white" font-size="9">+ coordinar()</text>
+                    
+                    <!-- Relaciones entre objetos -->
+                    <path d="M 530 90 L 550 90" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M 630 90 L 650 90" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M 590 120 L 590 150" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Mensaje/colaboración -->
+                    <path d="M 570 150 L 480 120" stroke="#f39c12" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowhead)"/>
+                    <text x="520" y="135" text-anchor="middle" fill="#f39c12" font-size="9">mensaje</text>
+                    
+                    <!-- Características del enfoque -->
+                    <text x="600" y="240" text-anchor="middle" fill="#27ae60" font-size="12" font-weight="bold">Características:</text>
+                    <text x="600" y="260" text-anchor="middle" fill="#2c3e50" font-size="10">• Enfoque en entidades del dominio</text>
+                    <text x="600" y="275" text-anchor="middle" fill="#2c3e50" font-size="10">• Encapsulamiento datos-comportamiento</text>
+                    <text x="600" y="290" text-anchor="middle" fill="#2c3e50" font-size="10">• Colaboración entre objetos</text>
+                    <text x="600" y="305" text-anchor="middle" fill="#2c3e50" font-size="10">• Modelado del mundo real</text>
+                    
+                    <!-- Ventajas/Desventajas -->
+                    <text x="200" y="310" text-anchor="middle" fill="#e74c3c" font-size="11" font-weight="bold">Mejor para:</text>
+                    <text x="200" y="325" text-anchor="middle" fill="#2c3e50" font-size="9">• Sistemas centrados en datos</text>
+                    <text x="200" y="340" text-anchor="middle" fill="#2c3e50" font-size="9">• Procesos de negocio claros</text>
+                    <text x="200" y="355" text-anchor="middle" fill="#2c3e50" font-size="9">• Transformaciones complejas</text>
+                    
+                    <text x="600" y="340" text-anchor="middle" fill="#27ae60" font-size="11" font-weight="bold">Mejor para:</text>
+                    <text x="600" y="355" text-anchor="middle" fill="#2c3e50" font-size="9">• Sistemas interactivos</text>
+                    <text x="600" y="370" text-anchor="middle" fill="#2c3e50" font-size="9">• Mantenimiento a largo plazo</text>
+                    <text x="600" y="385" text-anchor="middle" fill="#2c3e50" font-size="9">• Reutilización de componentes</text>
+                    
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="currentColor"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Criterios de Selección entre Paradigmas</h3>
+                <p>La elección entre análisis estructurado y orientado a objetos debe basarse en características específicas del proyecto:</p>
+                
+                <div class="method-container">
+                    <div class="method-box">
+                        <h4>📊 Naturaleza del Dominio</h4>
+                        <p><strong>Estructurado:</strong> Dominios con procesos bien definidos y transformaciones de datos complejas</p>
+                        <p><strong>Orientado a Objetos:</strong> Dominios ricos en entidades que interactúan</p>
+                        <p><em>Ejemplos:</em> Contabilidad vs Simulación</p>
+                    </div>
+                    <div class="method-box">
+                        <h4>👥 Experiencia del Equipo</h4>
+                        <p><strong>Estructurado:</strong> Equipos familiarizados con análisis funcional</p>
+                        <p><strong>Orientado a Objetos:</strong> Equipos con experiencia en POO</p>
+                        <p><em>Factor crítico:</em> Curva de aprendizaje</p>
+                    </div>
+                    <div class="method-box">
+                        <h4>⏱️ Requisitos de Mantenimiento</h4>
+                        <p><strong>Estructurado:</strong> Sistemas con requisitos estables</p>
+                        <p><strong>Orientado a Objetos:</strong> Sistemas que evolucionan frecuentemente</p>
+                        <p><em>Consideración:</em> Costo de cambio</p>
+                    </div>
+                    <div class="method-box">
+                        <h4>🔄 Necesidades de Reutilización</h4>
+                        <p><strong>Estructurado:</strong> Reutilización limitada a módulos funcionales</p>
+                        <p><strong>Orientado a Objetos:</strong> Alta reutilización a través de herencia y polimorfismo</p>
+                        <p><em>Impacto:</em> Productividad a largo plazo</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-element" onclick="toggleElement(this)">
+                <h4>🎯 Ejemplo Comparativo: Sistema de Gestión de Biblioteca</h4>
+                <p>Veamos cómo se abordaría el mismo problema desde ambos paradigmas...</p>
+                <div style="display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border-color);">
+                    <div class="comparison-box">
+                        <div class="comparison-item structured">
+                            <h4>Enfoque Estructurado</h4>
+                            <p><strong>Procesos Principales:</strong></p>
+                            <ul role="list">
+                                <li role="listitem">Registrar Usuario</li>
+                                <li role="listitem">Procesar Préstamo</li>
+                                <li role="listitem">Gestionar Devolución</li>
+                                <li role="listitem">Generar Reportes</li>
+                                <li role="listitem">Calcular Multas</li>
+                            </ul>
+                            <p><strong>Almacenes de Datos:</strong></p>
+                            <ul role="list">
+                                <li role="listitem">Usuarios</li>
+                                <li role="listitem">Libros</li>
+                                <li role="listitem">Préstamos</li>
+                                <li role="listitem">Multas</li>
+                            </ul>
+                            <p><strong>Herramientas:</strong> DFD niveles 0-3, ERD, Diccionario de Datos</p>
+                        </div>
+                        <div class="comparison-item object-oriented">
+                            <h4>Enfoque Orientado a Objetos</h4>
+                            <p><strong>Clases Principales:</strong></p>
+                            <ul role="list">
+                                <li role="listitem">Usuario (datos + comportamientos)</li>
+                                <li role="listitem">Libro (estado + operaciones)</li>
+                                <li role="listitem">Préstamo (lógica de negocio)</li>
+                                <li role="listitem">Biblioteca (coordinador)</li>
+                                <li role="listitem">SistemaMultas (calculador)</li>
+                            </ul>
+                            <p><strong>Colaboraciones:</strong></p>
+                            <ul role="list">
+                                <li role="listitem">Usuario.solicitarPrestamo()</li>
+                                <li role="listitem">Libro.verificarDisponibilidad()</li>
+                                <li role="listitem">Prestamo.calcularVencimiento()</li>
+                            </ul>
+                            <p><strong>Herramientas:</strong> Diagramas de Clase, Casos de Uso, Secuencia</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Section -->
+        <section id="tools" class="content-section active">
+            <h2>🛠️ Herramientas del Análisis Tradicional</h2>
+
+            <div class="theory-box">
+                <h3>Suite de Herramientas del Análisis Estructurado</h3>
+                <p>El análisis estructurado emplea un conjunto integrado de herramientas gráficas y textuales que proporcionan diferentes perspectivas del mismo sistema. Según el programa académico, estas herramientas incluyen:</p>
+                
+                <ul role="list">
+                    <li role="listitem"><span class="key-concept">Diagrama de Contexto:</span> Define límites y entorno del sistema</li>
+                    <li role="listitem"><span class="key-concept">Diagrama de Flujo de Datos (DFD):</span> Modela procesos y flujos de información</li>
+                    <li role="listitem"><span class="key-concept">Diccionario de Datos:</span> Define estructura y composición de datos</li>
+                    <li role="listitem"><span class="key-concept">Diagrama de Entidad-Relación (ERD):</span> Modela estructura de datos persistentes</li>
+                </ul>
+            </div>
+
+            <div class="text-block">
+                <h3>1. Diagrama de Contexto - Perspectiva Ambiental</h3>
+                <p>El diagrama de contexto representa el sistema como una sola transformación y muestra su relación con el entorno. Según Pressman, los sistemas que interactúan se clasifican en:</p>
+                
+                <div class="method-container">
+                    <div class="method-box">
+                        <h4>⬆️ Sistemas Superiores</h4>
+                        <p>Utilizan al sistema objetivo como parte de un esquema de procesamiento de alto nivel.</p>
+                        <p><strong>Ejemplo:</strong> Sistema corporativo que usa datos del sistema de ventas</p>
+                    </div>
+                    <div class="method-box">
+                        <h4>⬇️ Sistemas Subordinados</h4>
+                        <p>Son usados por el sistema objetivo y proveen datos o procesamiento necesario.</p>
+                        <p><strong>Ejemplo:</strong> Base de datos de productos usada por sistema de inventario</p>
+                    </div>
+                    <div class="method-box">
+                        <h4>↔️ Sistemas Entre Iguales</h4>
+                        <p>Interactúan sobre una base de igualdad, intercambiando información.</p>
+                        <p><strong>Ejemplo:</strong> Sistema de CRM intercambiando datos con sistema de marketing</p>
+                    </div>
+                    <div class="method-box">
+                        <h4>👤 Actores</h4>
+                        <p>Entidades (personas, dispositivos) que interactúan mediante producción/consumo de información.</p>
+                        <p><strong>Ejemplo:</strong> Usuarios finales, sensores, impresoras</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Herramientas Integradas del Análisis Estructurado</h4>
+                <svg width="900" height="500" viewBox="0 0 900 500">
+                    <!-- Diagrama de Contexto -->
+                    <rect x="50" y="50" width="200" height="150" fill="#3498db" stroke="#2980b9" stroke-width="3" rx="10"/>
+                    <text x="150" y="75" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DIAGRAMA DE CONTEXTO</text>
+                    <circle cx="150" cy="110" r="25" fill="white" stroke="#2980b9" stroke-width="2"/>
+                    <text x="150" y="115" text-anchor="middle" fill="#2980b9" font-size="10" font-weight="bold">Sistema</text>
+                    
+                    <!-- Entidades externas -->
+                    <rect x="80" y="140" width="40" height="20" fill="white" stroke="#2980b9" stroke-width="1" rx="3"/>
+                    <text x="100" y="152" text-anchor="middle" fill="#2980b9" font-size="8">Actor A</text>
+                    
+                    <rect x="180" y="140" width="40" height="20" fill="white" stroke="#2980b9" stroke-width="1" rx="3"/>
+                    <text x="200" y="152" text-anchor="middle" fill="#2980b9" font-size="8">Actor B</text>
+                    
+                    <text x="150" y="185" text-anchor="middle" fill="white" font-size="10">• Define límites</text>
+                    <text x="150" y="197" text-anchor="middle" fill="white" font-size="10">• Identifica entorno</text>
+                    
+                    <!-- DFD -->
+                    <rect x="300" y="50" width="200" height="150" fill="#e74c3c" stroke="#c0392b" stroke-width="3" rx="10"/>
+                    <text x="400" y="75" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DIAGRAMA FLUJO DATOS</text>
+                    
+                    <!-- Procesos DFD -->
+                    <circle cx="350" cy="110" r="15" fill="white" stroke="#c0392b" stroke-width="1"/>
+                    <text x="350" y="114" text-anchor="middle" fill="#c0392b" font-size="8" font-weight="bold">P1</text>
+                    
+                    <circle cx="400" cy="110" r="15" fill="white" stroke="#c0392b" stroke-width="1"/>
+                    <text x="400" y="114" text-anchor="middle" fill="#c0392b" font-size="8" font-weight="bold">P2</text>
+                    
+                    <circle cx="450" cy="110" r="15" fill="white" stroke="#c0392b" stroke-width="1"/>
+                    <text x="450" y="114" text-anchor="middle" fill="#c0392b" font-size="8" font-weight="bold">P3</text>
+                    
+                    <!-- Almacén de datos -->
+                    <rect x="370" y="140" width="60" height="10" fill="none" stroke="white" stroke-width="1"/>
+                    <rect x="375" y="145" width="60" height="10" fill="none" stroke="white" stroke-width="1"/>
+                    <text x="405" y="157" text-anchor="middle" fill="white" font-size="8">Datos</text>
+                    
+                    <!-- Flujos -->
+                    <path d="M 365 110 L 385 110" stroke="white" stroke-width="1" marker-end="url(#arrowwhite)"/>
+                    <path d="M 415 110 L 435 110" stroke="white" stroke-width="1" marker-end="url(#arrowwhite)"/>
+                    
+                    <text x="400" y="180" text-anchor="middle" fill="white" font-size="10">• Modela procesos</text>
+                    <text x="400" y="192" text-anchor="middle" fill="white" font-size="10">• Flujos de datos</text>
+                    
+                    <!-- ERD -->
+                    <rect x="550" y="50" width="200" height="150" fill="#27ae60" stroke="#229954" stroke-width="3" rx="10"/>
+                    <text x="650" y="75" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DIAGRAMA E-R</text>
+                    
+                    <!-- Entidades ERD -->
+                    <rect x="580" y="95" width="50" height="30" fill="white" stroke="#229954" stroke-width="1" rx="3"/>
+                    <text x="605" y="112" text-anchor="middle" fill="#229954" font-size="9" font-weight="bold">Cliente</text>
+                    
+                    <rect x="670" y="95" width="50" height="30" fill="white" stroke="#229954" stroke-width="1" rx="3"/>
+                    <text x="695" y="112" text-anchor="middle" fill="#229954" font-size="9" font-weight="bold">Producto</text>
+                    
+                    <!-- Relación -->
+                    <ellipse cx="650" cy="110" rx="15" ry="10" fill="white" stroke="#229954" stroke-width="1"/>
+                    <text x="650" y="113" text-anchor="middle" fill="#229954" font-size="7" font-weight="bold">compra</text>
+                    
+                    <!-- Líneas de relación -->
+                    <line x1="630" y1="110" x2="635" y2="110" stroke="white" stroke-width="1"/>
+                    <line x1="665" y1="110" x2="670" y2="110" stroke="white" stroke-width="1"/>
+                    
+                    <text x="650" y="180" text-anchor="middle" fill="white" font-size="10">• Estructura de datos</text>
+                    <text x="650" y="192" text-anchor="middle" fill="white" font-size="10">• Relaciones</text>
+                    
+                    <!-- Diccionario de Datos -->
+                    <rect x="300" y="250" width="200" height="150" fill="#9b59b6" stroke="#8e44ad" stroke-width="3" rx="10"/>
+                    <text x="400" y="275" text-anchor="middle" fill="white" font-size="14" font-weight="bold">DICCIONARIO DATOS</text>
+                    
+                    <!-- Ejemplo de entrada -->
+                    <rect x="320" y="295" width="160" height="80" fill="white" stroke="#8e44ad" stroke-width="1" rx="3"/>
+                    <text x="400" y="310" text-anchor="middle" fill="#8e44ad" font-size="10" font-weight="bold">Cliente =</text>
+                    <text x="400" y="325" text-anchor="middle" fill="#8e44ad" font-size="9">id_cliente +</text>
+                    <text x="400" y="340" text-anchor="middle" fill="#8e44ad" font-size="9">nombre +</text>
+                    <text x="400" y="355" text-anchor="middle" fill="#8e44ad" font-size="9">telefono +</text>
+                    <text x="400" y="370" text-anchor="middle" fill="#8e44ad" font-size="9">[direccion]</text>
+                    
+                    <text x="400" y="390" text-anchor="middle" fill="white" font-size="10">• Define estructura</text>
+                    <text x="400" y="402" text-anchor="middle" fill="white" font-size="10">• Especifica datos</text>
+                    
+                    <!-- Trazabilidad y Balanceo -->
+                    <rect x="600" y="250" width="200" height="150" fill="#f39c12" stroke="#e67e22" stroke-width="3" rx="10"/>
+                    <text x="700" y="275" text-anchor="middle" fill="white" font-size="14" font-weight="bold">TRAZABILIDAD</text>
+                    <text x="700" y="290" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Y BALANCEO</text>
+                    
+                    <!-- Matriz de trazabilidad -->
+                    <rect x="620" y="305" width="160" height="60" fill="white" stroke="#e67e22" stroke-width="1" rx="3"/>
+                    
+                    <!-- Tabla de trazabilidad -->
+                    <line x1="625" y1="320" x2="775" y2="320" stroke="#e67e22" stroke-width="1"/>
+                    <line x1="625" y1="335" x2="775" y2="335" stroke="#e67e22" stroke-width="1"/>
+                    <line x1="625" y1="350" x2="775" y2="350" stroke="#e67e22" stroke-width="1"/>
+                    
+                    <line x1="670" y1="310" x2="670" y2="360" stroke="#e67e22" stroke-width="1"/>
+                    <line x1="730" y1="310" x2="730" y2="360" stroke="#e67e22" stroke-width="1"/>
+                    
+                    <text x="647" y="318" text-anchor="middle" fill="#e67e22" font-size="8">Req</text>
+                    <text x="700" y="318" text-anchor="middle" fill="#e67e22" font-size="8">DFD</text>
+                    <text x="752" y="318" text-anchor="middle" fill="#e67e22" font-size="8">ERD</text>
+                    
+                    <text x="647" y="332" text-anchor="middle" fill="#e67e22" font-size="8">R1</text>
+                    <text x="700" y="332" text-anchor="middle" fill="#e67e22" font-size="8">✓</text>
+                    <text x="752" y="332" text-anchor="middle" fill="#e67e22" font-size="8">✓</text>
+                    
+                    <text x="647" y="347" text-anchor="middle" fill="#e67e22" font-size="8">R2</text>
+                    <text x="700" y="347" text-anchor="middle" fill="#e67e22" font-size="8">✓</text>
+                    <text x="752" y="347" text-anchor="middle" fill="#e67e22" font-size="8">-</text>
+                    
+                    <text x="700" y="385" text-anchor="middle" fill="white" font-size="10">• Consistencia</text>
+                    <text x="700" y="397" text-anchor="middle" fill="white" font-size="10">• Completitud</text>
+                    
+                    <!-- Ingeniería Inversa -->
+                    <rect x="100" y="250" width="150" height="150" fill="#1abc9c" stroke="#16a085" stroke-width="3" rx="10"/>
+                    <text x="175" y="275" text-anchor="middle" fill="white" font-size="14" font-weight="bold">INGENIERÍA</text>
+                    <text x="175" y="290" text-anchor="middle" fill="white" font-size="14" font-weight="bold">INVERSA</text>
+                    
+                    <!-- Representación de código legacy -->
+                    <rect x="120" y="305" width="110" height="60" fill="white" stroke="#16a085" stroke-width="1" rx="3"/>
+                    <text x="175" y="320" text-anchor="middle" fill="#16a085" font-size="9">Código Legacy</text>
+                    <text x="175" y="335" text-anchor="middle" fill="#16a085" font-size="9">↓ Análisis ↓</text>
+                    <text x="175" y="350" text-anchor="middle" fill="#16a085" font-size="9">Modelos</text>
+                    
+                    <text x="175" y="385" text-anchor="middle" fill="white" font-size="10">• Recupera diseño</text>
+                    <text x="175" y="397" text-anchor="middle" fill="white" font-size="10">• Modernización</text>
+                    
+                    <!-- Conexiones entre herramientas -->
+                    <path d="M 250 125 L 300 125" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowgray)"/>
+                    <path d="M 500 125 L 550 125" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowgray)"/>
+                    <path d="M 400 200 L 400 250" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowgray)"/>
+                    <path d="M 500 325 L 600 325" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowgray)"/>
+                    <path d="M 250 325 L 300 325" stroke="#7f8c8d" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowgray)"/>
+                    
+                    <!-- Título general -->
+                    <text x="450" y="30" text-anchor="middle" fill="#2c3e50" font-size="18" font-weight="bold">SUITE INTEGRADA DE HERRAMIENTAS - ANÁLISIS ESTRUCTURADO</text>
+                    
+                    <defs>
+                        <marker id="arrowwhite" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="white"/>
+                        </marker>
+                        <marker id="arrowgray" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#7f8c8d"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="text-block">
+                <h3>2. Integración y Consistencia entre Herramientas</h3>
+                <p>Como menciona el programa académico, cada herramienta proporciona un <strong>enfoque distinto sobre el mismo sistema</strong>, manteniendo el mismo alcance e información pero representando aspectos diferentes:</p>
+                
+                <table class="comparison-table">
+                    <thead role="rowgroup">
+                        <tr role="row">
+                            <th role="columnheader">Herramienta</th>
+                            <th role="columnheader">Perspectiva</th>
+                            <th role="columnheader">Elementos Clave</th>
+                            <th role="columnheader">Relación con Otras</th>
+                        </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                        <tr role="row">
+                            <td role="cell"><strong>Diagrama de Contexto</strong></td>
+                            <td role="cell">Vista externa del sistema</td>
+                            <td role="cell">Límites, actores, flujos principales</td>
+                            <td role="cell">Base para niveles superiores de DFD</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>DFD Multinivel</strong></td>
+                            <td role="cell">Descomposición funcional</td>
+                            <td role="cell">Procesos, flujos, almacenes</td>
+                            <td role="cell">Procesos usan entidades del ERD</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Diccionario de Datos</strong></td>
+                            <td role="cell">Estructura de información</td>
+                            <td role="cell">Definiciones, composiciones, reglas</td>
+                            <td role="cell">Define flujos de DFD y atributos de ERD</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Diagrama E-R</strong></td>
+                            <td role="cell">Modelo de datos persistentes</td>
+                            <td role="cell">Entidades, relaciones, atributos</td>
+                            <td role="cell">Implementa almacenes de datos del DFD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Principios de Trazabilidad y Balanceo</h3>
+                <p>El programa académico enfatiza la importancia de mantener <span class="key-concept">trazabilidad y balanceo entre modelos</span>. Esto implica:</p>
+                
+                <ol role="list">
+                    <li role="listitem"><strong>Consistencia Semántica:</strong> Los mismos conceptos deben tener la misma definición en todos los diagramas</li>
+                    <li role="listitem"><strong>Balanceo de Flujos:</strong> Los flujos de entrada y salida de procesos deben ser consistentes entre niveles de DFD</li>
+                    <li role="listitem"><strong>Correspondencia de Datos:</strong> Los almacenes de datos en DFD deben corresponder a entidades en ERD</li>
+                    <li role="listitem"><strong>Trazabilidad de Requisitos:</strong> Cada elemento del modelo debe rastrearse hasta un requisito específico</li>
+                </ol>
+            </div>
+
+            <div class="yourdon-box">
+                <h3>Ingeniería Inversa Orientada a Proyectos Existentes</h3>
+                <p>El programa incluye <span class="key-concept">ingeniería inversa orientada a un proyecto existente</span>, proceso que permite:</p>
+                
+                <div class="method-container">
+                    <div class="method-box">
+                        <h4>🔍 Análisis de Código Legacy</h4>
+                        <ul role="list">
+                            <li role="listitem">Extracción de arquitectura actual</li>
+                            <li role="listitem">Identificación de patrones de diseño</li>
+                            <li role="listitem">Documentación de interfaces</li>
+                        </ul>
+                    </div>
+                    <div class="method-box">
+                        <h4>📋 Recuperación de Modelos</h4>
+                        <ul role="list">
+                            <li role="listitem">Generación automática de DFDs</li>
+                            <li role="listitem">Extracción de modelo de datos</li>
+                            <li role="listitem">Identificación de procesos de negocio</li>
+                        </ul>
+                    </div>
+                    <div class="method-box">
+                        <h4>🔄 Modernización Sistemática</h4>
+                        <ul role="list">
+                            <li role="listitem">Migración planificada</li>
+                            <li role="listitem">Reingeniería de procesos</li>
+                            <li role="listitem">Integración con sistemas nuevos</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Evaluation Section -->
+        <section id="evaluation" class="content-section active">
+            <h2>📝 Evaluación - 20 Preguntas</h2>
+            
+            <section class="quiz-container" role="region" aria-labelledby="quiz-title">
+                <div class="question" data-question="1">
+                    <h4>1. Según Von Bertalanffy, ¿cuál es la característica fundamental que define un sistema?</h4>
+                    <ul class="options">
+                        <li data-answer="a">La suma de sus componentes individuales</li>
+                        <li data-answer="b" data-correct="true">Un conjunto de elementos interrelacionados con un propósito común</li>
+                        <li data-answer="c">Una colección de datos organizados</li>
+                        <li data-answer="d">Un programa de computadora complejo</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Von Bertalanffy define un sistema como un conjunto de elementos o componentes interrelacionados que actúan como una unidad para alcanzar un objetivo común. Esta definición enfatiza tanto la interrelación como el propósito común.
+                    </div>
+                </div>
+
+                <div class="question" data-question="2">
+                    <h4>2. En el análisis estructurado, ¿cuál es la dimensión principal de descomposición según Craig Larman?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Por clases y objetos</li>
+                        <li data-answer="b" data-correct="true">Por procesos o funciones</li>
+                        <li data-answer="c">Por datos únicamente</li>
+                        <li data-answer="d">Por interfaces de usuario</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Según Craig Larman en "UML y Patrones", la diferencia esencial es que en el análisis estructurado la dimensión de descomposición es por procesos o funciones, mientras que en el orientado a objetos es por entidades del dominio.
+                    </div>
+                </div>
+
+                <div class="question" data-question="3">
+                    <h4>3. ¿Qué representa la "zona gris" en el modelo ambiental de Yourdon?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Errores del sistema</li>
+                        <li data-answer="b">Componentes obsoletos</li>
+                        <li data-answer="c" data-correct="true">Funcionalidades cuya inclusión en el sistema es negociable</li>
+                        <li data-answer="d">Datos corruptos</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: C</strong><br>
+                        La zona gris representa aquellas funcionalidades o aspectos cuya inclusión dentro del alcance del sistema es discutible y puede negociarse con los stakeholders, constituyendo tanto riesgos como oportunidades.
+                    </div>
+                </div>
+
+                <div class="question" data-question="4">
+                    <h4>4. ¿Cuál es la diferencia fundamental entre datos y procesos en el análisis estructurado?</h4>
+                    <ul class="options">
+                        <li data-answer="a">No hay diferencia</li>
+                        <li data-answer="b" data-correct="true">Son entidades conceptualmente separadas</li>
+                        <li data-answer="c">Los datos son más importantes que los procesos</li>
+                        <li data-answer="d">Los procesos contienen datos</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        El análisis estructurado se basa en la premisa fundamental de que datos y procesos son entidades conceptualmente separadas, a diferencia del análisis orientado a objetos donde se encapsulan juntos.
+                    </div>
+                </div>
+
+                <div class="question" data-question="5">
+                    <h4>5. Según Pressman, ¿qué son los "sistemas superiores" en un diagrama de contexto arquitectónico?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Sistemas más complejos técnicamente</li>
+                        <li data-answer="b" data-correct="true">Sistemas que utilizan al sistema objetivo como parte de un esquema de procesamiento de alto nivel</li>
+                        <li data-answer="c">Sistemas con mayor presupuesto</li>
+                        <li data-answer="d">Sistemas desarrollados anteriormente</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Según Pressman, los sistemas superiores son aquellos que utilizan al sistema objetivo como parte de algún esquema de procesamiento de alto nivel, estableciendo una jerarquía funcional.
+                    </div>
+                </div>
+
+                <div class="question" data-question="6">
+                    <h4>6. ¿Qué propiedad emergente describe la tendencia natural hacia el desorden sin mantenimiento?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Sinergia</li>
+                        <li data-answer="b" data-correct="true">Entropía</li>
+                        <li data-answer="c">Homeostasis</li>
+                        <li data-answer="d">Equifinalidad</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        La entropía es la propiedad que describe la tendencia natural de los sistemas hacia el desorden sin mantenimiento activo. En software, se manifiesta como degradación del código sin refactoring continuo.
+                    </div>
+                </div>
+
+                <div class="question" data-question="7">
+                    <h4>7. ¿Cuál es el propósito principal del "modelo esencial" según las clases del curso?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Documentar únicamente</li>
+                        <li data-answer="b" data-correct="true">Obtener, validar y garantizar la entrega de software que satisface necesidades</li>
+                        <li data-answer="c">Crear diagramas complejos</li>
+                        <li data-answer="d">Reemplazar la programación</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Según las clases del curso, el modelo esencial sirve para obtener requerimientos, validarlos y garantizar que se está entregando el software que el cliente o usuario solicita.
+                    </div>
+                </div>
+
+                <div class="question" data-question="8">
+                    <h4>8. ¿Cuándo es más apropiado usar análisis estructurado sobre análisis orientado a objetos?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Siempre</li>
+                        <li data-answer="b" data-correct="true">Para sistemas centrados en datos con procesos de negocio bien definidos</li>
+                        <li data-answer="c">Para sistemas pequeños únicamente</li>
+                        <li data-answer="d">Nunca, está obsoleto</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        El análisis estructurado es más apropiado para sistemas centrados en datos con procesos de negocio claros y transformaciones complejas, mientras que el orientado a objetos es mejor para sistemas interactivos y con alta reutilización.
+                    </div>
+                </div>
+
+                <div class="question" data-question="9">
+                    <h4>9. ¿Qué herramienta del análisis estructurado define la estructura y composición de los datos?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Diagrama de Flujo de Datos</li>
+                        <li data-answer="b">Diagrama de Contexto</li>
+                        <li data-answer="c" data-correct="true">Diccionario de Datos</li>
+                        <li data-answer="d">Diagrama de Entidad-Relación</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: C</strong><br>
+                        El Diccionario de Datos es la herramienta que define la estructura y composición de todos los elementos de datos del sistema, proporcionando definiciones precisas y consistentes.
+                    </div>
+                </div>
+
+                <div class="question" data-question="10">
+                    <h4>10. ¿Qué caracteriza a los sistemas adaptativos?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Nunca cambian su comportamiento</li>
+                        <li data-answer="b" data-correct="true">Pueden modificar su comportamiento en respuesta al entorno</li>
+                        <li data-answer="c">Solo procesan datos estáticos</li>
+                        <li data-answer="d">Son siempre determinísticos</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Los sistemas adaptativos tienen la capacidad de modificar su comportamiento, estructura o parámetros en respuesta a cambios en el entorno o en función de su experiencia.
+                    </div>
+                </div>
+
+                <div class="question" data-question="11">
+                    <h4>11. ¿Qué principio debe mantenerse en el balanceo entre niveles de DFD?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Aumentar el número de procesos en cada nivel</li>
+                        <li data-answer="b" data-correct="true">Continuidad del flujo de información entre niveles</li>
+                        <li data-answer="c">Simplificar al máximo cada nivel</li>
+                        <li data-answer="d">Eliminar conexiones entre procesos</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Según Pressman, conforme se mejora cada nivel del DFD, debe mantenerse la continuidad del flujo de la información, asegurando que las entradas y salidas sean consistentes entre niveles.
+                    </div>
+                </div>
+
+                <div class="question" data-question="12">
+                    <h4>12. ¿Cuál es la ventaja principal de la sinergia en sistemas de software?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Reduce el costo de desarrollo</li>
+                        <li data-answer="b" data-correct="true">Genera funcionalidades emergentes de la integración de módulos</li>
+                        <li data-answer="c">Elimina la necesidad de testing</li>
+                        <li data-answer="d">Simplifica la arquitectura</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        La sinergia en sistemas de software genera funcionalidades emergentes que surgen de la integración de módulos y que no están presentes en los componentes individuales.
+                    </div>
+                </div>
+
+                <div class="question" data-question="13">
+                    <h4>13. ¿Qué aspecto distingue a los "actores" de otros elementos en un diagrama de contexto?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Son sistemas computacionales</li>
+                        <li data-answer="b" data-correct="true">Son entidades (personas, dispositivos) que interactúan mediante producción/consumo de información</li>
+                        <li data-answer="c">Son bases de datos</li>
+                        <li data-answer="d">Son procesos internos</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Según Pressman, los actores son entidades (personas, dispositivos, etc.) que interactúan con el sistema objetivo mediante la producción o consumo de información necesaria para el procesamiento.
+                    </div>
+                </div>
+
+                <div class="question" data-question="14">
+                    <h4>14. ¿Cuál es el objetivo de la ingeniería inversa en proyectos existentes?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Crear nuevos sistemas desde cero</li>
+                        <li data-answer="b" data-correct="true">Recuperar el diseño y modelos del sistema para modernización</li>
+                        <li data-answer="c">Eliminar código legacy</li>
+                        <li data-answer="d">Cambiar el lenguaje de programación únicamente</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        La ingeniería inversa busca recuperar el diseño y los modelos del sistema existente para facilitar su comprensión, documentación y modernización sistemática.
+                    </div>
+                </div>
+
+                <div class="question" data-question="15">
+                    <h4>15. ¿Qué herramientas son parte de la suite integrada del análisis estructurado según el programa académico?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Solo diagramas de flujo de datos</li>
+                        <li data-answer="b" data-correct="true">Diagrama de contexto, DFD, diccionario de datos y diagrama entidad-relación</li>
+                        <li data-answer="c">Únicamente diagramas de clases</li>
+                        <li data-answer="d">Solo casos de uso</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Según el programa académico, las herramientas del análisis tradicional incluyen: diagrama de contexto, diagrama de flujo de datos, diccionario de datos y diagrama de entidad-relación.
+                    </div>
+                </div>
+
+                <div class="question" data-question="16">
+                    <h4>16. ¿Cuál es la diferencia entre sistemas determinísticos y probabilísticos?</h4>
+                    <ul class="options">
+                        <li data-answer="a">No hay diferencia práctica</li>
+                        <li data-answer="b" data-correct="true">Los determinísticos producen salidas predecibles, los probabilísticos tienen comportamiento estadístico</li>
+                        <li data-answer="c">Los probabilísticos son más eficientes</li>
+                        <li data-answer="d">Los determinísticos son más complejos</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Los sistemas determinísticos producen siempre la misma salida para una entrada específica, mientras que los probabilísticos tienen comportamiento basado en probabilidades y estadísticas.
+                    </div>
+                </div>
+
+                <div class="question" data-question="17">
+                    <h4>17. ¿Qué establece el principio de trazabilidad entre artefactos?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Que todos los diagramas deben ser idénticos</li>
+                        <li data-answer="b" data-correct="true">Que cada elemento del modelo debe rastrearse hasta un requisito específico</li>
+                        <li data-answer="c">Que solo se necesita un tipo de diagrama</li>
+                        <li data-answer="d">Que los modelos son independientes</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        La trazabilidad establece que cada elemento del modelo debe poder rastrearse hasta un requisito específico, manteniendo la correspondencia entre necesidades del negocio y elementos de diseño.
+                    </div>
+                </div>
+
+                <div class="question" data-question="18">
+                    <h4>18. ¿Cuándo un sistema manifiesta la propiedad de homeostasis?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Cuando crece ilimitadamente</li>
+                        <li data-answer="b" data-correct="true">Cuando mantiene equilibrio y estabilidad operativa autorregulándose</li>
+                        <li data-answer="c">Cuando se vuelve más complejo</li>
+                        <li data-answer="d">Cuando procesa más datos</li>
+                    </div>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        La homeostasis se refiere a la capacidad del sistema de mantener un estado de equilibrio y estabilidad operativa mediante autorregulación ante cambios en el entorno.
+                    </div>
+                </div>
+
+                <div class="question" data-question="19">
+                    <h4>19. ¿Qué ventaja principal ofrece la descomposición funcional top-down?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Elimina la necesidad de documentación</li>
+                        <li data-answer="b" data-correct="true">Facilita la comprensión al ir de general a específico</li>
+                        <li data-answer="c">Reduce el tiempo de desarrollo</li>
+                        <li data-answer="d">Elimina errores de programación</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        La descomposición funcional top-down facilita la comprensión del sistema al permitir el análisis desde lo general hacia lo específico, manejando la complejidad de manera gradual y estructurada.
+                    </div>
+                </div>
+
+                <div class="question" data-question="20">
+                    <h4>20. ¿Cuál es el propósito fundamental del análisis estructurado según Yourdon?</h4>
+                    <ul class="options">
+                        <li data-answer="a">Crear sistemas sin estructura</li>
+                        <li data-answer="b" data-correct="true">Proporcionar una filosofía de pensamiento sistemático sobre sistemas complejos</li>
+                        <li data-answer="c">Eliminar la programación orientada a objetos</li>
+                        <li data-answer="d">Simplificar todos los sistemas</li>
+                    </ul>
+                    <div class="explanation" style="display: none;">
+                        <strong>Respuesta correcta: B</strong><br>
+                        Según Edward Yourdon, el análisis estructurado es más que una colección de herramientas y técnicas; es una filosofía de pensamiento sistemático sobre sistemas complejos.
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 2rem 0;">
+                    <button onclick="checkAllAnswers()" style="background: var(--secondary-color); color: white; border: none; padding: 1rem 2rem; border-radius: 5px; font-size: 1.1rem; cursor: pointer;">
+                        Verificar Respuestas
+                    </button>
+                    <button onclick="resetQuiz()" style="background: var(--accent-color); color: white; border: none; padding: 1rem 2rem; border-radius: 5px; font-size: 1.1rem; cursor: pointer; margin-left: 1rem;">
+                        Reiniciar Quiz
+                    </button>
+                </div>
+
+                <div id="quiz-results" style="display: none; text-align: center; margin: 2rem 0; padding: 1rem; background: var(--background-color); border-radius: 8px;">
+                    <!-- Results will be shown here -->
+                </div>
+            </div>
+
+            <div class="bibliography-box">
+                <h4>📚 Bibliografía Específica de la Clase</h4>
+                <p><strong>Obligatoria:</strong></p>
+                <ul role="list">
+                    <li role="listitem"><strong>Pressman, Roger (1998):</strong> "Ingeniería de Software. Un enfoque Práctico." 4ª ed. McGraw-Hill. Capítulos 7 y 9 (Modelado de requerimientos y Diseño arquitectónico)</li>
+                    <li role="listitem"><strong>Yourdon, Edward (1993):</strong> "Análisis Estructurado Moderno." Prentice-Hall Hispanoamericana. Capítulos 1-3 (Fundamentos y herramientas)</li>
+                    <li role="listitem"><strong>Larman, Craig (2003):</strong> "UML y patrones. Una Introducción al Análisis y Diseño Orientado a Objetos." 2ª ed. Prentice-Hall. Capítulo 10 (Modelos de dominio)</li>
+                </ul>
+                
+                <p><strong>Complementaria:</strong></p>
+                <ul role="list">
+                    <li role="listitem"><strong>DeMarco, Tom (1985):</strong> "Structured Analysis and System Specification." Pearson. Clásico del análisis estructurado</li>
+                    <li role="listitem"><strong>Ramos, Daniel et al. (2017):</strong> "Curso de Ingeniería de Software." IT Campus Academy. Material complementario</li>
+                </ul>
+            </div>
+
+            <div class="text-block">
+                <h3>🎯 Síntesis y Conexiones</h3>
+                <p>Esta clase establece los fundamentos teóricos esenciales para el análisis de sistemas. Los conceptos estudiados se conectan directamente con:</p>
+                
+                <div class="method-container">
+                    <div class="method-box">
+                        <h4>🔄 Clases Anteriores</h4>
+                        <ul role="list">
+                            <li role="listitem">Metodologías y ciclos de vida (Clases 1-3)</li>
+                            <li role="listitem">Modelo esencial (Clase 2)</li>
+                            <li role="listitem">Metodologías ágiles como contraste (Clases 4-8)</li>
+                        </ul>
+                    </div>
+                    <div class="method-box">
+                        <h4>➡️ Próximas Clases</h4>
+                        <ul role="list">
+                            <li role="listitem">Clase 10: Paradigmas comparados en detalle</li>
+                            <li role="listitem">Clase 11: Herramientas específicas (DFD, Diccionario)</li>
+                            <li role="listitem">Clase 12: Trazabilidad y balanceo práctico</li>
+                        </ul>
+                    </div>
+                    <div class="method-box">
+                        <h4>🎓 Aplicación Profesional</h4>
+                        <ul role="list">
+                            <li role="listitem">Selección de metodologías de análisis</li>
+                            <li role="listitem">Comunicación con stakeholders técnicos</li>
+                            <li role="listitem">Documentación de arquitecturas existentes</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>💡 Reflexión Final</h4>
+                    <p>La teoría general de sistemas proporciona el marco conceptual fundamental para entender cualquier desarrollo de software como un sistema complejo. La elección entre análisis estructurado y orientado a objetos no es una cuestión de "mejor o peor", sino de <strong>selección apropiada según el contexto</strong>.</p>
+                    
+                    <p>El análisis estructurado, con su enfoque en la separación datos-procesos y la descomposición funcional, sigue siendo relevante para sistemas centrados en transformación de datos y procesos de negocio claramente definidos. Su comprensión es esencial para:</p>
+                    <ul role="list">
+                        <li role="listitem">Trabajar con sistemas legacy</li>
+                        <li role="listitem">Diseñar sistemas de procesamiento de datos</li>
+                        <li role="listitem">Comunicar con stakeholders familiares con procesos funcionales</li>
+                        <li role="listitem">Aplicar ingeniería inversa a proyectos existentes</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Theme Toggle
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            body.setAttribute('data-theme', newTheme);
+            
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+            
+            localStorage.setItem('theme', newTheme);
+        }
+
+        // Load saved theme
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            document.querySelector('.theme-toggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        });
+
+        // Interactive Elements
+        function toggleElement(element) {
+            const hiddenContent = element.querySelector('div[style*="display: none"]');
+            if (hiddenContent) {
+                if (hiddenContent.style.display === 'none') {
+                    hiddenContent.style.display = 'block';
+                    element.style.backgroundColor = 'var(--secondary-color)';
+                    element.style.color = 'white';
+                } else {
+                    hiddenContent.style.display = 'none';
+                    element.style.backgroundColor = '';
+                    element.style.color = '';
+                }
+            }
+        }
+
+        // Quiz Functions
+        let selectedAnswers = {};
+        let quizCompleted = false;
+
+        // Handle answer selection
+        document.addEventListener('click', function(e) {
+            if (e.target.matches('.options li')) {
+                const question = e.target.closest('.question');
+                const questionNum = question.getAttribute('data-question');
+                const selectedOption = e.target.getAttribute('data-answer');
+                
+                // Clear previous selections for this question
+                question.querySelectorAll('.options li').forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                // Mark current selection
+                e.target.classList.add('selected');
+                selectedAnswers[questionNum] = selectedOption;
+            }
+        });
+
+        function checkAllAnswers() {
+            let correct = 0;
+            const totalQuestions = 20;
+            
+            document.querySelectorAll('.question').forEach(question => {
+                const questionNum = question.getAttribute('data-question');
+                const selectedAnswer = selectedAnswers[questionNum];
+                const correctOption = question.querySelector('[data-correct="true"]');
+                const correctAnswer = correctOption ? correctOption.getAttribute('data-answer') : null;
+                
+                // Show explanation
+                const explanation = question.querySelector('.explanation');
+                if (explanation) {
+                    explanation.style.display = 'block';
+                }
+                
+                // Mark answers
+                question.querySelectorAll('.options li').forEach(option => {
+                    const optionAnswer = option.getAttribute('data-answer');
+                    
+                    if (optionAnswer === correctAnswer) {
+                        option.classList.add('correct');
+                    } else if (optionAnswer === selectedAnswer && optionAnswer !== correctAnswer) {
+                        option.classList.add('incorrect');
+                    }
+                });
+                
+                // Count correct answers
+                if (selectedAnswer === correctAnswer) {
+                    correct++;
+                }
+            });
+            
+            // Show results
+            const percentage = Math.round((correct / totalQuestions) * 100);
+            const resultsDiv = document.getElementById('quiz-results');
+            
+            let resultClass = '';
+            let resultMessage = '';
+            
+            if (percentage >= 90) {
+                resultClass = 'success';
+                resultMessage = '¡Excelente trabajo! Dominio sobresaliente de la teoría de sistemas.';
+            } else if (percentage >= 75) {
+                resultClass = 'warning';
+                resultMessage = 'Buen desempeño. Comprensión sólida de los fundamentos.';
+            } else if (percentage >= 60) {
+                resultClass = 'warning';
+                resultMessage = 'Desempeño aceptable. Revisar conceptos fundamentales.';
+            } else {
+                resultClass = 'error';
+                resultMessage = 'Necesitas repasar más la teoría de sistemas y análisis estructurado.';
+            }
+            
+            resultsDiv.innerHTML = `
+                <h3 style="color: var(--${resultClass === 'success' ? 'success' : resultClass === 'warning' ? 'warning' : 'accent'}-color)">
+                    ${resultMessage}
+                </h3>
+                <p><strong>Puntaje: ${correct}/${totalQuestions} (${percentage}%)</strong></p>
+                <p>Respuestas correctas: ${correct}</p>
+                <p>Respuestas incorrectas: ${totalQuestions - correct}</p>
+                ${percentage < 75 ? '<p><em>Se recomienda revisar la bibliografía obligatoria antes de continuar.</em></p>' : ''}
+                ${percentage >= 90 ? '<p>🎉 <strong>¡Estás preparado para avanzar a la siguiente clase!</strong></p>' : ''}
+            `;
+            
+            resultsDiv.style.display = 'block';
+            quizCompleted = true;
+        }
+
+        function resetQuiz() {
+            selectedAnswers = {};
+            quizCompleted = false;
+            
+            document.querySelectorAll('.question').forEach(question => {
+                // Clear all answer markings
+                question.querySelectorAll('.options li').forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Hide explanations
+                const explanation = question.querySelector('.explanation');
+                if (explanation) {
+                    explanation.style.display = 'none';
+                }
+            });
+            
+            // Hide results
+            document.getElementById('quiz-results').style.display = 'none';
+        }
+
+        // Initialize progress bar to 100% since all content is visible
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('progressBar').style.width = '100%';
+        });
+
+        // Smooth scrolling for better UX
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+    <script src="keyboard-navigation.js"></script>
+</body>
+</html>

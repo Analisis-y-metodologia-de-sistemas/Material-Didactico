@@ -1,0 +1,1807 @@
+                        <li role="listitem"><strong>Integración con legacy:</strong> Sistemas de laboratorio y farmacia existentes</li>
+                        <li role="listitem"><strong>Algoritmos complejos:</strong> Cálculos de facturación y reportes regulatorios</li>
+                        <li role="listitem"><strong>Procesos batch:</strong> Procesamiento nocturno de estadísticas</li>
+                    </ul>
+                </div>
+
+                <h3>📊 Justificación Técnica</h3>
+                
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <h4>✅ Factores a Favor del Híbrido</h4>
+                        <ul class="feature-list">
+                            <li role="listitem"><strong>Complejidad del dominio:</strong> Entidades naturales (Paciente, Médico) + procesos complejos</li>
+                            <li role="listitem"><strong>Tamaño del proyecto:</strong> 150 KLOC justifican inversión en OO</li>
+                            <li role="listitem"><strong>Equipo distribuido:</strong> OO facilita desarrollo modular</li>
+                            <li role="listitem"><strong>Requisitos evolutivos:</strong> Sistema debe adaptarse a regulaciones cambiantes</li>
+                            <li role="listitem"><strong>Interfaces múltiples:</strong> Web, móvil, integración con equipos</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>⚖️ Consideraciones Especiales</h4>
+                        <ul class="feature-list">
+                            <li role="listitem"><strong>Criticidad:</strong> Requiere testing exhaustivo en ambos paradigmas</li>
+                            <li role="listitem"><strong>Performance:</strong> Algoritmos críticos en análisis estructurado</li>
+                            <li role="listitem"><strong>Mantenimiento:</strong> OO para evolución, estructurado para estabilidad</li>
+                            <li role="listitem"><strong>Capacitación:</strong> Equipo necesita formación en ambos enfoques</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box important">
+                    <h4>Lección Aprendida</h4>
+                    <p>El caso hospitalario demuestra que la selección de paradigma no debe ser una decisión binaria. Los proyectos modernos exitosos combinan inteligentemente las fortalezas de múltiples enfoques según las características específicas de cada subsistema.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="integracion" class="section fade-in">
+            <div class="card">
+                <h2>🔄 Integración y Tendencias Futuras</h2>
+
+                <h3>🌐 Evolución hacia Metodologías Híbridas</h3>
+                <p>La industria del software ha evolucionado hacia enfoques pragmáticos que combinan las mejores características de ambos paradigmas, adaptándose a las necesidades específicas de cada contexto.</p>
+
+                <div class="methodology-card">
+                    <div class="paradigm-box">
+                        <h3>🚀 DevOps y Continuous Delivery</h3>
+                        <ul class="feature-list">
+                            <li role="listitem">Microservicios (OO) + Pipelines (Estructurado)</li>
+                            <li role="listitem">Containerización de objetos de dominio</li>
+                            <li role="listitem">Automatización de procesos de despliegue</li>
+                            <li role="listitem">Monitoreo estructurado de sistemas OO</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="paradigm-box oo">
+                        <h3>🤖 AI-Assisted Development</h3>
+                        <ul class="feature-list">
+                            <li role="listitem">IA genera código OO desde especificaciones estructuradas</li>
+                            <li role="listitem">Refactoring automático entre paradigmas</li>
+                            <li role="listitem">Análisis de patrones para recomendación de enfoque</li>
+                            <li role="listitem">Testing automatizado de ambos paradigmas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>📈 Métricas de Adopción en la Industria</h3>
+                
+                <div class="highlight-box">
+                    <h4>Datos de la Industria (2024)</h4>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>65% de proyectos</strong> utilizan enfoques híbridos</li>
+                        <li role="listitem"><strong>80% de startups</strong> prefieren OO puro para agilidad</li>
+                        <li role="listitem"><strong>70% de empresas enterprise</strong> mantienen sistemas estructurados legacy</li>
+                        <li role="listitem"><strong>85% de desarrolladores</strong> consideran UML esencial para comunicación</li>
+                        <li role="listitem"><strong>90% de arquitectos</strong> evalúan ambos paradigmas antes de decidir</li>
+                    </ul>
+                </div>
+
+                <h3>🔮 Tendencias Emergentes</h3>
+                
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <h4>🧠 Domain-Driven Design</h4>
+                        <p>Combina modelado OO con análisis estructurado de procesos de negocio complejos.</p>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>🏗️ Event-Driven Architecture</h4>
+                        <p>Objetos que se comunican mediante eventos estructurados, uniendo ambos paradigmas.</p>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>🔄 Functional-OO Hybrid</h4>
+                        <p>Programación funcional para procesos + OO para modelado de estado.</p>
+                    </div>
+                </div>
+
+                <div class="highlight<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 10: Paradigmas de Análisis - Estructurado vs Orientado a Objetos</title>
+    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
+    <meta name="author" content="Curso AMS HTML">
+    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #3b82f6;
+            --bg-light: #f8fafc;
+            --bg-dark: #1e293b;
+            --text-light: #334155;
+            --text-dark: #e2e8f0;
+            --border-light: #e2e8f0;
+            --border-dark: #475569;
+            --card-bg-light: #ffffff;
+            --card-bg-dark: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-light);
+            line-height: 1.7;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        .dark-mode .card {
+            background: var(--card-bg-dark);
+            border-color: var(--border-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 20px;
+            color: white;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .nav-menu {
+            background: var(--card-bg-light);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-light);
+        }
+
+        .nav-menu h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .nav-link {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .section {
+            margin-bottom: 3rem;
+        }
+
+        .card {
+            background: var(--card-bg-light);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-light);
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 0.5rem;
+        }
+
+        .card h3 {
+            color: var(--secondary-color);
+            font-size: 1.4rem;
+            margin: 1.5rem 0 1rem 0;
+        }
+
+        .card h4 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison-table th {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            vertical-align: top;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .methodology-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .paradigm-box {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 15px;
+            padding: 2rem;
+            border-left: 5px solid var(--primary-color);
+        }
+
+        .paradigm-box.oo {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            border-left-color: #16a34a;
+        }
+
+        .paradigm-box h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .paradigm-box.oo h3 {
+            color: #16a34a;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .paradigm-box.oo .feature-list li::before {
+            color: #16a34a;
+        }
+
+        .diagram-container {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: var(--bg-light);
+            border-radius: 10px;
+            border: 2px dashed var(--border-light);
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .criteria-card {
+            background: linear-gradient(135deg, #fef7ff, #f3e8ff);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #d8b4fe;
+        }
+
+        .criteria-card h4 {
+            color: #7c3aed;
+            margin-bottom: 1rem;
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, #fff7ed, #fed7aa);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #fdba74;
+        }
+
+        .quiz-container h3 {
+            color: #ea580c;
+            margin-bottom: 1.5rem;
+        }
+
+        .question {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #fed7aa;
+        }
+
+        .question h4 {
+            color: #c2410c;
+            margin-bottom: 0.5rem;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            background: #fef3c7;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .options li:hover {
+            background: #fcd34d;
+        }
+
+        .options li.correct {
+            background: #bbf7d0;
+            color: #166534;
+        }
+
+        .options li.incorrect {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+        }
+
+        .btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-light);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid #f59e0b;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box.important {
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border-left-color: #ef4444;
+        }
+
+        .highlight-box.tip {
+            background: linear-gradient(135deg, #f0f9ff, #dbeafe);
+            border-left-color: #3b82f6;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .methodology-card {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                flex-direction: column;
+            }
+
+            .criteria-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .case-study {
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid var(--border-light);
+        }
+
+        .case-study h3 {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .code-example {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body role="document">
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">🌙</button>
+    
+    <div class="container" role="main">
+        <header class="header fade-in">
+            <h1 id="main-title">Clase 10: Paradigmas de Análisis</h1>
+            <p>Estructurado vs Orientado a Objetos - Análisis Comparativo y Criterios de Selección</p>
+        </header>
+
+        <nav class="nav-menu fade-in">
+            <h3>Navegación de la Clase</h3>
+            <div class="nav-links">
+                <a href="#objetivos" class="nav-link">Objetivos</a>
+                <a href="#paradigma-estructurado" class="nav-link">Paradigma Estructurado</a>
+                <a href="#paradigma-oo" class="nav-link">Paradigma OO</a>
+                <a href="#comparacion" class="nav-link">Análisis Comparativo</a>
+                <a href="#criterios" class="nav-link">Criterios de Selección</a>
+                <a href="#caso-estudio" class="nav-link">Caso de Estudio</a>
+                <a href="#evaluacion" class="nav-link">Evaluación</a>
+            </div>
+        </nav>
+
+        <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <section id="objetivos" class="section fade-in">
+            <div class="card">
+                <h2 id="objectives-title">🎯 Objetivos de Aprendizaje</h2>
+                <ul class="feature-list">
+                    <li role="listitem">Contrastar los enfoques estructurado y orientado a objetos en el análisis de sistemas</li>
+                    <li role="listitem">Analizar las ventajas y limitaciones de cada paradigma</li>
+                    <li role="listitem">Comprender los criterios de selección según el contexto del proyecto</li>
+                    <li role="listitem">Evaluar casos de aplicación práctica de cada enfoque</li>
+                    <li role="listitem">Desarrollar competencias para la toma de decisiones metodológicas</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="introduccion" class="section fade-in">
+            <div class="card">
+                <h2>📚 Introducción: Paradigmas de Análisis de Sistemas</h2>
+                
+                <p>En el desarrollo de sistemas de software, la elección del paradigma de análisis constituye una decisión fundamental que influirá en todo el ciclo de vida del proyecto. Esta clase examina los dos paradigmas principales: el análisis estructurado, basado en la descomposición funcional, y el análisis orientado a objetos, centrado en la identificación de entidades y sus interacciones.</p>
+
+                <div class="highlight-box important">
+                    <h4>Concepto Clave</h4>
+                    <p><strong>Paradigma de Análisis:</strong> Un marco conceptual que define cómo descomponer y modelar un sistema complejo, proporcionando principios, técnicas y herramientas específicas para entender y especificar los requisitos del software.</p>
+                </div>
+
+                <h3>🏗️ Evolución Histórica</h3>
+                <p>La evolución de los paradigmas de análisis refleja el crecimiento en complejidad de los sistemas de software:</p>
+                
+                <div class="methodology-card">
+                    <div class="paradigm-box">
+                        <h3>📊 Era Estructurada (1970s-1980s)</h3>
+                        <ul class="feature-list">
+                            <li role="listitem">Metodologías como Yourdon, DeMarco, Gane-Sarson</li>
+                            <li role="listitem">Enfoque top-down en descomposición funcional</li>
+                            <li role="listitem">Separación clara entre datos y procesos</li>
+                            <li role="listitem">Documentación exhaustiva y formalizada</li>
+                        </ul>
+                    </div>
+                    <div class="paradigm-box oo">
+                        <h3>🔄 Era Orientada a Objetos (1990s-presente)</h3>
+                        <ul class="feature-list">
+                            <li role="listitem">Metodologías como UML, RUP, análisis de dominio</li>
+                            <li role="listitem">Enfoque centrado en objetos e interacciones</li>
+                            <li role="listitem">Encapsulamiento de datos y comportamiento</li>
+                            <li role="listitem">Reutilización y mantenibilidad mejoradas</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box tip">
+                    <h4>Impacto en la Industria</h4>
+                    <p>Según Martin Fowler, "la diferencia fundamental entre análisis estructurado y orientado a objetos no está en las herramientas que utilizan, sino en la forma fundamental de pensar sobre el problema que intentan resolver."</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="paradigma-estructurado" class="section fade-in">
+            <div class="card">
+                <h2>📊 Paradigma Estructurado: Enfoque Funcional</h2>
+
+                <h3>🔍 Principios Fundamentales</h3>
+                <p>El análisis estructurado se basa en la <strong>descomposición funcional</strong>, donde el sistema se entiende como una jerarquía de procesos que transforman datos de entrada en resultados específicos.</p>
+
+                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                    <svg width="800" height="500" viewBox="0 0 800 500">
+                        <!-- Fondo y marco -->
+                        <rect width="800" height="500" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+                        
+                        <!-- Nivel 0 - Sistema Completo -->
+                        <rect x="300" y="30" width="200" height="60" fill="#e1f5fe" stroke="#2563eb" stroke-width="2" rx="8"/>
+                        <text x="400" y="50" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">Sistema Completo</text>
+                        <text x="400" y="70" text-anchor="middle" fill="#1e40af" font-size="12">(Nivel 0)</text>
+                        
+                        <!-- Nivel 1 - Función Principal -->
+                        <rect x="300" y="140" width="200" height="50" fill="#f3e5f5" stroke="#7c3aed" stroke-width="2" rx="8"/>
+                        <text x="400" y="160" text-anchor="middle" fill="#6b21a8" font-size="14" font-weight="bold">Función Principal</text>
+                        <text x="400" y="175" text-anchor="middle" fill="#6b21a8" font-size="12">(Nivel 1)</text>
+                        
+                        <!-- Nivel 2 - Subfunciones -->
+                        <rect x="80" y="240" width="150" height="50" fill="#e8f5e8" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="155" y="260" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Subfunción 1</text>
+                        <text x="155" y="275" text-anchor="middle" fill="#15803d" font-size="11">(Nivel 2)</text>
+                        
+                        <rect x="325" y="240" width="150" height="50" fill="#e8f5e8" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="400" y="260" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Subfunción 2</text>
+                        <text x="400" y="275" text-anchor="middle" fill="#15803d" font-size="11">(Nivel 2)</text>
+                        
+                        <rect x="570" y="240" width="150" height="50" fill="#e8f5e8" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="645" y="260" text-anchor="middle" fill="#15803d" font-size="13" font-weight="bold">Subfunción 3</text>
+                        <text x="645" y="275" text-anchor="middle" fill="#15803d" font-size="11">(Nivel 2)</text>
+                        
+                        <!-- Nivel 3 - Procesos -->
+                        <rect x="30" y="350" width="120" height="40" fill="#fff3e0" stroke="#ea580c" stroke-width="1" rx="6"/>
+                        <text x="90" y="365" text-anchor="middle" fill="#c2410c" font-size="12">Proceso 1.1</text>
+                        <text x="90" y="380" text-anchor="middle" fill="#c2410c" font-size="10">(Nivel 3)</text>
+                        
+                        <rect x="170" y="350" width="120" height="40" fill="#fff3e0" stroke="#ea580c" stroke-width="1" rx="6"/>
+                        <text x="230" y="365" text-anchor="middle" fill="#c2410c" font-size="12">Proceso 1.2</text>
+                        <text x="230" y="380" text-anchor="middle" fill="#c2410c" font-size="10">(Nivel 3)</text>
+                        
+                        <rect x="340" y="350" width="120" height="40" fill="#fff3e0" stroke="#ea580c" stroke-width="1" rx="6"/>
+                        <text x="400" y="365" text-anchor="middle" fill="#c2410c" font-size="12">Proceso 2.1</text>
+                        <text x="400" y="380" text-anchor="middle" fill="#c2410c" font-size="10">(Nivel 3)</text>
+                        
+                        <rect x="480" y="350" width="120" height="40" fill="#fff3e0" stroke="#ea580c" stroke-width="1" rx="6"/>
+                        <text x="540" y="365" text-anchor="middle" fill="#c2410c" font-size="12">Proceso 2.2</text>
+                        <text x="540" y="380" text-anchor="middle" fill="#c2410c" font-size="10">(Nivel 3)</text>
+                        
+                        <rect x="620" y="350" width="120" height="40" fill="#fff3e0" stroke="#ea580c" stroke-width="1" rx="6"/>
+                        <text x="680" y="365" text-anchor="middle" fill="#c2410c" font-size="12">Proceso 3.1</text>
+                        <text x="680" y="380" text-anchor="middle" fill="#c2410c" font-size="10">(Nivel 3)</text>
+                        
+                        <!-- Flechas de conexión -->
+                        <!-- Nivel 0 a 1 -->
+                        <line x1="400" y1="90" x2="400" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Nivel 1 a 2 -->
+                        <line x1="340" y1="190" x2="200" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="400" y1="190" x2="400" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="460" y1="190" x2="600" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Nivel 2 a 3 -->
+                        <line x1="120" y1="290" x2="90" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="190" y1="290" x2="230" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="370" y1="290" x2="400" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="430" y1="290" x2="540" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="645" y1="290" x2="680" y2="350" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Definición de flecha -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                                    refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Etiquetas de nivel -->
+                        <text x="20" y="65" fill="#64748b" font-size="12" font-weight="bold">Descomposición Jerárquica</text>
+                        <text x="20" y="85" fill="#64748b" font-size="11">Top-Down</text>
+                        
+                        <!-- Leyenda -->
+                        <text x="20" y="450" fill="#64748b" font-size="11" font-weight="bold">Principio:</text>
+                        <text x="80" y="450" fill="#64748b" font-size="11">Refinamiento Stepwise</text>
+                        <text x="20" y="470" fill="#64748b" font-size="11" font-weight="bold">Enfoque:</text>
+                        <text x="80" y="470" fill="#64748b" font-size="11">Funcional</text>
+                    </svg>
+                </div>
+
+                <h3>🛠️ Características Principales</h3>
+                
+                <h4>1. Descomposición Top-Down</h4>
+                <p>El sistema se descompone jerárquicamente desde una función general hacia funciones específicas cada vez más detalladas, siguiendo el principio de <em>refinamiento stepwise</em>.</p>
+
+                <div class="highlight-box">
+                    <h4>Ejemplo Práctico: Sistema de Ventas</h4>
+                    <p><strong>Nivel 0:</strong> Procesar Venta<br>
+                    <strong>Nivel 1:</strong> Registrar Cliente, Procesar Pago, Generar Factura<br>
+                    <strong>Nivel 2:</strong> Validar Datos Cliente, Verificar Crédito, Calcular Impuestos, etc.</p>
+                </div>
+
+                <h4>2. Enfoque en Procesos</h4>
+                <p>La unidad básica de análisis es el <strong>proceso</strong> - una transformación que convierte entradas en salidas siguiendo reglas específicas del negocio.</p>
+
+                <h4>3. Separación Datos-Procesos</h4>
+                <p>Los datos y los procesos se modelan de forma independiente, utilizando herramientas específicas para cada aspecto:</p>
+                
+                <ul class="feature-list">
+                    <li role="listitem"><strong>Diagramas de Flujo de Datos (DFD):</strong> Para modelar procesos y flujos</li>
+                    <li role="listitem"><strong>Diccionario de Datos:</strong> Para especificar estructuras de información</li>
+                    <li role="listitem"><strong>Diagramas Entidad-Relación:</strong> Para modelar relaciones entre datos</li>
+                    <li role="listitem"><strong>Especificaciones de Procesos:</strong> Para detallar la lógica de transformación</li>
+                </ul>
+
+                <h3>📋 Metodologías Representativas</h3>
+
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <h4>📊 Metodología Yourdon</h4>
+                        <p>Desarrollada por Edward Yourdon, enfatiza la construcción de modelos gráficos jerárquicos y la especificación formal de procesos.</p>
+                        <ul class="feature-list">
+                            <li role="listitem">DFD multinivel</li>
+                            <li role="listitem">Diccionario de datos estructurado</li>
+                            <li role="listitem">Especificaciones de proceso detalladas</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="criteria-card">
+                        <h4>🔄 Metodología DeMarco</h4>
+                        <p>Pionera en análisis estructurado, introdujo conceptos fundamentales de modelado de sistemas basado en flujo de datos.</p>
+                        <ul class="feature-list">
+                            <li role="listitem">Modelo ambiental del sistema</li>
+                            <li role="listitem">Particionamiento por eventos</li>
+                            <li role="listitem">Balanceo entre niveles</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>⚡ Metodología Gane-Sarson</h4>
+                        <p>Variante del análisis estructurado que utiliza notación específica y enfatiza la trazabilidad entre modelos.</p>
+                        <ul class="feature-list">
+                            <li role="listitem">Notación rectangular para procesos</li>
+                            <li role="listitem">Énfasis en la consistencia</li>
+                            <li role="listitem">Matrices de trazabilidad</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>✅ Ventajas del Enfoque Estructurado</h3>
+                
+                <div class="paradigm-box">
+                    <h4>Fortalezas Principales</h4>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Simplicidad Conceptual:</strong> Fácil de entender y enseñar, especialmente para personas con formación técnica tradicional</li>
+                        <li role="listitem"><strong>Documentación Exhaustiva:</strong> Genera documentación completa y detallada del sistema</li>
+                        <li role="listitem"><strong>Trazabilidad Clara:</strong> Permite seguir fácilmente el flujo de datos desde entrada hasta salida</li>
+                        <li role="listitem"><strong>Madurez Metodológica:</strong> Técnicas bien establecidas con décadas de experiencia práctica</li>
+                        <li role="listitem"><strong>Herramientas Consolidadas:</strong> Amplio soporte de herramientas CASE para modelado estructurado</li>
+                        <li role="listitem"><strong>Apropiado para Sistemas Algorítmicos:</strong> Excelente para sistemas con procesamiento intensivo de datos</li>
+                    </ul>
+                </div>
+
+                <h3>❌ Limitaciones del Enfoque Estructurado</h3>
+                
+                <div class="paradigm-box">
+                    <h4>Desafíos y Restricciones</h4>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Dificultad para Modelar Complejidad:</strong> Sistemas muy complejos pueden resultar en DFDs inmanejables</li>
+                        <li role="listitem"><strong>Separación Artificial:</strong> La separación datos-procesos no refleja la realidad de muchos dominios</li>
+                        <li role="listitem"><strong>Reutilización Limitada:</strong> Dificulta la reutilización de componentes entre proyectos</li>
+                        <li role="listitem"><strong>Mantenimiento Costoso:</strong> Cambios en requisitos impactan múltiples diagramas</li>
+                        <li role="listitem"><strong>Escalabilidad Limitada:</strong> No escala bien para sistemas distribuidos o de gran envergadura</li>
+                        <li role="listitem"><strong>Interfaz de Usuario:</strong> Dificultades para modelar interfaces complejas e interactivas</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box important">
+                    <h4>Reflexión Crítica</h4>
+                    <p>Como señala Pressman: "El análisis estructurado funciona mejor cuando los requisitos del software son razonablemente estables y cuando el equipo de desarrollo tiene experiencia considerable con el dominio de aplicación."</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="paradigma-oo" class="section fade-in">
+            <div class="card">
+                <h2>🔄 Paradigma Orientado a Objetos: Enfoque en Entidades</h2>
+
+                <h3>🎯 Principios Fundamentales</h3>
+                <p>El análisis orientado a objetos se centra en identificar <strong>entidades del dominio</strong> (objetos) y modelar sus interacciones, en lugar de enfocarse únicamente en los procesos de transformación.</p>
+
+                <div class="highlight-box tip">
+                    <h4>Diferencia Esencial</h4>
+                    <p>Según Larman: "Una diferencia esencial entre el análisis orientado a objetos y el estructurado es: la división por clases conceptuales (objetos) en lugar de la división por funciones."</p>
+                </div>
+
+                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                    <svg width="800" height="400" viewBox="0 0 800 400">
+                        <!-- Fondo -->
+                        <rect width="800" height="400" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+                        
+                        <!-- Cliente -->
+                        <rect x="50" y="100" width="120" height="80" fill="#e1f5fe" stroke="#2563eb" stroke-width="2" rx="8"/>
+                        <text x="110" y="125" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">Cliente</text>
+                        <text x="110" y="145" text-anchor="middle" fill="#1e40af" font-size="12">- id: String</text>
+                        <text x="110" y="160" text-anchor="middle" fill="#1e40af" font-size="12">- nombre: String</text>
+                        <text x="110" y="175" text-anchor="middle" fill="#1e40af" font-size="11">+ realizarPedido()</text>
+                        
+                        <!-- Pedido -->
+                        <rect x="250" y="100" width="120" height="80" fill="#f3e5f5" stroke="#7c3aed" stroke-width="2" rx="8"/>
+                        <text x="310" y="125" text-anchor="middle" fill="#6b21a8" font-size="14" font-weight="bold">Pedido</text>
+                        <text x="310" y="145" text-anchor="middle" fill="#6b21a8" font-size="12">- fecha: Date</text>
+                        <text x="310" y="160" text-anchor="middle" fill="#6b21a8" font-size="12">- total: Float</text>
+                        <text x="310" y="175" text-anchor="middle" fill="#6b21a8" font-size="11">+ calcularTotal()</text>
+                        
+                        <!-- LineaPedido -->
+                        <rect x="450" y="100" width="120" height="80" fill="#e8f5e8" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="510" y="125" text-anchor="middle" fill="#15803d" font-size="14" font-weight="bold">LineaPedido</text>
+                        <text x="510" y="145" text-anchor="middle" fill="#15803d" font-size="12">- cantidad: Int</text>
+                        <text x="510" y="160" text-anchor="middle" fill="#15803d" font-size="12">- precio: Float</text>
+                        <text x="510" y="175" text-anchor="middle" fill="#15803d" font-size="11">+ getSubtotal()</text>
+                        
+                        <!-- Producto -->
+                        <rect x="650" y="100" width="120" height="80" fill="#fff3e0" stroke="#ea580c" stroke-width="2" rx="8"/>
+                        <text x="710" y="125" text-anchor="middle" fill="#c2410c" font-size="14" font-weight="bold">Producto</text>
+                        <text x="710" y="145" text-anchor="middle" fill="#c2410c" font-size="12">- codigo: String</text>
+                        <text x="710" y="160" text-anchor="middle" fill="#c2410c" font-size="12">- nombre: String</text>
+                        <text x="710" y="175" text-anchor="middle" fill="#c2410c" font-size="11">+ getDetalle()</text>
+                        
+                        <!-- Pago -->
+                        <rect x="250" y="250" width="120" height="80" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="8"/>
+                        <text x="310" y="275" text-anchor="middle" fill="#c2185b" font-size="14" font-weight="bold">Pago</text>
+                        <text x="310" y="295" text-anchor="middle" fill="#c2185b" font-size="12">- monto: Float</text>
+                        <text x="310" y="310" text-anchor="middle" fill="#c2185b" font-size="12">- metodo: String</text>
+                        <text x="310" y="325" text-anchor="middle" fill="#c2185b" font-size="11">+ procesar()</text>
+                        
+                        <!-- DirecciónEnvío -->
+                        <rect x="50" y="250" width="120" height="80" fill="#e0f2f1" stroke="#009688" stroke-width="2" rx="8"/>
+                        <text x="110" y="275" text-anchor="middle" fill="#00695c" font-size="13" font-weight="bold">DirecciónEnvío</text>
+                        <text x="110" y="295" text-anchor="middle" fill="#00695c" font-size="12">- calle: String</text>
+                        <text x="110" y="310" text-anchor="middle" fill="#00695c" font-size="12">- ciudad: String</text>
+                        <text x="110" y="325" text-anchor="middle" fill="#00695c" font-size="11">+ validar()</text>
+                        
+                        <!-- Categoría -->
+                        <rect x="650" y="250" width="120" height="80" fill="#f9fbe7" stroke="#689f38" stroke-width="2" rx="8"/>
+                        <text x="710" y="275" text-anchor="middle" fill="#558b2f" font-size="14" font-weight="bold">Categoría</text>
+                        <text x="710" y="295" text-anchor="middle" fill="#558b2f" font-size="12">- nombre: String</text>
+                        <text x="710" y="310" text-anchor="middle" fill="#558b2f" font-size="12">- descripcion: String</text>
+                        <text x="710" y="325" text-anchor="middle" fill="#558b2f" font-size="11">+ listarProductos()</text>
+                        
+                        <!-- Relaciones -->
+                        <!-- Cliente -> Pedido -->
+                        <line x1="170" y1="140" x2="250" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="210" y="135" text-anchor="middle" fill="#64748b" font-size="11">realiza</text>
+                        
+                        <!-- Pedido -> LineaPedido -->
+                        <line x1="370" y1="140" x2="450" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="410" y="135" text-anchor="middle" fill="#64748b" font-size="11">contiene</text>
+                        
+                        <!-- LineaPedido -> Producto -->
+                        <line x1="570" y1="140" x2="650" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="610" y="135" text-anchor="middle" fill="#64748b" font-size="11">referencia</text>
+                        
+                        <!-- Pedido -> Pago -->
+                        <line x1="310" y1="180" x2="310" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="325" y="215" fill="#64748b" font-size="11">procesa</text>
+                        
+                        <!-- Cliente -> DirecciónEnvío -->
+                        <line x1="110" y1="180" x2="110" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="125" y="215" fill="#64748b" font-size="11">tiene</text>
+                        
+                        <!-- Producto -> Categoría -->
+                        <line x1="710" y1="180" x2="710" y2="250" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="725" y="215" fill="#64748b" font-size="11">pertenece</text>
+                        
+                        <!-- Definición de flecha -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                                    refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Título -->
+                        <text x="400" y="30" text-anchor="middle" fill="#1e40af" font-size="16" font-weight="bold">Modelo de Objetos - Sistema de Ventas</text>
+                        <text x="400" y="50" text-anchor="middle" fill="#64748b" font-size="12">Enfoque: Entidades del Dominio e Interacciones</text>
+                        
+                        <!-- Leyenda -->
+                        <text x="20" y="380" fill="#64748b" font-size="11" font-weight="bold">Principio:</text>
+                        <text x="80" y="380" fill="#64748b" font-size="11">Identificación de Objetos y Responsabilidades</text>
+                    </svg>
+                </div>
+
+                <h3>🏗️ Características Principales</h3>
+
+                <h4>1. Descomposición por Entidades</h4>
+                <p>En lugar de descomponer por funciones, el análisis OO identifica las <strong>entidades conceptuales</strong> relevantes del dominio del problema y sus relaciones naturales.</p>
+
+                <h4>2. Encapsulamiento de Datos y Comportamiento</h4>
+                <p>Los objetos encapsulan tanto datos (atributos) como comportamiento (métodos), proporcionando una representación más natural del mundo real.</p>
+
+                <div class="code-example">
+class Cliente {
+    // Datos (Atributos)
+    private String nombre;
+    private String email;
+    private List&lt;Pedido&gt; historialPedidos;
+    
+    // Comportamiento (Métodos)
+    public void realizarPedido(Pedido pedido) {
+        // Lógica de negocio encapsulada
+    }
+    
+    public boolean esClienteVIP() {
+        return historialPedidos.size() > 10;
+    }
+}</div>
+
+                <h4>3. Identificación de Responsabilidades</h4>
+                <p>Cada objeto tiene <strong>responsabilidades específicas</strong> que debe cumplir, siguiendo el principio de responsabilidad única.</p>
+
+                <h3>🔧 Técnicas de Análisis OO</h3>
+
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <h4>🎭 Identificación de Objetos</h4>
+                        <ul class="feature-list">
+                            <li role="listitem"><strong>Análisis de sustantivos:</strong> Identificar entidades en documentos de requisitos</li>
+                            <li role="listitem"><strong>Análisis de dominio:</strong> Estudiar el dominio del problema</li>
+                            <li role="listitem"><strong>Patrones de análisis:</strong> Aplicar patrones conocidos del dominio</li>
+                            <li role="listitem"><strong>Casos de uso:</strong> Extraer objetos de escenarios de uso</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>📝 Análisis CRC</h4>
+                        <p><strong>Clase-Responsabilidad-Colaboración:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem"><strong>Clase:</strong> Nombre y propósito del objeto</li>
+                            <li role="listitem"><strong>Responsabilidades:</strong> Qué debe saber/hacer</li>
+                            <li role="listitem"><strong>Colaboraciones:</strong> Con qué otros objetos interactúa</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>🎯 Modelado UML</h4>
+                        <ul class="feature-list">
+                            <li role="listitem"><strong>Diagramas de clases:</strong> Estructura estática</li>
+                            <li role="listitem"><strong>Diagramas de secuencia:</strong> Interacciones dinámicas</li>
+                            <li role="listitem"><strong>Diagramas de casos de uso:</strong> Funcionalidad del sistema</li>
+                            <li role="listitem"><strong>Diagramas de estado:</strong> Comportamiento de objetos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🏢 Metodologías Orientadas a Objetos</h3>
+
+                <h4>UML (Unified Modeling Language)</h4>
+                <p>Estándar de facto para modelado orientado a objetos, proporciona notación unificada para diferentes aspectos del sistema.</p>
+
+                <h4>RUP (Rational Unified Process)</h4>
+                <p>Proceso iterativo centrado en arquitectura que utiliza UML como notación principal, enfatizando casos de uso y gestión de riesgos.</p>
+
+                <h4>Análisis de Dominio</h4>
+                <p>Enfoque que enfatiza la comprensión profunda del dominio del problema antes de comenzar el diseño técnico.</p>
+
+                <h3>✅ Ventajas del Enfoque Orientado a Objetos</h3>
+
+                <div class="paradigm-box oo">
+                    <h4>Fortalezas Principales</h4>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Modelado Natural:</strong> Refleja mejor cómo pensamos sobre el mundo real</li>
+                        <li role="listitem"><strong>Reutilización:</strong> Objetos y clases pueden reutilizarse en diferentes contextos</li>
+                        <li role="listitem"><strong>Mantenibilidad:</strong> Cambios están localizados dentro de objetos específicos</li>
+                        <li role="listitem"><strong>Extensibilidad:</strong> Nuevas funcionalidades se agregan mediante herencia y polimorfismo</li>
+                        <li role="listitem"><strong>Abstracción:</strong> Permite manejar sistemas complejos ocultando detalles innecesarios</li>
+                        <li role="listitem"><strong>Modularidad:</strong> Facilita el desarrollo por equipos distribuidos</li>
+                        <li role="listitem"><strong>Trazabilidad:</strong> Conceptos del análisis se mantienen en diseño e implementación</li>
+                    </ul>
+                </div>
+
+                <h3>❌ Limitaciones del Enfoque Orientado a Objetos</h3>
+
+                <div class="paradigm-box oo">
+                    <h4>Desafíos y Consideraciones</h4>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Curva de Aprendizaje:</strong> Requiere cambio significativo de mentalidad</li>
+                        <li role="listitem"><strong>Complejidad Inicial:</strong> Puede parecer excesivo para sistemas simples</li>
+                        <li role="listitem"><strong>Sobrediseño:</strong> Tendencia a crear jerarquías innecesariamente complejas</li>
+                        <li role="listitem"><strong>Performance:</strong> Overhead de mensajes entre objetos</li>
+                        <li role="listitem"><strong>Identificación de Objetos:</strong> No siempre es evidente qué objetos son necesarios</li>
+                        <li role="listitem"><strong>Herramientas:</strong> Requiere herramientas específicas para modelado UML</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box important">
+                    <h4>Principio Clave</h4>
+                    <p>Craig Larman advierte: "Es mejor especificar en exceso un modelo del dominio con muchas clases conceptuales de grano fino que especificar por defecto."</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="comparacion" class="section fade-in">
+            <div class="card">
+                <h2>⚖️ Análisis Comparativo Detallado</h2>
+
+                <h3>📊 Matriz Comparativa Fundamental</h3>
+                
+                <table class="comparison-table">
+                    <thead role="rowgroup">
+                        <tr role="row">
+                            <th role="columnheader">Aspecto</th>
+                            <th role="columnheader">Análisis Estructurado</th>
+                            <th role="columnheader">Análisis Orientado a Objetos</th>
+                        </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                        <tr role="row">
+                            <td role="cell"><strong>Unidad de Descomposición</strong></td>
+                            <td role="cell">Funciones y procesos</td>
+                            <td role="cell">Objetos y clases conceptuales</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Estrategia de Modelado</strong></td>
+                            <td role="cell">Top-down (refinamiento stepwise)</td>
+                            <td role="cell">Bottom-up y middle-out</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Tratamiento de Datos</strong></td>
+                            <td role="cell">Separados de los procesos</td>
+                            <td role="cell">Encapsulados con comportamiento</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Herramientas Principales</strong></td>
+                            <td role="cell">DFD, Diccionario de Datos, ER</td>
+                            <td role="cell">Diagramas UML, Casos de Uso, CRC</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Enfoque Principal</strong></td>
+                            <td role="cell">¿Qué hace el sistema?</td>
+                            <td role="cell">¿Qué objetos interactúan y cómo?</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Reutilización</strong></td>
+                            <td role="cell">Limitada a nivel de función</td>
+                            <td role="cell">Alta a nivel de objeto/clase</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Mantenimiento</strong></td>
+                            <td role="cell">Cambios impactan múltiples diagramas</td>
+                            <td role="cell">Cambios localizados en objetos</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Trazabilidad</strong></td>
+                            <td role="cell">Análisis → Diseño = Gap significativo</td>
+                            <td role="cell">Conceptos persisten del análisis al código</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔄 Comparación de Procesos de Desarrollo</h3>
+
+                <div class="methodology-card">
+                    <div class="paradigm-box">
+                        <h3>📈 Proceso Estructurado</h3>
+                        <h4>Flujo Típico:</h4>
+                        <ol role="list">
+                            <li role="listitem"><strong>Diagrama de Contexto:</strong> Definir límites del sistema</li>
+                            <li role="listitem"><strong>DFD Nivel 0:</strong> Vista general de procesos principales</li>
+                            <li role="listitem"><strong>Refinamiento:</strong> Descomponer cada proceso en niveles inferiores</li>
+                            <li role="listitem"><strong>Diccionario de Datos:</strong> Especificar estructuras de información</li>
+                            <li role="listitem"><strong>PSPEC:</strong> Detallar lógica de procesos primitivos</li>
+                            <li role="listitem"><strong>Validación:</strong> Verificar balanceo y consistencia</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="paradigm-box oo">
+                        <h3>🎯 Proceso Orientado a Objetos</h3>
+                        <h4>Flujo Típico:</h4>
+                        <ol role="list">
+                            <li role="listitem"><strong>Casos de Uso:</strong> Identificar funcionalidad del sistema</li>
+                            <li role="listitem"><strong>Análisis de Dominio:</strong> Identificar conceptos clave</li>
+                            <li role="listitem"><strong>Modelo Conceptual:</strong> Crear diagrama de clases inicial</li>
+                            <li role="listitem"><strong>Análisis CRC:</strong> Asignar responsabilidades</li>
+                            <li role="listitem"><strong>Refinamiento:</strong> Agregar atributos y relaciones</li>
+                            <li role="listitem"><strong>Validación:</strong> Verificar con escenarios de uso</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>📈 Impacto en Métricas de Calidad</h3>
+
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <h4>📊 Métricas Estructuradas</h4>
+                        <ul class="feature-list">
+                            <li role="listitem"><strong>Fan-in/Fan-out:</strong> Acoplamiento entre módulos</li>
+                            <li role="listitem"><strong>Complejidad Ciclomática:</strong> Complejidad de procesos</li>
+                            <li role="listitem"><strong>Profundidad de DFD:</strong> Niveles de descomposición</li>
+                            <li role="listitem"><strong>Balanceo:</strong> Consistencia entre niveles</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>🎯 Métricas Orientadas a Objetos</h4>
+                        <ul class="feature-list">
+                            <li role="listitem"><strong>CBO:</strong> Coupling Between Objects</li>
+                            <li role="listitem"><strong>LCOM:</strong> Lack of Cohesion in Methods</li>
+                            <li role="listitem"><strong>DIT:</strong> Depth of Inheritance Tree</li>
+                            <li role="listitem"><strong>RFC:</strong> Response for Class</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>⚖️ Comparación de Resultados</h4>
+                        <ul class="feature-list">
+                            <li role="listitem"><strong>Mantenibilidad:</strong> OO superior (cambios localizados)</li>
+                            <li role="listitem"><strong>Reutilización:</strong> OO superior (herencia/polimorfismo)</li>
+                            <li role="listitem"><strong>Comprensibilidad inicial:</strong> Estructurado superior</li>
+                            <li role="listitem"><strong>Escalabilidad:</strong> OO superior (modularidad)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    <h4>Evidencia Empírica</h4>
+                    <p>Estudios muestran que proyectos OO tienen 20-40% menos defectos post-implementación, pero requieren 15-25% más tiempo en análisis inicial comparado con enfoques estructurados.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="criterios" class="section fade-in">
+            <div class="card">
+                <h2>🎯 Criterios de Selección de Paradigma</h2>
+
+                <p>La selección del paradigma de análisis apropiado requiere evaluar múltiples factores del proyecto, equipo, cliente y contexto tecnológico. Esta decisión estratégica impactará todo el ciclo de vida del desarrollo.</p>
+
+                <h3>🏗️ Factores del Proyecto</h3>
+
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <h4>📏 Tamaño y Complejidad</h4>
+                        <p><strong>Estructurado favorable cuando:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Proyectos pequeños a medianos (< 50 KLOC)</li>
+                            <li role="listitem">Lógica de procesamiento bien definida</li>
+                            <li role="listitem">Algoritmos complejos de transformación de datos</li>
+                            <li role="listitem">Requisitos estables y bien conocidos</li>
+                        </ul>
+                        
+                        <p><strong>OO favorable cuando:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Proyectos medianos a grandes (> 50 KLOC)</li>
+                            <li role="listitem">Sistemas interactivos complejos</li>
+                            <li role="listitem">Múltiples interfaces de usuario</li>
+                            <li role="listitem">Requisitos evolutivos y cambiantes</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>⚡ Criticidad y Performance</h4>
+                        <p><strong>Estructurado favorable cuando:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Sistemas de tiempo real críticos</li>
+                            <li role="listitem">Performance extrema requerida</li>
+                            <li role="listitem">Recursos de memoria limitados</li>
+                            <li role="listitem">Algoritmos matemáticos intensivos</li>
+                        </ul>
+                        
+                        <p><strong>OO favorable cuando:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Sistemas de gestión empresarial</li>
+                            <li role="listitem">Aplicaciones web interactivas</li>
+                            <li role="listitem">Sistemas distribuidos</li>
+                            <li role="listitem">Plataformas de desarrollo rápido</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>🔄 Naturaleza del Dominio</h4>
+                        <p><strong>Estructurado favorable para:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Procesamiento de transacciones batch</li>
+                            <li role="listitem">Sistemas de control industrial</li>
+                            <li role="listitem">Compiladores y traductores</li>
+                            <li role="listitem">Sistemas de telecomunicaciones</li>
+                        </ul>
+                        
+                        <p><strong>OO favorable para:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Sistemas de gestión (CRM, ERP)</li>
+                            <li role="listitem">Juegos y simulaciones</li>
+                            <li role="listitem">Interfaces gráficas de usuario</li>
+                            <li role="listitem">Sistemas de comercio electrónico</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>👥 Factores del Equipo</h3>
+
+                <table class="comparison-table">
+                    <thead role="rowgroup">
+                        <tr role="row">
+                            <th role="columnheader">Factor</th>
+                            <th role="columnheader">Favorece Estructurado</th>
+                            <th role="columnheader">Favorece OO</th>
+                        </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                        <tr role="row">
+                            <td role="cell"><strong>Experiencia del Equipo</strong></td>
+                            <td role="cell">Formación tradicional en programación<br>Experiencia en sistemas legacy</td>
+                            <td role="cell">Formación moderna en CS<br>Experiencia con frameworks OO</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Tamaño del Equipo</strong></td>
+                            <td role="cell">Equipos pequeños (1-5 personas)<br>Comunicación directa</td>
+                            <td role="cell">Equipos grandes (5+ personas)<br>Desarrollo distribuido</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Ubicación Geográfica</strong></td>
+                            <td role="cell">Colocalizado<br>Comunicación sincronizada</td>
+                            <td role="cell">Distribuido globalmente<br>Desarrollo asíncrono</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Rotación de Personal</strong></td>
+                            <td role="cell">Equipo estable<br>Conocimiento institucional</td>
+                            <td role="cell">Alta rotación<br>Necesidad de documentación</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🤝 Factores del Cliente</h3>
+
+                <div class="methodology-card">
+                    <div class="paradigm-box">
+                        <h3>📋 Participación del Cliente</h3>
+                        <h4>Estructurado apropiado cuando:</h4>
+                        <ul class="feature-list">
+                            <li role="listitem">Cliente prefiere especificaciones detalladas upfront</li>
+                            <li role="listitem">Requisitos completamente conocidos desde el inicio</li>
+                            <li role="listitem">Proceso de cambios formalmente controlado</li>
+                            <li role="listitem">Entrega al final del proyecto aceptable</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="paradigm-box oo">
+                        <h3>🔄 Colaboración Iterativa</h3>
+                        <h4>OO apropiado cuando:</h4>
+                        <ul class="feature-list">
+                            <li role="listitem">Cliente disponible para feedback frecuente</li>
+                            <li role="listitem">Requisitos evolucionan durante el desarrollo</li>
+                            <li role="listitem">Prototipado y entregas incrementales valoradas</li>
+                            <li role="listitem">Participación activa en validación de modelos</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🔧 Factores Tecnológicos</h3>
+
+                <div class="criteria-grid">
+                    <div class="criteria-card">
+                        <h4>🛠️ Herramientas Disponibles</h4>
+                        <p><strong>Considerar:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Herramientas CASE existentes en la organización</li>
+                            <li role="listitem">Competencia del equipo con herramientas específicas</li>
+                            <li role="listitem">Costo de adquisición de nuevas herramientas</li>
+                            <li role="listitem">Soporte y mantenimiento de herramientas</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>🏗️ Arquitectura de Destino</h4>
+                        <p><strong>Estructurado para:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Sistemas mainframe</li>
+                            <li role="listitem">Arquitecturas en capas tradicionales</li>
+                            <li role="listitem">Procesamiento batch</li>
+                        </ul>
+                        
+                        <p><strong>OO para:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Arquitecturas distribuidas</li>
+                            <li role="listitem">Microservicios</li>
+                            <li role="listitem">Sistemas web modernos</li>
+                        </ul>
+                    </div>
+
+                    <div class="criteria-card">
+                        <h4>🔗 Integración con Sistemas</h4>
+                        <p><strong>Evaluar:</strong></p>
+                        <ul class="feature-list">
+                            <li role="listitem">Sistemas legacy existentes</li>
+                            <li role="listitem">Estándares organizacionales</li>
+                            <li role="listitem">Políticas de arquitectura corporativa</li>
+                            <li role="listitem">Requisitos de interoperabilidad</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3>🎯 Marco de Decisión Integral</h3>
+
+                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                    <svg width="800" height="600" viewBox="0 0 800 600">
+                        <!-- Fondo -->
+                        <rect width="800" height="600" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+                        
+                        <!-- Título principal -->
+                        <text x="400" y="30" text-anchor="middle" fill="#1e40af" font-size="18" font-weight="bold">Marco de Selección de Paradigma</text>
+                        <text x="400" y="50" text-anchor="middle" fill="#64748b" font-size="14">Proceso de Decisión Estructurado</text>
+                        
+                        <!-- Inicio -->
+                        <ellipse cx="400" cy="90" rx="80" ry="25" fill="#e1f5fe" stroke="#2563eb" stroke-width="2"/>
+                        <text x="400" y="88" text-anchor="middle" fill="#1e40af" font-size="12" font-weight="bold">Iniciar Selección</text>
+                        <text x="400" y="102" text-anchor="middle" fill="#1e40af" font-size="12">de Paradigma</text>
+                        
+                        <!-- ¿Sistema Complejo? -->
+                        <polygon points="350,140 450,140 470,170 450,200 350,200 330,170" fill="#fff3e0" stroke="#ea580c" stroke-width="2"/>
+                        <text x="400" y="165" text-anchor="middle" fill="#c2410c" font-size="11" font-weight="bold">¿Sistema</text>
+                        <text x="400" y="180" text-anchor="middle" fill="#c2410c" font-size="11" font-weight="bold">Complejo?</text>
+                        
+                        <!-- ¿Requisitos Estables? (Sí complejo) -->
+                        <polygon points="150,240 250,240 270,270 250,300 150,300 130,270" fill="#fff3e0" stroke="#ea580c" stroke-width="2"/>
+                        <text x="200" y="265" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">¿Requisitos</text>
+                        <text x="200" y="280" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">Estables?</text>
+                        
+                        <!-- ¿Equipo Exp OO? (No complejo) -->
+                        <polygon points="550,240 650,240 670,270 650,300 550,300 530,270" fill="#fff3e0" stroke="#ea580c" stroke-width="2"/>
+                        <text x="600" y="262" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">¿Equipo</text>
+                        <text x="600" y="275" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">Exp. OO?</text>
+                        <text x="600" y="288" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">(No complejo)</text>
+                        
+                        <!-- ¿Performance Crítica? -->
+                        <polygon points="80,340 180,340 200,370 180,400 80,400 60,370" fill="#fff3e0" stroke="#ea580c" stroke-width="2"/>
+                        <text x="130" y="365" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">¿Performance</text>
+                        <text x="130" y="380" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">Crítica?</text>
+                        
+                        <!-- Considerar OO (Req. No Estables) -->
+                        <rect x="250" y="340" width="100" height="60" fill="#e8f5e8" stroke="#16a34a" stroke-width="2" rx="8"/>
+                        <text x="300" y="365" text-anchor="middle" fill="#15803d" font-size="11" font-weight="bold">Considerar</text>
+                        <text x="300" y="380" text-anchor="middle" fill="#15803d" font-size="11" font-weight="bold">OO</text>
+                        
+                        <!-- Considerar Estructurado (Equipo no exp) -->
+                        <rect x="550" y="340" width="100" height="60" fill="#fef2f2" stroke="#dc2626" stroke-width="2" rx="8"/>
+                        <text x="600" y="365" text-anchor="middle" fill="#b91c1c" font-size="11" font-weight="bold">Considerar</text>
+                        <text x="600" y="380" text-anchor="middle" fill="#b91c1c" font-size="11" font-weight="bold">Estructurado</text>
+                        
+                        <!-- ¿Recursos Herramientas OO? -->
+                        <polygon points="250,440 350,440 370,470 350,500 250,500 230,470" fill="#fff3e0" stroke="#ea580c" stroke-width="2"/>
+                        <text x="300" y="462" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">¿Recursos</text>
+                        <text x="300" y="475" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">Herram. OO?</text>
+                        <text x="300" y="488" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">(de OO)</text>
+                        
+                        <!-- ¿Dominio Algorítmico? -->
+                        <polygon points="450,440 550,440 570,470 550,500 450,500 430,470" fill="#fff3e0" stroke="#ea580c" stroke-width="2"/>
+                        <text x="500" y="465" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">¿Dominio</text>
+                        <text x="500" y="478" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">Algorítmico?</text>
+                        <text x="500" y="491" text-anchor="middle" fill="#c2410c" font-size="10" font-weight="bold">(de Estr.)</text>
+                        
+                        <!-- Resultados Finales -->
+                        <!-- Seleccionar OO -->
+                        <ellipse cx="200" cy="550" rx="60" ry="25" fill="#e8f5e8" stroke="#16a34a" stroke-width="2"/>
+                        <text x="200" y="548" text-anchor="middle" fill="#15803d" font-size="11" font-weight="bold">Seleccionar</text>
+                        <text x="200" y="562" text-anchor="middle" fill="#15803d" font-size="11" font-weight="bold">OO</text>
+                        
+                        <!-- Evaluar Híbrido -->
+                        <ellipse cx="400" cy="550" rx="60" ry="25" fill="#f3e5f5" stroke="#7c3aed" stroke-width="2"/>
+                        <text x="400" y="548" text-anchor="middle" fill="#6b21a8" font-size="11" font-weight="bold">Evaluar</text>
+                        <text x="400" y="562" text-anchor="middle" fill="#6b21a8" font-size="11" font-weight="bold">Híbrido</text>
+                        
+                        <!-- Seleccionar Estructurado -->
+                        <ellipse cx="600" cy="550" rx="70" ry="25" fill="#fef2f2" stroke="#dc2626" stroke-width="2"/>
+                        <text x="600" y="548" text-anchor="middle" fill="#b91c1c" font-size="11" font-weight="bold">Seleccionar</text>
+                        <text x="600" y="562" text-anchor="middle" fill="#b91c1c" font-size="11" font-weight="bold">Estructurado</text>
+                        
+                        <!-- Flechas de conexión -->
+                        <!-- Inicio -> ¿Sistema Complejo? -->
+                        <line x1="400" y1="115" x2="400" y2="140" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- ¿Sistema Complejo? -> branches -->
+                        <line x1="350" y1="170" x2="270" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="300" y="200" fill="#64748b" font-size="10">Sí</text>
+                        
+                        <line x1="450" y1="170" x2="530" y2="240" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="500" y="200" fill="#64748b" font-size="10">No</text>
+                        
+                        <!-- Desde ¿Requisitos Estables? -->
+                        <line x1="150" y1="270" x2="100" y2="340" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="110" y="300" fill="#64748b" font-size="10">Sí</text>
+                        
+                        <line x1="250" y1="270" x2="300" y2="340" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="285" y="300" fill="#64748b" font-size="10">No</text>
+                        
+                        <!-- Desde ¿Equipo Exp OO? -->
+                        <line x1="600" y1="300" x2="300" y2="340" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="450" y="315" fill="#64748b" font-size="10">Sí</text>
+                        
+                        <line x1="600" y1="300" x2="600" y2="340" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="615" y="315" fill="#64748b" font-size="10">No</text>
+                        
+                        <!-- Desde ¿Performance Crítica? -->
+                        <line x1="130" y1="400" x2="500" y2="440" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="300" y="415" fill="#64748b" font-size="10">Sí</text>
+                        
+                        <line x1="130" y1="400" x2="270" y2="440" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="190" y="415" fill="#64748b" font-size="10">No</text>
+                        
+                        <!-- Desde Considerar OO -> ¿Recursos Herramientas? -->
+                        <line x1="300" y1="400" x2="300" y2="440" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Desde Considerar Estructurado -> ¿Dominio Algorítmico? -->
+                        <line x1="600" y1="400" x2="500" y2="440" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- A resultados finales -->
+                        <line x1="270" y1="470" x2="200" y2="525" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="225" y="490" fill="#64748b" font-size="10">Sí</text>
+                        
+                        <line x1="330" y1="470" x2="400" y2="525" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="375" y="490" fill="#64748b" font-size="10">No</text>
+                        
+                        <line x1="530" y1="470" x2="600" y2="525" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="575" y="490" fill="#64748b" font-size="10">Sí</text>
+                        
+                        <line x1="470" y1="470" x2="400" y2="525" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="425" y="490" fill="#64748b" font-size="10">No</text>
+                        
+                        <!-- Definición de flecha -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" 
+                                    refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#64748b"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Leyenda -->
+                        <rect x="680" y="80" width="110" height="120" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" rx="5"/>
+                        <text x="735" y="100" text-anchor="middle" fill="#64748b" font-size="12" font-weight="bold">Leyenda</text>
+                        
+                        <ellipse cx="690" cy="120" rx="8" ry="5" fill="#e1f5fe" stroke="#2563eb" stroke-width="1"/>
+                        <text x="705" y="125" fill="#64748b" font-size="10">Inicio/Fin</text>
+                        
+                        <polygon points="685,135 695,135 700,142 695,149 685,149 680,142" fill="#fff3e0" stroke="#ea580c" stroke-width="1"/>
+                        <text x="705" y="145" fill="#64748b" font-size="10">Decisión</text>
+                        
+                        <rect x="680" y="155" width="20" height="12" fill="#e8f5e8" stroke="#16a34a" stroke-width="1" rx="2"/>
+                        <text x="705" y="165" fill="#64748b" font-size="10">Proceso</text>
+                        
+                        <line x1="685" y1="180" x2="695" y2="180" stroke="#64748b" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                        <text x="705" y="185" fill="#64748b" font-size="10">Flujo</text>
+                        
+                        <defs>
+                            <marker id="arrowhead2" markerWidth="8" markerHeight="6" 
+                                    refX="7" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#64748b"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="highlight-box important">
+                    <h4>Recomendación Estratégica</h4>
+                    <p>En la práctica moderna, muchos proyectos exitosos emplean un <strong>enfoque híbrido</strong>, utilizando análisis estructurado para procesos algorítmicos complejos y análisis OO para modelar entidades del dominio y interfaces de usuario.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="caso-estudio" class="section fade-in">
+            <div class="card">
+                <h2>📋 Caso de Estudio: Sistema de Gestión Hospitalaria</h2>
+
+                <p>Para ilustrar la aplicación práctica de los criterios de selección, analizaremos cómo abordar el desarrollo de un sistema integral de gestión hospitalaria utilizando ambos paradigmas.</p>
+
+                <div class="case-study">
+                    <h3>🏥 Descripción del Sistema</h3>
+                    <p><strong>Sistema Integrado de Gestión Hospitalaria (SIGH)</strong></p>
+                    
+                    <h4>Requisitos Principales:</h4>
+                    <ul class="feature-list">
+                        <li role="listitem">Gestión de pacientes y historiales médicos</li>
+                        <li role="listitem">Programación de citas y recursos</li>
+                        <li role="listitem">Control de inventario farmacéutico</li>
+                        <li role="listitem">Facturación y gestión financiera</li>
+                        <li role="listitem">Reportes regulatorios y estadísticos</li>
+                        <li role="listitem">Integración con equipamiento médico</li>
+                        <li role="listitem">Interfaces web y móviles</li>
+                    </ul>
+
+                    <h4>Contexto del Proyecto:</h4>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Tamaño:</strong> 150 KLOC estimadas, desarrollo 18 meses</li>
+                        <li role="listitem"><strong>Equipo:</strong> 12 desarrolladores, 3 analistas, distribuido en 2 ciudades</li>
+                        <li role="listitem"><strong>Cliente:</strong> Hospital universitario, alta participación esperada</li>
+                        <li role="listitem"><strong>Criticidad:</strong> Alta (impacta cuidado de pacientes)</li>
+                        <li role="listitem"><strong>Integración:</strong> Sistemas legacy de laboratorio y farmacia</li>
+                    </ul>
+                </div>
+
+                <h3>📊 Análisis con Paradigma Estructurado</h3>
+
+                <div class="paradigm-box">
+                    <h4>Aplicación del Enfoque Estructurado</h4>
+                    
+                    <h5>1. Descomposición Funcional Principal:</h5>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Gestión de Pacientes:</strong> Registro, Admisión, Alta</li>
+                        <li role="listitem"><strong>Gestión Clínica:</strong> Consultas, Tratamientos, Diagnósticos</li>
+                        <li role="listitem"><strong>Gestión Administrativa:</strong> Facturación, Inventario, Reportes</li>
+                        <li role="listitem"><strong>Gestión de Recursos:</strong> Camas, Quirófanos, Personal</li>
+                    </ul>
+
+                    <h5>2. Diagramas de Flujo de Datos:</h5>
+                    <div class="code-example">
+DFD Nivel 0: Sistema Hospitalario
+- Entidades Externas: Paciente, Médico, Administrador, Laboratorio
+- Procesos: Gestionar Pacientes, Procesar Consultas, Generar Reportes
+- Almacenes: Pacientes, Historiales, Inventario, Personal
+
+DFD Nivel 1: Gestionar Pacientes
+1.1 Registrar Paciente
+1.2 Actualizar Información
+1.3 Consultar Historial
+1.4 Programar Cita</div>
+
+                    <h5>3. Ventajas en este Contexto:</h5>
+                    <ul class="feature-list">
+                        <li role="listitem">Excelente para modelar flujos de trabajo clínicos complejos</li>
+                        <li role="listitem">Facilita cumplimiento de regulaciones (trazabilidad de procesos)</li>
+                        <li role="listitem">Apropiado para integración con sistemas legacy</li>
+                        <li role="listitem">Permite optimización de procesos algorítmicos (facturación)</li>
+                    </ul>
+
+                    <h5>4. Limitaciones Identificadas:</h5>
+                    <ul class="feature-list">
+                        <li role="listitem">Dificultad para modelar interfaces de usuario complejas</li>
+                        <li role="listitem">Separación artificial entre datos del paciente y comportamientos</li>
+                        <li role="listitem">Limitada reutilización entre módulos del hospital</li>
+                        <li role="listitem">Mantenimiento complejo con requisitos cambiantes</li>
+                    </ul>
+                </div>
+
+                <h3>🎯 Análisis con Paradigma Orientado a Objetos</h3>
+
+                <div class="paradigm-box oo">
+                    <h4>Aplicación del Enfoque OO</h4>
+                    
+                    <h5>1. Identificación de Objetos Principales:</h5>
+                    
+                    <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                        <svg width="900" height="700" viewBox="0 0 900 700">
+                            <!-- Fondo -->
+                            <rect width="900" height="700" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" rx="10"/>
+                            
+                            <!-- Título -->
+                            <text x="450" y="30" text-anchor="middle" fill="#1e40af" font-size="18" font-weight="bold">Diagrama de Clases UML - Sistema Hospitalario</text>
+                            <text x="450" y="50" text-anchor="middle" fill="#64748b" font-size="14">Modelo Orientado a Objetos</text>
+                            
+                            <!-- Clase Paciente -->
+                            <g id="paciente">
+                                <rect x="50" y="100" width="180" height="140" fill="#e1f5fe" stroke="#2563eb" stroke-width="2" rx="8"/>
+                                <text x="140" y="120" text-anchor="middle" fill="#1e40af" font-size="14" font-weight="bold">Paciente</text>
+                                <line x1="60" y1="130" x2="220" y2="130" stroke="#2563eb" stroke-width="1"/>
+                                
+                                <!-- Atributos -->
+                                <text x="60" y="150" fill="#1e40af" font-size="12">- id: String</text>
+                                <text x="60" y="165" fill="#1e40af" font-size="12">- nombre: String</text>
+                                <text x="60" y="180" fill="#1e40af" font-size="12">- fechaNacimiento: Date</text>
+                                <text x="60" y="195" fill="#1e40af" font-size="12">- telefono: String</text>
+                                <line x1="60" y1="205" x2="220" y2="205" stroke="#2563eb" stroke-width="1"/>
+                                
+                                <!-- Métodos -->
+                                <text x="60" y="220" fill="#1e40af" font-size="12">+ programarCita()</text>
+                                <text x="60" y="235" fill="#1e40af" font-size="12">+ actualizarInformacion()</text>
+                            </g>
+                            
+                            <!-- Clase Medico -->
+                            <g id="medico">
+                                <rect x="670" y="100" width="180" height="140" fill="#f3e5f5" stroke="#7c3aed" stroke-width="2" rx="8"/>
+                                <text x="760" y="120" text-anchor="middle" fill="#6b21a8" font-size="14" font-weight="bold">Medico</text>
+                                <line x1="680" y1="130" x2="840" y2="130" stroke="#7c3aed" stroke-width="1"/>
+                                
+                                <!-- Atributos -->
+                                <text x="680" y="150" fill="#6b21a8" font-size="12">- id: String</text>
+                                <text x="680" y="165" fill="#6b21a8" font-size="12">- nombre: String</text>
+                                <text x="680" y="180" fill="#6b21a8" font-size="12">- especialidad: String</text>
+                                <text x="680" y="195" fill="#6b21a8" font-size="12">- licencia: String</text>
+                                <line x1="680" y1="205" x2="840" y2="205" stroke="#7c3aed" stroke-width="1"/>
+                                
+                                <!-- Métodos -->
+                                <text x="680" y="220" fill="#6b21a8" font-size="12">+ atenderPaciente()</text>
+                                <text x="680" y="235" fill="#6b21a8" font-size="12">+ prescribirTratamiento()</text>
+                            </g>
+                            
+                            <!-- Clase Cita -->
+                            <g id="cita">
+                                <rect x="360" y="100" width="180" height="140" fill="#e8f5e8" stroke="#16a34a" stroke-width="2" rx="8"/>
+                                <text x="450" y="120" text-anchor="middle" fill="#15803d" font-size="14" font-weight="bold">Cita</text>
+                                <line x1="370" y1="130" x2="530" y2="130" stroke="#16a34a" stroke-width="1"/>
+                                
+                                <!-- Atributos -->
+                                <text x="370" y="150" fill="#15803d" font-size="12">- id: String</text>
+                                <text x="370" y="165" fill="#15803d" font-size="12">- fecha: DateTime</text>
+                                <text x="370" y="180" fill="#15803d" font-size="12">- tipo: TipoCita</text>
+                                <text x="370" y="195" fill="#15803d" font-size="12">- estado: EstadoCita</text>
+                                <line x1="370" y1="205" x2="530" y2="205" stroke="#16a34a" stroke-width="1"/>
+                                
+                                <!-- Métodos -->
+                                <text x="370" y="220" fill="#15803d" font-size="12">+ programar()</text>
+                                <text x="370" y="235" fill="#15803d" font-size="12">+ cancelar()</text>
+                            </g>
+                            
+                            <!-- Clase HistorialMedico -->
+                            <g id="historial">
+                                <rect x="50" y="300" width="180" height="140" fill="#fff3e0" stroke="#ea580c" stroke-width="2" rx="8"/>
+                                <text x="140" y="320" text-anchor="middle" fill="#c2410c" font-size="14" font-weight="bold">HistorialMedico</text>
+                                <line x1="60" y1="330" x2="220" y2="330" stroke="#ea580c" stroke-width="1"/>
+                                
+                                <!-- Atributos -->
+                                <text x="60" y="350" fill="#c2410c" font-size="12">- id: String</text>
+                                <text x="60" y="365" fill="#c2410c" font-size="12">- diagnosticos: List</text>
+                                <text x="60" y="380" fill="#c2410c" font-size="12">- tratamientos: List</text>
+                                <text x="60" y="395" fill="#c2410c" font-size="12">- alergias: List</text>
+                                <line x1="60" y1="405" x2="220" y2="405" stroke="#ea580c" stroke-width="1"/>
+                                
+                                <!-- Métodos -->
+                                <text x="60" y="420" fill="#c2410c" font-size="12">+ agregarDiagnostico()</text>
+                                <text x="60" y="435" fill="#c2410c" font-size="12">+ consultarHistorial()</text>
+                            </g>
+                            
+                            <!-- Clase Diagnostico -->
+                            <g id="diagnostico">
+                                <rect x="360" y="300" width="180" height="120" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="8"/>
+                                <text x="450" y="320" text-anchor="middle" fill="#c2185b" font-size="14" font-weight="bold">Diagnostico</text>
+                                <line x1="370" y1="330" x2="530" y2="330" stroke="#e91e63" stroke-width="1"/>
+                                
+                                <!-- Atributos -->
+                                <text x="370" y="350" fill="#c2185b" font-size="12">- id: String</text>
+                                <text x="370" y="365" fill="#c2185b" font-size="12">- descripcion: String</text>
+                                <text x="370" y="380" fill="#c2185b" font-size="12">- fecha: Date</text>
+                                <line x1="370" y1="390" x2="530" y2="390" stroke="#e91e63" stroke-width="1"/>
+                                
+                                <!-- Métodos -->
+                                <text x="370" y="405" fill="#c2185b" font-size="12">+ obtenerDetalle()</text>
+                            </g>
+                            
+                            <!-- Clase Tratamiento -->
+                            <g id="tratamiento">
+                                <rect x="670" y="300" width="180" height="120" fill="#e0f2f1" stroke="#009688" stroke-width="2" rx="8"/>
+                                <text x="760" y="320" text-anchor="middle" fill="#00695c" font-size="14" font-weight="bold">Tratamiento</text>
+                                <line x1="680" y1="330" x2="840" y2="330" stroke="#009688" stroke-width="1"/>
+                                
+                                <!-- Atributos -->
+                                <text x="680" y="350" fill="#00695c" font-size="12">- id: String</text>
+                                <text x="680" y="365" fill="#00695c" font-size="12">- descripcion: String</text>
+                                <text x="680" y="380" fill="#00695c" font-size="12">- duracion: String</text>
+                                <line x1="680" y1="390" x2="840" y2="390" stroke="#009688" stroke-width="1"/>
+                                
+                                <!-- Métodos -->
+                                <text x="680" y="405" fill="#00695c" font-size="12">+ aplicar()</text>
+                            </g>
+                            
+                            <!-- Clase Medicamento -->
+                            <g id="medicamento">
+                                <rect x="360" y="500" width="180" height="120" fill="#f9fbe7" stroke="#689f38" stroke-width="2" rx="8"/>
+                                <text x="450" y="520" text-anchor="middle" fill="#558b2f" font-size="14" font-weight="bold">Medicamento</text>
+                                <line x1="370" y1="530" x2="530" y2="530" stroke="#689f38" stroke-width="1"/>
+                                
+                                <!-- Atributos -->
+                                <text x="370" y="550" fill="#558b2f" font-size="12">- id: String</text>
+                                <text x="370" y="565" fill="#558b2f" font-size="12">- nombre: String</text>
+                                <text x="370" y="580" fill="#558b2f" font-size="12">- dosis: String</text>
+                                <line x1="370" y1="590" x2="530" y2="590" stroke="#689f38" stroke-width="1"/>
+                                
+                                <!-- Métodos -->
+                                <text x="370" y="605" fill="#558b2f" font-size="12">+ prescribir()</text>
+                            </g>
+                            
+                            <!-- Relaciones -->
+                            <!-- Paciente - HistorialMedico (Composición 1:1) -->
+                            <line x1="140" y1="240" x2="140" y2="300" stroke="#64748b" stroke-width="2"/>
+                            <polygon points="135,295 140,305 145,295" fill="#64748b"/>
+                            <circle cx="140" cy="245" r="3" fill="#64748b"/>
+                            <text x="150" y="270" fill="#64748b" font-size="10">1:1</text>
+                            
+                            <!-- Paciente - Cita (Asociación 1:*) -->
+                            <line x1="230" y1="170" x2="360" y2="170" stroke="#64748b" stroke-width="2"/>
+                            <polygon points="355,165 365,170 355,175" fill="#64748b"/>
+                            <text x="280" y="165" fill="#64748b" font-size="10">programa</text>
+                            <text x="240" y="180" fill="#64748b" font-size="10">1</text>
+                            <text x="340" y="180" fill="#64748b" font-size="10">*</text>
+                            
+                            <!-- Medico - Cita (Asociación 1:*) -->
+                            <line x1="670" y1="170" x2="540" y2="170" stroke="#64748b" stroke-width="2"/>
+                            <polygon points="545,165 535,170 545,175" fill="#64748b"/>
+                            <text x="580" y="165" fill="#64748b" font-size="10">atiende</text>
+                            <text x="650" y="180" fill="#64748b" font-size="10">1</text>
+                            <text x="550" y="180" fill="#64748b" font-size="10">*</text>
+                            
+                            <!-- Cita - Diagnostico (Asociación 1:*) -->
+                            <line x1="450" y1="240" x2="450" y2="300" stroke="#64748b" stroke-width="2"/>
+                            <polygon points="445,295 450,305 455,295" fill="#64748b"/>
+                            <text x="460" y="270" fill="#64748b" font-size="10">genera</text>
+                            <text x="430" y="250" fill="#64748b" font-size="10">1</text>
+                            <text x="430" y="290" fill="#64748b" font-size="10">*</text>
+                            
+                            <!-- Diagnostico - Tratamiento (Asociación *:*) -->
+                            <line x1="540" y1="360" x2="670" y2="360" stroke="#64748b" stroke-width="2"/>
+                            <polygon points="665,355 675,360 665,365" fill="#64748b"/>
+                            <text x="580" y="355" fill="#64748b" font-size="10">requiere</text>
+                            <text x="550" y="375" fill="#64748b" font-size="10">*</text>
+                            <text x="650" y="375" fill="#64748b" font-size="10">*</text>
+                            
+                            <!-- Tratamiento - Medicamento (Asociación 1:*) -->
+                            <line x1="760" y1="420" x2="520" y2="500" stroke="#64748b" stroke-width="2"/>
+                            <polygon points="525,495 515,505 520,500" fill="#64748b"/>
+                            <text x="620" y="450" fill="#64748b" font-size="10">incluye</text>
+                            <text x="740" y="430" fill="#64748b" font-size="10">1</text>
+                            <text x="530" y="490" fill="#64748b" font-size="10">*</text>
+                            
+                            <!-- Leyenda de relaciones -->
+                            <rect x="50" y="650" width="800" height="40" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1" rx="5"/>
+                            <text x="60" y="670" fill="#64748b" font-size="12" font-weight="bold">Relaciones UML:</text>
+                            <text x="180" y="670" fill="#64748b" font-size="11">—— Asociación</text>
+                            <circle cx="290" cy="666" r="2" fill="#64748b"/>
+                            <text x="300" y="670" fill="#64748b" font-size="11">● Composición</text>
+                            <text x="410" y="670" fill="#64748b" font-size="11">* Multiplicidad (muchos)</text>
+                            <text x="580" y="670" fill="#64748b" font-size="11">1 Multiplicidad (uno)</text>
+                        </svg>
+                    </div>
+
+                    <h5>2. Casos de Uso Principales:</h5>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Gestionar Paciente:</strong> Registrar, Actualizar, Consultar Historial</li>
+                        <li role="listitem"><strong>Programar Cita:</strong> Verificar Disponibilidad, Asignar Médico, Confirmar</li>
+                        <li role="listitem"><strong>Atender Consulta:</strong> Revisar Historial, Diagnosticar, Prescribir</li>
+                        <li role="listitem"><strong>Gestionar Inventario:</strong> Controlar Stock, Generar Órdenes, Actualizar</li>
+                    </ul>
+
+                    <h5>3. Ventajas en este Contexto:</h5>
+                    <ul class="feature-list">
+                        <li role="listitem">Modelado natural de entidades del dominio hospitalario</li>
+                        <li role="listitem">Encapsulamiento de reglas de negocio en objetos apropiados</li>
+                        <li role="listitem">Facilita interfaces de usuario ricas e interactivas</li>
+                        <li role="listitem">Excelente para desarrollo distribuido del equipo</li>
+                        <li role="listitem">Reutilización de componentes entre módulos</li>
+                        <li role="listitem">Extensibilidad para nuevas especialidades médicas</li>
+                    </ul>
+
+                    <h5>4. Consideraciones Especiales:</h5>
+                    <ul class="feature-list">
+                        <li role="listitem">Mayor tiempo inicial para análisis y diseño</li>
+                        <li role="listitem">Requiere capacitación del equipo en UML</li>
+                        <li role="listitem">Necesidad de herramientas de modelado especializadas</li>
+                        <li role="listitem">Potential overhead en sistemas críticos</li>
+                    </ul>
+                </div>
+
+                <h3>🎯 Decisión y Justificación</h3>
+
+                <div class="highlight-box">
+                    <h4>Recomendación: Enfoque Híbrido</h4>
+                    
+                    <p>Para el Sistema de Gestión Hospitalaria, se recomienda un <strong>enfoque híbrido</strong> que aprovecha las fortalezas de ambos paradigmas:</p>
+                    
+                    <h5>🎯 Análisis Orientado a Objetos para:</h5>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Modelo de dominio:</strong> Pacientes, Médicos, Citas, Tratamientos</li>
+                        <li role="listitem"><strong>Interfaces de usuario:</strong> Web y móvil interactivas</li>
+                        <li role="listitem"><strong>Gestión de datos:</strong> Historiales médicos complejos</li>
+                        <li role="listitem"><strong>Módulos de gestión:</strong> Inventario, personal, recursos</li>
+                    </ul>
+
+                    <h5>📊 Análisis Estructurado para:</h5>
+                    <ul class="feature-list">
+                        <li role="listitem"><strong>Procesos críticos:</strong> Facturación automática, reportes regulatorios</li>

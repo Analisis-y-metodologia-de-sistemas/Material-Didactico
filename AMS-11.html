@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 11: Herramientas del Análisis Estructurado</title>
+    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
+    <meta name="author" content="Curso AMS HTML">
+    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" fill="rgba(255,255,255,0.1)"><path d="M0,50 Q250,100 500,50 T1000,50 V100 H0 Z"/></svg>') repeat-x;
+            background-size: 1000px 100px;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header .subtitle {
+            font-size: 1.2em;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #667eea;
+        }
+
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 2em;
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .section h3 {
+            color: #555;
+            margin: 25px 0 15px 0;
+            font-size: 1.4em;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #667eea;
+        }
+
+        .important-note {
+            background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border-left: 4px solid #e17055;
+        }
+
+        .important-note strong {
+            color: #2d3436;
+        }
+
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9ff;
+            border-radius: 10px;
+            border: 2px dashed #667eea;
+            text-align: center;
+        }
+
+        .dfd-example {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .process-circle {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            background: white;
+            font-size: 12px;
+            text-align: center;
+            position: relative;
+        }
+
+        .data-store {
+            width: 120px;
+            height: 40px;
+            border: 2px solid #764ba2;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            background: #f8f9ff;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .external-entity {
+            width: 100px;
+            height: 60px;
+            border: 2px solid #e17055;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px;
+            background: #ffe8e8;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .notation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .notation-table th,
+        .notation-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .notation-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        .notation-table tr:hover {
+            background: #f5f7fa;
+        }
+
+        .quiz-container {
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .quiz-container h2 {
+            color: #2d3436;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .question h4 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .options {
+            list-style: none;
+            padding: 0;
+        }
+
+        .options li {
+            padding: 8px 15px;
+            margin: 5px 0;
+            background: #f8f9ff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .options li:hover {
+            background: #e8f2ff;
+            border-left-color: #667eea;
+            transform: translateX(5px);
+        }
+
+        .options li.selected {
+            background: #667eea;
+            color: white;
+            border-left-color: #764ba2;
+        }
+
+        .options li.correct {
+            background: #00b894;
+            color: white;
+            border-left-color: #00a085;
+        }
+
+        .options li.incorrect {
+            background: #e17055;
+            color: white;
+            border-left-color: #d63031;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 30px auto;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .example-notation {
+            font-family: 'Courier New', monospace;
+            background: #2d3436;
+            color: #00b894;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .data-flow-arrow {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 20px;
+            color: #667eea;
+        }
+
+        .hierarchy-level {
+            background: #f8f9ff;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px;
+            display: inline-block;
+            min-width: 150px;
+            text-align: center;
+        }
+
+        .balancing-rule {
+            background: linear-gradient(135deg, #fab1a0 0%, #e17055 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .interactive-element {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .interactive-element:hover {
+            transform: scale(1.05);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body role="document">
+    <div class="container" role="main">
+        <header class="header" role="banner">
+            <h1 id="main-title">Clase 11: Herramientas del Análisis Estructurado</h1>
+            <div class="subtitle">Análisis y Metodología de Sistemas - Semana 11</div>
+            <div class="subtitle">Unidad 3: Análisis Estructurado</div>
+        </div>
+
+        <section id="intro" class="section">
+            <h2>Introducción a las Herramientas del Análisis Estructurado</h2>
+            
+            <div class="concept-box">
+                <p>El análisis estructurado es una metodología tradicional que considera los datos y los procesos que los transforman como entidades separadas. Esta aproximación utiliza un conjunto específico de herramientas que permiten modelar de manera clara y precisa los requerimientos de un sistema.</p>
+            </div>
+
+            <p>En esta clase estudiaremos las cuatro herramientas fundamentales del análisis estructurado que constituyen el núcleo de esta metodología:</p>
+            
+            <ul style="margin: 20px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Diagrama de Contexto:</strong> Define los límites del sistema y su relación con el entorno</li>
+                <li role="listitem"><strong>Diagramas de Flujo de Datos (DFD):</strong> Muestran cómo los datos fluyen a través del sistema</li>
+                <li role="listitem"><strong>Diccionario de Datos:</strong> Especifica la composición y estructura de todos los datos</li>
+                <li role="listitem"><strong>Especificaciones de Procesos:</strong> Detallan la lógica de los procesos primitivos</li>
+            </ul>
+
+            <div class="important-note">
+                <strong>Nota Importante:</strong> Estas herramientas trabajan de manera coordinada y deben mantener consistencia entre sí. La trazabilidad entre artefactos es fundamental para garantizar la calidad del análisis.
+            </div>
+
+            <p>Según Pressman, "el propósito de los diagramas de flujo de datos es proveer un puente semántico entre los usuarios y los desarrolladores de sistemas". Esta capacidad de comunicación es lo que hace tan valiosas estas herramientas en el proceso de análisis.</p>
+        </section>
+
+        <section id="contexto" class="section">
+            <h2>1. Diagrama de Contexto</h2>
+
+            <h3>Definición y Propósito</h3>
+            <p>El diagrama de contexto, también conocido como DFD de Nivel 0, es la representación más alta del sistema en el análisis estructurado. Su función principal es definir claramente los límites del sistema y mostrar cómo interactúa con las entidades externas de su entorno.</p>
+
+            <div class="concept-box">
+                <p><strong>Objetivo Principal:</strong> Establecer el alcance del sistema identificando qué está dentro y qué está fuera de los límites del sistema a desarrollar.</p>
+            </div>
+
+            <h3>Elementos del Diagrama de Contexto</h3>
+            
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Componentes Visuales</h4>
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; margin: 20px 0;">
+                    <div class="process-circle pulse">
+                        <div>SISTEMA<br>CENTRAL</div>
+                    </div>
+                    <div class="data-flow-arrow">→</div>
+                    <div class="external-entity interactive-element">
+                        ENTIDAD<br>EXTERNA
+                    </div>
+                </div>
+            </div>
+
+            <p><strong>1. El Sistema Central:</strong> Representado por un único círculo (proceso) que contiene todo el sistema que estamos analizando. Este círculo debe tener un nombre descriptivo que identifique claramente el sistema.</p>
+
+            <p><strong>2. Entidades Externas:</strong> Son elementos del entorno que interactúan con el sistema pero que están fuera de nuestro control. Pueden ser:</p>
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem">Personas o roles (usuarios, clientes, administradores)</li>
+                <li role="listitem">Otros sistemas de software</li>
+                <li role="listitem">Organizaciones externas</li>
+                <li role="listitem">Dispositivos de hardware</li>
+            </ul>
+
+            <p><strong>3. Flujos de Datos:</strong> Representan la información que se intercambia entre el sistema y las entidades externas. Cada flujo debe estar etiquetado con un nombre significativo que describa los datos que transporta.</p>
+
+            <h3>Reglas de Construcción</h3>
+            
+            <div class="balancing-rule">
+                Regla 1: Un diagrama de contexto debe contener exactamente un proceso
+            </div>
+            
+            <div class="balancing-rule">
+                Regla 2: No debe mostrar almacenes de datos internos
+            </div>
+            
+            <div class="balancing-rule">
+                Regla 3: Todos los flujos deben conectar el sistema central con entidades externas
+            </div>
+
+            <h3>Proceso de Identificación de Entidades Externas</h3>
+            <p>Para identificar correctamente las entidades externas, debemos preguntarnos:</p>
+            <ol style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem">¿Quién proporciona datos al sistema?</li>
+                <li role="listitem">¿Quién recibe información del sistema?</li>
+                <li role="listitem">¿Qué otros sistemas intercambian información?</li>
+                <li role="listitem">¿Qué eventos externos debe procesar el sistema?</li>
+            </ol>
+
+            <h3>Ejemplo Práctico: Sistema CasaSegura</h3>
+            <div class="dfd-example">
+                <svg width="600" height="300" viewBox="0 0 600 300">
+                    <!-- Sistema Central -->
+                    <circle cx="300" cy="150" r="60" fill="#f8f9ff" stroke="#667eea" stroke-width="3"/>
+                    <text x="300" y="145" text-anchor="middle" font-size="12" font-weight="bold">SOFTWARE</text>
+                    <text x="300" y="160" text-anchor="middle" font-size="12" font-weight="bold">CASASEGURA</text>
+                    
+                    <!-- Entidad: Panel de Control -->
+                    <rect x="80" y="50" width="100" height="60" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="130" y="75" text-anchor="middle" font-size="10" font-weight="bold">PANEL DE</text>
+                    <text x="130" y="90" text-anchor="middle" font-size="10" font-weight="bold">CONTROL</text>
+                    
+                    <!-- Entidad: Sensores -->
+                    <rect x="420" y="50" width="100" height="60" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="470" y="85" text-anchor="middle" font-size="10" font-weight="bold">SENSORES</text>
+                    
+                    <!-- Entidad: Alarma -->
+                    <rect x="420" y="190" width="100" height="60" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="470" y="225" text-anchor="middle" font-size="10" font-weight="bold">ALARMA</text>
+                    
+                    <!-- Entidad: Línea Telefónica -->
+                    <rect x="80" y="190" width="100" height="60" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="130" y="215" text-anchor="middle" font-size="10" font-weight="bold">LÍNEA</text>
+                    <text x="130" y="230" text-anchor="middle" font-size="10" font-weight="bold">TELEFÓNICA</text>
+                    
+                    <!-- Flujos de datos -->
+                    <!-- Panel a Sistema -->
+                    <path d="M 180 80 Q 240 80 240 120" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="210" y="75" font-size="9">Comandos y datos</text>
+                    
+                    <!-- Sistema a Panel -->
+                    <path d="M 260 120 Q 220 80 180 90" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="200" y="110" font-size="9">Información en pantalla</text>
+                    
+                    <!-- Sensores a Sistema -->
+                    <path d="M 420 80 Q 360 80 360 120" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="380" y="75" font-size="9">Estado del sensor</text>
+                    
+                    <!-- Sistema a Alarma -->
+                    <path d="M 360 180 Q 380 200 420 220" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="380" y="205" font-size="9">Tipo de alarma</text>
+                    
+                    <!-- Sistema a Línea -->
+                    <path d="M 240 180 Q 200 200 180 220" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="190" y="200" font-size="9">Tonos telefónicos</text>
+                    
+                    <!-- Definir arrowhead -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#667eea"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <p>Este diagrama de contexto del sistema CasaSegura muestra claramente los límites del sistema y las cinco entidades externas que interactúan con él. Cada flujo de datos está etiquetado descriptivamente.</p>
+
+            <h3>Validación del Diagrama de Contexto</h3>
+            <p>Para validar nuestro diagrama de contexto, debemos verificar:</p>
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem">¿Están identificadas todas las fuentes de datos?</li>
+                <li role="listitem">¿Están identificados todos los destinos de información?</li>
+                <li role="listitem">¿Los nombres de flujos son descriptivos y únicos?</li>
+                <li role="listitem">¿Las entidades externas están realmente fuera de nuestro control?</li>
+                <li role="listitem">¿El sistema central tiene un nombre apropiado?</li>
+            </ul>
+
+            <div class="important-note">
+                <strong>Tip de Análisis:</strong> El diagrama de contexto debe ser comprensible para los stakeholders no técnicos, ya que define el alcance y los límites del proyecto de manera visual y clara.
+            </div>
+        </section>
+
+        <section id="dfd" class="section">
+            <h2>2. Diagramas de Flujo de Datos (DFD)</h2>
+
+            <h3>Fundamentos de los DFD</h3>
+            <p>Los Diagramas de Flujo de Datos representan el corazón del análisis estructurado. Adoptan un punto de vista "entrada-proceso-salida" para modelar cómo los datos fluyen a través del sistema y cómo son transformados por los diferentes procesos.</p>
+
+            <div class="concept-box">
+                <p><strong>Definición:</strong> Un DFD es una representación gráfica que muestra el flujo de datos a través de un sistema de información, los procesos que transforman estos datos, y los lugares donde se almacenan.</p>
+            </div>
+
+            <h3>Elementos de los DFD</h3>
+            
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Notación Estándar de DFD</h4>
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; margin: 20px 0;">
+                    <div>
+                        <div class="process-circle">1<br>PROCESO</div>
+                        <p style="text-align: center; margin-top: 10px;">Proceso</p>
+                    </div>
+                    <div>
+                        <div class="external-entity">ENTIDAD<br>EXTERNA</div>
+                        <p style="text-align: center; margin-top: 10px;">Entidad Externa</p>
+                    </div>
+                    <div>
+                        <div class="data-store">D1 | ALMACÉN</div>
+                        <p style="text-align: center; margin-top: 10px;">Almacén de Datos</p>
+                    </div>
+                    <div>
+                        <div style="border-bottom: 2px solid #667eea; padding: 5px 20px;">Flujo de Datos</div>
+                        <p style="text-align: center; margin-top: 10px;">Flujo de Datos</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Jerarquía de DFD</h3>
+            <p>Los DFD se organizan en una estructura jerárquica que permite descomponer el sistema en niveles de detalle creciente:</p>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Estructura Multinivel de DFDs</h4>
+                <div style="text-align: center;">
+                    <div class="hierarchy-level">
+                        <strong>Nivel 0</strong><br>
+                        Diagrama de Contexto<br>
+                        <small>Vista general del sistema</small>
+                    </div>
+                    <div class="data-flow-arrow">↓</div>
+                    <div class="hierarchy-level">
+                        <strong>Nivel 1</strong><br>
+                        DFD Principal<br>
+                        <small>Procesos principales</small>
+                    </div>
+                    <div class="data-flow-arrow">↓</div>
+                    <div class="hierarchy-level">
+                        <strong>Nivel 2</strong><br>
+                        DFD Detallado<br>
+                        <small>Subprocesos específicos</small>
+                    </div>
+                    <div class="data-flow-arrow">↓</div>
+                    <div class="hierarchy-level">
+                        <strong>Nivel N</strong><br>
+                        DFD Primitivo<br>
+                        <small>Procesos no descomponibles</small>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Reglas de Construcción de DFD</h3>
+
+            <div class="balancing-rule">
+                Regla de Balanceo: Las entradas y salidas de un proceso en un nivel deben coincidir con las entradas y salidas de su descomposición en el nivel inferior
+            </div>
+
+            <div class="balancing-rule">
+                Regla de Numeración: Los procesos se numeran jerárquicamente (1, 2, 3 en nivel 1; 1.1, 1.2, 1.3 para subprocesos del proceso 1)
+            </div>
+
+            <div class="balancing-rule">
+                Regla de Etiquetado: Todos los flujos, procesos y almacenes deben tener nombres descriptivos y únicos
+            </div>
+
+            <div class="balancing-rule">
+                Regla de Conectividad: No pueden existir flujos directos entre entidades externas sin pasar por un proceso
+            </div>
+
+            <h3>Ejemplo Detallado: DFD Nivel 1 del Sistema CasaSegura</h3>
+            <div class="dfd-example">
+                <svg width="800" height="500" viewBox="0 0 800 500">
+                    <!-- Entidades Externas -->
+                    <rect x="50" y="50" width="80" height="50" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="90" y="70" text-anchor="middle" font-size="10">PANEL DE</text>
+                    <text x="90" y="85" text-anchor="middle" font-size="10">CONTROL</text>
+                    
+                    <rect x="650" y="50" width="80" height="50" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="690" y="75" text-anchor="middle" font-size="10">SENSORES</text>
+                    
+                    <rect x="650" y="400" width="80" height="50" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="690" y="425" text-anchor="middle" font-size="10">ALARMA</text>
+                    
+                    <rect x="50" y="400" width="80" height="50" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="90" y="415" text-anchor="middle" font-size="10">LÍNEA</text>
+                    <text x="90" y="430" text-anchor="middle" font-size="10">TELEFÓNICA</text>
+                    
+                    <!-- Procesos -->
+                    <circle cx="250" cy="150" r="40" fill="#f8f9ff" stroke="#667eea" stroke-width="2"/>
+                    <text x="250" y="140" text-anchor="middle" font-size="9">1</text>
+                    <text x="250" y="155" text-anchor="middle" font-size="9">Configurar</text>
+                    <text x="250" y="165" text-anchor="middle" font-size="9">Sistema</text>
+                    
+                    <circle cx="400" cy="150" r="40" fill="#f8f9ff" stroke="#667eea" stroke-width="2"/>
+                    <text x="400" y="140" text-anchor="middle" font-size="9">2</text>
+                    <text x="400" y="155" text-anchor="middle" font-size="9">Procesar</text>
+                    <text x="400" y="165" text-anchor="middle" font-size="9">Password</text>
+                    
+                    <circle cx="550" cy="150" r="40" fill="#f8f9ff" stroke="#667eea" stroke-width="2"/>
+                    <text x="550" y="140" text-anchor="middle" font-size="9">3</text>
+                    <text x="550" y="155" text-anchor="middle" font-size="9">Vigilar</text>
+                    <text x="550" y="165" text-anchor="middle" font-size="9">Sensores</text>
+                    
+                    <circle cx="250" cy="350" r="40" fill="#f8f9ff" stroke="#667eea" stroke-width="2"/>
+                    <text x="250" y="340" text-anchor="middle" font-size="9">4</text>
+                    <text x="250" y="355" text-anchor="middle" font-size="9">Mostrar</text>
+                    <text x="250" y="365" text-anchor="middle" font-size="9">Información</text>
+                    
+                    <circle cx="400" cy="350" r="40" fill="#f8f9ff" stroke="#667eea" stroke-width="2"/>
+                    <text x="400" y="340" text-anchor="middle" font-size="9">5</text>
+                    <text x="400" y="355" text-anchor="middle" font-size="9">Activar/</text>
+                    <text x="400" y="365" text-anchor="middle" font-size="9">Desactivar</text>
+                    
+                    <!-- Almacenes de Datos -->
+                    <rect x="250" y="250" width="150" height="30" fill="#f8f9ff" stroke="#764ba2" stroke-width="2"/>
+                    <text x="255" y="270" font-size="10">D1 | Configuración del Sistema</text>
+                    
+                    <!-- Flujos principales (simplificados para claridad) -->
+                    <path d="M 130 75 L 210 140" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="150" y="100" font-size="8">Comandos</text>
+                    
+                    <path d="M 610 75 L 590 140" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="580" y="100" font-size="8">Estado sensores</text>
+                    
+                    <path d="M 550 190 L 690 400" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="600" y="300" font-size="8">Tipo alarma</text>
+                    
+                    <!-- Arrowhead definition -->
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#667eea"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <h3>Proceso de Creación de DFD</h3>
+            <p>Pressman sugiere seguir estos lineamientos para crear DFD efectivos:</p>
+
+            <ol style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Comenzar con el Nivel 0:</strong> El diagrama debe ilustrar el software como una sola burbuja</li>
+                <li role="listitem"><strong>Anotar entradas y salidas principales:</strong> Identificar claramente los flujos de datos críticos</li>
+                <li role="listitem"><strong>Aislar procesos candidatos:</strong> Usar análisis gramatical para identificar verbos (procesos) y sustantivos (datos)</li>
+                <li role="listitem"><strong>Etiquetar significativamente:</strong> Todas las flechas y burbujas deben tener nombres descriptivos</li>
+                <li role="listitem"><strong>Mantener continuidad del flujo:</strong> Los datos deben ser consistentes entre niveles</li>
+                <li role="listitem"><strong>Refinar una burbuja a la vez:</strong> Descomponer progresivamente cada proceso</li>
+            </ol>
+
+            <h3>Técnica del Análisis Gramatical</h3>
+            <p>El análisis gramatical es una técnica fundamental para identificar elementos del DFD a partir de descripciones textuales:</p>
+
+            <div class="concept-box">
+                <p><strong>Sustantivos y frases sustantivadas</strong> → Candidatos a objetos de datos, entidades externas, almacenes</p>
+                <p><strong>Verbos y frases verbales</strong> → Candidatos a procesos</p>
+                <p><strong>Adjetivos</strong> → Candidatos a atributos</p>
+            </div>
+
+            <p>Ejemplo de análisis gramatical aplicado a CasaSegura:</p>
+            <div class="example-notation">
+"La función de seguridad <strong>CasaSegura</strong> permite que el <strong>propietario</strong> <em>configure</em> el sistema de seguridad cuando se instala, <em>vigila</em> todos los <strong>sensores</strong> conectados al sistema de seguridad e <em>interactúa</em> con el propietario a través de internet, una PC o un <strong>panel de control</strong>."
+            </div>
+
+            <p>De este análisis obtenemos:</p>
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Entidades:</strong> Propietario, Panel de control, Sensores</li>
+                <li role="listitem"><strong>Procesos:</strong> Configurar, Vigilar, Interactuar</li>
+                <li role="listitem"><strong>Datos:</strong> Configuración del sistema, Estado de sensores</li>
+            </ul>
+
+            <h3>Criterios de Descomposición</h3>
+            <p>La descomposición de procesos debe continuar hasta alcanzar procesos primitivos que cumplan estos criterios:</p>
+
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Cohesión funcional:</strong> El proceso realiza una sola función bien definida</li>
+                <li role="listitem"><strong>Implementabilidad:</strong> Puede ser implementado como un componente de programa</li>
+                <li role="listitem"><strong>Testabilidad:</strong> Su función puede ser verificada independientemente</li>
+                <li role="listitem"><strong>Comprensibilidad:</strong> Su propósito es claro para stakeholders y desarrolladores</li>
+            </ul>
+
+            <div class="important-note">
+                <strong>Regla de Oro:</strong> Continúe refinando los DFD hasta que cada burbuja realice una función simple y tenga "un solo pensamiento" (alta cohesión).
+            </div>
+        </section>
+
+        <section id="diccionario" class="section">
+            <h2>3. Diccionario de Datos</h2>
+
+            <h3>Concepto y Propósito</h3>
+            <p>El diccionario de datos es un listado organizado que contiene definiciones precisas y rigurosas de todos los datos pertinentes al sistema. Su objetivo es que el analista tenga un entendimiento completo de todos los datos que forman parte de los procesos del sistema.</p>
+
+            <div class="concept-box">
+                <p><strong>Definición:</strong> El diccionario de datos describe el significado de los flujos y almacenes que se muestran en los DFD, especificando la composición de los paquetes de datos, sus valores y unidades relevantes.</p>
+            </div>
+
+            <h3>Importancia del Diccionario de Datos</h3>
+            <p>El diccionario de datos es fundamental porque:</p>
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem">Elimina la ambigüedad en la definición de datos</li>
+                <li role="listitem">Establece un vocabulario común para el proyecto</li>
+                <li role="listitem">Facilita la comunicación entre analistas, desarrolladores y usuarios</li>
+                <li role="listitem">Sirve como base para el diseño de bases de datos</li>
+                <li role="listitem">Asegura la consistencia en el uso de datos</li>
+                <li role="listitem">Apoya la trazabilidad entre artefactos</li>
+            </ul>
+
+            <h3>Notación del Diccionario de Datos</h3>
+            <p>El diccionario de datos utiliza una notación específica para definir la estructura y composición de los datos:</p>
+
+            <table class="notation-table">
+                <thead role="rowgroup">
+                    <tr role="row">
+                        <th role="columnheader">Símbolo</th>
+                        <th role="columnheader">Significado</th>
+                        <th role="columnheader">Descripción</th>
+                        <th role="columnheader">Ejemplo</th>
+                    </tr>
+                </thead>
+                <tbody role="rowgroup">
+                    <tr role="row">
+                        <td role="cell"><strong>=</strong></td>
+                        <td role="cell">Está compuesto de</td>
+                        <td role="cell">Define la composición de un elemento de datos</td>
+                        <td role="cell">Nombre = Primer_nombre + Apellido</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>+</strong></td>
+                        <td role="cell">Y (concatenación)</td>
+                        <td role="cell">Une elementos que aparecen juntos</td>
+                        <td role="cell">Dirección = Calle + Número + Ciudad</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>( )</strong></td>
+                        <td role="cell">Opcional</td>
+                        <td role="cell">Elemento que puede estar presente o no</td>
+                        <td role="cell">Nombre = Primer_nombre + (Segundo_nombre) + Apellido</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>{ }</strong></td>
+                        <td role="cell">Iteración</td>
+                        <td role="cell">Elemento que se repite cero o más veces</td>
+                        <td role="cell">Estudiantes = {Nombre + Legajo}</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>[ ]</strong></td>
+                        <td role="cell">Selección</td>
+                        <td role="cell">Elegir uno de varios elementos alternativos</td>
+                        <td role="cell">Forma_pago = [Efectivo | Tarjeta | Cheque]</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>@</strong></td>
+                        <td role="cell">Identificador</td>
+                        <td role="cell">Campo clave o identificador único</td>
+                        <td role="cell">Empleado = @ID_empleado + Nombre + Cargo</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>|</strong></td>
+                        <td role="cell">OR (separador)</td>
+                        <td role="cell">Separa opciones alternativas</td>
+                        <td role="cell">Estado = [Activo | Inactivo | Suspendido]</td>
+                    </tr>
+                    <tr role="row">
+                        <td role="cell"><strong>* *</strong></td>
+                        <td role="cell">Comentarios</td>
+                        <td role="cell">Información adicional descriptiva</td>
+                        <td role="cell">Edad = Número *Entre 0 y 120*</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Ejemplos Prácticos de Definiciones</h3>
+
+            <div class="example-notation">
+<strong>Ejemplos del Sistema CasaSegura:</strong>
+
+Comandos_usuario = [Comando_configuración | Comando_activación | Comando_consulta]
+
+Comando_configuración = Tipo_comando + Parámetros_configuración
+    Tipo_comando = "CONFIG"
+    Parámetros_configuración = {Sensor_ID + Estado_deseado}
+
+Estado_sensor = @Sensor_ID + Tipo_sensor + Ubicación + Estado_actual + (Timestamp)
+    Sensor_ID = Número *1 a 999*
+    Tipo_sensor = [Puerta | Ventana | Movimiento | Humo]
+    Estado_actual = [Activado | Desactivado | Alarma | Error]
+
+Información_alarma = Tipo_alarma + Ubicación + Timestamp + Nivel_severidad
+    Tipo_alarma = [Intrusión | Incendio | Pánico | Técnica]
+    Nivel_severidad = [Bajo | Medio | Alto | Crítico]
+
+Configuración_sistema = @Usuario_ID + {Zona_configuración}
+    Zona_configuración = Zona_ID + Nombre_zona + {Sensor_asignado} + Horarios_activación
+</div>
+
+            <h3>Organización del Diccionario de Datos</h3>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Estructura del Diccionario de Datos</h4>
+                <svg width="600" height="300" viewBox="0 0 600 300">
+                    <!-- Estructura jerárquica -->
+                    <rect x="50" y="50" width="120" height="50" fill="#f8f9ff" stroke="#667eea" stroke-width="2"/>
+                    <text x="110" y="70" text-anchor="middle" font-size="11" font-weight="bold">FLUJOS DE DATOS</text>
+                    <text x="110" y="85" text-anchor="middle" font-size="10">Desde DFD</text>
+                    
+                    <rect x="200" y="50" width="120" height="50" fill="#f8f9ff" stroke="#764ba2" stroke-width="2"/>
+                    <text x="260" y="70" text-anchor="middle" font-size="11" font-weight="bold">ALMACENES</text>
+                    <text x="260" y="85" text-anchor="middle" font-size="10">Desde DFD</text>
+                    
+                    <rect x="350" y="50" width="120" height="50" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="410" y="70" text-anchor="middle" font-size="11" font-weight="bold">ELEMENTOS</text>
+                    <text x="410" y="85" text-anchor="middle" font-size="10">De composición</text>
+                    
+                    <rect x="150" y="150" width="150" height="50" fill="#f0fff0" stroke="#00b894" stroke-width="2"/>
+                    <text x="225" y="170" text-anchor="middle" font-size="11" font-weight="bold">DEFINICIONES</text>
+                    <text x="225" y="185" text-anchor="middle" font-size="10">Notación formal</text>
+                    
+                    <rect x="350" y="150" width="120" height="50" fill="#fff8e1" stroke="#fdcb6e" stroke-width="2"/>
+                    <text x="410" y="170" text-anchor="middle" font-size="11" font-weight="bold">VALIDACIONES</text>
+                    <text x="410" y="185" text-anchor="middle" font-size="10">Restricciones</text>
+                    
+                    <!-- Flechas -->
+                    <path d="M 110 100 L 180 140" fill="none" stroke="#667eea" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <path d="M 260 100 L 240 140" fill="none" stroke="#764ba2" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <path d="M 410 100 L 380 140" fill="none" stroke="#e17055" stroke-width="2" marker-end="url(#arrow2)"/>
+                    <path d="M 300 175 L 350 175" fill="none" stroke="#00b894" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <defs>
+                        <marker id="arrow2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <h3>Proceso de Construcción</h3>
+            <p>Para construir un diccionario de datos efectivo, siga estos pasos:</p>
+
+            <ol style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Identificar elementos:</strong> Extraer todos los flujos y almacenes de los DFD</li>
+                <li role="listitem"><strong>Descomponer elementos complejos:</strong> Analizar la estructura interna de cada elemento</li>
+                <li role="listitem"><strong>Definir elementos primitivos:</strong> Especificar tipos de datos, rangos, formatos</li>
+                <li role="listitem"><strong>Establecer relaciones:</strong> Documentar dependencias entre elementos</li>
+                <li role="listitem"><strong>Validar consistencia:</strong> Verificar coherencia con los DFD</li>
+                <li role="listitem"><strong>Documentar restricciones:</strong> Incluir reglas de negocio y validaciones</li>
+            </ol>
+
+            <h3>Tipos de Elementos de Datos</h3>
+
+            <div class="concept-box">
+                <p><strong>Elementos Primitivos:</strong> No se descomponen más (ej: Número, Texto, Fecha)</p>
+                <p><strong>Elementos Compuestos:</strong> Formados por otros elementos (ej: Dirección = Calle + Número + Ciudad)</p>
+                <p><strong>Elementos Opcionales:</strong> Pueden estar presentes o ausentes</p>
+                <p><strong>Elementos Repetitivos:</strong> Aparecen múltiples veces en una estructura</p>
+            </div>
+
+            <h3>Validaciones y Restricciones</h3>
+            <p>El diccionario debe incluir restricciones que aseguren la integridad de los datos:</p>
+
+            <div class="example-notation">
+<strong>Ejemplos de Restricciones:</strong>
+
+Sensor_ID = Número *Entero entre 1 y 999, único en el sistema*
+Email = Texto *Formato: usuario@dominio.com, máximo 100 caracteres*
+Timestamp = Fecha_Hora *Formato: YYYY-MM-DD HH:MM:SS*
+Temperatura = Número *Decimal entre -50.0 y 80.0 grados Celsius*
+Password = Texto *Mínimo 8 caracteres, debe incluir letras y números*
+</div>
+
+            <div class="important-note">
+                <strong>Principio de Consistencia:</strong> Todos los flujos de datos que aparecen en los DFD deben estar definidos en el diccionario de datos, y viceversa. Esta consistencia es crucial para la trazabilidad del análisis.
+            </div>
+        </section>
+
+        <section id="especificaciones" class="section">
+            <h2>4. Especificaciones de Procesos</h2>
+
+            <h3>Definición y Propósito</h3>
+            <p>Las especificaciones de procesos, también conocidas como minispec o PSPEC (Process Specification), describen la lógica de transformación de los procesos primitivos identificados en los DFD. Su propósito es definir exactamente qué hace cada proceso con los datos de entrada para producir los datos de salida.</p>
+
+            <div class="concept-box">
+                <p><strong>Objetivo:</strong> Proporcionar una descripción precisa, no ambigua y verificable de la lógica interna de cada proceso primitivo del sistema.</p>
+            </div>
+
+            <h3>¿Cuándo Crear Especificaciones de Procesos?</h3>
+            <p>Se crean especificaciones para:</p>
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Procesos primitivos:</strong> Aquellos que no se descomponen más en el DFD</li>
+                <li role="listitem"><strong>Procesos con lógica compleja:</strong> Que requieren algoritmos o reglas específicas</li>
+                <li role="listitem"><strong>Procesos críticos:</strong> Fundamentales para el funcionamiento del sistema</li>
+                <li role="listitem"><strong>Procesos con múltiples condiciones:</strong> Que requieren toma de decisiones</li>
+            </ul>
+
+            <h3>Técnicas de Especificación</h3>
+
+            <h4>1. Lenguaje Estructurado (Pseudocódigo)</h4>
+            <p>Utiliza construcciones similares a los lenguajes de programación pero en lenguaje natural:</p>
+
+            <div class="example-notation">
+<strong>Ejemplo: Proceso "Validar Password"</strong>
+
+SI password_ingresado = password_maestro ENTONCES
+    validación = verdadero
+    mensaje = "Acceso autorizado"
+SINO
+    PARA cada entrada en tabla_passwords_secundarios
+        SI password_ingresado = entrada.password ENTONCES
+            validación = verdadero
+            mensaje = "Acceso temporal autorizado"
+            SALIR DEL BUCLE
+        FIN SI
+    FIN PARA
+    SI validación = falso ENTONCES
+        mensaje = "Acceso denegado"
+        incrementar_contador_intentos()
+        SI contador_intentos > 3 ENTONCES
+            activar_alarma_seguridad()
+        FIN SI
+    FIN SI
+FIN SI
+</div>
+
+            <h4>2. Tablas de Decisión</h4>
+            <p>Útiles para procesos con múltiples condiciones y combinaciones de reglas:</p>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Tabla de Decisión: Activación de Alarma</h4>
+                <table class="notation-table">
+                    <thead role="rowgroup">
+                        <tr role="row">
+                            <th role="columnheader">Condiciones</th>
+                            <th role="columnheader">Regla 1</th>
+                            <th role="columnheader">Regla 2</th>
+                            <th role="columnheader">Regla 3</th>
+                            <th role="columnheader">Regla 4</th>
+                        </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                        <tr role="row">
+                            <td role="cell">Sistema activado</td>
+                            <td role="cell">Sí</td>
+                            <td role="cell">Sí</td>
+                            <td role="cell">No</td>
+                            <td role="cell">No</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell">Sensor detecta movimiento</td>
+                            <td role="cell">Sí</td>
+                            <td role="cell">No</td>
+                            <td role="cell">Sí</td>
+                            <td role="cell">No</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell"><strong>Acciones:</strong></td>
+                            <td role="cell"></td>
+                            <td role="cell"></td>
+                            <td role="cell"></td>
+                            <td role="cell"></td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell">Activar alarma sonora</td>
+                            <td role="cell">X</td>
+                            <td role="cell">-</td>
+                            <td role="cell">-</td>
+                            <td role="cell">-</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell">Enviar notificación</td>
+                            <td role="cell">X</td>
+                            <td role="cell">-</td>
+                            <td role="cell">-</td>
+                            <td role="cell">-</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell">Registrar evento</td>
+                            <td role="cell">X</td>
+                            <td role="cell">X</td>
+                            <td role="cell">X</td>
+                            <td role="cell">-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h4>3. Árboles de Decisión</h4>
+            <p>Representación gráfica de la lógica de decisión:</p>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Árbol de Decisión: Procesamiento de Sensores</h4>
+                <svg width="600" height="300" viewBox="0 0 600 300">
+                    <!-- Nodo raíz -->
+                    <circle cx="300" cy="50" r="25" fill="#f8f9ff" stroke="#667eea" stroke-width="2"/>
+                    <text x="300" y="55" text-anchor="middle" font-size="10">Sensor</text>
+                    
+                    <!-- Ramas principales -->
+                    <line x1="275" y1="70" x2="150" y2="120" stroke="#667eea" stroke-width="2"/>
+                    <text x="200" y="90" font-size="10">Activo</text>
+                    
+                    <line x1="325" y1="70" x2="450" y2="120" stroke="#667eea" stroke-width="2"/>
+                    <text x="400" y="90" font-size="10">Inactivo</text>
+                    
+                    <!-- Nodos de decisión -->
+                    <circle cx="150" cy="130" r="25" fill="#f8f9ff" stroke="#667eea" stroke-width="2"/>
+                    <text x="150" y="135" text-anchor="middle" font-size="9">Estado</text>
+                    
+                    <rect x="420" y="110" width="60" height="40" fill="#ffe8e8" stroke="#e17055" stroke-width="2"/>
+                    <text x="450" y="125" text-anchor="middle" font-size="9">Ignorar</text>
+                    <text x="450" y="140" text-anchor="middle" font-size="9">señal</text>
+                    
+                    <!-- Acciones finales -->
+                    <line x1="125" y1="150" x2="80" y2="200" stroke="#667eea" stroke-width="2"/>
+                    <text x="90" y="170" font-size="9">Normal</text>
+                    
+                    <line x1="175" y1="150" x2="220" y2="200" stroke="#667eea" stroke-width="2"/>
+                    <text x="210" y="170" font-size="9">Alarma</text>
+                    
+                    <rect x="50" y="190" width="60" height="40" fill="#e8f5e8" stroke="#00b894" stroke-width="2"/>
+                    <text x="80" y="205" text-anchor="middle" font-size="9">Registro</text>
+                    <text x="80" y="220" text-anchor="middle" font-size="9">normal</text>
+                    
+                    <rect x="190" y="190" width="60" height="40" fill="#ffeaa7" stroke="#fdcb6e" stroke-width="2"/>
+                    <text x="220" y="205" text-anchor="middle" font-size="9">Activar</text>
+                    <text x="220" y="220" text-anchor="middle" font-size="9">alarma</text>
+                </svg>
+            </div>
+
+            <h4>4. Especificación Pre/Post Condiciones</h4>
+            <p>Define el estado antes y después de la ejecución del proceso:</p>
+
+            <div class="example-notation">
+<strong>Proceso: "Actualizar Estado Sensor"</strong>
+
+<strong>Precondiciones:</strong>
+• Sensor_ID debe existir en el sistema
+• Nuevo_estado debe ser un valor válido [Activo|Inactivo|Error|Mantenimiento]
+• Usuario debe tener permisos de configuración
+
+<strong>Postcondiciones:</strong>
+• Estado del sensor se actualiza en la base de datos
+• Se registra timestamp de la modificación
+• Se genera log de auditoría
+• Si nuevo estado es "Error", se envía notificación al administrador
+• Si sensor es crítico y nuevo estado es "Inactivo", se activa protocolo de respaldo
+</div>
+
+            <h3>Plantillas de Especificación</h3>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Plantilla Estándar de Minispec</h4>
+                <div style="text-align: left; background: white; padding: 20px; border-radius: 10px; margin: 20px;">
+                    <div style="border: 2px solid #667eea; padding: 15px; border-radius: 8px;">
+                        <h4 style="color: #667eea; margin-bottom: 15px;">PROCESO: [Número] - [Nombre del Proceso]</h4>
+                        
+                        <p><strong>DESCRIPCIÓN:</strong><br>
+                        [Descripción breve del propósito del proceso]</p>
+                        
+                        <p><strong>ENTRADAS:</strong><br>
+                        • [Lista de flujos de entrada con origen]</p>
+                        
+                        <p><strong>SALIDAS:</strong><br>
+                        • [Lista de flujos de salida con destino]</p>
+                        
+                        <p><strong>LÓGICA DE PROCESAMIENTO:</strong><br>
+                        [Especificación detallada usando lenguaje estructurado, tablas de decisión o árboles]</p>
+                        
+                        <p><strong>REGLAS DE NEGOCIO:</strong><br>
+                        • [Restricciones y validaciones específicas]</p>
+                        
+                        <p><strong>EXCEPCIONES:</strong><br>
+                        • [Manejo de errores y situaciones especiales]</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>Ejemplo Completo de Especificación</h3>
+
+            <div class="example-notation">
+<strong>PROCESO: 3.2 - Evaluar Estado Sensor</strong>
+
+<strong>DESCRIPCIÓN:</strong>
+Evalúa el estado reportado por un sensor y determina si requiere alguna acción 
+específica según la configuración del sistema y las reglas de seguridad.
+
+<strong>ENTRADAS:</strong>
+• Estado_sensor (desde Proceso 3.1 - Leer Sensores)
+• Configuración_zona (desde D1 - Configuración Sistema)
+
+<strong>SALIDAS:</strong>
+• Tipo_alarma (hacia Proceso 3.3 - Generar Alarma)
+• Registro_evento (hacia D2 - Log Eventos)
+
+<strong>LÓGICA DE PROCESAMIENTO:</strong>
+1. OBTENER configuración para sensor_id desde Configuración_zona
+2. SI estado_sensor = "Error" ENTONCES
+     generar Tipo_alarma = "Técnica"
+     crear Registro_evento con prioridad "Alta"
+3. SINO SI estado_sensor = "Alarma" Y zona_activa = verdadero ENTONCES
+     SEGÚN tipo_sensor HACER:
+       CASO "Movimiento": Tipo_alarma = "Intrusión"
+       CASO "Humo": Tipo_alarma = "Incendio"  
+       CASO "Pánico": Tipo_alarma = "Pánico"
+     FIN SEGÚN
+     crear Registro_evento con prioridad "Crítica"
+4. SINO
+     crear Registro_evento con prioridad "Normal"
+5. FIN SI
+
+<strong>REGLAS DE NEGOCIO:</strong>
+• Solo sensores en zonas activas pueden generar alarmas de seguridad
+• Errores técnicos siempre generan notificación independiente del estado de zona
+• Sensores de humo tienen prioridad sobre sensores de movimiento
+
+<strong>EXCEPCIONES:</strong>
+• Si configuración de zona no existe: usar configuración por defecto
+• Si tipo de sensor no reconocido: generar alarma técnica
+• Si múltiples sensores en alarma simultáneamente: escalar a alarma general
+</div>
+
+            <h3>Validación de Especificaciones</h3>
+            <p>Para asegurar la calidad de las especificaciones de procesos:</p>
+
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Completitud:</strong> Cubren todos los casos posibles de entrada</li>
+                <li role="listitem"><strong>Consistencia:</strong> No contradicen otras especificaciones</li>
+                <li role="listitem"><strong>Verificabilidad:</strong> Pueden ser probadas y validadas</li>
+                <li role="listitem"><strong>Trazabilidad:</strong> Conectan con elementos del DFD y diccionario</li>
+                <li role="listitem"><strong>Claridad:</strong> Son comprensibles por desarrolladores y usuarios</li>
+            </ul>
+
+            <div class="important-note">
+                <strong>Criterio de Calidad:</strong> Una buena especificación de proceso debe permitir que cualquier desarrollador implemente el proceso de manera consistente, produciendo los mismos resultados para las mismas entradas.
+            </div>
+        </section>
+
+        <section id="integracion" class="section">
+            <h2>5. Integración y Balanceo de Herramientas</h2>
+
+            <h3>Principios de Trazabilidad</h3>
+            <p>La efectividad del análisis estructurado depende de la correcta integración entre sus herramientas. Cada elemento debe ser trazable a través de todos los artefactos:</p>
+
+            <div class="concept-box">
+                <p><strong>Trazabilidad Horizontal:</strong> Entre elementos del mismo nivel (procesos, flujos, almacenes)</p>
+                <p><strong>Trazabilidad Vertical:</strong> Entre diferentes niveles de abstracción (contexto → DFD nivel 1 → nivel 2...)</p>
+                <p><strong>Trazabilidad Cruzada:</strong> Entre diferentes tipos de artefactos (DFD ↔ Diccionario ↔ Especificaciones)</p>
+            </div>
+
+            <h3>Reglas de Balanceo</h3>
+            
+            <div class="balancing-rule">
+                Regla de Conservación: Los flujos que entran y salen de un proceso en un nivel deben ser los mismos que entran y salen de su descomposición en el nivel inferior
+            </div>
+
+            <div class="balancing-rule">
+                Regla de Denominación: Los nombres de flujos deben ser consistentes entre niveles y estar definidos en el diccionario de datos
+            </div>
+
+            <div class="balancing-rule">
+                Regla de Completitud: Todo elemento que aparece en un DFD debe estar definido en el diccionario de datos
+            </div>
+
+            <h3>Matriz de Trazabilidad</h3>
+
+            <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+                <h4>Matriz de Trazabilidad - Sistema CasaSegura</h4>
+                <table class="notation-table">
+                    <thead role="rowgroup">
+                        <tr role="row">
+                            <th role="columnheader">DFD Elemento</th>
+                            <th role="columnheader">Diccionario</th>
+                            <th role="columnheader">Especificación</th>
+                            <th role="columnheader">Caso de Uso</th>
+                            <th role="columnheader">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody role="rowgroup">
+                        <tr role="row">
+                            <td role="cell">1. Configurar Sistema</td>
+                            <td role="cell">Comandos_usuario</td>
+                            <td role="cell">PSPEC-1.0</td>
+                            <td role="cell">UC-001</td>
+                            <td role="cell">✓</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell">2. Procesar Password</td>
+                            <td role="cell">Password_datos</td>
+                            <td role="cell">PSPEC-2.0</td>
+                            <td role="cell">UC-002</td>
+                            <td role="cell">✓</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell">3. Vigilar Sensores</td>
+                            <td role="cell">Estado_sensor</td>
+                            <td role="cell">PSPEC-3.0</td>
+                            <td role="cell">UC-003</td>
+                            <td role="cell">✓</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell">D1 Configuración</td>
+                            <td role="cell">Configuración_sistema</td>
+                            <td role="cell">-</td>
+                            <td role="cell">-</td>
+                            <td role="cell">✓</td>
+                        </tr>
+                        <tr role="row">
+                            <td role="cell">Estado_alarma</td>
+                            <td role="cell">Información_alarma</td>
+                            <td role="cell">-</td>
+                            <td role="cell">UC-004</td>
+                            <td role="cell">✓</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Proceso de Validación Cruzada</h3>
+            <p>Para asegurar la consistencia entre herramientas:</p>
+
+            <ol style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Verificación DFD → Diccionario:</strong> Todos los flujos del DFD están definidos</li>
+                <li role="listitem"><strong>Verificación Diccionario → DFD:</strong> No hay definiciones sin uso en DFD</li>
+                <li role="listitem"><strong>Verificación Especificaciones → DFD:</strong> Cada proceso primitivo tiene su PSPEC</li>
+                <li role="listitem"><strong>Verificación Balanceo:</strong> Entradas/salidas consistentes entre niveles</li>
+                <li role="listitem"><strong>Validación Semántica:</strong> Los nombres y significados son coherentes</li>
+            </ol>
+
+            <div class="important-note">
+                <strong>Metodología de Verificación:</strong> Use herramientas automatizadas cuando sea posible, pero siempre complete con revisión manual para verificar la coherencia semántica y la calidad del análisis.
+            </div>
+        </section>
+
+        <section id="quiz" class="quiz-container">
+            <h2>Evaluación: 20 Preguntas de Múltiple Opción</h2>
+            
+            <div id="quiz-questions">
+                <div class="question" role="group">
+                    <h4>1. ¿Cuál es el propósito principal del diagrama de contexto?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Mostrar la descomposición interna del sistema</li>
+                        <li onclick="selectOption(this, true)">B) Definir los límites del sistema y su relación con el entorno</li>
+                        <li onclick="selectOption(this, false)">C) Especificar la lógica de los procesos primitivos</li>
+                        <li onclick="selectOption(this, false)">D) Describir la estructura de los datos</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>2. En la notación del diccionario de datos, ¿qué significa el símbolo "{ }"?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Elemento opcional</li>
+                        <li onclick="selectOption(this, true)">B) Iteración (cero o más veces)</li>
+                        <li onclick="selectOption(this, false)">C) Selección entre alternativas</li>
+                        <li onclick="selectOption(this, false)">D) Comentario explicativo</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>3. ¿Cuál es la regla de balanceo fundamental entre niveles de DFD?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, true)">A) Las entradas y salidas deben ser consistentes entre niveles</li>
+                        <li onclick="selectOption(this, false)">B) Cada nivel debe tener el mismo número de procesos</li>
+                        <li onclick="selectOption(this, false)">C) Los almacenes de datos deben aparecer en todos los niveles</li>
+                        <li onclick="selectOption(this, false)">D) Las entidades externas deben repetirse en cada nivel</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>4. ¿Qué técnica se utiliza para identificar procesos candidatos en un DFD?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Análisis matemático</li>
+                        <li onclick="selectOption(this, true)">B) Análisis gramatical</li>
+                        <li onclick="selectOption(this, false)">C) Análisis estadístico</li>
+                        <li onclick="selectOption(this, false)">D) Análisis temporal</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>5. ¿Cuántos procesos debe contener un diagrama de contexto?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, true)">A) Exactamente uno</li>
+                        <li onclick="selectOption(this, false)">B) Entre dos y cinco</li>
+                        <li onclick="selectOption(this, false)">C) No hay límite definido</li>
+                        <li onclick="selectOption(this, false)">D) Depende del tamaño del sistema</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>6. En el diccionario de datos, ¿qué representa el símbolo "@"?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Elemento opcional</li>
+                        <li onclick="selectOption(this, false)">B) Comentario</li>
+                        <li onclick="selectOption(this, true)">C) Identificador único o clave</li>
+                        <li onclick="selectOption(this, false)">D) Separador de alternativas</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>7. ¿Cuándo se debe crear una especificación de proceso (PSPEC)?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Para todos los procesos del DFD</li>
+                        <li onclick="selectOption(this, true)">B) Solo para procesos primitivos</li>
+                        <li onclick="selectOption(this, false)">C) Solo para procesos del nivel 1</li>
+                        <li onclick="selectOption(this, false)">D) Solo para procesos complejos</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>8. ¿Qué elemento NO debe aparecer en un diagrama de contexto?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Entidades externas</li>
+                        <li onclick="selectOption(this, false)">B) Flujos de datos</li>
+                        <li onclick="selectOption(this, true)">C) Almacenes de datos internos</li>
+                        <li onclick="selectOption(this, false)">D) El sistema central</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>9. En análisis gramatical, ¿qué elementos del texto se consideran candidatos a procesos?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Sustantivos</li>
+                        <li onclick="selectOption(this, true)">B) Verbos</li>
+                        <li onclick="selectOption(this, false)">C) Adjetivos</li>
+                        <li onclick="selectOption(this, false)">D) Adverbios</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>10. ¿Cuál es el criterio principal para determinar si un proceso es primitivo?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Tiene menos de 5 líneas de código</li>
+                        <li onclick="selectOption(this, true)">B) Realiza una sola función cohesiva</li>
+                        <li onclick="selectOption(this, false)">C) Tiene una sola entrada y una sola salida</li>
+                        <li onclick="selectOption(this, false)">D) No interactúa con almacenes de datos</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>11. En la notación del diccionario de datos, "Nombre = Primer_nombre + (Segundo_nombre) + Apellido" indica que:</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Segundo_nombre es obligatorio</li>
+                        <li onclick="selectOption(this, true)">B) Segundo_nombre es opcional</li>
+                        <li onclick="selectOption(this, false)">C) Se debe elegir entre Segundo_nombre o Apellido</li>
+                        <li onclick="selectOption(this, false)">D) Segundo_nombre se repite múltiples veces</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>12. ¿Qué herramienta es más apropiada para especificar la lógica de un proceso con múltiples condiciones?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Lenguaje estructurado únicamente</li>
+                        <li onclick="selectOption(this, true)">B) Tabla de decisión</li>
+                        <li onclick="selectOption(this, false)">C) Diagrama de flujo de datos</li>
+                        <li onclick="selectOption(this, false)">D) Diccionario de datos</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>13. ¿Cuál es la principal diferencia entre agregación y composición en el análisis estructurado?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) No hay diferencia significativa</li>
+                        <li onclick="selectOption(this, true)">B) La composición implica dependencia existencial más fuerte</li>
+                        <li onclick="selectOption(this, false)">C) La agregación es solo para datos temporales</li>
+                        <li onclick="selectOption(this, false)">D) La composición solo se usa en DFD nivel 1</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>14. ¿Qué significa "continuidad del flujo de información" en DFD?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Los datos fluyen en una sola dirección</li>
+                        <li onclick="selectOption(this, true)">B) Los flujos de datos son consistentes entre niveles de descomposición</li>
+                        <li onclick="selectOption(this, false)">C) Todos los procesos están conectados</li>
+                        <li onclick="selectOption(this, false)">D) Los datos no se pierden en el sistema</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>15. ¿Cuál es el propósito principal de la trazabilidad en análisis estructurado?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Facilitar la programación</li>
+                        <li onclick="selectOption(this, true)">B) Asegurar consistencia entre artefactos</li>
+                        <li onclick="selectOption(this, false)">C) Reducir el tiempo de desarrollo</li>
+                        <li onclick="selectOption(this, false)">D) Simplificar la documentación</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>16. En un DFD, ¿qué representa un almacén de datos?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Un proceso que transforma datos</li>
+                        <li onclick="selectOption(this, true)">B) Un lugar donde se guardan datos en reposo</li>
+                        <li onclick="selectOption(this, false)">C) Una entidad externa al sistema</li>
+                        <li onclick="selectOption(this, false)">D) Un flujo de información</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>17. ¿Cuál de las siguientes NO es una característica de un buen diccionario de datos?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Definiciones precisas y no ambiguas</li>
+                        <li onclick="selectOption(this, false)">B) Consistencia con los DFD</li>
+                        <li onclick="selectOption(this, true)">C) Incluir detalles de implementación de base de datos</li>
+                        <li onclick="selectOption(this, false)">D) Especificar restricciones de datos</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>18. ¿Qué indica la notación "[Opción1 | Opción2 | Opción3]" en el diccionario de datos?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Todas las opciones son obligatorias</li>
+                        <li onclick="selectOption(this, true)">B) Se debe seleccionar exactamente una opción</li>
+                        <li onclick="selectOption(this, false)">C) Las opciones son comentarios</li>
+                        <li onclick="selectOption(this, false)">D) Las opciones se repiten en secuencia</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>19. ¿Cuál es la ventaja principal de usar árboles de decisión en especificaciones de procesos?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Ocupan menos espacio</li>
+                        <li onclick="selectOption(this, true)">B) Visualizan claramente la lógica de decisión</li>
+                        <li onclick="selectOption(this, false)">C) Son más fáciles de programar</li>
+                        <li onclick="selectOption(this, false)">D) Eliminan la necesidad de validación</li>
+                    </ul>
+                </div>
+
+                <div class="question" role="group">
+                    <h4>20. ¿Qué debe verificarse al validar el balanceo entre un proceso padre y sus subprocesos?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Que tengan el mismo número de salidas</li>
+                        <li onclick="selectOption(this, false)">B) Que usen los mismos almacenes de datos</li>
+                        <li onclick="selectOption(this, true)">C) Que las entradas y salidas sean las mismas</li>
+                        <li onclick="selectOption(this, false)">D) Que tengan la misma numeración</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button class="submit-btn" onclick="submitQuiz()">Evaluar Respuestas</button>
+            <div id="score" class="score"></div>
+        </section>
+
+        <section class="section">
+            <h2>Conclusiones y Próximos Pasos</h2>
+            
+            <p>En esta clase hemos estudiado las cuatro herramientas fundamentales del análisis estructurado. Estas herramientas trabajan de manera integrada para proporcionar una visión completa y consistente de los requerimientos del sistema:</p>
+
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li role="listitem"><strong>Diagrama de Contexto:</strong> Establece los límites y el alcance del sistema</li>
+                <li role="listitem"><strong>DFD Multinivel:</strong> Descompone funcionalmente el sistema mostrando flujos de datos</li>
+                <li role="listitem"><strong>Diccionario de Datos:</strong> Define precisamente todos los elementos de información</li>
+                <li role="listitem"><strong>Especificaciones de Procesos:</strong> Detallan la lógica de transformación de datos</li>
+            </ul>
+
+            <div class="concept-box">
+                <p><strong>Recordatorio Clave:</strong> La calidad del análisis estructurado depende de la consistencia y trazabilidad entre todas estas herramientas. Cada elemento debe poder ser seguido desde su aparición en un DFD hasta su definición en el diccionario y su implementación en las especificaciones.</p>
+            </div>
+
+            <p>En la próxima clase estudiaremos la <strong>Trazabilidad y Gestión de Cambios</strong>, donde profundizaremos en las técnicas para mantener la consistencia del modelo de análisis cuando los requerimientos evolucionan.</p>
+
+            <div class="important-note">
+                <strong>Preparación para la Próxima Clase:</strong> Revisar los conceptos de matrices de trazabilidad y procedimientos de control de cambios. Practicar la validación cruzada entre DFD y diccionario de datos usando el caso de estudio CasaSegura.
+            </div>
+        </section>
+    </div>
+
+    <script>
+        let userAnswers = [];
+        let correctAnswers = [false, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true];
+
+        function selectOption(element, isCorrect) {
+            // Remove previous selection in this question
+            const question = element.closest('.question');
+            const options = question.querySelectorAll('li');
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to clicked option
+            element.classList.add('selected');
+            
+            // Store answer
+            const questionIndex = Array.from(document.querySelectorAll('.question')).indexOf(question);
+            userAnswers[questionIndex] = isCorrect;
+        }
+
+        function submitQuiz() {
+            let correctCount = 0;
+            const questions = document.querySelectorAll('.question');
+            
+            questions.forEach((question, index) => {
+                const options = question.querySelectorAll('li');
+                const userAnswer = userAnswers[index];
+                const correctAnswer = correctAnswers[index];
+                
+                options.forEach((option, optionIndex) => {
+                    if (option.classList.contains('selected')) {
+                        if (userAnswer === correctAnswer) {
+                            option.classList.add('correct');
+                            correctCount++;
+                        } else {
+                            option.classList.add('incorrect');
+                        }
+                    } else if ((optionIndex === 1 && correctAnswers[index]) || 
+                             (optionIndex === 0 && !correctAnswers[index])) {
+                        // Show correct answer
+                        option.style.border = '2px solid #00b894';
+                    }
+                });
+            });
+
+            const percentage = (correctCount / 20) * 100;
+            const scoreElement = document.getElementById('score');
+            scoreElement.style.display = 'block';
+            scoreElement.innerHTML = `
+                <h3>Resultado de la Evaluación</h3>
+                <p>Respuestas Correctas: ${correctCount} de 20</p>
+                <p>Porcentaje: ${percentage.toFixed(1)}%</p>
+                <p>Calificación: ${getGrade(percentage)}</p>
+            `;
+
+            // Disable further interactions
+            document.querySelector('.submit-btn').disabled = true;
+            document.querySelector('.submit-btn').style.opacity = '0.5';
+        }
+
+        function getGrade(percentage) {
+            if (percentage >= 90) return 'Excelente (A)';
+            if (percentage >= 80) return 'Muy Bueno (B)';
+            if (percentage >= 70) return 'Bueno (C)';
+            if (percentage >= 60) return 'Regular (D)';
+            return 'Insuficiente (F)';
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.navigation a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Interactive elements
+        document.querySelectorAll('.interactive-element').forEach(element => {
+            element.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.05)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', function() {
+            document.body.style.opacity = '0';
+            setTimeout(() => {
+                document.body.style.transition = 'opacity 0.5s ease-in-out';
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+    <script src="keyboard-navigation.js"></script>
+</body>
+</html>

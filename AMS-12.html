@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clase 12: Trazabilidad y Gestión de Cambios</title>
+    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
+    <meta name="author" content="Curso AMS HTML">
+    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: #34495e;
+            font-size: 2em;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: #ecf0f1;
+            border-left: 5px solid #3498db;
+        }
+        
+        h3 {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+        
+        .info-box {
+            background: #e8f4f8;
+            border: 2px solid #3498db;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .synoptic-table {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .synoptic-table h4 {
+            color: #495057;
+            margin-bottom: 15px;
+            text-align: center;
+            font-size: 1.3em;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .diagram-container {
+            background: #fafafa;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .use-case-diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        ul, ol {
+            margin-left: 30px;
+            margin-bottom: 20px;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        .example-box {
+            background: #fffbeb;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .traceability-matrix {
+            overflow-x: auto;
+        }
+        
+        .traceability-matrix table {
+            min-width: 800px;
+        }
+        
+        .matrix-cell {
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .matrix-cell.linked {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .matrix-cell.not-linked {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .quiz-section {
+            background: #f0f8ff;
+            border: 2px solid #1e90ff;
+            border-radius: 8px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+        
+        .question {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .question h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .options {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .options li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .options li:hover {
+            background: #e9ecef;
+        }
+        
+        .highlight {
+            background-color: #ffffcc;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .code-title {
+            color: #495057;
+            font-weight: bold;
+            margin-bottom: 5px;
+            margin-top: 15px;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 0 0 20px 0;
+            line-height: 1.6;
+            font-size: 14px;
+            white-space: pre;
+            border: 1px solid #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .code-block .comment {
+            color: #6A9955;
+            font-style: italic;
+        }
+        
+        .code-block .keyword {
+            color: #569CD6;
+            font-weight: bold;
+        }
+        
+        .code-block .function {
+            color: #DCDCAA;
+        }
+        
+        .code-block .string {
+            color: #CE9178;
+        }
+        
+        .code-block .variable {
+            color: #9CDCFE;
+        }
+        
+        .code-block .operator {
+            color: #D4D4D4;
+        }
+        
+        .button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        
+        .button:hover {
+            background: #2980b9;
+        }
+        
+        .interactive-demo {
+            background: #f8f9fa;
+            border: 2px dashed #6c757d;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+    </style>
+    <link rel="stylesheet" href="accessibility.css">
+</head>
+<body role="document">
+    <div class="container" role="main">
+        <h1 id="main-title">Clase 12: Trazabilidad y Gestión de Cambios</h1>
+        
+        <div class="info-box">
+            <h3>Objetivos de la Clase</h3>
+            <ul role="list">
+                <li role="listitem">Implementar trazabilidad completa entre artefactos del análisis</li>
+                <li role="listitem">Gestionar el impacto de cambios en cascada</li>
+                <li role="listitem">Mantener consistencia en modelos y documentación</li>
+                <li role="listitem">Aplicar métricas de calidad en gestión de cambios</li>
+            </ul>
+        </div>
+
+        <h2>1. Conceptos Fundamentales de Trazabilidad</h2>
+        
+        <p>La trazabilidad en el análisis de sistemas es la capacidad de describir y seguir la vida de un requisito en ambas direcciones: hacia su origen y hacia su implementación, a través de todas las especificaciones generadas durante el proceso de desarrollo. Es un elemento crítico para mantener la integridad del sistema y gestionar eficazmente los cambios que inevitablemente ocurren durante el ciclo de vida del software.</p>
+
+        <h3>1.1 Definición e Importancia</h3>
+        
+        <p>La trazabilidad es el <span class="highlight">hilo conductor</span> que conecta todos los artefactos del desarrollo de software, desde las necesidades del negocio hasta el código implementado. Sin trazabilidad adecuada, los equipos de desarrollo operan en silos, perdiendo la visión integral del sistema y aumentando significativamente el riesgo de inconsistencias.</p>
+
+        <div class="synoptic-table">
+            <h4>Cuadro Sinóptico: Dimensiones de la Trazabilidad</h4>
+            <table role="table">
+                <tr role="row">
+                    <th role="columnheader">Dimensión</th>
+                    <th role="columnheader">Descripción</th>
+                    <th role="columnheader">Beneficios</th>
+                    <th role="columnheader">Herramientas</th>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Horizontal</strong></td>
+                    <td role="cell">Entre artefactos del mismo nivel de abstracción</td>
+                    <td role="cell">Consistencia en el mismo nivel</td>
+                    <td role="cell">Matrices de dependencia</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Vertical</strong></td>
+                    <td role="cell">Entre diferentes niveles de abstracción</td>
+                    <td role="cell">Completitud de implementación</td>
+                    <td role="cell">Herramientas CASE</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Pre-especificación</strong></td>
+                    <td role="cell">Hacia las fuentes originales</td>
+                    <td role="cell">Justificación de decisiones</td>
+                    <td role="cell">Gestores de requisitos</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Post-especificación</strong></td>
+                    <td role="cell">Hacia la implementación</td>
+                    <td role="cell">Verificación de completitud</td>
+                    <td role="cell">IDEs integrados</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>1.2 Tipos de Trazabilidad</h3>
+        
+        <p>La trazabilidad se manifiesta en diferentes formas según la dirección y el propósito del seguimiento:</p>
+
+        <ol role="list">
+            <li role="listitem"><strong>Forward Traceability (Trazabilidad hacia adelante):</strong> Permite seguir un requisito desde su origen hasta su implementación final. Es fundamental para asegurar que todos los requisitos han sido considerados en el diseño e implementación.</li>
+            
+            <li role="listitem"><strong>Backward Traceability (Trazabilidad hacia atrás):</strong> Permite rastrear desde cualquier artefacto hasta su origen o justificación. Es crítica para entender por qué existe cada elemento del sistema.</li>
+            
+            <li role="listitem"><strong>Bidirectional Traceability (Trazabilidad bidireccional):</strong> Combina ambas direcciones, proporcionando una visión completa de las relaciones entre artefactos.</li>
+        </ol>
+
+        <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+            <h4>Diagrama de Trazabilidad Bidireccional</h4>
+            <svg width="800" height="400" viewBox="0 0 800 400">
+                <!-- Background -->
+                <rect width="800" height="400" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+                
+                <!-- Title -->
+                <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#2c3e50">
+                    Flujo de Trazabilidad en el Desarrollo
+                </text>
+                
+                <!-- Artifacts -->
+                <g id="artifacts">
+                    <!-- Business Needs -->
+                    <rect x="50" y="80" width="150" height="60" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+                    <text x="125" y="115" text-anchor="middle" font-size="14" fill="#1976d2">Necesidades</text>
+                    <text x="125" y="130" text-anchor="middle" font-size="14" fill="#1976d2">del Negocio</text>
+                    
+                    <!-- Requirements -->
+                    <rect x="250" y="80" width="150" height="60" fill="#e8f5e9" stroke="#388e3c" stroke-width="2" rx="5"/>
+                    <text x="325" y="115" text-anchor="middle" font-size="14" fill="#388e3c">Requisitos</text>
+                    <text x="325" y="130" text-anchor="middle" font-size="14" fill="#388e3c">del Sistema</text>
+                    
+                    <!-- Design -->
+                    <rect x="450" y="80" width="150" height="60" fill="#fff3e0" stroke="#f57c00" stroke-width="2" rx="5"/>
+                    <text x="525" y="115" text-anchor="middle" font-size="14" fill="#f57c00">Diseño</text>
+                    <text x="525" y="130" text-anchor="middle" font-size="14" fill="#f57c00">del Sistema</text>
+                    
+                    <!-- Code -->
+                    <rect x="650" y="80" width="100" height="60" fill="#fce4ec" stroke="#c2185b" stroke-width="2" rx="5"/>
+                    <text x="700" y="115" text-anchor="middle" font-size="14" fill="#c2185b">Código</text>
+                    <text x="700" y="130" text-anchor="middle" font-size="14" fill="#c2185b">Fuente</text>
+                </g>
+                
+                <!-- Forward Traceability -->
+                <g id="forward-trace">
+                    <path d="M 200 110 L 250 110" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowgreen)"/>
+                    <path d="M 400 110 L 450 110" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowgreen)"/>
+                    <path d="M 600 110 L 650 110" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowgreen)"/>
+                    
+                    <text x="225" y="100" text-anchor="middle" font-size="12" fill="#4CAF50">forward</text>
+                    <text x="425" y="100" text-anchor="middle" font-size="12" fill="#4CAF50">forward</text>
+                    <text x="625" y="100" text-anchor="middle" font-size="12" fill="#4CAF50">forward</text>
+                </g>
+                
+                <!-- Backward Traceability -->
+                <g id="backward-trace">
+                    <path d="M 650 130 L 600 130" stroke="#FF5722" stroke-width="3" marker-end="url(#arroworange)"/>
+                    <path d="M 450 130 L 400 130" stroke="#FF5722" stroke-width="3" marker-end="url(#arroworange)"/>
+                    <path d="M 250 130 L 200 130" stroke="#FF5722" stroke-width="3" marker-end="url(#arroworange)"/>
+                    
+                    <text x="625" y="145" text-anchor="middle" font-size="12" fill="#FF5722">backward</text>
+                    <text x="425" y="145" text-anchor="middle" font-size="12" fill="#FF5722">backward</text>
+                    <text x="225" y="145" text-anchor="middle" font-size="12" fill="#FF5722">backward</text>
+                </g>
+                
+                <!-- Examples -->
+                <g id="examples">
+                    <rect x="50" y="200" width="700" height="150" fill="#f5f5f5" stroke="#9e9e9e" stroke-width="1" stroke-dasharray="5,5" rx="5"/>
+                    <text x="400" y="225" text-anchor="middle" font-size="16" font-weight="bold" fill="#616161">Ejemplos de Trazabilidad</text>
+                    
+                    <text x="70" y="250" font-size="14" fill="#424242">• Forward: "El requisito R1.2 se implementa en las clases Usuario y Autenticacion"</text>
+                    <text x="70" y="275" font-size="14" fill="#424242">• Backward: "La clase Factura existe porque implementa los requisitos R3.1, R3.2 y R3.4"</text>
+                    <text x="70" y="300" font-size="14" fill="#424242">• Impacto: "Si cambia R1.2, se deben revisar: Diseño D1, Clases C1-C3, Tests T1-T5"</text>
+                    <text x="70" y="325" font-size="14" fill="#424242">• Cobertura: "El 85% de los requisitos tienen trazabilidad completa hasta el código"</text>
+                </g>
+                
+                <!-- Arrow markers -->
+                <defs>
+                    <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#4CAF50"/>
+                    </marker>
+                    <marker id="arroworange" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#FF5722"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <h3>1.3 Matrices de Trazabilidad</h3>
+        
+        <p>Las matrices de trazabilidad son herramientas fundamentales para documentar y gestionar las relaciones entre diferentes artefactos del proyecto. Proporcionan una vista tabular que facilita la identificación de dependencias y el análisis de impacto.</p>
+
+        <div class="traceability-matrix">
+            <h4>Ejemplo de Matriz de Trazabilidad Requisitos-Diseño</h4>
+            <table role="table">
+                <tr role="row">
+                    <th role="columnheader">Requisitos \ Componentes</th>
+                    <th role="columnheader">C1: Login</th>
+                    <th role="columnheader">C2: Usuario</th>
+                    <th role="columnheader">C3: Reporte</th>
+                    <th role="columnheader">C4: Seguridad</th>
+                    <th role="columnheader">C5: Base Datos</th>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>R1: Autenticación</strong></td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell not-linked">-</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell linked">X</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>R2: Gestión Usuarios</strong></td>
+                    <td class="matrix-cell not-linked">-</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell not-linked">-</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell linked">X</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>R3: Generación Reportes</strong></td>
+                    <td class="matrix-cell not-linked">-</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell not-linked">-</td>
+                    <td class="matrix-cell linked">X</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>R4: Auditoría</strong></td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell linked">X</td>
+                    <td class="matrix-cell linked">X</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>2. Gestión de Cambios en el Análisis</h2>
+        
+        <p>La gestión de cambios es un proceso sistemático para manejar todas las modificaciones realizadas en el sistema y su documentación. En el contexto del análisis de sistemas, es crucial porque los cambios en requisitos o diseño pueden tener efectos en cascada a través de todo el proyecto.</p>
+
+        <h3>2.1 Procedimientos de Control de Cambios</h3>
+        
+        <p>Un proceso robusto de control de cambios incluye los siguientes elementos:</p>
+
+        <div class="example-box">
+            <h4>Proceso Estándar de Gestión de Cambios</h4>
+            <ol role="list">
+                <li role="listitem"><strong>Solicitud de Cambio (RFC):</strong> Documentación formal del cambio propuesto, incluyendo justificación, descripción detallada y prioridad.</li>
+                
+                <li role="listitem"><strong>Evaluación de Impacto:</strong> Análisis sistemático de todos los artefactos afectados, estimación de esfuerzo y evaluación de riesgos.</li>
+                
+                <li role="listitem"><strong>Aprobación del Comité:</strong> Revisión por el Change Control Board (CCB) considerando impacto, costo y beneficio.</li>
+                
+                <li role="listitem"><strong>Implementación Controlada:</strong> Ejecución del cambio siguiendo el plan aprobado, con puntos de control definidos.</li>
+                
+                <li role="listitem"><strong>Verificación y Validación:</strong> Confirmación de que el cambio se implementó correctamente y no introdujo efectos secundarios.</li>
+                
+                <li role="listitem"><strong>Actualización de Documentación:</strong> Modificación de todos los artefactos afectados manteniendo la trazabilidad.</li>
+                
+                <li role="listitem"><strong>Comunicación a Stakeholders:</strong> Notificación a todas las partes afectadas sobre el cambio implementado.</li>
+            </ol>
+        </div>
+
+        <h3>2.2 Análisis de Impacto en Cascada</h3>
+        
+        <p>El análisis de impacto es el proceso de identificar todas las consecuencias potenciales de un cambio propuesto. Este análisis debe ser exhaustivo y sistemático para evitar efectos secundarios no anticipados.</p>
+
+        <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+            <h4>Caso de Uso: Sistema de Gestión de Cambios</h4>
+            <svg width="900" height="600" viewBox="0 0 900 600">
+                <!-- Background -->
+                <rect width="900" height="600" fill="#ffffff" stroke="#000000" stroke-width="2"/>
+                <text x="450" y="30" text-anchor="middle" font-size="18" font-weight="bold">Sistema de Gestión de Cambios</text>
+                
+                <!-- System boundary -->
+                <rect x="200" y="50" width="600" height="520" fill="none" stroke="#000000" stroke-width="2" rx="10"/>
+                
+                <!-- Actors -->
+                <!-- Analista -->
+                <ellipse cx="100" cy="150" rx="30" ry="30" fill="none" stroke="#000000" stroke-width="2"/>
+                <circle cx="100" cy="120" r="15" fill="none" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="135" x2="100" y2="180" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="150" x2="85" y2="165" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="150" x2="115" y2="165" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="180" x2="85" y2="200" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="180" x2="115" y2="200" stroke="#000000" stroke-width="2"/>
+                <text x="100" y="220" text-anchor="middle" font-size="14">Analista</text>
+                
+                <!-- Desarrollador -->
+                <ellipse cx="100" cy="350" rx="30" ry="30" fill="none" stroke="#000000" stroke-width="2"/>
+                <circle cx="100" cy="320" r="15" fill="none" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="335" x2="100" y2="380" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="350" x2="85" y2="365" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="350" x2="115" y2="365" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="380" x2="85" y2="400" stroke="#000000" stroke-width="2"/>
+                <line x1="100" y1="380" x2="115" y2="400" stroke="#000000" stroke-width="2"/>
+                <text x="100" y="420" text-anchor="middle" font-size="14">Desarrollador</text>
+                
+                <!-- CCB -->
+                <ellipse cx="850" cy="250" rx="30" ry="30" fill="none" stroke="#000000" stroke-width="2"/>
+                <circle cx="850" cy="220" r="15" fill="none" stroke="#000000" stroke-width="2"/>
+                <line x1="850" y1="235" x2="850" y2="280" stroke="#000000" stroke-width="2"/>
+                <line x1="850" y1="250" x2="835" y2="265" stroke="#000000" stroke-width="2"/>
+                <line x1="850" y1="250" x2="865" y2="265" stroke="#000000" stroke-width="2"/>
+                <line x1="850" y1="280" x2="835" y2="300" stroke="#000000" stroke-width="2"/>
+                <line x1="850" y1="280" x2="865" y2="300" stroke="#000000" stroke-width="2"/>
+                <text x="850" y="320" text-anchor="middle" font-size="14">CCB</text>
+                
+                <!-- Use Cases -->
+                <!-- Crear RFC -->
+                <ellipse cx="350" cy="120" rx="100" ry="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="350" y="125" text-anchor="middle" font-size="14">Crear RFC</text>
+                
+                <!-- Evaluar Impacto -->
+                <ellipse cx="350" cy="220" rx="100" ry="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="350" y="225" text-anchor="middle" font-size="14">Evaluar Impacto</text>
+                
+                <!-- Generar Matriz -->
+                <ellipse cx="600" cy="170" rx="100" ry="40" fill="#fff3e0" stroke="#f57c00" stroke-width="2"/>
+                <text x="600" y="175" text-anchor="middle" font-size="14">Generar Matriz</text>
+                <text x="600" y="190" text-anchor="middle" font-size="12">de Impacto</text>
+                
+                <!-- Aprobar Cambio -->
+                <ellipse cx="600" cy="280" rx="100" ry="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="600" y="285" text-anchor="middle" font-size="14">Aprobar Cambio</text>
+                
+                <!-- Implementar -->
+                <ellipse cx="350" cy="380" rx="100" ry="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="350" y="385" text-anchor="middle" font-size="14">Implementar</text>
+                <text x="350" y="400" text-anchor="middle" font-size="12">Cambio</text>
+                
+                <!-- Actualizar Docs -->
+                <ellipse cx="600" cy="450" rx="100" ry="40" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                <text x="600" y="455" text-anchor="middle" font-size="14">Actualizar</text>
+                <text x="600" y="470" text-anchor="middle" font-size="12">Documentación</text>
+                
+                <!-- Relationships -->
+                <!-- Actor connections -->
+                <line x1="130" y1="150" x2="250" y2="120" stroke="#000000" stroke-width="1"/>
+                <line x1="130" y1="170" x2="250" y2="220" stroke="#000000" stroke-width="1"/>
+                <line x1="130" y1="350" x2="250" y2="380" stroke="#000000" stroke-width="1"/>
+                <line x1="700" y1="280" x2="820" y2="250" stroke="#000000" stroke-width="1"/>
+                
+                <!-- Include relationships -->
+                <line x1="450" y1="210" x2="500" y2="180" stroke="#000000" stroke-width="1" stroke-dasharray="5,5"/>
+                <text x="475" y="195" text-anchor="middle" font-size="12">«include»</text>
+                
+                <!-- Extend relationships -->
+                <line x1="600" y1="320" x2="600" y2="410" stroke="#000000" stroke-width="1" stroke-dasharray="5,5"/>
+                <text x="630" y="365" text-anchor="middle" font-size="12">«extend»</text>
+                
+                <!-- Dependencies -->
+                <line x1="350" y1="160" x2="350" y2="180" stroke="#000000" stroke-width="1" marker-end="url(#arrowhead)"/>
+                <line x1="350" y1="260" x2="500" y2="270" stroke="#000000" stroke-width="1" marker-end="url(#arrowhead)"/>
+                <line x1="450" y1="380" x2="500" y2="440" stroke="#000000" stroke-width="1" marker-end="url(#arrowhead)"/>
+                
+                <!-- Arrow marker -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#000000"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <h3>2.3 Herramientas de Análisis de Impacto</h3>
+
+        <p>El análisis de impacto requiere herramientas especializadas que permitan visualizar y cuantificar las dependencias entre artefactos. Las herramientas modernas incluyen:</p>
+
+        <ul role="list">
+            <li role="listitem"><strong>Analizadores de dependencias estáticas:</strong> Examinan el código y la documentación para identificar relaciones.</li>
+            <li role="listitem"><strong>Grafos de dependencias:</strong> Visualizan las conexiones entre componentes del sistema.</li>
+            <li role="listitem"><strong>Simuladores de propagación:</strong> Modelan cómo un cambio se propaga a través del sistema.</li>
+            <li role="listitem"><strong>Herramientas de minería de repositorios:</strong> Analizan el historial de cambios para predecir impactos futuros.</li>
+        </ul>
+
+        <div class="interactive-demo">
+            <h4>Simulador de Análisis de Impacto</h4>
+            <p>Seleccione un componente para ver su impacto en el sistema:</p>
+            <div id="impact-simulator">
+                <button class="button" onclick="showImpact('auth')">Módulo Autenticación</button>
+                <button class="button" onclick="showImpact('db')">Base de Datos</button>
+                <button class="button" onclick="showImpact('ui')">Interfaz Usuario</button>
+            </div>
+            <div id="impact-result" style="margin-top: 20px; text-align: left;"></div>
+        </div>
+
+        <h2>3. Consistencia de Modelos</h2>
+        
+        <p>Mantener la consistencia entre diferentes modelos y artefactos es uno de los desafíos más significativos en el análisis de sistemas. La inconsistencia puede llevar a interpretaciones erróneas, implementaciones incorrectas y, en última instancia, al fracaso del proyecto.</p>
+
+        <h3>3.1 Reglas de Consistencia</h3>
+        
+        <p>Las reglas de consistencia definen las condiciones que deben cumplirse para que los modelos sean coherentes entre sí. Estas reglas pueden ser:</p>
+
+        <div class="synoptic-table">
+            <h4>Tipos de Reglas de Consistencia</h4>
+            <table role="table">
+                <tr role="row">
+                    <th role="columnheader">Tipo de Regla</th>
+                    <th role="columnheader">Descripción</th>
+                    <th role="columnheader">Ejemplo</th>
+                    <th role="columnheader">Verificación</th>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Sintácticas</strong></td>
+                    <td role="cell">Correcta formación de los modelos</td>
+                    <td role="cell">Todos los flujos en DFD deben tener origen y destino</td>
+                    <td role="cell">Automática</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Semánticas</strong></td>
+                    <td role="cell">Significado coherente entre modelos</td>
+                    <td role="cell">Un proceso en DFD debe corresponder a un caso de uso</td>
+                    <td role="cell">Semi-automática</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>De Integridad</strong></td>
+                    <td role="cell">Completitud y no redundancia</td>
+                    <td role="cell">Cada requisito debe estar implementado una sola vez</td>
+                    <td role="cell">Manual + Herramientas</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>De Evolución</strong></td>
+                    <td role="cell">Consistencia temporal</td>
+                    <td role="cell">Las versiones sucesivas deben ser compatibles</td>
+                    <td role="cell">Control de versiones</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>3.2 Validación Automática</h3>
+        
+        <p>La validación automática de consistencia utiliza algoritmos y herramientas para detectar violaciones de las reglas establecidas. Los enfoques incluyen:</p>
+
+        <ol role="list">
+            <li role="listitem"><strong>Model Checking:</strong> Verificación formal de propiedades del modelo</li>
+            <li role="listitem"><strong>Análisis de Patrones:</strong> Detección de antipatrones conocidos</li>
+            <li role="listitem"><strong>Comparación Estructural:</strong> Análisis de isomorfismo entre modelos</li>
+            <li role="listitem"><strong>Inferencia de Restricciones:</strong> Derivación automática de reglas desde ejemplos</li>
+        </ol>
+
+        <h4 class="code-title">Implementación en JavaScript:</h4>
+        <div class="code-block">
+<span class="comment">// Ejemplo de validación automática de consistencia</span>
+<span class="keyword">function</span> <span class="function">validateModelConsistency</span>(<span class="variable">model1</span>, <span class="variable">model2</span>) {
+    <span class="keyword">const</span> <span class="variable">violations</span> = [];
+    
+    <span class="comment">// Verificar que todos los elementos tienen correspondencia</span>
+    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="variable">element</span> <span class="keyword">of</span> <span class="variable">model1</span>.elements) {
+        <span class="keyword">if</span> (!<span class="variable">model2</span>.<span class="function">hasCorrespondingElement</span>(<span class="variable">element</span>)) {
+            <span class="variable">violations</span>.<span class="function">push</span>({
+                type: <span class="string">'MISSING_CORRESPONDENCE'</span>,
+                element: <span class="variable">element</span>.id,
+                message: <span class="string">`Elemento ${</span><span class="variable">element</span>.name<span class="string">} no tiene correspondencia en modelo 2`</span>
+            });
+        }
+    }
+    
+    <span class="comment">// Verificar restricciones semánticas</span>
+    <span class="keyword">for</span> (<span class="keyword">const</span> <span class="variable">constraint</span> <span class="keyword">of</span> <span class="variable">consistencyRules</span>) {
+        <span class="keyword">if</span> (!<span class="variable">constraint</span>.<span class="function">validate</span>(<span class="variable">model1</span>, <span class="variable">model2</span>)) {
+            <span class="variable">violations</span>.<span class="function">push</span>({
+                type: <span class="string">'SEMANTIC_VIOLATION'</span>,
+                rule: <span class="variable">constraint</span>.name,
+                message: <span class="variable">constraint</span>.<span class="function">getViolationMessage</span>()
+            });
+        }
+    }
+    
+    <span class="keyword">return</span> <span class="variable">violations</span>;
+}</div>
+
+        <h3>3.3 Resolución de Conflictos</h3>
+        
+        <p>Cuando se detectan inconsistencias, es necesario un proceso sistemático para resolverlas:</p>
+
+        <div class="example-box">
+            <h4>Protocolo de Resolución de Conflictos</h4>
+            <ol role="list">
+                <li role="listitem"><strong>Identificación:</strong> Detección precisa del conflicto y los artefactos involucrados</li>
+                <li role="listitem"><strong>Clasificación:</strong> Determinar si es sintáctico, semántico o de integridad</li>
+                <li role="listitem"><strong>Análisis de Causa Raíz:</strong> Investigar el origen del conflicto</li>
+                <li role="listitem"><strong>Evaluación de Alternativas:</strong> Identificar posibles soluciones</li>
+                <li role="listitem"><strong>Decisión:</strong> Seleccionar la solución óptima considerando impacto</li>
+                <li role="listitem"><strong>Implementación:</strong> Aplicar la solución manteniendo trazabilidad</li>
+                <li role="listitem"><strong>Verificación:</strong> Confirmar que el conflicto fue resuelto</li>
+            </ol>
+        </div>
+
+        <h2>4. Métricas de Calidad en Trazabilidad</h2>
+        
+        <p>Las métricas son esenciales para evaluar objetivamente la calidad de la trazabilidad y la gestión de cambios en un proyecto. Proporcionan indicadores cuantitativos que permiten tomar decisiones informadas y mejorar continuamente los procesos.</p>
+
+        <h3>4.1 Métricas de Cobertura</h3>
+        
+        <p>La cobertura de trazabilidad mide qué porcentaje de artefactos tienen enlaces de trazabilidad establecidos:</p>
+
+        <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
+            <h4>Dashboard de Métricas de Trazabilidad</h4>
+            <svg width="800" height="500" viewBox="0 0 800 500">
+                <!-- Background -->
+                <rect width="800" height="500" fill="#f8f9fa" stroke="#dee2e6" stroke-width="2"/>
+                
+                <!-- Title -->
+                <text x="400" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#2c3e50">
+                    Métricas de Calidad - Proyecto XYZ
+                </text>
+                
+                <!-- Coverage Metrics -->
+                <g id="coverage-metrics">
+                    <rect x="50" y="60" width="340" height="200" fill="#ffffff" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                    <text x="220" y="85" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">
+                        Cobertura de Trazabilidad
+                    </text>
+                    
+                    <!-- Pie Chart -->
+                    <g transform="translate(220, 160)">
+                        <!-- Traced (85%) -->
+                        <path d="M 0,0 L 0,-60 A 60,60 0 1,1 -51,31 z" fill="#4CAF50" stroke="#ffffff" stroke-width="2"/>
+                        <!-- Not Traced (15%) -->
+                        <path d="M 0,0 L -51,31 A 60,60 0 0,1 0,-60 z" fill="#f44336" stroke="#ffffff" stroke-width="2"/>
+                        
+                        <text x="0" y="5" text-anchor="middle" font-size="20" font-weight="bold" fill="#2c3e50">85%</text>
+                    </g>
+                    
+                    <!-- Legend -->
+                    <rect x="70" y="230" width="15" height="15" fill="#4CAF50"/>
+                    <text x="90" y="242" font-size="14" fill="#495057">Con trazabilidad (85%)</text>
+                    
+                    <rect x="220" y="230" width="15" height="15" fill="#f44336"/>
+                    <text x="240" y="242" font-size="14" fill="#495057">Sin trazabilidad (15%)</text>
+                </g>
+                
+                <!-- Stability Metrics -->
+                <g id="stability-metrics">
+                    <rect x="410" y="60" width="340" height="200" fill="#ffffff" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                    <text x="580" y="85" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">
+                        Estabilidad de Requisitos
+                    </text>
+                    
+                    <!-- Bar Chart -->
+                    <g transform="translate(450, 220)">
+                        <!-- Axis -->
+                        <line x1="0" y1="0" x2="280" y2="0" stroke="#333" stroke-width="2"/>
+                        <line x1="0" y1="0" x2="0" y2="-120" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Bars -->
+                        <rect x="20" y="-80" width="40" height="80" fill="#2196F3"/>
+                        <text x="40" y="-85" text-anchor="middle" font-size="12" fill="#333">12</text>
+                        <text x="40" y="15" text-anchor="middle" font-size="12" fill="#333">Ene</text>
+                        
+                        <rect x="80" y="-60" width="40" height="60" fill="#2196F3"/>
+                        <text x="100" y="-65" text-anchor="middle" font-size="12" fill="#333">9</text>
+                        <text x="100" y="15" text-anchor="middle" font-size="12" fill="#333">Feb</text>
+                        
+                        <rect x="140" y="-40" width="40" height="40" fill="#2196F3"/>
+                        <text x="160" y="-45" text-anchor="middle" font-size="12" fill="#333">6</text>
+                        <text x="160" y="15" text-anchor="middle" font-size="12" fill="#333">Mar</text>
+                        
+                        <rect x="200" y="-20" width="40" height="20" fill="#4CAF50"/>
+                        <text x="220" y="-25" text-anchor="middle" font-size="12" fill="#333">3</text>
+                        <text x="220" y="15" text-anchor="middle" font-size="12" fill="#333">Abr</text>
+                    </g>
+                    
+                    <text x="580" y="250" text-anchor="middle" font-size="12" fill="#666">Cambios por mes</text>
+                </g>
+                
+                <!-- Impact Analysis -->
+                <g id="impact-analysis">
+                    <rect x="50" y="280" width="700" height="200" fill="#ffffff" stroke="#dee2e6" stroke-width="1" rx="5"/>
+                    <text x="400" y="305" text-anchor="middle" font-size="16" font-weight="bold" fill="#495057">
+                        Análisis de Impacto Promedio
+                    </text>
+                    
+                    <!-- Impact visualization -->
+                    <g transform="translate(400, 380)">
+                        <!-- Central change -->
+                        <circle cx="0" cy="0" r="30" fill="#FF5722" stroke="#ffffff" stroke-width="2"/>
+                        <text x="0" y="5" text-anchor="middle" font-size="14" fill="#ffffff">Cambio</text>
+                        
+                        <!-- Primary impacts -->
+                        <circle cx="-100" cy="-50" r="25" fill="#FF9800" stroke="#ffffff" stroke-width="2"/>
+                        <text x="-100" y="-45" text-anchor="middle" font-size="12" fill="#ffffff">3</text>
+                        
+                        <circle cx="100" cy="-50" r="25" fill="#FF9800" stroke="#ffffff" stroke-width="2"/>
+                        <text x="100" y="-45" text-anchor="middle" font-size="12" fill="#ffffff">3</text>
+                        
+                        <circle cx="0" cy="60" r="25" fill="#FF9800" stroke="#ffffff" stroke-width="2"/>
+                        <text x="0" y="65" text-anchor="middle" font-size="12" fill="#ffffff">3</text>
+                        
+                        <!-- Secondary impacts -->
+                        <circle cx="-150" cy="0" r="20" fill="#FFC107" stroke="#ffffff" stroke-width="2"/>
+                        <text x="-150" y="5" text-anchor="middle" font-size="11" fill="#333">5</text>
+                        
+                        <circle cx="150" cy="0" r="20" fill="#FFC107" stroke="#ffffff" stroke-width="2"/>
+                        <text x="150" y="5" text-anchor="middle" font-size="11" fill="#333">5</text>
+                        
+                        <!-- Connections -->
+                        <line x1="-25" y1="-15" x2="-75" y2="-35" stroke="#999" stroke-width="2"/>
+                        <line x1="25" y1="-15" x2="75" y2="-35" stroke="#999" stroke-width="2"/>
+                        <line x1="0" y1="30" x2="0" y2="35" stroke="#999" stroke-width="2"/>
+                        <line x1="-30" y1="0" x2="-130" y2="0" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+                        <line x1="30" y1="0" x2="130" y2="0" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+                    </g>
+                    
+                    <text x="400" y="460" text-anchor="middle" font-size="14" fill="#666">
+                        Impacto promedio: 1 cambio afecta 3 componentes directos y 5 indirectos
+                    </text>
+                </g>
+            </svg>
+        </div>
+
+        <h3>4.2 Métricas de Estabilidad</h3>
+        
+        <p>La estabilidad mide la frecuencia y magnitud de los cambios en los requisitos y otros artefactos:</p>
+
+        <ul role="list">
+            <li role="listitem"><strong>Volatilidad de Requisitos:</strong> Número de cambios por requisito por unidad de tiempo</li>
+            <li role="listitem"><strong>Índice de Cambio:</strong> Porcentaje de requisitos modificados desde la línea base</li>
+            <li role="listitem"><strong>Tiempo Medio entre Cambios:</strong> Período promedio entre modificaciones</li>
+            <li role="listitem"><strong>Tasa de Crecimiento:</strong> Velocidad de adición de nuevos requisitos</li>
+        </ul>
+
+        <div class="synoptic-table">
+            <h4>Fórmulas de Métricas de Calidad</h4>
+            <table role="table">
+                <tr role="row">
+                    <th role="columnheader">Métrica</th>
+                    <th role="columnheader">Fórmula</th>
+                    <th role="columnheader">Interpretación</th>
+                    <th role="columnheader">Valor Objetivo</th>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Cobertura Forward</strong></td>
+                    <td role="cell">CF = (Requisitos con traza / Total requisitos) × 100</td>
+                    <td role="cell">% de requisitos trazados hacia diseño</td>
+                    <td role="cell">&gt; 95%</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Cobertura Backward</strong></td>
+                    <td role="cell">CB = (Elementos con origen / Total elementos) × 100</td>
+                    <td role="cell">% de elementos con justificación</td>
+                    <td role="cell">&gt; 90%</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Densidad de Enlaces</strong></td>
+                    <td role="cell">DE = Enlaces totales / (Requisitos × Componentes)</td>
+                    <td role="cell">Complejidad de relaciones</td>
+                    <td role="cell">0.15 - 0.35</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Volatilidad</strong></td>
+                    <td role="cell">V = Cambios mensuales / Total artefactos</td>
+                    <td role="cell">Tasa de cambio del sistema</td>
+                    <td role="cell">&lt; 0.10</td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>4.3 Métricas de Impacto</h3>
+        
+        <p>Estas métricas evalúan la magnitud y alcance de los cambios en el sistema:</p>
+
+        <div class="example-box">
+            <h4>Cálculo del Índice de Impacto</h4>
+            <p>El índice de impacto se calcula mediante la siguiente fórmula:</p>
+            <p style="text-align: center; font-size: 1.2em; margin: 20px 0;">
+                <strong>II = (AD × 1.0 + AI × 0.5 + AP × 0.3) / TC</strong>
+            </p>
+            <p>Donde:</p>
+            <ul role="list">
+                <li role="listitem">AD = Artefactos Directamente afectados</li>
+                <li role="listitem">AI = Artefactos Indirectamente afectados</li>
+                <li role="listitem">AP = Artefactos Potencialmente afectados</li>
+                <li role="listitem">TC = Total de Cambios en el período</li>
+            </ul>
+        </div>
+
+        <h2>5. Herramientas y Tecnologías</h2>
+        
+        <p>La implementación efectiva de trazabilidad y gestión de cambios requiere herramientas especializadas que soporten estos procesos complejos:</p>
+
+        <h3>5.1 Herramientas de Gestión de Requisitos</h3>
+        
+        <ul role="list">
+            <li role="listitem"><strong>IBM DOORS:</strong> Solución enterprise para gestión completa de requisitos con trazabilidad bidireccional</li>
+            <li role="listitem"><strong>Jama Connect:</strong> Plataforma colaborativa con análisis de impacto en tiempo real</li>
+            <li role="listitem"><strong>Polarion:</strong> ALM unificado con trazabilidad end-to-end</li>
+            <li role="listitem"><strong>ReqView:</strong> Herramienta ligera con matrices de trazabilidad personalizables</li>
+        </ul>
+
+        <h3>5.2 Herramientas de Control de Versiones</h3>
+        
+        <h4 class="code-title">Flujo de trabajo con Git:</h4>
+        <div class="code-block">
+<span class="comment"># Ejemplo de gestión de cambios con Git</span>
+<span class="variable">git</span> checkout -b feature/RFC-2024-001
+<span class="comment"># Implementar cambios según RFC aprobado</span>
+
+<span class="comment"># Verificar impacto de cambios</span>
+<span class="variable">git</span> diff --name-only main..feature/RFC-2024-001
+
+<span class="comment"># Crear commit con referencia a RFC</span>
+<span class="variable">git</span> commit -m <span class="string">"RFC-2024-001: Actualización módulo autenticación
+
+- Modificados: auth.py, user_model.py
+- Impacto: Tests de autenticación requieren actualización
+- Trazabilidad: Requisitos R1.1, R1.2, R1.5"</span>
+
+<span class="comment"># Merge tras aprobación</span>
+<span class="variable">git</span> checkout main
+<span class="variable">git</span> merge --no-ff feature/RFC-2024-001</div>
+
+        <h3>5.3 Integración de Herramientas</h3>
+        
+        <p>La integración efectiva de herramientas es crucial para mantener la trazabilidad a través de todo el ciclo de vida:</p>
+
+        <div class="interactive-demo">
+            <h4>Arquitectura de Herramientas Integradas</h4>
+            <p>La siguiente arquitectura muestra cómo diferentes herramientas se integran para soportar trazabilidad completa:</p>
+            <ul role="list">
+                <li role="listitem"><strong>Capa de Requisitos:</strong> DOORS/Jama para gestión de requisitos</li>
+                <li role="listitem"><strong>Capa de Diseño:</strong> Enterprise Architect para modelos UML</li>
+                <li role="listitem"><strong>Capa de Desarrollo:</strong> Git + IDEs con plugins de trazabilidad</li>
+                <li role="listitem"><strong>Capa de Testing:</strong> Herramientas de test con enlaces a requisitos</li>
+                <li role="listitem"><strong>Capa de Integración:</strong> APIs y webhooks para sincronización</li>
+            </ul>
+        </div>
+
+        <h2>6. Mejores Prácticas y Recomendaciones</h2>
+        
+        <p>La implementación exitosa de trazabilidad y gestión de cambios requiere seguir mejores prácticas probadas en la industria:</p>
+
+        <h3>6.1 Establecimiento de Trazabilidad</h3>
+        
+        <div class="example-box">
+            <h4>Checklist de Mejores Prácticas</h4>
+            <ul role="list">
+                <li role="listitem">✓ Definir niveles de granularidad apropiados para los enlaces</li>
+                <li role="listitem">✓ Establecer convenciones de nomenclatura consistentes</li>
+                <li role="listitem">✓ Documentar el propósito de cada enlace de trazabilidad</li>
+                <li role="listitem">✓ Implementar revisiones periódicas de la matriz de trazabilidad</li>
+                <li role="listitem">✓ Automatizar la creación de enlaces cuando sea posible</li>
+                <li role="listitem">✓ Capacitar al equipo en la importancia de mantener trazabilidad</li>
+                <li role="listitem">✓ Establecer métricas y objetivos de calidad medibles</li>
+            </ul>
+        </div>
+
+        <h3>6.2 Gestión Efectiva de Cambios</h3>
+        
+        <ol role="list">
+            <li role="listitem"><strong>Categorización de Cambios:</strong> Clasificar por impacto (mayor/menor) y urgencia (crítico/normal)</li>
+            <li role="listitem"><strong>Análisis Costo-Beneficio:</strong> Evaluar cada cambio en términos de valor vs esfuerzo</li>
+            <li role="listitem"><strong>Comunicación Proactiva:</strong> Notificar a stakeholders antes, durante y después del cambio</li>
+            <li role="listitem"><strong>Documentación Completa:</strong> Mantener registro detallado de decisiones y rationale</li>
+            <li role="listitem"><strong>Lecciones Aprendidas:</strong> Retrospectivas post-cambio para mejora continua</li>
+        </ol>
+
+        <h3>6.3 Errores Comunes a Evitar</h3>
+        
+        <div class="synoptic-table">
+            <h4>Antipatrones en Trazabilidad y Gestión de Cambios</h4>
+            <table role="table">
+                <tr role="row">
+                    <th role="columnheader">Antipatrón</th>
+                    <th role="columnheader">Síntomas</th>
+                    <th role="columnheader">Consecuencias</th>
+                    <th role="columnheader">Solución</th>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Trazabilidad Superficial</strong></td>
+                    <td role="cell">Enlaces sin significado real</td>
+                    <td role="cell">Falsa sensación de control</td>
+                    <td role="cell">Definir propósito claro para cada enlace</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Sobretrazabilidad</strong></td>
+                    <td role="cell">Enlaces excesivos y redundantes</td>
+                    <td role="cell">Mantenimiento costoso</td>
+                    <td role="cell">Establecer criterios de granularidad</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Cambios Ad-hoc</strong></td>
+                    <td role="cell">Modificaciones sin proceso formal</td>
+                    <td role="cell">Pérdida de control</td>
+                    <td role="cell">Implementar proceso obligatorio</td>
+                </tr>
+                <tr role="row">
+                    <td role="cell"><strong>Análisis Superficial</strong></td>
+                    <td role="cell">Impactos no identificados</td>
+                    <td role="cell">Efectos secundarios graves</td>
+                    <td role="cell">Herramientas de análisis automático</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="quiz-section">
+            <h2>Evaluación de la Clase 12</h2>
+            <p>A continuación, 20 preguntas de opción múltiple para evaluar la comprensión de los conceptos:</p>
+
+            <div class="question" role="group">
+                <h4>1. ¿Cuál es la principal diferencia entre trazabilidad forward y backward?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Forward va del código a los requisitos, backward de requisitos al código</li>
+                    <li role="listitem">B) Forward va de requisitos a implementación, backward de implementación a requisitos</li>
+                    <li role="listitem">C) No hay diferencia, son términos sinónimos</li>
+                    <li role="listitem">D) Forward es manual, backward es automática</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>2. ¿Qué información NO debe incluirse típicamente en una RFC (Request for Change)?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Justificación del cambio</li>
+                    <li role="listitem">B) Código fuente completo de la solución</li>
+                    <li role="listitem">C) Estimación de impacto</li>
+                    <li role="listitem">D) Prioridad del cambio</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>3. En una matriz de trazabilidad, ¿qué indica una fila sin marcas?</h4>
+                <ul class="options">
+                    <li role="listitem">A) El requisito está completamente implementado</li>
+                    <li role="listitem">B) El requisito no tiene implementación asociada</li>
+                    <li role="listitem">C) El requisito es de baja prioridad</li>
+                    <li role="listitem">D) El requisito fue eliminado</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>4. ¿Cuál es el objetivo principal del análisis de impacto?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Reducir el número de cambios</li>
+                    <li role="listitem">B) Identificar todos los elementos afectados por un cambio</li>
+                    <li role="listitem">C) Aumentar la velocidad de desarrollo</li>
+                    <li role="listitem">D) Eliminar requisitos obsoletos</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>5. ¿Qué métrica indica mejor la estabilidad de los requisitos?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Número total de requisitos</li>
+                    <li role="listitem">B) Cobertura de trazabilidad</li>
+                    <li role="listitem">C) Volatilidad (cambios por período)</li>
+                    <li role="listitem">D) Densidad de enlaces</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>6. ¿Cuándo debe actualizarse la matriz de trazabilidad?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Solo al final del proyecto</li>
+                    <li role="listitem">B) Cada vez que se modifica un artefacto relacionado</li>
+                    <li role="listitem">C) Una vez al mes</li>
+                    <li role="listitem">D) Solo cuando lo solicita el cliente</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>7. ¿Qué rol típicamente aprueba los cambios en un CCB?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Solo desarrolladores</li>
+                    <li role="listitem">B) Solo el gerente de proyecto</li>
+                    <li role="listitem">C) Representantes de múltiples áreas (desarrollo, QA, negocio)</li>
+                    <li role="listitem">D) Solo el cliente</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>8. ¿Cuál es un ejemplo de regla de consistencia sintáctica?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Todo caso de uso debe tener sentido de negocio</li>
+                    <li role="listitem">B) Todo flujo de datos debe tener origen y destino definidos</li>
+                    <li role="listitem">C) Los requisitos deben ser alcanzables</li>
+                    <li role="listitem">D) El presupuesto debe ser realista</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>9. ¿Qué indica una alta densidad de enlaces en la matriz de trazabilidad?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Sistema bien documentado</li>
+                    <li role="listitem">B) Posible complejidad excesiva o acoplamiento</li>
+                    <li role="listitem">C) Requisitos de alta calidad</li>
+                    <li role="listitem">D) Proyecto casi terminado</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>10. ¿Cuál es la principal ventaja de automatizar el análisis de impacto?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Elimina la necesidad de documentación</li>
+                    <li role="listitem">B) Reduce errores y tiempo de análisis</li>
+                    <li role="listitem">C) Permite cambios sin aprobación</li>
+                    <li role="listitem">D) Reduce el costo del proyecto a cero</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>11. ¿Qué herramienta es más apropiada para gestión enterprise de requisitos?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Microsoft Word</li>
+                    <li role="listitem">B) IBM DOORS</li>
+                    <li role="listitem">C) Notepad++</li>
+                    <li role="listitem">D) Paint</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>12. ¿Cuál es el antipatrón "sobretrazabilidad"?</h4>
+                <ul class="options">
+                    <li role="listitem">A) No documentar enlaces</li>
+                    <li role="listitem">B) Crear enlaces excesivos e innecesarios</li>
+                    <li role="listitem">C) Usar herramientas obsoletas</li>
+                    <li role="listitem">D) Cambiar requisitos frecuentemente</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>13. ¿Qué debe incluir una especificación de cambio completa?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Solo la descripción del cambio</li>
+                    <li role="listitem">B) Descripción, impacto, riesgos, plan de implementación</li>
+                    <li role="listitem">C) Solo el código modificado</li>
+                    <li role="listitem">D) Solo la aprobación del gerente</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>14. ¿Cuándo se considera que un modelo tiene consistencia temporal?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Cuando se actualiza diariamente</li>
+                    <li role="listitem">B) Cuando las versiones sucesivas mantienen compatibilidad</li>
+                    <li role="listitem">C) Cuando nunca cambia</li>
+                    <li role="listitem">D) Cuando tiene timestamps</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>15. ¿Qué métrica calcula: "Enlaces totales / (Requisitos × Componentes)"?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Cobertura de trazabilidad</li>
+                    <li role="listitem">B) Volatilidad</li>
+                    <li role="listitem">C) Densidad de enlaces</li>
+                    <li role="listitem">D) Índice de cambio</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>16. ¿Cuál es el propósito principal de las retrospectivas post-cambio?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Asignar culpas por problemas</li>
+                    <li role="listitem">B) Identificar mejoras para futuros cambios</li>
+                    <li role="listitem">C) Reducir el presupuesto</li>
+                    <li role="listitem">D) Eliminar la documentación</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>17. ¿Qué tipo de validación puede ser completamente automatizada?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Validación de valor de negocio</li>
+                    <li role="listitem">B) Validación sintáctica de modelos</li>
+                    <li role="listitem">C) Validación de satisfacción del usuario</li>
+                    <li role="listitem">D) Validación de presupuesto</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>18. ¿Cuál es el valor objetivo típico para cobertura forward de trazabilidad?</h4>
+                <ul class="options">
+                    <li role="listitem">A) > 50%</li>
+                    <li role="listitem">B) > 70%</li>
+                    <li role="listitem">C) > 95%</li>
+                    <li role="listitem">D) 100% obligatorio</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>19. ¿Qué indica un valor de volatilidad de 0.25?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Sistema muy estable</li>
+                    <li role="listitem">B) 25% de artefactos cambian mensualmente</li>
+                    <li role="listitem">C) Proyecto completado en 25%</li>
+                    <li role="listitem">D) 25 cambios totales</li>
+                </ul>
+            </div>
+
+            <div class="question" role="group">
+                <h4>20. ¿Cuál es la mejor práctica para documentar decisiones de cambios?</h4>
+                <ul class="options">
+                    <li role="listitem">A) Solo registrar el cambio final</li>
+                    <li role="listitem">B) Documentar alternativas consideradas y rationale de decisión</li>
+                    <li role="listitem">C) No documentar para ahorrar tiempo</li>
+                    <li role="listitem">D) Documentar solo si el cliente lo pide</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Interactive Impact Simulator
+        function showImpact(module) {
+            const impacts = {
+                'auth': {
+                    direct: ['Base de Datos - Tabla usuarios', 'API de Login', 'Módulo de Sesiones'],
+                    indirect: ['Dashboard de Usuario', 'Reportes de Acceso', 'Logs de Auditoría', 'Tests de Integración', 'Documentación de API'],
+                    metrics: 'Impacto Alto: 3 componentes directos, 5 indirectos. Tiempo estimado: 16 horas.'
+                },
+                'db': {
+                    direct: ['Capa de Persistencia', 'Modelos de Datos', 'Migraciones', 'Backups'],
+                    indirect: ['Todos los módulos de la aplicación', 'Scripts de deployment', 'Tests unitarios', 'Performance del sistema'],
+                    metrics: 'Impacto Crítico: 4 componentes directos, 15+ indirectos. Tiempo estimado: 40 horas.'
+                },
+                'ui': {
+                    direct: ['Componentes React', 'Hojas de Estilo', 'Assets gráficos'],
+                    indirect: ['Tests de UI', 'Documentación de usuario', 'Accesibilidad'],
+                    metrics: 'Impacto Medio: 3 componentes directos, 3 indirectos. Tiempo estimado: 8 horas.'
+                }
+            };
+
+            const impact = impacts[module];
+            const resultDiv = document.getElementById('impact-result');
+            
+            resultDiv.innerHTML = `
+                <h4>Análisis de Impacto: ${module.toUpperCase()}</h4>
+                <p><strong>Componentes Directamente Afectados:</strong></p>
+                <ul role="list">${impact.direct.map(item => `<li role="listitem">${item}</li>`).join('')}</ul>
+                <p><strong>Componentes Indirectamente Afectados:</strong></p>
+                <ul role="list">${impact.indirect.map(item => `<li role="listitem">${item}</li>`).join('')}</ul>
+                <p><strong>Métricas de Impacto:</strong> ${impact.metrics}</p>
+            `;
+        }
+    </script>
+    <script src="keyboard-navigation.js"></script>
+</body>
+</html>
