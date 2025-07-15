@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AMS - Clase 1: Fundamentos Teóricos del Análisis de Sistemas</title>
+    <meta name="description" content="Introducción a la teoría general de sistemas, el rol del analista y la evolución histórica de las metodologías">
+    <meta name="keywords" content="análisis, sistemas, metodología, AMS, teoría general sistemas, analista">
+    <meta name="author" content="Curso AMS">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <style>
+        :root {
+            /* Colores principales */
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #17a2b8;
+            
+            /* Sistema de colores para modo claro */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.1);
+            
+            /* Gradientes */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(45deg, #3498db, #2980b9);
+        }
+        
+        [data-theme="dark"] {
+            /* Sistema de colores para modo oscuro */
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d3748;
+            --bg-card: rgba(26, 26, 26, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --border-color: #4a5568;
+            --shadow: rgba(0, 0, 0, 0.3);
+            
+            /* Gradientes modo oscuro */
+            --gradient-primary: linear-gradient(135deg, #232526 0%, #414345 100%);
+            --gradient-secondary: linear-gradient(45deg, #2c3e50, #34495e);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        /* Botón de tema */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Header del curso */
+        .course-header {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .course-title {
+            font-size: 2.5em;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px var(--shadow);
+        }
+
+        .course-subtitle {
+            font-size: 1.2em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .course-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .meta-card {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .meta-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Secciones de contenido */
+        .content-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .content-section:hover {
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+            color: var(--text-primary);
+        }
+
+        .section-title::before {
+            margin-right: 10px;
+        }
+
+        /* Objetivos de aprendizaje */
+        .objectives {
+            background: linear-gradient(45deg, var(--success-color), #2ecc71);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .objectives h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .objectives ul {
+            list-style: none;
+            display: grid;
+            gap: 15px;
+        }
+
+        .objectives li {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            position: relative;
+            padding-left: 45px;
+        }
+
+        .objectives li::before {
+            content: '✓';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Cajas de información */
+        .info-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--info-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+            border-left: 6px solid var(--info-color);
+        }
+
+        .synopsis-box {
+            background: linear-gradient(45deg, var(--info-color), #138496);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        .synopsis-title {
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 8px;
+            position: absolute;
+            top: -15px;
+            left: 25px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .warning-box {
+            background: linear-gradient(45deg, var(--warning-color), #e67e22);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Contenedor de diagramas */
+        .diagram-container {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .mermaid {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+
+        [data-theme="dark"] .mermaid {
+            background: #2c3e50;
+        }
+
+        /* Cards de roles y comparaciones */
+        .roles-comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .role-card {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transform: perspective(1000px) rotateY(0deg);
+            transition: transform 0.6s;
+            border: 1px solid var(--border-color);
+        }
+
+        .role-card:hover {
+            transform: perspective(1000px) rotateY(5deg) scale(1.02);
+        }
+
+        .role-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .role-card ul {
+            text-align: left;
+            list-style: none;
+        }
+
+        .role-card li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .role-card li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+        }
+
+        /* Timeline interactiva */
+        .interactive-timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--secondary-color);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateX(10px);
+        }
+
+        [data-theme="dark"] .timeline-item {
+            background: rgba(0, 0, 0, 0.2);
+            color: var(--text-primary);
+        }
+
+        [data-theme="dark"] .timeline-item:hover {
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--bg-primary);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        /* Sistema de Quiz estandarizado */
+        .quiz-container {
+            background: linear-gradient(45deg, var(--warning-color), #e67e22);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .quiz-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .question h4 {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: white;
+            transform: translateX(5px);
+        }
+
+        .option.correct {
+            background: var(--success-color) !important;
+            border-color: #27ae60 !important;
+        }
+
+        .option.incorrect {
+            background: var(--accent-color) !important;
+            border-color: #c0392b !important;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* Resultados del quiz */
+        .quiz-results {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-chart {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+
+        .score-text {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        /* Bibliografía */
+        .bibliography {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .bibliography h3 {
+            color: white;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .bibliography-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .bibliography ul {
+            list-style: none;
+        }
+
+        .bibliography li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .bibliography li::before {
+            content: '📚';
+            position: absolute;
+            left: 0;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .course-header {
+                padding: 25px;
+            }
+            
+            .course-title {
+                font-size: 2em;
+            }
+            
+            .content-section {
+                padding: 25px;
+            }
+            
+            .quiz-container {
+                padding: 25px;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .roles-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Próxima clase */
+        .next-class {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .next-class h3 {
+            margin-bottom: 15px;
+        }
+
+        .next-class ul {
+            text-align: left;
+            max-width: 600px;
+            margin: 0 auto;
+            list-style: none;
+        }
+
+        .next-class li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .next-class li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <!-- Botón de cambio de tema -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <span id="theme-icon">🌓</span>
+    </button>
+
+    <div class="container">
+        <!-- Header del curso -->
+        <header class="course-header">
+            <h1 class="course-title">📚 Clase 1: Fundamentos Teóricos del Análisis de Sistemas</h1>
+            <p class="course-subtitle">Introducción a la teoría general de sistemas, el rol del analista y la evolución histórica de las metodologías</p>
+            
+            <div class="course-meta">
+                <div class="meta-card">
+                    <h4>📚 Curso</h4>
+                    <p>Análisis y Metodología de Sistemas</p>
+                </div>
+                <div class="meta-card">
+                    <h4>📊 Progreso</h4>
+                    <p>Clase 1 de 16</p>
+                </div>
+                <div class="meta-card">
+                    <h4>⏱️ Duración</h4>
+                    <p>30 minutos</p>
+                </div>
+                <div class="meta-card">
+                    <h4>🎯 Nivel</h4>
+                    <p>Introductorio</p>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 6.25%"></div>
+            </div>
+        </header>
+
+        <!-- Objetivos de aprendizaje -->
+        <section class="objectives">
+            <h2>🎯 Objetivos de Aprendizaje</h2>
+            <ul>
+                <li>Comprender la teoría general de sistemas y su aplicación en el desarrollo de software</li>
+                <li>Identificar los roles y responsabilidades del analista de sistemas</li>
+                <li>Analizar la evolución histórica de las metodologías de desarrollo</li>
+                <li>Establecer el marco conceptual del análisis de sistemas</li>
+            </ul>
+        </section>
+
+        <!-- Sección 1: Teoría General de Sistemas -->
+        <section class="content-section">
+            <h2 class="section-title">🔍 1. Teoría General de Sistemas</h2>
+            
+            <div class="synopsis-box">
+                <div class="synopsis-title">📋 Conceptos Fundamentales</div>
+                <div style="margin-top: 20px;">
+                    <p><strong>Sistema:</strong> Conjunto de elementos interrelacionados que trabajan hacia un objetivo común, donde el todo es mayor que la suma de sus partes.</p>
+                    <br>
+                    <p><strong>Componentes clave:</strong></p>
+                    <ul style="margin-top: 15px; list-style: none;">
+                        <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                            <span style="position: absolute; left: 0;">▶</span><strong>Elementos:</strong> Componentes individuales del sistema
+                        </li>
+                        <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                            <span style="position: absolute; left: 0;">▶</span><strong>Relaciones:</strong> Conexiones entre elementos
+                        </li>
+                        <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                            <span style="position: absolute; left: 0;">▶</span><strong>Propósito:</strong> Objetivo o función del sistema
+                        </li>
+                        <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                            <span style="position: absolute; left: 0;">▶</span><strong>Entorno:</strong> Contexto externo que influye en el sistema
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <p>La <strong>Teoría General de Sistemas</strong> fue desarrollada por el biólogo austriaco Ludwig von Bertalanffy en la década de 1940. Proporciona un marco conceptual para entender la complejidad organizacional y los fenómenos que emergen de la interacción entre componentes.</p>
+
+            <h3>🔧 Propiedades Fundamentales de los Sistemas</h3>
+            
+            <div class="diagram-container">
+                <h4>📊 Estructura de un Sistema</h4>
+                <div class="mermaid">
+                    graph LR
+                        A[Sistema] --> B[Elementos]
+                        A --> C[Relaciones]
+                        A --> D[Propósito]
+                        A --> E[Entorno]
+                        
+                        B --> B1[Subsistemas]
+                        B --> B2[Componentes]
+                        B --> B3[Módulos]
+                        
+                        C --> C1[Interfaces]
+                        C --> C2[Dependencias]
+                        C --> C3[Comunicación]
+                        
+                        D --> D1[Objetivos]
+                        D --> D2[Funciones]
+                        D --> D3[Resultados]
+                        
+                        E --> E1[Usuarios]
+                        E --> E2[Stakeholders]
+                        E --> E3[Sistemas Externos]
+                        
+                        style A fill:#3498db,stroke:#2c3e50,stroke-width:3px,color:#fff
+                        style B fill:#27ae60,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style C fill:#e74c3c,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style D fill:#f39c12,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style E fill:#9b59b6,stroke:#2c3e50,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <h3>🌟 Propiedades Emergentes y Sinergia</h3>
+            <p>Las <strong>propiedades emergentes</strong> son características que surgen cuando los elementos de un sistema interactúan, pero que no están presentes en los elementos individuales. En el contexto del software:</p>
+            
+            <ul style="margin: 20px 0; padding-left: 30px;">
+                <li><strong>Performance del sistema:</strong> Resulta de la interacción optimizada entre componentes</li>
+                <li><strong>Usabilidad:</strong> Emerge de la integración coherente de interfaces</li>
+                <li><strong>Confiabilidad:</strong> Producto de mecanismos de tolerancia a fallos distribuidos</li>
+                <li><strong>Escalabilidad:</strong> Capacidad que surge del diseño arquitectónico global</li>
+            </ul>
+
+            <h3>⚖️ Entropía y Negentropía</h3>
+            <p>En sistemas de información, la <strong>entropía</strong> representa la tendencia natural hacia el desorden y la degradación. La <strong>negentropía</strong> son los esfuerzos conscientes para mantener o mejorar la organización del sistema:</p>
+
+            <div class="synopsis-box">
+                <div class="synopsis-title">🔄 Entropía vs Negentropía</div>
+                <div style="margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                        <div>
+                            <h4 style="color: #ff6b6b; margin-bottom: 15px;">🔻 Fuerzas Entrópicas</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">❌</span>Código sin documentar
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">❌</span>Dependencias no gestionadas
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">❌</span>Datos inconsistentes
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">❌</span>Procesos mal definidos
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">❌</span>Arquitectura desactualizada
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">🔺 Fuerzas Negentrópicas</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">✅</span>Refactoring continuo
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">✅</span>Documentación actualizada
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">✅</span>Testing automatizado
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">✅</span>Revisiones de código
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">✅</span>Arquitectura evolutiva
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>🏗️ Clasificación de Sistemas</h3>
+            
+            <div class="diagram-container">
+                <h4>📊 Tipos de Sistemas</h4>
+                <div class="mermaid">
+                    mindmap
+                        root((Clasificación de Sistemas))
+                            Por Interacción con el Entorno
+                                Sistemas Abiertos
+                                    Intercambian materia y energía
+                                    Se adaptan al entorno
+                                    Ejemplos: Aplicaciones web
+                                Sistemas Cerrados
+                                    No intercambian con el entorno
+                                    Comportamiento predecible
+                                    Ejemplos: Sistemas embebidos
+                            Por Comportamiento
+                                Determinísticos
+                                    Salidas predecibles
+                                    Algoritmos definidos
+                                    Ejemplos: Calculadoras
+                                Probabilísticos
+                                    Salidas con incertidumbre
+                                    Comportamiento estadístico
+                                    Ejemplos: Sistemas IA
+                            Por Complejidad
+                                Simples
+                                    Pocos elementos
+                                    Relaciones lineales
+                                Complejos
+                                    Muchos elementos
+                                    Interacciones no lineales
+                                Complejos Adaptativos
+                                    Auto-organización
+                                    Emergencia
+                </div>
+            </div>
+
+            <h3>🔄 Retroalimentación y Control</h3>
+            <p>Los sistemas efectivos implementan mecanismos de <strong>retroalimentación</strong> para autorregularse:</p>
+
+            <div class="diagram-container">
+                <h4>📊 Sistema de Control con Retroalimentación</h4>
+                <div class="mermaid">
+                    graph LR
+                        A[Entrada] --> B[Proceso]
+                        B --> C[Salida]
+                        C --> D[Sensor]
+                        D --> E{Comparador}
+                        E --> F[Actuador]
+                        F --> B
+                        G[Referencia] --> E
+                        
+                        style A fill:#3498db,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style C fill:#27ae60,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style E fill:#e74c3c,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style F fill:#f39c12,stroke:#2c3e50,stroke-width:2px,color:#fff
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: El Analista de Sistemas -->
+        <section class="content-section">
+            <h2 class="section-title">👨‍💼 2. El Analista de Sistemas como Profesional</h2>
+            
+            <p>El <strong>analista de sistemas</strong> es un profesional que actúa como puente entre el mundo del negocio y el mundo técnico. Su función principal es comprender problemas complejos del dominio de negocio y traducirlos en especificaciones técnicas que puedan ser implementadas por equipos de desarrollo.</p>
+
+            <div class="roles-comparison">
+                <div class="role-card">
+                    <h3>🧠 Competencias Técnicas</h3>
+                    <ul>
+                        <li>Modelado de sistemas</li>
+                        <li>Análisis de requisitos</li>
+                        <li>Arquitectura de software</li>
+                        <li>Bases de datos</li>
+                        <li>Metodologías de desarrollo</li>
+                        <li>Testing y QA</li>
+                    </ul>
+                </div>
+                <div class="role-card">
+                    <h3>💬 Competencias Comunicacionales</h3>
+                    <ul>
+                        <li>Facilitación de workshops</li>
+                        <li>Presentaciones ejecutivas</li>
+                        <li>Documentación técnica</li>
+                        <li>Negociación de requisitos</li>
+                        <li>Gestión de stakeholders</li>
+                        <li>Traducción técnico-negocio</li>
+                    </ul>
+                </div>
+                <div class="role-card">
+                    <h3>🔍 Competencias Analíticas</h3>
+                    <ul>
+                        <li>Pensamiento sistémico</li>
+                        <li>Resolución de problemas</li>
+                        <li>Análisis de impacto</li>
+                        <li>Toma de decisiones</li>
+                        <li>Gestión de riesgos</li>
+                        <li>Optimización de procesos</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🔄 Evolución del Rol en Contextos Modernos</h3>
+            <p>El rol del analista ha evolucionado significativamente con la adopción de metodologías ágiles:</p>
+
+            <div class="synopsis-box">
+                <div class="synopsis-title">📈 Tradicional vs Ágil</div>
+                <div style="margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px;">
+                        <div>
+                            <h4 style="color: #95a5a6; margin-bottom: 15px;">📋 Enfoque Tradicional</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📄</span>Documentación exhaustiva upfront
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📄</span>Análisis completo antes del diseño
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📄</span>Especificaciones detalladas y cerradas
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📄</span>Comunicación formal y estructurada
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📄</span>Validación al final del ciclo
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">⚡ Enfoque Ágil</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🚀</span>Documentación justo a tiempo
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🚀</span>Análisis iterativo e incremental
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🚀</span>Especificaciones evolutivas
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🚀</span>Colaboración directa y continua
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🚀</span>Validación temprana y frecuente
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>🎯 Responsabilidades Clave del Analista</h3>
+            
+            <div class="diagram-container">
+                <h4>📊 Actividades del Analista de Sistemas</h4>
+                <div class="mermaid">
+                    graph LR
+                        A[Analista de Sistemas] --> B[Elicitación de Requisitos]
+                        A --> C[Modelado del Negocio]
+                        A --> D[Especificación Técnica]
+                        A --> E[Validación y Verificación]
+                        A --> F[Gestión de Cambios]
+                        A --> G[Comunicación entre Stakeholders]
+                        
+                        B --> B1[Entrevistas]
+                        B --> B2[Workshops]
+                        B --> B3[Observación]
+                        B --> B4[Prototipado]
+                        
+                        C --> C1[Procesos de Negocio]
+                        C --> C2[Reglas de Negocio]
+                        C --> C3[Casos de Uso]
+                        C --> C4[Modelo de Datos]
+                        
+                        D --> D1[Arquitectura del Sistema]
+                        D --> D2[Interfaces]
+                        D --> D3[Especificaciones Funcionales]
+                        D --> D4[Criterios de Aceptación]
+                        
+                        E --> E1[Revisiones de Requisitos]
+                        E --> E2[Testing de Aceptación]
+                        E --> E3[Validación con Usuarios]
+                        E --> E4[Auditorías de Calidad]
+                        
+                        style A fill:#2c3e50,stroke:#34495e,stroke-width:3px,color:#fff
+                        style B fill:#3498db,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style C fill:#27ae60,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style D fill:#e74c3c,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style E fill:#f39c12,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style F fill:#9b59b6,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style G fill:#1abc9c,stroke:#2c3e50,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <h3>🤝 El Analista como Facilitador</h3>
+            <p>En el contexto moderno, el analista actúa cada vez más como un <strong>facilitador</strong> que ayuda a los equipos a descubrir soluciones colaborativamente. Sus habilidades blandas son tan importantes como las técnicas:</p>
+
+            <ul style="margin: 20px 0; padding-left: 30px;">
+                <li><strong>Escucha activa:</strong> Capacidad de entender no solo lo que se dice, sino lo que se necesita</li>
+                <li><strong>Empatía:</strong> Comprender las perspectivas de diferentes stakeholders</li>
+                <li><strong>Facilitación:</strong> Guiar grupos hacia consensos y decisiones efectivas</li>
+                <li><strong>Pensamiento crítico:</strong> Cuestionar asunciones y validar soluciones</li>
+                <li><strong>Adaptabilidad:</strong> Ajustarse a cambios en requisitos y contexto</li>
+            </ul>
+        </section>
+
+        <!-- Sección 3: Historia y Evolución -->
+        <section class="content-section">
+            <h2 class="section-title">📚 3. Historia y Evolución de Metodologías</h2>
+            
+            <p>La evolución de las metodologías de desarrollo de software refleja la maduración de la disciplina de la ingeniería de software y la necesidad de responder a complejidades crecientes en los proyectos tecnológicos.</p>
+
+            <div class="interactive-timeline">
+                <h3>⏰ Línea de Tiempo de Metodologías</h3>
+                
+                <div class="diagram-container">
+                    <h4>📊 Evolución Histórica</h4>
+                    <div class="mermaid">
+                        timeline
+                            title Evolución de Metodologías de Desarrollo
+                            
+                            1950s-1960s : Programación Ad-hoc
+                                       : Sin metodología formal
+                                       : Código y arreglo
+                                       
+                            1970s : Crisis del Software
+                                  : Conferencia NATO 1968
+                                  : Programación Estructurada
+                                  : Modelo en Cascada
+                                  
+                            1980s : Métodos Estructurados
+                                  : Yourdon-DeMarco
+                                  : Análisis Estructurado
+                                  : CASE Tools
+                                  
+                            1990s : Orientación a Objetos
+                                  : UML (1997)
+                                  : RUP
+                                  : Patrones de Diseño
+                                  
+                            2001 : Manifiesto Ágil
+                                 : Scrum
+                                 : XP (Extreme Programming)
+                                 : Crystal Methods
+                                 
+                            2010s : DevOps
+                                  : Continuous Integration
+                                  : Lean Startup
+                                  : Design Thinking
+                                  
+                            2020s : AI-Assisted Development
+                                  : Low-Code/No-Code
+                                  : Cloud Native
+                                  : Microservices
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <h4>🚨 La Crisis del Software (1968)</h4>
+                    <p>La conferencia de la OTAN en Garmisch-Partenkirchen acuñó el término "crisis del software" para describir los problemas sistémicos en el desarrollo:</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>Proyectos que superaban presupuestos y cronogramas</li>
+                        <li>Software de baja calidad y poco confiable</li>
+                        <li>Dificultad para mantener y modificar sistemas</li>
+                        <li>Falta de metodologías sistemáticas</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>📐 Era de la Programación Estructurada (1970s)</h4>
+                    <p>Dijkstra, Wirth y otros promovieron principios que sentaron las bases de la ingeniería de software moderna:</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Estructuras de control claras:</strong> Secuencia, selección, iteración</li>
+                        <li><strong>Modularización:</strong> División en componentes cohesivos</li>
+                        <li><strong>Top-down design:</strong> Descomposición jerárquica</li>
+                        <li><strong>Eliminación del GOTO:</strong> Código más legible y mantenible</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>🏗️ Métodos Estructurados (1980s)</h4>
+                    <p>Yourdon, DeMarco, Gane-Sarson desarrollaron metodologías completas de análisis y diseño:</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Análisis Estructurado:</strong> DFD, Diccionario de Datos</li>
+                        <li><strong>Diseño Estructurado:</strong> Estructura de datos y control</li>
+                        <li><strong>CASE Tools:</strong> Automatización del desarrollo</li>
+                        <li><strong>Métricas de software:</strong> McCabe, Halstead</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>🎯 Revolución Orientada a Objetos (1990s)</h4>
+                    <p>El paradigma OO cambió fundamentalmente cómo conceptualizamos el software:</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Encapsulamiento:</strong> Datos y comportamiento unidos</li>
+                        <li><strong>Herencia:</strong> Reutilización y especialización</li>
+                        <li><strong>Polimorfismo:</strong> Flexibilidad en el comportamiento</li>
+                        <li><strong>UML (1997):</strong> Lenguaje estándar de modelado</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <h4>⚡ Manifiesto Ágil (2001)</h4>
+                    <p>17 desarrolladores líderes se reunieron en Snowbird, Utah, para crear un nuevo paradigma:</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li><strong>Individuos e interacciones</strong> sobre procesos y herramientas</li>
+                        <li><strong>Software funcionando</strong> sobre documentación exhaustiva</li>
+                        <li><strong>Colaboración con el cliente</strong> sobre negociación contractual</li>
+                        <li><strong>Respuesta ante el cambio</strong> sobre seguir un plan</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>🔄 Factores que Impulsan la Evolución</h3>
+            
+            <div class="synopsis-box">
+                <div class="synopsis-title">🌊 Fuerzas de Cambio</div>
+                <div style="margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">🏢 Factores de Negocio</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📈</span>Velocidad de cambio del mercado
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🌍</span>Competencia global
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">👥</span>Expectativas de usuarios
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">⏰</span>Presión por time-to-market
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">💻 Factores Tecnológicos</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔧</span>Complejidad de sistemas
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🚀</span>Nuevas plataformas
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🛠️</span>Herramientas de desarrollo
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">💾</span>Capacidad de hardware
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">👥 Factores Humanos</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">👨‍👩‍👧‍👦</span>Tamaño de equipos
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🌐</span>Distribución geográfica
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🎓</span>Habilidades disponibles
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🏛️</span>Cultura organizacional
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>🔮 Tendencias Futuras</h3>
+            <p>La evolución de las metodologías continúa impulsada por nuevas tecnologías y cambios en las expectativas:</p>
+
+            <div class="diagram-container">
+                <h4>📊 Futuro de las Metodologías</h4>
+                <div class="mermaid">
+                    graph LR
+                        A[Futuro de Metodologías] --> B[AI-Assisted Development]
+                        A --> C[Continuous Everything]
+                        A --> D[Human-Centered Design]
+                        A --> E[Sustainability-Driven]
+                        
+                        B --> B1[Code Generation]
+                        B --> B2[Automated Testing]
+                        B --> B3[Intelligent Refactoring]
+                        B --> B4[Predictive Analytics]
+                        
+                        C --> C1[Continuous Integration]
+                        C --> C2[Continuous Deployment]
+                        C --> C3[Continuous Monitoring]
+                        C --> C4[Continuous Learning]
+                        
+                        D --> D1[User Experience Focus]
+                        D --> D2[Accessibility by Design]
+                        D --> D3[Inclusive Development]
+                        D --> D4[Ethical Computing]
+                        
+                        E --> E1[Green Computing]
+                        E --> E2[Resource Optimization]
+                        E --> E3[Carbon-Aware Development]
+                        E --> E4[Circular Economy Principles]
+                        
+                        style A fill:#2c3e50,stroke:#34495e,stroke-width:3px,color:#fff
+                        style B fill:#3498db,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style C fill:#27ae60,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style D fill:#e74c3c,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style E fill:#f39c12,stroke:#2c3e50,stroke-width:2px,color:#fff
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 4: Marco Conceptual -->
+        <section class="content-section">
+            <h2 class="section-title">🔬 4. Marco Conceptual del Análisis de Sistemas</h2>
+            
+            <p>El análisis de sistemas constituye una disciplina que aplica principios científicos y metodológicos para comprender, modelar y mejorar sistemas complejos. Su marco conceptual integra múltiples perspectivas y enfoques.</p>
+
+            <h3>🎯 Diferenciación de Fases del Desarrollo</h3>
+            
+            <div class="synopsis-box">
+                <div class="synopsis-title">📊 Análisis vs Diseño vs Implementación</div>
+                <div style="margin-top: 20px;">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Fase</th>
+                                <th>Enfoque</th>
+                                <th>Pregunta Clave</th>
+                                <th>Artefactos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Análisis</strong></td>
+                                <td>¿QUÉ debe hacer?</td>
+                                <td>¿Cuál es el problema?</td>
+                                <td>Requisitos, Casos de Uso, Modelo de Dominio</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Diseño</strong></td>
+                                <td>¿CÓMO debe hacerlo?</td>
+                                <td>¿Cuál es la solución?</td>
+                                <td>Arquitectura, Diagramas de Clase, Interfaces</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Implementación</strong></td>
+                                <td>CONSTRUIR la solución</td>
+                                <td>¿Cómo codificamos?</td>
+                                <td>Código, Tests, Documentación</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <h3>🏗️ Niveles de Abstracción</h3>
+            <p>El análisis trabaja con múltiples niveles de abstracción para gestionar la complejidad:</p>
+
+            <div class="diagram-container">
+                <h4>📊 Niveles de Abstracción en Sistemas</h4>
+                <div class="mermaid">
+                    graph LR
+                        A[Nivel de Negocio] --> B[Nivel Conceptual]
+                        B --> C[Nivel Lógico]
+                        C --> D[Nivel Físico]
+                        
+                        A --> A1[Objetivos Estratégicos]
+                        A --> A2[Procesos de Negocio]
+                        A --> A3[Reglas de Negocio]
+                        A --> A4[Stakeholders]
+                        
+                        B --> B1[Casos de Uso]
+                        B --> B2[Modelo de Dominio]
+                        B --> B3[Flujos de Proceso]
+                        B --> B4[Entidades y Relaciones]
+                        
+                        C --> C1[Componentes de Software]
+                        C --> C2[Interfaces]
+                        C --> C3[Base de Datos Lógica]
+                        C --> C4[Servicios]
+                        
+                        D --> D1[Tecnologías Específicas]
+                        D --> D2[Infraestructura]
+                        D --> D3[Configuración]
+                        D --> D4[Deployment]
+                        
+                        style A fill:#2c3e50,stroke:#34495e,stroke-width:3px,color:#fff
+                        style B fill:#3498db,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style C fill:#27ae60,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style D fill:#e74c3c,stroke:#2c3e50,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <h3>📋 Artefactos y Deliverables</h3>
+            <p>El análisis de sistemas produce una variedad de artefactos que documentan diferentes aspectos del sistema:</p>
+
+            <div class="roles-comparison">
+                <div class="role-card">
+                    <h3>📄 Artefactos de Requisitos</h3>
+                    <ul>
+                        <li>Documento de Visión</li>
+                        <li>Especificación de Requisitos</li>
+                        <li>Casos de Uso</li>
+                        <li>User Stories</li>
+                        <li>Criterios de Aceptación</li>
+                        <li>Matriz de Trazabilidad</li>
+                    </ul>
+                </div>
+                <div class="role-card">
+                    <h3>🎨 Artefactos de Modelado</h3>
+                    <ul>
+                        <li>Modelo de Dominio</li>
+                        <li>Diagramas de Procesos</li>
+                        <li>Modelo de Datos</li>
+                        <li>Diagramas de Contexto</li>
+                        <li>Mapas de Stakeholders</li>
+                        <li>Prototipos de UI</li>
+                    </ul>
+                </div>
+                <div class="role-card">
+                    <h3>🔍 Artefactos de Validación</h3>
+                    <ul>
+                        <li>Casos de Prueba</li>
+                        <li>Escenarios de Validación</li>
+                        <li>Métricas de Calidad</li>
+                        <li>Revisiones de Requisitos</li>
+                        <li>Análisis de Impacto</li>
+                        <li>Reportes de Auditoría</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>📊 Métricas de Calidad en Análisis</h3>
+            <p>Para asegurar la efectividad del análisis, se establecen métricas que evalúan la calidad de los artefactos producidos:</p>
+
+            <div class="synopsis-box">
+                <div class="synopsis-title">📈 Indicadores de Calidad</div>
+                <div style="margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px;">
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">📝 Completitud</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📊</span>% de requisitos cubiertos
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔗</span>Trazabilidad end-to-end
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🎯</span>Cobertura funcional
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">✅ Consistencia</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🚫</span>Ausencia de contradicciones
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📚</span>Terminología unificada
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📏</span>Estándares aplicados
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">🎯 Claridad</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🧠</span>Comprensibilidad
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">❓</span>Ausencia de ambigüedades
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔧</span>Precisión técnica
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">🔄 Mantenibilidad</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">✏️</span>Facilidad de modificación
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔢</span>Versionado efectivo
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">📋</span>Gestión de cambios
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 5: Relación con el Programa -->
+        <section class="content-section">
+            <h2 class="section-title">📚 5. Relación con el Programa Académico</h2>
+            
+            <p>Esta clase sienta las bases conceptuales para todo el curso de Análisis y Metodología de Sistemas. Los conceptos aquí presentados se profundizarán y aplicarán en las siguientes unidades.</p>
+
+            <div class="diagram-container">
+                <h4>📊 Estructura del Curso</h4>
+                <div class="mermaid">
+                    graph LR
+                        A[Clase 1: Fundamentos] --> B[Unidad 1: Ciclos de Vida]
+                        A --> C[Unidad 2: Metodologías Ágiles]
+                        A --> D[Unidad 3: Análisis Estructurado]
+                        A --> E[Unidad 4: Análisis OO]
+                        
+                        B --> B1[Modelos de Desarrollo]
+                        B --> B2[Desarrollo Iterativo]
+                        B --> B3[Python Básico]
+                        
+                        C --> C1[Scrum y Kanban]
+                        C --> C2[User Stories]
+                        C --> C3[Control de Versiones]
+                        
+                        D --> D1[DFD y Contexto]
+                        D --> D2[Diccionario de Datos]
+                        D --> D3[Trazabilidad]
+                        
+                        E --> E1[UML y Objetos]
+                        E --> E2[Casos de Uso]
+                        E --> E3[Diagramas de Clase]
+                        
+                        style A fill:#2c3e50,stroke:#34495e,stroke-width:3px,color:#fff
+                        style B fill:#3498db,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style C fill:#27ae60,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style D fill:#e74c3c,stroke:#2c3e50,stroke-width:2px,color:#fff
+                        style E fill:#f39c12,stroke:#2c3e50,stroke-width:2px,color:#fff
+                </div>
+            </div>
+        </section>
+
+        <!-- Sistema de Quiz estandarizado -->
+        <section class="quiz-container">
+            <h2>🧠 Evaluación - 20 Preguntas Multiple Choice</h2>
+            
+            <div class="quiz-instructions">
+                <p><strong>Instrucciones:</strong></p>
+                <p>• Cada pregunta tiene 4 opciones (A, B, C, D)</p>
+                <p>• Selecciona la respuesta que consideres correcta</p>
+                <p>• Al finalizar podrás ver tu puntuación y las respuestas correctas</p>
+                <p>• Se requiere responder todas las preguntas para obtener el resultado</p>
+            </div>
+
+            <!-- Las 20 preguntas específicas de AMS-01 -->
+            <div id="quiz-questions">
+                <!-- Pregunta 1 -->
+                <div class="question">
+                    <h4>1. ¿Cuál es la característica principal de un sistema abierto?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) No intercambia información con el entorno</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Intercambia materia, energía e información con el entorno</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Tiene comportamiento completamente predecible</div>
+                        <div class="option" onclick="selectOption(this, false)">D) No se ve afectado por factores externos</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="question">
+                    <h4>2. ¿Qué propiedad describe cuando "el todo es mayor que la suma de las partes"?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Entropía</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Sinergia o propiedades emergentes</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Retroalimentación</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Acoplamiento</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="question">
+                    <h4>3. ¿En qué década se acuñó el término "crisis del software"?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) 1950</div>
+                        <div class="option" onclick="selectOption(this, true)">B) 1960</div>
+                        <div class="option" onclick="selectOption(this, false)">C) 1970</div>
+                        <div class="option" onclick="selectOption(this, false)">D) 1980</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="question">
+                    <h4>4. ¿Cuál de las siguientes NO es una responsabilidad típica del analista de sistemas?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Elicitación de requisitos</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Modelado del negocio</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Implementación de algoritmos de bajo nivel</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Validación de especificaciones</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="question">
+                    <h4>5. ¿Cuál es la diferencia principal entre análisis y diseño?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) Análisis se enfoca en QUÉ, diseño en CÓMO</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Análisis usa UML, diseño usa DFD</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Análisis es técnico, diseño es funcional</div>
+                        <div class="option" onclick="selectOption(this, false)">D) No hay diferencia significativa</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 6 -->
+                <div class="question">
+                    <h4>6. ¿Qué representa la entropía en sistemas de información?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) La mejora continua del sistema</div>
+                        <div class="option" onclick="selectOption(this, true)">B) La tendencia natural hacia el desorden</div>
+                        <div class="option" onclick="selectOption(this, false)">C) La eficiencia del procesamiento</div>
+                        <div class="option" onclick="selectOption(this, false)">D) La capacidad de adaptación</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 7 -->
+                <div class="question">
+                    <h4>7. ¿Cuál fue el año de publicación del Manifiesto Ágil?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) 1999</div>
+                        <div class="option" onclick="selectOption(this, false)">B) 2000</div>
+                        <div class="option" onclick="selectOption(this, true)">C) 2001</div>
+                        <div class="option" onclick="selectOption(this, false)">D) 2002</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 8 -->
+                <div class="question">
+                    <h4>8. ¿Qué metodología introdujo el concepto de "top-down design"?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) Programación Estructurada</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Metodologías Ágiles</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Orientación a Objetos</div>
+                        <div class="option" onclick="selectOption(this, false)">D) DevOps</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 9 -->
+                <div class="question">
+                    <h4>9. ¿Qué competencia es más importante para un analista en contextos ágiles?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Documentación exhaustiva</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Facilitación y colaboración</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Programación avanzada</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Gestión de proyectos tradicional</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 10 -->
+                <div class="question">
+                    <h4>10. ¿Cuál es una propiedad emergente típica en sistemas de software?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) El código fuente</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Las funciones individuales</div>
+                        <div class="option" onclick="selectOption(this, true)">C) La usabilidad del sistema completo</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Los comentarios en el código</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 11 -->
+                <div class="question">
+                    <h4>11. ¿Qué nivel de abstracción se enfoca en objetivos estratégicos?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) Nivel de Negocio</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Nivel Conceptual</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Nivel Lógico</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Nivel Físico</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 12 -->
+                <div class="question">
+                    <h4>12. ¿Cuál es un ejemplo de fuerza negentrópica en sistemas?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Código sin documentar</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Refactoring continuo</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Dependencias no gestionadas</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Procesos mal definidos</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 13 -->
+                <div class="question">
+                    <h4>13. ¿Qué caracteriza a un sistema determinístico?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) Salidas predecibles para entradas conocidas</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Comportamiento aleatorio</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Adaptación automática al entorno</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Interacción compleja entre componentes</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 14 -->
+                <div class="question">
+                    <h4>14. ¿Cuál es la función principal de la retroalimentación en sistemas?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Aumentar la complejidad</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Autorregulación y control</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Generar entropía</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Eliminar dependencias</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 15 -->
+                <div class="question">
+                    <h4>15. ¿Qué modelo de desarrollo se asocia con la "programación estructurada"?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) Modelo en Cascada</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Desarrollo Ágil</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Prototipado Rápido</div>
+                        <div class="option" onclick="selectOption(this, false)">D) DevOps</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 16 -->
+                <div class="question">
+                    <h4>16. ¿Cuál es un artefacto típico de la fase de análisis?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Código fuente</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Arquitectura de deployment</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Casos de uso</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Configuración de servidores</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 17 -->
+                <div class="question">
+                    <h4>17. ¿Qué métrica evalúa la ausencia de contradicciones en requisitos?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Completitud</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Consistencia</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Claridad</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Mantenibilidad</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 18 -->
+                <div class="question">
+                    <h4>18. ¿Cuál fue una contribución clave de la era de los métodos estructurados (1980s)?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Programación orientada a objetos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Diagramas de Flujo de Datos (DFD)</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Metodologías ágiles</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Inteligencia artificial</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 19 -->
+                <div class="question">
+                    <h4>19. ¿Qué tendencia futura está transformando el desarrollo de software?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Retorno a la programación estructurada</div>
+                        <div class="option" onclick="selectOption(this, true)">B) AI-Assisted Development</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Documentación más exhaustiva</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Procesos más rígidos</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 20 -->
+                <div class="question">
+                    <h4>20. ¿Cuál es el enfoque principal del analista como facilitador en contextos modernos?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Crear documentación exhaustiva</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Tomar todas las decisiones técnicas</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Guiar equipos hacia soluciones colaborativas</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Implementar código directamente</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-success" onclick="submitQuiz()">📊 Ver Resultados</button>
+                <button class="btn btn-primary" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
+            </div>
+
+            <!-- Resultados del quiz -->
+            <div class="quiz-results" id="quiz-results">
+                <h3>📊 Resultados de la Evaluación</h3>
+                <div class="results-chart">
+                    <canvas id="results-chart" width="200" height="200"></canvas>
+                </div>
+                <div class="score-text" id="score-text"></div>
+                <div id="feedback-text"></div>
+            </div>
+        </section>
+
+        <!-- Bibliografía -->
+        <section class="bibliography">
+            <h3>📚 Bibliografía y Referencias</h3>
+            <div class="bibliography-grid">
+                <div>
+                    <h4>📖 Bibliografía Obligatoria</h4>
+                    <ul>
+                        <li>Larman, C. (2003). UML y patrones. Prentice-Hall.</li>
+                        <li>Pressman, R. (1998). Ingeniería de Software. McGraw-Hill.</li>
+                        <li>Fowler, M. (1999). UML gota a gota. Pearson Educación.</li>
+                        <li>Cockburn, A. (2000). Writing Effective Use Cases. Addison Wesley.</li>
+                        <li>Ramos, D. et al. (2017). Curso de Ingeniería de Software. IT Campus Academy.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4>📚 Bibliografía Complementaria</h4>
+                    <ul>
+                        <li>Yourdon, E. (1993). Análisis Estructurado Moderno. Prentice-Hall.</li>
+                        <li>Booch, G. et al. (2006). El Lenguaje Unificado de Modelado. Addison-Wesley.</li>
+                        <li>Von Bertalanffy, L. (1968). General System Theory. George Braziller.</li>
+                        <li>Del Águila Cano, I. (2019). Ingeniería de Requisitos. Universidad de Almería.</li>
+                        <li>Vazquez, C. & Simoes, G. (2018). Ingeniería de Requisitos: Software orientado al negocio.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Resumen y palabras clave -->
+        <section class="content-section">
+            <h2 class="section-title">📝 Resumen y Palabras Clave</h2>
+            
+            <div class="synopsis-box">
+                <div class="synopsis-title">🔑 Conceptos Clave de la Clase</div>
+                <div style="margin-top: 20px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px;">
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">🔬 Teoría de Sistemas</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Sistema:</strong> Conjunto interrelacionado
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Sinergia:</strong> Propiedades emergentes
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Entropía:</strong> Tendencia al desorden
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Retroalimentación:</strong> Autorregulación
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">👨‍💼 Rol del Analista</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Facilitador:</strong> Guía colaborativo
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Traductor:</strong> Negocio ↔ Técnico
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Modelador:</strong> Abstrae la realidad
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Validador:</strong> Asegura calidad
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">📚 Evolución Metodológica</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>1968:</strong> Crisis del software
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>1970s:</strong> Programación estructurada
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>1990s:</strong> Orientación a objetos
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>2001:</strong> Manifiesto Ágil
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 style="color: #4ecdc4; margin-bottom: 15px;">🎯 Marco Conceptual</h4>
+                            <ul style="list-style: none;">
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Análisis:</strong> ¿Qué debe hacer?
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Diseño:</strong> ¿Cómo debe hacerlo?
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Implementación:</strong> Construir
+                                </li>
+                                <li style="margin-bottom: 8px; padding-left: 20px; position: relative;">
+                                    <span style="position: absolute; left: 0;">🔹</span><strong>Abstracción:</strong> Niveles múltiples
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 15px;">
+                <p><strong>📊 Extensión de la clase:</strong> Aproximadamente 4,500 palabras</p>
+                <p><strong>⏱️ Tiempo estimado de lectura:</strong> 25-30 minutos</p>
+                <p><strong>🎯 Nivel de complejidad:</strong> Introductorio</p>
+            </div>
+        </section>
+
+        <!-- Próxima clase -->
+        <section class="next-class">
+            <h3>🔄 Próxima Clase: Ciclos de Vida de Desarrollo de Software</h3>
+            <p><strong>Temas a cubrir:</strong></p>
+            <ul>
+                <li>Modelos tradicionales: Cascada, V, Espiral, Incremental</li>
+                <li>Modelos modernos: RAD, Prototipado, DevOps</li>
+                <li>Criterios de selección de modelo</li>
+                <li>Análisis comparativo de metodologías</li>
+                <li>Métricas de evaluación de proyectos</li>
+            </ul>
+            <p style="margin-top: 20px;"><strong>📚 Preparación:</strong> Revisar capítulos 1-2 de Pressman sobre procesos de software</p>
+        </section>
+    </div>
+
+    <!-- Scripts JavaScript -->
+    <script>
+        // Configuración de Mermaid
+        const mermaidConfig = {
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            timeline: {
+                useMaxWidth: true
+            },
+            mindmap: {
+                useMaxWidth: true
+            },
+            themeVariables: {
+                primaryColor: '#3498db',
+                primaryTextColor: '#2c3e50',
+                primaryBorderColor: '#2980b9',
+                lineColor: '#34495e'
+            }
+        };
+        mermaid.initialize(mermaidConfig);
+
+        // Sistema de temas
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Actualizar icono
+            const icon = document.getElementById('theme-icon');
+            icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Cargar tema guardado
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Sistema de Quiz
+        let selectedAnswers = {};
+        const totalQuestions = 20;
+
+        function selectOption(element, isCorrect) {
+            const questionDiv = element.closest('.question');
+            const questionNumber = Array.from(document.querySelectorAll('.question')).indexOf(questionDiv) + 1;
+            
+            // Remover selección anterior
+            questionDiv.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Seleccionar nueva opción
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            selectedAnswers[questionNumber] = isCorrect;
+        }
+
+        function submitQuiz() {
+            const answeredQuestions = Object.keys(selectedAnswers).length;
+            
+            if (answeredQuestions < totalQuestions) {
+                alert(`Por favor responde todas las preguntas. Has respondido ${answeredQuestions} de ${totalQuestions}.`);
+                return;
+            }
+
+            // Calcular resultados
+            const correctAnswers = Object.values(selectedAnswers).filter(answer => answer === true).length;
+            const incorrectAnswers = totalQuestions - correctAnswers;
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+
+            // Mostrar respuestas correctas e incorrectas
+            document.querySelectorAll('.question').forEach((questionDiv, index) => {
+                const questionNumber = index + 1;
+                const selectedOption = questionDiv.querySelector('.option.selected');
+                const isCorrect = selectedAnswers[questionNumber];
+                
+                questionDiv.querySelectorAll('.option').forEach(opt => {
+                    const optionIsCorrect = opt.onclick.toString().includes('true');
+                    
+                    if (optionIsCorrect) {
+                        opt.classList.add('correct');
+                    } else if (opt.classList.contains('selected') && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+            });
+
+            // Mostrar resultados
+            displayResults(correctAnswers, incorrectAnswers, percentage);
+        }
+
+        function displayResults(correct, incorrect, percentage) {
+            const resultsDiv = document.getElementById('quiz-results');
+            const scoreText = document.getElementById('score-text');
+            const feedbackText = document.getElementById('feedback-text');
+            
+            // Mostrar puntuación
+            scoreText.textContent = `${correct}/${totalQuestions} (${percentage}%)`;
+            
+            // Feedback basado en la puntuación
+            let feedback = '';
+            if (percentage >= 90) {
+                feedback = '🎉 ¡Excelente! Dominas muy bien el tema.';
+            } else if (percentage >= 80) {
+                feedback = '👏 ¡Muy bien! Tienes un buen entendimiento.';
+            } else if (percentage >= 70) {
+                feedback = '👍 Bien. Te recomendamos repasar algunos conceptos.';
+            } else if (percentage >= 60) {
+                feedback = '📚 Necesitas estudiar más el material.';
+            } else {
+                feedback = '⚠️ Te recomendamos repasar todo el contenido de la clase.';
+            }
+            
+            feedbackText.innerHTML = `<p><strong>${feedback}</strong></p>`;
+            
+            // Crear gráfico de resultados
+            createResultsChart(correct, incorrect);
+            
+            // Mostrar resultados
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function createResultsChart(correct, incorrect) {
+            const canvas = document.getElementById('results-chart');
+            const ctx = canvas.getContext('2d');
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Configuración del gráfico
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 80;
+            
+            // Calcular ángulos
+            const correctAngle = (correct / totalQuestions) * 2 * Math.PI;
+            const incorrectAngle = (incorrect / totalQuestions) * 2 * Math.PI;
+            
+            // Dibujar sector de respuestas correctas
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, 0, correctAngle);
+            ctx.closePath();
+            ctx.fillStyle = '#27ae60';
+            ctx.fill();
+            
+            // Dibujar sector de respuestas incorrectas
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, correctAngle, correctAngle + incorrectAngle);
+            ctx.closePath();
+            ctx.fillStyle = '#e74c3c';
+            ctx.fill();
+            
+            // Añadir texto en el centro
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${correct}/${totalQuestions}`, centerX, centerY + 5);
+            
+            // Leyenda
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#27ae60';
+            ctx.fillText(`✓ Correctas: ${correct}`, 10, canvas.height - 30);
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillText(`✗ Incorrectas: ${incorrect}`, 10, canvas.height - 10);
+        }
+
+        function resetQuiz() {
+            // Limpiar respuestas
+            selectedAnswers = {};
+            
+            // Remover todas las clases de selección y resultados
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar resultados
+            document.getElementById('quiz-results').style.display = 'none';
+            
+            // Scroll al inicio del quiz
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Renderizar diagramas Mermaid
+        function renderMermaid() {
+            try {
+                mermaid.run();
+            } catch (error) {
+                console.error('Error rendering Mermaid:', error);
+                // Intentar nuevamente después de un tiempo
+                setTimeout(() => {
+                    try {
+                        mermaid.run();
+                    } catch (e) {
+                        console.error('Fallback Mermaid render failed:', e);
+                    }
+                }, 2000);
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            setTimeout(renderMermaid, 500);
+        });
+
+        // Scroll suave para navegación
+        function smoothScroll(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Animación de aparición de elementos
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar elementos para animación
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.content-section, .role-card, .timeline-item').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>

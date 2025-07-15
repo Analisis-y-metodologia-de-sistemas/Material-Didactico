@@ -3,12 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 3: Desarrollo Iterativo e Incremental</title>
-    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
-    <meta name="author" content="Curso AMS HTML">
-    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <title>AMS - Clase 3: Desarrollo Iterativo e Incremental</title>
+    <meta name="description" content="Fundamentos conceptuales del desarrollo iterativo e incremental, timeboxing, y gestión de proyectos ágiles">
+    <meta name="keywords" content="análisis, sistemas, metodología, AMS, desarrollo iterativo, incremental, timeboxing, ágil">
+    <meta name="author" content="Curso AMS">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
+        :root {
+            /* Colores principales */
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #17a2b8;
+            
+            /* Sistema de colores para modo claro */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.1);
+            
+            /* Gradientes */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(45deg, #3498db, #2980b9);
+        }
+        
+        [data-theme="dark"] {
+            /* Sistema de colores para modo oscuro */
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d3748;
+            --bg-card: rgba(26, 26, 26, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --border-color: #4a5568;
+            --shadow: rgba(0, 0, 0, 0.3);
+            
+            /* Gradientes modo oscuro */
+            --gradient-primary: linear-gradient(135deg, #232526 0%, #414345 100%);
+            --gradient-secondary: linear-gradient(45deg, #2c3e50, #34495e);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -18,424 +56,635 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            background: var(--gradient-primary);
             min-height: 100vh;
+            transition: all 0.3s ease;
         }
 
+        /* Botón de tema */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* Contenedor principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
         }
 
-        .header {
-            background: white;
-            border-radius: 15px;
-            padding: 30px;
+        /* Header del curso */
+        .course-header {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px var(--shadow);
             text-align: center;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
+            border: 1px solid var(--border-color);
         }
 
-        .header h1 {
+        .course-title {
             font-size: 2.5em;
+            color: var(--primary-color);
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px var(--shadow);
         }
 
-        .header .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
+        .course-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
-        .content-section {
-            background: white;
+        .meta-card {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px;
             border-radius: 15px;
-            padding: 30px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .meta-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Secciones de contenido */
+        .content-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 32px var(--shadow);
             transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
         }
 
         .content-section:hover {
-            transform: translateY(-5px);
+            transform: translateY(-2px);
         }
 
         .section-title {
-            color: #2a5298;
-            font-size: 2em;
+            font-size: 1.8em;
             margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
             padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+            color: var(--text-primary);
         }
 
-        .subsection {
-            margin: 30px 0;
+        .section-title::before {
+            margin-right: 10px;
         }
 
-        .subsection h3 {
-            color: #1e3c72;
-            font-size: 1.5em;
+        /* Objetivos de aprendizaje */
+        .objectives {
+            background: linear-gradient(45deg, var(--success-color), #2ecc71);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .objectives h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .objectives ul {
+            list-style: none;
+            display: grid;
+            gap: 15px;
+        }
+
+        .objectives li {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            position: relative;
+            padding-left: 45px;
+        }
+
+        .objectives li::before {
+            content: '✓';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Cajas de información */
+        .info-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--info-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+            border-left: 6px solid var(--info-color);
+        }
+
+        .synopsis-box {
+            background: linear-gradient(45deg, var(--info-color), #138496);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .warning-box {
+            background: linear-gradient(45deg, var(--warning-color), #e67e22);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Contenedor de diagramas */
+        .diagram-container {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Sistema de Quiz estandarizado */
+        .quiz-container {
+            background: linear-gradient(45deg, var(--warning-color), #e67e22);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .quiz-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .question h4 {
             margin-bottom: 15px;
-            padding-left: 15px;
-            border-left: 4px solid #667eea;
+            font-size: 1.1em;
+            color: white;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: white;
+            transform: translateX(5px);
+        }
+
+        .option.correct {
+            background: var(--success-color) !important;
+            border-color: #27ae60 !important;
+        }
+
+        .option.incorrect {
+            background: var(--accent-color) !important;
+            border-color: #c0392b !important;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* Resultados del quiz */
+        .quiz-results {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-chart {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+        }
+
+        .score-text {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        /* Recursos adicionales */
+        .resources {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .resources h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .resources ul {
+            list-style: none;
+        }
+
+        .resources li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .resources li:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .course-header {
+                padding: 25px;
+            }
+            
+            .course-title {
+                font-size: 2em;
+            }
+            
+            .content-section {
+                padding: 25px;
+            }
+            
+            .quiz-container {
+                padding: 25px;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Estilos específicos para contenido */
+        .concept-box {
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .concept-box h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
         }
 
         .highlight-box {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: linear-gradient(45deg, var(--info-color), #138496);
             color: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
         }
 
-        .concept-box {
-            background: #f8f9ff;
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
+        .highlight-box h3 {
+            margin-bottom: 15px;
         }
 
-        .diagram-container {
-            background: #f8f9ff;
-            border-radius: 10px;
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .benefit-card {
+            background: var(--bg-secondary);
             padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h4 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
         }
 
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
-            background: white;
+            background: var(--bg-card);
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .comparison-table th,
         .comparison-table td {
             padding: 15px;
             text-align: left;
-            border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .comparison-table th {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+            background: var(--primary-color);
             color: white;
             font-weight: bold;
-        }
-
-        .comparison-table tr:nth-child(even) {
-            background-color: #f8f9ff;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .benefit-card {
-            background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid #667eea;
-            transition: transform 0.3s ease;
-        }
-
-        .benefit-card:hover {
-            transform: translateX(10px);
-        }
-
-        .benefit-card h4 {
-            color: #2a5298;
-            margin-bottom: 10px;
-        }
-
-        .interactive-timeline {
-            position: relative;
-            margin: 30px 0;
         }
 
         .timeline-item {
-            background: white;
-            border-radius: 10px;
+            background: var(--bg-secondary);
             padding: 20px;
-            margin: 20px 0;
-            border-left: 5px solid #667eea;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 4px solid var(--secondary-color);
             cursor: pointer;
+            transition: all 0.3s ease;
         }
 
         .timeline-item:hover {
-            background: #f8f9ff;
             transform: translateX(10px);
+            box-shadow: 0 4px 12px var(--shadow);
         }
 
-        .timeline-item .phase {
+        .phase {
             font-weight: bold;
-            color: #2a5298;
+            color: var(--primary-color);
             margin-bottom: 10px;
-        }
-
-        .objectives-list {
-            background: #f8f9ff;
-            border-radius: 10px;
-            padding: 25px;
-            margin: 20px 0;
-            border: 2px solid #667eea;
-        }
-
-        .objectives-list h3 {
-            color: #2a5298;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .objectives-list ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .objectives-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid #e0e0e0;
-            position: relative;
-            padding-left: 30px;
-        }
-
-        .objectives-list li:before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #667eea;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-
-        .quiz-section {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-            color: white;
-            border-radius: 15px;
-            padding: 30px;
-            margin: 30px 0;
-        }
-
-        .quiz-question {
-            background: rgba(255,255,255,0.1);
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
-            backdrop-filter: blur(10px);
-        }
-
-        .quiz-options {
-            list-style: none;
-            padding: 0;
-        }
-
-        .quiz-options li {
-            padding: 10px;
-            margin: 5px 0;
-            background: rgba(255,255,255,0.1);
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .quiz-options li:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        .quiz-options li.correct {
-            background: rgba(0,255,0,0.3);
-        }
-
-        .quiz-options li.incorrect {
-            background: rgba(255,0,0,0.3);
         }
 
         .toggle-content {
             display: none;
             margin-top: 15px;
             padding: 15px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 8px;
-        }
-
-        .toggle-button {
-            background: #667eea;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin: 10px 0;
-            transition: background 0.3s ease;
-        }
-
-        .toggle-button:hover {
-            background: #5a6fd8;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 10px;
-            }
-            
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .section-title {
-                font-size: 1.5em;
-            }
-            
-            .benefits-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 4px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea, #764ba2);
-            border-radius: 4px;
-            transition: width 1s ease;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
         }
 
         .synoptic-chart {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 20px;
             margin: 25px 0;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border: 3px solid #667eea;
+            text-align: center;
+            border: 1px solid var(--border-color);
         }
 
-        .synoptic-chart .central-concept {
-            background: linear-gradient(135deg, #667eea, #764ba2);
+        .central-concept {
+            background: var(--primary-color);
             color: white;
             padding: 20px;
-            border-radius: 10px;
-            text-align: center;
-            font-size: 1.3em;
+            border-radius: 15px;
+            font-size: 1.2em;
             font-weight: bold;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
         .synoptic-branches {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
         }
 
         .synoptic-branch {
-            background: #f8f9ff;
-            border: 2px solid #667eea;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .synoptic-branch:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
         }
 
         .synoptic-branch h4 {
-            color: #2a5298;
-            margin-bottom: 10px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
         }
     </style>
-    <link rel="stylesheet" href="accessibility.css">
 </head>
-<body role="document">
-    <div class="container" role="main">
-        <!-- Header -->
-        <header class="header" role="banner">
-            <h1 id="main-title">Desarrollo Iterativo e Incremental</h1>
-            <p class="subtitle">Clase 3 - Análisis y Metodología de Sistemas</p>
-            <div class="progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+<body>
+    <!-- Botón de cambio de tema -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <span id="theme-icon">🌓</span>
+    </button>
+
+    <div class="container">
+        <!-- Header del curso -->
+        <header class="course-header">
+            <h1 class="course-title">🔄 Clase 3: Desarrollo Iterativo e Incremental</h1>
+            <p class="course-subtitle">Fundamentos conceptuales, timeboxing y gestión de proyectos ágiles</p>
+            
+            <div class="course-meta">
+                <div class="meta-card">
+                    <h4>📚 Curso</h4>
+                    <p>Análisis y Metodología de Sistemas</p>
+                </div>
+                <div class="meta-card">
+                    <h4>📊 Progreso</h4>
+                    <p>Clase 3 de 16</p>
+                </div>
+                <div class="meta-card">
+                    <h4>⏱️ Duración</h4>
+                    <p>90 minutos</p>
+                </div>
+                <div class="meta-card">
+                    <h4>🎯 Nivel</h4>
+                    <p>Intermedio</p>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
                 <div class="progress-fill" style="width: 18.75%"></div>
             </div>
-            <p>Progreso del curso: 3/16 clases (18.75%)</p>
         </header>
 
-        <!-- Objetivos de la Clase -->
-        <section class="content-section" role="region">
-            <div class="objectives-list">
-                <h3>🎯 Objetivos de Aprendizaje</h3>
-                <ul role="list">
-                    <li role="listitem">Comprender los principios fundamentales del desarrollo iterativo e incremental</li>
-                    <li role="listitem">Analizar las ventajas y desafíos de este enfoque metodológico</li>
-                    <li role="listitem">Distinguir entre desarrollo iterativo e incremental</li>
-                    <li role="listitem">Conocer técnicas de planificación y gestión de iteraciones</li>
-                    <li role="listitem">Evaluar métricas y control de progreso en proyectos iterativos</li>
-                </ul>
-            </div>
+        <!-- Objetivos de aprendizaje -->
+        <section class="objectives">
+            <h2>🎯 Objetivos de Aprendizaje</h2>
+            <ul>
+                <li>Comprender los principios fundamentales del desarrollo iterativo e incremental</li>
+                <li>Analizar las ventajas y desafíos de este enfoque metodológico</li>
+                <li>Distinguir entre desarrollo iterativo e incremental</li>
+                <li>Conocer técnicas de planificación y gestión de iteraciones</li>
+                <li>Evaluar métricas y control de progreso en proyectos iterativos</li>
+            </ul>
         </section>
 
-        <!-- Introducción Conceptual -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">📚 Fundamentos Conceptuales</h2>
+        <!-- Sección 1: Fundamentos Conceptuales -->
+        <section class="content-section">
+            <h2 class="section-title">📚 1. Fundamentos Conceptuales</h2>
             
             <div class="highlight-box">
                 <h3>🔑 Concepto Central</h3>
                 <p>El desarrollo iterativo e incremental es un enfoque que organiza el trabajo en ciclos cortos y repetitivos (iteraciones), donde cada ciclo produce un incremento funcional del sistema. Este método permite la adaptación continua, la gestión temprana de riesgos y la entrega de valor constante a los stakeholders.</p>
             </div>
-        </section>
 
-        <!-- Diferenciación Conceptual -->
-        <section class="content-section" role="region">
-                <h3>Diferenciación: Iterativo vs Incremental</h3>
-                
-                <div class="concept-box">
-                    <h4>🔄 Desarrollo Iterativo</h4>
-                    <p><strong>Definición:</strong> Se refiere a la repetición cíclica de actividades de desarrollo (análisis, diseño, implementación, pruebas) en períodos cortos de tiempo.</p>
-                    <p><strong>Características:</strong></p>
-                    <ul role="list">
-                        <li role="listitem">Ciclos de retroalimentación frecuentes</li>
-                        <li role="listitem">Refinamiento continuo de soluciones</li>
-                        <li role="listitem">Adaptación basada en aprendizaje</li>
-                        <li role="listitem">Gestión proactiva de riesgos</li>
-                    </ul>
-                </div>
-
-                <div class="concept-box">
-                    <h4>📈 Desarrollo Incremental</h4>
-                    <p><strong>Definición:</strong> Se refiere a la construcción del sistema mediante la adición sucesiva de componentes funcionales, donde cada incremento agrega valor al producto.</p>
-                    <p><strong>Características:</strong></p>
-                    <ul role="list">
-                        <li role="listitem">Entrega progresiva de funcionalidad</li>
-                        <li role="listitem">Valor acumulativo en cada entrega</li>
-                        <li role="listitem">Integración continua de componentes</li>
-                        <li role="listitem">Validación temprana con usuarios</li>
-                    </ul>
-                </div>
+            <h3>1.1 Diferenciación: Iterativo vs Incremental</h3>
+            
+            <div class="concept-box">
+                <h4>🔄 Desarrollo Iterativo</h4>
+                <p><strong>Definición:</strong> Se refiere a la repetición cíclica de actividades de desarrollo (análisis, diseño, implementación, pruebas) en períodos cortos de tiempo.</p>
+                <p><strong>Características:</strong></p>
+                <ul>
+                    <li>Ciclos de retroalimentación frecuentes</li>
+                    <li>Refinamiento continuo de soluciones</li>
+                    <li>Adaptación basada en aprendizaje</li>
+                    <li>Gestión proactiva de riesgos</li>
+                </ul>
             </div>
 
-            <!-- Cuadro Sinóptico Principal -->
+            <div class="concept-box">
+                <h4>📈 Desarrollo Incremental</h4>
+                <p><strong>Definición:</strong> Se refiere a la construcción del sistema mediante la adición sucesiva de componentes funcionales, donde cada incremento agrega valor al producto.</p>
+                <p><strong>Características:</strong></p>
+                <ul>
+                    <li>Entrega progresiva de funcionalidad</li>
+                    <li>Valor acumulativo en cada entrega</li>
+                    <li>Integración continua de componentes</li>
+                    <li>Validación temprana con usuarios</li>
+                </ul>
+            </div>
+
             <div class="synoptic-chart">
                 <div class="central-concept">
                     DESARROLLO ITERATIVO E INCREMENTAL
@@ -444,188 +693,178 @@
                     <div class="synoptic-branch">
                         <h4>🎯 PRINCIPIOS</h4>
                         <ul style="text-align: left; list-style: none; padding: 0;">
-                            <li role="listitem">• Ciclos cortos</li>
-                            <li role="listitem">• Retroalimentación temprana</li>
-                            <li role="listitem">• Adaptación continua</li>
-                            <li role="listitem">• Entrega de valor</li>
+                            <li>• Ciclos cortos</li>
+                            <li>• Retroalimentación temprana</li>
+                            <li>• Adaptación continua</li>
+                            <li>• Entrega de valor</li>
                         </ul>
                     </div>
                     <div class="synoptic-branch">
                         <h4>📊 BENEFICIOS</h4>
                         <ul style="text-align: left; list-style: none; padding: 0;">
-                            <li role="listitem">• Gestión de riesgos</li>
-                            <li role="listitem">• Flexibilidad</li>
-                            <li role="listitem">• Calidad mejorada</li>
-                            <li role="listitem">• Satisfacción del cliente</li>
+                            <li>• Gestión de riesgos</li>
+                            <li>• Flexibilidad</li>
+                            <li>• Calidad mejorada</li>
+                            <li>• Satisfacción del cliente</li>
                         </ul>
                     </div>
                     <div class="synoptic-branch">
                         <h4>🛠️ TÉCNICAS</h4>
                         <ul style="text-align: left; list-style: none; padding: 0;">
-                            <li role="listitem">• Timeboxing</li>
-                            <li role="listitem">• Priorización</li>
-                            <li role="listitem">• Retrospectivas</li>
-                            <li role="listitem">• Integración continua</li>
+                            <li>• Timeboxing</li>
+                            <li>• Priorización</li>
+                            <li>• Retrospectivas</li>
+                            <li>• Integración continua</li>
                         </ul>
                     </div>
                     <div class="synoptic-branch">
                         <h4>📈 MÉTRICAS</h4>
                         <ul style="text-align: left; list-style: none; padding: 0;">
-                            <li role="listitem">• Velocity</li>
-                            <li role="listitem">• Burndown</li>
-                            <li role="listitem">• Burnup</li>
-                            <li role="listitem">• Cumulative flow</li>
+                            <li>• Velocity</li>
+                            <li>• Burndown</li>
+                            <li>• Burnup</li>
+                            <li>• Cumulative flow</li>
                         </ul>
                     </div>
                 </div>
+            </div>
         </section>
 
-        <!-- Principios y Prácticas -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">⚙️ Principios y Prácticas Fundamentales</h2>
-        </section>
-
-        <!-- Timeboxing -->
-        <section class="content-section" role="region">
-                <h3>🕐 Timeboxing y Planificación por Iteraciones</h3>
-                <p>El timeboxing es una técnica fundamental que establece períodos fijos de tiempo para las iteraciones, típicamente de 1 a 4 semanas. Esta práctica genera múltiples beneficios organizacionales y psicológicos:</p>
-                
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <h4>⏰ Ley de Parkinson</h4>
-                        <p>Las fechas fijas evitan que el trabajo se expanda innecesariamente. Frederick Brooks señala que "el trabajo se expande para llenar el tiempo disponible", por lo que los plazos cortos fuerzan la eficiencia.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>🎯 Foco y Priorización</h4>
-                        <p>Las iteraciones cortas obligan a tomar decisiones sobre qué es realmente prioritario, identificando el mayor valor de negocio o técnico para el período establecido.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>😊 Satisfacción del Equipo</h4>
-                        <p>Los ciclos cortos proporcionan sensaciones regulares de finalización y logro, manteniendo la motivación alta y generando confianza en el equipo.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>🤝 Confianza de Stakeholders</h4>
-                        <p>Las entregas frecuentes y predecibles construyen confianza con el negocio y otras partes interesadas, demostrando capacidad de ejecución.</p>
-                    </div>
+        <!-- Sección 2: Principios y Prácticas -->
+        <section class="content-section">
+            <h2 class="section-title">⚙️ 2. Principios y Prácticas Fundamentales</h2>
+            
+            <h3>2.1 Timeboxing y Planificación por Iteraciones</h3>
+            <p>El timeboxing es una técnica fundamental que establece períodos fijos de tiempo para las iteraciones, típicamente de 1 a 4 semanas. Esta práctica genera múltiples beneficios organizacionales y psicológicos:</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h4>⏰ Ley de Parkinson</h4>
+                    <p>Las fechas fijas evitan que el trabajo se expanda innecesariamente. Frederick Brooks señala que "el trabajo se expande para llenar el tiempo disponible", por lo que los plazos cortos fuerzan la eficiencia.</p>
                 </div>
-        </section>
+                <div class="benefit-card">
+                    <h4>🎯 Foco y Priorización</h4>
+                    <p>Las iteraciones cortas obligan a tomar decisiones sobre qué es realmente prioritario, identificando el mayor valor de negocio o técnico para el período establecido.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>😊 Satisfacción del Equipo</h4>
+                    <p>Los ciclos cortos proporcionan sensaciones regulares de finalización y logro, manteniendo la motivación alta y generando confianza en el equipo.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>🤝 Confianza de Stakeholders</h4>
+                    <p>Las entregas frecuentes y predecibles construyen confianza con el negocio y otras partes interesadas, demostrando capacidad de ejecución.</p>
+                </div>
+            </div>
 
-        <!-- Priorización -->
-        <section class="content-section" role="region">
-                <h3>📊 Priorización Basada en Valor de Negocio</h3>
-                <p>Cada iteración debe maximizar el valor entregado. Los criterios típicos incluyen:</p>
-                
-                <div class="concept-box">
-                    <h4>Criterios de Priorización:</h4>
-                    <ul role="list">
-                        <li role="listitem"><strong>Valor de negocio:</strong> Retorno de inversión esperado, impacto en usuarios</li>
-                        <li role="listitem"><strong>Riesgo técnico:</strong> Complejidad, dependencias, incertidumbre</li>
-                        <li role="listitem"><strong>Esfuerzo requerido:</strong> Estimación de trabajo necesario</li>
-                        <li role="listitem"><strong>Dependencias:</strong> Relaciones con otros componentes o equipos</li>
-                        <li role="listitem"><strong>Feedback del usuario:</strong> Necesidades expresadas por stakeholders</li>
+            <h3>2.2 Priorización Basada en Valor de Negocio</h3>
+            <p>Cada iteración debe maximizar el valor entregado. Los criterios típicos incluyen:</p>
+            
+            <div class="concept-box">
+                <h4>Criterios de Priorización:</h4>
+                <ul>
+                    <li><strong>Valor de negocio:</strong> Retorno de inversión esperado, impacto en usuarios</li>
+                    <li><strong>Riesgo técnico:</strong> Complejidad, dependencias, incertidumbre</li>
+                    <li><strong>Esfuerzo requerido:</strong> Estimación de trabajo necesario</li>
+                    <li><strong>Dependencias:</strong> Relaciones con otros componentes o equipos</li>
+                    <li><strong>Feedback del usuario:</strong> Necesidades expresadas por stakeholders</li>
+                </ul>
+            </div>
+
+            <h3>2.3 Entrega Continua de Valor</h3>
+            <p>Cada iteración debe producir algo tangible y potencialmente entregable. Esto requiere:</p>
+            
+            <div class="timeline-item" onclick="toggleDetails('iteration-planning')">
+                <div class="phase">📋 Planificación de Iteración</div>
+                <p>Selección de elementos del backlog, estimación y definición de objetivos específicos</p>
+                <div id="iteration-planning" class="toggle-content">
+                    <p><strong>Actividades clave:</strong></p>
+                    <ul>
+                        <li>Review del backlog priorizado</li>
+                        <li>Estimación de esfuerzo para cada elemento</li>
+                        <li>Definición de objetivos de la iteración</li>
+                        <li>Asignación de tareas al equipo</li>
                     </ul>
                 </div>
-        </section>
-
-        <!-- Entrega Continua -->
-        <section class="content-section" role="region">
-                <h3>🔄 Entrega Continua de Valor</h3>
-                <p>Cada iteración debe producir algo tangible y potencialmente entregable. Esto requiere:</p>
-                
-                <div class="interactive-timeline">
-                    <div class="timeline-item" onclick="toggleDetails('iteration-planning')">
-                        <div class="phase">📋 Planificación de Iteración</div>
-                        <p>Selección de elementos del backlog, estimación y definición de objetivos específicos</p>
-                        <div id="iteration-planning" class="toggle-content">
-                            <p><strong>Actividades clave:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Review del backlog priorizado</li>
-                                <li role="listitem">Estimación de esfuerzo para cada elemento</li>
-                                <li role="listitem">Definición de objetivos de la iteración</li>
-                                <li role="listitem">Asignación de tareas al equipo</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" onclick="toggleDetails('daily-execution')">
-                        <div class="phase">🔨 Ejecución Diaria</div>
-                        <p>Desarrollo, pruebas, integración y sincronización del equipo</p>
-                        <div id="daily-execution" class="toggle-content">
-                            <p><strong>Prácticas diarias:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Sincronización del equipo (daily standup)</li>
-                                <li role="listitem">Desarrollo y pruebas unitarias</li>
-                                <li role="listitem">Integración continua</li>
-                                <li role="listitem">Resolución de impedimentos</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" onclick="toggleDetails('iteration-review')">
-                        <div class="phase">👥 Revisión y Retrospectiva</div>
-                        <p>Demostración del incremento y reflexión sobre el proceso</p>
-                        <div id="iteration-review" class="toggle-content">
-                            <p><strong>Objetivos de revisión:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Demostración del incremento funcional</li>
-                                <li role="listitem">Recolección de feedback de stakeholders</li>
-                                <li role="listitem">Análisis de velocidad y métricas</li>
-                                <li role="listitem">Identificación de mejoras del proceso</li>
-                            </ul>
-                        </div>
-                    </div>
+            </div>
+            
+            <div class="timeline-item" onclick="toggleDetails('daily-execution')">
+                <div class="phase">🔨 Ejecución Diaria</div>
+                <p>Desarrollo, pruebas, integración y sincronización del equipo</p>
+                <div id="daily-execution" class="toggle-content">
+                    <p><strong>Prácticas diarias:</strong></p>
+                    <ul>
+                        <li>Sincronización del equipo (daily standup)</li>
+                        <li>Desarrollo y pruebas unitarias</li>
+                        <li>Integración continua</li>
+                        <li>Resolución de impedimentos</li>
+                    </ul>
                 </div>
+            </div>
+            
+            <div class="timeline-item" onclick="toggleDetails('iteration-review')">
+                <div class="phase">👥 Revisión y Retrospectiva</div>
+                <p>Demostración del incremento y reflexión sobre el proceso</p>
+                <div id="iteration-review" class="toggle-content">
+                    <p><strong>Objetivos de revisión:</strong></p>
+                    <ul>
+                        <li>Demostración del incremento funcional</li>
+                        <li>Recolección de feedback de stakeholders</li>
+                        <li>Análisis de velocidad y métricas</li>
+                        <li>Identificación de mejoras del proceso</li>
+                    </ul>
+                </div>
+            </div>
         </section>
 
-        <!-- Comparación con Modelo en Cascada -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">🆚 Comparación: Iterativo vs Cascada</h2>
+        <!-- Sección 3: Comparación Iterativo vs Cascada -->
+        <section class="content-section">
+            <h2 class="section-title">🆚 3. Comparación: Iterativo vs Cascada</h2>
             
             <p>El contraste entre el desarrollo iterativo e incremental y el modelo en cascada ilustra diferencias fundamentales en filosofía y práctica:</p>
             
             <table class="comparison-table">
-                <thead role="rowgroup">
-                    <tr role="row">
-                        <th role="columnheader">Aspecto</th>
-                        <th role="columnheader">Modelo en Cascada</th>
-                        <th role="columnheader">Desarrollo Iterativo/Incremental</th>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Modelo en Cascada</th>
+                        <th>Desarrollo Iterativo/Incremental</th>
                     </tr>
                 </thead>
-                <tbody role="rowgroup">
-                    <tr role="row">
-                        <td role="cell"><strong>Estructura</strong></td>
-                        <td role="cell">Fases secuenciales lineales</td>
-                        <td role="cell">Ciclos cortos repetitivos</td>
+                <tbody>
+                    <tr>
+                        <td><strong>Estructura</strong></td>
+                        <td>Fases secuenciales lineales</td>
+                        <td>Ciclos cortos repetitivos</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Requisitos</strong></td>
-                        <td role="cell">Definición completa inicial</td>
-                        <td role="cell">Evolución y refinamiento continuo</td>
+                    <tr>
+                        <td><strong>Requisitos</strong></td>
+                        <td>Definición completa inicial</td>
+                        <td>Evolución y refinamiento continuo</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Retroalimentación</strong></td>
-                        <td role="cell">Al final del proyecto</td>
-                        <td role="cell">En cada iteración</td>
+                    <tr>
+                        <td><strong>Retroalimentación</strong></td>
+                        <td>Al final del proyecto</td>
+                        <td>En cada iteración</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Gestión de Riesgos</strong></td>
-                        <td role="cell">Tardía, en fases finales</td>
-                        <td role="cell">Temprana y continua</td>
+                    <tr>
+                        <td><strong>Gestión de Riesgos</strong></td>
+                        <td>Tardía, en fases finales</td>
+                        <td>Temprana y continua</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Flexibilidad</strong></td>
-                        <td role="cell">Baja, cambios costosos</td>
-                        <td role="cell">Alta, adaptación incorporada</td>
+                    <tr>
+                        <td><strong>Flexibilidad</strong></td>
+                        <td>Baja, cambios costosos</td>
+                        <td>Alta, adaptación incorporada</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Entrega de Valor</strong></td>
-                        <td role="cell">Una sola entrega final</td>
-                        <td role="cell">Entregas frecuentes incrementales</td>
+                    <tr>
+                        <td><strong>Entrega de Valor</strong></td>
+                        <td>Una sola entrega final</td>
+                        <td>Entregas frecuentes incrementales</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Documentación</strong></td>
-                        <td role="cell">Exhaustiva antes de implementar</td>
-                        <td role="cell">Evolutiva, enfoque en software funcionando</td>
+                    <tr>
+                        <td><strong>Documentación</strong></td>
+                        <td>Exhaustiva antes de implementar</td>
+                        <td>Evolutiva, enfoque en software funcionando</td>
                     </tr>
                 </tbody>
             </table>
@@ -635,734 +874,560 @@
                 <p><em>"Las estructuras conceptuales que construimos hoy son demasiado complicadas para especificarse con precisión por adelantado, y demasiado complejas para construirse sin errores. Por tanto, debemos utilizar un enfoque radicalmente diferente: desarrollo iterativo e incremental."</em></p>
                 <p>- "No Silver Bullet", The Mythical Man-Month</p>
             </div>
-        </div>
-
-        <!-- Herramientas y Métricas -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">📊 Herramientas de Planificación y Métricas</h2>
         </section>
 
-        <!-- Product Roadmap -->
-        <section class="content-section" role="region">
-                <h3>🗺️ Product Roadmap y Release Planning</h3>
-                <p>La planificación estratégica en desarrollo iterativo requiere una visión de largo plazo combinada con flexibilidad táctica:</p>
-                
-                <div class="concept-box">
-                    <h4>Product Roadmap:</h4>
-                    <ul role="list">
-                        <li role="listitem"><strong>Visión del producto:</strong> Dirección estratégica y objetivos principales</li>
-                        <li role="listitem"><strong>Temas épicos:</strong> Agrupaciones de funcionalidad mayor</li>
-                        <li role="listitem"><strong>Timeline aproximado:</strong> Estimaciones de alto nivel por trimestres</li>
-                        <li role="listitem"><strong>Dependencias clave:</strong> Integraciones, recursos, hitos externos</li>
-                    </ul>
-                </div>
-
-                <div class="concept-box">
-                    <h4>Release Planning:</h4>
-                    <ul role="list">
-                        <li role="listitem"><strong>Incrementos entregables:</strong> Versiones específicas con valor de negocio</li>
-                        <li role="listitem"><strong>Criterios de aceptación:</strong> Definición de "terminado" para cada release</li>
-                        <li role="listitem"><strong>Estimación de capacidad:</strong> Velocity histórica y capacidad del equipo</li>
-                        <li role="listitem"><strong>Gestión de riesgo:</strong> Identificación y mitigación de riesgos por release</li>
-                    </ul>
-                </div>
-        </section>
-
-        <!-- Métricas de Progreso -->
-        <section class="content-section" role="region">
-                <h3>📈 Métricas de Progreso y Control</h3>
-                
-                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
-                    <h4>Métricas Clave del Desarrollo Iterativo</h4>
-                    <div class="mermaid" role="img" aria-label="Diagrama de métricas de desarrollo iterativo" data-original-content="graph LR
-                            A[Métricas de Desarrollo Iterativo] --> B[Velocity]
-                            A --> C[Burndown Chart]
-                            A --> D[Burnup Chart]
-                            A --> E[Cumulative Flow]
-                            
-                            B --> B1[Story Points por Iteración]
-                            B --> B2[Tendencia de Velocity]
-                            B --> B3[Capacity Planning]
-                            
-                            C --> C1[Trabajo Restante vs Tiempo]
-                            C --> C2[Predicción de Finalización]
-                            C --> C3[Detección de Impedimentos]
-                            
-                            D --> D1[Trabajo Completado Acumulado]
-                            D --> D2[Scope Changes]
-                            D --> D3[Progress vs Goals]
-                            
-                            E --> E1[WIP Limits]
-                            E --> E2[Flow Efficiency]
-                            E --> E3[Bottleneck Identification]
-                            
-                            style A fill:#667eea,stroke:#333,color:#fff
-                            style B fill:#f9f,stroke:#333
-                            style C fill:#f9f,stroke:#333
-                            style D fill:#f9f,stroke:#333
-                            style E fill:#f9f,stroke:#333">
-                        graph LR
-                            A[Métricas de Desarrollo Iterativo] --> B[Velocity]
-                            A --> C[Burndown Chart]
-                            A --> D[Burnup Chart]
-                            A --> E[Cumulative Flow]
-                            
-                            B --> B1[Story Points por Iteración]
-                            B --> B2[Tendencia de Velocity]
-                            B --> B3[Capacity Planning]
-                            
-                            C --> C1[Trabajo Restante vs Tiempo]
-                            C --> C2[Predicción de Finalización]
-                            C --> C3[Detección de Impedimentos]
-                            
-                            D --> D1[Trabajo Completado Acumulado]
-                            D --> D2[Scope Changes]
-                            D --> D3[Progress vs Goals]
-                            
-                            E --> E1[WIP Limits]
-                            E --> E2[Flow Efficiency]
-                            E --> E3[Bottleneck Identification]
-                            
-                            style A fill:#667eea,stroke:#333,color:#fff
-                            style B fill:#f9f,stroke:#333
-                            style C fill:#f9f,stroke:#333
-                            style D fill:#f9f,stroke:#333
-                            style E fill:#f9f,stroke:#333
-                    </div>
-                </div>
-
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <h4>⚡ Velocity</h4>
-                        <p><strong>Definición:</strong> Cantidad de trabajo (story points) completado por el equipo en una iteración.</p>
-                        <p><strong>Uso:</strong> Predicción de capacidad, planificación de releases, identificación de tendencias de productividad.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>📉 Burndown Chart</h4>
-                        <p><strong>Definición:</strong> Gráfico que muestra el trabajo restante versus el tiempo disponible en la iteración.</p>
-                        <p><strong>Uso:</strong> Seguimiento diario del progreso, detección temprana de problemas, ajustes de alcance.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>📈 Burnup Chart</h4>
-                        <p><strong>Definición:</strong> Gráfico que muestra el trabajo completado acumulativo y cambios de alcance.</p>
-                        <p><strong>Uso:</strong> Visualización del progreso real, impacto de cambios de scope, comunicación con stakeholders.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>🌊 Cumulative Flow</h4>
-                        <p><strong>Definición:</strong> Diagrama que muestra el flujo de trabajo a través de diferentes estados (To Do, In Progress, Done).</p>
-                        <p><strong>Uso:</strong> Identificación de cuellos de botella, optimización del flujo, balance de WIP (Work in Progress).</p>
-                    </div>
-                </div>
-        </section>
-
-        <!-- Capacity Planning -->
-        <section class="content-section" role="region">
-                <h3>🎯 Capacity Planning y Forecasting</h3>
-                <p>La planificación de capacidad en entornos iterativos requiere equilibrar predictibilidad con adaptabilidad:</p>
-                
-                <div class="concept-box">
-                    <h4>Elementos del Capacity Planning:</h4>
-                    <ul role="list">
-                        <li role="listitem"><strong>Velocity histórica:</strong> Promedio de story points completados por iteración</li>
-                        <li role="listitem"><strong>Factores de capacidad:</strong> Vacaciones, entrenamientos, meetings, soporte</li>
-                        <li role="listitem"><strong>Variabilidad del equipo:</strong> Análisis de desviación estándar en velocity</li>
-                        <li role="listitem"><strong>Dependencias externas:</strong> Integraciones, reviews, aprobaciones</li>
-                        <li role="listitem"><strong>Riesgo y contingencia:</strong> Buffer para incertidumbre y complejidad inesperada</li>
-                    </ul>
-                </div>
-        </section>
-
-        <!-- Gestión de Impedimentos -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">🚧 Gestión de Impedimentos y Mejora Continua</h2>
-        </section>
-
-        <!-- Identificación de Impedimentos -->
-        <section class="content-section" role="region">
-                <h3>🔍 Identificación Proactiva de Impedimentos</h3>
-                <p>Los impedimentos son obstáculos que reducen la velocidad o capacidad del equipo. Su gestión efectiva es crucial para el éxito de las iteraciones:</p>
-                
-                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
-                    <h4>Tipos de Impedimentos Comunes</h4>
-                    <div class="mermaid" role="img" aria-label="Diagrama de tipos de impedimentos" data-original-content="graph LR
-                            I[Impedimentos] --> T[Técnicos]
-                            I --> O[Organizacionales]
-                            I --> H[Humanos]
-                            I --> E[Externos]
-                            
-                            T --> T1[Bugs complejos]
-                            T --> T2[Deuda técnica]
-                            T --> T3[Dependencias arquitecturales]
-                            T --> T4[Falta de herramientas]
-                            
-                            O --> O1[Falta de decisiones]
-                            O --> O2[Procesos burocráticos]
-                            O --> O3[Recursos compartidos]
-                            O --> O4[Conflictos de prioridad]
-                            
-                            H --> H1[Falta de habilidades]
-                            H --> H2[Ausencias del equipo]
-                            H --> H3[Conflictos interpersonales]
-                            H --> H4[Sobrecarga de trabajo]
-                            
-                            E --> E1[Dependencias de terceros]
-                            E --> E2[Cambios regulatorios]
-                            E --> E3[Decisiones de clientes]
-                            E --> E4[Integraciones externas]
-                            
-                            style I fill:#e74c3c,stroke:#333,color:#fff
-                            style T fill:#3498db,stroke:#333,color:#fff
-                            style O fill:#f39c12,stroke:#333,color:#fff
-                            style H fill:#2ecc71,stroke:#333,color:#fff
-                            style E fill:#9b59b6,stroke:#333,color:#fff">
-                        graph LR
-                            I[Impedimentos] --> T[Técnicos]
-                            I --> O[Organizacionales]
-                            I --> H[Humanos]
-                            I --> E[Externos]
-                            
-                            T --> T1[Bugs complejos]
-                            T --> T2[Deuda técnica]
-                            T --> T3[Dependencias arquitecturales]
-                            T --> T4[Falta de herramientas]
-                            
-                            O --> O1[Falta de decisiones]
-                            O --> O2[Procesos burocráticos]
-                            O --> O3[Recursos compartidos]
-                            O --> O4[Conflictos de prioridad]
-                            
-                            H --> H1[Falta de habilidades]
-                            H --> H2[Ausencias del equipo]
-                            H --> H3[Conflictos interpersonales]
-                            H --> H4[Sobrecarga de trabajo]
-                            
-                            E --> E1[Dependencias de terceros]
-                            E --> E2[Cambios regulatorios]
-                            E --> E3[Decisiones de clientes]
-                            E --> E4[Integraciones externas]
-                            
-                            style I fill:#e74c3c,stroke:#333,color:#fff
-                            style T fill:#3498db,stroke:#333,color:#fff
-                            style O fill:#f39c12,stroke:#333,color:#fff
-                            style H fill:#2ecc71,stroke:#333,color:#fff
-                            style E fill:#9b59b6,stroke:#333,color:#fff
-                    </div>
-                </div>
-
-                <div class="highlight-box">
-                    <h3>🛠️ Estrategias de Resolución</h3>
-                    <ul role="list">
-                        <li role="listitem"><strong>Escalación temprana:</strong> Identificar y escalar impedimentos antes de que bloqueen el progreso</li>
-                        <li role="listitem"><strong>Ownership claro:</strong> Asignar responsables específicos para cada impedimento</li>
-                        <li role="listitem"><strong>Timeboxing de resolución:</strong> Establecer plazos máximos para resolver bloqueos</li>
-                        <li role="listitem"><strong>Alternativas paralelas:</strong> Desarrollar planes B cuando sea posible</li>
-                        <li role="listitem"><strong>Retrospectivas dirigidas:</strong> Analizar impedimentos recurrentes para soluciones sistémicas</li>
-                    </ul>
-                </div>
-        </section>
-
-        <!-- Retrospectivas -->
-        <section class="content-section" role="region">
-                <h3>🔄 Retrospectivas y Mejora Continua</h3>
-                <p>Las retrospectivas son ceremonias clave para la mejora continua del proceso y del equipo. Siguiendo el modelo de Deming (Plan-Do-Check-Act), cada iteración incluye reflexión y ajuste:</p>
-                
-                <div class="interactive-timeline">
-                    <div class="timeline-item" onclick="toggleDetails('retro-prepare')">
-                        <div class="phase">🎯 Preparación</div>
-                        <p>Recolección de datos y métricas de la iteración</p>
-                        <div id="retro-prepare" class="toggle-content">
-                            <p><strong>Actividades de preparación:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Compilación de métricas de velocity, calidad y satisfacción</li>
-                                <li role="listitem">Review de impedimentos y su resolución</li>
-                                <li role="listitem">Análisis de feedback de stakeholders</li>
-                                <li role="listitem">Preparación de ambiente seguro para discusión</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" onclick="toggleDetails('retro-execute')">
-                        <div class="phase">💬 Ejecución</div>
-                        <p>Facilitación de discusión estructurada del equipo</p>
-                        <div id="retro-execute" class="toggle-content">
-                            <p><strong>Técnicas de facilitación:</strong></p>
-                            <ul role="list">
-                                <li role="listitem"><strong>Start-Stop-Continue:</strong> Qué empezar, parar y continuar haciendo</li>
-                                <li role="listitem"><strong>5 Whys:</strong> Análisis de causa raíz de problemas</li>
-                                <li role="listitem"><strong>Dot Voting:</strong> Priorización democrática de mejoras</li>
-                                <li role="listitem"><strong>Timeline Review:</strong> Análisis cronológico de eventos significativos</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" onclick="toggleDetails('retro-followup')">
-                        <div class="phase">📋 Seguimiento</div>
-                        <p>Implementación y monitoreo de acciones de mejora</p>
-                        <div id="retro-followup" class="toggle-content">
-                            <p><strong>Gestión de acciones:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Definición específica de acciones con responsables</li>
-                                <li role="listitem">Criterios de éxito medibles</li>
-                                <li role="listitem">Timeline de implementación</li>
-                                <li role="listitem">Review en próximas retrospectivas</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-        </section>
-
-        <!-- Casos de Uso y Aplicación -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">🏗️ Casos de Uso del Desarrollo Iterativo</h2>
+        <!-- Sección 4: Métricas y Herramientas -->
+        <section class="content-section">
+            <h2 class="section-title">📊 4. Métricas y Herramientas de Control</h2>
             
-                <h3>✅ Escenarios Apropiados</h3>
-                <p>El desarrollo iterativo e incremental es especialmente efectivo en contextos específicos:</p>
-                
-                <div class="benefits-grid">
-                    <div class="benefit-card">
-                        <h4>🔮 Requisitos Inciertos</h4>
-                        <p>Cuando los requisitos no están completamente claros al inicio del proyecto o se espera que evolucionen significativamente.</p>
-                        <p><strong>Ejemplo:</strong> Desarrollo de productos innovadores, aplicaciones móviles en mercados emergentes.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>⚡ Necesidad de Feedback Temprano</h4>
-                        <p>Proyectos donde la validación con usuarios finales es crítica para el éxito del producto.</p>
-                        <p><strong>Ejemplo:</strong> Interfaces de usuario, productos de consumo, aplicaciones de experiencia del cliente.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>🎯 Time-to-Market Crítico</h4>
-                        <p>Situaciones donde entregar valor rápidamente al mercado es más importante que la funcionalidad completa inicial.</p>
-                        <p><strong>Ejemplo:</strong> Startups, productos competitivos, respuesta a amenazas del mercado.</p>
-                    </div>
-                    <div class="benefit-card">
-                        <h4>🔬 Proyectos de Investigación</h4>
-                        <p>Iniciativas exploratorias donde el aprendizaje y la experimentación son objetivos primarios.</p>
-                        <p><strong>Ejemplo:</strong> Prototipos de IA, investigación de UX, pruebas de concepto tecnológicas.</p>
-                    </div>
+            <div class="diagram-container">
+                <h4>📈 Métricas Clave del Desarrollo Iterativo</h4>
+                <div class="mermaid">
+                    graph TD
+                        A[Métricas de Desarrollo Iterativo] --> B[Velocity]
+                        A --> C[Burndown Chart]
+                        A --> D[Burnup Chart]
+                        A --> E[Cumulative Flow]
+                        
+                        B --> B1[Story Points por Iteración]
+                        B --> B2[Capacidad del Equipo]
+                        
+                        C --> C1[Trabajo Restante vs Tiempo]
+                        C --> C2[Tendencia de Progreso]
+                        
+                        D --> D1[Trabajo Completado Acumulado]
+                        D --> D2[Alcance Total del Proyecto]
+                        
+                        E --> E1[Estados de Work Items]
+                        E --> E2[Cuellos de Botella]
+                        
+                        style A fill:#e8f5e8
+                        style B fill:#e8f0ff
+                        style C fill:#fff0e8
+                        style D fill:#f0e8ff
+                        style E fill:#ffe8e8
                 </div>
+            </div>
 
-                <h3>⚠️ Limitaciones y Desafíos</h3>
-                <p>Aunque poderoso, el desarrollo iterativo también presenta desafíos que deben gestionarse:</p>
-                
-                <div class="concept-box">
-                    <h4>Desafíos Organizacionales:</h4>
-                    <ul role="list">
-                        <li role="listitem"><strong>Resistencia cultural:</strong> Organizaciones acostumbradas a planificación detallada y control predictivo</li>
-                        <li role="listitem"><strong>Presupuestación:</strong> Dificultad para estimar costos totales con precisión al inicio</li>
-                        <li role="listitem"><strong>Contratos:</strong> Modelos contractuales tradicionales no se adaptan bien a scope variable</li>
-                        <li role="listitem"><strong>Governance:</strong> Necesidad de nuevos modelos de supervisión y aprobación</li>
-                    </ul>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h4>📏 Velocity</h4>
+                    <p>Mide la cantidad de trabajo (story points) completado por el equipo en una iteración. Es fundamental para planificación y forecasting de entregas futuras.</p>
                 </div>
+                <div class="benefit-card">
+                    <h4>📉 Burndown Chart</h4>
+                    <p>Muestra gráficamente cómo se reduce el trabajo restante a lo largo del tiempo. Ayuda a identificar si el equipo va en camino de cumplir los objetivos.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>📈 Burnup Chart</h4>
+                    <p>Visualiza el trabajo completado acumulativo y el alcance total del proyecto. Útil para detectar cambios de alcance y progreso real.</p>
+                </div>
+                <div class="benefit-card">
+                    <h4>🌊 Cumulative Flow</h4>
+                    <p>Representa el flujo de work items a través de diferentes estados. Identifica cuellos de botella y problemas en el proceso de desarrollo.</p>
+                </div>
+            </div>
 
-                <div class="concept-box">
-                    <h4>Desafíos Técnicos:</h4>
-                    <ul role="list">
-                        <li role="listitem"><strong>Arquitectura evolutiva:</strong> Requiere diseño flexible que pueda adaptarse sin refactoring masivo</li>
-                        <li role="listitem"><strong>Integración continua:</strong> Necesidad de automatización robusta de builds, tests y despliegues</li>
-                        <li role="listitem"><strong>Gestión de configuración:</strong> Complejidad de manejar múltiples versiones y branches</li>
-                        <li role="listitem"><strong>Deuda técnica:</strong> Riesgo de acumular shortcuts técnicos por presión de entregas frecuentes</li>
-                    </ul>
-                </div>
+            <h3>4.1 Product Roadmap y Release Planning</h3>
+            <div class="concept-box">
+                <h4>Product Roadmap:</h4>
+                <ul>
+                    <li><strong>Visión del producto:</strong> Dirección estratégica y objetivos principales</li>
+                    <li><strong>Temas épicos:</strong> Agrupaciones de funcionalidad mayor</li>
+                    <li><strong>Timeline aproximado:</strong> Estimaciones de alto nivel por trimestres</li>
+                    <li><strong>Dependencias clave:</strong> Integraciones, recursos, hitos externos</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <h4>Release Planning:</h4>
+                <ul>
+                    <li><strong>Incrementos entregables:</strong> Versiones específicas con valor de negocio</li>
+                    <li><strong>Criterios de aceptación:</strong> Definición de "terminado" para cada release</li>
+                    <li><strong>Estimación de capacidad:</strong> Velocity histórica y capacidad del equipo</li>
+                    <li><strong>Gestión de riesgo:</strong> Identificación y mitigación de riesgos por release</li>
+                </ul>
+            </div>
         </section>
 
-        <!-- Ejemplo Práctico -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">💼 Caso Práctico: Sistema de Gestión Hospitalaria</h2>
+        <!-- Sistema de Quiz estandarizado -->
+        <section class="quiz-container">
+            <h2>🧠 Evaluación - 20 Preguntas Multiple Choice</h2>
             
-            <div class="highlight-box">
-                <h3>🏥 Contexto del Proyecto</h3>
-                <p>Desarrollo de un sistema integral de gestión para un hospital de 300 camas, incluyendo gestión de pacientes, historias clínicas electrónicas, facturación y reportes regulatorios.</p>
+            <div class="quiz-instructions">
+                <p><strong>Instrucciones:</strong></p>
+                <p>• Cada pregunta tiene 4 opciones (A, B, C, D)</p>
+                <p>• Selecciona la respuesta que consideres correcta</p>
+                <p>• Al finalizar podrás ver tu puntuación y las respuestas correctas</p>
+                <p>• Se requiere responder todas las preguntas para obtener el resultado</p>
             </div>
 
-                <h3>📋 Planificación Iterativa</h3>
+            <!-- Las 20 preguntas -->
+            <div id="quiz-questions">
+                <!-- Pregunta 1 -->
+                <div class="question">
+                    <h4>1. ¿Cuál es la principal diferencia entre desarrollo iterativo e incremental?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Iterativo se refiere a ciclos largos, incremental a ciclos cortos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Iterativo enfatiza la repetición de actividades, incremental la adición progresiva de funcionalidad</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Son sinónimos y pueden usarse indistintamente</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Iterativo es para proyectos grandes, incremental para proyectos pequeños</div>
+                    </div>
+                </div>
                 
-                <div class="interactive-timeline">
-                    <div class="timeline-item" onclick="toggleDetails('iteracion-1')">
-                        <div class="phase">Iteración 1 (4 semanas) - MVP Registro</div>
-                        <p>Funcionalidad básica de registro de pacientes y consultas</p>
-                        <div id="iteracion-1" class="toggle-content">
-                            <p><strong>Objetivos específicos:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Registro básico de pacientes (datos demográficos)</li>
-                                <li role="listitem">Programación simple de citas</li>
-                                <li role="listitem">Interface de recepción</li>
-                                <li role="listitem">Base de datos fundamental</li>
-                            </ul>
-                            <p><strong>Criterios de aceptación:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Registrar 100 pacientes de prueba</li>
-                                <li role="listitem">Programar 50 citas durante una semana</li>
-                                <li role="listitem">Tiempo de respuesta < 2 segundos</li>
-                                <li role="listitem">Capacitación de 5 usuarios de recepción</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" onclick="toggleDetails('iteracion-2')">
-                        <div class="phase">Iteración 2 (4 semanas) - Historia Clínica Básica</div>
-                        <p>Desarrollo de historia clínica electrónica simplificada</p>
-                        <div id="iteracion-2" class="toggle-content">
-                            <p><strong>Funcionalidades agregadas:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Plantillas de consulta por especialidad</li>
-                                <li role="listitem">Registro de signos vitales</li>
-                                <li role="listitem">Prescripciones básicas</li>
-                                <li role="listitem">Búsqueda de pacientes</li>
-                            </ul>
-                            <p><strong>Aprendizajes de iteración anterior:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Mejora en tiempos de búsqueda (feedback de usuarios)</li>
-                                <li role="listitem">Ajustes en workflow de recepción</li>
-                                <li role="listitem">Validaciones adicionales de datos</li>
-                            </ul>
-                        </div>
-                    </div>
-                    
-                    <div class="timeline-item" onclick="toggleDetails('iteracion-3')">
-                        <div class="phase">Iteración 3 (4 semanas) - Integración Laboratorio</div>
-                        <p>Conexión con sistemas de laboratorio y resultados</p>
-                        <div id="iteracion-3" class="toggle-content">
-                            <p><strong>Integraciones desarrolladas:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">API con sistema de laboratorio existente</li>
-                                <li role="listitem">Visualización de resultados en historia clínica</li>
-                                <li role="listitem">Alertas de valores críticos</li>
-                                <li role="listitem">Impresión de reportes</li>
-                            </ul>
-                            <p><strong>Gestión de riesgos:</strong></p>
-                            <ul role="list">
-                                <li role="listitem">Dependencia externa identificada temprano</li>
-                                <li role="listitem">Plan de contingencia con entrada manual</li>
-                                <li role="listitem">Testing exhaustivo de integración</li>
-                            </ul>
-                        </div>
+                <!-- Pregunta 2 -->
+                <div class="question">
+                    <h4>2. Según la Ley de Parkinson mencionada en el contexto iterativo, ¿qué efecto tienen las fechas fijas cortas?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Aumentan el estrés del equipo innecesariamente</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Evitan que el trabajo se expanda para llenar el tiempo disponible</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Reducen la calidad por presión temporal</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Son irrelevantes para la productividad</div>
                     </div>
                 </div>
-        </section>
-
-        <!-- Métricas del Proyecto -->
-        <section class="content-section" role="region">
-                <h3>📊 Métricas del Proyecto</h3>
                 
-                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
-                    <h4>Evolución de Velocity</h4>
-                    <div class="mermaid" role="img" aria-label="Diagrama de evolución de velocity" data-original-content="graph LR
-                            A[Iter 1: 25 SP] --> B[Iter 2: 32 SP]
-                            B --> C[Iter 3: 28 SP]
-                            C --> D[Iter 4: 35 SP]
-                            D --> E[Iter 5: 40 SP]
-                            E --> F[Iter 6: 38 SP]
-                            
-                            A --> A1[Baseline inicial]
-                            B --> B1[Mejora continua]
-                            C --> C1[Complejidad técnica]
-                            D --> D1[Estabilización]
-                            E --> E1[Máximo rendimiento]
-                            F --> F1[Mantenimiento]
-                            
-                            style A fill:#e74c3c,stroke:#333,color:#fff
-                            style B fill:#f39c12,stroke:#333,color:#fff
-                            style C fill:#f39c12,stroke:#333,color:#fff
-                            style D fill:#2ecc71,stroke:#333,color:#fff
-                            style E fill:#27ae60,stroke:#333,color:#fff
-                            style F fill:#2ecc71,stroke:#333,color:#fff">
-                        graph LR
-                            A[Iter 1: 25 SP] --> B[Iter 2: 32 SP]
-                            B --> C[Iter 3: 28 SP]
-                            C --> D[Iter 4: 35 SP]
-                            D --> E[Iter 5: 40 SP]
-                            E --> F[Iter 6: 38 SP]
-                            
-                            A --> A1[Baseline inicial]
-                            B --> B1[Mejora continua]
-                            C --> C1[Complejidad técnica]
-                            D --> D1[Estabilización]
-                            E --> E1[Máximo rendimiento]
-                            F --> F1[Mantenimiento]
-                            
-                            style A fill:#e74c3c,stroke:#333,color:#fff
-                            style B fill:#f39c12,stroke:#333,color:#fff
-                            style C fill:#f39c12,stroke:#333,color:#fff
-                            style D fill:#2ecc71,stroke:#333,color:#fff
-                            style E fill:#27ae60,stroke:#333,color:#fff
-                            style F fill:#2ecc71,stroke:#333,color:#fff
+                <!-- Pregunta 3 -->
+                <div class="question">
+                    <h4>3. ¿Cuál es el principal problema del modelo en cascada que mitiga el desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) El costo elevado de desarrollo</div>
+                        <div class="option" onclick="selectOption(this, true)">B) La gestión tardía de riesgos y falta de retroalimentación temprana</div>
+                        <div class="option" onclick="selectOption(this, false)">C) La necesidad de documentación técnica</div>
+                        <div class="option" onclick="selectOption(this, false)">D) La complejidad de gestión de equipos</div>
                     </div>
                 </div>
-
-                <div class="concept-box">
-                    <h4>Análisis de Métricas:</h4>
-                    <ul role="list">
-                        <li role="listitem"><strong>Iteración 1:</strong> 25 SP - Baseline inicial, curva de aprendizaje del dominio médico</li>
-                        <li role="listitem"><strong>Iteración 2:</strong> 32 SP - Mejora por familiarización con tecnología y dominio</li>
-                        <li role="listitem"><strong>Iteración 3:</strong> 28 SP - Reducción por complejidad de integración externa</li>
-                        <li role="listitem"><strong>Iteración 4-6:</strong> 35-40 SP - Estabilización del equipo y procesos maduros</li>
-                    </ul>
+                
+                <!-- Pregunta 4 -->
+                <div class="question">
+                    <h4>4. ¿Qué métrica indica la cantidad de trabajo completado por un equipo en una iteración?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Burndown chart</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Velocity</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Cumulative flow diagram</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Sprint backlog</div>
+                    </div>
                 </div>
+                
+                <!-- Pregunta 5 -->
+                <div class="question">
+                    <h4>5. ¿Cuál es el propósito principal de las retrospectivas en desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Evaluar el desempeño individual de los miembros del equipo</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Reflexionar sobre el proceso y identificar mejoras continuas</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Planificar las tareas de la siguiente iteración</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Revisar el código desarrollado durante la iteración</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 6 -->
+                <div class="question">
+                    <h4>6. ¿Cuál es la duración típica recomendada para las iteraciones en desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) 1 día a 1 semana</div>
+                        <div class="option" onclick="selectOption(this, true)">B) 1 a 4 semanas</div>
+                        <div class="option" onclick="selectOption(this, false)">C) 1 a 3 meses</div>
+                        <div class="option" onclick="selectOption(this, false)">D) No hay duración estándar</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 7 -->
+                <div class="question">
+                    <h4>7. ¿Qué concepto describe mejor el timeboxing?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Estimación de tareas en horas</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Establecer períodos fijos de tiempo para las iteraciones</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Medición del tiempo dedicado a cada actividad</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Planificación de horarios de trabajo del equipo</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 8 -->
+                <div class="question">
+                    <h4>8. ¿Cuál es la principal ventaja de la entrega continua de valor en desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Reduce los costos de desarrollo</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Permite retroalimentación temprana y frecuente de los stakeholders</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Elimina la necesidad de documentación</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Simplifica la arquitectura del sistema</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 9 -->
+                <div class="question">
+                    <h4>9. ¿Qué muestra un burndown chart?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) El trabajo completado acumulativo</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Cómo se reduce el trabajo restante a lo largo del tiempo</div>
+                        <div class="option" onclick="selectOption(this, false)">C) La velocity del equipo por iteración</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Los cambios de alcance del proyecto</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 10 -->
+                <div class="question">
+                    <h4>10. ¿Cuál es un criterio fundamental para la priorización en desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Orden alfabético de las funcionalidades</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Valor de negocio y retorno de inversión</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Preferencias personales del desarrollador</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Facilidad técnica de implementación</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 11 -->
+                <div class="question">
+                    <h4>11. ¿Qué diferencia hay en la gestión de riesgos entre cascada e iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) No hay diferencias significativas</div>
+                        <div class="option" onclick="selectOption(this, true)">B) En cascada es tardía, en iterativo es temprana y continua</div>
+                        <div class="option" onclick="selectOption(this, false)">C) En cascada es mejor porque es más sistemática</div>
+                        <div class="option" onclick="selectOption(this, false)">D) En iterativo se ignoran los riesgos</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 12 -->
+                <div class="question">
+                    <h4>12. ¿Qué información proporciona un cumulative flow diagram?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Solo la velocity del equipo</div>
+                        <div class="option" onclick="selectOption(this, true)">B) El flujo de work items a través de diferentes estados y cuellos de botella</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente el trabajo restante</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo las horas trabajadas por día</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 13 -->
+                <div class="question">
+                    <h4>13. ¿Cuál es el enfoque de la documentación en desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Documentación exhaustiva antes de implementar</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Documentación evolutiva con enfoque en software funcionando</div>
+                        <div class="option" onclick="selectOption(this, false)">C) No se requiere documentación</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo documentación técnica al final</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 14 -->
+                <div class="question">
+                    <h4>14. ¿Qué actividad es clave en la planificación de iteración?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Escribir código inmediatamente</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Review del backlog priorizado y estimación de esfuerzo</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Definir la arquitectura completa del sistema</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Crear toda la documentación técnica</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 15 -->
+                <div class="question">
+                    <h4>15. ¿Qué caracteriza a las entregas en desarrollo incremental?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Una sola entrega al final del proyecto</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Entregas frecuentes incrementales con valor acumulativo</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Entregas solo cuando se completa una fase</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Entregas sin valor funcional</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 16 -->
+                <div class="question">
+                    <h4>16. ¿Qué beneficio proporciona la integración continua en desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Elimina la necesidad de pruebas</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Detección temprana de problemas de integración</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Reduce el tiempo de desarrollo a cero</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Garantiza que no habrá bugs</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 17 -->
+                <div class="question">
+                    <h4>17. ¿Qué muestra un burnup chart que no muestra un burndown chart?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) El trabajo restante</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Los cambios de alcance del proyecto</div>
+                        <div class="option" onclick="selectOption(this, false)">C) La velocity del equipo</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Los impedimentos del equipo</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 18 -->
+                <div class="question">
+                    <h4>18. ¿Cuál es el propósito del daily standup en desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Reportar horas trabajadas al jefe</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Sincronización del equipo y identificación de impedimentos</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Planificar toda la iteración</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Revisar código en detalle</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 19 -->
+                <div class="question">
+                    <h4>19. ¿Qué elemento define el "Definition of Done" en desarrollo iterativo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Solo que el código compile</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Criterios de aceptación claros para considerar una funcionalidad terminada</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Que el desarrollador diga que terminó</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Que se haya documentado completamente</div>
+                    </div>
+                </div>
+                
+                <!-- Pregunta 20 -->
+                <div class="question">
+                    <h4>20. Según Frederick Brooks, ¿por qué es necesario el desarrollo iterativo e incremental?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Es más barato que otros enfoques</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Los sistemas son demasiado complejos para especificarse completamente por adelantado</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Es una moda en la industria</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Requiere menos personal</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-success" onclick="submitQuiz()">📊 Ver Resultados</button>
+                <button class="btn btn-primary" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
+            </div>
+
+            <!-- Resultados del quiz -->
+            <div class="quiz-results" id="quiz-results">
+                <h3>📊 Resultados de la Evaluación</h3>
+                <div class="results-chart">
+                    <canvas id="results-chart" width="200" height="200"></canvas>
+                </div>
+                <div class="score-text" id="score-text"></div>
+                <div id="feedback-text"></div>
+            </div>
         </section>
 
-        <!-- Evaluación -->
-        <section class="content-section quiz-section">
-            <h2 style="color: white; border-bottom: 3px solid rgba(255,255,255,0.3);">🎓 Evaluación de Conocimientos</h2>
-            
-            <div class="quiz-question">
-                <h3>Pregunta 1: ¿Cuál es la principal diferencia entre desarrollo iterativo e incremental?</h3>
-                <ul class="quiz-options">
-                    <li onclick="selectAnswer(this, false)">A) Iterativo se refiere a ciclos largos, incremental a ciclos cortos</li>
-                    <li onclick="selectAnswer(this, true)">B) Iterativo enfatiza la repetición de actividades, incremental la adición progresiva de funcionalidad</li>
-                    <li onclick="selectAnswer(this, false)">C) Son sinónimos y pueden usarse indistintamente</li>
-                    <li onclick="selectAnswer(this, false)">D) Iterativo es para proyectos grandes, incremental para proyectos pequeños</li>
-                </ul>
-                <div class="toggle-content">
-                    <p><strong>Respuesta correcta: B</strong></p>
-                    <p><strong>Explicación:</strong> El desarrollo iterativo se refiere a la repetición cíclica de actividades de desarrollo (análisis, diseño, implementación, pruebas), mientras que el incremental se refiere a la construcción progresiva del sistema agregando funcionalidad en cada ciclo.</p>
-                </div>
-            </div>
-
-            <div class="quiz-question">
-                <h3>Pregunta 2: Según la Ley de Parkinson mencionada en el contexto iterativo, ¿qué efecto tienen las fechas fijas cortas?</h3>
-                <ul class="quiz-options">
-                    <li onclick="selectAnswer(this, false)">A) Aumentan el estrés del equipo innecesariamente</li>
-                    <li onclick="selectAnswer(this, true)">B) Evitan que el trabajo se expanda para llenar el tiempo disponible</li>
-                    <li onclick="selectAnswer(this, false)">C) Reducen la calidad por presión temporal</li>
-                    <li onclick="selectAnswer(this, false)">D) Son irrelevantes para la productividad</li>
-                </ul>
-                <div class="toggle-content">
-                    <p><strong>Respuesta correcta: B</strong></p>
-                    <p><strong>Explicación:</strong> La Ley de Parkinson establece que "el trabajo se expande para llenar el tiempo disponible". Las iteraciones cortas con fechas fijas fuerzan al equipo a mantenerse enfocado y tomar decisiones eficientes.</p>
-                </div>
-            </div>
-
-            <div class="quiz-question">
-                <h3>Pregunta 3: ¿Cuál es el principal problema del modelo en cascada que mitiga el desarrollo iterativo?</h3>
-                <ul class="quiz-options">
-                    <li onclick="selectAnswer(this, false)">A) El costo elevado de desarrollo</li>
-                    <li onclick="selectAnswer(this, true)">B) La gestión tardía de riesgos y falta de retroalimentación temprana</li>
-                    <li onclick="selectAnswer(this, false)">C) La necesidad de documentación técnica</li>
-                    <li onclick="selectAnswer(this, false)">D) La complejidad de gestión de equipos</li>
-                </ul>
-                <div class="toggle-content">
-                    <p><strong>Respuesta correcta: B</strong></p>
-                    <p><strong>Explicación:</strong> El modelo en cascada posterga la validación y gestión de riesgos hasta las fases finales del proyecto, mientras que el desarrollo iterativo permite identificar y mitigar riesgos tempranamente a través de ciclos cortos de retroalimentación.</p>
-                </div>
-            </div>
-
-            <div class="quiz-question">
-                <h3>Pregunta 4: ¿Qué métrica indica la cantidad de trabajo completado por un equipo en una iteración?</h3>
-                <ul class="quiz-options">
-                    <li onclick="selectAnswer(this, false)">A) Burndown chart</li>
-                    <li onclick="selectAnswer(this, true)">B) Velocity</li>
-                    <li onclick="selectAnswer(this, false)">C) Cumulative flow diagram</li>
-                    <li onclick="selectAnswer(this, false)">D) Sprint backlog</li>
-                </ul>
-                <div class="toggle-content">
-                    <p><strong>Respuesta correcta: B</strong></p>
-                    <p><strong>Explicación:</strong> La velocity mide la cantidad de trabajo (típicamente en story points) que un equipo puede completar en una iteración, siendo fundamental para planificación y forecasting.</p>
-                </div>
-            </div>
-
-            <div class="quiz-question">
-                <h3>Pregunta 5: ¿Cuál es el propósito principal de las retrospectivas en desarrollo iterativo?</h3>
-                <ul class="quiz-options">
-                    <li onclick="selectAnswer(this, false)">A) Evaluar el desempeño individual de los miembros del equipo</li>
-                    <li onclick="selectAnswer(this, true)">B) Reflexionar sobre el proceso y identificar mejoras continuas</li>
-                    <li onclick="selectAnswer(this, false)">C) Planificar las tareas de la siguiente iteración</li>
-                    <li onclick="selectAnswer(this, false)">D) Revisar el código desarrollado durante la iteración</li>
-                </ul>
-                <div class="toggle-content">
-                    <p><strong>Respuesta correcta: B</strong></p>
-                    <p><strong>Explicación:</strong> Las retrospectivas son ceremonias de mejora continua donde el equipo reflexiona sobre qué funcionó bien, qué no funcionó, y qué acciones tomar para mejorar en futuras iteraciones.</p>
-                </div>
-            </div>
-
-            <button class="toggle-button" onclick="showAllAnswers()">Ver Todas las Respuestas</button>
-        </section>
-
-        <!-- Recursos Adicionales -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">📚 Recursos y Referencias</h2>
-        </section>
-
-        <!-- Bibliografía -->
-        <section class="content-section" role="region">
-                <h3>📖 Bibliografía Obligatoria</h3>
-                <ul role="list">
-                    <li role="listitem"><strong>Larman, C. (2003).</strong> "UML y Patrones: Una introducción al análisis y diseño orientado a objetos y al proceso unificado." Capítulo sobre desarrollo iterativo.</li>
-                    <li role="listitem"><strong>Pressman, R. (1998).</strong> "Ingeniería de Software: Un enfoque práctico." Sección sobre ciclos de vida iterativos.</li>
-                    <li role="listitem"><strong>Brooks, F.</strong> "No Silver Bullet" en "The Mythical Man-Month" - Reflexiones sobre complejidad y desarrollo iterativo.</li>
-                </ul>
-        </section>
-
-        <!-- Enlaces Complementarios -->
-        <section class="content-section" role="region">
-                <h3>🔗 Enlaces Complementarios</h3>
-                <ul role="list">
-                    <li role="listitem"><strong>Manifesto Ágil:</strong> Principios fundamentales que sustentan el desarrollo iterativo</li>
-                    <li role="listitem"><strong>Martin Fowler - Iterative Development:</strong> Artículos sobre prácticas iterativas</li>
-                    <li role="listitem"><strong>MIT Sloan Study:</strong> Investigación sobre factores de éxito en proyectos software</li>
-                </ul>
-        </section>
-
-        <!-- Próxima Clase -->
-        <section class="content-section" role="region">
-
-            <div class="highlight-box">
-                <h3>🎯 Próxima Clase</h3>
-                <p><strong>Clase 4: Fundamentos de Metodologías Ágiles</strong></p>
-                <p>Exploraremos el Manifiesto Ágil, sus 4 valores y 12 principios, analizando cómo el desarrollo iterativo e incremental constituye la base de las metodologías ágiles modernas.</p>
-            </div>
+        <!-- Recursos adicionales -->
+        <section class="resources">
+            <h2>📚 Recursos Adicionales</h2>
+            <ul>
+                <li><strong>📖 Bibliografía:</strong> Larman, C. (2003). UML y Patrones | Pressman, R. (1998). Ingeniería de Software | Brooks, F. "No Silver Bullet" - The Mythical Man-Month</li>
+                <li><strong>🔗 Enlaces útiles:</strong> Manifesto Ágil - Principios fundamentales | Martin Fowler - Iterative Development | MIT Sloan Study sobre factores de éxito</li>
+                <li><strong>▶️ Próxima clase:</strong> Clase 4: Fundamentos de Metodologías Ágiles - Manifiesto Ágil, valores y principios</li>
+                <li><strong>🔍 Palabras clave:</strong> Iterativo, Incremental, Timeboxing, Velocity, Burndown, Retrospectivas, Priorización, Valor de negocio</li>
+            </ul>
         </section>
     </div>
 
+    <!-- Scripts JavaScript -->
     <script>
-        // Initialize Mermaid with enhanced configuration
-        mermaid.initialize({ 
-            startOnLoad: true,
-            theme: 'base',
-            themeVariables: {
-                primaryColor: '#667eea',
-                primaryTextColor: '#333',
-                primaryBorderColor: '#2a5298',
-                lineColor: '#667eea',
-                secondaryColor: '#f8f9ff',
-                tertiaryColor: '#764ba2'
-            },
+        // Configuración de Mermaid
+        const mermaidConfig = {
+            startOnLoad: false,
+            theme: 'default',
             flowchart: {
                 useMaxWidth: true,
-                htmlLabels: true,
-                curve: 'basis'
+                htmlLabels: true
             },
-            securityLevel: 'loose'
-        });
-
-        // Function to render Mermaid diagrams with error handling
-        function renderMermaid() {
-            try {
-                // Reset any previously processed diagrams
-                document.querySelectorAll('.mermaid').forEach(element => {
-                    if (element.getAttribute('data-processed') === 'true') {
-                        element.removeAttribute('data-processed');
-                        const originalContent = element.getAttribute('data-original-content');
-                        if (originalContent) {
-                            element.innerHTML = originalContent;
-                        }
-                    }
-                });
-                
-                // Re-initialize Mermaid
-                mermaid.init(undefined, document.querySelectorAll('.mermaid'));
-            } catch (error) {
-                console.error('Error rendering Mermaid diagrams:', error);
-                // Fallback: try to render individual diagrams
-                document.querySelectorAll('.mermaid').forEach((element, index) => {
-                    try {
-                        mermaid.init(undefined, element);
-                    } catch (e) {
-                        console.error(`Error rendering diagram ${index}:`, e);
-                    }
-                });
+            themeVariables: {
+                primaryColor: '#3498db',
+                primaryTextColor: '#2c3e50',
+                primaryBorderColor: '#2980b9',
+                lineColor: '#34495e'
             }
+        };
+        mermaid.initialize(mermaidConfig);
+
+        // Sistema de temas
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Actualizar icono
+            const icon = document.getElementById('theme-icon');
+            icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
         }
 
-        // Render diagrams when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(renderMermaid, 100);
-        });
+        // Cargar tema guardado
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        }
 
-        window.addEventListener('load', function() {
-            setTimeout(renderMermaid, 500);
-        });
+        // Sistema de Quiz
+        let selectedAnswers = {};
+        const totalQuestions = 20;
 
-        // Toggle details functionality
+        function selectOption(element, isCorrect) {
+            const questionDiv = element.closest('.question');
+            const questionNumber = Array.from(document.querySelectorAll('.question')).indexOf(questionDiv) + 1;
+            
+            // Remover selección anterior
+            questionDiv.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Seleccionar nueva opción
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            selectedAnswers[questionNumber] = isCorrect;
+        }
+
+        function submitQuiz() {
+            const answeredQuestions = Object.keys(selectedAnswers).length;
+            
+            if (answeredQuestions < totalQuestions) {
+                alert(`Por favor responde todas las preguntas. Has respondido ${answeredQuestions} de ${totalQuestions}.`);
+                return;
+            }
+
+            // Calcular resultados
+            const correctAnswers = Object.values(selectedAnswers).filter(answer => answer === true).length;
+            const incorrectAnswers = totalQuestions - correctAnswers;
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+
+            // Mostrar respuestas correctas e incorrectas
+            document.querySelectorAll('.question').forEach((questionDiv, index) => {
+                const questionNumber = index + 1;
+                const selectedOption = questionDiv.querySelector('.option.selected');
+                const isCorrect = selectedAnswers[questionNumber];
+                
+                questionDiv.querySelectorAll('.option').forEach(opt => {
+                    const optionIsCorrect = opt.onclick.toString().includes('true');
+                    
+                    if (optionIsCorrect) {
+                        opt.classList.add('correct');
+                    } else if (opt.classList.contains('selected') && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+            });
+
+            // Mostrar resultados
+            displayResults(correctAnswers, incorrectAnswers, percentage);
+        }
+
+        function displayResults(correct, incorrect, percentage) {
+            const resultsDiv = document.getElementById('quiz-results');
+            const scoreText = document.getElementById('score-text');
+            const feedbackText = document.getElementById('feedback-text');
+            
+            // Mostrar puntuación
+            scoreText.textContent = `${correct}/${totalQuestions} (${percentage}%)`;
+            
+            // Feedback basado en la puntuación
+            let feedback = '';
+            if (percentage >= 90) {
+                feedback = '🎉 ¡Excelente! Dominas muy bien el tema.';
+            } else if (percentage >= 80) {
+                feedback = '👏 ¡Muy bien! Tienes un buen entendimiento.';
+            } else if (percentage >= 70) {
+                feedback = '👍 Bien. Te recomendamos repasar algunos conceptos.';
+            } else if (percentage >= 60) {
+                feedback = '📚 Necesitas estudiar más el material.';
+            } else {
+                feedback = '⚠️ Te recomendamos repasar todo el contenido de la clase.';
+            }
+            
+            feedbackText.innerHTML = `<p><strong>${feedback}</strong></p>`;
+            
+            // Crear gráfico de resultados
+            createResultsChart(correct, incorrect);
+            
+            // Mostrar resultados
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function createResultsChart(correct, incorrect) {
+            const canvas = document.getElementById('results-chart');
+            const ctx = canvas.getContext('2d');
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Configuración del gráfico
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 80;
+            
+            // Calcular ángulos
+            const correctAngle = (correct / totalQuestions) * 2 * Math.PI;
+            const incorrectAngle = (incorrect / totalQuestions) * 2 * Math.PI;
+            
+            // Dibujar sector de respuestas correctas
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, 0, correctAngle);
+            ctx.closePath();
+            ctx.fillStyle = '#27ae60';
+            ctx.fill();
+            
+            // Dibujar sector de respuestas incorrectas
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, correctAngle, correctAngle + incorrectAngle);
+            ctx.closePath();
+            ctx.fillStyle = '#e74c3c';
+            ctx.fill();
+            
+            // Añadir texto en el centro
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${correct}/${totalQuestions}`, centerX, centerY + 5);
+            
+            // Leyenda
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#27ae60';
+            ctx.fillText(`✓ Correctas: ${correct}`, 10, canvas.height - 30);
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillText(`✗ Incorrectas: ${incorrect}`, 10, canvas.height - 10);
+        }
+
+        function resetQuiz() {
+            // Limpiar respuestas
+            selectedAnswers = {};
+            
+            // Remover todas las clases de selección y resultados
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar resultados
+            document.getElementById('quiz-results').style.display = 'none';
+            
+            // Scroll al inicio del quiz
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Funcionalidad de toggle para detalles
         function toggleDetails(id) {
             const element = document.getElementById(id);
             const isVisible = element.style.display === 'block';
             element.style.display = isVisible ? 'none' : 'block';
         }
 
-        // Quiz functionality
-        function selectAnswer(element, isCorrect) {
-            const options = element.parentNode.querySelectorAll('li');
-            options.forEach(option => {
-                option.classList.remove('correct', 'incorrect');
-                option.style.pointerEvents = 'none';
-            });
-            
-            if (isCorrect) {
-                element.classList.add('correct');
-            } else {
-                element.classList.add('incorrect');
-                // Show correct answer
-                options.forEach(option => {
-                    if (option.onclick.toString().includes('true')) {
-                        option.classList.add('correct');
-                    }
-                });
-            }
-            
-            // Show explanation
-            const explanation = element.parentNode.parentNode.querySelector('.toggle-content');
-            explanation.style.display = 'block';
+        // Renderizar diagramas Mermaid
+        function renderMermaid() {
+            mermaid.run();
         }
 
-        function showAllAnswers() {
-            const allExplanations = document.querySelectorAll('.quiz-question .toggle-content');
-            allExplanations.forEach(explanation => {
-                explanation.style.display = 'block';
-            });
-            
-            const allOptions = document.querySelectorAll('.quiz-options li');
-            allOptions.forEach(option => {
-                if (option.onclick.toString().includes('true')) {
-                    option.classList.add('correct');
-                }
-                option.style.pointerEvents = 'none';
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            setTimeout(renderMermaid, 500);
+        });
+
+        // Scroll suave para navegación
+        function smoothScroll(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth'
             });
         }
-
-        // Smooth scrolling for better UX
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-
-        // Add animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.content-section').forEach(section => {
-            observer.observe(section);
-        });
-
-        // Add CSS animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(30px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-        `;
-        document.head.appendChild(style);
     </script>
-    <script src="keyboard-navigation.js"></script>
 </body>
 </html>

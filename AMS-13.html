@@ -3,19 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 13: Fundamentos del Análisis Orientado a Objetos</title>
-    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
-    <meta name="author" content="Curso AMS HTML">
-    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <title>AMS - Clase 13: Fundamentos del Análisis Orientado a Objetos</title>
+    <meta name="description" content="Dominio de los principios fundamentales del paradigma orientado a objetos y técnicas de identificación de objetos">
+    <meta name="keywords" content="análisis, sistemas, metodología, AMS, orientado a objetos, abstracción, encapsulamiento">
+    <meta name="author" content="Curso AMS">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
         :root {
+            /* Colores principales */
             --primary-color: #2c3e50;
             --secondary-color: #3498db;
             --accent-color: #e74c3c;
-            --background-color: #ecf0f1;
-            --text-color: #34495e;
-            --border-radius: 8px;
-            --box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #17a2b8;
+            
+            /* Sistema de colores para modo claro */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.1);
+            
+            /* Gradientes */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(45deg, #3498db, #2980b9);
+        }
+        
+        [data-theme="dark"] {
+            /* Sistema de colores para modo oscuro */
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d3748;
+            --bg-card: rgba(26, 26, 26, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --border-color: #4a5568;
+            --shadow: rgba(0, 0, 0, 0.3);
+            
+            /* Gradientes modo oscuro */
+            --gradient-primary: linear-gradient(135deg, #232526 0%, #414345 100%);
+            --gradient-secondary: linear-gradient(45deg, #2c3e50, #34495e);
         }
 
         * {
@@ -27,407 +56,666 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
-            background-color: var(--background-color);
-            padding: 20px;
+            color: var(--text-primary);
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            transition: all 0.3s ease;
         }
 
+        /* Botón de tema */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* Contenedor principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: white;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Header del curso */
+        .course-header {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 40px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-        }
-
-        h1 {
-            color: var(--primary-color);
-            text-align: center;
             margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .course-title {
             font-size: 2.5em;
-            border-bottom: 3px solid var(--secondary-color);
-            padding-bottom: 15px;
-        }
-
-        h2 {
-            color: var(--secondary-color);
-            margin-top: 30px;
-            margin-bottom: 20px;
-            font-size: 1.8em;
-            border-left: 5px solid var(--secondary-color);
-            padding-left: 15px;
-        }
-
-        h3 {
             color: var(--primary-color);
-            margin-top: 20px;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px var(--shadow);
         }
 
-        p {
-            margin-bottom: 15px;
-            text-align: justify;
+        .course-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
-        .diagram-container {
-            margin: 30px 0;
+        .meta-card {
+            background: var(--gradient-secondary);
+            color: white;
             padding: 20px;
-            background-color: #f8f9fa;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .meta-card h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Secciones de contenido */
+        .content-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .content-section:hover {
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+            color: var(--text-primary);
+        }
+
+        /* Objetivos de aprendizaje */
+        .objectives {
+            background: linear-gradient(45deg, var(--success-color), #2ecc71);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .objectives h2 {
+            margin-bottom: 20px;
             text-align: center;
         }
 
-        .mindmap {
-            background-color: #f0f8ff;
-            padding: 30px;
-            border-radius: var(--border-radius);
-            margin: 20px 0;
+        .objectives ul {
+            list-style: none;
+            display: grid;
+            gap: 15px;
         }
 
+        .objectives li {
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            position: relative;
+            padding-left: 45px;
+        }
+
+        .objectives li::before {
+            content: '✓';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Cajas de información */
+        .info-box {
+            background: var(--bg-secondary);
+            border: 2px solid var(--info-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+            border-left: 6px solid var(--info-color);
+        }
+
+        .synopsis-box {
+            background: linear-gradient(45deg, var(--info-color), #138496);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .warning-box {
+            background: linear-gradient(45deg, var(--warning-color), #e67e22);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Contenedor de diagramas */
+        .diagram-container {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 25px 0;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Estilos específicos del contenido */
         .principle-box {
-            background-color: #e8f4f8;
+            background: linear-gradient(135deg, #e8f4f8, #c3e8f8);
             border: 2px solid var(--secondary-color);
-            border-radius: var(--border-radius);
-            padding: 20px;
-            margin: 20px 0;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 6px solid var(--secondary-color);
         }
 
         .concept-card {
-            background-color: #fff3cd;
+            background: linear-gradient(135deg, #fff3cd, #ffeaa7);
             border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 4px;
-        }
-
-        .example-box {
-            background-color: #d4edda;
-            border: 1px solid #c3e6cb;
-            border-radius: var(--border-radius);
             padding: 20px;
             margin: 20px 0;
-        }
-
-        ul, ol {
-            margin-left: 30px;
-            margin-bottom: 15px;
-        }
-
-        li {
-            margin-bottom: 8px;
-        }
-
-        .quiz-section {
-            background-color: #f8d7da;
-            border: 2px solid #f5c6cb;
-            border-radius: var(--border-radius);
-            padding: 30px;
-            margin-top: 40px;
-        }
-
-        .question {
-            background-color: white;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .options {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .highlight {
-            background-color: #fff3cd;
-            padding: 2px 5px;
-            border-radius: 3px;
+            border-radius: 10px;
         }
 
         .definition {
-            background-color: #e2e3e5;
-            padding: 15px;
+            background: linear-gradient(135deg, #e2e3e5, #d1d3d4);
+            padding: 20px;
             border-left: 4px solid var(--primary-color);
-            margin: 15px 0;
+            margin: 20px 0;
             font-style: italic;
+            border-radius: 8px;
         }
 
-        table {
+        .example-box {
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            border: 1px solid #c3e6cb;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border-left: 6px solid var(--success-color);
+        }
+
+        .highlight {
+            background-color: #ffffcc;
+            padding: 2px 5px;
+            border-radius: 3px;
+            color: #333;
+        }
+
+        /* Tablas */
+        .styled-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
+        .styled-table th,
+        .styled-table td {
+            padding: 15px;
             text-align: left;
+            border-bottom: 1px solid #eee;
         }
 
-        th {
-            background-color: var(--primary-color);
+        .styled-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: bold;
+        }
+
+        .styled-table tr:hover {
+            background: #f5f7fa;
+        }
+
+        /* Sistema de Quiz estandarizado */
+        .quiz-container {
+            background: linear-gradient(45deg, var(--warning-color), #e67e22);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            border: 1px solid var(--border-color);
+        }
+
+        .quiz-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .quiz-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .question h4 {
+            margin-bottom: 15px;
+            font-size: 1.1em;
             color: white;
         }
 
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
+        .options {
+            display: grid;
+            gap: 10px;
         }
 
-        .svg-container {
-            width: 100%;
-            max-width: 800px;
+        .option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: white;
+            transform: translateX(5px);
+        }
+
+        .option.correct {
+            background: var(--success-color) !important;
+            border-color: #27ae60 !important;
+        }
+
+        .option.incorrect {
+            background: var(--accent-color) !important;
+            border-color: #c0392b !important;
+        }
+
+        /* Botones */
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* Resultados del quiz */
+        .quiz-results {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            text-align: center;
+            display: none;
+        }
+
+        .results-chart {
+            width: 200px;
+            height: 200px;
             margin: 20px auto;
         }
 
+        .score-text {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        /* Recursos adicionales */
+        .resources {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .resources h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .resources ul {
+            list-style: none;
+        }
+
+        .resources li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .resources li:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
             .container {
-                padding: 20px;
+                padding: 15px;
             }
             
-            h1 {
+            .course-header {
+                padding: 25px;
+            }
+            
+            .course-title {
                 font-size: 2em;
             }
             
-            h2 {
-                font-size: 1.5em;
+            .content-section {
+                padding: 25px;
+            }
+            
+            .quiz-container {
+                padding: 25px;
+            }
+            
+            .theme-toggle {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
             }
         }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .content-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Scroll suave */
+        html {
+            scroll-behavior: smooth;
+        }
     </style>
-    <link rel="stylesheet" href="accessibility.css">
 </head>
-<body role="document">
-    <div class="container" role="main">
-        <h1 id="main-title">Clase 13: Fundamentos del Análisis Orientado a Objetos</h1>
-        
-        <div class="principle-box">
-            <h3>Objetivos de la Clase</h3>
-            <ul role="list">
-                <li role="listitem">Dominar los principios fundamentales del paradigma orientado a objetos</li>
-                <li role="listitem">Comprender los conceptos de abstracción, encapsulamiento, modularidad y jerarquía</li>
-                <li role="listitem">Analizar técnicas para la identificación de objetos y responsabilidades</li>
-                <li role="listitem">Desarrollar habilidades para el modelado conceptual orientado a objetos</li>
+<body>
+    <!-- Botón de cambio de tema -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <span id="theme-icon">🌓</span>
+    </button>
+
+    <div class="container">
+        <!-- Header del curso -->
+        <header class="course-header">
+            <h1 class="course-title">🏗️ Clase 13: Fundamentos del Análisis Orientado a Objetos</h1>
+            <p class="course-subtitle">Dominio de los principios fundamentales del paradigma orientado a objetos</p>
+            
+            <div class="course-meta">
+                <div class="meta-card">
+                    <h4>📚 Curso</h4>
+                    <p>Análisis y Metodología de Sistemas</p>
+                </div>
+                <div class="meta-card">
+                    <h4>📊 Progreso</h4>
+                    <p>Clase 13 de 16</p>
+                </div>
+                <div class="meta-card">
+                    <h4>⏱️ Duración</h4>
+                    <p>90 minutos</p>
+                </div>
+                <div class="meta-card">
+                    <h4>🎯 Nivel</h4>
+                    <p>Intermedio</p>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 81.25%"></div>
+            </div>
+        </header>
+
+        <!-- Objetivos de aprendizaje -->
+        <section class="objectives">
+            <h2>🎯 Objetivos de Aprendizaje</h2>
+            <ul>
+                <li>Dominar los principios fundamentales del paradigma orientado a objetos</li>
+                <li>Comprender los conceptos de abstracción, encapsulamiento, modularidad y jerarquía</li>
+                <li>Analizar técnicas para la identificación de objetos y responsabilidades</li>
+                <li>Desarrollar habilidades para el modelado conceptual orientado a objetos</li>
             </ul>
-        </div>
+        </section>
 
-        <h2>1. Principios Fundamentales del Análisis Orientado a Objetos</h2>
-        
-        <p>El análisis orientado a objetos (AOO) representa un cambio paradigmático fundamental en la forma en que conceptualizamos, diseñamos y construimos sistemas de software. A diferencia del enfoque estructurado tradicional, que se centra en la descomposición funcional y el flujo de datos, el AOO se basa en la identificación y modelado de entidades del mundo real como objetos que encapsulan tanto datos como comportamiento.</p>
-
-        <h3>1.1 Abstracción: El Arte de Simplificar la Complejidad</h3>
-        
-        <p>La <span class="highlight">abstracción</span> es el principio fundamental que nos permite manejar la complejidad inherente de los sistemas del mundo real. Consiste en identificar las características esenciales de una entidad, ignorando los detalles irrelevantes para el contexto específico del problema que estamos resolviendo.</p>
-
-        <div class="definition">
-            <strong>Abstracción:</strong> Proceso de identificar y aislar los aspectos importantes de una entidad en el contexto del problema a resolver, ignorando las propiedades menos relevantes o accidentales.
-        </div>
-
-        <p>En el contexto del análisis orientado a objetos, la abstracción se manifiesta en varios niveles:</p>
-
-        <ul role="list">
-            <li role="listitem"><strong>Abstracción de datos:</strong> Identificamos qué información es relevante para representar una entidad. Por ejemplo, para un sistema de gestión universitaria, un estudiante tiene nombre, número de identificación y promedio académico, pero su color favorito probablemente sea irrelevante.</li>
+        <!-- Principios Fundamentales -->
+        <section class="content-section">
+            <h2 class="section-title">🔧 1. Principios Fundamentales del Análisis Orientado a Objetos</h2>
             
-            <li role="listitem"><strong>Abstracción de procesos:</strong> Determinamos qué operaciones o comportamientos son esenciales para el objeto. Un estudiante puede inscribirse en cursos, consultar calificaciones y actualizar datos personales.</li>
-            
-            <li role="listitem"><strong>Abstracción de control:</strong> Definimos cómo los objetos interactúan y coordinan sus actividades sin exponer los detalles internos de implementación.</li>
-        </ul>
+            <p>El análisis orientado a objetos (AOO) representa un cambio paradigmático fundamental en la forma en que conceptualizamos, diseñamos y construimos sistemas de software. A diferencia del enfoque estructurado tradicional, que se centra en la descomposición funcional y el flujo de datos, el AOO se basa en la identificación y modelado de entidades del mundo real como objetos que encapsulan tanto datos como comportamiento.</p>
 
-        <div class="example-box">
-            <h4>Ejemplo Práctico: Sistema de Biblioteca</h4>
-            <p>Consideremos la abstracción de un libro en un sistema de biblioteca:</p>
-            <ul role="list">
-                <li role="listitem"><strong>Características relevantes:</strong> ISBN, título, autor, editorial, año de publicación, estado (disponible/prestado)</li>
-                <li role="listitem"><strong>Características irrelevantes:</strong> peso del papel, tipo de fuente utilizada, color de la portada</li>
-                <li role="listitem"><strong>Comportamientos relevantes:</strong> prestar(), devolver(), reservar(), consultarDisponibilidad()</li>
+            <h3>1.1 Abstracción: El Arte de Simplificar la Complejidad</h3>
+            
+            <p>La <span class="highlight">abstracción</span> es el principio fundamental que nos permite manejar la complejidad inherente de los sistemas del mundo real. Consiste en identificar las características esenciales de una entidad, ignorando los detalles irrelevantes para el contexto específico del problema que estamos resolviendo.</p>
+
+            <div class="definition">
+                <strong>Abstracción:</strong> Proceso de identificar y aislar los aspectos importantes de una entidad en el contexto del problema a resolver, ignorando las propiedades menos relevantes o accidentales.
+            </div>
+
+            <p>En el contexto del análisis orientado a objetos, la abstracción se manifiesta en varios niveles:</p>
+
+            <ul style="margin: 20px 0; padding-left: 30px;">
+                <li><strong>Abstracción de datos:</strong> Identificamos qué información es relevante para representar una entidad</li>
+                <li><strong>Abstracción de procesos:</strong> Determinamos qué operaciones o comportamientos son esenciales para el objeto</li>
+                <li><strong>Abstracción de control:</strong> Definimos cómo los objetos interactúan y coordinan sus actividades</li>
             </ul>
-        </div>
 
-        <p>La abstracción nos permite crear modelos que son a la vez simples y poderosos. Al enfocarnos solo en lo esencial, podemos construir sistemas que son más fáciles de entender, mantener y evolucionar. Este principio es fundamental porque establece la base sobre la cual construimos todos los demás conceptos orientados a objetos.</p>
+            <div class="example-box">
+                <h4>Ejemplo Práctico: Sistema de Biblioteca</h4>
+                <p>Consideremos la abstracción de un libro en un sistema de biblioteca:</p>
+                <ul>
+                    <li><strong>Características relevantes:</strong> ISBN, título, autor, editorial, año de publicación, estado (disponible/prestado)</li>
+                    <li><strong>Características irrelevantes:</strong> peso del papel, tipo de fuente utilizada, color de la portada</li>
+                    <li><strong>Comportamientos relevantes:</strong> prestar(), devolver(), reservar(), consultarDisponibilidad()</li>
+                </ul>
+            </div>
 
-        <h3>1.2 Encapsulamiento: Protegiendo la Integridad del Objeto</h3>
+            <h3>1.2 Encapsulamiento: Protegiendo la Integridad del Objeto</h3>
 
-        <p>El <span class="highlight">encapsulamiento</span> es el mecanismo que agrupa los datos y los métodos que operan sobre esos datos en una única unidad llamada objeto, y que restringe el acceso directo a algunos de los componentes del objeto. Este principio es fundamental para lograr la modularidad y la seguridad en los sistemas orientados a objetos.</p>
+            <p>El <span class="highlight">encapsulamiento</span> es el mecanismo que agrupa los datos y los métodos que operan sobre esos datos en una única unidad llamada objeto, y que restringe el acceso directo a algunos de los componentes del objeto.</p>
 
-        <div class="definition">
-            <strong>Encapsulamiento:</strong> Principio que combina datos y métodos en una unidad cohesiva (objeto) y oculta los detalles de implementación internos, exponiendo solo una interfaz pública bien definida.
-        </div>
+            <div class="definition">
+                <strong>Encapsulamiento:</strong> Principio que combina datos y métodos en una unidad cohesiva (objeto) y oculta los detalles de implementación internos, exponiendo solo una interfaz pública bien definida.
+            </div>
 
-        <p>El encapsulamiento proporciona varios beneficios críticos:</p>
+            <div class="diagram-container">
+                <h4>📊 Diagrama de Encapsulamiento</h4>
+                <div class="mermaid">
+                    classDiagram
+                        class CuentaBancaria {
+                            -saldo: double
+                            -numeroTransacciones: int
+                            +depositar(monto: double)
+                            +retirar(monto: double)
+                            +consultarSaldo(): double
+                        }
+                        
+                        class Cliente {
+                            +interaccion()
+                        }
+                        
+                        Cliente --> CuentaBancaria : "Solo acceso público"
+                </div>
+            </div>
 
-        <ol role="list">
-            <li role="listitem"><strong>Ocultamiento de información:</strong> Los detalles internos de implementación quedan ocultos, permitiendo cambios sin afectar a los clientes del objeto.</li>
-            
-            <li role="listitem"><strong>Control de acceso:</strong> Se puede controlar cómo y cuándo se accede a los datos, garantizando la consistencia y validez del estado del objeto.</li>
-            
-            <li role="listitem"><strong>Reducción de complejidad:</strong> Los usuarios del objeto solo necesitan conocer la interfaz pública, no los detalles internos.</li>
-            
-            <li role="listitem"><strong>Facilita el mantenimiento:</strong> Los cambios internos no propagan efectos secundarios al resto del sistema.</li>
-        </ol>
-
-        <div class="svg-container">
-            <svg viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                        <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
-                    </marker>
-                </defs>
-                
-                <!-- Objeto CuentaBancaria -->
-                <rect x="150" y="50" width="300" height="250" fill="#e8f4f8" stroke="#3498db" stroke-width="2" rx="10"/>
-                <text x="300" y="80" text-anchor="middle" font-size="18" font-weight="bold">CuentaBancaria</text>
-                
-                <!-- Parte Privada -->
-                <rect x="170" y="100" width="260" height="80" fill="#ffebee" stroke="#e74c3c" stroke-width="1" rx="5"/>
-                <text x="300" y="120" text-anchor="middle" font-size="14" font-weight="bold">Parte Privada (Oculta)</text>
-                <text x="180" y="140" font-size="12">- saldo: double</text>
-                <text x="180" y="160" font-size="12">- numeroTransacciones: int</text>
-                
-                <!-- Parte Pública -->
-                <rect x="170" y="200" width="260" height="80" fill="#e8f5e9" stroke="#4caf50" stroke-width="1" rx="5"/>
-                <text x="300" y="220" text-anchor="middle" font-size="14" font-weight="bold">Interfaz Pública</text>
-                <text x="180" y="240" font-size="12">+ depositar(monto: double)</text>
-                <text x="180" y="260" font-size="12">+ retirar(monto: double)</text>
-                
-                <!-- Cliente externo -->
-                <circle cx="50" cy="175" r="30" fill="#ffd54f" stroke="#f57c00" stroke-width="2"/>
-                <text x="50" y="180" text-anchor="middle" font-size="12">Cliente</text>
-                
-                <!-- Flecha de acceso -->
-                <path d="M 80 175 L 140 175" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-                <text x="110" y="165" text-anchor="middle" font-size="10">Solo acceso público</text>
-                
-                <!-- Barrera -->
-                <line x1="150" y1="190" x2="450" y2="190" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,5"/>
-                <text x="300" y="195" text-anchor="middle" font-size="10" fill="#e74c3c">Barrera de Encapsulamiento</text>
-            </svg>
-        </div>
-
-        <p>El encapsulamiento implementa el principio de ocultamiento de información de Parnas, que establece que los módulos de un sistema deben diseñarse para ocultar las decisiones de diseño que probablemente cambien. Esto permite que el sistema evolucione con cambios mínimos en el código cliente.</p>
-
-        <h3>1.3 Modularidad: Dividir para Conquistar</h3>
-
-        <p>La <span class="highlight">modularidad</span> es el principio que nos permite descomponer un sistema complejo en partes más pequeñas, manejables e independientes llamadas módulos. En el contexto orientado a objetos, estos módulos son típicamente clases que agrupan objetos relacionados.</p>
-
-        <div class="definition">
-            <strong>Modularidad:</strong> Propiedad de un sistema que ha sido descompuesto en un conjunto de módulos cohesivos y débilmente acoplados.
-        </div>
-
-        <p>Los beneficios de la modularidad incluyen:</p>
-
-        <ul role="list">
-            <li role="listitem"><strong>Comprensibilidad:</strong> Es más fácil entender módulos pequeños que sistemas completos.</li>
-            <li role="listitem"><strong>Mantenibilidad:</strong> Los cambios se localizan en módulos específicos.</li>
-            <li role="listitem"><strong>Reusabilidad:</strong> Los módulos bien diseñados pueden reutilizarse en diferentes contextos.</li>
-            <li role="listitem"><strong>Desarrollo paralelo:</strong> Diferentes equipos pueden trabajar en módulos distintos simultáneamente.</li>
-        </ul>
-
-        <div class="principle-box">
-            <h4>Criterios para una Buena Modularidad</h4>
-            <ol role="list">
-                <li role="listitem"><strong>Alta cohesión:</strong> Los elementos dentro de un módulo deben estar fuertemente relacionados</li>
-                <li role="listitem"><strong>Bajo acoplamiento:</strong> Las dependencias entre módulos deben ser mínimas</li>
-                <li role="listitem"><strong>Interfaces bien definidas:</strong> La comunicación entre módulos debe ser clara y explícita</li>
-                <li role="listitem"><strong>Ocultamiento de información:</strong> Los detalles internos deben permanecer privados</li>
+            <p>El encapsulamiento proporciona varios beneficios críticos:</p>
+            <ol>
+                <li><strong>Ocultamiento de información:</strong> Los detalles internos de implementación quedan ocultos</li>
+                <li><strong>Control de acceso:</strong> Se puede controlar cómo y cuándo se accede a los datos</li>
+                <li><strong>Reducción de complejidad:</strong> Los usuarios del objeto solo necesitan conocer la interfaz pública</li>
+                <li><strong>Facilita el mantenimiento:</strong> Los cambios internos no propagan efectos secundarios</li>
             </ol>
-        </div>
 
-        <h3>1.4 Jerarquía: Organizando el Conocimiento</h3>
+            <h3>1.3 Modularidad: Dividir para Conquistar</h3>
 
-        <p>La <span class="highlight">jerarquía</span> es el principio de ordenamiento que nos permite organizar las abstracciones en estructuras de clasificación. En el análisis orientado a objetos, encontramos dos tipos principales de jerarquías:</p>
+            <p>La <span class="highlight">modularidad</span> es el principio que nos permite descomponer un sistema complejo en partes más pequeñas, manejables e independientes llamadas módulos.</p>
 
-        <ol role="list">
-            <li role="listitem"><strong>Jerarquía de generalización/especialización (ES-UN):</strong> Representa relaciones de herencia donde las clases más específicas heredan características de clases más generales.</li>
+            <div class="definition">
+                <strong>Modularidad:</strong> Propiedad de un sistema que ha sido descompuesto en un conjunto de módulos cohesivos y débilmente acoplados.
+            </div>
+
+            <div class="principle-box">
+                <h4>Criterios para una Buena Modularidad</h4>
+                <ol>
+                    <li><strong>Alta cohesión:</strong> Los elementos dentro de un módulo deben estar fuertemente relacionados</li>
+                    <li><strong>Bajo acoplamiento:</strong> Las dependencias entre módulos deben ser mínimas</li>
+                    <li><strong>Interfaces bien definidas:</strong> La comunicación entre módulos debe ser clara y explícita</li>
+                    <li><strong>Ocultamiento de información:</strong> Los detalles internos deben permanecer privados</li>
+                </ol>
+            </div>
+
+            <h3>1.4 Jerarquía: Organizando el Conocimiento</h3>
+
+            <p>La <span class="highlight">jerarquía</span> es el principio de ordenamiento que nos permite organizar las abstracciones en estructuras de clasificación. En el análisis orientado a objetos, encontramos dos tipos principales de jerarquías:</p>
+
+            <div class="diagram-container">
+                <h4>📊 Jerarquías en Orientación a Objetos</h4>
+                <div class="mermaid">
+                    graph TD
+                        subgraph "Jerarquía de Generalización (ES-UN)"
+                            A[Vehículo] --> B[Automóvil]
+                            A --> C[Motocicleta]
+                            A --> D[Camión]
+                        end
+                        
+                        subgraph "Jerarquía de Composición (TIENE-UN)"
+                            E[Computadora] --> F[Procesador]
+                            E --> G[Memoria]
+                            E --> H[Disco Duro]
+                        end
+                </div>
+            </div>
+
+            <ol>
+                <li><strong>Jerarquía de generalización/especialización (ES-UN):</strong> Representa relaciones de herencia donde las clases más específicas heredan características de clases más generales</li>
+                <li><strong>Jerarquía de agregación/composición (TIENE-UN):</strong> Representa relaciones donde objetos complejos se construyen a partir de objetos más simples</li>
+            </ol>
+        </section>
+
+        <!-- Conceptos Avanzados -->
+        <section class="content-section">
+            <h2 class="section-title">🚀 2. Conceptos Avanzados del Análisis Orientado a Objetos</h2>
             
-            <li role="listitem"><strong>Jerarquía de agregación/composición (TIENE-UN):</strong> Representa relaciones donde objetos complejos se construyen a partir de objetos más simples.</li>
-        </ol>
+            <h3>2.1 Polimorfismo: La Flexibilidad del Comportamiento</h3>
 
-        <div class="svg-container">
-            <svg viewBox="0 0 700 500" xmlns="http://www.w3.org/2000/svg">
-                <!-- Jerarquía de Generalización -->
-                <text x="350" y="30" text-anchor="middle" font-size="16" font-weight="bold">Jerarquía de Generalización (ES-UN)</text>
-                
-                <!-- Clase Vehículo -->
-                <rect x="250" y="50" width="200" height="60" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
-                <text x="350" y="85" text-anchor="middle" font-size="14" font-weight="bold">Vehículo</text>
-                
-                <!-- Líneas de herencia -->
-                <line x1="350" y1="110" x2="200" y2="150" stroke="#333" stroke-width="2"/>
-                <line x1="350" y1="110" x2="350" y2="150" stroke="#333" stroke-width="2"/>
-                <line x1="350" y1="110" x2="500" y2="150" stroke="#333" stroke-width="2"/>
-                
-                <!-- Triángulos de herencia -->
-                <polygon points="340,110 350,130 360,110" fill="white" stroke="#333" stroke-width="2"/>
-                
-                <!-- Subclases -->
-                <rect x="100" y="150" width="150" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
-                <text x="175" y="185" text-anchor="middle" font-size="14">Automóvil</text>
-                
-                <rect x="275" y="150" width="150" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
-                <text x="350" y="185" text-anchor="middle" font-size="14">Motocicleta</text>
-                
-                <rect x="450" y="150" width="150" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
-                <text x="525" y="185" text-anchor="middle" font-size="14">Camión</text>
-                
-                <!-- Jerarquía de Composición -->
-                <text x="350" y="280" text-anchor="middle" font-size="16" font-weight="bold">Jerarquía de Composición (TIENE-UN)</text>
-                
-                <!-- Clase Computadora -->
-                <rect x="250" y="300" width="200" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
-                <text x="350" y="335" text-anchor="middle" font-size="14" font-weight="bold">Computadora</text>
-                
-                <!-- Líneas de composición con diamantes -->
-                <line x1="250" y1="330" x2="150" y2="400" stroke="#333" stroke-width="2"/>
-                <line x1="350" y1="360" x2="350" y2="400" stroke="#333" stroke-width="2"/>
-                <line x1="450" y1="330" x2="550" y2="400" stroke="#333" stroke-width="2"/>
-                
-                <!-- Diamantes de composición -->
-                <polygon points="250,320 240,330 250,340 260,330" fill="#333"/>
-                <polygon points="350,350 340,360 350,370 360,360" fill="#333"/>
-                <polygon points="450,320 440,330 450,340 460,330" fill="#333"/>
-                
-                <!-- Componentes -->
-                <rect x="75" y="400" width="120" height="50" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
-                <text x="135" y="430" text-anchor="middle" font-size="12">Procesador</text>
-                
-                <rect x="290" y="400" width="120" height="50" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
-                <text x="350" y="430" text-anchor="middle" font-size="12">Memoria</text>
-                
-                <rect x="505" y="400" width="120" height="50" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
-                <text x="565" y="430" text-anchor="middle" font-size="12">Disco Duro</text>
-            </svg>
-        </div>
+            <p>El <span class="highlight">polimorfismo</span> es uno de los conceptos más poderosos del paradigma orientado a objetos. Literalmente significa "muchas formas" y se refiere a la capacidad de objetos de diferentes tipos de responder al mismo mensaje de formas distintas.</p>
 
-        <p>Las jerarquías nos permiten gestionar la complejidad mediante la clasificación y la factorización de propiedades comunes. Esto facilita la comprensión del sistema y promueve la reutilización de código a través de la herencia y la composición.</p>
+            <div class="definition">
+                <strong>Polimorfismo:</strong> Capacidad de objetos de diferentes clases de responder a la misma interfaz o mensaje, cada uno según su propia implementación específica.
+            </div>
 
-        <h2>2. Conceptos Avanzados del Análisis Orientado a Objetos</h2>
+            <div class="concept-card">
+                <h4>Tipos de Polimorfismo</h4>
+                <ul>
+                    <li><strong>Polimorfismo de subtipo (herencia):</strong> Objetos de clases derivadas pueden ser tratados como objetos de la clase base</li>
+                    <li><strong>Polimorfismo paramétrico (genéricos):</strong> El código puede escribirse de forma genérica para trabajar con cualquier tipo</li>
+                    <li><strong>Polimorfismo ad-hoc (sobrecarga):</strong> Múltiples métodos con el mismo nombre pero diferentes parámetros</li>
+                </ul>
+            </div>
 
-        <p>Una vez comprendidos los principios fundamentales, es esencial profundizar en conceptos más avanzados que nos permiten crear sistemas orientados a objetos más sofisticados y flexibles. Estos conceptos avanzados representan la evolución natural del pensamiento orientado a objetos y son cruciales para el desarrollo de sistemas empresariales complejos.</p>
-
-        <h3>2.1 Polimorfismo: La Flexibilidad del Comportamiento</h3>
-
-        <p>El <span class="highlight">polimorfismo</span> es uno de los conceptos más poderosos del paradigma orientado a objetos. Literalmente significa "muchas formas" y se refiere a la capacidad de objetos de diferentes tipos de responder al mismo mensaje de formas distintas.</p>
-
-        <div class="definition">
-            <strong>Polimorfismo:</strong> Capacidad de objetos de diferentes clases de responder a la misma interfaz o mensaje, cada uno según su propia implementación específica.
-        </div>
-
-        <p>Existen varios tipos de polimorfismo:</p>
-
-        <div class="concept-card">
-            <h4>Tipos de Polimorfismo</h4>
-            <ul role="list">
-                <li role="listitem"><strong>Polimorfismo de subtipo (herencia):</strong> Objetos de clases derivadas pueden ser tratados como objetos de la clase base</li>
-                <li role="listitem"><strong>Polimorfismo paramétrico (genéricos):</strong> El código puede escribirse de forma genérica para trabajar con cualquier tipo</li>
-                <li role="listitem"><strong>Polimorfismo ad-hoc (sobrecarga):</strong> Múltiples métodos con el mismo nombre pero diferentes parámetros</li>
-            </ul>
-        </div>
-
-        <div class="example-box">
-            <h4>Ejemplo de Polimorfismo: Sistema de Notificaciones</h4>
-            <p>Consideremos un sistema que envía notificaciones por diferentes medios:</p>
-            <pre>
+            <div class="example-box">
+                <h4>Ejemplo de Polimorfismo: Sistema de Notificaciones</h4>
+                <p>Consideremos un sistema que envía notificaciones por diferentes medios:</p>
+                <div style="background: #2d3436; color: #00b894; padding: 15px; border-radius: 8px; font-family: monospace;">
 Interfaz Notificador {
     enviar(mensaje: String, destinatario: String)
 }
@@ -443,560 +731,675 @@ SMSNotificador implementa Notificador {
         // Lógica específica para enviar SMS
     }
 }
+                </div>
+            </div>
 
-PushNotificador implementa Notificador {
-    enviar(mensaje, destinatario) {
-        // Lógica específica para notificación push
-    }
-}
-            </pre>
-        </div>
+            <h3>2.2 Reutilización: Maximizando el Valor del Código</h3>
 
-        <p>El polimorfismo proporciona extensibilidad al sistema, permitiendo agregar nuevos tipos sin modificar el código existente, cumpliendo así con el Principio Abierto/Cerrado (Open/Closed Principle).</p>
-
-        <h3>2.2 Persistencia: Preservando el Estado</h3>
-
-        <p>La <span class="highlight">persistencia</span> se refiere a la capacidad de un objeto de mantener su estado más allá del tiempo de vida del programa que lo creó. Es un concepto fundamental en sistemas empresariales donde los datos deben sobrevivir entre ejecuciones.</p>
-
-        <div class="principle-box">
-            <h4>Estrategias de Persistencia</h4>
-            <ol role="list">
-                <li role="listitem"><strong>Serialización:</strong> Conversión del objeto a un formato almacenable (XML, JSON, binario)</li>
-                <li role="listitem"><strong>Mapeo Objeto-Relacional (ORM):</strong> Traducción entre objetos y tablas relacionales</li>
-                <li role="listitem"><strong>Bases de datos orientadas a objetos:</strong> Almacenamiento directo de objetos</li>
-                <li role="listitem"><strong>Bases de datos NoSQL:</strong> Almacenamiento flexible de documentos o grafos</li>
-            </ol>
-        </div>
-
-        <p>La persistencia introduce desafíos importantes como el mapeo de impedancia objeto-relacional, la gestión de identidad de objetos, y el mantenimiento de relaciones entre objetos persistentes.</p>
-
-        <h3>2.3 Concurrencia: Múltiples Flujos de Control</h3>
-
-        <p>La <span class="highlight">concurrencia</span> en sistemas orientados a objetos se refiere a la capacidad de ejecutar múltiples objetos o métodos simultáneamente. Con el auge de los procesadores multi-núcleo y sistemas distribuidos, la concurrencia se ha vuelto fundamental.</p>
-
-        <div class="concept-card">
-            <h4>Desafíos de la Concurrencia</h4>
-            <ul role="list">
-                <li role="listitem"><strong>Sincronización:</strong> Coordinar el acceso a recursos compartidos</li>
-                <li role="listitem"><strong>Deadlock:</strong> Evitar bloqueos mutuos entre objetos</li>
-                <li role="listitem"><strong>Condiciones de carrera:</strong> Prevenir resultados no determinísticos</li>
-                <li role="listitem"><strong>Comunicación entre objetos:</strong> Mensajes síncronos vs asíncronos</li>
-            </ul>
-        </div>
-
-        <p>Los patrones de diseño como Monitor, Active Object, y Future ayudan a gestionar la complejidad de la concurrencia en sistemas orientados a objetos.</p>
-
-        <h3>2.4 Reutilización: Maximizando el Valor del Código</h3>
-
-        <p>La <span class="highlight">reutilización</span> es uno de los principales beneficios prometidos por el paradigma orientado a objetos. Sin embargo, lograr reutilización efectiva requiere diseño cuidadoso y disciplina.</p>
-
-        <table role="table">
-            <thead role="rowgroup">
-                <tr role="row">
-                    <th role="columnheader">Mecanismo de Reutilización</th>
-                    <th role="columnheader">Descripción</th>
-                    <th role="columnheader">Ventajas</th>
-                    <th role="columnheader">Consideraciones</th>
-                </tr>
-            </thead>
-            <tbody role="rowgroup">
-                <tr role="row">
-                    <td role="cell">Herencia</td>
-                    <td role="cell">Reutilización mediante especialización de clases</td>
-                    <td role="cell">Fácil de implementar, promueve consistencia</td>
-                    <td role="cell">Puede crear jerarquías rígidas</td>
-                </tr>
-                <tr role="row">
-                    <td role="cell">Composición</td>
-                    <td role="cell">Reutilización mediante agregación de objetos</td>
-                    <td role="cell">Mayor flexibilidad, favorece el bajo acoplamiento</td>
-                    <td role="cell">Requiere más código de delegación</td>
-                </tr>
-                <tr role="row">
-                    <td role="cell">Interfaces</td>
-                    <td role="cell">Reutilización de contratos sin implementación</td>
-                    <td role="cell">Permite múltiple herencia de tipo</td>
-                    <td role="cell">No reutiliza implementación</td>
-                </tr>
-                <tr role="row">
-                    <td role="cell">Frameworks</td>
-                    <td role="cell">Reutilización de arquitecturas completas</td>
-                    <td role="cell">Alto nivel de reutilización</td>
-                    <td role="cell">Curva de aprendizaje empinada</td>
-                </tr>
-            </tbody>
-        </table>
-
-        <h2>3. Identificación de Objetos</h2>
-
-        <p>La identificación de objetos es quizás la tarea más crítica y desafiante en el análisis orientado a objetos. No existe una fórmula mágica, pero sí técnicas probadas que nos guían en este proceso creativo y analítico.</p>
-
-        <h3>3.1 Técnicas de Descubrimiento de Clases</h3>
-
-        <p>Existen múltiples técnicas para identificar clases candidatas en un dominio de problema. Cada técnica ofrece una perspectiva diferente y, en la práctica, se utilizan de manera complementaria.</p>
-
-        <div class="mindmap">
-            <h4>Técnicas de Identificación de Clases</h4>
-            <svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
-                <!-- Nodo central -->
-                <circle cx="400" cy="300" r="80" fill="#3498db" stroke="#2c3e50" stroke-width="3"/>
-                <text x="400" y="305" text-anchor="middle" font-size="14" fill="white" font-weight="bold">Técnicas de</text>
-                <text x="400" y="320" text-anchor="middle" font-size="14" fill="white" font-weight="bold">Identificación</text>
-                
-                <!-- Análisis de Sustantivos -->
-                <circle cx="200" cy="150" r="60" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
-                <text x="200" y="145" text-anchor="middle" font-size="12" fill="white">Análisis de</text>
-                <text x="200" y="160" text-anchor="middle" font-size="12" fill="white">Sustantivos</text>
-                <line x1="340" y1="250" x2="250" y2="190" stroke="#333" stroke-width="2"/>
-                
-                <!-- CRC Cards -->
-                <circle cx="600" cy="150" r="60" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
-                <text x="600" y="145" text-anchor="middle" font-size="12" fill="white">Tarjetas</text>
-                <text x="600" y="160" text-anchor="middle" font-size="12" fill="white">CRC</text>
-                <line x1="460" y1="250" x2="550" y2="190" stroke="#333" stroke-width="2"/>
-                
-                <!-- Casos de Uso -->
-                <circle cx="150" cy="350" r="60" fill="#f39c12" stroke="#d68910" stroke-width="2"/>
-                <text x="150" y="345" text-anchor="middle" font-size="12" fill="white">Análisis de</text>
-                <text x="150" y="360" text-anchor="middle" font-size="12" fill="white">Casos de Uso</text>
-                <line x1="330" y1="320" x2="205" y2="340" stroke="#333" stroke-width="2"/>
-                
-                <!-- Análisis de Dominio -->
-                <circle cx="400" cy="500" r="60" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
-                <text x="400" y="495" text-anchor="middle" font-size="12" fill="white">Análisis de</text>
-                <text x="400" y="510" text-anchor="middle" font-size="12" fill="white">Dominio</text>
-                <line x1="400" y1="380" x2="400" y2="440" stroke="#333" stroke-width="2"/>
-                
-                <!-- Patrones de Análisis -->
-                <circle cx="650" cy="350" r="60" fill="#1abc9c" stroke="#16a085" stroke-width="2"/>
-                <text x="650" y="345" text-anchor="middle" font-size="12" fill="white">Patrones de</text>
-                <text x="650" y="360" text-anchor="middle" font-size="12" fill="white">Análisis</text>
-                <line x1="470" y1="320" x2="595" y2="340" stroke="#333" stroke-width="2"/>
-            </svg>
-        </div>
-
-        <h4>3.1.1 Análisis de Sustantivos</h4>
-
-        <p>Esta técnica clásica consiste en examinar la descripción del problema e identificar los sustantivos como clases candidatas. Aunque simple, es sorprendentemente efectiva como punto de partida.</p>
-
-        <div class="example-box">
-            <h4>Proceso de Análisis de Sustantivos</h4>
-            <p><strong>Descripción:</strong> "El <em>cliente</em> realiza un <em>pedido</em> que contiene múltiples <em>productos</em>. Cada <em>producto</em> tiene un <em>precio</em> y una <em>descripción</em>. El <em>sistema</em> calcula el <em>total</em> del <em>pedido</em> aplicando <em>descuentos</em> si corresponde."</p>
-            
-            <p><strong>Sustantivos identificados:</strong> cliente, pedido, productos, precio, descripción, sistema, total, descuentos</p>
-            
-            <p><strong>Clases candidatas después del filtrado:</strong></p>
-            <ul role="list">
-                <li role="listitem">Cliente (entidad del dominio)</li>
-                <li role="listitem">Pedido (entidad del dominio)</li>
-                <li role="listitem">Producto (entidad del dominio)</li>
-                <li role="listitem">Descuento (concepto del dominio)</li>
-            </ul>
-            
-            <p><strong>Atributos identificados:</strong> precio, descripción, total</p>
-        </div>
-
-        <h4>3.1.2 Tarjetas CRC (Clase-Responsabilidad-Colaborador)</h4>
-
-        <p>Las tarjetas CRC son una técnica interactiva y colaborativa desarrollada por Ward Cunningham y Kent Beck. Cada tarjeta representa una clase y contiene:</p>
-
-        <div class="principle-box">
-            <h4>Estructura de una Tarjeta CRC</h4>
-            <table style="width: 80%; margin: 0 auto;">
-                <tr role="row">
-                    <th colspan="2" style="background-color: #3498db; color: white;">Nombre de la Clase</th>
-                </tr>
-                <tr role="row">
-                    <td style="width: 60%; vertical-align: top;">
-                        <strong>Responsabilidades</strong>
-                        <ul style="margin: 10px 0;">
-                            <li role="listitem">Qué sabe la clase</li>
-                            <li role="listitem">Qué hace la clase</li>
-                        </ul>
-                    </td>
-                    <td style="width: 40%; vertical-align: top;">
-                        <strong>Colaboradores</strong>
-                        <ul style="margin: 10px 0;">
-                            <li role="listitem">Otras clases con las que interactúa</li>
-                        </ul>
-                    </td>
-                </tr>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Mecanismo de Reutilización</th>
+                        <th>Descripción</th>
+                        <th>Ventajas</th>
+                        <th>Consideraciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Herencia</td>
+                        <td>Reutilización mediante especialización de clases</td>
+                        <td>Fácil de implementar, promueve consistencia</td>
+                        <td>Puede crear jerarquías rígidas</td>
+                    </tr>
+                    <tr>
+                        <td>Composición</td>
+                        <td>Reutilización mediante agregación de objetos</td>
+                        <td>Mayor flexibilidad, favorece el bajo acoplamiento</td>
+                        <td>Requiere más código de delegación</td>
+                    </tr>
+                    <tr>
+                        <td>Interfaces</td>
+                        <td>Reutilización de contratos sin implementación</td>
+                        <td>Permite múltiple herencia de tipo</td>
+                        <td>No reutiliza implementación</td>
+                    </tr>
+                    <tr>
+                        <td>Frameworks</td>
+                        <td>Reutilización de arquitecturas completas</td>
+                        <td>Alto nivel de reutilización</td>
+                        <td>Curva de aprendizaje empinada</td>
+                    </tr>
+                </tbody>
             </table>
-        </div>
+        </section>
 
-        <p>El proceso de trabajo con tarjetas CRC involucra sesiones colaborativas donde los participantes "juegan" los roles de las clases, simulando escenarios del sistema para descubrir responsabilidades y colaboraciones.</p>
+        <!-- Identificación de Objetos -->
+        <section class="content-section">
+            <h2 class="section-title">🔍 3. Identificación de Objetos</h2>
+            
+            <p>La identificación de objetos es quizás la tarea más crítica y desafiante en el análisis orientado a objetos. No existe una fórmula mágica, pero sí técnicas probadas que nos guían en este proceso creativo y analítico.</p>
 
-        <h3>3.2 Análisis de Responsabilidades</h3>
+            <h3>3.1 Técnicas de Descubrimiento de Clases</h3>
 
-        <p>Una vez identificadas las clases candidatas, el siguiente paso crucial es asignar responsabilidades apropiadas. Las responsabilidades se dividen en dos categorías principales:</p>
+            <div class="diagram-container">
+                <h4>📊 Técnicas de Identificación de Clases</h4>
+                <div class="mermaid">
+                    mindmap
+                        root((Técnicas de Identificación))
+                            Análisis de Sustantivos
+                                Examinar descripción del problema
+                                Identificar sustantivos como clases candidatas
+                            Tarjetas CRC
+                                Clase-Responsabilidad-Colaborador
+                                Sesiones colaborativas
+                            Análisis de Casos de Uso
+                                Extraer objetos de escenarios
+                                Identificar actores y entidades
+                            Análisis de Dominio
+                                Conocimiento experto del dominio
+                                Patrones conocidos
+                            Patrones de Análisis
+                                Soluciones reutilizables
+                                Experiencia previa
+                </div>
+            </div>
 
-        <ol role="list">
-            <li role="listitem"><strong>Responsabilidades de conocimiento:</strong> Qué información debe conocer y mantener el objeto</li>
-            <li role="listitem"><strong>Responsabilidades de comportamiento:</strong> Qué acciones debe poder realizar el objeto</li>
-        </ol>
+            <h4>3.1.1 Análisis de Sustantivos</h4>
+            <p>Esta técnica clásica consiste en examinar la descripción del problema e identificar los sustantivos como clases candidatas. Aunque simple, es sorprendentemente efectiva como punto de partida.</p>
 
-        <div class="concept-card">
-            <h4>Principios GRASP para Asignación de Responsabilidades</h4>
-            <p>Los patrones GRASP (General Responsibility Assignment Software Patterns) de Craig Larman proporcionan guías fundamentales:</p>
-            <ul role="list">
-                <li role="listitem"><strong>Experto en Información:</strong> Asignar responsabilidad a la clase que tiene la información necesaria</li>
-                <li role="listitem"><strong>Creador:</strong> Asignar la creación de objetos a la clase que tiene la información de inicialización</li>
-                <li role="listitem"><strong>Controlador:</strong> Asignar el manejo de eventos del sistema a clases controladoras</li>
-                <li role="listitem"><strong>Bajo Acoplamiento:</strong> Minimizar dependencias entre clases</li>
-                <li role="listitem"><strong>Alta Cohesión:</strong> Mantener responsabilidades relacionadas juntas</li>
-            </ul>
-        </div>
-
-        <h3>3.3 Colaboraciones entre Objetos</h3>
-
-        <p>Los objetos no existen en aislamiento; colaboran para realizar las funcionalidades del sistema. Identificar estas colaboraciones es esencial para un diseño robusto.</p>
-
-        <div class="svg-container">
-            <svg viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
-                <text x="400" y="30" text-anchor="middle" font-size="16" font-weight="bold">Diagrama de Colaboración: Proceso de Venta</text>
+            <div class="example-box">
+                <h4>Proceso de Análisis de Sustantivos</h4>
+                <p><strong>Descripción:</strong> "El <em>cliente</em> realiza un <em>pedido</em> que contiene múltiples <em>productos</em>. Cada <em>producto</em> tiene un <em>precio</em> y una <em>descripción</em>. El <em>sistema</em> calcula el <em>total</em> del <em>pedido</em> aplicando <em>descuentos</em> si corresponde."</p>
                 
-                <!-- Objetos -->
-                <rect x="50" y="100" width="120" height="60" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="5"/>
-                <text x="110" y="135" text-anchor="middle" font-size="14">:Cliente</text>
+                <p><strong>Sustantivos identificados:</strong> cliente, pedido, productos, precio, descripción, sistema, total, descuentos</p>
                 
-                <rect x="300" y="100" width="120" height="60" fill="#fff3e0" stroke="#ff9800" stroke-width="2" rx="5"/>
-                <text x="360" y="135" text-anchor="middle" font-size="14">:Venta</text>
+                <p><strong>Clases candidatas después del filtrado:</strong></p>
+                <ul>
+                    <li>Cliente (entidad del dominio)</li>
+                    <li>Pedido (entidad del dominio)</li>
+                    <li>Producto (entidad del dominio)</li>
+                    <li>Descuento (concepto del dominio)</li>
+                </ul>
                 
-                <rect x="550" y="100" width="120" height="60" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="5"/>
-                <text x="610" y="135" text-anchor="middle" font-size="14">:Producto</text>
-                
-                <rect x="300" y="250" width="120" height="60" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="5"/>
-                <text x="360" y="285" text-anchor="middle" font-size="14">:LineaVenta</text>
-                
-                <!-- Mensajes -->
-                <path d="M 170 130 L 290 130" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-                <text x="230" y="120" text-anchor="middle" font-size="12">1: crear()</text>
-                
-                <path d="M 420 130 L 540 130" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-                <text x="480" y="120" text-anchor="middle" font-size="12">2: obtenerPrecio()</text>
-                
-                <path d="M 360 160 L 360 240" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-                <text x="380" y="200" font-size="12">3: agregar()</text>
-                
-                <path d="M 420 280 L 540 160" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-                <text x="480" y="220" font-size="12">4: asociar()</text>
-            </svg>
-        </div>
+                <p><strong>Atributos identificados:</strong> precio, descripción, total</p>
+            </div>
 
-        <h3>3.4 Patrones de Análisis Comunes</h3>
+            <h4>3.1.2 Tarjetas CRC (Clase-Responsabilidad-Colaborador)</h4>
+            <p>Las tarjetas CRC son una técnica interactiva y colaborativa desarrollada por Ward Cunningham y Kent Beck.</p>
 
-        <p>A lo largo de los años, la comunidad de desarrollo ha identificado patrones recurrentes en el análisis de dominios. Estos patrones aceleran el proceso de identificación de objetos y proporcionan soluciones probadas.</p>
+            <div class="principle-box">
+                <h4>Estructura de una Tarjeta CRC</h4>
+                <table style="width: 80%; margin: 0 auto;">
+                    <tr>
+                        <th colspan="2" style="background-color: #3498db; color: white;">Nombre de la Clase</th>
+                    </tr>
+                    <tr>
+                        <td style="width: 60%; vertical-align: top;">
+                            <strong>Responsabilidades</strong>
+                            <ul style="margin: 10px 0;">
+                                <li>Qué sabe la clase</li>
+                                <li>Qué hace la clase</li>
+                            </ul>
+                        </td>
+                        <td style="width: 40%; vertical-align: top;">
+                            <strong>Colaboradores</strong>
+                            <ul style="margin: 10px 0;">
+                                <li>Otras clases con las que interactúa</li>
+                            </ul>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-        <div class="principle-box">
-            <h4>Patrones de Análisis Fundamentales</h4>
-            <ol role="list">
-                <li role="listitem"><strong>Patrón Parte-Todo:</strong> Para modelar relaciones de composición y agregación</li>
-                <li role="listitem"><strong>Patrón Rol:</strong> Cuando objetos pueden asumir diferentes roles en diferentes contextos</li>
-                <li role="listitem"><strong>Patrón Estado:</strong> Para objetos con ciclos de vida complejos</li>
-                <li role="listitem"><strong>Patrón Grupo-Miembro:</strong> Para colecciones con comportamiento propio</li>
-                <li role="listitem"><strong>Patrón Transacción:</strong> Para operaciones que deben completarse atómicamente</li>
+            <h3>3.2 Análisis de Responsabilidades</h3>
+            <p>Una vez identificadas las clases candidatas, el siguiente paso crucial es asignar responsabilidades apropiadas. Las responsabilidades se dividen en dos categorías principales:</p>
+
+            <ol>
+                <li><strong>Responsabilidades de conocimiento:</strong> Qué información debe conocer y mantener el objeto</li>
+                <li><strong>Responsabilidades de comportamiento:</strong> Qué acciones debe poder realizar el objeto</li>
             </ol>
-        </div>
 
-        <h2>4. Modelado Conceptual</h2>
+            <div class="concept-card">
+                <h4>Principios GRASP para Asignación de Responsabilidades</h4>
+                <p>Los patrones GRASP (General Responsibility Assignment Software Patterns) de Craig Larman proporcionan guías fundamentales:</p>
+                <ul>
+                    <li><strong>Experto en Información:</strong> Asignar responsabilidad a la clase que tiene la información necesaria</li>
+                    <li><strong>Creador:</strong> Asignar la creación de objetos a la clase que tiene la información de inicialización</li>
+                    <li><strong>Controlador:</strong> Asignar el manejo de eventos del sistema a clases controladoras</li>
+                    <li><strong>Bajo Acoplamiento:</strong> Minimizar dependencias entre clases</li>
+                    <li><strong>Alta Cohesión:</strong> Mantener responsabilidades relacionadas juntas</li>
+                </ul>
+            </div>
+        </section>
 
-        <p>El modelado conceptual es la culminación del análisis orientado a objetos, donde creamos representaciones abstractas del dominio del problema que capturan la esencia del sistema sin comprometerse con decisiones de implementación.</p>
+        <!-- Modelado Conceptual -->
+        <section class="content-section">
+            <h2 class="section-title">🏗️ 4. Modelado Conceptual</h2>
+            
+            <p>El modelado conceptual es la culminación del análisis orientado a objetos, donde creamos representaciones abstractas del dominio del problema que capturan la esencia del sistema sin comprometerse con decisiones de implementación.</p>
 
-        <h3>4.1 Modelo de Dominio vs Modelo de Diseño</h3>
+            <h3>4.1 Modelo de Dominio vs Modelo de Diseño</h3>
+            <table class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Modelo de Dominio</th>
+                        <th>Modelo de Diseño</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Propósito</td>
+                        <td>Entender el problema</td>
+                        <td>Especificar la solución</td>
+                    </tr>
+                    <tr>
+                        <td>Perspectiva</td>
+                        <td>Conceptual/Esencial</td>
+                        <td>Especificación/Implementación</td>
+                    </tr>
+                    <tr>
+                        <td>Elementos</td>
+                        <td>Conceptos del mundo real</td>
+                        <td>Clases de software</td>
+                    </tr>
+                    <tr>
+                        <td>Atributos</td>
+                        <td>Solo los esenciales del dominio</td>
+                        <td>Incluye atributos técnicos</td>
+                    </tr>
+                    <tr>
+                        <td>Operaciones</td>
+                        <td>Comportamientos del dominio</td>
+                        <td>Métodos de implementación</td>
+                    </tr>
+                </tbody>
+            </table>
 
-        <p>Es crucial distinguir entre estos dos tipos de modelos:</p>
+            <h3>4.2 Validación del Modelo Conceptual</h3>
+            <div class="concept-card">
+                <h4>Criterios de Validación</h4>
+                <ul>
+                    <li><strong>Completitud:</strong> ¿Están representados todos los conceptos importantes?</li>
+                    <li><strong>Consistencia:</strong> ¿Hay contradicciones en el modelo?</li>
+                    <li><strong>Claridad:</strong> ¿Es comprensible para los stakeholders?</li>
+                    <li><strong>Correctitud:</strong> ¿Refleja fielmente el dominio?</li>
+                    <li><strong>Relevancia:</strong> ¿Todos los elementos son necesarios?</li>
+                </ul>
+            </div>
+        </section>
 
-        <table role="table">
-            <thead role="rowgroup">
-                <tr role="row">
-                    <th role="columnheader">Aspecto</th>
-                    <th role="columnheader">Modelo de Dominio</th>
-                    <th role="columnheader">Modelo de Diseño</th>
-                </tr>
-            </thead>
-            <tbody role="rowgroup">
-                <tr role="row">
-                    <td role="cell">Propósito</td>
-                    <td role="cell">Entender el problema</td>
-                    <td role="cell">Especificar la solución</td>
-                </tr>
-                <tr role="row">
-                    <td role="cell">Perspectiva</td>
-                    <td role="cell">Conceptual/Esencial</td>
-                    <td role="cell">Especificación/Implementación</td>
-                </tr>
-                <tr role="row">
-                    <td role="cell">Elementos</td>
-                    <td role="cell">Conceptos del mundo real</td>
-                    <td role="cell">Clases de software</td>
-                </tr>
-                <tr role="row">
-                    <td role="cell">Atributos</td>
-                    <td role="cell">Solo los esenciales del dominio</td>
-                    <td role="cell">Incluye atributos técnicos</td>
-                </tr>
-                <tr role="row">
-                    <td role="cell">Operaciones</td>
-                    <td role="cell">Comportamientos del dominio</td>
-                    <td role="cell">Métodos de implementación</td>
-                </tr>
-            </tbody>
-        </table>
+        <!-- Sistema de Quiz estandarizado -->
+        <section class="quiz-container">
+            <h2>🧠 Evaluación - 20 Preguntas Multiple Choice</h2>
+            
+            <div class="quiz-instructions">
+                <p><strong>Instrucciones:</strong></p>
+                <p>• Cada pregunta tiene 4 opciones (A, B, C, D)</p>
+                <p>• Selecciona la respuesta que consideres correcta</p>
+                <p>• Al finalizar podrás ver tu puntuación y las respuestas correctas</p>
+                <p>• Se requiere responder todas las preguntas para obtener el resultado</p>
+            </div>
 
-        <h3>4.2 Estereotipos y Extensiones UML</h3>
+            <div id="quiz-questions">
+                <!-- Pregunta 1 -->
+                <div class="question">
+                    <h4>1. ¿Cuál de los siguientes NO es uno de los cuatro principios fundamentales del análisis orientado a objetos según Booch?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Abstracción</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Polimorfismo</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Encapsulamiento</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Modularidad</div>
+                    </div>
+                </div>
 
-        <p>UML proporciona mecanismos de extensión que nos permiten adaptar la notación a dominios específicos:</p>
+                <!-- Pregunta 2 -->
+                <div class="question">
+                    <h4>2. El principio que permite identificar las características esenciales de una entidad ignorando los detalles irrelevantes se llama:</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Encapsulamiento</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Abstracción</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Modularidad</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Herencia</div>
+                    </div>
+                </div>
 
-        <ul role="list">
-            <li role="listitem"><strong>Estereotipos:</strong> Extienden el vocabulario de UML con nuevos tipos de elementos</li>
-            <li role="listitem"><strong>Valores etiquetados:</strong> Añaden propiedades a los elementos del modelo</li>
-            <li role="listitem"><strong>Restricciones:</strong> Especifican reglas que deben cumplir los elementos</li>
-        </ul>
+                <!-- Pregunta 3 -->
+                <div class="question">
+                    <h4>3. ¿Qué tipo de relación representa la jerarquía "ES-UN"?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Agregación</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Composición</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Generalización/Especialización</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Asociación</div>
+                    </div>
+                </div>
 
-        <h3>4.3 Restricciones y Reglas de Negocio</h3>
+                <!-- Pregunta 4 -->
+                <div class="question">
+                    <h4>4. En el contexto del encapsulamiento, ¿qué significa "ocultamiento de información"?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Eliminar datos innecesarios</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Hacer privados los detalles de implementación interna</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Comprimir la información</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Encriptar los datos sensibles</div>
+                    </div>
+                </div>
 
-        <p>Las restricciones capturan las reglas invariantes del dominio que deben respetarse en cualquier implementación:</p>
+                <!-- Pregunta 5 -->
+                <div class="question">
+                    <h4>5. ¿Cuál NO es un beneficio del polimorfismo?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Extensibilidad del sistema</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Reutilización de código</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Mayor velocidad de ejecución</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Cumplimiento del principio abierto/cerrado</div>
+                    </div>
+                </div>
 
-        <div class="example-box">
-            <h4>Ejemplos de Restricciones en OCL (Object Constraint Language)</h4>
-            <pre>
-context CuentaBancaria
-invariant saldoNoNegativo: self.saldo >= 0
+                <!-- Pregunta 6 -->
+                <div class="question">
+                    <h4>6. Las tarjetas CRC significan:</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Clase-Relación-Colaboración</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Clase-Responsabilidad-Colaborador</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Código-Revisión-Corrección</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Concepto-Regla-Constraint</div>
+                    </div>
+                </div>
 
-context Empleado
-invariant salarioMinimo: self.salario >= SalarioMinimo.valor
+                <!-- Pregunta 7 -->
+                <div class="question">
+                    <h4>7. Según los principios GRASP, ¿a quién se debe asignar la responsabilidad de crear un objeto?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) A cualquier clase del sistema</div>
+                        <div class="option" onclick="selectOption(this, true)">B) A la clase que tiene la información necesaria para inicializarlo</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Siempre a una clase Factory</div>
+                        <div class="option" onclick="selectOption(this, false)">D) A la clase más grande del sistema</div>
+                    </div>
+                </div>
 
-context Pedido
-invariant alMenosUnItem: self.items->size() >= 1
-            </pre>
-        </div>
+                <!-- Pregunta 8 -->
+                <div class="question">
+                    <h4>8. ¿Qué característica NO corresponde a un módulo bien diseñado?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Alta cohesión</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Bajo acoplamiento</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Muchas dependencias externas</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Interfaz bien definida</div>
+                    </div>
+                </div>
 
-        <h3>4.4 Validación del Modelo Conceptual</h3>
+                <!-- Pregunta 9 -->
+                <div class="question">
+                    <h4>9. En el análisis de sustantivos, ¿cuál de los siguientes típicamente NO se convertiría en una clase?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Cliente</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Pedido</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Rápidamente</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Producto</div>
+                    </div>
+                </div>
 
-        <p>La validación asegura que nuestro modelo representa adecuadamente el dominio:</p>
+                <!-- Pregunta 10 -->
+                <div class="question">
+                    <h4>10. La diferencia principal entre un modelo de dominio y un modelo de diseño es:</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) El modelo de dominio usa UML y el de diseño no</div>
+                        <div class="option" onclick="selectOption(this, true)">B) El modelo de dominio representa conceptos del mundo real, el de diseño clases de software</div>
+                        <div class="option" onclick="selectOption(this, false)">C) No hay diferencia, son sinónimos</div>
+                        <div class="option" onclick="selectOption(this, false)">D) El modelo de diseño siempre es más simple</div>
+                    </div>
+                </div>
 
-        <div class="concept-card">
-            <h4>Criterios de Validación</h4>
-            <ul role="list">
-                <li role="listitem"><strong>Completitud:</strong> ¿Están representados todos los conceptos importantes?</li>
-                <li role="listitem"><strong>Consistencia:</strong> ¿Hay contradicciones en el modelo?</li>
-                <li role="listitem"><strong>Claridad:</strong> ¿Es comprensible para los stakeholders?</li>
-                <li role="listitem"><strong>Correctitud:</strong> ¿Refleja fielmente el dominio?</li>
-                <li role="listitem"><strong>Relevancia:</strong> ¿Todos los elementos son necesarios?</li>
+                <!-- Pregunta 11 -->
+                <div class="question">
+                    <h4>11. ¿Cuál es el tipo de polimorfismo que permite que múltiples métodos tengan el mismo nombre pero diferentes parámetros?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Polimorfismo de subtipo</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Polimorfismo paramétrico</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Polimorfismo ad-hoc</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Polimorfismo dinámico</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 12 -->
+                <div class="question">
+                    <h4>12. En una jerarquía de composición, si se elimina el objeto contenedor:</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Los objetos contenidos permanecen intactos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Los objetos contenidos también se eliminan</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Se crea una copia de seguridad automática</div>
+                        <div class="option" onclick="selectOption(this, false)">D) El sistema genera un error</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 13 -->
+                <div class="question">
+                    <h4>13. ¿Qué principio GRASP sugiere minimizar las dependencias entre clases?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Experto en Información</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Creador</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Bajo Acoplamiento</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Controlador</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 14 -->
+                <div class="question">
+                    <h4>14. ¿Cuál es la principal ventaja de la composición sobre la herencia para lograr reutilización?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Es más rápida en tiempo de ejecución</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Requiere menos código</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Proporciona mayor flexibilidad</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Es más fácil de entender</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 15 -->
+                <div class="question">
+                    <h4>15. En el contexto de responsabilidades de objetos, ¿qué son las responsabilidades de conocimiento?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Las acciones que puede realizar el objeto</div>
+                        <div class="option" onclick="selectOption(this, true)">B) La información que debe conocer y mantener el objeto</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Los otros objetos que conoce</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Los patrones de diseño que implementa</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 16 -->
+                <div class="question">
+                    <h4>16. ¿Cuál NO es un criterio de validación para un modelo conceptual?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Completitud</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Velocidad de procesamiento</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Consistencia</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Claridad</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 17 -->
+                <div class="question">
+                    <h4>17. La abstracción de datos se refiere a:</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) Identificar qué información es relevante para representar una entidad</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Comprimir datos para ahorrar espacio</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Convertir datos a formato binario</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Eliminar datos duplicados</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 18 -->
+                <div class="question">
+                    <h4>18. ¿Qué beneficio NO proporciona el encapsulamiento?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Ocultamiento de información</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Control de acceso</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Aumento automático de la velocidad</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Facilita el mantenimiento</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 19 -->
+                <div class="question">
+                    <h4>19. En el análisis de sustantivos, los verbos típicamente se convierten en:</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Clases</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Métodos o operaciones</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Atributos</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Relaciones</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 20 -->
+                <div class="question">
+                    <h4>20. ¿Cuál es el objetivo principal de usar patrones de análisis?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Reducir el tamaño del código</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Reutilizar soluciones probadas para problemas recurrentes</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Aumentar la velocidad de procesamiento</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Simplificar la interfaz de usuario</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-success" onclick="submitQuiz()">📊 Ver Resultados</button>
+                <button class="btn btn-primary" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
+            </div>
+
+            <!-- Resultados del quiz -->
+            <div class="quiz-results" id="quiz-results">
+                <h3>📊 Resultados de la Evaluación</h3>
+                <div class="results-chart">
+                    <canvas id="results-chart" width="200" height="200"></canvas>
+                </div>
+                <div class="score-text" id="score-text"></div>
+                <div id="feedback-text"></div>
+            </div>
+        </section>
+
+        <!-- Recursos adicionales -->
+        <section class="resources">
+            <h2>📚 Recursos Adicionales</h2>
+            <ul>
+                <li><strong>📖 Bibliografía:</strong> Booch, G. "Object-Oriented Analysis and Design", Capítulos 1-3</li>
+                <li><strong>🔗 Enlaces útiles:</strong> Patrones GRASP y técnicas de análisis OO</li>
+                <li><strong>▶️ Próxima clase:</strong> AMS-14: Diagramas UML y Casos de Uso Avanzados</li>
+                <li><strong>🔍 Palabras clave:</strong> Abstracción, Encapsulamiento, Polimorfismo, GRASP, CRC</li>
             </ul>
-        </div>
-
-        <div class="quiz-section">
-            <h2>Evaluación: 20 Preguntas de Opción Múltiple</h2>
-            
-            <div class="question" role="group">
-                <p><strong>1.</strong> ¿Cuál de los siguientes NO es uno de los cuatro principios fundamentales del análisis orientado a objetos según Booch?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Abstracción</p>
-                    <p>B) Polimorfismo</p>
-                    <p>C) Encapsulamiento</p>
-                    <p>D) Modularidad</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>2.</strong> El principio que permite identificar las características esenciales de una entidad ignorando los detalles irrelevantes se llama:</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Encapsulamiento</p>
-                    <p>B) Abstracción</p>
-                    <p>C) Modularidad</p>
-                    <p>D) Herencia</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>3.</strong> ¿Qué tipo de relación representa la jerarquía "ES-UN"?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Agregación</p>
-                    <p>B) Composición</p>
-                    <p>C) Generalización/Especialización</p>
-                    <p>D) Asociación</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>4.</strong> En el contexto del encapsulamiento, ¿qué significa "ocultamiento de información"?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Eliminar datos innecesarios</p>
-                    <p>B) Hacer privados los detalles de implementación interna</p>
-                    <p>C) Comprimir la información</p>
-                    <p>D) Encriptar los datos sensibles</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>5.</strong> ¿Cuál NO es un beneficio del polimorfismo?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Extensibilidad del sistema</p>
-                    <p>B) Reutilización de código</p>
-                    <p>C) Mayor velocidad de ejecución</p>
-                    <p>D) Cumplimiento del principio abierto/cerrado</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>6.</strong> Las tarjetas CRC significan:</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Clase-Relación-Colaboración</p>
-                    <p>B) Clase-Responsabilidad-Colaborador</p>
-                    <p>C) Código-Revisión-Corrección</p>
-                    <p>D) Concepto-Regla-Constraint</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>7.</strong> Según los principios GRASP, ¿a quién se debe asignar la responsabilidad de crear un objeto?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) A cualquier clase del sistema</p>
-                    <p>B) A la clase que tiene la información necesaria para inicializarlo</p>
-                    <p>C) Siempre a una clase Factory</p>
-                    <p>D) A la clase más grande del sistema</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>8.</strong> ¿Qué característica NO corresponde a un módulo bien diseñado?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Alta cohesión</p>
-                    <p>B) Bajo acoplamiento</p>
-                    <p>C) Muchas dependencias externas</p>
-                    <p>D) Interfaz bien definida</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>9.</strong> En el análisis de sustantivos, ¿cuál de los siguientes típicamente NO se convertiría en una clase?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Cliente</p>
-                    <p>B) Pedido</p>
-                    <p>C) Rápidamente</p>
-                    <p>D) Producto</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>10.</strong> La diferencia principal entre un modelo de dominio y un modelo de diseño es:</p>
-                <div class="options" role="radiogroup">
-                    <p>A) El modelo de dominio usa UML y el de diseño no</p>
-                    <p>B) El modelo de dominio representa conceptos del mundo real, el de diseño clases de software</p>
-                    <p>C) No hay diferencia, son sinónimos</p>
-                    <p>D) El modelo de diseño siempre es más simple</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>11.</strong> ¿Cuál es el tipo de polimorfismo que permite que múltiples métodos tengan el mismo nombre pero diferentes parámetros?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Polimorfismo de subtipo</p>
-                    <p>B) Polimorfismo paramétrico</p>
-                    <p>C) Polimorfismo ad-hoc</p>
-                    <p>D) Polimorfismo dinámico</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>12.</strong> ¿Qué patrón de análisis sería más apropiado para modelar un objeto que cambia su comportamiento según su estado interno?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Patrón Parte-Todo</p>
-                    <p>B) Patrón Estado</p>
-                    <p>C) Patrón Rol</p>
-                    <p>D) Patrón Grupo-Miembro</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>13.</strong> La persistencia en objetos se refiere a:</p>
-                <div class="options" role="radiogroup">
-                    <p>A) La velocidad de acceso a los datos</p>
-                    <p>B) La capacidad de mantener el estado más allá del tiempo de vida del programa</p>
-                    <p>C) La resistencia a cambios en el código</p>
-                    <p>D) La duplicación de objetos en memoria</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>14.</strong> ¿Cuál NO es un desafío típico de la concurrencia en sistemas orientados a objetos?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Deadlock</p>
-                    <p>B) Condiciones de carrera</p>
-                    <p>C) Herencia múltiple</p>
-                    <p>D) Sincronización</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>15.</strong> En una jerarquía de composición, si se elimina el objeto contenedor:</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Los objetos contenidos permanecen intactos</p>
-                    <p>B) Los objetos contenidos también se eliminan</p>
-                    <p>C) Se crea una copia de seguridad automática</p>
-                    <p>D) El sistema genera un error</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>16.</strong> ¿Qué principio GRASP sugiere minimizar las dependencias entre clases?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Experto en Información</p>
-                    <p>B) Creador</p>
-                    <p>C) Bajo Acoplamiento</p>
-                    <p>D) Controlador</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>17.</strong> Los estereotipos en UML se utilizan para:</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Eliminar elementos del diagrama</p>
-                    <p>B) Extender el vocabulario de UML con nuevos tipos de elementos</p>
-                    <p>C) Reducir la complejidad de los diagramas</p>
-                    <p>D) Convertir diagramas a código</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>18.</strong> ¿Cuál es la principal ventaja de la composición sobre la herencia para lograr reutilización?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Es más rápida en tiempo de ejecución</p>
-                    <p>B) Requiere menos código</p>
-                    <p>C) Proporciona mayor flexibilidad</p>
-                    <p>D) Es más fácil de entender</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>19.</strong> En el contexto de responsabilidades de objetos, ¿qué son las responsabilidades de conocimiento?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Las acciones que puede realizar el objeto</p>
-                    <p>B) La información que debe conocer y mantener el objeto</p>
-                    <p>C) Los otros objetos que conoce</p>
-                    <p>D) Los patrones de diseño que implementa</p>
-                </div>
-            </div>
-
-            <div class="question" role="group">
-                <p><strong>20.</strong> ¿Cuál NO es un criterio de validación para un modelo conceptual?</p>
-                <div class="options" role="radiogroup">
-                    <p>A) Completitud</p>
-                    <p>B) Velocidad de procesamiento</p>
-                    <p>C) Consistencia</p>
-                    <p>D) Claridad</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="principle-box" style="margin-top: 40px;">
-            <h3>Resumen de la Clase</h3>
-            <p>En esta clase hemos explorado los fundamentos del análisis orientado a objetos, desde los principios básicos de abstracción, encapsulamiento, modularidad y jerarquía, hasta conceptos avanzados como polimorfismo, persistencia y concurrencia. Hemos aprendido técnicas prácticas para identificar objetos y asignar responsabilidades, y hemos visto cómo crear modelos conceptuales que capturan la esencia del dominio del problema.</p>
-            
-            <p>Los conceptos presentados forman la base sobre la cual construiremos en las próximas clases, donde profundizaremos en la notación UML, los diagramas de clases, y los casos de uso avanzados. Recuerden que el análisis orientado a objetos es tanto un arte como una ciencia, y la práctica constante es esencial para dominar estas técnicas.</p>
-        </div>
+        </section>
     </div>
-    <script src="keyboard-navigation.js"></script>
+
+    <!-- Scripts JavaScript -->
+    <script>
+        // Configuración de Mermaid
+        const mermaidConfig = {
+            startOnLoad: false,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            },
+            themeVariables: {
+                primaryColor: '#3498db',
+                primaryTextColor: '#2c3e50',
+                primaryBorderColor: '#2980b9',
+                lineColor: '#34495e'
+            }
+        };
+        mermaid.initialize(mermaidConfig);
+
+        // Sistema de temas
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Actualizar icono
+            const icon = document.getElementById('theme-icon');
+            icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Cargar tema guardado
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+            
+            const icon = document.getElementById('theme-icon');
+            icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // Sistema de Quiz
+        let selectedAnswers = {};
+        const totalQuestions = 20;
+
+        function selectOption(element, isCorrect) {
+            const questionDiv = element.closest('.question');
+            const questionNumber = Array.from(document.querySelectorAll('.question')).indexOf(questionDiv) + 1;
+            
+            // Remover selección anterior
+            questionDiv.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Seleccionar nueva opción
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            selectedAnswers[questionNumber] = isCorrect;
+        }
+
+        function submitQuiz() {
+            const answeredQuestions = Object.keys(selectedAnswers).length;
+            
+            if (answeredQuestions < totalQuestions) {
+                alert(`Por favor responde todas las preguntas. Has respondido ${answeredQuestions} de ${totalQuestions}.`);
+                return;
+            }
+
+            // Calcular resultados
+            const correctAnswers = Object.values(selectedAnswers).filter(answer => answer === true).length;
+            const incorrectAnswers = totalQuestions - correctAnswers;
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+
+            // Mostrar respuestas correctas e incorrectas
+            document.querySelectorAll('.question').forEach((questionDiv, index) => {
+                const questionNumber = index + 1;
+                const selectedOption = questionDiv.querySelector('.option.selected');
+                const isCorrect = selectedAnswers[questionNumber];
+                
+                questionDiv.querySelectorAll('.option').forEach(opt => {
+                    const optionIsCorrect = opt.onclick.toString().includes('true');
+                    
+                    if (optionIsCorrect) {
+                        opt.classList.add('correct');
+                    } else if (opt.classList.contains('selected') && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+            });
+
+            // Mostrar resultados
+            displayResults(correctAnswers, incorrectAnswers, percentage);
+        }
+
+        function displayResults(correct, incorrect, percentage) {
+            const resultsDiv = document.getElementById('quiz-results');
+            const scoreText = document.getElementById('score-text');
+            const feedbackText = document.getElementById('feedback-text');
+            
+            // Mostrar puntuación
+            scoreText.textContent = `${correct}/${totalQuestions} (${percentage}%)`;
+            
+            // Feedback basado en la puntuación
+            let feedback = '';
+            if (percentage >= 90) {
+                feedback = '🎉 ¡Excelente! Dominas muy bien el tema.';
+            } else if (percentage >= 80) {
+                feedback = '👏 ¡Muy bien! Tienes un buen entendimiento.';
+            } else if (percentage >= 70) {
+                feedback = '👍 Bien. Te recomendamos repasar algunos conceptos.';
+            } else if (percentage >= 60) {
+                feedback = '📚 Necesitas estudiar más el material.';
+            } else {
+                feedback = '⚠️ Te recomendamos repasar todo el contenido de la clase.';
+            }
+            
+            feedbackText.innerHTML = `<p><strong>${feedback}</strong></p>`;
+            
+            // Crear gráfico de resultados
+            createResultsChart(correct, incorrect);
+            
+            // Mostrar resultados
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function createResultsChart(correct, incorrect) {
+            const canvas = document.getElementById('results-chart');
+            const ctx = canvas.getContext('2d');
+            
+            // Limpiar canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Configuración del gráfico
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 80;
+            
+            // Calcular ángulos
+            const correctAngle = (correct / totalQuestions) * 2 * Math.PI;
+            const incorrectAngle = (incorrect / totalQuestions) * 2 * Math.PI;
+            
+            // Dibujar sector de respuestas correctas
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, 0, correctAngle);
+            ctx.closePath();
+            ctx.fillStyle = '#27ae60';
+            ctx.fill();
+            
+            // Dibujar sector de respuestas incorrectas
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc(centerX, centerY, radius, correctAngle, correctAngle + incorrectAngle);
+            ctx.closePath();
+            ctx.fillStyle = '#e74c3c';
+            ctx.fill();
+            
+            // Añadir texto en el centro
+            ctx.fillStyle = '#2c3e50';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(`${correct}/${totalQuestions}`, centerX, centerY + 5);
+            
+            // Leyenda
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#27ae60';
+            ctx.fillText(`✓ Correctas: ${correct}`, 10, canvas.height - 30);
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillText(`✗ Incorrectas: ${incorrect}`, 10, canvas.height - 10);
+        }
+
+        function resetQuiz() {
+            // Limpiar respuestas
+            selectedAnswers = {};
+            
+            // Remover todas las clases de selección y resultados
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar resultados
+            document.getElementById('quiz-results').style.display = 'none';
+            
+            // Scroll al inicio del quiz
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Renderizar diagramas Mermaid
+        function renderMermaid() {
+            mermaid.run();
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTheme();
+            setTimeout(renderMermaid, 500);
+        });
+
+        // Scroll suave para navegación
+        function smoothScroll(target) {
+            document.querySelector(target).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 </html>
