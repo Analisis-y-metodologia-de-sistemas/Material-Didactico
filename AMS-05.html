@@ -522,6 +522,90 @@
             margin-bottom: 15px;
         }
 
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .benefit-card {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 2px solid #9c27b0;
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .benefit-card h4 {
+            color: #7b1fa2;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .concept-box {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+            border: 2px solid #4caf50;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 8px 16px rgba(76,175,80,0.2);
+        }
+
+        .concept-box h4 {
+            color: #2e7d32;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .concept-box h5 {
+            color: #388e3c;
+            font-size: 1.2em;
+            margin: 15px 0 10px 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #ff9800;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 8px 16px rgba(255,152,0,0.2);
+        }
+
+        .warning-box h3 {
+            color: #e65100;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid #2196f3;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 8px 16px rgba(33,150,243,0.2);
+        }
+
+        .info-box h4 {
+            color: #1976d2;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+
+        .info-box h5 {
+            color: #1976d2;
+            font-size: 1.2em;
+            margin: 15px 0 10px 0;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -997,6 +1081,603 @@ graph TB
                 <li><strong>Sprint Review (Viernes):</strong> 2 horas - Demo a stakeholders</li>
                 <li><strong>Sprint Retrospective (Viernes):</strong> 1.5 horas - Mejora del proceso</li>
             </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🏭 Lean Software Development: Principios y Metodología</h2>
+            
+            <div class="highlight-box">
+                <h3>🎯 ¿Qué es Lean Software Development?</h3>
+                <p>Lean Software Development es una metodología ágil basada en los principios del Lean Manufacturing de Toyota. Enfocada en maximizar el valor para el cliente eliminando desperdicios (waste) y optimizando el flujo de trabajo.</p>
+            </div>
+
+            <h3>🔧 Los 7 Principios Fundamentales de Lean</h3>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h4>1️⃣ Eliminar Desperdicios (Eliminate Waste)</h4>
+                    <p><strong>Concepto:</strong> Identificar y eliminar todo aquello que no agrega valor al cliente</p>
+                    <p><strong>7 Tipos de Waste en Software:</strong></p>
+                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
+                        <li>• Partially Done Work (Trabajo parcialmente hecho)</li>
+                        <li>• Extra Features (Funcionalidades innecesarias)</li>
+                        <li>• Relearning (Reaprender)</li>
+                        <li>• Handoffs (Transferencias)</li>
+                        <li>• Delays (Demoras)</li>
+                        <li>• Task Switching (Cambio de tareas)</li>
+                        <li>• Defects (Defectos)</li>
+                    </ul>
+                </div>
+                
+                <div class="benefit-card">
+                    <h4>2️⃣ Amplificar el Aprendizaje</h4>
+                    <p><strong>Principio:</strong> El desarrollo de software es un proceso de aprendizaje continuo</p>
+                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
+                        <li>• Prototipado rápido</li>
+                        <li>• Iteraciones cortas</li>
+                        <li>• Feedback temprano y frecuente</li>
+                        <li>• Experimentación estructurada</li>
+                        <li>• Post-mortems y retrospectivas</li>
+                    </ul>
+                </div>
+                
+                <div class="benefit-card">
+                    <h4>3️⃣ Decidir lo Más Tarde Posible</h4>
+                    <p><strong>Concepto:</strong> Mantener opciones abiertas el máximo tiempo posible</p>
+                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
+                        <li>• Just-in-time decision making</li>
+                        <li>• Arquitectura evolutiva</li>
+                        <li>• Reversible vs irreversible decisions</li>
+                        <li>• Set-based concurrent engineering</li>
+                    </ul>
+                </div>
+                
+                <div class="benefit-card">
+                    <h4>4️⃣ Entregar lo Más Rápido Posible</h4>
+                    <p><strong>Objetivo:</strong> Reducir el tiempo de ciclo sin sacrificar calidad</p>
+                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
+                        <li>• Pull systems vs push systems</li>
+                        <li>• Continuous integration/deployment</li>
+                        <li>• Eliminar cuellos de botella</li>
+                        <li>• Automatización de procesos</li>
+                    </ul>
+                </div>
+                
+                <div class="benefit-card">
+                    <h4>5️⃣ Empoderar al Equipo</h4>
+                    <p><strong>Filosofía:</strong> Los mejores arquitectos, requerimientos y diseños emergen de equipos auto-organizados</p>
+                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
+                        <li>• Autonomía y responsabilidad</li>
+                        <li>• Desarrollo de competencias</li>
+                        <li>• Liderazgo distribuido</li>
+                        <li>• Cultura de confianza</li>
+                    </ul>
+                </div>
+                
+                <div class="benefit-card">
+                    <h4>6️⃣ Construir Integridad</h4>
+                    <p><strong>Dimensiones:</strong> Integridad percibida (usuario) e integridad conceptual (arquitectura)</p>
+                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
+                        <li>• User experience coherente</li>
+                        <li>• Architectural integrity</li>
+                        <li>• Code quality standards</li>
+                        <li>• Testing comprehensivo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="benefit-card" style="grid-column: 1/-1; margin-top: 20px;">
+                <h4>7️⃣ Ver el Todo (See the Whole)</h4>
+                <p><strong>Pensamiento sistémico:</strong> Optimizar el sistema completo, no solo las partes</p>
+                <ul style="text-align: left; margin-top: 10px; font-size: 0.9em; columns: 2;">
+                    <li>• Value stream mapping</li>
+                    <li>• End-to-end optimization</li>
+                    <li>• Métricas sistémicas</li>
+                    <li>• Cross-functional collaboration</li>
+                    <li>• Customer journey focus</li>
+                    <li>• Measurement across boundaries</li>
+                </ul>
+            </div>
+
+            <h3>🔄 Comparación: Lean vs Scrum vs Kanban</h3>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Lean Software Development</th>
+                        <th>Scrum</th>
+                        <th>Kanban</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Origen</strong></td>
+                        <td>Toyota Production System</td>
+                        <td>Rugby/Empirismo</td>
+                        <td>Toyota Production System</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Enfoque Principal</strong></td>
+                        <td>Eliminación de desperdicios</td>
+                        <td>Entrega incremental</td>
+                        <td>Flujo continuo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Estructura</strong></td>
+                        <td>Principios + Prácticas flexibles</td>
+                        <td>Framework estructurado</td>
+                        <td>Método de visualización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Timeboxing</strong></td>
+                        <td>No requerido</td>
+                        <td>Sprints fijos</td>
+                        <td>Flujo continuo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Roles</strong></td>
+                        <td>Equipos empoderados</td>
+                        <td>PO, SM, Developers</td>
+                        <td>Roles existentes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Métricas Clave</strong></td>
+                        <td>Lead time, waste metrics</td>
+                        <td>Velocity, burndown</td>
+                        <td>Cycle time, throughput</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Planificación</strong></td>
+                        <td>Just-in-time</td>
+                        <td>Sprint planning regular</td>
+                        <td>Continuous planning</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🛠️ Herramientas y Técnicas Lean</h3>
+            
+            <div class="diagram-container">
+                <h4>🔄 Value Stream Mapping en Desarrollo de Software</h4>
+                <div class="mermaid">
+                    graph LR
+                        A[Idea/Requisito] --> B[Análisis]
+                        B --> C[Diseño]
+                        C --> D[Implementación]
+                        D --> E[Testing]
+                        E --> F[Deployment]
+                        F --> G[Feedback Usuario]
+                        
+                        B -.-> B1[Tiempo: 3 días<br/>Valor: Medio<br/>Waste: Handoffs]
+                        C -.-> C1[Tiempo: 2 días<br/>Valor: Alto<br/>Waste: Re-trabajo]
+                        D -.-> D1[Tiempo: 5 días<br/>Valor: Alto<br/>Waste: Task switching]
+                        E -.-> E1[Tiempo: 2 días<br/>Valor: Alto<br/>Waste: Defectos]
+                        F -.-> F1[Tiempo: 1 día<br/>Valor: Alto<br/>Waste: Delays]
+                        
+                        style A fill:#e8f5e8
+                        style G fill:#e8f5e8
+                        style B1 fill:#fff0e8
+                        style C1 fill:#fff0e8
+                        style D1 fill:#fff0e8
+                        style E1 fill:#fff0e8
+                        style F1 fill:#fff0e8
+                </div>
+            </div>
+
+            <div class="concept-box">
+                <h4>🎯 Implementación Práctica de Lean</h4>
+                
+                <h5>1. Identificación de Desperdicios (Waste Identification)</h5>
+                <p><strong>Técnica 5S Digital:</strong></p>
+                <ul>
+                    <li><strong>Sort (Seiri):</strong> Eliminar código, features y procesos innecesarios</li>
+                    <li><strong>Set in Order (Seiton):</strong> Organizar código, documentación y workflows</li>
+                    <li><strong>Shine (Seiso):</strong> Clean code, refactoring regular</li>
+                    <li><strong>Standardize (Seiketsu):</strong> Coding standards, process documentation</li>
+                    <li><strong>Sustain (Shitsuke):</strong> Code reviews, continuous improvement</li>
+                </ul>
+                
+                <h5>2. Set-Based Concurrent Engineering</h5>
+                <p>En lugar de converger rápidamente en una solución, mantener múltiples opciones hasta el último momento responsable:</p>
+                <ul>
+                    <li><strong>Spike técnico:</strong> Explorar 2-3 arquitecturas en paralelo</li>
+                    <li><strong>A/B Testing:</strong> Probar múltiples enfoques de UX</li>
+                    <li><strong>POC (Proof of Concept):</strong> Validar viabilidad técnica</li>
+                </ul>
+                
+                <h5>3. Pull Systems en Software</h5>
+                <p><strong>Implementación con Kanban:</strong></p>
+                <ul>
+                    <li>WIP limits para controlar flujo</li>
+                    <li>Just-in-time refinement de backlog</li>
+                    <li>Deployment on-demand</li>
+                    <li>Feature flags para entrega selectiva</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Antipatrones y Errores Comunes en Lean</h3>
+                <ul>
+                    <li><strong>Fake Agile:</strong> Implementar prácticas sin entender principios</li>
+                    <li><strong>Local Optimization:</strong> Optimizar equipos individuales en lugar del sistema completo</li>
+                    <li><strong>Waterfall disfrazado:</strong> Usar terminología ágil pero mantener mentalidad tradicional</li>
+                    <li><strong>Ignorar el contexto:</strong> Aplicar prácticas sin considerar la situación específica</li>
+                    <li><strong>Measurement dysfunction:</strong> Métricas que incentivan comportamientos contraproducentes</li>
+                    <li><strong>Tool obsession:</strong> Foco en herramientas en lugar de principios y personas</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>📚 Casos de Estudio: Lean en Acción</h4>
+                <p><strong>Caso 1 - Spotify:</strong> Implementación de principios Lean con autonomía de equipos y optimización del flujo de features</p>
+                <p><strong>Caso 2 - Toyota Connected:</strong> Aplicación directa de TPS al desarrollo de software automotriz</p>
+                <p><strong>Caso 3 - Amazon:</strong> Two-pizza teams y decisiones reversibles para maximizar velocidad de innovación</p>
+                <p><strong>Caso 4 - Netflix:</strong> Cultura de "freedom and responsibility" basada en empoderamiento de equipos</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>🏢 SAFe: Escalando la Agilidad en Grandes Empresas</h2>
+            
+            <div class="highlight-box">
+                <h3>🎯 ¿Qué es SAFe?</h3>
+                <p><strong>SAFe es como un manual de instrucciones</strong> para que empresas grandes puedan trabajar de manera ágil. Imagina que tienes una empresa con 500 desarrolladores - SAFe te dice cómo organizarlos para que no se pisen entre sí y todos trabajen hacia el mismo objetivo.</p>
+            </div>
+
+            <h3>🏗️ Los 4 Niveles: De Equipos Pequeños a Empresas Gigantes</h3>
+            <p>SAFe funciona como una pirámide con 4 pisos. Cada piso tiene un propósito específico:</p>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h4>👥 Nivel 1: Equipos Pequeños (3-9 personas)</h4>
+                    <p><strong>Es Scrum tradicional:</strong> Un equipo normal trabajando en sprints</p>
+                    <div style="text-align: left; margin-top: 15px;">
+                        <p><strong>🎯 Propósito:</strong> Hacer el trabajo diario de desarrollo</p>
+                        <p><strong>⏰ Ritmo:</strong> Sprints de 2 semanas</p>
+                        <p><strong>🎪 Eventos:</strong> Las reuniones normales de Scrum</p>
+                        <p><strong>📋 Entrega:</strong> Funcionalidades terminadas cada 2 semanas</p>
+                        
+                        <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <strong>💡 Ejemplo práctico:</strong> El equipo de "Login" trabaja en mejorar el sistema de usuarios. Cada 2 semanas entregan nuevas funcionalidades como "login con Google" o "recuperar contraseña".
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="benefit-card">
+                    <h4>🚂 Nivel 2: Grupos de Equipos (50-125 personas)</h4>
+                    <p><strong>Como un tren:</strong> Varios equipos que van todos en la misma dirección</p>
+                    <div style="text-align: left; margin-top: 15px;">
+                        <p><strong>🎯 Propósito:</strong> Coordinar múltiples equipos para crear un producto completo</p>
+                        <p><strong>⏰ Ritmo:</strong> Ciclos de 10-12 semanas (como 5-6 sprints juntos)</p>
+                        <p><strong>🎪 Evento Principal:</strong> Gran reunión de planificación cada 3 meses</p>
+                        <p><strong>📋 Entrega:</strong> Versión completa del producto cada 3 meses</p>
+                        
+                        <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <strong>💡 Ejemplo práctico:</strong> 8 equipos trabajando en una app de e-commerce: equipos de Login, Catálogo, Carrito, Pagos, etc. Todos se coordinan para lanzar una nueva versión completa cada 3 meses.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="benefit-card">
+                    <h4>🎯 Nivel 3: Productos Súper Complejos</h4>
+                    <p><strong>Para proyectos enormes:</strong> Cuando necesitas varios "trenes" trabajando juntos</p>
+                    <div style="text-align: left; margin-top: 15px;">
+                        <p><strong>🎯 Propósito:</strong> Construir sistemas masivos con muchas partes</p>
+                        <p><strong>⏰ Ritmo:</strong> Mismo que nivel 2, pero coordinado entre múltiples grupos</p>
+                        <p><strong>🎪 Evento Principal:</strong> Reuniones previas para sincronizar todo</p>
+                        <p><strong>📋 Entrega:</strong> Sistemas integrados súper complejos</p>
+                        
+                        <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <strong>💡 Ejemplo práctico:</strong> Desarrollar un auto autónomo. Necesitas grupos trabajando en: software del auto, sensores, mapas, inteligencia artificial, etc. Todos deben integrarse perfectamente.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="benefit-card">
+                    <h4>🏛️ Nivel 4: Estrategia de Toda la Empresa</h4>
+                    <p><strong>La vista desde arriba:</strong> Decidir en qué invertir y qué priorizar</p>
+                    <div style="text-align: left; margin-top: 15px;">
+                        <p><strong>🎯 Propósito:</strong> Alinear toda la tecnología con los objetivos del negocio</p>
+                        <p><strong>⏰ Ritmo:</strong> Revisiones trimestrales de estrategia</p>
+                        <p><strong>🎪 Evento Principal:</strong> Reuniones ejecutivas de planificación</p>
+                        <p><strong>📋 Entrega:</strong> Decisiones sobre presupuesto e inversiones</p>
+                        
+                        <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin-top: 10px;">
+                            <strong>💡 Ejemplo práctico:</strong> Netflix decide invertir en tecnología de streaming vs tecnología de recomendaciones vs nuevas plataformas. Este nivel decide dónde poner el dinero y la gente.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>🎯 Ideas Clave de SAFe (Sin Tanto Palabrerío)</h3>
+            <p>SAFe se basa en conceptos simples pero poderosos. Aquí te explico los más importantes:</p>
+
+            <div class="principles-grid">
+                <div class="principle-card">
+                    <h4>💰 Piensa en el Dinero</h4>
+                    <p><strong>Idea simple:</strong> Antes de hacer algo, pregúntate: "¿Esto le da más dinero a la empresa o le ahorra dinero?"</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.9em;">
+                        <strong>Ejemplo:</strong> En lugar de optimizar un algoritmo que nadie usa, mejor arregla el bug que hace que los clientes abandonen sus compras.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>🔍 Ve el Panorama Completo</h4>
+                    <p><strong>Idea simple:</strong> No optimices solo tu pedacito. Fíjate en cómo tu trabajo afecta al sistema completo.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.9em;">
+                        <strong>Ejemplo:</strong> Si haces el login súper rápido pero eso hace que la base de datos colapse después, no sirve.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>🎯 Mantén Tus Opciones Abiertas</h4>
+                    <p><strong>Idea simple:</strong> No te cases con la primera idea. Explora varias opciones antes de decidir.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.9em;">
+                        <strong>Ejemplo:</strong> Si necesitas una base de datos, prueba PostgreSQL, MongoDB y MySQL antes de elegir cuál usar.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>🔄 Entrega Poquito Pero Seguido</h4>
+                    <p><strong>Idea simple:</strong> Es mejor entregar algo pequeño cada semana que algo gigante en 6 meses.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.9em;">
+                        <strong>Ejemplo:</strong> Instagram empezó solo compartiendo fotos. Los filtros, stories y videos llegaron después.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>✅ Muestra, No Cuentes</h4>
+                    <p><strong>Idea simple:</strong> Los avances se miden con software funcionando, no con presentaciones bonitas.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.9em;">
+                        <strong>Ejemplo:</strong> En lugar de decir "el login está 80% terminado", muestra que los usuarios pueden realmente loguearse.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>👀 Haz Todo Visible</h4>
+                    <p><strong>Idea simple:</strong> Todos deben ver en qué está trabajando cada uno. No hacer 10 cosas al mismo tiempo.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.9em;">
+                        <strong>Ejemplo:</strong> Usa tableros donde puedas ver todas las tareas: "Por hacer", "Haciendo", "Terminado".
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>🎵 Trabajen Todos al Mismo Ritmo</h4>
+                    <p><strong>Idea simple:</strong> Como una banda, todos deben seguir el mismo compás para que suene bien.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.9em;">
+                        <strong>Ejemplo:</strong> Si todos los equipos planifican cada 3 meses el mismo día, pueden coordinarse mejor.
+                    </div>
+                </div>
+                
+                <div class="principle-card">
+                    <h4>🚀 Deja que la Gente Tome Decisiones</h4>
+                    <p><strong>Idea simple:</strong> Los que están más cerca del problema toman las mejores decisiones.</p>
+                    <div style="background: rgba(255,255,255,0.2); padding: 8px; border-radius: 5px; margin-top: 8px; font-size: 0.9em;">
+                        <strong>Ejemplo:</strong> Los desarrolladores deciden qué tecnología usar. Los jefes deciden el presupuesto general.
+                    </div>
+                </div>
+            </div>
+
+            <h3>🚂 El "Tren" de SAFe: Cómo Funciona</h3>
+            
+            <div class="highlight-box">
+                <h3>🚄 ¿Qué es el "Tren"?</h3>
+                <p>Imagina un tren con varios vagones. Cada vagón es un equipo Scrum (5-9 personas). El tren completo puede tener entre 50 y 125 personas. <strong>Todos van al mismo destino, al mismo tiempo, siguiendo la misma ruta.</strong></p>
+            </div>
+
+            <h4>🎯 ¿Por qué Funciona Tan Bien?</h4>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h5>🕐 Todos Siguen el Mismo Horario</h5>
+                <p><strong>El problema sin SAFe:</strong> Un equipo planifica en enero, otro en marzo, otro cuando se le ocurre. Nunca se coordinan.</p>
+                <p><strong>La solución del "tren":</strong> Todos planifican juntos cada 3 meses. Como todos van al mismo ritmo, pueden ayudarse cuando alguien tiene problemas.</p>
+                
+                <h5>🎯 Todos Tienen el Mismo Objetivo</h5>
+                <p><strong>El problema sin SAFe:</strong> El equipo A hace una cosa, el equipo B hace otra completamente diferente. Al final no encaja nada.</p>
+                <p><strong>La solución del "tren":</strong> En la gran reunión de planificación, todos se ponen de acuerdo en qué van a construir juntos en los próximos 3 meses.</p>
+                
+                <h5>🤝 Se Ayudan Entre Todos</h5>
+                <p><strong>El problema sin SAFe:</strong> Si el equipo de base de datos se atrasa, el equipo de frontend se queda esperando sin saber qué hacer.</p>
+                <p><strong>La solución del "tren":</strong> Como todos se ven seguido y saben en qué está cada uno, pueden ayudarse o cambiar planes rápidamente.</p>
+            </div>
+
+            <h4>📅 Las 3 Reuniones Súper Importantes del "Tren":</h4>
+            
+            <div class="events-grid">
+                <div class="event-card">
+                    <h4>🎯 La Gran Planificación (cada 3 meses)</h4>
+                    <p><strong>¿Qué es?</strong> Todos los equipos del "tren" se juntan 2 días completos para planificar los próximos 3 meses.</p>
+                    
+                    <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                        <strong>🤔 ¿Por qué 2 días completos?</strong><br>
+                        • Día 1: Entender QUÉ vamos a hacer<br>
+                        • Día 2: Planificar CÓMO lo vamos a hacer<br>
+                        • Identificar qué puede salir mal y cómo evitarlo
+                    </div>
+                    
+                    <p><strong>💡 Ejemplo:</strong> Netflix planifica que en los próximos 3 meses van a lanzar mejores recomendaciones. El equipo de algoritmos, el de datos y el de frontend se coordinan para que todo esté listo al mismo tiempo.</p>
+                </div>
+
+                <div class="event-card">
+                    <h4>📺 La Demo del Sistema Completo (cada 2 semanas)</h4>
+                    <p><strong>¿Qué es?</strong> Cada 2 semanas, TODOS los equipos muestran juntos cómo funciona el producto completo.</p>
+                    
+                    <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                        <strong>🎪 ¿Cómo funciona?</strong><br>
+                        • No es cada equipo por separado<br>
+                        • Es una demo del producto integrado<br>
+                        • Los jefes y clientes ven el progreso real
+                    </div>
+                    
+                    <p><strong>💡 Ejemplo:</strong> En Spotify, no muestran "mejoramos el algoritmo" por separado. Muestran "ahora las playlists recomendadas suenan mejor cuando las reproduces en el celular".</p>
+                </div>
+
+                <div class="event-card">
+                    <h4>🔍 La Retrospectiva Gigante (cada 3 meses)</h4>
+                    <p><strong>¿Qué es?</strong> Al final de cada ciclo de 3 meses, todos analizan qué funcionó bien y qué hay que mejorar.</p>
+                    
+                    <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                        <strong>🔧 ¿Qué hacen?</strong><br>
+                        • Celebran los éxitos<br>
+                        • Identifican los problemas grandes<br>
+                        • Deciden qué cambiar para los próximos 3 meses
+                    </div>
+                    
+                    <p><strong>💡 Ejemplo:</strong> "Descubrimos que tardamos mucho porque el equipo de base de datos siempre está ocupado. Para el próximo trimestre, vamos a tener 2 personas más en ese equipo."</p>
+                </div>
+            </div>
+
+            <h3>📊 ¿Cuándo Usar SAFe vs Otras Opciones?</h3>
+            
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h4>🏢 Usa SAFe cuando:</h4>
+                <ul>
+                    <li><strong>Tienes más de 50 desarrolladores</strong> trabajando en el mismo producto</li>
+                    <li><strong>Necesitas coordinar muchos equipos</strong> que dependen entre sí</li>
+                    <li><strong>Trabajas en una empresa grande</strong> con muchas reglas y procesos</li>
+                    <li><strong>Los jefes quieren visibilidad</strong> de todo lo que está pasando</li>
+                    <li><strong>Ejemplo:</strong> Desarrollar el software de un banco, donde tienes equipos de seguridad, pagos, apps móviles, etc.</li>
+                </ul>
+                
+                <h4>🚀 Usa Scrum simple cuando:</h4>
+                <ul>
+                    <li><strong>Tienes 1-2 equipos pequeños</strong> (menos de 20 personas total)</li>
+                    <li><strong>El producto es relativamente simple</strong></li>
+                    <li><strong>Los equipos pueden trabajar independientemente</strong></li>
+                    <li><strong>Ejemplo:</strong> Una startup haciendo una app móvil simple</li>
+                </ul>
+                
+                <h4>⚖️ Usa algo intermedio cuando:</h4>
+                <ul>
+                    <li><strong>Tienes 3-8 equipos</strong> (20-50 personas)</li>
+                    <li><strong>Necesitas algo de coordinación pero no tanto control</strong></li>
+                    <li><strong>Quieres mantener las cosas simples</strong></li>
+                    <li><strong>Ejemplo:</strong> Una empresa mediana con varios productos relacionados</li>
+                </ul>
+            </div>
+
+            <h3>🛠️ Cómo Empezar con SAFe (Sin Morir en el Intento)</h3>
+            
+            <div class="concept-box">
+                <h4>🚀 Los 3 Pasos para Implementar SAFe</h4>
+                
+                <h5>📚 Paso 1: Aprender y Convencer (2-3 meses)</h5>
+                <p><strong>¿Qué hacer?</strong></p>
+                <ul>
+                    <li><strong>Educar a los jefes:</strong> Explicarles qué es SAFe y por qué les conviene</li>
+                    <li><strong>Capacitar a algunos empleados:</strong> Que entiendan bien cómo funciona</li>
+                    <li><strong>Hacer un plan:</strong> Decidir con qué equipos empezar</li>
+                </ul>
+                <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                    <strong>💡 Consejo:</strong> No trates de convencer a toda la empresa al mismo tiempo. Empieza con los jefes más abiertos al cambio.
+                </div>
+                
+                <h5>🚂 Paso 2: Armar el Primer "Tren" (3-6 meses)</h5>
+                <p><strong>¿Qué hacer?</strong></p>
+                <ul>
+                    <li><strong>Elegir 5-8 equipos:</strong> Que trabajen en el mismo producto</li>
+                    <li><strong>Entrenar a todos:</strong> Cómo funciona el "tren", qué reuniones van a tener</li>
+                    <li><strong>Hacer la primera gran planificación:</strong> Los famosos 2 días cada 3 meses</li>
+                    <li><strong>Practicar y ajustar:</strong> Los primeros ciclos siempre salen mal, es normal</li>
+                </ul>
+                <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                    <strong>💡 Consejo:</strong> Elige equipos que ya se lleven bien. No empieces con los equipos más problemáticos.
+                </div>
+                
+                <h5>🏢 Paso 3: Expandir a Toda la Empresa (6+ meses)</h5>
+                <p><strong>¿Qué hacer?</strong></p>
+                <ul>
+                    <li><strong>Crear más "trenes":</strong> Una vez que el primero funciona bien</li>
+                    <li><strong>Conectar los "trenes":</strong> Para proyectos que necesitan varios trenes</li>
+                    <li><strong>Involucrar a la estrategia:</strong> Que los ejecutivos usen SAFe para decidir inversiones</li>
+                </ul>
+                <div style="background: rgba(255,255,255,0.3); padding: 10px; border-radius: 8px; margin: 10px 0;">
+                    <strong>💡 Consejo:</strong> No corras. Es mejor tener un tren funcionando perfecto que cinco trenes funcionando mal.
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h3>⚠️ Cuidado con Estos Errores Típicos</h3>
+                <ul>
+                    <li><strong>📚 "Es muy complicado":</strong> SAFe tiene muchas reglas. Empieza simple y ve agregando de a poco.</li>
+                    <li><strong>😤 "La gente se resiste":</strong> Es normal. Explica bien los beneficios y sé paciente.</li>
+                    <li><strong>🛠️ "Demasiadas herramientas":</strong> No necesitas 20 herramientas nuevas. Empieza con lo que ya tienes.</li>
+                    <li><strong>📋 "Se volvió burocrático":</strong> Si tienes más reuniones que trabajo, algo está mal. Ajusta.</li>
+                    <li><strong>👑 "Los jefes no apoyan":</strong> Sin apoyo de arriba, SAFe no funciona. Invierte tiempo en convencerlos.</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <h4>📈 ¿Vale la Pena? Los Beneficios Reales</h4>
+                
+                <h5>🎯 Lo que las empresas reportan:</h5>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 15px 0;">
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                        <strong>🚀 Velocidad</strong><br>
+                        Lanzan productos 20-50% más rápido
+                    </div>
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                        <strong>📊 Productividad</strong><br>
+                        Los equipos hacen 25-75% más trabajo útil
+                    </div>
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                        <strong>✨ Calidad</strong><br>
+                        10-50% menos bugs y problemas
+                    </div>
+                    <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                        <strong>😊 Felicidad</strong><br>
+                        Los empleados están 10-30% más contentos
+                    </div>
+                </div>
+                
+                <p><strong>💡 Ejemplo real:</strong> ING Bank implementó SAFe y redujo el tiempo para lanzar nuevos productos de 6 meses a 6 semanas.</p>
+            </div>
+
+            <h3>🤔 ¿Qué Versión de SAFe Necesito?</h3>
+            
+            <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; margin: 20px 0;">
+                <h4>🧮 Calculadora Simple de SAFe</h4>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
+                    <div style="background: #e8f5e8; padding: 20px; border-radius: 10px; border: 2px solid #4caf50;">
+                        <h5>🚀 ¿Eres pequeño? → Scrum Normal</h5>
+                        <p><strong>Si tienes:</strong></p>
+                        <ul>
+                            <li>1-2 equipos (menos de 20 personas)</li>
+                            <li>Un producto simple</li>
+                            <li>Equipos que pueden trabajar solos</li>
+                        </ul>
+                        <p><strong>Usa:</strong> Scrum tradicional con sprints de 2 semanas</p>
+                    </div>
+                    
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; border: 2px solid #2196f3;">
+                        <h5>🚂 ¿Eres mediano? → SAFe Básico</h5>
+                        <p><strong>Si tienes:</strong></p>
+                        <ul>
+                            <li>3-12 equipos (50-125 personas)</li>
+                            <li>Necesitas coordinar equipos</li>
+                            <li>Un producto complejo</li>
+                        </ul>
+                        <p><strong>Usa:</strong> Un "tren" con planificación cada 3 meses</p>
+                    </div>
+                    
+                    <div style="background: #fff3e0; padding: 20px; border-radius: 10px; border: 2px solid #ff9800;">
+                        <h5>🏭 ¿Eres gigante? → SAFe Completo</h5>
+                        <p><strong>Si tienes:</strong></p>
+                        <ul>
+                            <li>13+ equipos (más de 125 personas)</li>
+                            <li>Productos súper complejos</li>
+                            <li>Múltiples productos relacionados</li>
+                        </ul>
+                        <p><strong>Usa:</strong> Varios "trenes" coordinados + nivel estratégico</p>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.5); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                    <strong>💡 Regla de oro:</strong> Siempre empieza con la versión más simple que funcione para tu tamaño. Es más fácil agregar complejidad después que quitarla.
+                </div>
+            </div>
         </div>
 
         <div class="content-section">
