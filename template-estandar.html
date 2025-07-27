@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMS - Clase 14: Diagramas UML y Casos de Uso Avanzados</title>
-    <meta name="description" content="Dominio de los diagramas UML y técnicas avanzadas de especificación de casos de uso">
-    <meta name="keywords" content="análisis, sistemas, metodología, AMS, UML, casos de uso, diagramas de clases">
+    <title>AMS - Clase X: [TÍTULO DE LA CLASE]</title>
+    <meta name="description" content="[Descripción de la clase]">
+    <meta name="keywords" content="análisis, sistemas, metodología, AMS">
     <meta name="author" content="Curso AMS">
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
@@ -174,6 +174,10 @@
             padding-bottom: 10px;
             border-bottom: 3px solid var(--secondary-color);
             color: var(--text-primary);
+        }
+
+        .section-title::before {
+            margin-right: 10px;
         }
 
         /* Objetivos de aprendizaje */
@@ -468,8 +472,8 @@
     <div class="container">
         <!-- Header del curso -->
         <header class="course-header">
-            <h1 class="course-title">📊 Clase 14: Diagramas UML y Casos de Uso Avanzados</h1>
-            <p class="course-subtitle">Modelado avanzado con UML y especificación detallada de casos de uso</p>
+            <h1 class="course-title">[🎯 EMOJI] Clase X: [TÍTULO]</h1>
+            <p class="course-subtitle">[Descripción breve de la clase]</p>
             
             <div class="course-meta">
                 <div class="meta-card">
@@ -478,20 +482,20 @@
                 </div>
                 <div class="meta-card">
                     <h4>📊 Progreso</h4>
-                    <p>Clase 14 de 16</p>
+                    <p>Clase X de 16</p>
                 </div>
                 <div class="meta-card">
                     <h4>⏱️ Duración</h4>
-                    <p>90 minutos</p>
+                    <p>[X] minutos</p>
                 </div>
                 <div class="meta-card">
                     <h4>🎯 Nivel</h4>
-                    <p>Avanzado</p>
+                    <p>[Básico/Intermedio/Avanzado]</p>
                 </div>
             </div>
             
             <div class="progress-bar">
-                <div class="progress-fill" style="width: 87.5%"></div>
+                <div class="progress-fill" style="width: [X]%"></div>
             </div>
         </header>
 
@@ -499,310 +503,34 @@
         <section class="objectives">
             <h2>🎯 Objetivos de Aprendizaje</h2>
             <ul>
-                <li>Crear diagramas de clases UML completos y precisos</li>
-                <li>Aplicar técnicas avanzadas de modelado con UML</li>
-                <li>Especificar casos de uso detallados con escenarios complejos</li>
-                <li>Integrar diferentes vistas del sistema usando múltiples diagramas UML</li>
+                <li>[Objetivo 1]</li>
+                <li>[Objetivo 2]</li>
+                <li>[Objetivo 3]</li>
+                <li>[Objetivo 4]</li>
             </ul>
         </section>
 
-        <!-- Diagramas de Clases UML -->
+        <!-- Sección 1 de contenido -->
         <section class="content-section">
-            <h2 class="section-title">📊 1. Diagramas de Clases UML</h2>
+            <h2 class="section-title">📝 1. [Título de Sección]</h2>
+            <p>[Contenido de la sección]</p>
             
-            <p>Los diagramas de clases son el corazón del modelado orientado a objetos en UML. Proporcionan una vista estática del sistema, mostrando las clases, sus atributos, métodos y las relaciones entre ellas.</p>
-
-            <div class="synopsis-box">
-                <h4>Componentes de un Diagrama de Clases</h4>
-                <ul>
-                    <li><strong>Clases:</strong> Representan abstracciones de entidades del dominio</li>
-                    <li><strong>Atributos:</strong> Características o propiedades de las clases</li>
-                    <li><strong>Métodos:</strong> Operaciones que puede realizar la clase</li>
-                    <li><strong>Relaciones:</strong> Conexiones entre clases (asociación, herencia, composición)</li>
-                </ul>
-            </div>
-
-            <div class="diagram-container">
-                <h4>📊 Ejemplo de Diagrama de Clases</h4>
-                <div class="mermaid">
-                    classDiagram
-                        class Persona {
-                            -nombre: String
-                            -fechaNacimiento: Date
-                            -email: String
-                            +getNombre(): String
-                            +calcularEdad(): int
-                            +enviarEmail(mensaje: String): void
-                        }
-                        
-                        class Estudiante {
-                            -numeroEstudiante: String
-                            -carrera: String
-                            +inscribirseEnCurso(curso: Curso): void
-                            +consultarCalificaciones(): List~Calificacion~
-                        }
-                        
-                        class Profesor {
-                            -numeroEmpleado: String
-                            -departamento: String
-                            +dictarCurso(curso: Curso): void
-                            +calificarEstudiante(estudiante: Estudiante, nota: float): void
-                        }
-                        
-                        class Curso {
-                            -codigo: String
-                            -nombre: String
-                            -creditos: int
-                            +agregarEstudiante(estudiante: Estudiante): void
-                            +removerEstudiante(estudiante: Estudiante): void
-                        }
-                        
-                        Persona <|-- Estudiante
-                        Persona <|-- Profesor
-                        Estudiante "*" -- "*" Curso : inscrito en
-                        Profesor "1" -- "*" Curso : dicta
-                </div>
-            </div>
-
-            <h3>Tipos de Relaciones en UML</h3>
+            <!-- Caja de información opcional -->
             <div class="info-box">
-                <h4>Relaciones Fundamentales</h4>
-                <ul>
-                    <li><strong>Asociación:</strong> Relación general entre clases</li>
-                    <li><strong>Agregación:</strong> Relación "tiene-un" débil</li>
-                    <li><strong>Composición:</strong> Relación "parte-de" fuerte</li>
-                    <li><strong>Herencia:</strong> Relación "es-un" (generalización/especialización)</li>
-                    <li><strong>Dependencia:</strong> Una clase usa otra temporalmente</li>
-                    <li><strong>Realización:</strong> Una clase implementa una interfaz</li>
-                </ul>
+                <h4>💡 Información importante</h4>
+                <p>[Contenido informativo]</p>
             </div>
-
-            <h3>Multiplicidades y Navegabilidad</h3>
-            <p>Las multiplicidades especifican cuántas instancias de una clase pueden estar relacionadas con instancias de otra clase:</p>
-            <ul>
-                <li><strong>1:</strong> Exactamente uno</li>
-                <li><strong>0..1:</strong> Cero o uno</li>
-                <li><strong>*:</strong> Cero o más</li>
-                <li><strong>1..*:</strong> Uno o más</li>
-                <li><strong>2..5:</strong> Entre dos y cinco</li>
-            </ul>
-        </section>
-
-        <!-- Casos de Uso Avanzados -->
-        <section class="content-section">
-            <h2 class="section-title">🎭 2. Casos de Uso Avanzados</h2>
             
-            <p>Los casos de uso avanzados van más allá de la identificación básica de funcionalidades, proporcionando especificaciones detalladas que incluyen precondiciones, postcondiciones, flujos alternativos y manejo de excepciones.</p>
-
-            <h3>Estructura Completa de un Caso de Uso</h3>
-            <div class="info-box">
-                <h4>Plantilla de Especificación de Caso de Uso</h4>
-                <ul>
-                    <li><strong>Nombre:</strong> Identificador único del caso de uso</li>
-                    <li><strong>Actores:</strong> Entidades que interactúan con el sistema</li>
-                    <li><strong>Descripción:</strong> Resumen del propósito</li>
-                    <li><strong>Precondiciones:</strong> Estado requerido antes de la ejecución</li>
-                    <li><strong>Trigger:</strong> Evento que inicia el caso de uso</li>
-                    <li><strong>Flujo Principal:</strong> Secuencia normal de pasos</li>
-                    <li><strong>Flujos Alternativos:</strong> Variaciones del flujo principal</li>
-                    <li><strong>Flujos de Excepción:</strong> Manejo de errores</li>
-                    <li><strong>Postcondiciones:</strong> Estado resultante tras la ejecución</li>
-                </ul>
-            </div>
-
+            <!-- Diagrama opcional -->
             <div class="diagram-container">
-                <h4>📊 Diagrama de Casos de Uso Avanzado</h4>
+                <h4>📊 [Título del diagrama]</h4>
                 <div class="mermaid">
-                    graph TD
-                        subgraph "Sistema Académico"
-                            A[Inscribirse en Curso]
-                            B[Consultar Horarios]
-                            C[Procesar Pago]
-                            D[Verificar Prerrequisitos]
-                            E[Generar Comprobante]
-                        end
-                        
-                        F[Estudiante] --> A
-                        F --> B
-                        G[Sistema de Pagos] --> C
-                        
-                        A --> D
-                        A --> C
-                        C --> E
-                        
-                        A -.->|extends| H[Manejar Lista de Espera]
-                        B -.->|includes| I[Autenticar Usuario]
-                </div>
-            </div>
-
-            <h3>Relaciones entre Casos de Uso</h3>
-            <div class="synopsis-box">
-                <h4>Tipos de Relaciones</h4>
-                <ul>
-                    <li><strong>Include:</strong> Un caso de uso siempre incluye otro</li>
-                    <li><strong>Extend:</strong> Un caso de uso opcionalmente extiende otro</li>
-                    <li><strong>Generalización:</strong> Un caso de uso hereda de otro más general</li>
-                </ul>
-            </div>
-
-            <h3>Ejemplo Detallado de Caso de Uso</h3>
-            <div class="info-box">
-                <h4>Caso de Uso: Procesar Venta</h4>
-                <p><strong>Actor Principal:</strong> Cajero</p>
-                <p><strong>Actores Secundarios:</strong> Sistema de Inventario, Sistema de Pagos</p>
-                
-                <p><strong>Precondiciones:</strong></p>
-                <ul>
-                    <li>El cajero está autenticado en el sistema</li>
-                    <li>La caja registradora está operativa</li>
-                    <li>Hay productos disponibles para la venta</li>
-                </ul>
-                
-                <p><strong>Flujo Principal:</strong></p>
-                <ol>
-                    <li>El cajero inicia una nueva venta</li>
-                    <li>El cajero escanea o ingresa el código del producto</li>
-                    <li>El sistema verifica la disponibilidad del producto</li>
-                    <li>El sistema muestra la información del producto y actualiza el total</li>
-                    <li>Se repiten los pasos 2-4 para cada producto</li>
-                    <li>El cajero indica el fin de la venta</li>
-                    <li>El sistema calcula el total incluyendo impuestos</li>
-                    <li>El cliente realiza el pago</li>
-                    <li>El sistema procesa el pago</li>
-                    <li>El sistema actualiza el inventario</li>
-                    <li>El sistema genera e imprime el recibo</li>
-                    <li>La venta se completa exitosamente</li>
-                </ol>
-                
-                <p><strong>Flujos Alternativos:</strong></p>
-                <ul>
-                    <li><strong>A1 - Producto no encontrado:</strong> En el paso 3, si el producto no existe, mostrar mensaje de error y permitir reintentar</li>
-                    <li><strong>A2 - Descuentos:</strong> Después del paso 6, aplicar descuentos si corresponde</li>
-                </ul>
-                
-                <p><strong>Postcondiciones:</strong></p>
-                <ul>
-                    <li>La venta queda registrada en el sistema</li>
-                    <li>El inventario se actualiza</li>
-                    <li>Se genera el recibo correspondiente</li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- Diagramas UML Avanzados -->
-        <section class="content-section">
-            <h2 class="section-title">🔧 3. Diagramas UML Avanzados</h2>
-            
-            <h3>Diagrama de Secuencia</h3>
-            <p>Los diagramas de secuencia muestran la interacción entre objetos a lo largo del tiempo, representando el intercambio de mensajes en un escenario específico.</p>
-
-            <div class="diagram-container">
-                <h4>📊 Diagrama de Secuencia: Procesar Pedido</h4>
-                <div class="mermaid">
-                    sequenceDiagram
-                        participant Cliente
-                        participant Sistema
-                        participant Inventario
-                        participant Pago
-                        participant Email
-                        
-                        Cliente->>Sistema: crear pedido
-                        Sistema->>Inventario: verificar disponibilidad
-                        Inventario-->>Sistema: confirmar stock
-                        Sistema->>Cliente: mostrar resumen
-                        Cliente->>Sistema: confirmar pedido
-                        Sistema->>Pago: procesar pago
-                        Pago-->>Sistema: pago exitoso
-                        Sistema->>Inventario: reducir stock
-                        Sistema->>Email: enviar confirmación
-                        Sistema-->>Cliente: pedido confirmado
-                </div>
-            </div>
-
-            <h3>Diagrama de Estados</h3>
-            <p>Representa los diferentes estados por los que puede pasar un objeto y las transiciones entre estos estados.</p>
-
-            <div class="diagram-container">
-                <h4>📊 Diagrama de Estados: Pedido</h4>
-                <div class="mermaid">
-                    stateDiagram-v2
-                        [*] --> Creado
-                        Creado --> Pendiente : confirmar
-                        Pendiente --> Procesando : pagar
-                        Procesando --> Enviado : preparar
-                        Procesando --> Cancelado : cancelar
-                        Enviado --> Entregado : entregar
-                        Entregado --> [*]
-                        Cancelado --> [*]
-                        
-                        note right of Pendiente : Esperando pago
-                        note right of Procesando : Verificando stock
-                </div>
-            </div>
-
-            <h3>Diagrama de Actividades</h3>
-            <p>Modela el flujo de trabajo o proceso de negocio, mostrando las actividades secuenciales y paralelas.</p>
-
-            <div class="diagram-container">
-                <h4>📊 Diagrama de Actividades: Proceso de Compra</h4>
-                <div class="mermaid">
-                    flowchart TD
-                        A[Inicio] --> B[Seleccionar Productos]
-                        B --> C{¿Hay Stock?}
-                        C -->|Sí| D[Agregar al Carrito]
-                        C -->|No| E[Notificar Falta Stock]
-                        E --> B
-                        D --> F{¿Continuar Comprando?}
-                        F -->|Sí| B
-                        F -->|No| G[Ir a Checkout]
-                        G --> H[Ingresar Datos de Envío]
-                        H --> I[Seleccionar Método de Pago]
-                        I --> J[Procesar Pago]
-                        J --> K{¿Pago Exitoso?}
-                        K -->|Sí| L[Confirmar Pedido]
-                        K -->|No| M[Mostrar Error]
-                        M --> I
-                        L --> N[Fin]
+                    <!-- Código Mermaid aquí -->
                 </div>
             </div>
         </section>
 
-        <!-- Integración de Vistas -->
-        <section class="content-section">
-            <h2 class="section-title">🔗 4. Integración de Vistas del Sistema</h2>
-            
-            <p>Un análisis completo requiere la integración coherente de múltiples vistas del sistema. Cada diagrama UML proporciona una perspectiva diferente del mismo sistema.</p>
-
-            <div class="info-box">
-                <h4>Vistas Arquitectónicas</h4>
-                <ul>
-                    <li><strong>Vista Funcional:</strong> Casos de uso y requerimientos</li>
-                    <li><strong>Vista Estática:</strong> Diagramas de clases y objetos</li>
-                    <li><strong>Vista Dinámica:</strong> Diagramas de secuencia y actividades</li>
-                    <li><strong>Vista de Estados:</strong> Diagramas de estados</li>
-                    <li><strong>Vista de Implementación:</strong> Diagramas de componentes y deployment</li>
-                </ul>
-            </div>
-
-            <h3>Trazabilidad entre Diagramas</h3>
-            <p>Es fundamental mantener consistencia entre los diferentes diagramas:</p>
-            <ul>
-                <li>Los actores en casos de uso deben corresponder a clases en el diagrama de clases</li>
-                <li>Los mensajes en diagramas de secuencia deben corresponder a métodos en las clases</li>
-                <li>Los estados en diagramas de estado deben reflejar el ciclo de vida de los objetos</li>
-                <li>Las actividades deben corresponder a casos de uso o métodos específicos</li>
-            </ul>
-
-            <div class="warning-box">
-                <h4>⚠️ Consideraciones Importantes</h4>
-                <ul>
-                    <li>No todos los diagramas son necesarios para todos los proyectos</li>
-                    <li>La complejidad de los diagramas debe ser apropiada para la audiencia</li>
-                    <li>Los diagramas deben actualizarse cuando cambian los requerimientos</li>
-                    <li>La herramienta de modelado debe soportar consistencia entre diagramas</li>
-                </ul>
-            </div>
-        </section>
+        <!-- Más secciones de contenido... -->
 
         <!-- Sistema de Quiz estandarizado -->
         <section class="quiz-container">
@@ -816,32 +544,20 @@
                 <p>• Se requiere responder todas las preguntas para obtener el resultado</p>
             </div>
 
+            <!-- Las 20 preguntas se generan aquí -->
             <div id="quiz-questions">
-                <!-- Aquí irían las 20 preguntas del quiz -->
+                <!-- Pregunta 1 -->
                 <div class="question">
-                    <h4>1. En un diagrama de clases UML, ¿qué símbolo se usa para representar una relación de herencia?</h4>
+                    <h4>1. [Pregunta 1]</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Línea sólida con flecha</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Línea sólida con triángulo vacío</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Línea punteada con flecha</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Línea sólida simple</div>
+                        <div class="option" onclick="selectOption(this, false)">A) [Opción A]</div>
+                        <div class="option" onclick="selectOption(this, false)">B) [Opción B]</div>
+                        <div class="option" onclick="selectOption(this, true)">C) [Opción C - Correcta]</div>
+                        <div class="option" onclick="selectOption(this, false)">D) [Opción D]</div>
                     </div>
                 </div>
-
-                <!-- Continuaría con las otras 19 preguntas... -->
-                <!-- Por brevedad, incluyo solo algunas preguntas representativas -->
-
-                <div class="question">
-                    <h4>2. ¿Cuál es la diferencia principal entre una relación de composición y agregación?</h4>
-                    <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) No hay diferencia</div>
-                        <div class="option" onclick="selectOption(this, true)">B) La composición implica dependencia existencial</div>
-                        <div class="option" onclick="selectOption(this, false)">C) La agregación es más fuerte</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Solo difieren en notación</div>
-                    </div>
-                </div>
-
-                <!-- Continúo agregando las preguntas restantes siguiendo el mismo patrón... -->
+                
+                <!-- Repetir para las 20 preguntas... -->
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
@@ -864,10 +580,10 @@
         <section class="resources">
             <h2>📚 Recursos Adicionales</h2>
             <ul>
-                <li><strong>📖 Bibliografía:</strong> Fowler, M. "UML Distilled", Capítulos 3-6</li>
-                <li><strong>🔗 Enlaces útiles:</strong> Herramientas de modelado UML (PlantUML, Lucidchart)</li>
-                <li><strong>▶️ Próxima clase:</strong> AMS-15: Patrones de Diseño en Análisis</li>
-                <li><strong>🔍 Palabras clave:</strong> UML, Casos de uso, Diagramas de clases, Secuencia, Estados</li>
+                <li><strong>📖 Bibliografía:</strong> [Referencias bibliográficas]</li>
+                <li><strong>🔗 Enlaces útiles:</strong> [Enlaces relevantes]</li>
+                <li><strong>▶️ Próxima clase:</strong> [Enlace a la siguiente clase]</li>
+                <li><strong>🔍 Palabras clave:</strong> [Lista de términos importantes]</li>
             </ul>
         </section>
     </div>
@@ -916,7 +632,7 @@
 
         // Sistema de Quiz
         let selectedAnswers = {};
-        const totalQuestions = 2; // Ajustar según el número real de preguntas
+        const totalQuestions = 20;
 
         function selectOption(element, isCorrect) {
             const questionDiv = element.closest('.question');
@@ -1037,6 +753,14 @@
             ctx.font = 'bold 16px Arial';
             ctx.textAlign = 'center';
             ctx.fillText(`${correct}/${totalQuestions}`, centerX, centerY + 5);
+            
+            // Leyenda
+            ctx.font = '12px Arial';
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#27ae60';
+            ctx.fillText(`✓ Correctas: ${correct}`, 10, canvas.height - 30);
+            ctx.fillStyle = '#e74c3c';
+            ctx.fillText(`✗ Incorrectas: ${incorrect}`, 10, canvas.height - 10);
         }
 
         function resetQuiz() {

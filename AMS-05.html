@@ -4,47 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clase 5: Scrum Framework - Teoría y Fundamentos</title>
-    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
-    <meta name="author" content="Curso AMS HTML">
-    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --dark-bg: #1a1a1a;
+            --light-bg: #ffffff;
+            --text-light: #ffffff;
+            --text-dark: #000000;
+            --border-color: #bdc3c7;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.8;
+            line-height: 1.6;
+            color: var(--text-dark);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #333;
             min-height: 100vh;
+            transition: all 0.3s ease;
         }
-        
+
+        /* Regla general para todos los elementos */
+        * {
+            color: inherit;
+        }
+
+        body.dark-mode {
+            background: linear-gradient(135deg, #232526 0%, #414345 100%);
+            color: var(--text-light);
+        }
+
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
+        }
+
+        .header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
             border-radius: 15px;
-            color: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
-        
+
+        .dark-mode .header {
+            background: rgba(26, 26, 26, 0.95);
+        }
+
         .header::before {
             content: '';
             position: absolute;
@@ -52,100 +73,99 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: repeating-linear-gradient(
-                45deg,
-                transparent,
-                transparent 10px,
-                rgba(255,255,255,0.1) 10px,
-                rgba(255,255,255,0.1) 20px
-            );
-            animation: slide 20s linear infinite;
+            background: linear-gradient(45deg, transparent, rgba(52, 152, 219, 0.1), transparent);
+            animation: rotate 20s linear infinite;
+            pointer-events: none;
         }
-        
-        @keyframes slide {
-            0% { transform: translateX(-50px); }
-            100% { transform: translateX(50px); }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-        
-        .header h1 {
-            font-size: 3.5em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            position: relative;
-            z-index: 1;
+
+        .course-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
-        
-        .header p {
-            font-size: 1.3em;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .content-section {
-            margin: 40px 0;
-            padding: 30px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-            border-radius: 15px;
-            border-left: 6px solid #4fc3f7;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        
-        .content-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(79,195,247,0.1) 0%, transparent 70%);
-            border-radius: 50%;
-        }
-        
-        .section-title {
-            color: #2c3e50;
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            border-bottom: 3px solid #4fc3f7;
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .section-title::before {
-            content: '🔷';
-            margin-right: 15px;
-            font-size: 1.2em;
-        }
-        
-        .text-content {
-            font-size: 1.1em;
-            text-align: justify;
-            color: #2c3e50;
-            margin: 20px 0;
-            padding: 20px;
-            background: rgba(255,255,255,0.8);
+
+        .info-card {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 15px;
             border-radius: 10px;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary-color);
         }
-        
-        .svg-container {
-            margin: 30px 0;
-            text-align: center;
-            background: white;
-            padding: 20px;
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
             border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
         }
-        
-        .diagram-title {
+
+        .dark-mode .content-section {
+            background: rgba(26, 26, 26, 0.95);
+        }
+
+        .content-section:hover {
+            transform: translateY(-5px);
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
             font-size: 1.8em;
-            color: #2c3e50;
             margin-bottom: 15px;
-            text-align: center;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 5px;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+        }
+
+        /* Solo especificar colores cuando sea necesario para modo oscuro */
+        .dark-mode h1, .dark-mode h2, .dark-mode h3, .dark-mode h4, .dark-mode h5, .dark-mode h6 {
+            color: var(--text-light);
+        }
+
+        .objectives {
+            background: linear-gradient(45deg, var(--success-color), #2ecc71);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .objectives li {
+            margin-bottom: 10px;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .objectives li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #fff;
             font-weight: bold;
         }
-        
+
         .highlight-box {
             background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
             border: 2px solid #f39c12;
@@ -155,7 +175,7 @@
             position: relative;
             box-shadow: 0 8px 16px rgba(243,156,18,0.2);
         }
-        
+
         .highlight-box::before {
             content: '💡';
             font-size: 2em;
@@ -170,21 +190,21 @@
             align-items: center;
             justify-content: center;
         }
-        
+
         .highlight-box h3 {
             color: #d68910;
             font-size: 1.6em;
             margin-bottom: 15px;
             margin-left: 60px;
         }
-        
+
         .principles-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
             margin: 30px 0;
         }
-        
+
         .principle-card {
             background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
             border-radius: 15px;
@@ -195,27 +215,12 @@
             position: relative;
             overflow: hidden;
         }
-        
-        .principle-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
-            transition: left 0.5s;
-        }
-        
+
         .principle-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
         }
-        
-        .principle-card:hover::before {
-            left: 100%;
-        }
-        
+
         .principle-card h4 {
             color: #1976d2;
             font-size: 1.4em;
@@ -223,20 +228,14 @@
             display: flex;
             align-items: center;
         }
-        
-        .principle-card h4::before {
-            content: '⚡';
-            margin-right: 10px;
-            font-size: 1.3em;
-        }
-        
+
         .roles-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
             gap: 30px;
             margin: 30px 0;
         }
-        
+
         .role-card {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             border-radius: 20px;
@@ -246,29 +245,19 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .role-card.product-owner {
             border-color: #e74c3c;
         }
-        
+
         .role-card.scrum-master {
             border-color: #3498db;
         }
-        
+
         .role-card.development-team {
             border-color: #27ae60;
         }
-        
-        .role-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 5px;
-            background: inherit;
-        }
-        
+
         .role-title {
             font-size: 1.8em;
             font-weight: bold;
@@ -277,96 +266,175 @@
             align-items: center;
             position: relative;
         }
-        
+
         .role-card.product-owner .role-title {
             color: #e74c3c;
         }
-        
+
         .role-card.scrum-master .role-title {
             color: #3498db;
         }
-        
+
         .role-card.development-team .role-title {
             color: #27ae60;
         }
-        
-        .role-title::before {
-            margin-right: 15px;
-            font-size: 1.5em;
-        }
-        
-        .role-card.product-owner .role-title::before {
-            content: '👑';
-        }
-        
-        .role-card.scrum-master .role-title::before {
-            content: '🛡️';
-        }
-        
-        .role-card.development-team .role-title::before {
-            content: '⚙️';
-        }
-        
-        .quiz-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin: 40px 0;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-        }
-        
-        .quiz-title {
-            font-size: 2.5em;
-            text-align: center;
-            margin-bottom: 30px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .question {
-            background: rgba(255,255,255,0.1);
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-        
-        .question h4 {
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-        
-        .options {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .options li {
-            background: rgba(255,255,255,0.1);
-            margin: 10px 0;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-        }
-        
-        .options li:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: rgba(255,255,255,0.3);
-            transform: translateX(10px);
-        }
-        
-        .mermaid {
-            background: white;
+
+        .diagram-container {
+            background: #f8f9fa;
             border-radius: 10px;
             padding: 20px;
             margin: 20px 0;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        
+
+        .dark-mode .diagram-container {
+            background: #343a40;
+        }
+
+        .mermaid {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .dark-mode .mermaid {
+            background: #2c3e50;
+        }
+
+        .toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1em;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-btn:hover {
+            background: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        .quiz-container {
+            background: linear-gradient(45deg, var(--warning-color), #e67e22);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .question h4 {
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .options {
+            display: grid;
+            gap: 8px;
+        }
+
+        .option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+
+        .option.selected {
+            background: rgba(52, 152, 219, 0.8) !important;
+            border: 2px solid #3498db;
+            transform: translateX(5px);
+        }
+
+        #results {
+            min-height: 300px;
+            padding: 20px;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            margin-top: 20px;
+        }
+
+        #pie-chart svg {
+            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success-color), var(--secondary-color));
+            width: 31.25%;
+            border-radius: 2px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .dark-mode .progress-fill {
+            background: linear-gradient(90deg, var(--success-color), var(--secondary-color));
+        }
+
+        .dark-mode .info-card {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            color: var(--text-light);
+        }
+
+        .dark-mode .info-card strong {
+            color: var(--text-light);
+        }
+
+        .dark-mode .objectives {
+            background: linear-gradient(45deg, #1e3a2e, #27ae60);
+            color: var(--text-light);
+        }
+
+        .dark-mode .objectives h2 {
+            color: var(--text-light);
+        }
+
+        .dark-mode .quiz-container {
+            color: var(--text-light);
+        }
+
+        .dark-mode .quiz-container h2 {
+            color: var(--text-light);
+        }
+
+        .dark-mode .question h4 {
+            color: var(--text-light);
+        }
+
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -376,200 +444,165 @@
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
-        
+
         .comparison-table th {
-            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
+            background: linear-gradient(135deg, var(--secondary-color) 0%, #29b6f6 100%);
             color: white;
             padding: 20px;
             text-align: center;
             font-size: 1.2em;
         }
-        
+
         .comparison-table td {
             padding: 15px;
             text-align: center;
             border-bottom: 1px solid #eee;
             position: relative;
         }
-        
+
         .comparison-table tr:nth-child(even) {
             background: #f8f9fa;
         }
-        
+
         .comparison-table tr:hover {
             background: #e3f2fd;
             transform: scale(1.02);
             transition: all 0.3s ease;
         }
-        
-        .floating-icon {
-            position: fixed;
-            font-size: 3em;
-            opacity: 0.1;
-            pointer-events: none;
-            z-index: -1;
-            animation: float 6s ease-in-out infinite;
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .floating-icon:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
-        .floating-icon:nth-child(2) { top: 20%; right: 10%; animation-delay: 1s; }
-        .floating-icon:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 2s; }
-        .floating-icon:nth-child(4) { bottom: 10%; right: 20%; animation-delay: 3s; }
-        
-        .interactive-button {
-            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(79,195,247,0.3);
-            margin: 10px;
-        }
-        
-        .interactive-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(79,195,247,0.4);
-        }
-        
-        .timeline {
-            position: relative;
-            margin: 40px 0;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(to bottom, #4fc3f7, #29b6f6);
-            border-radius: 2px;
-        }
-        
-        .timeline-item {
-            position: relative;
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
             margin: 30px 0;
-            padding: 20px;
-            background: white;
+        }
+
+        .event-card {
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            width: 45%;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 2px solid #4caf50;
+            transition: transform 0.3s ease;
         }
-        
-        .timeline-item:nth-child(odd) {
-            left: 0;
+
+        .event-card:hover {
+            transform: translateY(-5px);
         }
-        
-        .timeline-item:nth-child(even) {
-            left: 55%;
+
+        .event-card h4 {
+            color: #2e7d32;
+            font-size: 1.3em;
+            margin-bottom: 15px;
         }
-        
-        .timeline-item::before {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #4fc3f7;
-            border-radius: 50%;
-            top: 50%;
-            border: 4px solid white;
-            box-shadow: 0 0 0 4px #4fc3f7;
+
+        .artifacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
         }
-        
-        .timeline-item:nth-child(odd)::before {
-            right: -60px;
+
+        .artifact-card {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 2px solid #ff9800;
+            transition: transform 0.3s ease;
         }
-        
-        .timeline-item:nth-child(even)::before {
-            left: -60px;
+
+        .artifact-card:hover {
+            transform: translateY(-5px);
         }
-        
+
+        .artifact-card h4 {
+            color: #e65100;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
         @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
+            .container {
+                padding: 10px;
             }
             
-            .timeline-item {
-                width: calc(100% - 60px);
-                left: 40px !important;
-            }
-            
-            .timeline-item::before {
-                left: -30px !important;
-            }
-            
-            .header h1 {
-                font-size: 2.5em;
-            }
-            
-            .section-title {
+            h1 {
                 font-size: 2em;
             }
             
-            .roles-container {
+            .course-info {
                 grid-template-columns: 1fr;
             }
             
             .principles-grid {
                 grid-template-columns: 1fr;
             }
+
+            .roles-container {
+                grid-template-columns: 1fr;
+            }
+
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .artifacts-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-    <link rel="stylesheet" href="accessibility.css">
 </head>
-<body role="document">
-    <!-- Iconos flotantes decorativos -->
-    <div class="floating-icon">⚡</div>
-    <div class="floating-icon">🔄</div>
-    <div class="floating-icon">🎯</div>
-    <div class="floating-icon">🚀</div>
-
-    <div class="container" role="main">
-        <!-- Header -->
-        <header class="header" role="banner">
-            <h1 id="main-title">CLASE 5: SCRUM FRAMEWORK</h1>
-            <p>Teoría y Fundamentos de la Metodología Ágil más Popular</p>
+<body>
+    <button class="toggle-btn" onclick="toggleTheme()">🌓</button>
+    
+    <div class="container">
+        <div class="header">
+            <h1>📚 Análisis y Metodología de Sistemas</h1>
+            <h2 style="color: var(--secondary-color); border: none;">Clase 5: Scrum Framework - Teoría y Fundamentos</h2>
+            <div class="course-info">
+                <div class="info-card">
+                    <strong>🎯 Carrera:</strong> Tecnicatura Superior en Análisis de Sistemas
+                </div>
+                <div class="info-card">
+                    <strong>⏱️ Duración:</strong> 16 semanas
+                </div>
+                <div class="info-card">
+                    <strong>📖 Modalidad:</strong> Teórico-práctico
+                </div>
+                <div class="info-card">
+                    <strong>📊 Clase:</strong> 5 de 16
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
         </div>
 
-        <!-- Introducción -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">🎯 Objetivos de Aprendizaje</h2>
-            <div class="text-content">
-                Al finalizar esta clase, los estudiantes estarán en condiciones de:
-                <ul style="margin: 15px 0; padding-left: 30px;">
-                    <li role="listitem"><strong>Dominar la teoría de Scrum:</strong> Comprender los fundamentos teóricos del empirismo y cómo se aplican al desarrollo de software</li>
-                    <li role="listitem"><strong>Identificar roles y responsabilidades:</strong> Analizar en profundidad los tres roles fundamentales de Scrum y sus interacciones</li>
-                    <li role="listitem"><strong>Comprender eventos y artefactos:</strong> Estudiar el propósito y dinámicas de cada evento y la importancia de la transparencia en los artefactos</li>
-                    <li role="listitem"><strong>Aplicar el empirismo:</strong> Entender cómo la inspección, adaptación y transparencia guían el proceso de desarrollo</li>
+        <div class="content-section">
+            <div class="objectives">
+                <h2>🎯 Objetivos de Aprendizaje</h2>
+                <ul>
+                    <li>Dominar la teoría de Scrum: Comprender los fundamentos teóricos del empirismo y cómo se aplican al desarrollo de software</li>
+                    <li>Identificar roles y responsabilidades: Analizar en profundidad los tres roles fundamentales de Scrum y sus interacciones</li>
+                    <li>Comprender eventos y artefactos: Estudiar el propósito y dinámicas de cada evento y la importancia de la transparencia en los artefactos</li>
+                    <li>Aplicar el empirismo: Entender cómo la inspección, adaptación y transparencia guían el proceso de desarrollo</li>
                 </ul>
             </div>
         </div>
 
-        <!-- Fundamentos Teóricos -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">📚 Fundamentos Teóricos de Scrum</h2>
+        <div class="content-section">
+            <h2>📚 Fundamentos Teóricos de Scrum</h2>
             
             <div class="highlight-box">
                 <h3>¿Qué es Scrum?</h3>
                 <p>Scrum es un framework ligero que ayuda a las personas, equipos y organizaciones a generar valor a través de soluciones adaptativas para problemas complejos. Scrum emplea un enfoque iterativo e incremental para optimizar la predictibilidad y controlar el riesgo.</p>
             </div>
 
-            <div class="text-content">
-                <h3>🏛️ Empirismo: Los Tres Pilares de Scrum</h3>
-                <p>Scrum se basa en el empirismo, que afirma que el conocimiento proviene de la experiencia y de tomar decisiones basadas en lo que se observa. Scrum emplea un enfoque iterativo e incremental para optimizar la predictibilidad y controlar el riesgo.</p>
-                
-                <p><strong>Los tres pilares que sustentan toda implementación de control de procesos empírico son:</strong></p>
-            </div>
+            <h3>🏛️ Empirismo: Los Tres Pilares de Scrum</h3>
+            <p>Scrum se basa en el empirismo, que afirma que el conocimiento proviene de la experiencia y de tomar decisiones basadas en lo que se observa. Scrum emplea un enfoque iterativo e incremental para optimizar la predictibilidad y controlar el riesgo.</p>
+            
+            <p><strong>Los tres pilares que sustentan toda implementación de control de procesos empírico son:</strong></p>
 
             <div class="principles-grid">
                 <div class="principle-card">
@@ -591,1440 +624,676 @@
                 </div>
             </div>
 
-            <div class="svg-container">
-                <div class="diagram-title">Pilares del Empirismo en Scrum</div>
-                <svg width="800" height="400" viewBox="0 0 800 400">
-                    <!-- Fondo con gradiente -->
-                    <defs>
-                        <linearGradient id="pillarsGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="pillarGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#4fc3f7;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#29b6f6;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="pillarGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#42a5f5;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#1e88e5;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="pillarGradient3" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#1976d2;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#1565c0;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    
-                    <!-- Fondo -->
-                    <rect width="800" height="400" fill="url(#pillarsGradient)" rx="15"/>
-                    
-                    <!-- Base del templo -->
-                    <rect x="100" y="320" width="600" height="40" fill="#2c3e50" rx="5"/>
-                    
-                    <!-- Pilares -->
-                    <!-- Pilar 1: Transparencia -->
-                    <rect x="150" y="150" width="80" height="170" fill="url(#pillarGradient1)" rx="5"/>
-                    <text x="190" y="140" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">TRANSPARENCIA</text>
-                    <text x="190" y="235" text-anchor="middle" font-size="12" fill="white">Visibilidad</text>
-                    <text x="190" y="250" text-anchor="middle" font-size="12" fill="white">del proceso</text>
-                    <text x="190" y="265" text-anchor="middle" font-size="12" fill="white">y trabajo</text>
-                    
-                    <!-- Pilar 2: Inspección -->
-                    <rect x="360" y="130" width="80" height="190" fill="url(#pillarGradient2)" rx="5"/>
-                    <text x="400" y="120" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">INSPECCIÓN</text>
-                    <text x="400" y="225" text-anchor="middle" font-size="12" fill="white">Revisión</text>
-                    <text x="400" y="240" text-anchor="middle" font-size="12" fill="white">frecuente</text>
-                    <text x="400" y="255" text-anchor="middle" font-size="12" fill="white">de artefactos</text>
-                    
-                    <!-- Pilar 3: Adaptación -->
-                    <rect x="570" y="110" width="80" height="210" fill="url(#pillarGradient3)" rx="5"/>
-                    <text x="610" y="100" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">ADAPTACIÓN</text>
-                    <text x="610" y="215" text-anchor="middle" font-size="12" fill="white">Ajuste</text>
-                    <text x="610" y="230" text-anchor="middle" font-size="12" fill="white">continuo</text>
-                    <text x="610" y="245" text-anchor="middle" font-size="12" fill="white">del proceso</text>
-                    
-                    <!-- Techo del templo -->
-                    <polygon points="50,100 400,50 750,100 700,120 400,70 100,120" fill="#34495e"/>
-                    
-                    <!-- Título en el techo -->
-                    <text x="400" y="80" text-anchor="middle" font-size="20" font-weight="bold" fill="white">EMPIRISMO</text>
-                    
-                    <!-- Flechas conectoras -->
-                    <path d="M 230 250 Q 290 200 360 225" stroke="#e74c3c" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                    <path d="M 440 225 Q 500 200 570 215" stroke="#e74c3c" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
-                    
-                    <!-- Marcador de flecha -->
-                    <defs>
-                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#e74c3c"/>
-                        </marker>
-                    </defs>
-                    
-                    <!-- Iconos decorativos -->
-                    <circle cx="190" cx="190" cy="100" r="15" fill="#f39c12"/>
-                    <text x="190" y="107" text-anchor="middle" font-size="16">👁️</text>
-                    
-                    <circle cx="400" cy="80" r="15" fill="#e74c3c"/>
-                    <text x="400" y="87" text-anchor="middle" font-size="16">🔍</text>
-                    
-                    <circle cx="610" cy="60" r="15" fill="#27ae60"/>
-                    <text x="610" y="67" text-anchor="middle" font-size="16">🔄</text>
-                </svg>
-            </div>
-
-            <div class="text-content">
-                <h3>🎯 Valores de Scrum</h3>
-                <p>Cuando los valores de <strong>compromiso, coraje, foco, apertura y respeto</strong> son encarnados por el Scrum Team y las personas con las que trabajan, los pilares empíricos de Scrum de transparencia, inspección y adaptación cobran vida construyendo confianza.</p>
-                
-                <ul style="margin: 15px 0; padding-left: 30px;">
-                    <li role="listitem"><strong>Compromiso:</strong> Los miembros del equipo se comprometen a lograr los objetivos del equipo</li>
-                    <li role="listitem"><strong>Coraje:</strong> Los miembros del equipo tienen el coraje de hacer lo correcto y trabajar en problemas difíciles</li>
-                    <li role="listitem"><strong>Foco:</strong> Los miembros del equipo se enfocan en el trabajo del Sprint y los objetivos del equipo</li>
-                    <li role="listitem"><strong>Apertura:</strong> Los miembros del equipo y los stakeholders están abiertos sobre el trabajo y los desafíos</li>
-                    <li role="listitem"><strong>Respeto:</strong> Los miembros del equipo se respetan mutuamente para ser personas capaces e independientes</li>
-                </ul>
-            </div>
+            <h3>🎯 Valores de Scrum</h3>
+            <p>Cuando los valores de <strong>compromiso, coraje, foco, apertura y respeto</strong> son encarnados por el Scrum Team y las personas con las que trabajan, los pilares empíricos de Scrum de transparencia, inspección y adaptación cobran vida construyendo confianza.</p>
+            
+            <ul>
+                <li><strong>Compromiso:</strong> Los miembros del equipo se comprometen a lograr los objetivos del equipo</li>
+                <li><strong>Coraje:</strong> Los miembros del equipo tienen el coraje de hacer lo correcto y trabajar en problemas difíciles</li>
+                <li><strong>Foco:</strong> Los miembros del equipo se enfocan en el trabajo del Sprint y los objetivos del equipo</li>
+                <li><strong>Apertura:</strong> Los miembros del equipo y los stakeholders están abiertos sobre el trabajo y los desafíos</li>
+                <li><strong>Respeto:</strong> Los miembros del equipo se respetan mutuamente para ser personas capaces e independientes</li>
+            </ul>
         </div>
 
-        <!-- Roles en Scrum -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">👥 Roles en Scrum: Análisis Profundo</h2>
+        <div class="content-section">
+            <h2>👥 Roles en Scrum: Análisis Profundo</h2>
             
-            <div class="text-content">
-                <p>El Scrum Team consiste en un Product Owner, un Scrum Master y Developers. Dentro de un Scrum Team, no hay sub-equipos ni jerarquías. Es una unidad cohesiva de profesionales enfocados en un objetivo a la vez, el Product Goal.</p>
-                
-                <p><strong>Características del Scrum Team:</strong></p>
-                <ul style="margin: 15px 0; padding-left: 30px;">
-                    <li role="listitem">Son auto-gestionados: internamente deciden quién hace qué, cuándo y cómo</li>
-                    <li role="listitem">Son cross-funcionales: tienen todas las habilidades necesarias para crear valor cada Sprint</li>
-                    <li role="listitem">Son responsables de todas las actividades relacionadas con el producto</li>
-                    <li role="listitem">Tamaño óptimo: 10 personas o menos (más pequeño = mejor comunicación)</li>
-                </ul>
-            </div>
+            <p>El Scrum Team consiste en un Product Owner, un Scrum Master y Developers. Dentro de un Scrum Team, no hay sub-equipos ni jerarquías. Es una unidad cohesiva de profesionales enfocados en un objetivo a la vez, el Product Goal.</p>
+            
+            <p><strong>Características del Scrum Team:</strong></p>
+            <ul>
+                <li>Son auto-gestionados: internamente deciden quién hace qué, cuándo y cómo</li>
+                <li>Son cross-funcionales: tienen todas las habilidades necesarias para crear valor cada Sprint</li>
+                <li>Son responsables de todas las actividades relacionadas con el producto</li>
+                <li>Tamaño óptimo: 10 personas o menos (más pequeño = mejor comunicación)</li>
+            </ul>
 
             <div class="roles-container">
                 <div class="role-card product-owner">
                     <div class="role-title">👑 Product Owner</div>
-                    <div class="text-content">
-                        <h4>Responsabilidades Principales:</h4>
-                        <ul role="list">
-                            <li role="listitem"><strong>Maximizar el valor del producto</strong> resultante del trabajo del Scrum Team</li>
-                            <li role="listitem"><strong>Gestionar efectivamente el Product Backlog:</strong>
-                                <ul role="list">
-                                    <li role="listitem">Desarrollar y comunicar explícitamente el Product Goal</li>
-                                    <li role="listitem">Crear y comunicar claramente los Product Backlog Items</li>
-                                    <li role="listitem">Ordenar los Product Backlog Items</li>
-                                    <li role="listitem">Asegurar que el Product Backlog sea transparente, visible y entendido</li>
-                                </ul>
-                            </li>
-                        </ul>
-                        
-                        <h4>Características Clave:</h4>
-                        <ul role="list">
-                            <li role="listitem">Es <strong>una persona</strong>, no un comité</li>
-                            <li role="listitem">Representa las necesidades de muchos stakeholders</li>
-                            <li role="listitem">Tiene autoridad para tomar decisiones sobre el producto</li>
-                            <li role="listitem">Está disponible para el Development Team</li>
-                        </ul>
-                        
-                        <div class="highlight-box" style="margin-top: 20px; background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); border-color: #e74c3c;">
-                            <h3 style="color: #c62828; margin-left: 0;">⚠️ Punto Crítico</h3>
-                            <p style="margin-left: 0;">Para que el Product Owner sea exitoso, toda la organización debe respetar sus decisiones. Estas decisiones son visibles en el contenido y orden del Product Backlog, y a través del Incremento inspeccionable en el Sprint Review.</p>
-                        </div>
-                    </div>
+                    <h4>Responsabilidades Principales:</h4>
+                    <ul>
+                        <li><strong>Maximizar el valor del producto</strong> resultante del trabajo del Scrum Team</li>
+                        <li><strong>Gestionar efectivamente el Product Backlog:</strong>
+                            <ul>
+                                <li>Desarrollar y comunicar explícitamente el Product Goal</li>
+                                <li>Crear y comunicar claramente los Product Backlog Items</li>
+                                <li>Ordenar los Product Backlog Items</li>
+                                <li>Asegurar que el Product Backlog sea transparente, visible y entendido</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Características Clave:</h4>
+                    <ul>
+                        <li>Es <strong>una persona</strong>, no un comité</li>
+                        <li>Representa las necesidades de muchos stakeholders</li>
+                        <li>Tiene autoridad para tomar decisiones sobre el producto</li>
+                        <li>Está disponible para el Development Team</li>
+                    </ul>
                 </div>
 
                 <div class="role-card scrum-master">
                     <div class="role-title">🛡️ Scrum Master</div>
-                    <div class="text-content">
-                        <h4>Responsabilidades Principales:</h4>
-                        <ul role="list">
-                            <li role="listitem"><strong>Establecer Scrum</strong> como se define en la Scrum Guide</li>
-                            <li role="listitem"><strong>Mejorar la efectividad del Scrum Team</strong> ayudándolos a mejorar sus prácticas</li>
-                            <li role="listitem"><strong>Ser un líder que sirve</strong> al Scrum Team y a la organización en general</li>
-                        </ul>
-                        
-                        <h4>Servicios al Scrum Team:</h4>
-                        <ul role="list">
-                            <li role="listitem">Entrenar a los miembros del equipo en auto-gestión y cross-funcionalidad</li>
-                            <li role="listitem">Ayudar al equipo a enfocarse en crear Increments de alto valor</li>
-                            <li role="listitem">Causar la remoción de impedimentos al progreso del equipo</li>
-                            <li role="listitem">Asegurar que todos los eventos de Scrum se lleven a cabo</li>
-                        </ul>
-                        
-                        <h4>Servicios al Product Owner:</h4>
-                        <ul role="list">
-                            <li role="listitem">Ayudar a encontrar técnicas para definir Product Goal efectivo</li>
-                            <li role="listitem">Ayudar a entender la necesidad de Product Backlog Items claros y concisos</li>
-                            <li role="listitem">Ayudar a establecer planificación empírica de producto</li>
-                            <li role="listitem">Facilitar la colaboración con stakeholders según sea requerido</li>
-                        </ul>
-                        
-                        <h4>Servicios a la Organización:</h4>
-                        <ul role="list">
-                            <li role="listitem">Liderar, entrenar y mentorear a la organización en su adopción de Scrum</li>
-                            <li role="listitem">Planificar y aconsejar implementaciones de Scrum</li>
-                            <li role="listitem">Ayudar a empleados y stakeholders a entender y promulgar Scrum</li>
-                            <li role="listitem">Remover barreras entre stakeholders y Scrum Teams</li>
-                        </ul>
-                    </div>
+                    <h4>Responsabilidades Principales:</h4>
+                    <ul>
+                        <li><strong>Establecer Scrum</strong> como se define en la Scrum Guide</li>
+                        <li><strong>Ayudar a todos</strong> a entender la teoría y práctica de Scrum</li>
+                        <li><strong>Servir al Scrum Team:</strong>
+                            <ul>
+                                <li>Coaching en auto-gestión y cross-funcionalidad</li>
+                                <li>Ayudar a enfocar en crear Incrementos de alto valor</li>
+                                <li>Facilitar la eliminación de impedimentos</li>
+                                <li>Asegurar que todos los eventos se realicen y sean efectivos</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    
+                    <h4>Características Clave:</h4>
+                    <ul>
+                        <li>Es un <strong>líder servidor</strong> que sirve al Scrum Team</li>
+                        <li>No es un project manager tradicional</li>
+                        <li>Facilita, no dirige</li>
+                        <li>Protege al equipo de distracciones externas</li>
+                    </ul>
                 </div>
 
                 <div class="role-card development-team">
                     <div class="role-title">⚙️ Developers</div>
-                    <div class="text-content">
-                        <h4>Responsabilidades Principales:</h4>
-                        <ul role="list">
-                            <li role="listitem"><strong>Crear un plan para el Sprint</strong> (Sprint Backlog)</li>
-                            <li role="listitem"><strong>Infundir calidad</strong> adhiriéndose a una Definition of Done</li>
-                            <li role="listitem"><strong>Adaptar su plan cada día</strong> hacia el Sprint Goal</li>
-                            <li role="listitem"><strong>Responsabilizarse mutuamente</strong> como profesionales</li>
-                        </ul>
-                        
-                        <h4>Características del Development Team:</h4>
-                        <ul role="list">
-                            <li role="listitem"><strong>Auto-organizados:</strong> Nadie les dice cómo convertir el Product Backlog en Increments</li>
-                            <li role="listitem"><strong>Cross-funcionales:</strong> Tienen todas las habilidades para crear el producto</li>
-                            <li role="listitem"><strong>Sin títulos:</strong> Todos son Developers, sin importar el trabajo que realicen</li>
-                            <li role="listitem"><strong>Sin sub-equipos:</strong> No importa los dominios particulares que requiera atención</li>
-                            <li role="listitem"><strong>Responsabilidad individual:</strong> Solo los miembros pueden cambiar su Sprint Backlog</li>
-                        </ul>
-                        
-                        <h4>Tamaño Óptimo:</h4>
-                        <p>El Development Team debería ser lo suficientemente pequeño para mantenerse ágil y lo suficientemente grande para completar trabajo significativo dentro del Sprint. Entre 3 y 9 personas han demostrado ser óptimo.</p>
-                        
-                        <div class="highlight-box" style="margin-top: 20px; background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); border-color: #27ae60;">
-                            <h3 style="color: #1b5e20; margin-left: 0;">💡 Dato Importante</h3>
-                            <p style="margin-left: 0;">Si el Scrum Team se vuelve demasiado grande, debería considerar reorganizarse en múltiples Scrum Teams cohesivos, cada uno enfocado en el mismo producto.</p>
-                        </div>
-                    </div>
+                    <h4>Responsabilidades Principales:</h4>
+                    <ul>
+                        <li><strong>Crear un plan</strong> para el Sprint (Sprint Backlog)</li>
+                        <li><strong>Inculcar calidad</strong> adhiriéndose a una Definition of Done</li>
+                        <li><strong>Adaptar su plan</strong> cada día hacia el Sprint Goal</li>
+                        <li><strong>Responsabilizarse mutuamente</strong> como profesionales</li>
+                    </ul>
+                    
+                    <h4>Características Clave:</h4>
+                    <ul>
+                        <li>Son <strong>cross-funcionales</strong> con todas las skills necesarias</li>
+                        <li>Son <strong>auto-organizados</strong> para gestionar su trabajo</li>
+                        <li>Son responsables de crear el Incremento</li>
+                        <li>Típicamente 3-9 personas en el equipo</li>
+                    </ul>
                 </div>
-            </div>
-
-            <div class="svg-container">
-                <div class="diagram-title">Interacciones entre Roles de Scrum</div>
-                <svg width="900" height="500" viewBox="0 0 900 500">
-                    <defs>
-                        <linearGradient id="poGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ffebee;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ffcdd2;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="smGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="dtGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#e8f5e8;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#c8e6c9;stop-opacity:1" />
-                        </linearGradient>
-                        <radialGradient id="centerGradient" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" style="stop-color:#fff3cd;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ffeaa7;stop-opacity:1" />
-                        </radialGradient>
-                    </defs>
-                    
-                    <!-- Círculo central - Scrum Team -->
-                    <circle cx="450" cy="250" r="80" fill="url(#centerGradient)" stroke="#f39c12" stroke-width="3"/>
-                    <text x="450" y="240" text-anchor="middle" font-size="18" font-weight="bold" fill="#d68910">SCRUM</text>
-                    <text x="450" y="260" text-anchor="middle" font-size="18" font-weight="bold" fill="#d68910">TEAM</text>
-                    
-                    <!-- Product Owner -->
-                    <circle cx="200" cy="150" r="100" fill="url(#poGradient)" stroke="#e74c3c" stroke-width="4"/>
-                    <text x="200" y="140" text-anchor="middle" font-size="16" font-weight="bold" fill="#c62828">PRODUCT</text>
-                    <text x="200" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#c62828">OWNER</text>
-                    <text x="200" y="180" text-anchor="middle" font-size="24">👑</text>
-                    
-                    <!-- Scrum Master -->
-                    <circle cx="700" cy="150" r="100" fill="url(#smGradient)" stroke="#3498db" stroke-width="4"/>
-                    <text x="700" y="140" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">SCRUM</text>
-                    <text x="700" y="160" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">MASTER</text>
-                    <text x="700" y="180" text-anchor="middle" font-size="24">🛡️</text>
-                    
-                    <!-- Development Team -->
-                    <circle cx="450" cy="400" r="100" fill="url(#dtGradient)" stroke="#27ae60" stroke-width="4"/>
-                    <text x="450" y="390" text-anchor="middle" font-size="16" font-weight="bold" fill="#1b5e20">DEVELOPMENT</text>
-                    <text x="450" y="410" text-anchor="middle" font-size="16" font-weight="bold" fill="#1b5e20">TEAM</text>
-                    <text x="450" y="430" text-anchor="middle" font-size="24">⚙️</text>
-                    
-                    <!-- Conexiones con etiquetas -->
-                    <!-- PO a Team -->
-                    <line x1="280" y1="200" x2="380" y2="220" stroke="#e74c3c" stroke-width="3"/>
-                    <text x="330" y="200" text-anchor="middle" font-size="12" fill="#c62828" font-weight="bold">Product Goal</text>
-                    <text x="330" y="215" text-anchor="middle" font-size="12" fill="#c62828">& Backlog</text>
-                    
-                    <!-- SM a Team -->
-                    <line x1="620" y1="200" x2="520" y2="220" stroke="#3498db" stroke-width="3"/>
-                    <text x="570" y="200" text-anchor="middle" font-size="12" fill="#1976d2" font-weight="bold">Facilitación</text>
-                    <text x="570" y="215" text-anchor="middle" font-size="12" fill="#1976d2">& Coaching</text>
-                    
-                    <!-- Dev Team a Center -->
-                    <line x1="450" y1="320" x2="450" y2="300" stroke="#27ae60" stroke-width="3"/>
-                    <text x="490" y="310" text-anchor="middle" font-size="12" fill="#1b5e20" font-weight="bold">Incremento</text>
-                    <text x="490" y="325" text-anchor="middle" font-size="12" fill="#1b5e20">del Producto</text>
-                    
-                    <!-- Colaboración PO-SM -->
-                    <path d="M 300 130 Q 450 80 600 130" stroke="#9c27b0" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
-                    <text x="450" y="75" text-anchor="middle" font-size="11" fill="#7b1fa2">Colaboración</text>
-                    
-                    <!-- Responsabilidades adicionales -->
-                    <rect x="50" y="300" width="150" height="80" fill="rgba(231,76,60,0.1)" stroke="#e74c3c" stroke-width="2" rx="10"/>
-                    <text x="125" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#c62828">Responsabilidades PO:</text>
-                    <text x="125" y="335" text-anchor="middle" font-size="10" fill="#c62828">• Maximizar valor</text>
-                    <text x="125" y="350" text-anchor="middle" font-size="10" fill="#c62828">• Gestionar backlog</text>
-                    <text x="125" y="365" text-anchor="middle" font-size="10" fill="#c62828">• Definir criterios</text>
-                    
-                    <rect x="700" y="300" width="150" height="80" fill="rgba(52,152,219,0.1)" stroke="#3498db" stroke-width="2" rx="10"/>
-                    <text x="775" y="320" text-anchor="middle" font-size="12" font-weight="bold" fill="#1976d2">Responsabilidades SM:</text>
-                    <text x="775" y="335" text-anchor="middle" font-size="10" fill="#1976d2">• Establecer Scrum</text>
-                    <text x="775" y="350" text-anchor="middle" font-size="10" fill="#1976d2">• Remover impedimentos</text>
-                    <text x="775" y="365" text-anchor="middle" font-size="10" fill="#1976d2">• Coaching del equipo</text>
-                    
-                    <rect x="375" y="50" width="150" height="80" fill="rgba(39,174,96,0.1)" stroke="#27ae60" stroke-width="2" rx="10"/>
-                    <text x="450" y="70" text-anchor="middle" font-size="12" font-weight="bold" fill="#1b5e20">Responsabilidades Dev:</text>
-                    <text x="450" y="85" text-anchor="middle" font-size="10" fill="#1b5e20">• Crear Sprint Backlog</text>
-                    <text x="450" y="100" text-anchor="middle" font-size="10" fill="#1b5e20">• Entregar incrementos</text>
-                    <text x="450" y="115" text-anchor="middle" font-size="10" fill="#1b5e20">• Auto-organización</text>
-                </svg>
             </div>
         </div>
 
-        <!-- Eventos de Scrum -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">📅 Eventos de Scrum: Propósito y Dinámicas</h2>
+        <div class="content-section">
+            <h2>📅 Eventos de Scrum: Propósito y Dinámicas</h2>
             
-            <div class="text-content">
-                <p>Scrum prescribe cinco eventos formales para crear regularidad y minimizar la necesidad de reuniones no definidas en Scrum. Todos los eventos son time-boxed, lo que significa que tienen una duración máxima. Una vez que un Sprint comienza, su duración es fija y no puede ser acortada o alargada.</p>
-                
-                <p><strong>Propósito de los eventos:</strong> Habilitar la transparencia e inspección. La falta de cualquier evento resulta en una oportunidad perdida de inspeccionar y adaptarse.</p>
-            </div>
+            <p>Scrum prescribe cinco eventos formales para crear regularidad y minimizar la necesidad de reuniones no definidas en Scrum. Todos los eventos son time-boxed, lo que significa que tienen una duración máxima. Una vez que un Sprint comienza, su duración es fija y no puede ser acortada o alargada.</p>
+            
+            <p><strong>Propósito de los eventos:</strong> Habilitar la transparencia e inspección. La falta de cualquier evento resulta en una oportunidad perdida de inspeccionar y adaptarse.</p>
 
-            <div class="timeline">
-                <div class="timeline-item">
-                    <h3 style="color: #e74c3c; margin-bottom: 15px;">🚀 Sprint</h3>
-                    <p><strong>Duración:</strong> 1 mes o menos (generalmente 2-4 semanas)</p>
-                    <p><strong>Propósito:</strong> Es el corazón de Scrum, un período de tiempo fijo durante el cual se crea un Incremento "Done" usable y potencialmente entregable.</p>
-                    <p><strong>Características:</strong></p>
-                    <ul role="list">
-                        <li role="listitem">Los Sprints tienen duración consistente a lo largo del esfuerzo de desarrollo</li>
-                        <li role="listitem">Un nuevo Sprint comienza inmediatamente después de la conclusión del Sprint anterior</li>
-                        <li role="listitem">Durante el Sprint no se hacen cambios que pongan en peligro el Sprint Goal</li>
-                        <li role="listitem">El alcance puede clarificarse y renegociarse entre PO y Development Team</li>
+            <div class="events-grid">
+                <div class="event-card">
+                    <h4>🔄 Sprint</h4>
+                    <p><strong>Duración:</strong> 1 mes o menos (típicamente 2 semanas)</p>
+                    <p><strong>Propósito:</strong> Contenedor para todos los otros eventos. Durante el Sprint se crea un Incremento de producto potencialmente entregable.</p>
+                    <p><strong>Reglas:</strong></p>
+                    <ul>
+                        <li>No se hacen cambios que pongan en peligro el Sprint Goal</li>
+                        <li>La calidad no disminuye</li>
+                        <li>El Product Backlog se puede refinar según sea necesario</li>
+                        <li>El alcance se puede clarificar y renegociar entre el Product Owner y Developers</li>
                     </ul>
                 </div>
-                
-                <div class="timeline-item">
-                    <h3 style="color: #3498db; margin-bottom: 15px;">📋 Sprint Planning</h3>
-                    <p><strong>Time-box:</strong> Máximo 8 horas para un Sprint de un mes</p>
-                    <p><strong>Propósito:</strong> Planificar el trabajo a realizar en el Sprint</p>
-                    <p><strong>Participantes:</strong> Todo el Scrum Team</p>
-                    <p><strong>Preguntas clave que responde:</strong></p>
-                    <ul role="list">
-                        <li role="listitem"><strong>¿Qué puede entregarse en el Incremento resultante del próximo Sprint?</strong></li>
-                        <li role="listitem"><strong>¿Cómo se conseguirá hacer el trabajo necesario para entregar el Incremento?</strong></li>
+
+                <div class="event-card">
+                    <h4>📋 Sprint Planning</h4>
+                    <p><strong>Duración:</strong> Máximo 8 horas para un Sprint de un mes</p>
+                    <p><strong>Propósito:</strong> Establecer el trabajo a realizar durante el Sprint</p>
+                    <p><strong>Temas abordados:</strong></p>
+                    <ul>
+                        <li><strong>¿Por qué es valioso este Sprint?</strong> (Sprint Goal)</li>
+                        <li><strong>¿Qué se puede hacer en este Sprint?</strong> (Product Backlog Items)</li>
+                        <li><strong>¿Cómo se realizará el trabajo elegido?</strong> (Sprint Backlog)</li>
                     </ul>
-                    <p><strong>Resultado:</strong> Sprint Goal y Sprint Backlog</p>
                 </div>
-                
-                <div class="timeline-item">
-                    <h3 style="color: #27ae60; margin-bottom: 15px;">☀️ Daily Scrum</h3>
-                    <p><strong>Time-box:</strong> 15 minutos</p>
+
+                <div class="event-card">
+                    <h4>🌅 Daily Scrum</h4>
+                    <p><strong>Duración:</strong> 15 minutos</p>
                     <p><strong>Propósito:</strong> Inspeccionar el progreso hacia el Sprint Goal y adaptar el Sprint Backlog según sea necesario</p>
-                    <p><strong>Participantes:</strong> Development Team (PO y SM pueden participar si aportan valor)</p>
-                    <p><strong>Estructura sugerida (3 preguntas):</strong></p>
-                    <ul role="list">
-                        <li role="listitem">¿Qué hice ayer que ayudó al Development Team a cumplir el Sprint Goal?</li>
-                        <li role="listitem">¿Qué haré hoy para ayudar al Development Team a cumplir el Sprint Goal?</li>
-                        <li role="listitem">¿Veo algún impedimento que evite que el Development Team o yo cumplamos el Sprint Goal?</li>
+                    <p><strong>Características:</strong></p>
+                    <ul>
+                        <li>Misma hora y lugar todos los días</li>
+                        <li>Solo para los Developers (otros pueden observar)</li>
+                        <li>Se enfoca en el progreso hacia el Sprint Goal</li>
+                        <li>Produce un plan accionable para el siguiente día</li>
                     </ul>
                 </div>
-                
-                <div class="timeline-item">
-                    <h3 style="color: #f39c12; margin-bottom: 15px;">👁️ Sprint Review</h3>
-                    <p><strong>Time-box:</strong> Máximo 4 horas para un Sprint de un mes</p>
-                    <p><strong>Propósito:</strong> Inspeccionar el Incremento y adaptar el Product Backlog si fuera necesario</p>
-                    <p><strong>Participantes:</strong> Scrum Team y stakeholders clave invitados por el Product Owner</p>
+
+                <div class="event-card">
+                    <h4>🔍 Sprint Review</h4>
+                    <p><strong>Duración:</strong> Máximo 4 horas para un Sprint de un mes</p>
+                    <p><strong>Propósito:</strong> Inspeccionar el resultado del Sprint y determinar adaptaciones futuras</p>
                     <p><strong>Actividades:</strong></p>
-                    <ul role="list">
-                        <li role="listitem">Revisión de lo que se completó y lo que no se completó</li>
-                        <li role="listitem">Demostración del Incremento "Done"</li>
-                        <li role="listitem">Discusión sobre qué hacer a continuación</li>
-                        <li role="listitem">Revisión de línea de tiempo, presupuesto, potenciales capacidades y mercado</li>
+                    <ul>
+                        <li>El Scrum Team presenta los resultados a los stakeholders</li>
+                        <li>Se discute el progreso hacia el Product Goal</li>
+                        <li>Se revisa el mercado y uso potencial del producto</li>
+                        <li>Se colabora sobre qué hacer a continuación</li>
                     </ul>
-                    <p><strong>Resultado:</strong> Product Backlog revisado para el próximo Sprint</p>
                 </div>
-                
-                <div class="timeline-item">
-                    <h3 style="color: #9c27b0; margin-bottom: 15px;">🔄 Sprint Retrospective</h3>
-                    <p><strong>Time-box:</strong> Máximo 3 horas para un Sprint de un mes</p>
-                    <p><strong>Propósito:</strong> Crear un plan para implementar mejoras a la forma en que el Scrum Team realiza su trabajo</p>
-                    <p><strong>Participantes:</strong> Scrum Team</p>
-                    <p><strong>Inspecciona:</strong></p>
-                    <ul role="list">
-                        <li role="listitem">Cómo fue el último Sprint en cuanto a personas, relaciones, procesos y herramientas</li>
-                        <li role="listitem">Los elementos más importantes que salieron bien y las posibles mejoras</li>
-                        <li role="listitem">Qué comprometerse a mejorar en el próximo Sprint</li>
-                    </ul>
-                    <p><strong>Resultado:</strong> Plan de mejoras para implementar en el próximo Sprint</p>
-                </div>
-            </div>
 
-            <div class="svg-container">
-                <div class="diagram-title">Flujo de Eventos en un Sprint</div>
-                <svg width="1000" height="300" viewBox="0 0 1000 300">
-                    <defs>
-                        <linearGradient id="sprintGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" style="stop-color:#4fc3f7;stop-opacity:0.8" />
-                            <stop offset="100%" style="stop-color:#29b6f6;stop-opacity:0.8" />
-                        </linearGradient>
-                    </defs>
-                    
-                    <!-- Sprint container -->
-                    <rect x="100" y="100" width="800" height="100" fill="url(#sprintGradient)" rx="10" stroke="#1976d2" stroke-width="2"/>
-                    <text x="500" y="90" text-anchor="middle" font-size="18" font-weight="bold" fill="#1976d2">SPRINT (2-4 semanas)</text>
-                    
-                    <!-- Sprint Planning -->
-                    <rect x="50" y="80" width="80" height="60" fill="#e74c3c" rx="5"/>
-                    <text x="90" y="100" text-anchor="middle" font-size="10" fill="white" font-weight="bold">SPRINT</text>
-                    <text x="90" y="115" text-anchor="middle" font-size="10" fill="white" font-weight="bold">PLANNING</text>
-                    <text x="90" y="130" text-anchor="middle" font-size="10" fill="white">8h max</text>
-                    
-                    <!-- Daily Scrums -->
-                    <circle cx="200" cy="150" r="15" fill="#27ae60"/>
-                    <text x="200" y="155" text-anchor="middle" font-size="8" fill="white" font-weight="bold">DAILY</text>
-                    
-                    <circle cx="300" cy="150" r="15" fill="#27ae60"/>
-                    <text x="300" y="155" text-anchor="middle" font-size="8" fill="white" font-weight="bold">DAILY</text>
-                    
-                    <circle cx="400" cy="150" r="15" fill="#27ae60"/>
-                    <text x="400" y="155" text-anchor="middle" font-size="8" fill="white" font-weight="bold">DAILY</text>
-                    
-                    <circle cx="500" cy="150" r="15" fill="#27ae60"/>
-                    <text x="500" y="155" text-anchor="middle" font-size="8" fill="white" font-weight="bold">DAILY</text>
-                    
-                    <circle cx="600" cy="150" r="15" fill="#27ae60"/>
-                    <text x="600" y="155" text-anchor="middle" font-size="8" fill="white" font-weight="bold">DAILY</text>
-                    
-                    <circle cx="700" cy="150" r="15" fill="#27ae60"/>
-                    <text x="700" y="155" text-anchor="middle" font-size="8" fill="white" font-weight="bold">DAILY</text>
-                    
-                    <circle cx="800" cy="150" r="15" fill="#27ae60"/>
-                    <text x="800" y="155" text-anchor="middle" font-size="8" fill="white" font-weight="bold">DAILY</text>
-                    
-                    <text x="500" y="180" text-anchor="middle" font-size="12" fill="#1b5e20">Daily Scrum (15 min cada día)</text>
-                    
-                    <!-- Sprint Review -->
-                    <rect x="920" y="80" width="70" height="60" fill="#f39c12" rx="5"/>
-                    <text x="955" y="100" text-anchor="middle" font-size="10" fill="white" font-weight="bold">SPRINT</text>
-                    <text x="955" y="115" text-anchor="middle" font-size="10" fill="white" font-weight="bold">REVIEW</text>
-                    <text x="955" y="130" text-anchor="middle" font-size="10" fill="white">4h max</text>
-                    
-                    <!-- Sprint Retrospective -->
-                    <rect x="920" y="160" width="70" height="60" fill="#9c27b0" rx="5"/>
-                    <text x="955" y="180" text-anchor="middle" font-size="10" fill="white" font-weight="bold">SPRINT</text>
-                    <text x="955" y="195" text-anchor="middle" font-size="10" fill="white" font-weight="bold">RETRO</text>
-                    <text x="955" y="210" text-anchor="middle" font-size="10" fill="white">3h max</text>
-                    
-                    <!-- Arrows -->
-                    <path d="M 130 110 L 150 110" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead2)"/>
-                    <path d="M 900 110 L 920 110" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead2)"/>
-                    <path d="M 955 140 L 955 160" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowhead2)"/>
-                    
-                    <!-- Arrow marker -->
-                    <defs>
-                        <marker id="arrowhead2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#2c3e50"/>
-                        </marker>
-                    </defs>
-                    
-                    <!-- Labels -->
-                    <text x="500" y="50" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">Flujo Temporal de Eventos en Scrum</text>
-                    <text x="140" y="260" text-anchor="middle" font-size="12" fill="#2c3e50">Planificación del Sprint</text>
-                    <text x="500" y="260" text-anchor="middle" font-size="12" fill="#2c3e50">Desarrollo e Inspección Diaria</text>
-                    <text x="955" y="250" text-anchor="middle" font-size="12" fill="#2c3e50">Revisión y Mejora</text>
-                </svg>
+                <div class="event-card">
+                    <h4>🔄 Sprint Retrospective</h4>
+                    <p><strong>Duración:</strong> Máximo 3 horas para un Sprint de un mes</p>
+                    <p><strong>Propósito:</strong> Planificar formas de aumentar la calidad y efectividad</p>
+                    <p><strong>El Scrum Team inspecciona:</strong></p>
+                    <ul>
+                        <li>Cómo fue el último Sprint en cuanto a individuos, interacciones, procesos, herramientas y Definition of Done</li>
+                        <li>Qué fue bien durante el Sprint</li>
+                        <li>Qué problemas encontraron y cómo se resolvieron (o no)</li>
+                        <li>Los elementos más útiles se identifican y ordenan</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <!-- Artefactos de Scrum -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">📦 Artefactos y su Transparencia</h2>
+        <div class="content-section">
+            <h2>📦 Artefactos de Scrum y su Transparencia</h2>
             
-            <div class="text-content">
-                <p>Los artefactos de Scrum representan trabajo o valor. Están diseñados para maximizar la transparencia de la información clave. Cada artefacto contiene un compromiso para asegurar que proporcione información que mejore la transparencia y el foco contra el cual se puede medir el progreso.</p>
-            </div>
+            <p>Los artefactos de Scrum representan trabajo o valor. Están diseñados para maximizar la transparencia de la información clave. Cada artefacto contiene un compromiso para asegurar que proporcione información que mejore la transparencia y el foco contra el cual se puede medir el progreso.</p>
 
-            <div class="principles-grid">
-                <div class="principle-card" style="border-color: #e74c3c;">
-                    <h4 style="color: #e74c3c;">📋 Product Backlog</h4>
-                    <p><strong>Definición:</strong> Una lista emergente y ordenada de lo que se necesita para mejorar el producto. Es la única fuente de trabajo emprendida por el Scrum Team.</p>
-                    
+            <div class="artifacts-grid">
+                <div class="artifact-card">
+                    <h4>📋 Product Backlog</h4>
+                    <p><strong>Compromiso:</strong> Product Goal</p>
+                    <p><strong>Descripción:</strong> Lista ordenada emergente de lo que se necesita para mejorar el producto. Es la única fuente de trabajo realizado por el Scrum Team.</p>
                     <p><strong>Características:</strong></p>
-                    <ul style="font-size: 0.9em;">
-                        <li role="listitem">Nunca se completa - evoluciona constantemente</li>
-                        <li role="listitem">Los Product Backlog Items tienen atributos de descripción, orden, estimación y valor</li>
-                        <li role="listitem">Es transparente, visible y entendido</li>
+                    <ul>
+                        <li>Los elementos que pueden ser Done por el Scrum Team en un Sprint están listos para selección en Sprint Planning</li>
+                        <li>Se refinan mediante Product Backlog refinement</li>
+                        <li>Los Developers responsables del dimensionamiento</li>
+                        <li>El Product Owner es responsable del contenido, disponibilidad y ordenamiento</li>
                     </ul>
-                    
-                    <p><strong>Compromiso: Product Goal</strong></p>
-                    <p style="font-size: 0.9em;">El Product Goal describe un estado futuro del producto que puede servir como un objetivo para el Scrum Team planificar. Está en el Product Backlog.</p>
                 </div>
-                
-                <div class="principle-card" style="border-color: #3498db;">
-                    <h4 style="color: #3498db;">📝 Sprint Backlog</h4>
-                    <p><strong>Definición:</strong> Está compuesto por el Sprint Goal (por qué), el conjunto de Product Backlog Items seleccionados para el Sprint (qué), así como un plan accionable para entregar el Incremento (cómo).</p>
-                    
-                    <p><strong>Características:</strong></p>
-                    <ul style="font-size: 0.9em;">
-                        <li role="listitem">Es un plan por y para los Developers</li>
-                        <li role="listitem">Es una imagen altamente visible, en tiempo real del trabajo que los Developers planean realizar durante el Sprint</li>
-                        <li role="listitem">Se actualiza a lo largo del Sprint conforme se aprende más</li>
-                    </ul>
-                    
-                    <p><strong>Compromiso: Sprint Goal</strong></p>
-                    <p style="font-size: 0.9em;">El Sprint Goal es el único objetivo para el Sprint. Da coherencia y foco al Scrum Team, alentándolos a trabajar juntos en lugar de en iniciativas separadas.</p>
-                </div>
-                
-                <div class="principle-card" style="border-color: #27ae60;">
-                    <h4 style="color: #27ae60;">🚀 Incremento</h4>
-                    <p><strong>Definición:</strong> Un Incremento es un escalón concreto hacia el Product Goal. Cada Incremento es aditivo a todos los Incrementos anteriores y completamente verificado, asegurando que todos los Incrementos trabajen juntos.</p>
-                    
-                    <p><strong>Características:</strong></p>
-                    <ul style="font-size: 0.9em;">
-                        <li role="listitem">Debe ser utilizable sin importar si el Product Owner decide entregarlo</li>
-                        <li role="listitem">Se pueden crear múltiples Incrementos dentro de un Sprint</li>
-                        <li role="listitem">La suma de los Incrementos se presenta en el Sprint Review</li>
-                        <li role="listitem">Un Incremento solo puede ser utilizado si cumple la Definition of Done</li>
-                    </ul>
-                    
-                    <p><strong>Compromiso: Definition of Done</strong></p>
-                    <p style="font-size: 0.9em;">La Definition of Done es una descripción formal del estado del Incremento cuando cumple con las medidas de calidad requeridas para el producto.</p>
-                </div>
-            </div>
 
-            <div class="svg-container">
-                <div class="diagram-title">Relación entre Artefactos de Scrum</div>
-                <svg width="1000" height="600" viewBox="0 0 1000 600">
-                    <defs>
-                        <linearGradient id="productBacklogGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ffebee;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ffcdd2;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="sprintBacklogGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="incrementGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#e8f5e8;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#c8e6c9;stop-opacity:1" />
-                        </linearGradient>
-                    </defs>
-                    
-                    <!-- Product Backlog -->
-                    <rect x="50" y="50" width="200" height="300" fill="url(#productBacklogGrad)" stroke="#e74c3c" stroke-width="3" rx="15"/>
-                    <text x="150" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#c62828">PRODUCT BACKLOG</text>
-                    <text x="150" y="80" text-anchor="middle" font-size="14" fill="#c62828">📋 Ordenado por valor</text>
-                    
-                    <!-- Product Backlog Items -->
-                    <rect x="70" y="100" width="160" height="25" fill="#f8bbd9" stroke="#e91e63" rx="5"/>
-                    <text x="150" y="118" text-anchor="middle" font-size="12" fill="#880e4f">🟥 Epic 1 - Alta prioridad</text>
-                    
-                    <rect x="70" y="135" width="160" height="25" fill="#f8bbd9" stroke="#e91e63" rx="5"/>
-                    <text x="150" y="153" text-anchor="middle" font-size="12" fill="#880e4f">🟧 Feature A - Alta prioridad</text>
-                    
-                    <rect x="70" y="170" width="160" height="25" fill="#fff9c4" stroke="#fbc02d" rx="5"/>
-                    <text x="150" y="188" text-anchor="middle" font-size="12" fill="#f57f17">🟨 Story X - Media prioridad</text>
-                    
-                    <rect x="70" y="205" width="160" height="25" fill="#fff9c4" stroke="#fbc02d" rx="5"/>
-                    <text x="150" y="223" text-anchor="middle" font-size="12" fill="#f57f17">🟨 Story Y - Media prioridad</text>
-                    
-                    <rect x="70" y="240" width="160" height="25" fill="#c8e6c9" stroke="#4caf50" rx="5"/>
-                    <text x="150" y="258" text-anchor="middle" font-size="12" fill="#1b5e20">🟩 Task Z - Baja prioridad</text>
-                    
-                    <rect x="70" y="275" width="160" height="25" fill="#c8e6c9" stroke="#4caf50" rx="5"/>
-                    <text x="150" y="293" text-anchor="middle" font-size="12" fill="#1b5e20">🟩 Enhancement - Baja</text>
-                    
-                    <rect x="70" y="310" width="160" height="25" fill="#e0e0e0" stroke="#9e9e9e" rx="5"/>
-                    <text x="150" y="328" text-anchor="middle" font-size="12" fill="#424242">⚪ Ideas futuras...</text>
-                    
-                    <!-- Product Goal -->
-                    <ellipse cx="150" cy="380" rx="80" ry="25" fill="#ff5722" stroke="#d84315" stroke-width="2"/>
-                    <text x="150" y="375" text-anchor="middle" font-size="12" fill="white" font-weight="bold">PRODUCT GOAL</text>
-                    <text x="150" y="390" text-anchor="middle" font-size="10" fill="white">Estado futuro deseado</text>
-                    
-                    <!-- Arrow from Product Backlog to Sprint Backlog -->
-                    <path d="M 250 200 Q 350 150 450 200" stroke="#3498db" stroke-width="4" fill="none" marker-end="url(#arrowBlue)"/>
-                    <text x="350" y="140" text-anchor="middle" font-size="14" fill="#1976d2" font-weight="bold">Sprint Planning</text>
-                    <text x="350" y="155" text-anchor="middle" font-size="12" fill="#1976d2">Selección de elementos</text>
-                    
-                    <!-- Sprint Backlog -->
-                    <rect x="450" y="150" width="200" height="200" fill="url(#sprintBacklogGrad)" stroke="#3498db" stroke-width="3" rx="15"/>
-                    <text x="550" y="130" text-anchor="middle" font-size="18" font-weight="bold" fill="#1976d2">SPRINT BACKLOG</text>
-                    <text x="550" y="180" text-anchor="middle" font-size="14" fill="#1976d2">📝 Plan del Sprint</text>
-                    
-                    <!-- Selected items in Sprint Backlog -->
-                    <rect x="470" y="200" width="160" height="20" fill="#f8bbd9" stroke="#e91e63" rx="3"/>
-                    <text x="550" y="213" text-anchor="middle" font-size="11" fill="#880e4f">🟥 Epic 1 (seleccionado)</text>
-                    
-                    <rect x="470" y="225" width="160" height="20" fill="#f8bbd9" stroke="#e91e63" rx="3"/>
-                    <text x="550" y="238" text-anchor="middle" font-size="11" fill="#880e4f">🟧 Feature A (seleccionado)</text>
-                    
-                    <rect x="470" y="250" width="160" height="20" fill="#fff9c4" stroke="#fbc02d" rx="3"/>
-                    <text x="550" y="263" text-anchor="middle" font-size="11" fill="#f57f17">🟨 Story X (seleccionado)</text>
-                    
-                    <!-- Sprint Goal -->
-                    <ellipse cx="550" cy="310" rx="70" ry="20" fill="#2196f3" stroke="#1565c0" stroke-width="2"/>
-                    <text x="550" y="308" text-anchor="middle" font-size="11" fill="white" font-weight="bold">SPRINT GOAL</text>
-                    <text x="550" y="320" text-anchor="middle" font-size="9" fill="white">Objetivo del Sprint</text>
-                    
-                    <!-- Arrow from Sprint Backlog to Increment -->
-                    <path d="M 650 250 Q 700 250 750 300" stroke="#27ae60" stroke-width="4" fill="none" marker-end="url(#arrowGreen)"/>
-                    <text x="700" y="240" text-anchor="middle" font-size="14" fill="#1b5e20" font-weight="bold">Desarrollo</text>
-                    <text x="700" y="255" text-anchor="middle" font-size="12" fill="#1b5e20">Trabajo diario</text>
-                    
-                    <!-- Increment -->
-                    <rect x="750" y="250" width="200" height="200" fill="url(#incrementGrad)" stroke="#27ae60" stroke-width="3" rx="15"/>
-                    <text x="850" y="230" text-anchor="middle" font-size="18" font-weight="bold" fill="#1b5e20">INCREMENTO</text>
-                    <text x="850" y="280" text-anchor="middle" font-size="14" fill="#1b5e20">🚀 Producto "Done"</text>
-                    
-                    <!-- Features in Increment -->
-                    <rect x="770" y="300" width="160" height="25" fill="#a5d6a7" stroke="#388e3c" rx="5"/>
-                    <text x="850" y="318" text-anchor="middle" font-size="12" fill="#1b5e20">✅ Epic 1 - Completado</text>
-                    
-                    <rect x="770" y="330" width="160" height="25" fill="#a5d6a7" stroke="#388e3c" rx="5"/>
-                    <text x="850" y="348" text-anchor="middle" font-size="12" fill="#1b5e20">✅ Feature A - Completado</text>
-                    
-                    <rect x="770" y="360" width="160" height="25" fill="#a5d6a7" stroke="#388e3c" rx="5"/>
-                    <text x="850" y="378" text-anchor="middle" font-size="12" fill="#1b5e20">✅ Story X - Completado</text>
-                    
-                    <!-- Definition of Done -->
-                    <ellipse cx="850" cy="420" rx="80" ry="25" fill="#4caf50" stroke="#2e7d32" stroke-width="2"/>
-                    <text x="850" y="415" text-anchor="middle" font-size="12" fill="white" font-weight="bold">DEFINITION OF DONE</text>
-                    <text x="850" y="430" text-anchor="middle" font-size="10" fill="white">Criterios de calidad</text>
-                    
-                    <!-- Feedback arrow back to Product Backlog -->
-                    <path d="M 750 350 Q 400 500 250 380" stroke="#9c27b0" stroke-width="3" fill="none" marker-end="url(#arrowPurple)" stroke-dasharray="8,4"/>
-                    <text x="500" y="520" text-anchor="middle" font-size="14" fill="#7b1fa2" font-weight="bold">Sprint Review - Feedback</text>
-                    <text x="500" y="535" text-anchor="middle" font-size="12" fill="#7b1fa2">Inspección y adaptación del Product Backlog</text>
-                    
-                    <!-- Arrow markers -->
-                    <defs>
-                        <marker id="arrowBlue" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
-                            <polygon points="0 0, 12 4, 0 8" fill="#3498db"/>
-                        </marker>
-                        <marker id="arrowGreen" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
-                            <polygon points="0 0, 12 4, 0 8" fill="#27ae60"/>
-                        </marker>
-                        <marker id="arrowPurple" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
-                            <polygon points="0 0, 12 4, 0 8" fill="#9c27b0"/>
-                        </marker>
-                    </defs>
-                    
-                    <!-- Labels and annotations -->
-                    <text x="500" y="580" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">Flujo de Trabajo con Artefactos de Scrum</text>
-                </svg>
+                <div class="artifact-card">
+                    <h4>📝 Sprint Backlog</h4>
+                    <p><strong>Compromiso:</strong> Sprint Goal</p>
+                    <p><strong>Descripción:</strong> Compuesto por el Sprint Goal (por qué), el conjunto de Product Backlog Items seleccionados para el Sprint (qué), y un plan accionable para entregar el Incremento (cómo).</p>
+                    <p><strong>Características:</strong></p>
+                    <ul>
+                        <li>Es un plan hecho por y para los Developers</li>
+                        <li>Es una imagen en tiempo real del trabajo que los Developers planean realizar durante el Sprint</li>
+                        <li>Se actualiza durante todo el Sprint cuando se aprende más</li>
+                        <li>Debe tener suficiente detalle para que puedan inspeccionar su progreso en el Daily Scrum</li>
+                    </ul>
+                </div>
+
+                <div class="artifact-card">
+                    <h4>📦 Incremento</h4>
+                    <p><strong>Compromiso:</strong> Definition of Done</p>
+                    <p><strong>Descripción:</strong> Un incremento es un escalón concreto hacia el Product Goal. Cada incremento es aditivo a todos los incrementos anteriores y verificado a fondo, asegurando que todos los incrementos trabajen juntos.</p>
+                    <p><strong>Características:</strong></p>
+                    <ul>
+                        <li>Para proporcionar valor, el incremento debe ser utilizable</li>
+                        <li>Se pueden crear múltiples incrementos dentro de un Sprint</li>
+                        <li>Un incremento puede ser entregado a los stakeholders antes del final del Sprint</li>
+                        <li>El Sprint Review nunca debe considerarse una puerta para liberar valor</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
-        <!-- Cuadro Sinóptico de Comparación -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">📊 Cuadro Sinóptico: Metodologías Tradicionales vs Scrum</h2>
+        <div class="content-section">
+            <h2>📊 Cuadro Sinóptico: Metodologías Tradicionales vs Scrum</h2>
             
             <table class="comparison-table">
-                <thead role="rowgroup">
-                    <tr role="row">
-                        <th role="columnheader">Aspecto</th>
-                        <th role="columnheader">Metodologías Tradicionales</th>
-                        <th role="columnheader">Scrum</th>
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Metodologías Tradicionales</th>
+                        <th>Scrum</th>
                     </tr>
                 </thead>
-                <tbody role="rowgroup">
-                    <tr role="row">
-                        <td role="cell"><strong>Enfoque de Planificación</strong></td>
-                        <td role="cell">Plan detallado al inicio del proyecto</td>
-                        <td role="cell">Planificación iterativa y adaptativa</td>
+                <tbody>
+                    <tr>
+                        <td><strong>Enfoque</strong></td>
+                        <td>Predictivo - Plan detallado al inicio</td>
+                        <td>Empírico - Inspección y adaptación continua</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Gestión de Cambios</strong></td>
-                        <td role="cell">Resistencia al cambio, procesos formales</td>
-                        <td role="cell">Abraza el cambio, adaptación continua</td>
+                    <tr>
+                        <td><strong>Planificación</strong></td>
+                        <td>Planificación exhaustiva upfront</td>
+                        <td>Planificación iterativa en cada Sprint</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Documentación</strong></td>
-                        <td role="cell">Documentación exhaustiva y detallada</td>
-                        <td role="cell">Documentación suficiente, foco en software funcionando</td>
+                    <tr>
+                        <td><strong>Documentación</strong></td>
+                        <td>Documentación extensa y detallada</td>
+                        <td>Documentación justa y necesaria</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Participación del Cliente</strong></td>
-                        <td role="cell">Al inicio y al final del proyecto</td>
-                        <td role="cell">Colaboración continua y frecuente</td>
+                    <tr>
+                        <td><strong>Cambios</strong></td>
+                        <td>Cambios costosos y difíciles</td>
+                        <td>Cambios bienvenidos y manejables</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Entrega de Valor</strong></td>
-                        <td role="cell">Al final del proyecto (big bang)</td>
-                        <td role="cell">Entregas incrementales frecuentes</td>
+                    <tr>
+                        <td><strong>Entregas</strong></td>
+                        <td>Una entrega grande al final</td>
+                        <td>Entregas incrementales frecuentes</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Gestión de Riesgos</strong></td>
-                        <td role="cell">Identificación y mitigación al inicio</td>
-                        <td role="cell">Gestión continua a través de inspección y adaptación</td>
+                    <tr>
+                        <td><strong>Feedback</strong></td>
+                        <td>Feedback tardío del cliente</td>
+                        <td>Feedback temprano y continuo</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Estructura del Equipo</strong></td>
-                        <td role="cell">Jerárquica con roles especializados</td>
-                        <td role="cell">Auto-organizada y cross-funcional</td>
+                    <tr>
+                        <td><strong>Equipos</strong></td>
+                        <td>Equipos especializados jerárquicos</td>
+                        <td>Equipos cross-funcionales auto-organizados</td>
                     </tr>
-                    <tr role="row">
-                        <td role="cell"><strong>Control de Calidad</strong></td>
-                        <td role="cell">Fase específica de testing</td>
-                        <td role="cell">Calidad integrada mediante Definition of Done</td>
+                    <tr>
+                        <td><strong>Riesgos</strong></td>
+                        <td>Riesgos identificados al final</td>
+                        <td>Riesgos mitigados continuamente</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <!-- Diagrama SVG del Framework Completo -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">🔄 Framework Completo de Scrum</h2>
+        <div class="content-section">
+            <h2>🔄 Framework Completo de Scrum</h2>
             
-            <div class="svg-container">
-                <div class="diagram-title">Diagrama Conceptual del Framework Scrum</div>
-                <svg width="1200" height="900" viewBox="0 0 1200 900">
-                    <defs>
-                        <!-- Gradientes para diferentes tipos de elementos -->
-                        <linearGradient id="roleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#bbdefb;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="artifactGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#fff3e0;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#ffe0b2;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="eventGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#e8f5e8;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#c8e6c9;stop-opacity:1" />
-                        </linearGradient>
-                        <linearGradient id="commitmentGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#fce4ec;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#f8bbd9;stop-opacity:1" />
-                        </linearGradient>
-                        
-                        <!-- Marcadores de flecha -->
-                        <marker id="arrowMain" markerWidth="12" markerHeight="8" refX="11" refY="4" orient="auto">
-                            <polygon points="0 0, 12 4, 0 8" fill="#2c3e50"/>
-                        </marker>
-                        <marker id="arrowDashed" markerWidth="10" markerHeight="6" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#c2185b"/>
-                        </marker>
-                        <marker id="arrowFeedback" markerWidth="10" markerHeight="6" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#9c27b0"/>
-                        </marker>
-                    </defs>
-                    
-                    <!-- Fondo del diagrama -->
-                    <rect width="1200" height="900" fill="#f8f9fa" rx="20"/>
-                    
-                    <!-- Título principal -->
-                    <text x="600" y="40" text-anchor="middle" font-size="24" font-weight="bold" fill="#2c3e50">Framework Completo de Scrum</text>
-                    
-                    <!-- === ROLES === -->
-                    <!-- Product Owner -->
-                    <rect x="80" y="100" width="180" height="80" fill="url(#roleGradient)" stroke="#1976d2" stroke-width="3" rx="15"/>
-                    <text x="170" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1976d2">👑 Product Owner</text>
-                    <text x="170" y="145" text-anchor="middle" font-size="11" fill="#1976d2">Maximiza valor</text>
-                    <text x="170" y="160" text-anchor="middle" font-size="11" fill="#1976d2">del producto</text>
-                    
-                    <!-- Scrum Master -->
-                    <rect x="320" y="100" width="180" height="80" fill="url(#roleGradient)" stroke="#1976d2" stroke-width="3" rx="15"/>
-                    <text x="410" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1976d2">🛡️ Scrum Master</text>
-                    <text x="410" y="145" text-anchor="middle" font-size="11" fill="#1976d2">Facilita el</text>
-                    <text x="410" y="160" text-anchor="middle" font-size="11" fill="#1976d2">proceso</text>
-                    
-                    <!-- Development Team -->
-                    <rect x="560" y="100" width="180" height="80" fill="url(#roleGradient)" stroke="#1976d2" stroke-width="3" rx="15"/>
-                    <text x="650" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1976d2">⚙️ Development Team</text>
-                    <text x="650" y="145" text-anchor="middle" font-size="11" fill="#1976d2">Entrega</text>
-                    <text x="650" y="160" text-anchor="middle" font-size="11" fill="#1976d2">incrementos</text>
-                    
-                    <!-- Scrum Team (contenedor) -->
-                    <rect x="800" y="100" width="180" height="80" fill="url(#roleGradient)" stroke="#1976d2" stroke-width="3" rx="15"/>
-                    <text x="890" y="125" text-anchor="middle" font-size="14" font-weight="bold" fill="#1976d2">🤝 Scrum Team</text>
-                    <text x="890" y="145" text-anchor="middle" font-size="11" fill="#1976d2">Equipo</text>
-                    <text x="890" y="160" text-anchor="middle" font-size="11" fill="#1976d2">auto-organizado</text>
-                    
-                    <!-- === ARTEFACTOS === -->
-                    <!-- Product Backlog -->
-                    <rect x="80" y="250" width="180" height="80" fill="url(#artifactGradient)" stroke="#f57c00" stroke-width="3" rx="15"/>
-                    <text x="170" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#ef6c00">📋 Product Backlog</text>
-                    <text x="170" y="295" text-anchor="middle" font-size="11" fill="#ef6c00">Lista ordenada de</text>
-                    <text x="170" y="310" text-anchor="middle" font-size="11" fill="#ef6c00">características</text>
-                    
-                    <!-- Sprint Backlog -->
-                    <rect x="320" y="400" width="180" height="80" fill="url(#artifactGradient)" stroke="#f57c00" stroke-width="3" rx="15"/>
-                    <text x="410" y="425" text-anchor="middle" font-size="14" font-weight="bold" fill="#ef6c00">📝 Sprint Backlog</text>
-                    <text x="410" y="445" text-anchor="middle" font-size="11" fill="#ef6c00">Plan del</text>
-                    <text x="410" y="460" text-anchor="middle" font-size="11" fill="#ef6c00">Sprint</text>
-                    
-                    <!-- Incremento -->
-                    <rect x="800" y="400" width="180" height="80" fill="url(#artifactGradient)" stroke="#f57c00" stroke-width="3" rx="15"/>
-                    <text x="890" y="425" text-anchor="middle" font-size="14" font-weight="bold" fill="#ef6c00">📦 Incremento</text>
-                    <text x="890" y="445" text-anchor="middle" font-size="11" fill="#ef6c00">Producto</text>
-                    <text x="890" y="460" text-anchor="middle" font-size="11" fill="#ef6c00">"Done"</text>
-                    
-                    <!-- === EVENTOS === -->
-                    <!-- Sprint Planning -->
-                    <rect x="80" y="400" width="180" height="80" fill="url(#eventGradient)" stroke="#388e3c" stroke-width="3" rx="15"/>
-                    <text x="170" y="425" text-anchor="middle" font-size="14" font-weight="bold" fill="#2e7d32">📋 Sprint Planning</text>
-                    <text x="170" y="445" text-anchor="middle" font-size="11" fill="#2e7d32">¿Qué y</text>
-                    <text x="170" y="460" text-anchor="middle" font-size="11" fill="#2e7d32">cómo?</text>
-                    
-                    <!-- Sprint (proceso central) -->
-                    <ellipse cx="600" cy="440" rx="100" ry="60" fill="url(#eventGradient)" stroke="#388e3c" stroke-width="4"/>
-                    <text x="600" y="425" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d32">🚀 SPRINT</text>
-                    <text x="600" y="445" text-anchor="middle" font-size="12" fill="#2e7d32">2-4 semanas</text>
-                    <text x="600" y="465" text-anchor="middle" font-size="11" fill="#2e7d32">Iteración de desarrollo</text>
-                    
-                    <!-- Daily Scrum -->
-                    <rect x="560" y="250" width="180" height="60" fill="url(#eventGradient)" stroke="#388e3c" stroke-width="3" rx="15"/>
-                    <text x="650" y="275" text-anchor="middle" font-size="14" font-weight="bold" fill="#2e7d32">☀️ Daily Scrum</text>
-                    <text x="650" y="295" text-anchor="middle" font-size="11" fill="#2e7d32">15 min diarios</text>
-                    
-                    <!-- Sprint Review -->
-                    <rect x="800" y="550" width="180" height="80" fill="url(#eventGradient)" stroke="#388e3c" stroke-width="3" rx="15"/>
-                    <text x="890" y="575" text-anchor="middle" font-size="14" font-weight="bold" fill="#2e7d32">👁️ Sprint Review</text>
-                    <text x="890" y="595" text-anchor="middle" font-size="11" fill="#2e7d32">Inspección del</text>
-                    <text x="890" y="610" text-anchor="middle" font-size="11" fill="#2e7d32">incremento</text>
-                    
-                    <!-- Sprint Retrospective -->
-                    <rect x="320" y="550" width="180" height="80" fill="url(#eventGradient)" stroke="#388e3c" stroke-width="3" rx="15"/>
-                    <text x="410" y="575" text-anchor="middle" font-size="14" font-weight="bold" fill="#2e7d32">🔄 Sprint Retrospective</text>
-                    <text x="410" y="595" text-anchor="middle" font-size="11" fill="#2e7d32">Mejora</text>
-                    <text x="410" y="610" text-anchor="middle" font-size="11" fill="#2e7d32">continua</text>
-                    
-                    <!-- === COMPROMISOS === -->
-                    <!-- Product Goal -->
-                    <ellipse cx="170" cy="700" rx="80" ry="40" fill="url(#commitmentGradient)" stroke="#c2185b" stroke-width="2" stroke-dasharray="8,4"/>
-                    <text x="170" y="695" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2185b">🎯 Product Goal</text>
-                    <text x="170" y="710" text-anchor="middle" font-size="10" fill="#c2185b">Visión del producto</text>
-                    
-                    <!-- Sprint Goal -->
-                    <ellipse cx="410" cy="700" rx="80" ry="40" fill="url(#commitmentGradient)" stroke="#c2185b" stroke-width="2" stroke-dasharray="8,4"/>
-                    <text x="410" y="695" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2185b">🎯 Sprint Goal</text>
-                    <text x="410" y="710" text-anchor="middle" font-size="10" fill="#c2185b">Objetivo del Sprint</text>
-                    
-                    <!-- Definition of Done -->
-                    <ellipse cx="890" cy="700" rx="80" ry="40" fill="url(#commitmentGradient)" stroke="#c2185b" stroke-width="2" stroke-dasharray="8,4"/>
-                    <text x="890" y="695" text-anchor="middle" font-size="12" font-weight="bold" fill="#c2185b">✅ Definition of Done</text>
-                    <text x="890" y="710" text-anchor="middle" font-size="10" fill="#c2185b">Criterios de calidad</text>
-                    
-                    <!-- === CONEXIONES PRINCIPALES === -->
-                    <!-- Product Owner -> Product Backlog -->
-                    <line x1="170" y1="180" x2="170" y2="250" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Scrum Master -> Scrum Team -->
-                    <line x1="500" y1="140" x2="800" y2="140" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Development Team -> Scrum Team -->
-                    <line x1="740" y1="140" x2="800" y2="140" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Product Backlog -> Sprint Planning -->
-                    <line x1="170" y1="330" x2="170" y2="400" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Sprint Planning -> Sprint Backlog -->
-                    <line x1="260" y1="440" x2="320" y2="440" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Sprint Backlog -> Sprint -->
-                    <line x1="500" y1="440" x2="520" y2="440" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Sprint -> Daily Scrum (bidireccional) -->
-                    <line x1="600" y1="380" x2="650" y2="310" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowMain)"/>
-                    <line x1="650" y1="320" x2="600" y2="390" stroke="#2c3e50" stroke-width="2" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Sprint -> Incremento -->
-                    <line x1="680" y1="440" x2="800" y2="440" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Incremento -> Sprint Review -->
-                    <line x1="890" y1="480" x2="890" y2="550" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Sprint Review -> Product Backlog (feedback) -->
-                    <path d="M 800 590 Q 400 650 170 330" stroke="#9c27b0" stroke-width="3" fill="none" marker-end="url(#arrowFeedback)" stroke-dasharray="10,5"/>
-                    
-                    <!-- Sprint -> Sprint Retrospective -->
-                    <line x1="520" y1="480" x2="450" y2="550" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    
-                    <!-- Sprint Retrospective -> Sprint Planning (ciclo) -->
-                    <path d="M 320 590 Q 200 650 120 480" stroke="#9c27b0" stroke-width="3" fill="none" marker-end="url(#arrowFeedback)" stroke-dasharray="10,5"/>
-                    
-                    <!-- === CONEXIONES DE COMPROMISOS (líneas punteadas) === -->
-                    <!-- Product Backlog -> Product Goal -->
-                    <line x1="170" y1="330" x2="170" y2="660" stroke="#c2185b" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowDashed)"/>
-                    
-                    <!-- Sprint Backlog -> Sprint Goal -->
-                    <line x1="410" y1="480" x2="410" y2="660" stroke="#c2185b" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowDashed)"/>
-                    
-                    <!-- Incremento -> Definition of Done -->
-                    <line x1="890" y1="480" x2="890" y2="660" stroke="#c2185b" stroke-width="2" stroke-dasharray="8,4" marker-end="url(#arrowDashed)"/>
-                    
-                    <!-- === ETIQUETAS Y LEYENDA === -->
-                    <!-- Leyenda -->
-                    <rect x="50" y="780" width="1100" height="100" fill="rgba(255,255,255,0.9)" stroke="#bdc3c7" stroke-width="1" rx="10"/>
-                    <text x="600" y="800" text-anchor="middle" font-size="16" font-weight="bold" fill="#2c3e50">Leyenda del Framework Scrum</text>
-                    
-                    <!-- Roles -->
-                    <rect x="80" y="820" width="60" height="20" fill="url(#roleGradient)" stroke="#1976d2" stroke-width="2" rx="5"/>
-                    <text x="160" y="835" font-size="12" fill="#2c3e50">Roles (3)</text>
-                    
-                    <!-- Artefactos -->
-                    <rect x="280" y="820" width="60" height="20" fill="url(#artifactGradient)" stroke="#f57c00" stroke-width="2" rx="5"/>
-                    <text x="360" y="835" font-size="12" fill="#2c3e50">Artefactos (3)</text>
-                    
-                    <!-- Eventos -->
-                    <rect x="480" y="820" width="60" height="20" fill="url(#eventGradient)" stroke="#388e3c" stroke-width="2" rx="5"/>
-                    <text x="560" y="835" font-size="12" fill="#2c3e50">Eventos (5)</text>
-                    
-                    <!-- Compromisos -->
-                    <rect x="680" y="820" width="60" height="20" fill="url(#commitmentGradient)" stroke="#c2185b" stroke-width="2" stroke-dasharray="4,2" rx="5"/>
-                    <text x="760" y="835" font-size="12" fill="#2c3e50">Compromisos (3)</text>
-                    
-                    <!-- Líneas de flujo -->
-                    <line x1="880" y1="820" x2="920" y2="820" stroke="#2c3e50" stroke-width="3" marker-end="url(#arrowMain)"/>
-                    <text x="940" y="835" font-size="12" fill="#2c3e50">Flujo principal</text>
-                    
-                    <!-- Líneas de feedback -->
-                    <line x1="880" y1="850" x2="920" y2="850" stroke="#9c27b0" stroke-width="3" stroke-dasharray="8,4" marker-end="url(#arrowFeedback)"/>
-                    <text x="940" y="865" font-size="12" fill="#2c3e50">Feedback y mejora</text>
-                    
-                    <!-- Indicaciones de flujo -->
-                    <text x="300" y="370" font-size="10" fill="#7f8c8d" font-style="italic">Selección y planificación</text>
-                    <text x="650" y="370" font-size="10" fill="#7f8c8d" font-style="italic">Sincronización diaria</text>
-                    <text x="750" y="470" font-size="10" fill="#7f8c8d" font-style="italic">Entrega de valor</text>
-                    <text x="920" y="520" font-size="10" fill="#7f8c8d" font-style="italic">Inspección</text>
-                    <text x="450" y="520" font-size="10" fill="#7f8c8d" font-style="italic">Adaptación</text>
-                </svg>
+            <div class="diagram-container">
+                <div class="mermaid">
+%%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
+graph TB
+    subgraph "SCRUM FRAMEWORK"
+        subgraph "ROLES"
+            PO[Product Owner]
+            SM[Scrum Master]
+            DEV[Developers]
+        end
+        
+        subgraph "ARTEFACTOS"
+            PB[Product Backlog]
+            SB[Sprint Backlog]
+            INC[Incremento]
+        end
+        
+        subgraph "EVENTOS"
+            SP[Sprint]
+            SPL[Sprint Planning]
+            DS[Daily Scrum]
+            SR[Sprint Review]
+            SRT[Sprint Retrospective]
+        end
+        
+        subgraph "PILARES EMPIRISMO"
+            TRANS[Transparencia]
+            INSP[Inspección]
+            ADAPT[Adaptación]
+        end
+    end
+    
+    PO -->|gestiona| PB
+    PB -->|selecciona items| SB
+    DEV -->|crea| SB
+    DEV -->|desarrolla| INC
+    
+    SPL -->|produce| SB
+    DS -->|actualiza| SB
+    SR -->|inspecciona| INC
+    SRT -->|mejora| SP
+    
+    SP -->|contiene| SPL
+    SP -->|contiene| DS
+    SP -->|contiene| SR
+    SP -->|contiene| SRT
+    
+    TRANS -->|habilita| INSP
+    INSP -->|lleva a| ADAPT
+    ADAPT -->|mejora| TRANS
+    
+    style PO fill:#e74c3c,stroke:#c0392b,color:#fff
+    style SM fill:#3498db,stroke:#2980b9,color:#fff
+    style DEV fill:#27ae60,stroke:#229954,color:#fff
+    style PB fill:#f39c12,stroke:#e67e22,color:#fff
+    style SB fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style INC fill:#1abc9c,stroke:#16a085,color:#fff
+                </div>
             </div>
         </div>
 
-        <!-- Casos de Uso Prácticos -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">🎯 Casos de Uso Prácticos</h2>
+        <div class="content-section">
+            <h2>🎯 Casos de Uso Prácticos</h2>
             
             <div class="highlight-box">
                 <h3>Escenario: Desarrollo de Plataforma E-commerce</h3>
                 <p>Una startup de tecnología decide implementar Scrum para desarrollar su plataforma de comercio electrónico. Veamos cómo se aplicaría el framework:</p>
             </div>
 
-            <div class="svg-container">
-                <div class="diagram-title">Caso de Uso: Desarrollo de E-commerce con Scrum</div>
-                <svg width="1000" height="700" viewBox="0 0 1000 700">
-                    <!-- Background -->
-                    <rect width="1000" height="700" fill="#f8f9fa" rx="10"/>
-                    
-                    <!-- Title -->
-                    <text x="500" y="30" text-anchor="middle" font-size="20" font-weight="bold" fill="#2c3e50">Implementación de Scrum - Plataforma E-commerce</text>
-                    
-                    <!-- Product Owner section -->
-                    <rect x="50" y="60" width="280" height="150" fill="#ffebee" stroke="#e74c3c" stroke-width="2" rx="10"/>
-                    <text x="190" y="80" text-anchor="middle" font-size="16" font-weight="bold" fill="#c62828">👑 PRODUCT OWNER</text>
-                    <text x="190" y="100" text-anchor="middle" font-size="14" fill="#c62828">Sarah - CEO de la startup</text>
-                    
-                    <text x="70" y="125" font-size="12" fill="#2c3e50">Responsabilidades:</text>
-                    <text x="70" y="140" font-size="11" fill="#2c3e50">• Define visión del producto</text>
-                    <text x="70" y="155" font-size="11" fill="#2c3e50">• Prioriza características según valor de negocio</text>
-                    <text x="70" y="170" font-size="11" fill="#2c3e50">• Mantiene comunicación con stakeholders</text>
-                    <text x="70" y="185" font-size="11" fill="#2c3e50">• Acepta/rechaza incrementos completados</text>
-                    
-                    <!-- Scrum Master section -->
-                    <rect x="360" y="60" width="280" height="150" fill="#e3f2fd" stroke="#3498db" stroke-width="2" rx="10"/>
-                    <text x="500" y="80" text-anchor="middle" font-size="16" font-weight="bold" fill="#1976d2">🛡️ SCRUM MASTER</text>
-                    <text x="500" y="100" text-anchor="middle" font-size="14" fill="#1976d2">Mike - Especialista en metodologías ágiles</text>
-                    
-                    <text x="380" y="125" font-size="12" fill="#2c3e50">Responsabilidades:</text>
-                    <text x="380" y="140" font-size="11" fill="#2c3e50">• Facilita todas las ceremonias Scrum</text>
-                    <text x="380" y="155" font-size="11" fill="#2c3e50">• Remueve impedimentos del equipo</text>
-                    <text x="380" y="170" font-size="11" fill="#2c3e50">• Entrena al equipo en prácticas ágiles</text>
-                    <text x="380" y="185" font-size="11" fill="#2c3e50">• Protege al equipo de interrupciones externas</text>
-                    
-                    <!-- Development Team section -->
-                    <rect x="670" y="60" width="280" height="150" fill="#e8f5e8" stroke="#27ae60" stroke-width="2" rx="10"/>
-                    <text x="810" y="80" text-anchor="middle" font-size="16" font-weight="bold" fill="#1b5e20">⚙️ DEVELOPMENT TEAM</text>
-                    <text x="810" y="100" text-anchor="middle" font-size="14" fill="#1b5e20">Equipo cross-funcional de 7 personas</text>
-                    
-                    <text x="690" y="125" font-size="12" fill="#2c3e50">Composición:</text>
-                    <text x="690" y="140" font-size="11" fill="#2c3e50">• 3 Desarrolladores Full-stack</text>
-                    <text x="690" y="155" font-size="11" fill="#2c3e50">• 2 Desarrolladores Frontend</text>
-                    <text x="690" y="170" font-size="11" fill="#2c3e50">• 1 QA Engineer</text>
-                    <text x="690" y="185" font-size="11" fill="#2c3e50">• 1 UX/UI Designer</text>
-                    
-                    <!-- Product Backlog -->
-                    <rect x="50" y="240" width="200" height="220" fill="#fff3cd" stroke="#f39c12" stroke-width="2" rx="10"/>
-                    <text x="150" y="260" text-anchor="middle" font-size="16" font-weight="bold" fill="#d68910">📋 PRODUCT BACKLOG</text>
-                    
-                    <rect x="70" y="280" width="160" height="25" fill="#f8d7da" stroke="#dc3545" rx="5"/>
-                    <text x="150" y="297" text-anchor="middle" font-size="11" fill="#721c24">🔴 Sistema de autenticación</text>
-                    
-                    <rect x="70" y="310" width="160" height="25" fill="#f8d7da" stroke="#dc3545" rx="5"/>
-                    <text x="150" y="327" text-anchor="middle" font-size="11" fill="#721c24">🔴 Catálogo de productos</text>
-                    
-                    <rect x="70" y="340" width="160" height="25" fill="#fff3cd" stroke="#ffc107" rx="5"/>
-                    <text x="150" y="357" text-anchor="middle" font-size="11" fill="#856404">🟡 Carrito de compras</text>
-                    
-                    <rect x="70" y="370" width="160" height="25" fill="#fff3cd" stroke="#ffc107" rx="5"/>
-                    <text x="150" y="387" text-anchor="middle" font-size="11" fill="#856404">🟡 Procesamiento de pagos</text>
-                    
-                    <rect x="70" y="400" width="160" height="25" fill="#d1ecf1" stroke="#17a2b8" rx="5"/>
-                    <text x="150" y="417" text-anchor="middle" font-size="11" fill="#0c5460">🔵 Sistema de recomendaciones</text>
-                    
-                    <rect x="70" y="430" width="160" height="25" fill="#d1ecf1" stroke="#17a2b8" rx="5"/>
-                    <text x="150" y="447" text-anchor="middle" font-size="11" fill="#0c5460">🔵 Panel de administración</text>
-                    
-                    <!-- Sprint Planning -->
-                    <rect x="280" y="240" width="180" height="100" fill="#e3f2fd" stroke="#2196f3" stroke-width="2" rx="10"/>
-                    <text x="370" y="260" text-anchor="middle" font-size="16" font-weight="bold" fill="#1565c0">📋 SPRINT PLANNING</text>
-                    <text x="370" y="280" text-anchor="middle" font-size="12" fill="#1976d2">Sprint 1 - Duración: 2 semanas</text>
-                    
-                    <text x="290" y="300" font-size="11" fill="#2c3e50">Sprint Goal:</text>
-                    <text x="290" y="315" font-size="10" fill="#2c3e50">"Usuarios pueden registrarse y</text>
-                    <text x="290" y="330" font-size="10" fill="#2c3e50">navegar el catálogo de productos"</text>
-                    
-                    <!-- Sprint Backlog -->
-                    <rect x="490" y="240" width="180" height="140" fill="#e8f5e8" stroke="#4caf50" stroke-width="2" rx="10"/>
-                    <text x="580" y="260" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d32">📝 SPRINT BACKLOG</text>
-                    
-                    <rect x="505" y="280" width="150" height="20" fill="#f8d7da" stroke="#dc3545" rx="3"/>
-                    <text x="580" y="293" text-anchor="middle" font-size="10" fill="#721c24">Sistema de autenticación</text>
-                    
-                    <rect x="505" y="305" width="150" height="20" fill="#f8d7da" stroke="#dc3545" rx="3"/>
-                    <text x="580" y="318" text-anchor="middle" font-size="10" fill="#721c24">Catálogo de productos</text>
-                    
-                    <text x="505" y="340" font-size="11" fill="#2c3e50">Tareas técnicas:</text>
-                    <text x="505" y="355" font-size="10" fill="#2c3e50">• Setup base de datos</text>
-                    <text x="505" y="370" font-size="10" fill="#2c3e50">• API REST para productos</text>
-                    
-                    <!-- Daily Scrum -->
-                    <rect x="700" y="240" width="250" height="100" fill="#fff3cd" stroke="#ffc107" stroke-width="2" rx="10"/>
-                    <text x="825" y="260" text-anchor="middle" font-size="16" font-weight="bold" fill="#856404">☀️ DAILY SCRUM</text>
-                    <text x="825" y="280" text-anchor="middle" font-size="12" fill="#d68910">Cada día a las 9:00 AM - 15 minutos</text>
-                    
-                    <text x="715" y="300" font-size="11" fill="#2c3e50">Preguntas clave:</text>
-                    <text x="715" y="315" font-size="10" fill="#2c3e50">• ¿Qué hice ayer?</text>
-                    <text x="715" y="330" font-size="10" fill="#2c3e50">• ¿Qué haré hoy?</text>
-                    <text x="715" y="345" font-size="10" fill="#2c3e50">• ¿Hay impedimentos?</text>
-                    
-                    <!-- Sprint Review and Retrospective -->
-                    <rect x="50" y="490" width="220" height="120" fill="#fce4ec" stroke="#e91e63" stroke-width="2" rx="10"/>
-                    <text x="160" y="510" text-anchor="middle" font-size="16" font-weight="bold" fill="#ad1457">👁️ SPRINT REVIEW</text>
-                    <text x="160" y="530" text-anchor="middle" font-size="12" fill="#c2185b">Demostración al final del Sprint</text>
-                    
-                    <text x="65" y="550" font-size="11" fill="#2c3e50">Participantes:</text>
-                    <text x="65" y="565" font-size="10" fill="#2c3e50">• Scrum Team completo</text>
-                    <text x="65" y="580" font-size="10" fill="#2c3e50">• Stakeholders clave</text>
-                    <text x="65" y="595" font-size="10" fill="#2c3e50">• Potenciales usuarios</text>
-                    
-                    <rect x="300" y="490" width="220" height="120" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2" rx="10"/>
-                    <text x="410" y="510" text-anchor="middle" font-size="16" font-weight="bold" fill="#6a1b9a">🔄 SPRINT RETROSPECTIVE</text>
-                    <text x="410" y="530" text-anchor="middle" font-size="12" fill="#8e24aa">Mejora continua del proceso</text>
-                    
-                    <text x="315" y="550" font-size="11" fill="#2c3e50">Temas tratados:</text>
-                    <text x="315" y="565" font-size="10" fill="#2c3e50">• ¿Qué funcionó bien?</text>
-                    <text x="315" y="580" font-size="10" fill="#2c3e50">• ¿Qué se puede mejorar?</text>
-                    <text x="315" y="595" font-size="10" fill="#2c3e50">• Acciones para el próximo Sprint</text>
-                    
-                    <!-- Increment -->
-                    <rect x="550" y="490" width="200" height="120" fill="#e8f5e8" stroke="#4caf50" stroke-width="2" rx="10"/>
-                    <text x="650" y="510" text-anchor="middle" font-size="16" font-weight="bold" fill="#2e7d32">🚀 INCREMENTO</text>
-                    <text x="650" y="530" text-anchor="middle" font-size="12" fill="#388e3c">Funcionalidad entregada</text>
-                    
-                    <text x="565" y="550" font-size="11" fill="#2c3e50">Sprint 1 - Entregables:</text>
-                    <text x="565" y="565" font-size="10" fill="#2c3e50">✅ Login/Registro funcional</text>
-                    <text x="565" y="580" font-size="10" fill="#2c3e50">✅ Catálogo básico visible</text>
-                    <text x="565" y="595" font-size="10" fill="#2c3e50">✅ Tests unitarios pasando</text>
-                    
-                    <!-- Stakeholders -->
-                    <rect x="780" y="490" width="170" height="120" fill="#fff8e1" stroke="#ff9800" stroke-width="2" rx="10"/>
-                    <text x="865" y="510" text-anchor="middle" font-size="16" font-weight="bold" fill="#ef6c00">👥 STAKEHOLDERS</text>
-                    
-                    <text x="795" y="535" font-size="11" fill="#2c3e50">Involucrados:</text>
-                    <text x="795" y="550" font-size="10" fill="#2c3e50">• Inversionistas</text>
-                    <text x="795" y="565" font-size="10" fill="#2c3e50">• Usuarios beta</text>
-                    <text x="795" y="580" font-size="10" fill="#2c3e50">• Equipo de marketing</text>
-                    <text x="795" y="595" font-size="10" fill="#2c3e50">• Soporte técnico</text>
-                    
-                    <!-- Flow arrows -->
-                    <path d="M 250 350 L 280 290" stroke="#3498db" stroke-width="2" marker-end="url(#arrowBlue2)"/>
-                    <path d="M 460 290 L 490 290" stroke="#27ae60" stroke-width="2" marker-end="url(#arrowGreen2)"/>
-                    <path d="M 580 380 L 580 420" stroke="#ff9800" stroke-width="2" marker-end="url(#arrowOrange)"/>
-                    <path d="M 650 490 L 580 400" stroke="#e91e63" stroke-width="2" marker-end="url(#arrowPink)" stroke-dasharray="5,5"/>
-                    
-                    <!-- Arrow markers -->
-                    <defs>
-                        <marker id="arrowBlue2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#3498db"/>
-                        </marker>
-                        <marker id="arrowGreen2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#27ae60"/>
-                        </marker>
-                        <marker id="arrowOrange" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#ff9800"/>
-                        </marker>
-                        <marker id="arrowPink" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#e91e63"/>
-                        </marker>
-                    </defs>
-                    
-                    <!-- Timeline indicator -->
-                    <rect x="50" y="640" width="900" height="30" fill="#ecf0f1" stroke="#bdc3c7" rx="15"/>
-                    <text x="500" y="660" text-anchor="middle" font-size="14" font-weight="bold" fill="#2c3e50">SPRINT 1 - SEMANA 1 ━━━━━━━━━━ SEMANA 2 ━━━━━━━━━━ SPRINT 2</text>
-                    
-                    <!-- Sprint phases -->
-                    <circle cx="150" cy="655" r="8" fill="#3498db"/>
-                    <text x="150" y="680" text-anchor="middle" font-size="10" fill="#2c3e50">Planning</text>
-                    
-                    <circle cx="300" cy="655" r="5" fill="#27ae60"/>
-                    <circle cx="400" cy="655" r="5" fill="#27ae60"/>
-                    <circle cx="500" cy="655" r="5" fill="#27ae60"/>
-                    <circle cx="600" cy="655" r="5" fill="#27ae60"/>
-                    <circle cx="700" cy="655" r="5" fill="#27ae60"/>
-                    <text x="500" y="680" text-anchor="middle" font-size="10" fill="#2c3e50">Daily Scrums</text>
-                    
-                    <circle cx="800" cy="655" r="8" fill="#e91e63"/>
-                    <text x="800" y="680" text-anchor="middle" font-size="10" fill="#2c3e50">Review</text>
-                    
-                    <circle cx="850" cy="655" r="8" fill="#9c27b0"/>
-                    <text x="850" y="680" text-anchor="middle" font-size="10" fill="#2c3e50">Retro</text>
-                </svg>
-            </div>
+            <h3>📋 Product Backlog inicial</h3>
+            <ul>
+                <li><strong>Epic 1:</strong> Sistema de autenticación de usuarios</li>
+                <li><strong>Epic 2:</strong> Catálogo de productos con búsqueda</li>
+                <li><strong>Epic 3:</strong> Carrito de compras y checkout</li>
+                <li><strong>Epic 4:</strong> Sistema de pagos integrado</li>
+                <li><strong>Epic 5:</strong> Panel de administración</li>
+            </ul>
 
-            <div class="text-content">
-                <h3>📈 Resultados del Primer Sprint</h3>
-                <p>Al finalizar el primer Sprint de 2 semanas, el equipo logró entregar:</p>
-                <ul role="list">
-                    <li role="listitem"><strong>Sistema de autenticación completo:</strong> Los usuarios pueden registrarse, hacer login y logout de forma segura</li>
-                    <li role="listitem"><strong>Catálogo básico de productos:</strong> Visualización de productos con imágenes, precios y descripciones básicas</li>
-                    <li role="listitem"><strong>Infraestructura base:</strong> Base de datos configurada, API REST básica, y pipeline de CI/CD funcionando</li>
-                </ul>
-                
-                <h3>🎯 Lecciones Aprendidas en la Retrospectiva</h3>
-                <p><strong>Lo que funcionó bien:</strong></p>
-                <ul role="list">
-                    <li role="listitem">Comunicación diaria efectiva en los Daily Scrums</li>
-                    <li role="listitem">Colaboración estrecha entre desarrolladores y diseñador UX</li>
-                    <li role="listitem">Definition of Done clara ayudó a mantener la calidad</li>
-                </ul>
-                
-                <p><strong>Áreas de mejora identificadas:</strong></p>
-                <ul role="list">
-                    <li role="listitem">Necesidad de mejor estimación de tareas técnicas complejas</li>
-                    <li role="listitem">Incorporar más feedback de usuarios potenciales durante el desarrollo</li>
-                    <li role="listitem">Mejorar las pruebas de integración automatizadas</li>
-                </ul>
-                
-                <p><strong>Acciones para el próximo Sprint:</strong></p>
-                <ul role="list">
-                    <li role="listitem">Implementar técnica de Planning Poker para estimaciones más precisas</li>
-                    <li role="listitem">Invitar 2-3 usuarios beta a participar en los Sprint Reviews</li>
-                    <li role="listitem">Dedicar 20% del tiempo de cada desarrollador a escribir tests de integración</li>
-                </ul>
-            </div>
+            <h3>🎯 Sprint 1 Example</h3>
+            <p><strong>Sprint Goal:</strong> "Habilitar que los usuarios puedan registrarse, iniciar sesión y navegar un catálogo básico de productos"</p>
+            
+            <p><strong>Sprint Backlog:</strong></p>
+            <ul>
+                <li>Como usuario, quiero registrarme con email y contraseña</li>
+                <li>Como usuario, quiero iniciar sesión en la plataforma</li>
+                <li>Como usuario, quiero ver una lista de productos disponibles</li>
+                <li>Como usuario, quiero buscar productos por nombre</li>
+                <li>Como administrador, quiero agregar productos al catálogo</li>
+            </ul>
+
+            <h3>📅 Cronograma de Eventos</h3>
+            <ul>
+                <li><strong>Sprint Planning (Lunes):</strong> 4 horas - Definir Sprint Goal y seleccionar PBIs</li>
+                <li><strong>Daily Scrum (Diario):</strong> 15 minutos a las 9:00 AM</li>
+                <li><strong>Sprint Review (Viernes):</strong> 2 horas - Demo a stakeholders</li>
+                <li><strong>Sprint Retrospective (Viernes):</strong> 1.5 horas - Mejora del proceso</li>
+            </ul>
         </div>
 
-        <!-- Quiz Interactivo -->
-        <div class="quiz-section">
-            <h2 class="quiz-title">🧠 Evaluación de Conocimientos</h2>
+        <div class="content-section">
+            <h2>🎓 Conclusiones y Próximos Pasos</h2>
             
-            <div class="question" role="group">
-                <h4>1. ¿Cuáles son los tres pilares del empirismo en Scrum?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) Planificación, Ejecución y Control</li>
-                    <li onclick="checkAnswer(this, true)">B) Transparencia, Inspección y Adaptación</li>
-                    <li onclick="checkAnswer(this, false)">C) Personas, Procesos y Herramientas</li>
-                    <li onclick="checkAnswer(this, false)">D) Requisitos, Diseño y Implementación</li>
-                </ul>
-            </div>
+            <h3>📚 Resumen de Aprendizajes Clave</h3>
+            <p>En esta clase hemos profundizado en los fundamentos teóricos de Scrum, el framework ágil más utilizado mundialmente. Los conceptos clave que hemos abordado incluyen:</p>
+            
+            <ul>
+                <li><strong>Empirismo:</strong> Los tres pilares de transparencia, inspección y adaptación</li>
+                <li><strong>Roles:</strong> Product Owner, Scrum Master y Developers con responsabilidades específicas</li>
+                <li><strong>Eventos:</strong> Cinco eventos time-boxed que proporcionan estructura y oportunidades de inspección</li>
+                <li><strong>Artefactos:</strong> Product Backlog, Sprint Backlog e Incremento con sus compromisos correspondientes</li>
+                <li><strong>Valores:</strong> Compromiso, coraje, foco, apertura y respeto que sustentan el framework</li>
+            </ul>
 
-            <div class="question" role="group">
-                <h4>2. ¿Cuál es la duración máxima recomendada para un Sprint?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) 6 semanas</li>
-                    <li onclick="checkAnswer(this, true)">B) 1 mes (4 semanas)</li>
-                    <li onclick="checkAnswer(this, false)">C) 2 meses</li>
-                    <li onclick="checkAnswer(this, false)">D) No hay límite específico</li>
-                </ul>
-            </div>
-
-            <div class="question" role="group">
-                <h4>3. ¿Quién es responsable de maximizar el valor del producto?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, true)">A) Product Owner</li>
-                    <li onclick="checkAnswer(this, false)">B) Scrum Master</li>
-                    <li onclick="checkAnswer(this, false)">C) Development Team</li>
-                    <li onclick="checkAnswer(this, false)">D) Stakeholders</li>
-                </ul>
-            </div>
-
-            <div class="question" role="group">
-                <h4>4. ¿Cuántos eventos oficiales tiene Scrum?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) 3</li>
-                    <li onclick="checkAnswer(this, false)">B) 4</li>
-                    <li onclick="checkAnswer(this, true)">C) 5</li>
-                    <li onclick="checkAnswer(this, false)">D) 6</li>
-                </ul>
-            </div>
-
-            <div class="question" role="group">
-                <h4>5. ¿Qué artefacto contiene el plan de trabajo para el Sprint actual?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) Product Backlog</li>
-                    <li onclick="checkAnswer(this, true)">B) Sprint Backlog</li>
-                    <li onclick="checkAnswer(this, false)">C) Incremento</li>
-                    <li onclick="checkAnswer(this, false)">D) Definition of Done</li>
-                </ul>
-            </div>
-
-            <div class="question" role="group">
-                <h4>6. ¿Cuál es el time-box máximo para el Daily Scrum?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) 30 minutos</li>
-                    <li onclick="checkAnswer(this, false)">B) 1 hora</li>
-                    <li onclick="checkAnswer(this, true)">C) 15 minutos</li>
-                    <li onclick="checkAnswer(this, false)">D) 45 minutos</li>
-                </ul>
-            </div>
-
-            <div class="question" role="group">
-                <h4>7. ¿Cuál es el propósito principal del Sprint Review?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) Planificar el próximo Sprint</li>
-                    <li onclick="checkAnswer(this, true)">B) Inspeccionar el Incremento y adaptar el Product Backlog</li>
-                    <li onclick="checkAnswer(this, false)">C) Mejorar el proceso del equipo</li>
-                    <li onclick="checkAnswer(this, false)">D) Asignar tareas a los miembros del equipo</li>
-                </ul>
-            </div>
-
-            <div class="question" role="group">
-                <h4>8. ¿Qué caracteriza a un Development Team en Scrum?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) Está dirigido por el Scrum Master</li>
-                    <li onclick="checkAnswer(this, false)">B) Tiene una estructura jerárquica clara</li>
-                    <li onclick="checkAnswer(this, true)">C) Es auto-organizado y cross-funcional</li>
-                    <li onclick="checkAnswer(this, false)">D) Solo incluye desarrolladores de software</li>
-                </ul>
-            </div>
-
-            <div class="question" role="group">
-                <h4>9. ¿Cuál de los siguientes NO es un valor de Scrum?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) Compromiso</li>
-                    <li onclick="checkAnswer(this, false)">B) Coraje</li>
-                    <li onclick="checkAnswer(this, true)">C) Eficiencia</li>
-                    <li onclick="checkAnswer(this, false)">D) Respeto</li>
-                </ul>
-            </div>
-
-            <div class="question" role="group">
-                <h4>10. ¿Qué es la Definition of Done?</h4>
-                <ul class="options">
-                    <li onclick="checkAnswer(this, false)">A) La fecha límite del proyecto</li>
-                    <li onclick="checkAnswer(this, true)">B) Una descripción formal del estado del Incremento cuando cumple las medidas de calidad</li>
-                    <li onclick="checkAnswer(this, false)">C) La lista de tareas completadas en un Sprint</li>
-                    <li onclick="checkAnswer(this, false)">D) El momento en que el Product Owner acepta el trabajo</li>
-                </ul>
-            </div>
-
-            <button class="interactive-button" onclick="showResults()">Ver Resultados</button>
-            <div id="quiz-results" style="margin-top: 20px; display: none;">
-                <h3>Resultados del Quiz</h3>
-                <p id="score-text"></p>
-                <p id="feedback-text"></p>
-            </div>
+            <h3>🔄 Próximas Clases</h3>
+            <p>En las siguientes sesiones profundizaremos en:</p>
+            <ul>
+                <li><strong>Clase 6:</strong> Implementación práctica de Scrum y herramientas</li>
+                <li><strong>Clase 7:</strong> Kanban y métodos Lean</li>
+                <li><strong>Clase 8:</strong> User Stories y Story Mapping</li>
+                <li><strong>Clase 9:</strong> Estimación ágil y métricas</li>
+            </ul>
         </div>
 
-        <!-- Conclusiones -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">🎓 Conclusiones y Próximos Pasos</h2>
-            
-            <div class="text-content">
-                <h3>📚 Resumen de Aprendizajes Clave</h3>
-                <p>En esta clase hemos profundizado en los fundamentos teóricos de Scrum, el framework ágil más utilizado mundialmente. Los conceptos clave que hemos abordado incluyen:</p>
-                
-                <ul role="list">
-                    <li role="listitem"><strong>Empirismo como base:</strong> Scrum se fundamenta en los tres pilares de transparencia, inspección y adaptación</li>
-                    <li role="listitem"><strong>Roles complementarios:</strong> Product Owner, Scrum Master y Development Team trabajan como un Scrum Team cohesivo</li>
-                    <li role="listitem"><strong>Eventos estructurados:</strong> Cada evento tiene un propósito específico y contribuye a la inspección y adaptación</li>
-                    <li role="listitem"><strong>Artefactos transparentes:</strong> Product Backlog, Sprint Backlog e Incremento proporcionan visibilidad del progreso</li>
-                    <li role="listitem"><strong>Valores fundamentales:</strong> Compromiso, coraje, foco, apertura y respeto sustentan todo el framework</li>
-                </ul>
-                
-                <h3>🔗 Conexión con Clases Anteriores</h3>
-                <p>Esta clase se construye sobre los fundamentos establecidos en clases anteriores:</p>
-                <ul role="list">
-                    <li role="listitem"><strong>Metodologías Ágiles (Clase 4):</strong> Scrum es la implementación más popular de los valores y principios ágiles</li>
-                    <li role="listitem"><strong>Desarrollo Iterativo (Clase 3):</strong> Los Sprints son la materialización práctica del desarrollo iterativo e incremental</li>
-                    <li role="listitem"><strong>Ciclos de Vida (Clase 2):</strong> Scrum representa un ciclo de vida adaptativo y flexible</li>
-                </ul>
-                
-                <h3>➡️ Preparación para Próximas Clases</h3>
-                <p>Los conocimientos adquiridos en esta clase son fundamentales para:</p>
-                <ul role="list">
-                    <li role="listitem"><strong>Clase 6 - Kanban:</strong> Comprender las diferencias y similitudes entre frameworks ágiles</li>
-                    <li role="listitem"><strong>Clase 7 - User Stories:</strong> Aprender cómo se gestionan los requisitos en contextos ágiles</li>
-                    <li role="listitem"><strong>Clases de Análisis Orientado a Objetos:</strong> Aplicar principios ágiles en el modelado y análisis</li>
-                </ul>
-                
-                <h3>💼 Aplicación Profesional</h3>
-                <p>Para aplicar efectivamente Scrum en entornos profesionales, es importante:</p>
-                <ul role="list">
-                    <li role="listitem"><strong>Practicar los roles:</strong> Experimentar con diferentes perspectivas dentro del Scrum Team</li>
-                    <li role="listitem"><strong>Dominar las ceremonias:</strong> Facilitar efectivamente cada evento de Scrum</li>
-                    <li role="listitem"><strong>Mantener artefactos actualizados:</strong> Asegurar transparencia en toda la organización</li>
-                    <li role="listitem"><strong>Vivir los valores:</strong> Incorporar los valores de Scrum en las interacciones diarias</li>
-                </ul>
-            </div>
-
-            <div class="highlight-box">
-                <h3>🎯 Actividad de Consolidación</h3>
-                <p><strong>Para la próxima clase:</strong> Selecciona un proyecto personal o académico y diseña cómo aplicarías Scrum. Identifica quién asumiría cada rol, cómo sería tu Product Backlog inicial, y planifica tu primer Sprint. Esto te ayudará a consolidar los conceptos teóricos con aplicación práctica.</p>
-            </div>
-        </div>
-
-        <!-- Bibliografia -->
-        <section class="content-section" role="region">
-            <h2 class="section-title">📖 Bibliografía y Recursos Adicionales</h2>
-            
-            <div class="text-content">
-                <h3>📚 Fuentes Principales</h3>
-                <ul role="list">
-                    <li role="listitem"><strong>Schwaber, K. & Sutherland, J. (2020).</strong> <em>The Scrum Guide - The Definitive Guide to Scrum: The Rules of the Game.</em> Scrum.org</li>
-                    <li role="listitem"><strong>Pressman, R. S. (2010).</strong> <em>Ingeniería del Software: Un enfoque práctico.</em> McGraw-Hill. Capítulo 3: Desarrollo Ágil</li>
-                    <li role="listitem"><strong>Sutherland, J. (2014).</strong> <em>Scrum: The Art of Doing Twice the Work in Half the Time.</em> Crown Business</li>
-                    <li role="listitem"><strong>Cohn, M. (2009).</strong> <em>Succeeding with Agile: Software Development Using Scrum.</em> Addison-Wesley</li>
-                </ul>
-                
-                <h3>🌐 Recursos Online</h3>
-                <ul role="list">
-                    <li role="listitem"><strong>Scrum.org:</strong> Guías oficiales, assessments y recursos de aprendizaje</li>
-                    <li role="listitem"><strong>Scrum Alliance:</strong> Comunidad global de practitioners de Scrum</li>
-                    <li role="listitem"><strong>Agile Manifesto:</strong> Documento fundacional de metodologías ágiles</li>
-                    <li role="listitem"><strong>Mountain Goat Software:</strong> Recursos educativos de Mike Cohn</li>
-                </ul>
-                
-                <h3>🏅 Certificaciones Recomendadas</h3>
-                <ul role="list">
-                    <li role="listitem"><strong>Professional Scrum Master (PSM I):</strong> Scrum.org</li>
-                    <li role="listitem"><strong>Professional Scrum Product Owner (PSPO I):</strong> Scrum.org</li>
-                    <li role="listitem"><strong>Certified ScrumMaster (CSM):</strong> Scrum Alliance</li>
-                    <li role="listitem"><strong>SAFe Scrum Master:</strong> Para entornos enterprise</li>
-                </ul>
-            </div>
+        <div class="quiz-container">
+            <h2>🧠 Quiz Interactivo: Scrum Framework</h2>
+            <div id="quiz"></div>
+            <button onclick="submitQuiz()" style="background: #3498db; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 20px;">Enviar Respuestas</button>
+            <div id="results"></div>
         </div>
     </div>
 
     <script>
-        // Initialize Mermaid
+        const quizData = [
+            {
+                question: "¿Cuáles son los tres pilares del empirismo en Scrum?",
+                options: ["Transparencia, Inspección, Adaptación", "Planificación, Ejecución, Control", "Roles, Eventos, Artefactos", "Compromiso, Coraje, Foco"],
+                correct: 0
+            },
+            {
+                question: "¿Cuántas personas como máximo debe tener un Scrum Team?",
+                options: ["15", "12", "10", "8"],
+                correct: 2
+            },
+            {
+                question: "¿Quién es responsable de maximizar el valor del producto?",
+                options: ["Scrum Master", "Product Owner", "Developers", "Stakeholders"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es la duración máxima del Daily Scrum?",
+                options: ["15 minutos", "30 minutos", "45 minutos", "1 hora"],
+                correct: 0
+            },
+            {
+                question: "¿Cuántos artefactos formales tiene Scrum?",
+                options: ["2", "3", "4", "5"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el compromiso del Product Backlog?",
+                options: ["Sprint Goal", "Definition of Done", "Product Goal", "Sprint Backlog"],
+                correct: 2
+            },
+            {
+                question: "¿Cuántos eventos formales prescribe Scrum?",
+                options: ["4", "5", "6", "7"],
+                correct: 1
+            },
+            {
+                question: "¿Quién decide cómo se realizará el trabajo durante el Sprint?",
+                options: ["Product Owner", "Scrum Master", "Developers", "Stakeholders"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál es la duración máxima recomendada para un Sprint?",
+                options: ["2 semanas", "3 semanas", "1 mes", "6 semanas"],
+                correct: 2
+            },
+            {
+                question: "¿En qué evento se inspecciona el Incremento del producto?",
+                options: ["Sprint Planning", "Daily Scrum", "Sprint Review", "Sprint Retrospective"],
+                correct: 2
+            },
+            {
+                question: "¿Cuál NO es un valor de Scrum?",
+                options: ["Compromiso", "Eficiencia", "Coraje", "Respeto"],
+                correct: 1
+            },
+            {
+                question: "¿Qué característica define a los Developers en Scrum?",
+                options: ["Son especializados", "Son cross-funcionales", "Son jerárquicos", "Son externos"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el propósito del Sprint Retrospective?",
+                options: ["Planificar el siguiente Sprint", "Revisar el producto", "Mejorar la forma de trabajar", "Estimar el trabajo"],
+                correct: 2
+            },
+            {
+                question: "¿Quién puede cancelar un Sprint?",
+                options: ["Scrum Master", "Product Owner", "Developers", "Stakeholders"],
+                correct: 1
+            },
+            {
+                question: "¿Qué es el Sprint Backlog?",
+                options: ["Una lista de tareas", "Un plan para el Sprint", "Un documento de requisitos", "Una métrica de progreso"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es la principal responsabilidad del Scrum Master?",
+                options: ["Gestionar el equipo", "Establecer Scrum según la Scrum Guide", "Tomar decisiones técnicas", "Comunicarse con stakeholders"],
+                correct: 1
+            },
+            {
+                question: "¿Qué debe suceder si un Product Backlog Item no cumple la Definition of Done?",
+                options: ["Se incluye en el Sprint Review", "No se incluye en el Incremento", "Se documenta para después", "Se entrega parcialmente"],
+                correct: 1
+            },
+            {
+                question: "¿Cuándo se debe refinar el Product Backlog?",
+                options: ["Solo en Sprint Planning", "Solo en Sprint Review", "Durante todo el Sprint", "Al final del Sprint"],
+                correct: 2
+            },
+            {
+                question: "¿Qué establece la Definition of Done?",
+                options: ["Los criterios de aceptación", "La calidad mínima del Incremento", "Los roles del equipo", "La duración del Sprint"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál es el enfoque principal de Scrum para manejar la complejidad?",
+                options: ["Documentación detallada", "Planificación exhaustiva", "Empirismo", "Jerarquías claras"],
+                correct: 2
+            }
+        ];
+
+        let currentQuestions = [];
+        let userAnswers = [];
+
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+
+        function loadQuiz() {
+            currentQuestions = shuffleArray(quizData).slice(0, 20);
+            const quizContainer = document.getElementById('quiz');
+            
+            quizContainer.innerHTML = currentQuestions.map((q, index) => `
+                <div class="question">
+                    <h4>Pregunta ${index + 1}: ${q.question}</h4>
+                    <div class="options">
+                        ${q.options.map((option, optIndex) => `
+                            <div class="option" onclick="selectOption(${index}, ${optIndex})">
+                                ${String.fromCharCode(65 + optIndex)}) ${option}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+            
+            userAnswers = new Array(currentQuestions.length).fill(-1);
+        }
+
+        function selectOption(questionIndex, optionIndex) {
+            userAnswers[questionIndex] = optionIndex;
+            
+            // Actualizar visualización
+            const questionDiv = document.querySelectorAll('.question')[questionIndex];
+            const options = questionDiv.querySelectorAll('.option');
+            
+            options.forEach((option, index) => {
+                option.classList.remove('selected');
+                if (index === optionIndex) {
+                    option.classList.add('selected');
+                }
+            });
+        }
+
+        function submitQuiz() {
+            let correct = 0;
+            let incorrect = 0;
+            let unanswered = 0;
+
+            currentQuestions.forEach((question, index) => {
+                if (userAnswers[index] === -1) {
+                    unanswered++;
+                } else if (userAnswers[index] === question.correct) {
+                    correct++;
+                } else {
+                    incorrect++;
+                }
+            });
+
+            const total = currentQuestions.length;
+            const percentage = Math.round((correct / total) * 100);
+
+            // Crear gráfico de pastel
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = `
+                <h3>Resultados del Quiz</h3>
+                <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 300px;">
+                        <div id="pie-chart"></div>
+                    </div>
+                    <div style="flex: 1; min-width: 200px; padding: 20px;">
+                        <h4>Resumen:</h4>
+                        <p><strong>Correctas:</strong> ${correct}/${total} (${percentage}%)</p>
+                        <p><strong>Incorrectas:</strong> ${incorrect}</p>
+                        <p><strong>Sin responder:</strong> ${unanswered}</p>
+                        <p><strong>Nota:</strong> ${getGrade(percentage)}</p>
+                    </div>
+                </div>
+            `;
+
+            createPieChart(correct, incorrect, unanswered);
+        }
+
+        function createPieChart(correct, incorrect, unanswered) {
+            const total = correct + incorrect + unanswered;
+            const correctPercent = (correct / total) * 100;
+            const incorrectPercent = (incorrect / total) * 100;
+            const unansweredPercent = (unanswered / total) * 100;
+
+            let cumulativePercent = 0;
+            
+            function getCoordinatesForPercent(percent) {
+                const x = Math.cos(2 * Math.PI * percent);
+                const y = Math.sin(2 * Math.PI * percent);
+                return [x, y];
+            }
+
+            function createArc(percent, cumulativePercent) {
+                const [startX, startY] = getCoordinatesForPercent(cumulativePercent);
+                const [endX, endY] = getCoordinatesForPercent(cumulativePercent + percent);
+                const largeArcFlag = percent > 0.5 ? 1 : 0;
+                
+                return `M 0 0 L ${startX} ${startY} A 1 1 0 ${largeArcFlag} 1 ${endX} ${endY} Z`;
+            }
+
+            const correctPath = createArc(correctPercent / 100, 0);
+            cumulativePercent += correctPercent / 100;
+            
+            const incorrectPath = createArc(incorrectPercent / 100, cumulativePercent);
+            cumulativePercent += incorrectPercent / 100;
+            
+            const unansweredPath = createArc(unansweredPercent / 100, cumulativePercent);
+
+            const svg = `
+                <svg viewBox="-1 -1 2 2" style="width: 300px; height: 300px; transform: rotate(-90deg);">
+                    <path d="${correctPath}" fill="#27ae60"></path>
+                    <path d="${incorrectPath}" fill="#e74c3c"></path>
+                    <path d="${unansweredPath}" fill="#95a5a6"></path>
+                </svg>
+                <div style="margin-top: 20px;">
+                    <div style="display: inline-block; margin: 5px;"><span style="color: #27ae60;">●</span> Correctas</div>
+                    <div style="display: inline-block; margin: 5px;"><span style="color: #e74c3c;">●</span> Incorrectas</div>
+                    <div style="display: inline-block; margin: 5px;"><span style="color: #95a5a6;">●</span> Sin responder</div>
+                </div>
+            `;
+
+            document.getElementById('pie-chart').innerHTML = svg;
+        }
+
+        function getGrade(percentage) {
+            if (percentage >= 90) return "Excelente";
+            if (percentage >= 80) return "Muy Bueno";
+            if (percentage >= 70) return "Bueno";
+            if (percentage >= 60) return "Suficiente";
+            return "Insuficiente";
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const btn = document.querySelector('.toggle-btn');
+            if (document.body.classList.contains('dark-mode')) {
+                btn.textContent = '☀️';
+            } else {
+                btn.textContent = '🌓';
+            }
+        }
+
+        // Inicializar Mermaid
         mermaid.initialize({ 
             startOnLoad: true,
             theme: 'default',
-            themeVariables: {
-                primaryColor: '#4fc3f7',
-                primaryTextColor: '#2c3e50',
-                primaryBorderColor: '#29b6f6',
-                lineColor: '#34495e',
-                secondaryColor: '#e8f5e8',
-                tertiaryColor: '#fff3cd'
-            }
+            securityLevel: 'loose'
         });
 
-        // Quiz functionality
-        let score = 0;
-        let totalQuestions = 10;
-        let answeredQuestions = 0;
-
-        function checkAnswer(element, isCorrect) {
-            const options = element.parentElement.children;
-            
-            // Disable all options in this question
-            for (let option of options) {
-                option.style.pointerEvents = 'none';
-                if (option === element) {
-                    if (isCorrect) {
-                        option.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
-                        option.style.borderColor = '#4caf50';
-                        score++;
-                    } else {
-                        option.style.backgroundColor = 'rgba(244, 67, 54, 0.3)';
-                        option.style.borderColor = '#f44336';
-                    }
-                } else if (option.onclick.toString().includes('true')) {
-                    option.style.backgroundColor = 'rgba(76, 175, 80, 0.3)';
-                    option.style.borderColor = '#4caf50';
-                }
-            }
-            
-            answeredQuestions++;
-        }
-
-        function showResults() {
-            if (answeredQuestions < totalQuestions) {
-                alert(`Por favor responde todas las preguntas. Has respondido ${answeredQuestions} de ${totalQuestions}.`);
-                return;
-            }
-
-            const percentage = (score / totalQuestions) * 100;
-            const resultsDiv = document.getElementById('quiz-results');
-            const scoreText = document.getElementById('score-text');
-            const feedbackText = document.getElementById('feedback-text');
-
-            scoreText.textContent = `Tu puntuación: ${score}/${totalQuestions} (${percentage.toFixed(1)}%)`;
-
-            if (percentage >= 90) {
-                feedbackText.textContent = "¡Excelente! Dominas muy bien los conceptos fundamentales de Scrum.";
-                feedbackText.style.color = '#4caf50';
-            } else if (percentage >= 70) {
-                feedbackText.textContent = "¡Bien! Tienes una buena comprensión de Scrum. Revisa los temas donde tuviste dificultades.";
-                feedbackText.style.color = '#ff9800';
-            } else {
-                feedbackText.textContent = "Necesitas repasar los conceptos fundamentales de Scrum. Te recomendamos revisar la clase nuevamente.";
-                feedbackText.style.color = '#f44336';
-            }
-
-            resultsDiv.style.display = 'block';
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Add interactive animations
-        document.addEventListener('DOMContentLoaded', function() {
-            // Animate principle cards on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                    }
-                });
-            }, observerOptions);
-
-            // Observe all principle cards and role cards
-            document.querySelectorAll('.principle-card, .role-card').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px)';
-                card.style.transition = 'all 0.6s ease';
-                observer.observe(card);
-            });
-
-            // Add click interactions to interactive elements
-            document.querySelectorAll('.interactive-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    this.style.transform = 'scale(0.95)';
-                    setTimeout(() => {
-                        this.style.transform = 'scale(1)';
-                    }, 150);
-                });
-            });
-        });
+        // Cargar quiz al iniciar
+        document.addEventListener('DOMContentLoaded', loadQuiz);
     </script>
-    <script src="keyboard-navigation.js"></script>
 </body>
 </html>

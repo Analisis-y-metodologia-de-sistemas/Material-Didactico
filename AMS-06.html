@@ -3,11 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clase 6: Kanban - Teoría y Principios | Análisis y Metodología de Sistemas</title>
-    <meta name="description" content="Curso de Análisis y Metodología de Sistemas - Material educativo para estudiantes de Tecnicatura Superior en Análisis de Sistemas">
-    <meta name="author" content="Curso AMS HTML">
-    <meta name="keywords" content="análisis de sistemas, metodologías de desarrollo, ingeniería de software, sistemas de información">
+    <title>AMS - Clase 6: Kanban - Teoría y Principios</title>
+    <meta name="description" content="Metodología Kanban: principios fundamentales, implementación de tableros, métricas de flujo y mejora continua">
+    <meta name="keywords" content="kanban, metodologías ágiles, WIP, flujo continuo, toyota, análisis sistemas">
+    <meta name="author" content="Curso AMS">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
     <style>
+        :root {
+            /* Colores principales */
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --info-color: #17a2b8;
+            
+            /* Sistema de colores para modo claro */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --bg-card: rgba(255, 255, 255, 0.95);
+            --text-primary: #2c3e50;
+            --text-secondary: #6c757d;
+            --border-color: #dee2e6;
+            --shadow: rgba(0, 0, 0, 0.1);
+            
+            /* Gradientes */
+            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-secondary: linear-gradient(45deg, #3498db, #2980b9);
+        }
+        
+        [data-theme="dark"] {
+            /* Sistema de colores para modo oscuro */
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d3748;
+            --bg-card: rgba(26, 26, 26, 0.95);
+            --text-primary: #ffffff;
+            --text-secondary: #a0aec0;
+            --border-color: #4a5568;
+            --shadow: rgba(0, 0, 0, 0.3);
+            
+            /* Gradientes modo oscuro */
+            --gradient-primary: linear-gradient(135deg, #232526 0%, #414345 100%);
+            --gradient-secondary: linear-gradient(45deg, #2c3e50, #34495e);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -17,1694 +56,1267 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 20px;
+            color: var(--text-primary);
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            transition: all 0.3s ease;
         }
 
+        /* Botón de tema */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-card);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* Contenedor principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-            overflow: hidden;
+            padding: 20px;
+            position: relative;
         }
 
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+        /* Header del curso */
+        .course-header {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
             padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
             text-align: center;
+            border: 1px solid var(--border-color);
         }
 
-        .header h1 {
-            font-size: 2.5rem;
+        .course-title {
+            font-size: 2.5em;
+            color: var(--primary-color);
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px var(--shadow);
         }
 
-        .header .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
+        .course-subtitle {
+            font-size: 1.2em;
+            color: var(--text-secondary);
             margin-bottom: 20px;
         }
 
-        .header .metadata {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .content {
-            padding: 40px;
-        }
-
-        .section {
-            margin-bottom: 50px;
-        }
-
-        .section h2 {
-            color: #4a5568;
-            font-size: 2rem;
-            margin-bottom: 25px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
-            position: relative;
-        }
-
-        .section h3 {
-            color: #2d3748;
-            font-size: 1.5rem;
-            margin: 30px 0 20px 0;
-            padding-left: 15px;
-            border-left: 4px solid #9f7aea;
-        }
-
-        .section h4 {
-            color: #4a5568;
-            font-size: 1.2rem;
-            margin: 20px 0 15px 0;
-            font-weight: 600;
-        }
-
-        .content-block {
-            background: #f8fafc;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border-left: 5px solid #667eea;
-        }
-
-        .highlight-box {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 1px solid #f6ad55;
-        }
-
-        .definition-box {
-            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 1px solid #d69e2e;
-        }
-
-        .example-box {
-            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
-            border: 1px solid #4fd1c7;
-        }
-
-        .diagram-container {
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .diagram-title {
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: #4a5568;
-            font-size: 1.1rem;
-        }
-
-        .kanban-board {
-            display: flex;
+        .course-meta {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin: 30px 0;
+            margin-top: 30px;
+        }
+
+        .meta-card {
+            background: var(--gradient-secondary);
+            color: white;
             padding: 20px;
-            background: #f7fafc;
-            border-radius: 10px;
-            overflow-x: auto;
-        }
-
-        .kanban-column {
-            min-width: 250px;
-            background: white;
-            border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .column-header {
-            background: #667eea;
-            color: white;
-            padding: 10px;
-            border-radius: 5px;
+            border-radius: 15px;
             text-align: center;
-            font-weight: bold;
-            margin-bottom: 15px;
-            position: relative;
+            border: 1px solid var(--border-color);
         }
 
-        .wip-limit {
-            position: absolute;
-            top: -8px;
-            right: -8px;
-            background: #e53e3e;
-            color: white;
-            border-radius: 50%;
-            width: 25px;
-            height: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
-
-        .kanban-card {
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 5px;
-            padding: 10px;
+        .meta-card h4 {
             margin-bottom: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            cursor: pointer;
+            font-size: 1.1em;
         }
 
-        .kanban-card:hover {
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-secondary);
+            border-radius: 4px;
+            margin-top: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success-color);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
+        /* Secciones de contenido */
+        .content-section {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .content-section:hover {
             transform: translateY(-2px);
         }
 
-        .card-priority {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: bold;
-            margin-bottom: 5px;
+        .section-title {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary-color);
+            color: var(--text-primary);
         }
 
-        .priority-high { background: #fed7d7; color: #c53030; }
-        .priority-medium { background: #feebc8; color: #dd6b20; }
-        .priority-low { background: #c6f6d5; color: #2f855a; }
-
-        .flow-diagram {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin: 30px 0;
-            padding: 20px;
-            background: #f7fafc;
-            border-radius: 10px;
+        .section-title::before {
+            margin-right: 10px;
         }
 
-        .flow-step {
-            background: white;
-            padding: 15px 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            text-align: center;
-            min-width: 120px;
-        }
-
-        .flow-arrow {
-            font-size: 2rem;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .principles-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .principle-card {
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-top: 4px solid #667eea;
-        }
-
-        .principle-number {
-            background: #667eea;
+        /* Objetivos de aprendizaje */
+        .objectives {
+            background: linear-gradient(45deg, var(--success-color), #2ecc71);
             color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+        }
+
+        .objectives h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .objectives li {
+            background: rgba(255, 255, 255, 0.1);
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Cajas de contenido */
+        .content-box {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid var(--secondary-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .content-box.warning {
+            border-left-color: var(--warning-color);
+            background: rgba(243, 156, 18, 0.1);
+        }
+
+        .content-box.info {
+            border-left-color: var(--info-color);
+            background: rgba(23, 162, 184, 0.1);
+        }
+
+        .content-box.success {
+            border-left-color: var(--success-color);
+            background: rgba(39, 174, 96, 0.1);
+        }
+
+        /* Diagramas */
+        .diagram-container {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .diagram-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+
+        /* Kanban específico */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            background: var(--bg-secondary);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .kanban-column {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+            min-height: 300px;
+            border: 1px solid var(--border-color);
+        }
+
+        .kanban-header {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
             font-weight: bold;
             margin-bottom: 15px;
         }
 
-        .metrics-dashboard {
+        .kanban-card {
+            background: #fff3cd;
+            border: 1px solid var(--warning-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .kanban-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .wip-limit {
+            background: var(--accent-color);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+
+        /* Métricas */
+        .metrics-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 20px;
-            margin: 30px 0;
+            margin: 20px 0;
         }
 
         .metric-card {
-            background: white;
+            background: var(--bg-card);
+            border-radius: 15px;
             padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             text-align: center;
-            border-top: 4px solid #9f7aea;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary-color);
         }
 
         .metric-value {
-            font-size: 2rem;
+            font-size: 2em;
             font-weight: bold;
-            color: #667eea;
+            color: var(--secondary-color);
             margin: 10px 0;
         }
 
         .metric-label {
-            color: #718096;
-            font-size: 0.9rem;
+            color: var(--text-secondary);
+            font-size: 0.9em;
         }
 
+        /* Comparación */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 30px 0;
-            background: white;
-            border-radius: 10px;
+            margin: 20px 0;
+            background: var(--bg-card);
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .comparison-table th {
-            background: #667eea;
+            background: var(--gradient-secondary);
             color: white;
-            padding: 15px;
-            text-align: left;
-            font-weight: 600;
-        }
-
-        .comparison-table td {
-            padding: 15px;
-            border-bottom: 1px solid #e2e8f0;
+            font-weight: bold;
         }
 
         .comparison-table tr:nth-child(even) {
-            background: #f8fafc;
+            background: var(--bg-secondary);
         }
 
-        .timeline {
-            position: relative;
+        /* Quiz */
+        .quiz-container {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 40px;
             margin: 30px 0;
-            padding: 20px 0;
+            border: 1px solid var(--border-color);
         }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: #667eea;
-            transform: translateX(-50%);
-        }
-
-        .timeline-item {
-            position: relative;
+        .quiz-container h2 {
+            color: var(--primary-color);
             margin-bottom: 30px;
-            width: 45%;
-        }
-
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            text-align: right;
-            padding-right: 30px;
-        }
-
-        .timeline-item:nth-child(even) {
-            left: 55%;
-            text-align: left;
-            padding-left: 30px;
-        }
-
-        .timeline-marker {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #667eea;
-            border-radius: 50%;
-            border: 4px solid white;
-            box-shadow: 0 0 0 4px #667eea;
-        }
-
-        .timeline-item:nth-child(odd) .timeline-marker {
-            right: -10px;
-        }
-
-        .timeline-item:nth-child(even) .timeline-marker {
-            left: -10px;
-        }
-
-        .timeline-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-
-        .quiz-section {
-            background: #f7fafc;
-            padding: 30px;
-            border-radius: 10px;
-            margin-top: 40px;
-        }
-
-        .quiz-question {
-            background: white;
-            padding: 20px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-        }
-
-        .quiz-options {
-            list-style: none;
-            margin: 15px 0;
-        }
-
-        .quiz-options li {
-            margin: 8px 0;
-            padding: 10px;
-            background: #f8fafc;
-            border-radius: 5px;
-            cursor: pointer;
-            border: 1px solid #e2e8f0;
-        }
-
-        .quiz-options li:hover {
-            background: #e6fffa;
-            border-color: #4fd1c7;
-        }
-
-        .key-terms {
-            background: linear-gradient(135deg, #e6fffa 0%, #d6f5ff 100%);
-            padding: 25px;
-            border-radius: 10px;
-            margin: 30px 0;
-        }
-
-        .terms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .term-item {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #4fd1c7;
-        }
-
-        .term-name {
-            font-weight: bold;
-            color: #2d3748;
-            margin-bottom: 5px;
-        }
-
-        .term-definition {
-            color: #718096;
-            font-size: 0.9rem;
-        }
-
-        .text-justify {
-            text-align: justify;
-        }
-
-        .text-center {
             text-align: center;
         }
 
-        .text-bold {
-            font-weight: bold;
+        .question {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid var(--secondary-color);
+            border: 1px solid var(--border-color);
         }
 
-        .text-italic {
-            font-style: italic;
+        .question h4 {
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.1em;
         }
 
-        .list-styled {
-            padding-left: 20px;
-            margin: 15px 0;
+        .options {
+            list-style: none;
+            padding: 0;
         }
 
-        .list-styled li {
+        .options li {
+            background: var(--bg-card);
             margin: 8px 0;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
+        .options li:hover {
+            background: var(--secondary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .options li.selected {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .options li.correct {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .options li.incorrect {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        /* Resultados del quiz */
+        .quiz-results {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid var(--border-color);
+            display: none;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+
+        .score-excellent { background: var(--success-color); }
+        .score-good { background: var(--info-color); }
+        .score-fair { background: var(--warning-color); }
+        .score-poor { background: var(--accent-color); }
+
+        /* Botones */
+        .btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        .btn-primary { background: var(--secondary-color); }
+        .btn-success { background: var(--success-color); }
+        .btn-warning { background: var(--warning-color); }
+        .btn-danger { background: var(--accent-color); }
+
+        /* Responsive */
         @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .course-title {
+                font-size: 2em;
+            }
+            
             .kanban-board {
-                flex-direction: column;
+                grid-template-columns: 1fr;
             }
             
-            .flow-diagram {
-                flex-direction: column;
-                gap: 20px;
+            .metrics-grid {
+                grid-template-columns: 1fr;
             }
-            
-            .flow-arrow {
-                transform: rotate(90deg);
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
             }
-            
-            .timeline::before {
-                left: 30px;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
-            
-            .timeline-item {
-                width: calc(100% - 60px);
-                left: 60px !important;
-                text-align: left !important;
-                padding-left: 20px !important;
-                padding-right: 0 !important;
-            }
-            
-            .timeline-marker {
-                left: -10px !important;
-                right: auto !important;
-            }
+        }
+
+        .content-section {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        /* Accesibilidad */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Focus states */
+        button:focus,
+        .options li:focus {
+            outline: 2px solid var(--secondary-color);
+            outline-offset: 2px;
         }
     </style>
-    <link rel="stylesheet" href="accessibility.css">
 </head>
-<body role="document">
-    <div class="container" role="main">
-        <header class="header">
-            <h1 id="main-title">Clase 6: Kanban - Teoría y Principios</h1>
-            <div class="subtitle">Análisis y Metodología de Sistemas</div>
-            <div class="metadata">
-                <span>📅 Semana 6</span>
-                <span>⏱️ 2 horas</span>
-                <span>🎯 Unidad 2</span>
-                <span>📚 5000 palabras</span>
+<body>
+    <!-- Botón cambio de tema -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
+        <span id="theme-icon">🌓</span>
+    </button>
+
+    <div class="container">
+        <!-- Header del curso -->
+        <header class="course-header">
+            <h1 class="course-title">📋 Clase 6: Kanban - Teoría y Principios</h1>
+            <p class="course-subtitle">Metodología de flujo continuo para optimización de procesos de desarrollo</p>
+            
+            <div class="course-meta">
+                <div class="meta-card">
+                    <h4>📚 Curso</h4>
+                    <p>Análisis y Metodología de Sistemas</p>
+                </div>
+                <div class="meta-card">
+                    <h4>📊 Progreso</h4>
+                    <p>Clase 6 de 16</p>
+                </div>
+                <div class="meta-card">
+                    <h4>⏱️ Duración</h4>
+                    <p>3 horas académicas</p>
+                </div>
+                <div class="meta-card">
+                    <h4>🎯 Nivel</h4>
+                    <p>Intermedio</p>
+                </div>
+            </div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 37.5%"></div>
             </div>
         </header>
 
-        <div class="content">
-            <!-- Introducción -->
-            <section class="section">
-                <h2 id="objectives-title">🎯 Objetivos de Aprendizaje</h2>
-                <div class="content-block">
-                    <h4>Al finalizar esta clase, los estudiantes serán capaces de:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Comprender</strong> los principios fundamentales de Kanban y su origen en el Sistema de Producción Toyota</li>
-                        <li role="listitem"><strong>Analizar</strong> las diferencias conceptuales y prácticas entre Kanban y Scrum como metodologías ágiles</li>
-                        <li role="listitem"><strong>Implementar</strong> un tablero Kanban básico con límites WIP apropiados para un proyecto de software</li>
-                        <li role="listitem"><strong>Evaluar</strong> métricas de flujo como Lead Time, Cycle Time y Throughput para optimizar procesos</li>
-                        <li role="listitem"><strong>Aplicar</strong> la Ley de Little para entender la relación entre WIP, throughput y tiempo de entrega</li>
-                        <li role="listitem"><strong>Diseñar</strong> estrategias de mejora continua basadas en el análisis de flujo de valor</li>
-                    </ul>
-                </div>
-            </section>
+        <!-- Objetivos de aprendizaje -->
+        <section class="objectives">
+            <h2>🎯 Objetivos de Aprendizaje</h2>
+            <ul>
+                <li><strong>Comprender</strong> los principios fundamentales de Kanban y su origen en el Sistema de Producción Toyota</li>
+                <li><strong>Analizar</strong> las diferencias conceptuales y prácticas entre Kanban y Scrum como metodologías ágiles</li>
+                <li><strong>Implementar</strong> un tablero Kanban básico con límites WIP apropiados para un proyecto de software</li>
+                <li><strong>Evaluar</strong> métricas de flujo como Lead Time, Cycle Time y Throughput para optimizar procesos</li>
+                <li><strong>Aplicar</strong> la Ley de Little para entender la relación entre WIP, throughput y tiempo de entrega</li>
+                <li><strong>Diseñar</strong> estrategias de mejora continua basadas en el análisis de flujo de valor</li>
+            </ul>
+        </section>
 
-            <!-- Orígenes e Historia -->
-            <section class="section">
-                <h2>🏭 Orígenes y Fundamentos Históricos</h2>
+        <!-- Contenido principal -->
+        <section class="content-section">
+            <h2 class="section-title">🏭 1. Orígenes y Fundamentos Históricos</h2>
+            
+            <div class="content-box info">
+                <h3>📋 Sistema de Producción Toyota (TPS)</h3>
+                <p>Kanban tiene sus raíces en el Sistema de Producción Toyota, desarrollado después de la Segunda Guerra Mundial por Taiichi Ohno. El término "Kanban" (看板) significa literalmente "tarjeta visual" o "tablero" en japonés.</p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🏗️ Evolución de Kanban: De la Manufactura al Software</div>
+                <div class="mermaid">
+                    timeline
+                        title Historia de Kanban
+                        
+                        1950s : Sistema Toyota
+                               : Tarjetas físicas
+                               : Control de inventario
+                        
+                        1960s : Expansión industrial
+                               : Lean Manufacturing
+                               : Just-in-Time
+                        
+                        2004  : David Anderson
+                               : Kanban para software
+                               : Microsoft IT
+                        
+                        2010+ : Método Kanban
+                               : Comunidad global
+                               : Escalado empresarial
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🔑 Principios Fundamentales del TPS</h3>
+                <ul>
+                    <li><strong>Just-in-Time (JIT):</strong> Producir solo lo necesario, cuando es necesario</li>
+                    <li><strong>Jidoka:</strong> Detener la producción cuando se detecta un problema</li>
+                    <li><strong>Mejora Continua (Kaizen):</strong> Optimización constante de procesos</li>
+                    <li><strong>Respeto por las personas:</strong> Valorar el conocimiento y experiencia del equipo</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🎯 2. Principios Fundamentales de Kanban</h2>
+            
+            <div class="content-box success">
+                <h3>📜 Los 6 Principios de Kanban</h3>
                 
-                <h3>El Sistema de Producción Toyota (TPS)</h3>
-                <div class="content-block">
-                    <p class="text-justify">El método Kanban tiene sus raíces en el <strong>Sistema de Producción Toyota (Toyota Production System - TPS)</strong>, desarrollado en las décadas de 1940 y 1950 por ingenieros como Taiichi Ohno y Shigeo Shingo. La palabra japonesa "Kanban" significa literalmente "tarjeta visual" o "señal", y surgió como una respuesta innovadora a los desafíos de producción que enfrentaba Toyota en el período posterior a la Segunda Guerra Mundial.</p>
-                    
-                    <p class="text-justify">En aquella época, Toyota enfrentaba serios problemas en su cadena de producción de automóviles. Los síntomas incluían materiales faltantes en algunas líneas mientras que en otras había excesos que se vencían o desperdiciaban, espacios de almacenamiento subutilizados que generaban costos innecesarios, y desincronización entre la demanda real del mercado y la producción planificada. Esta desalineación generaba ineficiencias significativas que impactaban tanto en los costos como en la calidad del producto final.</p>
-                </div>
+                <h4>Principios de Gestión del Cambio:</h4>
+                <ol>
+                    <li><strong>Comenzar con lo que haces ahora:</strong> No requiere cambios dramáticos iniciales</li>
+                    <li><strong>Acordar perseguir el cambio incremental y evolutivo:</strong> Mejoras pequeñas y continuas</li>
+                    <li><strong>Respetar los procesos, roles y responsabilidades actuales:</strong> Evolución, no revolución</li>
+                </ol>
 
-                <div class="definition-box">
-                    <h4>📋 Definición Fundamental</h4>
-                    <p><strong>Kanban</strong> es un método para gestionar el trabajo intelectual que hace énfasis en la entrega <em>just-in-time</em> (justo a tiempo), optimizando el balance de las cargas de trabajo entre diferentes áreas y equipos, y manteniendo un flujo continuo y predecible de valor hacia el cliente.</p>
-                </div>
+                <h4>Principios de Prestación de Servicios:</h4>
+                <ol start="4">
+                    <li><strong>Enfocarse en las necesidades y expectativas del cliente:</strong> Valor desde la perspectiva del usuario</li>
+                    <li><strong>Gestionar el trabajo, no los trabajadores:</strong> Optimizar el flujo, no controlar personas</li>
+                    <li><strong>Evolucionar regularmente:</strong> Adaptación continua basada en retroalimentación</li>
+                </ol>
+            </div>
 
-                <h3>Principios del Lean Manufacturing</h3>
-                <div class="content-block">
-                    <p class="text-justify">El desarrollo de Kanban está íntimamente ligado a los principios del <strong>Lean Manufacturing</strong>, una filosofía de producción que busca maximizar el valor para el cliente mientras minimiza el desperdicio (muda en japonés). Los siete desperdicios identificados en Lean son:</p>
-                    
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Sobreproducción:</strong> Producir más de lo que el cliente demanda</li>
-                        <li role="listitem"><strong>Esperas:</strong> Tiempo improductivo entre procesos</li>
-                        <li role="listitem"><strong>Transporte innecesario:</strong> Movimiento excesivo de materiales</li>
-                        <li role="listitem"><strong>Sobreprocesamiento:</strong> Esfuerzo que no agrega valor al cliente</li>
-                        <li role="listitem"><strong>Inventario excesivo:</strong> Almacenamiento de materiales no necesarios</li>
-                        <li role="listitem"><strong>Movimientos innecesarios:</strong> Actividades que no contribuyen al producto</li>
-                        <li role="listitem"><strong>Defectos:</strong> Errores que requieren retrabajo</li>
-                    </ul>
+            <div class="diagram-container">
+                <div class="diagram-title">🔄 Flujo de Valor en Kanban</div>
+                <div class="mermaid">
+                    flowchart LR
+                        A[Backlog] --> B[To Do]
+                        B --> C[In Progress]
+                        C --> D[Review]
+                        D --> E[Done]
+                        
+                        F[WIP: 3] --> C
+                        G[WIP: 2] --> D
+                        
+                        H[Pull Signal] --> B
+                        I[Pull Signal] --> C
+                        J[Pull Signal] --> D
+                        
+                        style C fill:#ffd700
+                        style D fill:#87ceeb
+                        style E fill:#90ee90
                 </div>
+            </div>
 
-                <div class="timeline">
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>1940s - Orígenes en Toyota</h4>
-                            <p>Taiichi Ohno desarrolla los primeros conceptos de pull system y just-in-time en las líneas de producción de Toyota.</p>
-                        </div>
+            <div class="content-box warning">
+                <h3>⚠️ Limitaciones de WIP (Work in Progress)</h3>
+                <p>El concepto central de Kanban es limitar el trabajo en progreso para:</p>
+                <ul>
+                    <li>Reducir el tiempo de entrega (Lead Time)</li>
+                    <li>Mejorar la calidad del trabajo</li>
+                    <li>Identificar cuellos de botella</li>
+                    <li>Fomentar la colaboración del equipo</li>
+                    <li>Reducir el contexto switching</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">📋 3. Implementación del Tablero Kanban</h2>
+            
+            <div class="kanban-board">
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        📥 Backlog
                     </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>1950s - Sistematización</h4>
-                            <p>Se formaliza el uso de tarjetas Kanban para controlar el flujo de materiales entre estaciones de trabajo.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>1980s - Expansión Global</h4>
-                            <p>Los principios Lean y Kanban se extienden a otras industrias manufactureras fuera de Japón.</p>
-                        </div>
-                    </div>
-                    <div class="timeline-item">
-                        <div class="timeline-marker"></div>
-                        <div class="timeline-content">
-                            <h4>2004 - Kanban en Software</h4>
-                            <p>David J. Anderson adapta Kanban para el desarrollo de software en Microsoft, marcando el inicio de Kanban digital.</p>
-                        </div>
-                    </div>
+                    <div class="kanban-card">Implementar login</div>
+                    <div class="kanban-card">Diseñar dashboard</div>
+                    <div class="kanban-card">API de usuarios</div>
+                    <div class="kanban-card">Tests unitarios</div>
                 </div>
-            </section>
-
-            <!-- Principios Fundamentales -->
-            <section class="section">
-                <h2>🎯 Principios Fundamentales de Kanban</h2>
                 
-                <p class="text-justify">El método Kanban se sustenta en seis principios fundamentales que David J. Anderson formalizó para su aplicación en el desarrollo de software. Estos principios actúan como guías para la implementación exitosa y la mejora continua del sistema.</p>
-
-                <div class="principles-grid">
-                    <div class="principle-card">
-                        <div class="principle-number">1</div>
-                        <h4>Comenzar con lo que se hace ahora</h4>
-                        <p class="text-justify">Kanban respeta los procesos, roles y responsabilidades actuales. No requiere cambios organizacionales dramáticos para su implementación inicial. Se enfoca en hacer visible el trabajo actual y mejorarlo incrementalmente.</p>
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        📋 To Do <span class="wip-limit">5</span>
                     </div>
-                    
-                    <div class="principle-card">
-                        <div class="principle-number">2</div>
-                        <h4>Perseguir el cambio incremental y evolutivo</h4>
-                        <p class="text-justify">Los cambios se implementan de manera gradual y sostenible. Se busca la mejora continua (kaizen) a través de pequeños ajustes basados en datos y retroalimentación, evitando disrupciones masivas.</p>
-                    </div>
-                    
-                    <div class="principle-card">
-                        <div class="principle-number">3</div>
-                        <h4>Respetar el proceso actual, roles y responsabilidades</h4>
-                        <p class="text-justify">Kanban no prescribe roles específicos ni reorganizaciones estructurales. Trabaja con la organización existente, empoderando a las personas en sus posiciones actuales para tomar decisiones informadas.</p>
-                    </div>
-                    
-                    <div class="principle-card">
-                        <div class="principle-number">4</div>
-                        <h4>Fomentar el liderazgo en todos los niveles</h4>
-                        <p class="text-justify">Promueve que todos los miembros del equipo, independientemente de su jerarquía, tomen ownership de sus tareas y contribuyan activamente a la mejora del flujo de trabajo y la calidad del producto.</p>
-                    </div>
-                    
-                    <div class="principle-card">
-                        <div class="principle-number">5</div>
-                        <h4>Visualizar el flujo de trabajo</h4>
-                        <p class="text-justify">Hacer visible todo el trabajo, desde la conceptualización hasta la entrega, permite identificar cuellos de botella, dependencias y oportunidades de mejora de manera transparente.</p>
-                    </div>
-                    
-                    <div class="principle-card">
-                        <div class="principle-number">6</div>
-                        <h4>Limitar el trabajo en progreso (WIP)</h4>
-                        <p class="text-justify">Establecer límites en la cantidad de trabajo que puede estar activo simultáneamente ayuda a mantener el foco, reducir el multitasking y mejorar el tiempo de entrega.</p>
-                    </div>
+                    <div class="kanban-card">Validación de formularios</div>
+                    <div class="kanban-card">Integración BD</div>
+                    <div class="kanban-card">Responsive design</div>
                 </div>
-
-                <h3>Prácticas Centrales de Kanban</h3>
-                <div class="content-block">
-                    <p class="text-justify">Además de los principios fundamentales, Kanban se implementa a través de seis prácticas centrales que proporcionan un marco operativo concreto:</p>
-                    
-                    <h4>1. Visualizar el flujo de trabajo</h4>
-                    <p class="text-justify">La visualización es el punto de partida de Kanban. Se crea un tablero que muestra todas las etapas por las que pasa el trabajo, desde la concepción hasta la entrega. Cada elemento de trabajo se representa mediante tarjetas que se mueven a través de las columnas del tablero.</p>
-                    
-                    <h4>2. Limitar el trabajo en progreso (WIP)</h4>
-                    <p class="text-justify">Se establecen límites máximos para la cantidad de elementos que pueden estar en cada etapa del flujo. Esto previene la sobrecarga del sistema y ayuda a identificar cuellos de botella más rápidamente.</p>
-                    
-                    <h4>3. Gestionar el flujo</h4>
-                    <p class="text-justify">Se monitorea activamente cómo se mueve el trabajo a través del sistema, identificando impedimentos y optimizando el tiempo de entrega.</p>
-                    
-                    <h4>4. Hacer las políticas explícitas</h4>
-                    <p class="text-justify">Se documentan y comunican claramente las reglas sobre cómo se mueve el trabajo, cuándo se considera "terminado" cada etapa, y qué criterios se usan para priorizar.</p>
-                    
-                    <h4>5. Implementar loops de feedback</h4>
-                    <p class="text-justify">Se establecen reuniones regulares para revisar métricas, discutir problemas y planificar mejoras.</p>
-                    
-                    <h4>6. Mejorar colaborativamente, evolucionar experimentalmente</h4>
-                    <p class="text-justify">Se utiliza el método científico para probar hipótesis de mejora, midiendo resultados y adaptando basándose en evidencia empírica.</p>
-                </div>
-            </section>
-
-            <!-- Implementación Visual -->
-            <section class="section">
-                <h2>📋 Implementación del Tablero Kanban</h2>
                 
-                <h3>Estructura Básica del Tablero</h3>
-                <div class="content-block">
-                    <p class="text-justify">Un tablero Kanban típico comienza con tres columnas básicas: <strong>"Por Hacer"</strong>, <strong>"En Progreso"</strong> y <strong>"Terminado"</strong>. Sin embargo, para proyectos de desarrollo de software, es común expandir estas columnas para reflejar el flujo de trabajo real del equipo.</p>
-                </div>
-
-                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
-                    <div class="diagram-title">Tablero Kanban - Ejemplo de Desarrollo de Software</div>
-                    <div class="kanban-board">
-                        <div class="kanban-column">
-                            <div class="column-header">
-                                📝 Backlog
-                                <div class="wip-limit">∞</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-high">Alta</div>
-                                <div>Implementar autenticación de usuarios</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-medium">Media</div>
-                                <div>Crear API de búsqueda avanzada</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-low">Baja</div>
-                                <div>Mejorar diseño del footer</div>
-                            </div>
-                        </div>
-                        
-                        <div class="kanban-column">
-                            <div class="column-header">
-                                🔍 Análisis
-                                <div class="wip-limit">3</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-high">Alta</div>
-                                <div>Definir casos de uso de login</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-medium">Media</div>
-                                <div>Especificar filtros de búsqueda</div>
-                            </div>
-                        </div>
-                        
-                        <div class="kanban-column">
-                            <div class="column-header">
-                                💻 Desarrollo
-                                <div class="wip-limit">4</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-high">Alta</div>
-                                <div>Codificar módulo de pagos</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-medium">Media</div>
-                                <div>Desarrollar dashboard admin</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-medium">Media</div>
-                                <div>Integrar notificaciones push</div>
-                            </div>
-                        </div>
-                        
-                        <div class="kanban-column">
-                            <div class="column-header">
-                                🧪 Testing
-                                <div class="wip-limit">3</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-high">Alta</div>
-                                <div>Probar flujo de registro</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-medium">Media</div>
-                                <div>Validar responsive design</div>
-                            </div>
-                        </div>
-                        
-                        <div class="kanban-column">
-                            <div class="column-header">
-                                ✅ Terminado
-                                <div class="wip-limit">∞</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-high">Alta</div>
-                                <div>Sistema de recuperación de contraseña</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-medium">Media</div>
-                                <div>Optimización de base de datos</div>
-                            </div>
-                            <div class="kanban-card">
-                                <div class="card-priority priority-low">Baja</div>
-                                <div>Actualización de documentación</div>
-                            </div>
-                        </div>
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        🔄 In Progress <span class="wip-limit">3</span>
                     </div>
+                    <div class="kanban-card">Sistema de notificaciones</div>
+                    <div class="kanban-card">Optimización consultas</div>
                 </div>
-
-                <h3>Límites de Trabajo en Progreso (WIP Limits)</h3>
-                <div class="content-block">
-                    <p class="text-justify">Los límites WIP son restricciones numéricas que se aplican a cada columna del tablero Kanban para controlar la cantidad de trabajo que puede estar activo simultáneamente en cada etapa del proceso. Estos límites son fundamentales para el funcionamiento efectivo del sistema por varias razones críticas:</p>
-                    
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Prevención de la sobrecarga:</strong> Evitan que el equipo tome más trabajo del que puede manejar eficientemente</li>
-                        <li role="listitem"><strong>Identificación de cuellos de botella:</strong> Cuando una columna alcanza su límite WIP, se hace evidente dónde está el problema de flujo</li>
-                        <li role="listitem"><strong>Fomento de la colaboración:</strong> Cuando se alcanza un límite, el equipo debe colaborar para desbloquear el flujo</li>
-                        <li role="listitem"><strong>Mejora del tiempo de entrega:</strong> Menos multitarea significa que las tareas se completan más rápidamente</li>
-                        <li role="listitem"><strong>Aumento de la calidad:</strong> El foco en menos elementos simultáneos permite mayor atención al detalle</li>
-                    </ul>
-                </div>
-
-                <div class="example-box">
-                    <h4>📊 Ejemplo Práctico de Configuración WIP</h4>
-                    <p><strong>Equipo de 6 desarrolladores:</strong></p>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Backlog:</strong> Sin límite (permite acumular trabajo futuro)</li>
-                        <li role="listitem"><strong>Análisis:</strong> WIP = 3 (máximo 3 elementos siendo analizados)</li>
-                        <li role="listitem"><strong>Desarrollo:</strong> WIP = 4 (permite cierta paralelización sin sobrecarga)</li>
-                        <li role="listitem"><strong>Testing:</strong> WIP = 3 (fuerza completar testing antes de seguir)</li>
-                        <li role="listitem"><strong>Terminado:</strong> Sin límite (acumula entregables completados)</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Métricas y Análisis de Flujo -->
-            <section class="section">
-                <h2>📈 Métricas y Análisis de Flujo</h2>
                 
-                <h3>Métricas Fundamentales de Kanban</h3>
-                <div class="content-block">
-                    <p class="text-justify">El método Kanban se basa en el análisis cuantitativo del flujo de trabajo para identificar oportunidades de mejora. Las métricas principales proporcionan insights sobre la eficiencia del sistema y permiten tomar decisiones basadas en datos empíricos.</p>
-                </div>
-
-                <div class="metrics-dashboard">
-                    <div class="metric-card">
-                        <h4>⏱️ Lead Time</h4>
-                        <div class="metric-value">12 días</div>
-                        <div class="metric-label">Tiempo total desde solicitud hasta entrega</div>
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        🔍 Review <span class="wip-limit">2</span>
                     </div>
-                    
-                    <div class="metric-card">
-                        <h4>🔄 Cycle Time</h4>
-                        <div class="metric-value">8 días</div>
-                        <div class="metric-label">Tiempo de trabajo activo en el item</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>🚀 Throughput</h4>
-                        <div class="metric-value">2.5 items</div>
-                        <div class="metric-label">Elementos completados por día</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>📋 WIP Actual</h4>
-                        <div class="metric-value">9 items</div>
-                        <div class="metric-label">Trabajo en progreso actualmente</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>⚡ Flow Efficiency</h4>
-                        <div class="metric-value">67%</div>
-                        <div class="metric-label">Porcentaje de tiempo agregando valor</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>🎯 Predictabilidad</h4>
-                        <div class="metric-value">85%</div>
-                        <div class="metric-label">Consistencia en entregas planificadas</div>
-                    </div>
+                    <div class="kanban-card">Módulo de reportes</div>
                 </div>
-
-                <h3>La Ley de Little y su Aplicación</h3>
-                <div class="definition-box">
-                    <h4>📐 Ley de Little</h4>
-                    <p class="text-center text-bold">Lead Time = Work in Progress / Throughput</p>
-                    <p class="text-justify">Esta ley matemática, formulada por John Little en 1961, establece que en un sistema estable, el tiempo promedio que un elemento permanece en el sistema es igual al número promedio de elementos en el sistema dividido por la tasa promedio de salida.</p>
-                </div>
-
-                <div class="content-block">
-                    <h4>Aplicaciones Prácticas de la Ley de Little:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Predicción de tiempos de entrega:</strong> Conociendo el WIP actual y el throughput histórico, podemos estimar cuándo se completará el trabajo</li>
-                        <li role="listitem"><strong>Optimización del WIP:</strong> Reducir el WIP manteniendo el throughput constante disminuye el lead time</li>
-                        <li role="listitem"><strong>Capacidad de planificación:</strong> Ayuda a determinar cuánto trabajo nuevo puede aceptar el equipo</li>
-                        <li role="listitem"><strong>Identificación de problemas:</strong> Desviaciones de la relación indican problemas en el flujo</li>
-                    </ul>
-                </div>
-
-                <div class="example-box">
-                    <h4>🧮 Ejemplo de Cálculo</h4>
-                    <p><strong>Situación:</strong> Un equipo tiene 15 elementos en progreso y completa 3 elementos por semana.</p>
-                    <p><strong>Aplicando la Ley de Little:</strong></p>
-                    <p class="text-center">Lead Time = 15 elementos ÷ 3 elementos/semana = 5 semanas</p>
-                    <p><strong>Interpretación:</strong> En promedio, cualquier elemento nuevo tardará 5 semanas en completarse desde que ingresa al sistema.</p>
-                </div>
-
-                <h3>Diagrama de Flujo Acumulativo (CFD)</h3>
-                <div class="content-block">
-                    <p class="text-justify">El Cumulative Flow Diagram es una herramienta visual poderosa que muestra la evolución del trabajo a través del tiempo en cada etapa del proceso. Permite identificar tendencias, cuellos de botella y variabilidad en el flujo.</p>
-                </div>
-
-                <div class="diagram-container" role="img" aria-label="Contenedor de diagrama">
-                    <div class="diagram-title">Diagrama de Flujo Acumulativo - Interpretación</div>
-                    <svg width="100%" height="400" viewBox="0 0 800 400">
-                        <!-- Ejes -->
-                        <line x1="50" y1="350" x2="750" y2="350" stroke="#333" stroke-width="2"/>
-                        <line x1="50" y1="50" x2="50" y2="350" stroke="#333" stroke-width="2"/>
-                        
-                        <!-- Etiquetas de ejes -->
-                        <text x="400" y="380" text-anchor="middle" fill="#333" font-size="14">Tiempo (semanas)</text>
-                        <text x="20" y="200" text-anchor="middle" fill="#333" font-size="14" transform="rotate(-90 20 200)">Cantidad de Items</text>
-                        
-                        <!-- Áreas de flujo -->
-                        <path d="M 50 350 L 150 340 L 250 330 L 350 320 L 450 310 L 550 300 L 650 290 L 750 280 L 750 350 Z" fill="#e53e3e" opacity="0.7"/>
-                        <path d="M 50 350 L 150 330 L 250 310 L 350 290 L 450 270 L 550 250 L 650 230 L 750 210 L 750 280 L 650 290 L 550 300 L 450 310 L 350 320 L 250 330 L 150 340 Z" fill="#dd6b20" opacity="0.7"/>
-                        <path d="M 50 350 L 150 320 L 250 290 L 350 260 L 450 230 L 550 200 L 650 170 L 750 140 L 750 210 L 650 230 L 550 250 L 450 270 L 350 290 L 250 310 L 150 330 Z" fill="#2f855a" opacity="0.7"/>
-                        <path d="M 50 350 L 150 310 L 250 270 L 350 230 L 450 190 L 550 150 L 650 110 L 750 70 L 750 140 L 650 170 L 550 200 L 450 230 L 350 260 L 250 290 L 150 320 Z" fill="#2b6cb0" opacity="0.7"/>
-                        
-                        <!-- Leyenda -->
-                        <rect x="570" y="70" width="15" height="15" fill="#2b6cb0" opacity="0.7"/>
-                        <text x="590" y="82" fill="#333" font-size="12">Terminado</text>
-                        
-                        <rect x="570" y="90" width="15" height="15" fill="#2f855a" opacity="0.7"/>
-                        <text x="590" y="102" fill="#333" font-size="12">Testing</text>
-                        
-                        <rect x="570" y="110" width="15" height="15" fill="#dd6b20" opacity="0.7"/>
-                        <text x="590" y="122" fill="#333" font-size="12">Desarrollo</text>
-                        
-                        <rect x="570" y="130" width="15" height="15" fill="#e53e3e" opacity="0.7"/>
-                        <text x="590" y="142" fill="#333" font-size="12">Análisis</text>
-                        
-                        <!-- Indicadores de problemas -->
-                        <circle cx="400" cy="180" r="8" fill="red" opacity="0.8"/>
-                        <text x="410" y="185" fill="red" font-size="12" font-weight="bold">Cuello de botella</text>
-                    </svg>
-                </div>
-
-                <div class="content-block">
-                    <h4>Interpretación del CFD:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Bandas horizontales:</strong> Indican trabajo acumulado sin movimiento (cuello de botella)</li>
-                        <li role="listitem"><strong>Bandas que se ensanchan:</strong> Trabajo acumulándose en esa etapa</li>
-                        <li role="listitem"><strong>Bandas que se estrechan:</strong> Trabajo fluyendo bien hacia la siguiente etapa</li>
-                        <li role="listitem"><strong>Bandas paralelas:</strong> Flujo estable y predecible</li>
-                        <li role="listitem"><strong>Variabilidad en el ancho:</strong> Indica inestabilidad en el proceso</li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- Comparación Kanban vs Scrum -->
-            <section class="section">
-                <h2>⚖️ Kanban vs Scrum: Análisis Comparativo</h2>
                 
-                <div class="content-block">
-                    <p class="text-justify">Aunque tanto Kanban como Scrum son metodologías ágiles que buscan mejorar la entrega de valor, difieren significativamente en su enfoque filosófico y práctico. Comprender estas diferencias es crucial para seleccionar la metodología más apropiada para cada contexto organizacional.</p>
+                <div class="kanban-column">
+                    <div class="kanban-header">
+                        ✅ Done
+                    </div>
+                    <div class="kanban-card">Configuración inicial</div>
+                    <div class="kanban-card">Estructura base</div>
+                    <div class="kanban-card">Autenticación básica</div>
                 </div>
+            </div>
 
-                <table class="comparison-table">
-                    <thead role="rowgroup">
-                        <tr role="row">
-                            <th role="columnheader">Aspecto</th>
-                            <th role="columnheader">Kanban</th>
-                            <th role="columnheader">Scrum</th>
-                        </tr>
-                    </thead>
-                    <tbody role="rowgroup">
-                        <tr role="row">
-                            <td role="cell"><strong>Enfoque Temporal</strong></td>
-                            <td role="cell">Flujo continuo sin iteraciones fijas</td>
-                            <td role="cell">Sprints de duración fija (1-4 semanas)</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Roles Prescriptivos</strong></td>
-                            <td role="cell">No define roles específicos</td>
-                            <td role="cell">Product Owner, Scrum Master, Development Team</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Ceremonias/Eventos</strong></td>
-                            <td role="cell">Reuniones según necesidad del flujo</td>
-                            <td role="cell">Sprint Planning, Daily, Review, Retrospective</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Planificación</strong></td>
-                            <td role="cell">Just-in-time, continua</td>
-                            <td role="cell">Al inicio de cada Sprint</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Gestión de Cambios</strong></td>
-                            <td role="cell">Cambios pueden incorporarse en cualquier momento</td>
-                            <td role="cell">Cambios se incorporan en el siguiente Sprint</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Métricas Principales</strong></td>
-                            <td role="cell">Lead Time, Cycle Time, Throughput</td>
-                            <td role="cell">Velocity, Burndown, Sprint Goal Achievement</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Compromiso</strong></td>
-                            <td role="cell">Compromiso con el flujo y la mejora continua</td>
-                            <td role="cell">Compromiso con objetivos del Sprint</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Predictibilidad</strong></td>
-                            <td role="cell">Basada en datos históricos de flujo</td>
-                            <td role="cell">Basada en velocity del equipo</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Definición de "Hecho"</strong></td>
-                            <td role="cell">Políticas explícitas por columna</td>
-                            <td role="cell">Definition of Done compartida</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Especialización</strong></td>
-                            <td role="cell">Permite especialización por columnas</td>
-                            <td role="cell">Fomenta equipos multifuncionales</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="content-box">
+                <h3>🎛️ Elementos Clave del Tablero</h3>
+                <ul>
+                    <li><strong>Columnas:</strong> Representan estados del flujo de trabajo</li>
+                    <li><strong>Tarjetas:</strong> Items de trabajo individuales</li>
+                    <li><strong>Límites WIP:</strong> Máximo número de items por columna</li>
+                    <li><strong>Pull System:</strong> El trabajo se "tira" cuando hay capacidad</li>
+                    <li><strong>Políticas explícitas:</strong> Reglas claras para cada columna</li>
+                </ul>
+            </div>
+        </section>
 
-                <h3>Criterios de Selección</h3>
-                <div class="content-block">
-                    <h4>Cuándo elegir Kanban:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Trabajo impredecible:</strong> Cuando llegan solicitudes de manera irregular</li>
-                        <li role="listitem"><strong>Equipos especializados:</strong> Diferentes personas manejan diferentes tipos de trabajo</li>
-                        <li role="listitem"><strong>Flujo continuo necesario:</strong> No hay ventanas naturales para iteraciones</li>
-                        <li role="listitem"><strong>Enfoque en tiempo de entrega:</strong> La rapidez de respuesta es crítica</li>
-                        <li role="listitem"><strong>Procesos establecidos:</strong> Existe un flujo de trabajo maduro que solo necesita optimización</li>
-                        <li role="listitem"><strong>Equipos distribuidos:</strong> Coordinación asíncrona es más práctica</li>
-                    </ul>
-                    
-                    <h4>Cuándo elegir Scrum:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Desarrollo de producto:</strong> Construcción de productos con funcionalidades incrementales</li>
-                        <li role="listitem"><strong>Equipos nuevos:</strong> Necesitan estructura y ceremonias para organizarse</li>
-                        <li role="listitem"><strong>Requisitos volátiles:</strong> Necesidad de revisión y adaptación regular</li>
-                        <li role="listitem"><strong>Enfoque en entrega de valor:</strong> Priorización basada en valor de negocio</li>
-                        <li role="listitem"><strong>Aprendizaje continuo:</strong> El equipo necesita experimentar y aprender</li>
-                        <li role="listitem"><strong>Stakeholders disponibles:</strong> Product Owner puede participar activamente</li>
-                    </ul>
+        <section class="content-section">
+            <h2 class="section-title">📈 4. Métricas y Análisis de Flujo</h2>
+            
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>⏱️ Lead Time</h3>
+                    <div class="metric-value">8.5</div>
+                    <div class="metric-label">días promedio</div>
+                    <p>Tiempo desde solicitud hasta entrega</p>
                 </div>
-
-                <div class="highlight-box">
-                    <h4>🔄 Enfoque Híbrido: Scrumban</h4>
-                    <p class="text-justify">Muchas organizaciones adoptan un enfoque híbrido llamado <strong>Scrumban</strong>, que combina la estructura ceremonial de Scrum con la flexibilidad de flujo de Kanban. Este enfoque utiliza Sprints para planificación y retrospectivas, pero permite que el trabajo fluya continuamente basado en límites WIP y prioridades dinámicas.</p>
-                </div>
-            </section>
-
-            <!-- Implementación Práctica -->
-            <section class="section">
-                <h2>🛠️ Implementación Práctica de Kanban</h2>
                 
-                <h3>Pasos para Implementar Kanban</h3>
-                <div class="flow-diagram">
-                    <div class="flow-step">
-                        <h4>1</h4>
-                        <p>Mapear el flujo actual</p>
-                    </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step">
-                        <h4>2</h4>
-                        <p>Crear tablero visual</p>
-                    </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step">
-                        <h4>3</h4>
-                        <p>Establecer límites WIP</p>
-                    </div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-step">
-                        <h4>4</h4>
-                        <p>Medir y optimizar</p>
-                    </div>
+                <div class="metric-card">
+                    <h3>🔄 Cycle Time</h3>
+                    <div class="metric-value">5.2</div>
+                    <div class="metric-label">días promedio</div>
+                    <p>Tiempo de trabajo activo</p>
                 </div>
-
-                <h3>Fase 1: Mapeo del Flujo de Valor</h3>
-                <div class="content-block">
-                    <p class="text-justify">Antes de crear el tablero Kanban, es fundamental entender el flujo de trabajo actual. Esto implica:</p>
-                    
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Identificar todos los pasos:</strong> Desde la idea hasta la entrega al cliente</li>
-                        <li role="listitem"><strong>Documentar handoffs:</strong> Puntos donde el trabajo pasa entre personas o equipos</li>
-                        <li role="listitem"><strong>Medir tiempos actuales:</strong> Cuánto tiempo toma cada etapa</li>
-                        <li role="listitem"><strong>Identificar cuellos de botella:</strong> Dónde se acumula el trabajo</li>
-                        <li role="listitem"><strong>Reconocer puntos de decisión:</strong> Donde el trabajo puede tomar diferentes caminos</li>
-                    </ul>
-                </div>
-
-                <div class="example-box">
-                    <h4>🗺️ Ejemplo de Mapeo de Flujo - Desarrollo Web</h4>
-                    <div class="flow-diagram">
-                        <div class="flow-step">
-                            <h4>Solicitud</h4>
-                            <p>Cliente solicita funcionalidad</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Análisis</h4>
-                            <p>BA define requisitos</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Diseño</h4>
-                            <p>UX/UI crea mockups</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Desarrollo</h4>
-                            <p>Programadores implementan</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Testing</h4>
-                            <p>QA valida funcionalidad</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Deploy</h4>
-                            <p>DevOps despliega a producción</p>
-                        </div>
-                    </div>
-                </div>
-
-                <h3>Fase 2: Diseño del Tablero</h3>
-                <div class="content-block">
-                    <p class="text-justify">El diseño del tablero debe reflejar fielmente el flujo de trabajo identificado. Consideraciones importantes:</p>
-                    
-                    <h4>Tipos de Columnas:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Columnas de trabajo:</strong> Representan actividades donde se agrega valor</li>
-                        <li role="listitem"><strong>Columnas de espera:</strong> Buffers entre etapas de trabajo</li>
-                        <li role="listitem"><strong>Columnas de revisión:</strong> Puntos de validación o aprobación</li>
-                        <li role="listitem"><strong>Columnas de bloqueo:</strong> Para elementos impedidos temporalmente</li>
-                    </ul>
-                    
-                    <h4>Subdivisión de Columnas:</h4>
-                    <p class="text-justify">Las columnas complejas pueden subdividirse en "Doing" y "Done" para mayor granularidad:</p>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Desarrollo | Doing:</strong> Código en progreso</li>
-                        <li role="listitem"><strong>Desarrollo | Done:</strong> Código listo para testing</li>
-                        <li role="listitem"><strong>Testing | Doing:</strong> Pruebas en ejecución</li>
-                        <li role="listitem"><strong>Testing | Done:</strong> Pruebas completadas</li>
-                    </ul>
-                </div>
-
-                <h3>Fase 3: Definición de Políticas</h3>
-                <div class="content-block">
-                    <p class="text-justify">Las políticas explícitas aseguran que todos entiendan cómo funciona el sistema:</p>
-                    
-                    <h4>Definition of Ready (DoR):</h4>
-                    <ul class="list-styled">
-                        <li role="listitem">Criterios que debe cumplir un elemento para entrar en una columna</li>
-                        <li role="listitem">Información mínima requerida</li>
-                        <li role="listitem">Dependencias resueltas</li>
-                        <li role="listitem">Recursos disponibles</li>
-                    </ul>
-                    
-                    <h4>Definition of Done (DoD):</h4>
-                    <ul class="list-styled">
-                        <li role="listitem">Criterios para considerar completado el trabajo en una columna</li>
-                        <li role="listitem">Estándares de calidad</li>
-                        <li role="listitem">Documentación requerida</li>
-                        <li role="listitem">Validaciones necesarias</li>
-                    </ul>
-                    
-                    <h4>Políticas de Priorización:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem">Cómo se ordenan los elementos en el backlog</li>
-                        <li role="listitem">Criterios para trabajo urgente</li>
-                        <li role="listitem">Clases de servicio diferenciadas</li>
-                        <li role="listitem">Manejo de dependencias</li>
-                    </ul>
-                </div>
-
-                <h3>Fase 4: Establecimiento de Límites WIP</h3>
-                <div class="content-block">
-                    <p class="text-justify">Los límites WIP iniciales se basan en la capacidad del equipo y se ajustan empíricamente:</p>
-                    
-                    <h4>Metodología para establecer WIP limits:</h4>
-                    <ol class="list-styled">
-                        <li role="listitem"><strong>Comenzar conservador:</strong> Límite = 80% de la capacidad teórica</li>
-                        <li role="listitem"><strong>Observar el comportamiento:</strong> Identificar donde se acumula trabajo</li>
-                        <li role="listitem"><strong>Ajustar gradualmente:</strong> Cambios pequeños y medibles</li>
-                        <li role="listitem"><strong>Medir el impacto:</strong> Lead time, throughput, calidad</li>
-                        <li role="listitem"><strong>Estabilizar:</strong> Mantener límites que funcionen bien</li>
-                    </ol>
-                </div>
-
-                <div class="example-box">
-                    <h4>📊 Ejemplo de Evolución de Límites WIP</h4>
-                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
-                        <tr style="background: #f8fafc;">
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Semana</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Desarrollo</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Testing</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Lead Time</th>
-                            <th style="padding: 10px; border: 1px solid #e2e8f0;">Observación</th>
-                        </tr>
-                        <tr role="row">
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">1-2</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">6</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">4</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">14 días</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">Acumulación en Testing</td>
-                        </tr>
-                        <tr style="background: #f8fafc;">
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">3-4</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">5</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">5</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">12 días</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">Mejor balance</td>
-                        </tr>
-                        <tr role="row">
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">5-6</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">4</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">5</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">10 días</td>
-                            <td style="padding: 10px; border: 1px solid #e2e8f0;">Óptimo actual</td>
-                        </tr>
-                    </table>
-                </div>
-            </section>
-
-            <!-- Mejora Continua -->
-            <section class="section">
-                <h2>🔄 Mejora Continua y Evolución</h2>
                 
-                <h3>Kaizen en Kanban</h3>
-                <div class="content-block">
-                    <p class="text-justify">El concepto de <strong>Kaizen</strong> (mejora continua) es fundamental en Kanban. A diferencia de cambios disruptivos, Kaizen promueve mejoras pequeñas, incrementales y sostenibles basadas en la experimentación y el aprendizaje empírico.</p>
+                <div class="metric-card">
+                    <h3>📊 Throughput</h3>
+                    <div class="metric-value">12</div>
+                    <div class="metric-label">items/semana</div>
+                    <p>Elementos completados por unidad de tiempo</p>
                 </div>
-
-                <h3>Reuniones de Mejora</h3>
-                <div class="content-block">
-                    <h4>Daily Stand-up (Opcional):</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Enfoque:</strong> Flujo, no personas</li>
-                        <li role="listitem"><strong>Preguntas clave:</strong> ¿Qué está bloqueado? ¿Dónde necesitamos colaborar?</li>
-                        <li role="listitem"><strong>Duración:</strong> 15 minutos máximo</li>
-                        <li role="listitem"><strong>Frecuencia:</strong> Diaria (ajustable según necesidades)</li>
-                    </ul>
-                    
-                    <h4>Replenishment Meeting:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Propósito:</strong> Priorizar y seleccionar nuevo trabajo</li>
-                        <li role="listitem"><strong>Participantes:</strong> Product Owner, stakeholders clave</li>
-                        <li role="listitem"><strong>Duración:</strong> 30-60 minutos</li>
-                        <li role="listitem"><strong>Frecuencia:</strong> Cuando el backlog necesita reabastecimiento</li>
-                    </ul>
-                    
-                    <h4>Service Delivery Review:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Enfoque:</strong> Análisis de métricas y tendencias</li>
-                        <li role="listitem"><strong>Contenido:</strong> Throughput, lead time, calidad, satisfacción del cliente</li>
-                        <li role="listitem"><strong>Duración:</strong> 60-90 minutos</li>
-                        <li role="listitem"><strong>Frecuencia:</strong> Quincenal o mensual</li>
-                    </ul>
-                    
-                    <h4>Operations Review:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Propósito:</strong> Mejora del proceso y resolución de impedimentos</li>
-                        <li role="listitem"><strong>Metodología:</strong> Identificar experimentos de mejora</li>
-                        <li role="listitem"><strong>Duración:</strong> 60-90 minutos</li>
-                        <li role="listitem"><strong>Frecuencia:</strong> Mensual o cuando sea necesario</li>
-                    </ul>
-                </div>
-
-                <h3>Técnicas de Identificación de Mejoras</h3>
-                <div class="content-block">
-                    <h4>Análisis de Causa Raíz:</h4>
-                    <p class="text-justify">Cuando se identifica un problema o ineficiencia, se utiliza la técnica de los "5 Por Qués" para llegar a la causa fundamental:</p>
-                    
-                    <div class="example-box">
-                        <h4>🔍 Ejemplo de Análisis 5 Por Qués</h4>
-                        <p><strong>Problema:</strong> Los elementos se acumulan en la columna de Testing</p>
-                        <ol class="list-styled">
-                            <li role="listitem"><strong>¿Por qué se acumulan elementos en Testing?</strong><br>
-                            Porque el equipo de QA no puede procesar tantos elementos</li>
-                            <li role="listitem"><strong>¿Por qué el equipo de QA no puede procesar tantos elementos?</strong><br>
-                            Porque los casos de prueba no están preparados cuando llega el desarrollo</li>
-                            <li role="listitem"><strong>¿Por qué los casos de prueba no están preparados?</strong><br>
-                            Porque QA comienza a trabajar después de que termina el desarrollo</li>
-                            <li role="listitem"><strong>¿Por qué QA comienza después del desarrollo?</strong><br>
-                            Porque no tienen visibilidad de lo que está en progreso</li>
-                            <li role="listitem"><strong>¿Por qué no tienen visibilidad?</strong><br>
-                            Porque no participan en las reuniones de planificación</li>
-                        </ol>
-                        <p><strong>Acción de mejora:</strong> Incluir a QA en la planificación y crear preparación paralela de casos de prueba</p>
-                    </div>
-                </div>
-
-                <h3>Clases de Servicio</h3>
-                <div class="content-block">
-                    <p class="text-justify">Para manejar diferentes tipos de trabajo con expectativas de tiempo y calidad distintas, Kanban utiliza <strong>clases de servicio</strong> que permiten políticas diferenciadas:</p>
-                </div>
-
-                <div class="principles-grid">
-                    <div class="principle-card">
-                        <div class="principle-number" style="background: #e53e3e;">!</div>
-                        <h4>Expedite</h4>
-                        <p class="text-justify">Elementos críticos que deben priorizarse sobre todo lo demás. Tienen políticas especiales de WIP y pueden "saltar" colas. Uso excepcional.</p>
-                    </div>
-                    
-                    <div class="principle-card">
-                        <div class="principle-number" style="background: #dd6b20;">F</div>
-                        <h4>Fixed Date</h4>
-                        <p class="text-justify">Elementos con fechas de entrega fijas e inamovibles. Se planifican trabajando hacia atrás desde la fecha límite.</p>
-                    </div>
-                    
-                    <div class="principle-card">
-                        <div class="principle-number" style="background: #2f855a;">S</div>
-                        <h4>Standard</h4>
-                        <p class="text-justify">La mayoría del trabajo. Fluye según las políticas normales de priorización y WIP limits establecidos.</p>
-                    </div>
-                    
-                    <div class="principle-card">
-                        <div class="principle-number" style="background: #4299e1;">I</div>
-                        <h4>Intangible</h4>
-                        <p class="text-justify">Trabajo que no agrega valor directo pero es necesario (capacitación, investigación, refactoring). Capacidad limitada asignada.</p>
-                    </div>
-                </div>
-
-                <h3>Experimentos de Mejora</h3>
-                <div class="content-block">
-                    <p class="text-justify">Kanban promueve un enfoque científico para la mejora, utilizando experimentos controlados:</p>
-                    
-                    <h4>Metodología de Experimentación:</h4>
-                    <ol class="list-styled">
-                        <li role="listitem"><strong>Hipótesis:</strong> "Si hacemos X, entonces Y mejorará"</li>
-                        <li role="listitem"><strong>Métricas:</strong> Definir qué mediremos para validar</li>
-                        <li role="listitem"><strong>Duración:</strong> Período específico para el experimento</li>
-                        <li role="listitem"><strong>Criterios de éxito:</strong> Umbrales claros de mejora</li>
-                        <li role="listitem"><strong>Plan de rollback:</strong> Cómo revertir si no funciona</li>
-                    </ol>
-                </div>
-
-                <div class="example-box">
-                    <h4>🧪 Ejemplo de Experimento</h4>
-                    <p><strong>Hipótesis:</strong> Si reducimos el WIP limit de Desarrollo de 6 a 4, entonces el lead time promedio disminuirá.</p>
-                    <p><strong>Métricas:</strong> Lead time promedio, throughput semanal, calidad (defectos por elemento)</p>
-                    <p><strong>Duración:</strong> 4 semanas</p>
-                    <p><strong>Criterio de éxito:</strong> Reducción del 15% en lead time sin disminución de throughput</p>
-                    <p><strong>Resultado después de 4 semanas:</strong> Lead time redujo 22%, throughput se mantuvo, calidad mejoró 8%</p>
-                    <p><strong>Decisión:</strong> Adoptar permanentemente el nuevo límite WIP</p>
-                </div>
-            </section>
-
-            <!-- Herramientas y Tecnología -->
-            <section class="section">
-                <h2>🛠️ Herramientas y Tecnología para Kanban</h2>
                 
-                <h3>Herramientas Digitales Populares</h3>
-                <div class="content-block">
-                    <p class="text-justify">La implementación moderna de Kanban se beneficia significativamente de herramientas digitales que automatizan el seguimiento, proporcionan métricas en tiempo real y facilitan la colaboración distribuida.</p>
+                <div class="metric-card">
+                    <h3>🔢 WIP Actual</h3>
+                    <div class="metric-value">6</div>
+                    <div class="metric-label">de 10 máximo</div>
+                    <p>Trabajo en progreso actual</p>
                 </div>
+            </div>
 
-                <div class="metrics-dashboard">
-                    <div class="metric-card">
-                        <h4>🔧 Jira Software</h4>
-                        <div class="metric-label">Kanban boards, CFD, métricas avanzadas, integraciones</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>📋 Trello</h4>
-                        <div class="metric-label">Simplicidad, interfaz intuitiva, ideal para equipos pequeños</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>📊 Azure DevOps</h4>
-                        <div class="metric-label">Integración completa, analytics, escalabilidad empresarial</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>🎯 Monday.com</h4>
-                        <div class="metric-label">Flexibilidad, automatizaciones, gestión de proyectos</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>⚡ Linear</h4>
-                        <div class="metric-label">Velocidad, experiencia de usuario, para equipos técnicos</div>
-                    </div>
-                    
-                    <div class="metric-card">
-                        <h4>🏢 ServiceNow</h4>
-                        <div class="metric-label">ITSM integrado, flujos complejos, enterprise</div>
-                    </div>
+            <div class="diagram-container">
+                <div class="diagram-title">📊 Diagrama de Flujo Acumulativo (CFD)</div>
+                <div class="mermaid">
+                    xychart-beta
+                        title "Flujo Acumulativo - 4 Semanas"
+                        x-axis [Sem1, Sem2, Sem3, Sem4]
+                        y-axis "Elementos Acumulados" 0 --> 60
+                        line [5, 15, 30, 50]
+                        line [3, 10, 22, 40]
+                        line [2, 7, 18, 35]
+                        line [1, 5, 15, 30]
                 </div>
+            </div>
 
-                <h3>Características Esenciales de Herramientas Kanban</h3>
-                <div class="content-block">
-                    <h4>Funcionalidades Básicas:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Tablero visual:</strong> Columnas personalizables, swimlanes, filtros</li>
-                        <li role="listitem"><strong>Gestión de tarjetas:</strong> Arrastrar y soltar, etiquetas, asignaciones</li>
-                        <li role="listitem"><strong>WIP limits:</strong> Configuración y alertas de límites</li>
-                        <li role="listitem"><strong>Búsqueda y filtrado:</strong> Encontrar elementos específicos rápidamente</li>
-                    </ul>
-                    
-                    <h4>Funcionalidades Avanzadas:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Métricas automáticas:</strong> CFD, lead time, cycle time, throughput</li>
-                        <li role="listitem"><strong>Reportes:</strong> Dashboard ejecutivo, tendencias, comparativas</li>
-                        <li role="listitem"><strong>Automatizaciones:</strong> Mover tarjetas, notificaciones, actualizaciones</li>
-                        <li role="listitem"><strong>Integraciones:</strong> Desarrollo (Git), comunicación (Slack), CI/CD</li>
-                        <li role="listitem"><strong>APIs:</strong> Extensibilidad y conexión con otros sistemas</li>
-                    </ul>
-                </div>
+            <div class="content-box info">
+                <h3>🧮 Ley de Little</h3>
+                <p><strong>Lead Time = WIP / Throughput</strong></p>
+                <p>Esta ley fundamental establece la relación matemática entre las tres métricas clave de flujo. Nos permite:</p>
+                <ul>
+                    <li>Predecir tiempos de entrega</li>
+                    <li>Optimizar límites WIP</li>
+                    <li>Mejorar predictibilidad</li>
+                    <li>Identificar oportunidades de mejora</li>
+                </ul>
+            </div>
+        </section>
 
-                <h3>Implementación Física vs Digital</h3>
-                <div class="comparison-table">
-                    <thead role="rowgroup">
-                        <tr role="row">
-                            <th role="columnheader">Aspecto</th>
-                            <th role="columnheader">Tablero Físico</th>
-                            <th role="columnheader">Herramienta Digital</th>
-                        </tr>
-                    </thead>
-                    <tbody role="rowgroup">
-                        <tr role="row">
-                            <td role="cell"><strong>Visibilidad</strong></td>
-                            <td role="cell">Alta en el espacio físico</td>
-                            <td role="cell">Accesible desde cualquier lugar</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Colaboración</strong></td>
-                            <td role="cell">Fomenta reuniones presenciales</td>
-                            <td role="cell">Permite trabajo distribuido</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Métricas</strong></td>
-                            <td role="cell">Cálculo manual, propenso a errores</td>
-                            <td role="cell">Automáticas y precisas</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Flexibilidad</strong></td>
-                            <td role="cell">Cambios físicos lentos</td>
-                            <td role="cell">Reconfiguración rápida</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Costo</strong></td>
-                            <td role="cell">Bajo (pizarra + post-its)</td>
-                            <td role="cell">Variable (licencias)</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Trazabilidad</strong></td>
-                            <td role="cell">Limitada, registro manual</td>
-                            <td role="cell">Histórico completo automático</td>
-                        </tr>
-                        <tr role="row">
-                            <td role="cell"><strong>Escalabilidad</strong></td>
-                            <td role="cell">Limitada por espacio físico</td>
-                            <td role="cell">Ilimitada</td>
-                        </tr>
-                    </tbody>
-                </div>
-            </section>
+        <section class="content-section">
+            <h2 class="section-title">⚖️ 5. Kanban vs Scrum: Análisis Comparativo</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>🔄 Kanban</th>
+                        <th>🏃 Scrum</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Enfoque</strong></td>
+                        <td>Flujo continuo</td>
+                        <td>Iteraciones tiempo-fijo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Roles</strong></td>
+                        <td>No prescribe roles específicos</td>
+                        <td>Product Owner, Scrum Master, Team</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Timeboxing</strong></td>
+                        <td>No requiere timeboxes</td>
+                        <td>Sprints de 1-4 semanas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cambios</strong></td>
+                        <td>Cambios continuos permitidos</td>
+                        <td>No cambios durante el Sprint</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Planificación</strong></td>
+                        <td>Planificación continua</td>
+                        <td>Sprint Planning</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Métricas clave</strong></td>
+                        <td>Lead Time, Cycle Time, Throughput</td>
+                        <td>Velocity, Burndown</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Compromiso</strong></td>
+                        <td>Compromiso con flujo de servicio</td>
+                        <td>Compromiso con objetivos del Sprint</td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <!-- Casos de Uso y Aplicaciones -->
-            <section class="section">
-                <h2>💼 Casos de Uso y Aplicaciones Reales</h2>
+            <div class="content-box success">
+                <h3>🤝 ¿Cuándo usar cada uno?</h3>
                 
-                <h3>Kanban en Desarrollo de Software</h3>
-                <div class="content-block">
-                    <p class="text-justify">El desarrollo de software fue uno de los primeros dominios en adoptar Kanban fuera de la manufactura, debido a la naturaleza del trabajo intelectual y la necesidad de manejar interrupciones y cambios frecuentes.</p>
-                    
-                    <h4>Beneficios Específicos:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Gestión de bugs:</strong> Permitir que las correcciones urgentes fluyan sin disrumpir sprints</li>
-                        <li role="listitem"><strong>Diferentes tipos de trabajo:</strong> Features, bugs, deuda técnica, investigación</li>
-                        <li role="listitem"><strong>Equipos distribuidos:</strong> Visibilidad asíncrona del progreso</li>
-                        <li role="listitem"><strong>Integración continua:</strong> Flujo que soporta CI/CD pipelines</li>
-                        <li role="listitem"><strong>Especialización:</strong> Diferentes personas pueden enfocarse en diferentes columnas</li>
+                <h4>💡 Kanban es ideal para:</h4>
+                <ul>
+                    <li>Trabajo de soporte y mantenimiento</li>
+                    <li>Flujos de trabajo variables</li>
+                    <li>Equipos que necesitan flexibilidad</li>
+                    <li>Procesos de mejora continua</li>
+                </ul>
+
+                <h4>🏃 Scrum es ideal para:</h4>
+                <ul>
+                    <li>Desarrollo de productos nuevos</li>
+                    <li>Equipos que necesitan estructura</li>
+                    <li>Objetivos de entrega específicos</li>
+                    <li>Aprendizaje iterativo</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🛠️ 6. Implementación Práctica</h2>
+            
+            <div class="content-box">
+                <h3>📋 Pasos para Implementar Kanban</h3>
+                <ol>
+                    <li><strong>Mapear el flujo actual:</strong> Entender el proceso existente</li>
+                    <li><strong>Crear tablero visual:</strong> Representar el flujo en columnas</li>
+                    <li><strong>Establecer límites WIP:</strong> Comenzar conservador y ajustar</li>
+                    <li><strong>Definir políticas:</strong> Criterios claros para cada columna</li>
+                    <li><strong>Medir y optimizar:</strong> Recopilar métricas y mejorar</li>
+                </ol>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🔄 Ciclo de Mejora Continua</div>
+                <div class="mermaid">
+                    flowchart TD
+                        A[Visualizar Flujo] --> B[Limitar WIP]
+                        B --> C[Gestionar Flujo]
+                        C --> D[Hacer Políticas Explícitas]
+                        D --> E[Implementar Loops de Feedback]
+                        E --> F[Mejorar Colaborativamente]
+                        F --> A
+                        
+                        style A fill:#e1f5fe
+                        style B fill:#fff3e0
+                        style C fill:#f3e5f5
+                        style D fill:#e8f5e8
+                        style E fill:#fff8e1
+                        style F fill:#fce4ec
+                </div>
+            </div>
+
+            <div class="content-box warning">
+                <h3>⚠️ Errores Comunes en Implementación</h3>
+                <ul>
+                    <li>No establecer límites WIP apropiados</li>
+                    <li>Falta de políticas explícitas</li>
+                    <li>No medir métricas de flujo</li>
+                    <li>Resistencia al cambio</li>
+                    <li>Sobrecarga de información visual</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Quiz de evaluación -->
+        <section class="quiz-container">
+            <h2>🧠 Evaluación de Conocimientos - 20 Preguntas</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--text-secondary);">
+                Responde todas las preguntas para evaluar tu comprensión de Kanban
+            </p>
+            
+            <div id="quiz-questions">
+                <div class="question">
+                    <h4>1. ¿En qué sistema de producción se originó Kanban?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Sistema de Producción Ford</li>
+                        <li onclick="selectOption(this, true)">B) Sistema de Producción Toyota (TPS)</li>
+                        <li onclick="selectOption(this, false)">C) Sistema de Producción General Motors</li>
+                        <li onclick="selectOption(this, false)">D) Sistema de Producción Mercedes-Benz</li>
                     </ul>
                 </div>
 
-                <div class="example-box">
-                    <h4>📱 Caso de Estudio: Desarrollo de App Móvil</h4>
-                    <p><strong>Contexto:</strong> Startup con 8 desarrolladores, lanzamiento de MVP en 3 meses</p>
-                    <p><strong>Desafíos:</strong> Requisitos cambiantes, feedback frecuente de usuarios beta, diferentes plataformas (iOS/Android)</p>
-                    <p><strong>Implementación Kanban:</strong></p>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Columnas:</strong> Ideas → Análisis → Diseño UI → Dev iOS → Dev Android → Testing → Release</li>
-                        <li role="listitem"><strong>WIP Limits:</strong> Análisis(2) → Diseño(2) → Dev iOS(3) → Dev Android(3) → Testing(4)</li>
-                        <li role="listitem"><strong>Clases de servicio:</strong> Features (Standard), Bugs críticos (Expedite), A/B tests (Intangible)</li>
-                    </ul>
-                    <p><strong>Resultados:</strong></p>
-                    <ul class="list-styled">
-                        <li role="listitem">Lead time redujo de 18 a 12 días promedio</li>
-                        <li role="listitem">Lanzamiento exitoso en tiempo</li>
-                        <li role="listitem">95% de satisfacción del equipo con el proceso</li>
-                        <li role="listitem">40% reducción en bugs post-lanzamiento</li>
+                <div class="question">
+                    <h4>2. ¿Qué significa "Kanban" en japonés?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Flujo continuo</li>
+                        <li onclick="selectOption(this, true)">B) Tarjeta visual o tablero</li>
+                        <li onclick="selectOption(this, false)">C) Mejora continua</li>
+                        <li onclick="selectOption(this, false)">D) Trabajo en progreso</li>
                     </ul>
                 </div>
 
-                <h3>Kanban en Operaciones IT</h3>
-                <div class="content-block">
-                    <p class="text-justify">Los equipos de operaciones IT encuentran en Kanban una excelente herramienta para manejar incidentes, cambios y solicitudes de servicio con diferentes niveles de urgencia.</p>
-                    
-                    <h4>Aplicaciones Típicas:</h4>
-                    <ul class="list-styled">
-                        <li role="listitem"><strong>Incident Management:</strong> Flujo desde detección hasta resolución</li>
-                        <li role="listitem"><strong>Change Management:</strong> Proceso de aprobación y despliegue de cambios</li>
-                        <li role="listitem"><strong>Service Requests:</strong> Solicitudes estándar de usuarios</li>
-                        <li role="listitem"><strong>Problem Management:</strong> Investigación de problemas recurrentes</li>
+                <div class="question">
+                    <h4>3. ¿Cuál es el principio fundamental sobre el WIP en Kanban?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Maximizar el trabajo en progreso</li>
+                        <li onclick="selectOption(this, true)">B) Limitar el trabajo en progreso</li>
+                        <li onclick="selectOption(this, false)">C) Eliminar todo el trabajo en progreso</li>
+                        <li onclick="selectOption(this, false)">D) Ignorar el trabajo en progreso</li>
                     </ul>
                 </div>
 
-                <h3>Kanban en Marketing y Creatividad</h3>
-                <div class="content-block">
-                    <p class="text-justify">Los equipos de marketing y creativos utilizan Kanban para gestionar campañas, contenido y proyectos creativos que requieren revisiones múltiples y colaboración entre diferentes especialistas.</p>
-                    
-                    <h4>Flujo Típico de Marketing:</h4>
-                    <div class="flow-diagram">
-                        <div class="flow-step">
-                            <h4>Briefing</h4>
-                            <p>Definición de objetivos</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Investigación</h4>
-                            <p>Análisis de mercado</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Creatividad</h4>
-                            <p>Generación de ideas</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Producción</h4>
-                            <p>Creación de assets</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Revisión</h4>
-                            <p>Aprobaciones</p>
-                        </div>
-                        <div class="flow-arrow">→</div>
-                        <div class="flow-step">
-                            <h4>Lanzamiento</h4>
-                            <p>Publicación</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Términos Clave -->
-            <section class="key-terms">
-                <h2>📚 Términos Clave y Conceptos Fundamentales</h2>
-                <div class="terms-grid">
-                    <div class="term-item">
-                        <div class="term-name">Kanban</div>
-                        <div class="term-definition">Sistema visual para gestionar trabajo intelectual basado en flujo continuo y límites WIP</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">WIP (Work in Progress)</div>
-                        <div class="term-definition">Cantidad de trabajo que está siendo ejecutado simultáneamente en el sistema</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Lead Time</div>
-                        <div class="term-definition">Tiempo total desde que se solicita algo hasta que se entrega al cliente</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Cycle Time</div>
-                        <div class="term-definition">Tiempo que un elemento está activamente siendo trabajado</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Throughput</div>
-                        <div class="term-definition">Número de elementos completados en un período de tiempo determinado</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Pull System</div>
-                        <div class="term-definition">Sistema donde el trabajo se "tira" basado en capacidad, no se "empuja"</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Flow Efficiency</div>
-                        <div class="term-definition">Porcentaje del lead time en que se agrega valor activamente</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">CFD (Cumulative Flow Diagram)</div>
-                        <div class="term-definition">Gráfico que muestra la acumulación de trabajo en cada etapa a lo largo del tiempo</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Little's Law</div>
-                        <div class="term-definition">Ley matemática: Lead Time = WIP / Throughput</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Kaizen</div>
-                        <div class="term-definition">Filosofía de mejora continua a través de pequeños cambios incrementales</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Value Stream</div>
-                        <div class="term-definition">Secuencia completa de actividades requeridas para entregar valor al cliente</div>
-                    </div>
-                    <div class="term-item">
-                        <div class="term-name">Swimlanes</div>
-                        <div class="term-definition">Divisiones horizontales en el tablero para categorizar diferentes tipos de trabajo</div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Evaluación -->
-            <section class="quiz-section">
-                <h2>📝 Evaluación de Conocimientos</h2>
-                <p class="text-center"><strong>Responde las siguientes 20 preguntas sobre Kanban y metodologías ágiles</strong></p>
-                
-                <div class="quiz-question">
-                    <h4>1. ¿Cuál es la ley matemática que relaciona WIP, throughput y lead time en Kanban?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Ley de Pareto</li>
-                        <li role="listitem">B) Ley de Little</li>
-                        <li role="listitem">C) Ley de Murphy</li>
-                        <li role="listitem">D) Ley de Conway</li>
+                <div class="question">
+                    <h4>4. ¿Qué establece la Ley de Little?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, true)">A) Lead Time = WIP / Throughput</li>
+                        <li onclick="selectOption(this, false)">B) WIP = Lead Time × Throughput</li>
+                        <li onclick="selectOption(this, false)">C) Throughput = WIP × Lead Time</li>
+                        <li onclick="selectOption(this, false)">D) Cycle Time = WIP + Throughput</li>
                     </ul>
-                    <p><strong>Respuesta correcta: B)</strong> La Ley de Little establece que Lead Time = WIP / Throughput</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>2. ¿Cuál de los siguientes NO es un principio fundamental de Kanban?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Comenzar con lo que se hace ahora</li>
-                        <li role="listitem">B) Limitar el trabajo en progreso</li>
-                        <li role="listitem">C) Definir roles prescriptivos específicos</li>
-                        <li role="listitem">D) Fomentar el liderazgo en todos los niveles</li>
+                <div class="question">
+                    <h4>5. ¿Cuántos principios fundamentales tiene Kanban?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) 4 principios</li>
+                        <li onclick="selectOption(this, false)">B) 5 principios</li>
+                        <li onclick="selectOption(this, true)">C) 6 principios</li>
+                        <li onclick="selectOption(this, false)">D) 7 principios</li>
                     </ul>
-                    <p><strong>Respuesta correcta: C)</strong> Kanban no prescribe roles específicos, a diferencia de Scrum</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>3. ¿Qué significa WIP en el contexto de Kanban?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Work in Process</li>
-                        <li role="listitem">B) Work in Progress</li>
-                        <li role="listitem">C) Weekly Implementation Plan</li>
-                        <li role="listitem">D) Workflow Improvement Program</li>
+                <div class="question">
+                    <h4>6. ¿Qué tipo de sistema utiliza Kanban para gestionar el trabajo?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Push system</li>
+                        <li onclick="selectOption(this, true)">B) Pull system</li>
+                        <li onclick="selectOption(this, false)">C) Mixed system</li>
+                        <li onclick="selectOption(this, false)">D) Automated system</li>
                     </ul>
-                    <p><strong>Respuesta correcta: B)</strong> WIP significa Work in Progress (trabajo en progreso)</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>4. ¿Cuál es la diferencia principal entre lead time y cycle time?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) No hay diferencia, son sinónimos</li>
-                        <li role="listitem">B) Lead time incluye tiempo de espera, cycle time solo tiempo activo</li>
-                        <li role="listitem">C) Cycle time es siempre mayor que lead time</li>
-                        <li role="listitem">D) Lead time se mide en días, cycle time en horas</li>
+                <div class="question">
+                    <h4>7. ¿Cuál es la diferencia principal entre Lead Time y Cycle Time?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, true)">A) Lead Time incluye tiempo de espera, Cycle Time solo tiempo activo</li>
+                        <li onclick="selectOption(this, false)">B) Son exactamente lo mismo</li>
+                        <li onclick="selectOption(this, false)">C) Cycle Time incluye tiempo de espera, Lead Time solo tiempo activo</li>
+                        <li onclick="selectOption(this, false)">D) Lead Time es siempre menor que Cycle Time</li>
                     </ul>
-                    <p><strong>Respuesta correcta: B)</strong> Lead time incluye todo el tiempo desde solicitud hasta entrega, cycle time solo el tiempo de trabajo activo</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>5. ¿En qué empresa automotriz se originó el método Kanban?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Honda</li>
-                        <li role="listitem">B) Nissan</li>
-                        <li role="listitem">C) Toyota</li>
-                        <li role="listitem">D) Mazda</li>
+                <div class="question">
+                    <h4>8. ¿Qué prescribe Kanban sobre los roles del equipo?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Define roles específicos como Scrum</li>
+                        <li onclick="selectOption(this, true)">B) No prescribe roles específicos</li>
+                        <li onclick="selectOption(this, false)">C) Requiere un Kanban Master</li>
+                        <li onclick="selectOption(this, false)">D) Solo funciona con Product Owners</li>
                     </ul>
-                    <p><strong>Respuesta correcta: C)</strong> Kanban se originó en Toyota como parte del Toyota Production System</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>6. ¿Cuál es el propósito principal de los límites WIP?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Limitar la cantidad de personas en el equipo</li>
-                        <li role="listitem">B) Controlar el flujo y identificar cuellos de botella</li>
-                        <li role="listitem">C) Reducir el costo del proyecto</li>
-                        <li role="listitem">D) Acelerar la entrega sin importar la calidad</li>
+                <div class="question">
+                    <h4>9. ¿Cuál es una característica clave del flujo en Kanban?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Trabajo en lotes grandes</li>
+                        <li onclick="selectOption(this, true)">B) Flujo continuo de trabajo</li>
+                        <li onclick="selectOption(this, false)">C) Sprints de tiempo fijo</li>
+                        <li onclick="selectOption(this, false)">D) Planificación periódica</li>
                     </ul>
-                    <p><strong>Respuesta correcta: B)</strong> Los límites WIP controlan el flujo y hacen visibles los cuellos de botella</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>7. ¿Qué metodología ágil prescribe roles específicos como Product Owner y Scrum Master?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Kanban</li>
-                        <li role="listitem">B) XP (Extreme Programming)</li>
-                        <li role="listitem">C) Scrum</li>
-                        <li role="listitem">D) Lean</li>
+                <div class="question">
+                    <h4>10. ¿Qué herramienta visual es fundamental en Kanban?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Burndown chart</li>
+                        <li onclick="selectOption(this, false)">B) Velocity chart</li>
+                        <li onclick="selectOption(this, true)">C) Tablero Kanban</li>
+                        <li onclick="selectOption(this, false)">D) Gantt chart</li>
                     </ul>
-                    <p><strong>Respuesta correcta: C)</strong> Scrum define roles específicos, mientras que Kanban no prescribe roles</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>8. ¿Qué significa "pull system" en Kanban?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) El trabajo se asigna desde arriba hacia abajo</li>
-                        <li role="listitem">B) El trabajo se "tira" basado en capacidad disponible</li>
-                        <li role="listitem">C) El trabajo se distribuye aleatoriamente</li>
-                        <li role="listitem">D) El trabajo se programa con meses de anticipación</li>
+                <div class="question">
+                    <h4>11. ¿Cuándo se desarrolló Kanban para software?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) 1950s</li>
+                        <li onclick="selectOption(this, false)">B) 1990s</li>
+                        <li onclick="selectOption(this, true)">C) 2000s</li>
+                        <li onclick="selectOption(this, false)">D) 2010s</li>
                     </ul>
-                    <p><strong>Respuesta correcta: B)</strong> En un pull system, el trabajo se "tira" cuando hay capacidad, no se "empuja"</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>9. ¿Cuál es la característica principal de un Cumulative Flow Diagram (CFD)?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Muestra el progreso individual de cada desarrollador</li>
-                        <li role="listitem">B) Visualiza la acumulación de trabajo en cada etapa del proceso</li>
-                        <li role="listitem">C) Calcula automáticamente los límites WIP óptimos</li>
-                        <li role="listitem">D) Predice exactamente cuándo terminará el proyecto</li>
+                <div class="question">
+                    <h4>12. ¿Qué significa "Just-in-Time" en el contexto Toyota?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, true)">A) Producir solo lo necesario, cuando es necesario</li>
+                        <li onclick="selectOption(this, false)">B) Producir lo más rápido posible</li>
+                        <li onclick="selectOption(this, false)">C) Producir en grandes cantidades</li>
+                        <li onclick="selectOption(this, false)">D) Producir sin planificación</li>
                     </ul>
-                    <p><strong>Respuesta correcta: B)</strong> El CFD muestra cómo se acumula el trabajo en cada etapa a lo largo del tiempo</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>10. ¿Qué significa "Kaizen" en el contexto de Kanban?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Cambios drásticos e inmediatos</li>
-                        <li role="listitem">B) Mejora continua incremental</li>
-                        <li role="listitem">C) Eliminación completa de procesos</li>
-                        <li role="listitem">D) Reorganización estructural masiva</li>
+                <div class="question">
+                    <h4>13. ¿Qué mide el Throughput en Kanban?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Tiempo promedio de entrega</li>
+                        <li onclick="selectOption(this, false)">B) Número de elementos en progreso</li>
+                        <li onclick="selectOption(this, true)">C) Elementos completados por unidad de tiempo</li>
+                        <li onclick="selectOption(this, false)">D) Tiempo de espera en el sistema</li>
                     </ul>
-                    <p><strong>Respuesta correcta: B)</strong> Kaizen significa mejora continua a través de pequeños cambios incrementales</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>11. ¿En qué año David J. Anderson adaptó Kanban para desarrollo de software?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) 2001</li>
-                        <li role="listitem">B) 2004</li>
-                        <li role="listitem">C) 2008</li>
-                        <li role="listitem">D) 2010</li>
+                <div class="question">
+                    <h4>14. ¿Cuál es una ventaja de limitar el WIP?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Aumenta la multitarea</li>
+                        <li onclick="selectOption(this, true)">B) Reduce el tiempo de entrega</li>
+                        <li onclick="selectOption(this, false)">C) Incrementa la complejidad</li>
+                        <li onclick="selectOption(this, false)">D) Disminuye la colaboración</li>
                     </ul>
-                    <p><strong>Respuesta correcta: B)</strong> Anderson comenzó a aplicar Kanban en Microsoft en 2004</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>12. ¿Cuál de estas NO es una clase de servicio típica en Kanban?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Expedite</li>
-                        <li role="listitem">B) Standard</li>
-                        <li role="listitem">C) Premium</li>
-                        <li role="listitem">D) Fixed Date</li>
+                <div class="question">
+                    <h4>15. ¿Qué es el CFD (Cumulative Flow Diagram)?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Un diagrama de velocidad</li>
+                        <li onclick="selectOption(this, true)">B) Un diagrama de flujo acumulativo</li>
+                        <li onclick="selectOption(this, false)">C) Un diagrama de burndown</li>
+                        <li onclick="selectOption(this, false)">D) Un diagrama de Gantt</li>
                     </ul>
-                    <p><strong>Respuesta correcta: C)</strong> Las clases típicas son Expedite, Fixed Date, Standard e Intangible</p>
                 </div>
 
-                <div class="quiz-question">
-                    <h4>13. ¿Qué indica una banda horizontal en un CFD?</h4>
-                    <ul class="quiz-options">
-                        <li role="listitem">A) Flujo perfecto sin problemas</li>
-                        <li role="listitem">B) Trabajo acumulado sin movimiento (cuello de botella)</li>
-                        <li role="listitem">C) Incremento
+                <div class="question">
+                    <h4>16. ¿Cuál es el primer paso para implementar Kanban?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, true)">A) Comenzar con lo que haces ahora</li>
+                        <li onclick="selectOption(this, false)">B) Rediseñar todo el proceso</li>
+                        <li onclick="selectOption(this, false)">C) Contratar un consultor</li>
+                        <li onclick="selectOption(this, false)">D) Cambiar la estructura organizacional</li>
+                    </ul>
+                </div>
+
+                <div class="question">
+                    <h4>17. ¿Qué significa "Jidoka" en el TPS?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Acelerar la producción</li>
+                        <li onclick="selectOption(this, true)">B) Detener la producción cuando se detecta un problema</li>
+                        <li onclick="selectOption(this, false)">C) Automatizar todo el proceso</li>
+                        <li onclick="selectOption(this, false)">D) Trabajar en múltiples tareas</li>
+                    </ul>
+                </div>
+
+                <div class="question">
+                    <h4>18. ¿Cuál es una diferencia clave entre Kanban y Scrum?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Kanban usa sprints, Scrum flujo continuo</li>
+                        <li onclick="selectOption(this, true)">B) Kanban usa flujo continuo, Scrum usa sprints</li>
+                        <li onclick="selectOption(this, false)">C) Ambos usan exactamente el mismo enfoque</li>
+                        <li onclick="selectOption(this, false)">D) Kanban requiere más roles que Scrum</li>
+                    </ul>
+                </div>
+
+                <div class="question">
+                    <h4>19. ¿Qué enfoque tiene Kanban hacia la mejora?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Cambios dramáticos periódicos</li>
+                        <li onclick="selectOption(this, true)">B) Mejora continua e incremental</li>
+                        <li onclick="selectOption(this, false)">C) Solo mejoras al final del proyecto</li>
+                        <li onclick="selectOption(this, false)">D) No considera la mejora necesaria</li>
+                    </ul>
+                </div>
+
+                <div class="question">
+                    <h4>20. ¿Cuál es el objetivo principal de las políticas explícitas en Kanban?</h4>
+                    <ul class="options">
+                        <li onclick="selectOption(this, false)">A) Complicar el proceso</li>
+                        <li onclick="selectOption(this, false)">B) Crear más documentación</li>
+                        <li onclick="selectOption(this, true)">C) Definir criterios claros para cada estado</li>
+                        <li onclick="selectOption(this, false)">D) Limitar la creatividad del equipo</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin: 30px 0;">
+                <button class="btn btn-primary" onclick="submitQuiz()">📊 Evaluar Respuestas</button>
+                <button class="btn btn-warning" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
+            </div>
+
+            <div id="quiz-results" class="quiz-results">
+                <div id="score-circle" class="score-circle">
+                    <span id="score-percentage">0%</span>
+                </div>
+                <h3 id="score-message">¡Excelente trabajo!</h3>
+                <p id="score-details">Has respondido correctamente X de 20 preguntas.</p>
+                <div id="score-feedback"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Sistema de temas
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (body.getAttribute('data-theme') === 'dark') {
+                body.removeAttribute('data-theme');
+                themeIcon.textContent = '🌓';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Cargar tema guardado
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.getElementById('theme-icon');
+            
+            if (savedTheme === 'dark') {
+                document.body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+            }
+            
+            // Inicializar Mermaid
+            mermaid.initialize({ 
+                startOnLoad: true,
+                theme: savedTheme === 'dark' ? 'dark' : 'default'
+            });
+        });
+
+        // Sistema de Quiz
+        let selectedAnswers = {};
+        let totalQuestions = 20;
+
+        function selectOption(element, isCorrect) {
+            const question = element.closest('.question');
+            const questionNumber = Array.from(document.querySelectorAll('.question')).indexOf(question) + 1;
+            const options = question.querySelectorAll('.options li');
+            
+            // Remover selección previa
+            options.forEach(opt => opt.classList.remove('selected'));
+            
+            // Marcar nueva selección
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            selectedAnswers[questionNumber] = {
+                selected: element,
+                isCorrect: isCorrect
+            };
+        }
+
+        function submitQuiz() {
+            if (Object.keys(selectedAnswers).length < totalQuestions) {
+                alert('Por favor responde todas las preguntas antes de evaluar.');
+                return;
+            }
+
+            let correctAnswers = 0;
+            
+            // Evaluar cada respuesta
+            Object.values(selectedAnswers).forEach(answer => {
+                if (answer.isCorrect) {
+                    answer.selected.classList.add('correct');
+                    correctAnswers++;
+                } else {
+                    answer.selected.classList.add('incorrect');
+                }
+            });
+
+            // Mostrar respuestas correctas
+            document.querySelectorAll('.question').forEach((question, index) => {
+                const options = question.querySelectorAll('.options li');
+                options.forEach(option => {
+                    const isCorrect = option.getAttribute('onclick').includes('true');
+                    if (isCorrect && !option.classList.contains('selected')) {
+                        option.style.backgroundColor = '#27ae60';
+                        option.style.color = 'white';
+                        option.style.fontWeight = 'bold';
+                    }
+                });
+            });
+
+            // Mostrar resultados
+            showResults(correctAnswers);
+        }
+
+        function showResults(correctAnswers) {
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+            const resultsDiv = document.getElementById('quiz-results');
+            const scoreCircle = document.getElementById('score-circle');
+            const scorePercentage = document.getElementById('score-percentage');
+            const scoreMessage = document.getElementById('score-message');
+            const scoreDetails = document.getElementById('score-details');
+            const scoreFeedback = document.getElementById('score-feedback');
+
+            scorePercentage.textContent = percentage + '%';
+            scoreDetails.textContent = `Has respondido correctamente ${correctAnswers} de ${totalQuestions} preguntas.`;
+
+            // Determinar clase y mensaje según el puntaje
+            scoreCircle.className = 'score-circle';
+            if (percentage >= 90) {
+                scoreCircle.classList.add('score-excellent');
+                scoreMessage.textContent = '¡Excelente dominio de Kanban!';
+                scoreFeedback.innerHTML = '<p>Tienes un entendimiento excepcional de los principios y prácticas de Kanban. ¡Felicitaciones!</p>';
+            } else if (percentage >= 75) {
+                scoreCircle.classList.add('score-good');
+                scoreMessage.textContent = '¡Buen conocimiento!';
+                scoreFeedback.innerHTML = '<p>Tienes una comprensión sólida de Kanban. Revisa los temas donde tuviste dificultades.</p>';
+            } else if (percentage >= 60) {
+                scoreCircle.classList.add('score-fair');
+                scoreMessage.textContent = 'Conocimiento básico';
+                scoreFeedback.innerHTML = '<p>Tienes conceptos básicos. Te recomendamos repasar el material y practicar más.</p>';
+            } else {
+                scoreCircle.classList.add('score-poor');
+                scoreMessage.textContent = 'Necesitas reforzar';
+                scoreFeedback.innerHTML = '<p>Te recomendamos revisar todo el material nuevamente y consultar recursos adicionales.</p>';
+            }
+
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            selectedAnswers = {};
+            
+            // Limpiar todas las selecciones y estilos
+            document.querySelectorAll('.options li').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+                option.style.backgroundColor = '';
+                option.style.color = '';
+                option.style.fontWeight = '';
+            });
+            
+            // Ocultar resultados
+            document.getElementById('quiz-results').style.display = 'none';
+            
+            // Volver al inicio del quiz
+            document.querySelector('.quiz-container h2').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Navegación suave
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scrolling para anchors
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
