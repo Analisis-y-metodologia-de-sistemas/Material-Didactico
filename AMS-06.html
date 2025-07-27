@@ -547,6 +547,83 @@
             outline: 2px solid var(--secondary-color);
             outline-offset: 2px;
         }
+
+        /* Enhanced styling for Lean section */
+        .enhanced-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .principles-category {
+            margin: 30px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .principles-category h4 {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 20px;
+            margin: 0;
+            font-size: 1.2em;
+            text-align: center;
+        }
+
+        .principle-card {
+            background: var(--bg-card);
+            padding: 25px;
+        }
+
+        .principle-content p {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .principle-content ul {
+            margin-top: 15px;
+        }
+
+        .principle-content li {
+            margin: 8px 0;
+            padding-left: 10px;
+        }
+
+        .waste-list li {
+            margin: 15px 0;
+            padding: 12px;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .waste-type {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .implementation-steps {
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            border-left: 5px solid var(--success-color);
+        }
+
+        .implementation-steps h4 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        .implementation-steps ol {
+            margin-left: 20px;
+        }
+
+        .implementation-steps li {
+            margin: 10px 0;
+            padding: 8px 0;
+        }
     </style>
 </head>
 <body>
@@ -591,9 +668,9 @@
             <ul>
                 <li><strong>Comprender</strong> los principios fundamentales de Kanban y su origen en el Sistema de Producción Toyota</li>
                 <li><strong>Analizar</strong> las diferencias conceptuales y prácticas entre Kanban y Scrum como metodologías ágiles</li>
-                <li><strong>Implementar</strong> un tablero Kanban básico con límites WIP apropiados para un proyecto de software</li>
-                <li><strong>Evaluar</strong> métricas de flujo como Lead Time, Cycle Time y Throughput para optimizar procesos</li>
-                <li><strong>Aplicar</strong> la Ley de Little para entender la relación entre WIP, throughput y tiempo de entrega</li>
+                <li><strong>Implementar</strong> un tablero Kanban básico con límites de trabajo en progreso apropiados para un proyecto de software</li>
+                <li><strong>Evaluar</strong> métricas de flujo como Tiempo de Entrega, Tiempo de Ciclo y Rendimiento para optimizar procesos</li>
+                <li><strong>Aplicar</strong> la Ley de Little para entender la relación entre trabajo en progreso, rendimiento y tiempo de entrega</li>
                 <li><strong>Diseñar</strong> estrategias de mejora continua basadas en el análisis de flujo de valor</li>
             </ul>
         </section>
@@ -642,6 +719,7 @@
             </div>
         </section>
 
+
         <section class="content-section">
             <h2 class="section-title">🎯 2. Principios Fundamentales de Kanban</h2>
             
@@ -689,11 +767,11 @@
                 <h3>⚠️ Limitaciones de WIP (Work in Progress)</h3>
                 <p>El concepto central de Kanban es limitar el trabajo en progreso para:</p>
                 <ul>
-                    <li>Reducir el tiempo de entrega (Lead Time)</li>
+                    <li>Reducir el tiempo de entrega (Tiempo de Entrega)</li>
                     <li>Mejorar la calidad del trabajo</li>
                     <li>Identificar cuellos de botella</li>
                     <li>Fomentar la colaboración del equipo</li>
-                    <li>Reducir el contexto switching</li>
+                    <li>Reducir el cambio de contexto</li>
                 </ul>
             </div>
         </section>
@@ -750,9 +828,9 @@
                 <h3>🎛️ Elementos Clave del Tablero</h3>
                 <ul>
                     <li><strong>Columnas:</strong> Representan estados del flujo de trabajo</li>
-                    <li><strong>Tarjetas:</strong> Items de trabajo individuales</li>
-                    <li><strong>Límites WIP:</strong> Máximo número de items por columna</li>
-                    <li><strong>Pull System:</strong> El trabajo se "tira" cuando hay capacidad</li>
+                    <li><strong>Tarjetas:</strong> Elementos de trabajo individuales</li>
+                    <li><strong>Límites de Trabajo en Progreso:</strong> Máximo número de elementos por columna</li>
+                    <li><strong>Sistema de Arrastre:</strong> El trabajo se "tira" cuando hay capacidad</li>
                     <li><strong>Políticas explícitas:</strong> Reglas claras para cada columna</li>
                 </ul>
             </div>
@@ -763,28 +841,28 @@
             
             <div class="metrics-grid">
                 <div class="metric-card">
-                    <h3>⏱️ Lead Time</h3>
+                    <h3>⏱️ Tiempo de Entrega</h3>
                     <div class="metric-value">8.5</div>
                     <div class="metric-label">días promedio</div>
                     <p>Tiempo desde solicitud hasta entrega</p>
                 </div>
                 
                 <div class="metric-card">
-                    <h3>🔄 Cycle Time</h3>
+                    <h3>🔄 Tiempo de Ciclo</h3>
                     <div class="metric-value">5.2</div>
                     <div class="metric-label">días promedio</div>
                     <p>Tiempo de trabajo activo</p>
                 </div>
                 
                 <div class="metric-card">
-                    <h3>📊 Throughput</h3>
+                    <h3>📊 Rendimiento</h3>
                     <div class="metric-value">12</div>
-                    <div class="metric-label">items/semana</div>
+                    <div class="metric-label">elementos/semana</div>
                     <p>Elementos completados por unidad de tiempo</p>
                 </div>
                 
                 <div class="metric-card">
-                    <h3>🔢 WIP Actual</h3>
+                    <h3>🔢 Trabajo en Progreso Actual</h3>
                     <div class="metric-value">6</div>
                     <div class="metric-label">de 10 máximo</div>
                     <p>Trabajo en progreso actual</p>
@@ -792,7 +870,7 @@
             </div>
 
             <div class="diagram-container">
-                <div class="diagram-title">📊 Diagrama de Flujo Acumulativo (CFD)</div>
+                <div class="diagram-title">📊 Diagrama de Flujo Acumulativo</div>
                 <div class="mermaid">
                     xychart-beta
                         title "Flujo Acumulativo - 4 Semanas"
@@ -807,11 +885,11 @@
 
             <div class="content-box info">
                 <h3>🧮 Ley de Little</h3>
-                <p><strong>Lead Time = WIP / Throughput</strong></p>
+                <p><strong>Tiempo de Entrega = Trabajo en Progreso / Rendimiento</strong></p>
                 <p>Esta ley fundamental establece la relación matemática entre las tres métricas clave de flujo. Nos permite:</p>
                 <ul>
                     <li>Predecir tiempos de entrega</li>
-                    <li>Optimizar límites WIP</li>
+                    <li>Optimizar límites de trabajo en progreso</li>
                     <li>Mejorar predictibilidad</li>
                     <li>Identificar oportunidades de mejora</li>
                 </ul>
@@ -848,7 +926,7 @@
             </div>
 
             <div class="diagram-container">
-                <div class="diagram-title">📈 Control Chart - Predictibilidad del Lead Time</div>
+                <div class="diagram-title">📈 Gráfico de Control - Predictibilidad del Tiempo de Entrega</div>
                 <div class="mermaid">
                     xychart-beta
                         title "Lead Time Control Chart (20 elementos)"
@@ -862,9 +940,9 @@
             </div>
 
             <div class="content-box">
-                <h3>📊 Análisis de Control Chart</h3>
+                <h3>📊 Análisis del Gráfico de Control</h3>
                 <ul>
-                    <li><strong>Línea azul:</strong> Lead Time real de cada elemento</li>
+                    <li><strong>Línea azul:</strong> Tiempo de Entrega real de cada elemento</li>
                     <li><strong>Línea verde:</strong> Promedio (11.5 días)</li>
                     <li><strong>Línea naranja:</strong> Límite superior de control (20 días)</li>
                     <li><strong>Línea roja:</strong> Límite inferior de control (3 días)</li>
@@ -874,7 +952,337 @@
         </section>
 
         <section class="content-section">
-            <h2 class="section-title">📊 Métricas Lean en Desarrollo de Software</h2>
+            <h2 class="section-title">🏭 5. Lean Software Development</h2>
+            
+            <div class="content-box info">
+                <h3>📋 Introducción a Lean Software Development</h3>
+                <p>Lean Software Development es una adaptación de los principios Lean Manufacturing para el desarrollo de software, creada por Mary y Tom Poppendieck. Se basa en el Sistema de Producción Toyota y se enfoca en eliminar desperdicios y maximizar el valor entregado al cliente.</p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🏗️ Evolución del Pensamiento Lean</div>
+                <div class="mermaid">
+                    timeline
+                        title Historia de Lean
+                        
+                        1940s : Toyota Production System
+                               : Taiichi Ohno
+                               : Just-in-Time
+                        
+                        1990s : Lean Manufacturing
+                               : Womack & Jones
+                               : The Machine That Changed the World
+                        
+                        2003  : Lean Software Development
+                               : Mary & Tom Poppendieck
+                               : Adapting Agile Practices
+                        
+                        2010+ : Lean Startup
+                               : Eric Ries
+                               : Build-Measure-Learn
+                </div>
+            </div>
+
+            <div class="enhanced-list">
+                <h3>🎯 Los 7 Principios de Lean Software Development</h3>
+                
+                <div class="principles-category">
+                    <h4>📊 Principio 1: Eliminar Desperdicios</h4>
+                    <div class="principle-card">
+                        <div class="principle-content">
+                            <p><strong>Concepto:</strong> Identificar y eliminar todo lo que no agregue valor al cliente.</p>
+                            
+                            <h5>💡 Los 7 Tipos de Desperdicio en Software:</h5>
+                            <ul class="waste-list">
+                                <li><span class="waste-type">📄 Trabajo Parcialmente Terminado:</span> Código sin entregar, funcionalidades incompletas</li>
+                                <li><span class="waste-type">➕ Características Extra:</span> Sobre-ingeniería, funcionalidades innecesarias</li>
+                                <li><span class="waste-type">🔄 Re-aprendizaje:</span> Falta de documentación, rotación de personal</li>
+                                <li><span class="waste-type">🤝 Transferencias:</span> Traspaso entre equipos, comunicación indirecta</li>
+                                <li><span class="waste-type">⏰ Demoras:</span> Esperas por aprobaciones, cuellos de botella</li>
+                                <li><span class="waste-type">🔀 Cambio de Tareas:</span> Multitarea, interrupciones frecuentes</li>
+                                <li><span class="waste-type">🐛 Defectos:</span> Errores, rehacer trabajo, pruebas inadecuadas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="principles-category">
+                    <h4>🏗️ Principio 2: Amplificar el Aprendizaje</h4>
+                    <div class="principle-card">
+                        <div class="principle-content">
+                            <p><strong>Concepto:</strong> El desarrollo de software es un proceso de aprendizaje continuo.</p>
+                            <ul>
+                                <li><strong>Retroalimentación rápida:</strong> Ciclos cortos de desarrollo</li>
+                                <li><strong>Prototipado:</strong> Validar ideas tempranamente</li>
+                                <li><strong>Experimentación:</strong> Pruebas A/B, exploraciones técnicas</li>
+                                <li><strong>Retrospectivas:</strong> Aprender de cada iteración</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="principles-category">
+                    <h4>⏰ Principio 3: Decidir lo Más Tarde Posible</h4>
+                    <div class="principle-card">
+                        <div class="principle-content">
+                            <p><strong>Concepto:</strong> Mantener opciones abiertas hasta tener más información.</p>
+                            <ul>
+                                <li><strong>Último momento responsable:</strong> Decidir cuando el costo de no decidir supera el beneficio</li>
+                                <li><strong>Arquitectura flexible:</strong> Diseños que permiten cambios</li>
+                                <li><strong>Pensamiento de opciones:</strong> Crear múltiples alternativas</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="principles-category">
+                    <h4>🚀 Principio 4: Entregar lo Más Rápido Posible</h4>
+                    <div class="principle-card">
+                        <div class="principle-content">
+                            <p><strong>Concepto:</strong> La velocidad de entrega es crucial para el aprendizaje y la satisfacción del cliente.</p>
+                            <ul>
+                                <li><strong>Tiempo al mercado:</strong> Reducir tiempo desde idea hasta producción</li>
+                                <li><strong>Entrega continua:</strong> Flujo de entrega automatizado</li>
+                                <li><strong>PMV:</strong> Producto Mínimo Viable para validación rápida</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="principles-category">
+                    <h4>👥 Principio 5: Empoderar al Equipo</h4>
+                    <div class="principle-card">
+                        <div class="principle-content">
+                            <p><strong>Concepto:</strong> Los equipos autoorganizados toman mejores decisiones técnicas.</p>
+                            <ul>
+                                <li><strong>Autonomía:</strong> Libertad para tomar decisiones técnicas</li>
+                                <li><strong>Maestría:</strong> Tiempo para desarrollar habilidades</li>
+                                <li><strong>Propósito:</strong> Conexión con el propósito del producto</li>
+                                <li><strong>Liderazgo servicial:</strong> Managers que facilitan en lugar de dirigir</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="principles-category">
+                    <h4>🔧 Principio 6: Construir Integridad</h4>
+                    <div class="principle-card">
+                        <div class="principle-content">
+                            <p><strong>Concepto:</strong> El sistema debe ser percibido como íntegro por el usuario.</p>
+                            
+                            <h5>🎯 Integridad Percibida:</h5>
+                            <ul>
+                                <li>Experiencia de usuario coherente</li>
+                                <li>Rendimiento consistente</li>
+                                <li>Confiabilidad del sistema</li>
+                            </ul>
+
+                            <h5>🏗️ Integridad Conceptual:</h5>
+                            <ul>
+                                <li>Arquitectura coherente</li>
+                                <li>Código mantenible</li>
+                                <li>Estándares de calidad</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="principles-category">
+                    <h4>🔍 Principio 7: Ver el Todo</h4>
+                    <div class="principle-card">
+                        <div class="principle-content">
+                            <p><strong>Concepto:</strong> Optimizar el sistema completo, no solo partes individuales.</p>
+                            <ul>
+                                <li><strong>Pensamiento sistémico:</strong> Entender interdependencias</li>
+                                <li><strong>Mapeo de flujo de valor:</strong> Mapear flujo completo de valor</li>
+                                <li><strong>Responsabilidad extremo a extremo:</strong> Equipos responsables del flujo completo</li>
+                                <li><strong>Viaje del cliente:</strong> Pensar desde la perspectiva del usuario final</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🔄 Ciclo de Mejora Continua Lean</div>
+                <div class="mermaid">
+                    flowchart TD
+                        A[🎯 Identificar Valor] --> B[📊 Mapear Flujo de Valor]
+                        B --> C[🌊 Crear Flujo]
+                        C --> D[⬅️ Establecer Pull]
+                        D --> E[🔄 Buscar Perfección]
+                        E --> A
+                        
+                        F[🔍 Observar] --> G[🧠 Orientarse]
+                        G --> H[🎯 Decidir]
+                        H --> I[⚡ Actuar]
+                        I --> F
+                        
+                        A -.-> F
+                        
+                        style A fill:#e1f5fe
+                        style E fill:#f3e5f5
+                        style F fill:#fff3e0
+                        style I fill:#e8f5e8
+                </div>
+            </div>
+
+            <div class="comparison-table">
+                <h3>📊 Lean vs Traditional Development</h3>
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <thead>
+                        <tr style="background: var(--gradient-secondary); color: white;">
+                            <th style="padding: 15px; text-align: left;">Aspecto</th>
+                            <th style="padding: 15px; text-align: left;">🏭 Desarrollo Tradicional</th>
+                            <th style="padding: 15px; text-align: left;">🚀 Lean Software Development</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);"><strong>Enfoque</strong></td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Planificación detallada upfront</td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Adaptación continua basada en aprendizaje</td>
+                        </tr>
+                        <tr style="background: var(--bg-secondary);">
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);"><strong>Documentación</strong></td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Documentación exhaustiva</td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Documentación just-in-time</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);"><strong>Calidad</strong></td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Testing al final del ciclo</td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Calidad integrada desde el inicio</td>
+                        </tr>
+                        <tr style="background: var(--bg-secondary);">
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);"><strong>Feedback</strong></td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Feedback tardío del cliente</td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Feedback temprano y frecuente</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);"><strong>Equipos</strong></td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Roles especializados y silos</td>
+                            <td style="padding: 15px; border-bottom: 1px solid var(--border-color);">Equipos cross-funcionales empoderados</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content-box success">
+                <h3>🎯 Implementando Lean: Estrategias Prácticas</h3>
+                
+                <div class="implementation-steps">
+                    <h4>📈 Fase 1: Evaluación y Mapeo (Semanas 1-2)</h4>
+                    <ol>
+                        <li><strong>Mapeo de Flujo de Valor:</strong> Documentar el proceso completo desde la concepción de ideas hasta la entrega de valor al cliente. Identificar pasos, actores, tiempos de espera y transferencias entre equipos mediante talleres colaborativos y observación directa.</li>
+                        
+                        <li><strong>Identificación de Desperdicios:</strong> Analizar sistemáticamente los siete tipos de desperdicio: trabajo parcialmente terminado, características extra, re-aprendizaje, transferencias excesivas, demoras, cambio de tareas y defectos. Cuantificar impacto y priorizar por facilidad de eliminación.</li>
+                        
+                        <li><strong>Métricas de Línea Base:</strong> Establecer sistema de medición robusto capturando tiempo de entrega, tiempo de ciclo, rendimiento y satisfacción del equipo. Implementar herramientas automatizadas de seguimiento y crear tableros visuales para monitoreo continuo.</li>
+                        
+                        <li><strong>Evaluación del Equipo:</strong> Realizar evaluación integral de habilidades técnicas, dinámicas colaborativas y preparación cultural. Identificar campeones del cambio, resistencias potenciales y brechas de competencias mediante encuestas anónimas y entrevistas individuales.</li>
+                    </ol>
+                </div>
+
+                <div class="implementation-steps">
+                    <h4>🔧 Fase 2: Mejoras Rápidas (Semanas 3-6)</h4>
+                    <ol>
+                        <li><strong>Eliminar Desperdicios Evidentes:</strong> Identificar y eliminar inmediatamente reuniones sin agenda, aprobaciones redundantes y reportes duplicados. Auditar calendarios, simplificar cadenas de aprobación y crear lista de actividades a abandonar. Medir tiempo liberado semanalmente.</li>
+                        
+                        <li><strong>Automatización Básica:</strong> Implementar integración continua básica con construcción automatizada, pruebas unitarias y despliegue a desarrollo. Extender gradualmente a pruebas de integración, análisis de seguridad y despliegue a producción. Automatizar configuración de entornos y respaldos.</li>
+                        
+                        <li><strong>Ciclos de Retroalimentación:</strong> Establecer reuniones diarias efectivas, retrospectivas estructuradas y retroalimentación directa de usuarios. Crear canales directos entre desarrollo y usuarios finales, implementar funcionalidades con interruptores y analíticas para medir adopción y satisfacción.</li>
+                        
+                        <li><strong>Límites de Trabajo en Progreso:</strong> Implementar límites conservadores comenzando con 1-2 elementos por persona en progreso. Visualizar trabajo actual en tableros, establecer políticas explícitas de finalización y aplicar señales de arrastre entre etapas del proceso.</li>
+                    </ol>
+                </div>
+
+                <div class="implementation-steps">
+                    <h4>🚀 Fase 3: Transformación Profunda (Meses 2-6)</h4>
+                    <ol>
+                        <li><strong>Empoderamiento del Equipo:</strong> Desarrollar capacidad del equipo para decisiones técnicas autónomas. Delegar autoridad progresivamente para arquitectura, tecnologías y estrategias de despliegue. Establecer registros de decisiones arquitectónicas, exploraciones técnicas acotadas y revisiones técnicas entre equipos. Crear seguridad psicológica para riesgos calculados.</li>
+                        
+                        <li><strong>Aprendizaje Continuo:</strong> Institucionalizar aprendizaje como parte integral del trabajo diario. Implementar exploraciones técnicas acotadas, charlas técnicas semanales y comunidades de práctica. Establecer presupuestos individuales de aprendizaje, tiempo de innovación y programación en pareja para compartir conocimiento.</li>
+                        
+                        <li><strong>Integración con Clientes:</strong> Crear conexiones directas entre desarrollo y usuarios finales para decisiones basadas en evidencia. Implementar entrevistas regulares, pruebas de usabilidad y mapeo de viajes del cliente. Establecer programas beta, mecanismos de retroalimentación en aplicaciones y consejos asesores.</li>
+                        
+                        <li><strong>Pensamiento Sistémico:</strong> Desarrollar capacidad de optimizar el sistema completo de extremo a extremo. Implementar mapeo de flujo multifuncional desde necesidad del cliente hasta entrega de valor. Establecer métricas compartidas, foros regulares de coordinación entre equipos y gestión de dependencias.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="content-box warning">
+                <h3>⚠️ Desafíos Comunes en la Implementación</h3>
+                <ul>
+                    <li><strong>Resistencia Cultural:</strong> Cambio de mentalidad de "predictabilidad" a "adaptabilidad"</li>
+                    <li><strong>Apoyo Gerencial:</strong> Líderes que quieren control tradicional vs empoderamiento</li>
+                    <li><strong>Optimización Local:</strong> Equipos que optimizan su parte sin ver el sistema completo</li>
+                    <li><strong>Miedo al Fracaso:</strong> Cultura que penaliza errores vs cultura de experimentación</li>
+                    <li><strong>Herramientas sobre Proceso:</strong> Foco en herramientas sin cambiar fundamentalmente el proceso</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">📊 Caso de Estudio: Transformación Lean en Fintech</div>
+                <div class="mermaid">
+                    gantt
+                        title Transformación Lean - 6 Meses
+                        dateFormat  YYYY-MM-DD
+                        
+                        section Assessment
+                        Value Stream Mapping    :a1, 2024-01-01, 2024-01-14
+                        Waste Identification    :a2, 2024-01-01, 2024-01-14
+                        Baseline Metrics       :a3, 2024-01-08, 2024-01-21
+                        
+                        section Quick Wins
+                        Eliminate Obvious Waste :b1, 2024-01-15, 2024-02-15
+                        Basic Automation       :b2, 2024-01-22, 2024-03-01
+                        Feedback Loops         :b3, 2024-01-29, 2024-02-26
+                        
+                        section Deep Transformation
+                        Team Empowerment       :c1, 2024-02-15, 2024-04-15
+                        Continuous Learning    :c2, 2024-03-01, 2024-06-01
+                        Customer Integration   :c3, 2024-03-15, 2024-06-15
+                        
+                        section Results
+                        50% Faster Delivery    :milestone, d1, 2024-04-01, 0d
+                        40% Waste Reduction    :milestone, d2, 2024-05-01, 0d
+                        90% Team Satisfaction  :milestone, d3, 2024-06-01, 0d
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>📈 Lead Time</h3>
+                    <div class="metric-value">-50%</div>
+                    <div class="metric-label">reducción promedio</div>
+                    <p>De 8 semanas a 4 semanas</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>🗑️ Waste Reduction</h3>
+                    <div class="metric-value">40%</div>
+                    <div class="metric-label">menos desperdicio</div>
+                    <p>Eliminación de handoffs innecesarios</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>😊 Team Satisfaction</h3>
+                    <div class="metric-value">90%</div>
+                    <div class="metric-label">satisfacción del equipo</div>
+                    <p>Mayor autonomía y propósito</p>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>🎯 Quality</h3>
+                    <div class="metric-value">-60%</div>
+                    <div class="metric-label">menos defectos</div>
+                    <p>Calidad integrada desde el inicio</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">📊 6. Métricas Lean en Desarrollo de Software</h2>
             
             <div class="content-box info">
                 <h3>🏭 Principios de Medición Lean</h3>
@@ -984,388 +1392,9 @@
             </div>
         </section>
 
-        <section class="content-section">
-            <h2 class="section-title">🚀 Métricas Ágiles Comparativas</h2>
-            
-            <div class="diagram-container">
-                <div class="diagram-title">📊 Burndown vs Burnup vs CFD - Comparación Visual</div>
-                <div class="mermaid">
-                    xychart-beta
-                        title "Burndown Chart - Sprint de 10 días"
-                        x-axis ["Día 0", "Día 2", "Día 4", "Día 6", "Día 8", "Día 10"]
-                        y-axis "Story Points" 0 --> 100
-                        line [100, 85, 70, 45, 25, 5]
-                        line [100, 80, 60, 40, 20, 0]
-                </div>
-            </div>
-
-            <div class="diagram-container">
-                <div class="diagram-title">📈 Velocity Chart - Predictibilidad del Equipo</div>
-                <div class="mermaid">
-                    xychart-beta
-                        title "Velocity por Sprint (6 meses)"
-                        x-axis ["S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12"]
-                        y-axis "Story Points" 0 --> 45
-                        line [25, 30, 28, 35, 32, 38, 36, 34, 37, 39, 35, 38]
-                        line [32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32]
-                </div>
-            </div>
-
-            <table class="comparison-table">
-                <thead>
-                    <tr>
-                        <th>Métrica</th>
-                        <th>🔄 Kanban</th>
-                        <th>🏃 Scrum</th>
-                        <th>🏭 Lean</th>
-                        <th>📊 Propósito</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Lead Time</strong></td>
-                        <td>✅ Principal</td>
-                        <td>⚠️ Secundaria</td>
-                        <td>✅ Principal</td>
-                        <td>Tiempo total de entrega</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cycle Time</strong></td>
-                        <td>✅ Principal</td>
-                        <td>❌ No aplica</td>
-                        <td>✅ Principal</td>
-                        <td>Tiempo de trabajo activo</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Throughput</strong></td>
-                        <td>✅ Principal</td>
-                        <td>❌ No aplica</td>
-                        <td>✅ Principal</td>
-                        <td>Items completados por tiempo</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Velocity</strong></td>
-                        <td>❌ No aplica</td>
-                        <td>✅ Principal</td>
-                        <td>❌ No aplica</td>
-                        <td>Story points por sprint</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Burndown</strong></td>
-                        <td>❌ No aplica</td>
-                        <td>✅ Principal</td>
-                        <td>❌ No aplica</td>
-                        <td>Progreso hacia objetivo</td>
-                    </tr>
-                    <tr>
-                        <td><strong>CFD</strong></td>
-                        <td>✅ Principal</td>
-                        <td>⚠️ Opcional</td>
-                        <td>✅ Principal</td>
-                        <td>Flujo acumulativo</td>
-                    </tr>
-                    <tr>
-                        <td><strong>WIP</strong></td>
-                        <td>✅ Principal</td>
-                        <td>⚠️ Implícito</td>
-                        <td>✅ Principal</td>
-                        <td>Trabajo en progreso</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Waste Metrics</strong></td>
-                        <td>⚠️ Opcional</td>
-                        <td>❌ No explícito</td>
-                        <td>✅ Principal</td>
-                        <td>Eliminación de desperdicios</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <div class="content-box success">
-                <h3>🎯 Guía de Selección de Métricas</h3>
-                
-                <h4>📊 Para equipos nuevos en ágil:</h4>
-                <ul>
-                    <li><strong>Scrum:</strong> Velocity + Burndown (simple y visual)</li>
-                    <li><strong>Kanban:</strong> Lead Time + WIP (fácil de entender)</li>
-                </ul>
-
-                <h4>📈 Para equipos maduros:</h4>
-                <ul>
-                    <li><strong>Scrum:</strong> Velocity + CFD + Cycle Time</li>
-                    <li><strong>Kanban:</strong> Control Charts + Throughput Distribution</li>
-                    <li><strong>Lean:</strong> Value Stream Efficiency + Waste Metrics</li>
-                </ul>
-
-                <h4>🏢 Para management:</h4>
-                <ul>
-                    <li><strong>Lead Time Predictability:</strong> ¿Cuándo se entrega?</li>
-                    <li><strong>Throughput Trends:</strong> ¿Estamos mejorando?</li>
-                    <li><strong>Quality Metrics:</strong> ¿Qué calidad entregamos?</li>
-                </ul>
-            </div>
-
-            <div class="diagram-container">
-                <div class="diagram-title">🎯 Métricas por Nivel Organizacional</div>
-                <div class="mermaid">
-                    graph TB
-                        subgraph "C-Level"
-                            C1[Business Value Delivered<br/>📊 $2M revenue impact]
-                            C2[Time to Market<br/>⏰ 40% faster releases]
-                            C3[Customer Satisfaction<br/>😊 NPS +25 points]
-                        end
-                        
-                        subgraph "Management Level"
-                            M1[Lead Time Trends<br/>📈 15 → 8 days average]
-                            M2[Team Productivity<br/>🚀 35 features/quarter]
-                            M3[Quality Metrics<br/>✅ 95% first-time-right]
-                        end
-                        
-                        subgraph "Team Level"
-                            T1[Daily WIP<br/>🔢 6/10 limit usage]
-                            T2[Cycle Time<br/>⏱️ 3.2 days average]
-                            T3[Blockers<br/>🚫 2 active impediments]
-                        end
-                        
-                        C1 --> M1
-                        C2 --> M2
-                        C3 --> M3
-                        M1 --> T1
-                        M2 --> T2
-                        M3 --> T3
-                        
-                        style C1 fill:#8e44ad,color:#fff
-                        style M1 fill:#3498db,color:#fff
-                        style T1 fill:#27ae60,color:#fff
-                </div>
-            </div>
-        </section>
 
         <section class="content-section">
-            <h2 class="section-title">💼 Casos Prácticos de Implementación de Métricas</h2>
-            
-            <div class="content-box info">
-                <h3>🏢 Caso 1: Startup Tech - Implementando Kanban</h3>
-                <p><strong>Contexto:</strong> Equipo de 8 desarrolladores, trabajo de soporte y nuevas features</p>
-                
-                <h4>📊 Métricas implementadas:</h4>
-                <ul>
-                    <li><strong>Lead Time:</strong> De 15 días promedio a 8 días en 3 meses</li>
-                    <li><strong>WIP Limits:</strong> Comenzaron sin límites → 5 To Do, 3 Doing, 2 Review</li>
-                    <li><strong>Throughput:</strong> Estabilizado en 12 items/semana</li>
-                </ul>
-                
-                <h4>🎯 Resultados:</h4>
-                <ul>
-                    <li>40% reducción en tiempo de entrega</li>
-                    <li>60% menos context switching</li>
-                    <li>85% de predictibilidad en entregas</li>
-                </ul>
-            </div>
-
-            <div class="diagram-container">
-                <div class="diagram-title">📈 Evolución de Métricas - Startup Case Study</div>
-                <div class="mermaid">
-                    xychart-beta
-                        title "Mejora de Lead Time en 6 meses"
-                        x-axis ["Mes 1", "Mes 2", "Mes 3", "Mes 4", "Mes 5", "Mes 6"]
-                        y-axis "Días" 0 --> 20
-                        line [15, 13, 10, 8, 7, 8]
-                        line [12, 12, 12, 12, 12, 12]
-                </div>
-            </div>
-
-            <div class="content-box warning">
-                <h3>🏭 Caso 2: Empresa Manufacturing - Lean Transformation</h3>
-                <p><strong>Contexto:</strong> Departamento IT de 50 personas, proyectos internos</p>
-                
-                <h4>📊 Métricas lean implementadas:</h4>
-                <ul>
-                    <li><strong>Value Stream Efficiency:</strong> De 15% a 45% en 1 año</li>
-                    <li><strong>Waste Reduction:</strong> Eliminación de 30% de handoffs</li>
-                    <li><strong>First Time Right:</strong> De 60% a 85%</li>
-                </ul>
-                
-                <h4>🎯 Resultados financieros:</h4>
-                <ul>
-                    <li>$500K ahorro anual en re-trabajo</li>
-                    <li>50% reducción en time-to-market</li>
-                    <li>90% mejora en satisfacción interna</li>
-                </ul>
-            </div>
-
-            <div class="diagram-container">
-                <div class="diagram-title">💰 ROI de Implementación Lean - Transformación Paso a Paso</div>
-                <div class="mermaid">
-                    flowchart RL
-                        subgraph "🔴 ANTES: Proceso Ineficiente"
-                            A[📊 Equipo IT: 50 personas<br/>Esfuerzo total: 2000 horas/semana<br/>Costo: $1M/año en salarios]
-                            
-                            A --> W1[🤝 Transferencias entre equipos<br/>300 horas/semana<br/>15% del tiempo perdido]
-                            A --> W2[⏳ Esperas por aprobaciones<br/>200 horas/semana<br/>10% del tiempo perdido]
-                            A --> W3[🔄 Corregir errores<br/>100 horas/semana<br/>5% del tiempo perdido]
-                            A --> W4[📝 Documentación duplicada<br/>300 horas/semana<br/>15% del tiempo perdido]
-                            A --> V1[✅ Trabajo que agrega valor<br/>900 horas/semana<br/>45% tiempo productivo]
-                            A --> W5[🚫 Otros desperdicios<br/>200 horas/semana<br/>10% tiempo perdido]
-                        end
-                        
-                        subgraph "🟢 DESPUÉS: Proceso Lean Optimizado"
-                            B[📊 Mismo equipo: 50 personas<br/>Esfuerzo reducido: 1400 horas/semana<br/>30% más eficiente]
-                            
-                            B --> I1[🚀 Equipos multifuncionales<br/>0 horas transferencias<br/>100% eliminado]
-                            B --> I2[⚡ Aprobaciones automáticas<br/>50 horas/semana<br/>75% reducción]
-                            B --> I3[🎯 Prevención de errores<br/>30 horas/semana<br/>70% reducción]
-                            B --> I4[📋 Documentación unificada<br/>70 horas/semana<br/>77% reducción]
-                            B --> V2[✅ Trabajo de valor maximizado<br/>1200 horas/semana<br/>86% tiempo productivo]
-                            B --> I5[🔧 Desperdicios mínimos<br/>50 horas/semana<br/>75% reducción]
-                        end
-                        
-                        subgraph "💰 BENEFICIOS ECONÓMICOS"
-                            R[💵 Ahorro total: 600 horas/semana<br/>$500K ahorro anual<br/>ROI: 300% en primer año<br/>Payback: 4 meses]
-                        end
-                        
-                        V1 -.->|Optimización| V2
-                        W1 -.->|Eliminación| I1
-                        W2 -.->|Automatización| I2
-                        W3 -.->|Prevención| I3
-                        W4 -.->|Unificación| I4
-                        W5 -.->|Minimización| I5
-                        
-                        V2 --> R
-                        
-                        style A fill:#ffcdd2,stroke:#f44336,stroke-width:3px
-                        style B fill:#c8e6c9,stroke:#4caf50,stroke-width:3px
-                        style R fill:#fff3e0,stroke:#ff9800,stroke-width:3px
-                        
-                        style W1 fill:#ffcdd2
-                        style W2 fill:#ffcdd2
-                        style W3 fill:#ffcdd2
-                        style W4 fill:#ffcdd2
-                        style W5 fill:#ffcdd2
-                        
-                        style I1 fill:#c8e6c9
-                        style I2 fill:#c8e6c9
-                        style I3 fill:#c8e6c9
-                        style I4 fill:#c8e6c9
-                        style I5 fill:#c8e6c9
-                        
-                        style V1 fill:#e1f5fe
-                        style V2 fill:#1976d2,color:#fff
-                </div>
-            </div>
-
-            <div class="content-box success">
-                <h3>🚀 Caso 3: Scale-up - Scrum con Métricas Avanzadas</h3>
-                <p><strong>Contexto:</strong> 4 equipos Scrum, producto SaaS, 120 developers</p>
-                
-                <h4>📊 Dashboard ejecutivo implementado:</h4>
-                <ul>
-                    <li><strong>Velocity Trends:</strong> Estabilización en 180 SP/sprint (4 equipos)</li>
-                    <li><strong>Burndown Accuracy:</strong> 90% de sprints terminan según plan</li>
-                    <li><strong>Business Value:</strong> $2M revenue impact medido</li>
-                </ul>
-                
-                <h4>🎯 Beneficios organizacionales:</h4>
-                <ul>
-                    <li>Predictibilidad para roadmap de producto</li>
-                    <li>Decisiones basadas en datos</li>
-                    <li>Alineación entre equipos técnicos y negocio</li>
-                </ul>
-            </div>
-
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <h3>📊 Dashboard Unificado</h3>
-                    <div class="metric-value">4</div>
-                    <div class="metric-label">equipos sincronizados</div>
-                    <p>Release coordinados cada 2 semanas</p>
-                </div>
-                
-                <div class="metric-card">
-                    <h3>🎯 Predictibilidad</h3>
-                    <div class="metric-value">90%</div>
-                    <div class="metric-label">accuracy en entregas</div>
-                    <p>Confianza en compromisos</p>
-                </div>
-                
-                <div class="metric-card">
-                    <h3>💰 Business Impact</h3>
-                    <div class="metric-value">$2M</div>
-                    <div class="metric-label">revenue impact medido</div>
-                    <p>Features con ROI demostrado</p>
-                </div>
-                
-                <div class="metric-card">
-                    <h3>⚡ Time to Market</h3>
-                    <div class="metric-value">45%</div>
-                    <div class="metric-label">reducción vs anterior</div>
-                    <p>De idea a producción</p>
-                </div>
-            </div>
-
-            <div class="diagram-container">
-                <div class="diagram-title">🎯 Métricas por Tipo de Organización</div>
-                <div class="mermaid">
-                    graph TD
-                        subgraph "Startup (< 20 devs)"
-                            S1[Tiempo de Entrega<br/>📊 Semanal]
-                            S2[WIP Limits<br/>🔢 Básicos]
-                            S3[Rendimiento<br/>📈 Simple]
-                        end
-                        
-                        subgraph "Scale-up (20-100 devs)"
-                            M1[Velocity<br/>📊 Por equipo]
-                            M2[Flujo Acumulativo<br/>📈 Agregado]
-                            M3[Controles de Calidad<br/>✅ Automatizados]
-                        end
-                        
-                        subgraph "Enterprise (100+ devs)"
-                            E1[Business Value<br/>💰 ROI tracking]
-                            E2[Portfolio Metrics<br/>📊 Multi-producto]
-                            E3[Cumplimiento<br/>📋 Auditabilidad]
-                        end
-                        
-                        S1 --> M1
-                        S2 --> M2
-                        S3 --> M3
-                        M1 --> E1
-                        M2 --> E2
-                        M3 --> E3
-                        
-                        style S1 fill:#e8f5e8
-                        style M1 fill:#fff3e0
-                        style E1 fill:#f3e5f5
-                </div>
-            </div>
-
-            <div class="content-box">
-                <h3>🛠️ Guía de Implementación por Fases</h3>
-                
-                <h4>📈 Fase 1 (Mes 1-2): Métricas Básicas</h4>
-                <ul>
-                    <li><strong>Kanban:</strong> Implementar tablero visual + WIP limits básicos</li>
-                    <li><strong>Scrum:</strong> Velocity tracking + burndown charts</li>
-                    <li><strong>Lean:</strong> Mapeo inicial de value stream</li>
-                </ul>
-                
-                <h4>📊 Fase 2 (Mes 3-4): Análisis de Tendencias</h4>
-                <ul>
-                    <li><strong>Kanban:</strong> Control charts + cycle time analysis</li>
-                    <li><strong>Scrum:</strong> Velocity stabilization + predictabilidad</li>
-                    <li><strong>Lean:</strong> Identificación y medición de desperdicios</li>
-                </ul>
-                
-                <h4>🎯 Fase 3 (Mes 5-6): Optimización Avanzada</h4>
-                <ul>
-                    <li><strong>Kanban:</strong> Throughput distribution + flow efficiency</li>
-                    <li><strong>Scrum:</strong> Business value tracking + cross-team metrics</li>
-                    <li><strong>Lean:</strong> Value stream optimization + ROI measurement</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="content-section">
-            <h2 class="section-title">⚖️ 6. Kanban vs Scrum: Análisis Comparativo</h2>
+            <h2 class="section-title">⚖️ 7. Kanban vs Scrum: Análisis Comparativo</h2>
             
             <table class="comparison-table">
                 <thead>
@@ -1436,7 +1465,7 @@
         </section>
 
         <section class="content-section">
-            <h2 class="section-title">🛠️ 6. Implementación Práctica</h2>
+            <h2 class="section-title">🛠️ 8. Implementación Práctica</h2>
             
             <div class="content-box">
                 <h3>📋 Pasos para Implementar Kanban</h3>

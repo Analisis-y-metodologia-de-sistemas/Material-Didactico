@@ -473,6 +473,324 @@
             margin: 0;
         }
 
+        /* Estilos para listas mejoradas */
+        .enhanced-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .enhanced-list li {
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-left: 4px solid var(--secondary-color);
+            margin: 8px 0;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .enhanced-list li:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+        }
+
+        .dark-mode .enhanced-list li {
+            background: linear-gradient(135deg, #37474f, #455a64);
+            color: var(--text-light);
+        }
+
+        .dark-mode .enhanced-list li:hover {
+            background: linear-gradient(135deg, #263238, #37474f);
+        }
+
+        /* Listas de valores con iconos y colores */
+        .value-list {
+            display: grid;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .value-item {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 5px solid;
+            transition: all 0.3s ease;
+        }
+
+        .value-item:nth-child(1) { border-left-color: #e74c3c; }
+        .value-item:nth-child(2) { border-left-color: #3498db; }
+        .value-item:nth-child(3) { border-left-color: #27ae60; }
+        .value-item:nth-child(4) { border-left-color: #f39c12; }
+        .value-item:nth-child(5) { border-left-color: #9b59b6; }
+
+        .value-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .dark-mode .value-item {
+            background: #2c3e50;
+            color: var(--text-light);
+        }
+
+        .value-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .value-content {
+            margin-left: 35px;
+        }
+
+        .value-content strong {
+            color: var(--primary-color);
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .dark-mode .value-content strong {
+            color: var(--secondary-color);
+        }
+
+        /* Prácticas organizadas en categorías */
+        .practice-category {
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .dark-mode .practice-category {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-color: #455a64;
+        }
+
+        .category-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--secondary-color);
+        }
+
+        .practice-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .practice-item {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .practice-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .dark-mode .practice-item {
+            background: #37474f;
+            color: var(--text-light);
+        }
+
+        .practice-name {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .dark-mode .practice-name {
+            color: var(--secondary-color);
+        }
+
+        .practice-details {
+            display: grid;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .practice-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 8px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 5px;
+        }
+
+        .dark-mode .practice-detail {
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .practice-detail strong {
+            color: var(--secondary-color);
+            min-width: 80px;
+            font-size: 0.9em;
+        }
+
+        /* Lista de implementación con pasos numerados */
+        .implementation-steps {
+            counter-reset: step-counter;
+            list-style: none;
+            padding: 0;
+        }
+
+        .implementation-steps li {
+            counter-increment: step-counter;
+            background: linear-gradient(135deg, #fff, #f1f8ff);
+            border: 2px solid #e3f2fd;
+            border-radius: 12px;
+            margin: 15px 0;
+            padding: 20px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .implementation-steps li::before {
+            content: counter(step-counter);
+            position: absolute;
+            left: -15px;
+            top: 15px;
+            background: var(--secondary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .implementation-steps li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.2);
+            border-color: var(--secondary-color);
+        }
+
+        .dark-mode .implementation-steps li {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-color: #455a64;
+            color: var(--text-light);
+        }
+
+        /* Principios organizados por categorías */
+        .principles-category {
+            background: linear-gradient(135deg, #fff, #f8f9fa);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 25px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .dark-mode .principles-category {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            border-color: #455a64;
+        }
+
+        .principles-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .principle-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 5px solid;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .principle-item:nth-child(4n+1) { border-left-color: #e74c3c; }
+        .principle-item:nth-child(4n+2) { border-left-color: #3498db; }
+        .principle-item:nth-child(4n+3) { border-left-color: #27ae60; }
+        .principle-item:nth-child(4n) { border-left-color: #f39c12; }
+
+        .principle-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .dark-mode .principle-item {
+            background: #37474f;
+            color: var(--text-light);
+        }
+
+        .principle-number {
+            position: absolute;
+            top: -10px;
+            left: 15px;
+            background: var(--secondary-color);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .principle-text {
+            font-style: italic;
+            font-size: 1.1em;
+            line-height: 1.4;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            border-left: 3px solid var(--secondary-color);
+            padding-left: 15px;
+        }
+
+        .dark-mode .principle-text {
+            color: var(--text-light);
+        }
+
+        .principle-details {
+            display: grid;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .principle-detail {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 8px;
+        }
+
+        .dark-mode .principle-detail {
+            background: rgba(52, 152, 219, 0.2);
+        }
+
+        .principle-detail strong {
+            color: var(--secondary-color);
+            min-width: 120px;
+            font-size: 0.9em;
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 10px;
@@ -488,6 +806,14 @@
             
             .synoptic-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .value-list {
+                grid-template-columns: 1fr;
+            }
+
+            .implementation-steps li {
+                margin-left: 20px;
             }
         }
     </style>
@@ -538,7 +864,7 @@
             <p>Durante la década de 1990, la industria del software enfrentó una crisis significativa. Según el Standish Group, solo el 16% de los proyectos de software se completaban exitosamente utilizando metodologías tradicionales como el modelo en cascada.</p>
             
             <h4>Problemas Identificados en las Metodologías Tradicionales:</h4>
-            <ul>
+            <ul class="enhanced-list">
                 <li><strong>Rigidez excesiva:</strong> Los procesos lineales no se adaptaban a los cambios de requisitos</li>
                 <li><strong>Documentación excesiva:</strong> Se invertía más tiempo documentando que desarrollando</li>
                 <li><strong>Poca participación del cliente:</strong> Los usuarios finales solo veían el producto al final</li>
@@ -548,7 +874,7 @@
 
             <h3>1.2 Antecedentes del Movimiento Ágil</h3>
             <p>Antes del 2001, varios enfoques ya estaban emergiendo como alternativas:</p>
-            <ul>
+            <ul class="enhanced-list">
                 <li><strong>Extreme Programming (XP):</strong> Desarrollado por Kent Beck</li>
                 <li><strong>Scrum:</strong> Creado por Jeff Sutherland y Ken Schwaber</li>
                 <li><strong>Crystal:</strong> Propuesto por Alistair Cockburn</li>
@@ -594,66 +920,52 @@
             
             <p>El Manifiesto Ágil establece cuatro valores fundamentales que priorizan ciertos aspectos sobre otros, sin descartar completamente los elementos de menor prioridad.</p>
 
-            <h3>2.1 Valor 1: Individuos e Interacciones sobre Procesos y Herramientas</h3>
-            
-            <div class="highlight-box">
-                
-                <p>Este valor reconoce que el software es desarrollado por personas, no por procesos automatizados. Las herramientas y procesos son importantes, pero deben servir a las personas, no dominarlas.</p>
+            <div class="value-list">
+                <div class="value-item">
+                    <div class="value-title">👥 Individuos e Interacciones sobre Procesos y Herramientas</div>
+                    <div class="value-content">
+                        <p style="margin-bottom: 15px; font-style: italic;">Este valor reconoce que el software es desarrollado por personas, no por procesos automatizados. Las herramientas y procesos son importantes, pero deben servir a las personas, no dominarlas.</p>
+                        <strong>Comunicación directa:</strong> Preferir conversaciones cara a cara sobre documentos
+                        <strong>Equipos empoderados:</strong> Dar autonomía para tomar decisiones técnicas
+                        <strong>Adaptación de herramientas:</strong> Modificar procesos según las necesidades del equipo
+                        <strong>Creatividad e innovación:</strong> Valorar el talento humano por encima de la automatización
+                    </div>
+                </div>
+
+                <div class="value-item">
+                    <div class="value-title">💻 Software Funcionando sobre Documentación Exhaustiva</div>
+                    <div class="value-content">
+                        <p style="margin-bottom: 15px; font-style: italic;">El valor principal reside en entregar software que realmente funcione y agregue valor al usuario. La documentación debe ser <strong>suficiente y útil</strong>, pero no el objetivo principal.</p>
+                        <strong>Documentación justa:</strong> Crear solo la documentación necesaria
+                        <strong>Código auto-documentado:</strong> Escribir código limpio y expresivo
+                        <strong>Prototipos funcionales:</strong> Desarrollar versiones tempranas para validar
+                        <strong>Tests como documentación:</strong> Usar pruebas para documentar comportamiento
+                    </div>
+                </div>
+
+                <div class="value-item">
+                    <div class="value-title">🤝 Colaboración con el Cliente sobre Negociación Contractual</div>
+                    <div class="value-content">
+                        <p style="margin-bottom: 15px; font-style: italic;">Los contratos rígidos crean adversarios en lugar de colaboradores. La colaboración continua permite adaptar el producto a las necesidades reales que emergen durante el desarrollo.</p>
+                        <strong>Cliente como socio:</strong> Involucrar al cliente como parte del equipo
+                        <strong>Feedback continuo:</strong> Obtener retroalimentación regular durante todo el proceso
+                        <strong>Contratos adaptativos:</strong> Negociar contratos que permitan cambios y ajustes
+                        <strong>Transparencia total:</strong> Compartir avances, obstáculos y decisiones abiertamente
+                        <strong>Objetivos compartidos:</strong> Alinear los objetivos del cliente y del equipo
+                    </div>
+                </div>
+
+                <div class="value-item">
+                    <div class="value-title">🔄 Respuesta ante el Cambio sobre Seguir un Plan</div>
+                    <div class="value-content">
+                        <p style="margin-bottom: 15px; font-style: italic;">Los mercados, tecnologías y necesidades de negocio cambian constantemente. La capacidad de adaptarse rápidamente es más valiosa que seguir rígidamente un plan obsoleto.</p>
+                        <strong>Planificación adaptativa:</strong> Crear planes flexibles que puedan ajustarse
+                        <strong>Iteraciones cortas:</strong> Permitir evaluación y ajuste frecuente
+                        <strong>Feedback temprano:</strong> Obtener información del mercado lo antes posible
+                        <strong>Aprendizaje continuo:</strong> Incorporar nuevos conocimientos en las decisiones
+                    </div>
+                </div>
             </div>
-
-            <h4>Implicaciones Prácticas:</h4>
-            <ul>
-                <li><strong>Comunicación directa:</strong> Preferir conversaciones cara a cara sobre documentos</li>
-                <li><strong>Equipos empoderados:</strong> Dar autonomía para tomar decisiones técnicas</li>
-                <li><strong>Adaptación de herramientas:</strong> Modificar procesos según las necesidades del equipo</li>
-                <li><strong>Creatividad e innovación:</strong> Valorar el talento humano por encima de la automatización</li>
-            </ul>
-
-            <h3>2.2 Valor 2: Software Funcionando sobre Documentación Exhaustiva</h3>
-            
-            <div class="highlight-box">
-                
-                <p>El valor principal reside en entregar software que realmente funcione y agregue valor al usuario. La documentación debe ser <strong>suficiente y útil</strong>, pero no el objetivo principal.</p>
-            </div>
-
-            <h4>Implicaciones Prácticas:</h4>
-            <ul>
-                <li><strong>Documentación justa:</strong> Crear solo la documentación necesaria</li>
-                <li><strong>Código auto-documentado:</strong> Escribir código limpio y expresivo</li>
-                <li><strong>Prototipos funcionales:</strong> Desarrollar versiones tempranas para validar</li>
-                <li><strong>Tests como documentación:</strong> Usar pruebas para documentar comportamiento</li>
-            </ul>
-
-            <h3>2.3 Valor 3: Colaboración con el Cliente sobre Negociación Contractual</h3>
-            
-            <div class="highlight-box">
-                
-                <p>Los contratos rígidos crean adversarios en lugar de colaboradores. La colaboración continua permite adaptar el producto a las necesidades reales que emergen durante el desarrollo.</p>
-            </div>
-
-            <h4>Implicaciones Prácticas:</h4>
-            <ul>
-                <li><strong>Cliente como socio:</strong> Involucrar al cliente como parte del equipo</li>
-                <li><strong>Feedback continuo:</strong> Obtener retroalimentación regular durante todo el proceso</li>
-                <li><strong>Contratos adaptativos:</strong> Negociar contratos que permitan cambios y ajustes</li>
-                <li><strong>Transparencia total:</strong> Compartir avances, obstáculos y decisiones abiertamente</li>
-                <li><strong>Objetivos compartidos:</strong> Alinear los objetivos del cliente y del equipo</li>
-            </ul>
-
-            <h3>2.4 Valor 4: Respuesta ante el Cambio sobre Seguir un Plan</h3>
-            
-            <div class="highlight-box">
-                
-                <p>Los mercados, tecnologías y necesidades de negocio cambian constantemente. La capacidad de adaptarse rápidamente es más valiosa que seguir rígidamente un plan obsoleto.</p>
-            </div>
-
-            <h4>Implicaciones Prácticas:</h4>
-            <ul>
-                <li><strong>Planificación adaptativa:</strong> Crear planes flexibles que puedan ajustarse</li>
-                <li><strong>Iteraciones cortas:</strong> Permitir evaluación y ajuste frecuente</li>
-                <li><strong>Feedback temprano:</strong> Obtener información del mercado lo antes posible</li>
-                <li><strong>Aprendizaje continuo:</strong> Incorporar nuevos conocimientos en las decisiones</li>
-            </ul>
 
             <div class="synoptic-chart">
                 <div class="synoptic-title">Comparación: Tradicional vs Ágil</div>
@@ -696,393 +1008,633 @@
             
             <p>Los 12 principios del Manifiesto Ágil proporcionan guías específicas para implementar los valores ágiles en la práctica diaria. Están organizados en cuatro grupos temáticos.</p>
 
-            <h3>3.1 Principios Orientados al Cliente (1-4)</h3>
-            
-            <h4>Principio 1: "Nuestra mayor prioridad es satisfacer al cliente mediante la entrega temprana y continua de software con valor"</h4>
-            <ul>
-                <li><strong>Entrega temprana:</strong> Minimizar el time-to-market para obtener feedback real</li>
-                <li><strong>Entrega continua:</strong> Mantener un flujo constante de valor hacia el cliente</li>
-                <li><strong>Software con valor:</strong> Cada entrega debe aportar funcionalidad útil y medible</li>
-                <li><strong>Satisfacción del cliente:</strong> El éxito se mide por la satisfacción real del usuario</li>
-            </ul>
+            <div class="principles-category">
+                <div class="category-title">🎯 Principios Orientados al Cliente (1-4)</div>
+                <div class="principles-grid">
+                    <div class="principle-item">
+                        <div class="principle-number">1</div>
+                        <div class="principle-text">"Nuestra mayor prioridad es satisfacer al cliente mediante la entrega temprana y continua de software con valor"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Entrega temprana:</strong> Minimizar el time-to-market para obtener feedback real
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Entrega continua:</strong> Mantener un flujo constante de valor hacia el cliente
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Software con valor:</strong> Cada entrega debe aportar funcionalidad útil y medible
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Satisfacción del cliente:</strong> El éxito se mide por la satisfacción real del usuario
+                            </div>
+                        </div>
+                    </div>
 
-            <h4>Principio 2: "Aceptamos que los requisitos cambien, incluso en etapas tardías del desarrollo"</h4>
-            <ul>
-                <li><strong>Flexibilidad de requisitos:</strong> Diseñar arquitecturas que permitan cambios</li>
-                <li><strong>Cambios como ventaja:</strong> Los procesos ágiles aprovechan el cambio para proporcionar ventaja competitiva</li>
-                <li><strong>Adaptación tardía:</strong> Mantener capacidad de cambio durante todo el proyecto</li>
-            </ul>
+                    <div class="principle-item">
+                        <div class="principle-number">2</div>
+                        <div class="principle-text">"Aceptamos que los requisitos cambien, incluso en etapas tardías del desarrollo"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Flexibilidad de requisitos:</strong> Diseñar arquitecturas que permitan cambios
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Cambios como ventaja:</strong> Los procesos ágiles aprovechan el cambio para ventaja competitiva
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Adaptación tardía:</strong> Mantener capacidad de cambio durante todo el proyecto
+                            </div>
+                        </div>
+                    </div>
 
-            <h4>Principio 3: "Entregamos software funcional frecuentemente, entre dos semanas y dos meses, con preferencia al periodo de tiempo más corto posible"</h4>
-            <ul>
-                <li><strong>Ciclos cortos:</strong> Iteraciones de 1-4 semanas típicamente</li>
-                <li><strong>Software funcional:</strong> Cada entrega debe ser potencialmente desplegable</li>
-                <li><strong>Feedback rápido:</strong> Validación temprana de suposiciones y decisiones</li>
-            </ul>
+                    <div class="principle-item">
+                        <div class="principle-number">3</div>
+                        <div class="principle-text">"Entregamos software funcional frecuentemente, entre dos semanas y dos meses, con preferencia al periodo más corto posible"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Ciclos cortos:</strong> Iteraciones de 1-4 semanas típicamente
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Software funcional:</strong> Cada entrega debe ser potencialmente desplegable
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Feedback rápido:</strong> Validación temprana de suposiciones y decisiones
+                            </div>
+                        </div>
+                    </div>
 
-            <h4>Principio 4: "Los responsables de negocio y los desarrolladores trabajamos juntos de forma cotidiana durante todo el proyecto"</h4>
-            <ul>
-                <li><strong>Colaboración diaria:</strong> Comunicación constante entre business y técnico</li>
-                <li><strong>Trabajo conjunto:</strong> Evitar silos organizacionales</li>
-                <li><strong>Alineación continua:</strong> Evitar desviaciones entre expectativas y realidad</li>
-            </ul>
-
-            <h3>3.2 Principios Orientados al Equipo (5-8)</h3>
-
-            <h4>Principio 5: "Los proyectos se desarrollan en torno a individuos motivados. Hay que darles el entorno y el apoyo que necesitan, y confiarles la ejecución del trabajo"</h4>
-            <ul>
-                <li><strong>Individuos motivados:</strong> Crear condiciones para la motivación intrínseca</li>
-                <li><strong>Entorno adecuado:</strong> Proporcionar recursos, herramientas y ambiente</li>
-                <li><strong>Confianza:</strong> Dar autonomía y responsabilidad a los miembros del equipo</li>
-            </ul>
-
-            <h4>Principio 6: "El método más eficiente y efectivo de comunicar información al equipo de desarrollo y entre sus miembros es la conversación cara a cara"</h4>
-            <ul>
-                <li><strong>Comunicación directa:</strong> Minimizar intermediarios y malentendidos</li>
-                <li><strong>Riqueza del canal:</strong> Aprovechar lenguaje corporal, tono y contexto</li>
-                <li><strong>Eficiencia:</strong> Resolución rápida de dudas y problemas</li>
-            </ul>
-
-            <h4>Principio 7: "El software funcionando es la medida principal de progreso"</h4>
-            <ul>
-                <li><strong>Métricas tangibles:</strong> Medir progreso por funcionalidad entregada</li>
-                <li><strong>Valor real:</strong> Enfocarse en resultados, no en actividades</li>
-                <li><strong>Transparencia:</strong> Progreso visible y verificable por todos</li>
-            </ul>
-
-            <h4>Principio 8: "Los procesos ágiles promueven el desarrollo sostenible. Los promotores, desarrolladores y usuarios debemos ser capaces de mantener un ritmo constante de forma indefinida"</h4>
-            <ul>
-                <li><strong>Ritmo sostenible:</strong> Evitar el burnout y mantener productividad</li>
-                <li><strong>Desarrollo sostenible:</strong> Balance entre trabajo y vida personal</li>
-                <li><strong>Ritmo constante:</strong> Mantener un ritmo que se pueda sostener indefinidamente</li>
-            </ul>
-
-            <h3>3.3 Principios Orientados al Producto (9-12)</h3>
-
-            <h4>Principio 9: "La atención continua a la excelencia técnica y al buen diseño mejora la agilidad"</h4>
-            <ul>
-                <li><strong>Excelencia técnica:</strong> Invertir en código limpio y arquitectura sólida</li>
-                <li><strong>Buen diseño:</strong> Crear soluciones elegantes y mantenibles</li>
-                <li><strong>Mejora la agilidad:</strong> La calidad técnica permite cambios futuros más fáciles</li>
-            </ul>
-
-            <h4>Principio 10: "La simplicidad, o el arte de maximizar la cantidad de trabajo no realizado, es esencial"</h4>
-            <ul>
-                <li><strong>Simplicidad esencial:</strong> Preferir soluciones simples y directas</li>
-                <li><strong>YAGNI:</strong> "You Aren't Gonna Need It" - No implementar hasta que sea necesario</li>
-                <li><strong>Maximizar trabajo no realizado:</strong> Reducir el trabajo innecesario</li>
-            </ul>
-
-            <div class="highlight-box">
-                <h4>🔍 Enfoque Práctico: LeSS (Large-Scale Scrum)</h4>
-                <p>Un ejemplo concreto de aplicación del principio de simplicidad es <strong>LeSS (Large-Scale Scrum)</strong>, un framework que escala Scrum manteniendo su esencia simple.</p>
+                    <div class="principle-item">
+                        <div class="principle-number">4</div>
+                        <div class="principle-text">"Los responsables de negocio y los desarrolladores trabajamos juntos de forma cotidiana durante todo el proyecto"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Colaboración diaria:</strong> Comunicación constante entre business y técnico
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Trabajo conjunto:</strong> Evitar silos organizacionales
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Alineación continua:</strong> Evitar desviaciones entre expectativas y realidad
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <h4>Principio 11: "Las mejores arquitecturas, requisitos y diseños emergen de equipos auto-organizados"</h4>
-            <ul>
-                <li><strong>Equipos auto-organizados:</strong> Los equipos deciden cómo trabajar</li>
-                <li><strong>Emergencia:</strong> Las mejores soluciones surgen de la colaboración</li>
-                <li><strong>Autonomía técnica:</strong> Los desarrolladores toman decisiones técnicas</li>
-            </ul>
+            <div class="principles-category">
+                <div class="category-title">👥 Principios Orientados al Equipo (5-8)</div>
+                <div class="principles-grid">
+                    <div class="principle-item">
+                        <div class="principle-number">5</div>
+                        <div class="principle-text">"Los proyectos se desarrollan en torno a individuos motivados. Hay que darles el entorno y el apoyo que necesitan, y confiarles la ejecución del trabajo"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Individuos motivados:</strong> Crear condiciones para la motivación intrínseca
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Entorno adecuado:</strong> Proporcionar recursos, herramientas y ambiente
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Confianza:</strong> Dar autonomía y responsabilidad a los miembros del equipo
+                            </div>
+                        </div>
+                    </div>
 
-            <h4>Principio 12: "A intervalos regulares el equipo reflexiona sobre cómo ser más efectivo para a continuación ajustar y perfeccionar su comportamiento en consecuencia"</h4>
-            <ul>
-                <li><strong>Reflexión regular:</strong> Sesiones periódicas de análisis</li>
-                <li><strong>Mejora continua:</strong> Ajustar comportamientos y procesos constantemente</li>
-                <li><strong>Retrospectivas:</strong> Implementar cambios basados en aprendizajes</li>
-            </ul>
+                    <div class="principle-item">
+                        <div class="principle-number">6</div>
+                        <div class="principle-text">"El método más eficiente y efectivo de comunicar información al equipo de desarrollo y entre sus miembros es la conversación cara a cara"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Comunicación directa:</strong> Minimizar intermediarios y malentendidos
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Riqueza del canal:</strong> Aprovechar lenguaje corporal, tono y contexto
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Eficiencia:</strong> Resolución rápida de dudas y problemas
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-number">7</div>
+                        <div class="principle-text">"El software funcionando es la medida principal de progreso"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Métricas tangibles:</strong> Medir progreso por funcionalidad entregada
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Valor real:</strong> Enfocarse en resultados, no en actividades
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Transparencia:</strong> Progreso visible y verificable por todos
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-number">8</div>
+                        <div class="principle-text">"Los procesos ágiles promueven el desarrollo sostenible. Los promotores, desarrolladores y usuarios debemos ser capaces de mantener un ritmo constante de forma indefinida"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Ritmo sostenible:</strong> Evitar el burnout y mantener productividad
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Desarrollo sostenible:</strong> Balance entre trabajo y vida personal
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Ritmo constante:</strong> Mantener un ritmo que se pueda sostener indefinidamente
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="principles-category">
+                <div class="category-title">⚙️ Principios Orientados al Producto (9-12)</div>
+                <div class="principles-grid">
+                    <div class="principle-item">
+                        <div class="principle-number">9</div>
+                        <div class="principle-text">"La atención continua a la excelencia técnica y al buen diseño mejora la agilidad"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Excelencia técnica:</strong> Invertir en código limpio y arquitectura sólida
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Buen diseño:</strong> Crear soluciones elegantes y mantenibles
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Mejora la agilidad:</strong> La calidad técnica permite cambios futuros más fáciles
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-number">10</div>
+                        <div class="principle-text">"La simplicidad, o el arte de maximizar la cantidad de trabajo no realizado, es esencial"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Simplicidad esencial:</strong> Preferir soluciones simples y directas
+                            </div>
+                            <div class="principle-detail">
+                                <strong>YAGNI:</strong> "You Aren't Gonna Need It" - No implementar hasta que sea necesario
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Maximizar trabajo no realizado:</strong> Reducir el trabajo innecesario
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-number">11</div>
+                        <div class="principle-text">"Las mejores arquitecturas, requisitos y diseños emergen de equipos auto-organizados"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Equipos auto-organizados:</strong> Los equipos deciden cómo trabajar
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Emergencia:</strong> Las mejores soluciones surgen de la colaboración
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Autonomía técnica:</strong> Los desarrolladores toman decisiones técnicas
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="principle-item">
+                        <div class="principle-number">12</div>
+                        <div class="principle-text">"A intervalos regulares el equipo reflexiona sobre cómo ser más efectivo para a continuación ajustar y perfeccionar su comportamiento en consecuencia"</div>
+                        <div class="principle-details">
+                            <div class="principle-detail">
+                                <strong>Reflexión regular:</strong> Sesiones periódicas de análisis
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Mejora continua:</strong> Ajustar comportamientos y procesos constantemente
+                            </div>
+                            <div class="principle-detail">
+                                <strong>Retrospectivas:</strong> Implementar cambios basados en aprendizajes
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4>🔍 Enfoque Práctico: Extreme Programming (XP)</h4>
+                <p>Un ejemplo concreto de aplicación del principio de simplicidad es <strong>Extreme Programming (XP)</strong>, que lleva las buenas prácticas de desarrollo al extremo para crear software de alta calidad.</p>
+            </div>
         </div>
 
         <div class="content-section">
-            <h2>🏢 4. LeSS (Large-Scale Scrum): Escalando la Simplicidad</h2>
+            <h2>⚡ 4. Extreme Programming (XP): Prácticas Técnicas para la Excelencia</h2>
             
             <div class="synopsis-box">
-                <div class="synopsis-title">¿Qué es LeSS?</div>
-                <p><strong>LeSS (Large-Scale Scrum)</strong> es un framework ágil que aplica los principios de Scrum a múltiples equipos trabajando en el mismo producto. Su filosofía central es <strong>"Scrum es suficiente"</strong> - en lugar de agregar complejidad, LeSS elimina elementos innecesarios para mantener la simplicidad.</p>
+                <div class="synopsis-title">¿Qué es Extreme Programming (XP)?</div>
+                <p><strong>Extreme Programming (XP)</strong> es una metodología ágil desarrollada por Kent Beck que se centra en prácticas técnicas de desarrollo para producir software de alta calidad. Su filosofía es llevar las "buenas prácticas" al extremo para maximizar la satisfacción del cliente y la productividad del equipo.</p>
             </div>
 
-            <h3>4.1 Principios Fundamentales de LeSS</h3>
-            <ul>
-                <li><strong>Orientación al cliente:</strong> Todos los equipos se enfocan en entregar valor real</li>
-                <li><strong>Transparencia:</strong> Información visible para todos los stakeholders</li>
-                <li><strong>Responsabilidad del equipo:</strong> Los equipos son responsables de su trabajo</li>
-                <li><strong>Simplicidad:</strong> Aplicar el principio "menos es más" al escalamiento</li>
-                <li><strong>Mejora continua:</strong> Experimentación y adaptación constante</li>
+            <h3>4.1 Historia y Contexto de XP</h3>
+            <ul class="enhanced-list">
+                <li><strong>Creador:</strong> Kent Beck en Chrysler Comprehensive Compensation System (C3) en 1996</li>
+                <li><strong>Problema resuelto:</strong> Sistemas complejos con requisitos cambiantes</li>
+                <li><strong>Filosofía:</strong> "Si algo es bueno, llevémoslo al extremo"</li>
+                <li><strong>Enfoque:</strong> Prácticas técnicas que garantizan calidad y flexibilidad</li>
             </ul>
 
-            <h3>4.2 LeSS Básico: Hasta 8 Equipos</h3>
+            <h3>4.2 Los 5 Valores de XP</h3>
             
             <div class="highlight-box">
-                <h4>📊 Estructura de LeSS Básico</h4>
-                <p>Para organizaciones con 2-8 equipos Scrum trabajando en el mismo producto. Mantiene la simplicidad de Scrum tradicional pero coordina múltiples equipos.</p>
+                <h4>💎 Valores Fundamentales de XP</h4>
+                <p>XP se basa en cinco valores que guían todas las decisiones y prácticas del equipo.</p>
             </div>
 
-            <h4>Componentes Clave del LeSS Básico:</h4>
-            
-            <h5>🎯 Roles en LeSS Básico:</h5>
-            <ul>
-                <li><strong>Un Product Owner:</strong> Para todo el producto (no uno por equipo)</li>
-                <li><strong>Equipos Scrum:</strong> 2-8 equipos cross-funcionales</li>
-                <li><strong>Scrum Masters:</strong> Uno por equipo o compartido entre 2-3 equipos</li>
-            </ul>
+            <div class="value-list">
+                <div class="value-item">
+                    <div class="value-title">🗣️ Comunicación</div>
+                    <div class="value-content">
+                        <strong>Principio:</strong> Los problemas surgen por falta de comunicación
+                        <strong>Práctica:</strong> Conversaciones continuas entre todos los miembros
+                        <strong>Implementación:</strong> Pair programming, daily meetings, customer collaboration
+                    </div>
+                </div>
 
-            <h5>🗓️ Eventos en LeSS Básico:</h5>
-            <ul>
-                <li><strong>Sprint Planning Parte 1:</strong> Todos los equipos juntos con el Product Owner</li>
-                <li><strong>Sprint Planning Parte 2:</strong> Cada equipo planifica cómo implementar</li>
-                <li><strong>Daily Scrum:</strong> Cada equipo por separado</li>
-                <li><strong>Sprint Review:</strong> Todos los equipos presentan juntos</li>
-                <li><strong>Retrospectiva General:</strong> Representantes de todos los equipos</li>
-                <li><strong>Retrospectivas de Equipo:</strong> Cada equipo por separado</li>
-            </ul>
+                <div class="value-item">
+                    <div class="value-title">🎯 Simplicidad</div>
+                    <div class="value-content">
+                        <strong>Principio:</strong> Hacer lo más simple que funcione
+                        <strong>Práctica:</strong> YAGNI (You Aren't Gonna Need It)
+                        <strong>Implementación:</strong> Diseño simple, refactoring continuo
+                    </div>
+                </div>
 
-            <h5>📋 Artefactos en LeSS Básico:</h5>
-            <ul>
-                <li><strong>Un Product Backlog:</strong> Para todo el producto</li>
-                <li><strong>Un Incremento del Producto:</strong> Integrado de todos los equipos</li>
-                <li><strong>Sprint Backlogs:</strong> Uno por cada equipo</li>
-            </ul>
+                <div class="value-item">
+                    <div class="value-title">📝 Feedback</div>
+                    <div class="value-content">
+                        <strong>Principio:</strong> El feedback temprano guía mejores decisiones
+                        <strong>Práctica:</strong> Obtener retroalimentación lo más pronto posible
+                        <strong>Implementación:</strong> Tests automatizados, entregas frecuentes, pair programming
+                    </div>
+                </div>
 
-            <h3>4.3 LeSS Huge: Más de 8 Equipos</h3>
-            
-            <div class="highlight-box">
-                <h4>🏭 Estructura de LeSS Huge</h4>
-                <p>Para organizaciones con más de 8 equipos (típicamente 8-1000+ equipos). Introduce el concepto de "Requirement Areas" para mantener la simplicidad a gran escala.</p>
+                <div class="value-item">
+                    <div class="value-title">💪 Coraje</div>
+                    <div class="value-content">
+                        <strong>Principio:</strong> Hacer lo correcto aunque sea difícil
+                        <strong>Práctica:</strong> Cambios grandes cuando son necesarios
+                        <strong>Implementación:</strong> Refactoring agresivo, desechar código obsoleto
+                    </div>
+                </div>
+
+                <div class="value-item">
+                    <div class="value-title">🤝 Respeto</div>
+                    <div class="value-content">
+                        <strong>Principio:</strong> Todos contribuyen valor al proyecto
+                        <strong>Práctica:</strong> Valorar las contribuciones de cada miembro
+                        <strong>Implementación:</strong> Propiedad colectiva del código, decisiones consensuadas
+                    </div>
+                </div>
             </div>
 
-            <h4>Componentes Clave del LeSS Huge:</h4>
+            <h3>4.3 Las 12 Prácticas de XP (Versión Original)</h3>
             
-            <h5>🎯 Roles en LeSS Huge:</h5>
-            <ul>
-                <li><strong>Un Product Owner:</strong> Para toda la organización</li>
-                <li><strong>Area Product Owners:</strong> Uno por cada Requirement Area (máximo 8 equipos)</li>
-                <li><strong>Equipos Scrum:</strong> Organizados en Requirement Areas</li>
-                <li><strong>Scrum Masters:</strong> Uno por equipo o compartido</li>
-            </ul>
+            <div class="practice-category">
+                <div class="category-title">🏗️ Prácticas de Planificación y Gestión</div>
+                <div class="practice-grid">
+                    <div class="practice-item">
+                        <div class="practice-name">1. The Planning Game</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Qué es:</strong> Proceso colaborativo para decidir qué construir
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Participantes:</strong> Developers y Business
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Resultado:</strong> Prioridades claras y estimaciones realistas
+                            </div>
+                        </div>
+                    </div>
 
-            <h5>🔄 Requirement Areas:</h5>
-            <ul>
-                <li><strong>Definición:</strong> Agrupaciones lógicas de características del producto</li>
-                <li><strong>Propósito:</strong> Mantener equipos enfocados en áreas específicas</li>
-                <li><strong>Flexibilidad:</strong> Los equipos pueden moverse entre areas según necesidades</li>
-                <li><strong>Coordinación:</strong> Cada área funciona como un LeSS básico</li>
-            </ul>
+                    <div class="practice-item">
+                        <div class="practice-name">2. Small Releases</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Frecuencia:</strong> Releases pequeños y frecuentes
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Beneficio:</strong> Feedback temprano y reducción de riesgo
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Duración:</strong> 1-2 meses máximo
+                            </div>
+                        </div>
+                    </div>
 
-            <h3>4.4 Ejemplo Práctico: Implementación de LeSS</h3>
-            
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                <h5>🚀 Caso: Empresa de E-commerce con 12 equipos</h5>
-                
-                <h6>Situación Inicial:</h6>
-                <ul>
-                    <li>12 equipos trabajando en la plataforma de e-commerce</li>
-                    <li>Múltiples Product Owners creando conflictos</li>
-                    <li>Integración compleja entre componentes</li>
-                    <li>Falta de visión unificada del producto</li>
-                </ul>
+                    <div class="practice-item">
+                        <div class="practice-name">3. Metaphor (Metáfora)</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Propósito:</strong> Lenguaje común para describir el sistema
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Ejemplo:</strong> "El sistema es como una línea de producción"
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Beneficio:</strong> Facilita comunicación y diseño
+                            </div>
+                        </div>
+                    </div>
 
-                <h6>Implementación LeSS Huge:</h6>
-                <p><strong>Requirement Areas creadas:</strong></p>
-                <ul>
-                    <li><strong>Customer Experience (4 equipos):</strong> UI/UX, búsqueda, recomendaciones</li>
-                    <li><strong>Commerce Engine (4 equipos):</strong> carrito, checkout, pagos</li>
-                    <li><strong>Operations & Analytics (4 equipos):</strong> reporting, admin, logística</li>
-                </ul>
-
-                <h6>Estructura Organizacional:</h6>
-                <ul>
-                    <li><strong>1 Product Owner</strong> para toda la plataforma</li>
-                    <li><strong>3 Area Product Owners</strong> (uno por Requirement Area)</li>
-                    <li><strong>12 equipos cross-funcionales</strong></li>
-                    <li><strong>6 Scrum Masters</strong> (uno cada 2 equipos)</li>
-                </ul>
-
-                <h6>Beneficios Obtenidos:</h6>
-                <ul>
-                    <li>✅ Reducción de 40% en time-to-market</li>
-                    <li>✅ Integración continua más fluida</li>
-                    <li>✅ Mayor satisfacción del cliente final</li>
-                    <li>✅ Menos conflictos entre equipos</li>
-                    <li>✅ Visión unificada del producto</li>
-                </ul>
+                    <div class="practice-item">
+                        <div class="practice-name">4. Simple Design</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Principios:</strong> Pasar tests, no duplicar, expresar intención, mínimas clases
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Enfoque:</strong> Diseño evolutivo vs. diseño anticipado
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Regla:</strong> "Hacer lo más simple que funcione"
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <h3>4.5 Ventajas de LeSS vs Otros Frameworks</h3>
+            <div class="practice-category">
+                <div class="category-title">🔧 Prácticas Técnicas</div>
+                <div class="practice-grid">
+                    <div class="practice-item">
+                        <div class="practice-name">5. Test-Driven Development (TDD)</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Ciclo:</strong> Red → Green → Refactor
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Proceso:</strong> Test que falle → Código mínimo → Refactorizar
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Beneficio:</strong> Diseño limpio y cobertura de tests del 100%
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-item">
+                        <div class="practice-name">6. Refactoring</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Definición:</strong> Mejorar estructura sin cambiar funcionalidad
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Cuándo:</strong> Continuamente, cada vez que se toca el código
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Protección:</strong> Tests automáticos garantizan integridad
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-item">
+                        <div class="practice-name">7. Pair Programming</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Estructura:</strong> Dos desarrolladores, una computadora
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Roles:</strong> Driver (escribe) y Navigator (revisa y guía)
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Beneficios:</strong> Mejor código, conocimiento compartido, menos defectos
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-item">
+                        <div class="practice-name">8. Collective Ownership</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Principio:</strong> Todo el equipo responsable de todo el código
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Permiso:</strong> Cualquiera puede cambiar cualquier código
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Protección:</strong> Tests comprensivos evitan regresiones
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="practice-category">
+                <div class="category-title">🏢 Prácticas Organizacionales</div>
+                <div class="practice-grid">
+                    <div class="practice-item">
+                        <div class="practice-name">9. Continuous Integration</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Frecuencia:</strong> Integrar cambios varias veces al día
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Proceso:</strong> Check-in → Build → Run all tests
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Beneficio:</strong> Detección temprana de problemas
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-item">
+                        <div class="practice-name">10. 40-Hour Week</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Principio:</strong> Trabajar horas sostenibles
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Límite:</strong> Máximo una semana de overtime por mes
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Razón:</strong> El cansancio produce errores y menos creatividad
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-item">
+                        <div class="practice-name">11. On-Site Customer</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Presencia:</strong> Cliente real disponible para el equipo
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Rol:</strong> Define historias, prioridades, responde preguntas
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Beneficio:</strong> Feedback inmediato y decisiones rápidas
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="practice-item">
+                        <div class="practice-name">12. Coding Standards</div>
+                        <div class="practice-details">
+                            <div class="practice-detail">
+                                <strong>Propósito:</strong> Código que parece escrito por una persona
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Elementos:</strong> Naming conventions, estructura, comentarios
+                            </div>
+                            <div class="practice-detail">
+                                <strong>Beneficio:</strong> Facilita la propiedad colectiva del código
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>4.4 XP vs. Otras Metodologías Ágiles</h3>
             
             <table class="comparison-table">
                 <thead>
                     <tr>
                         <th>Aspecto</th>
-                        <th>LeSS</th>
-                        <th>SAFe</th>
-                        <th>Scrum@Scale</th>
+                        <th>XP</th>
+                        <th>Scrum</th>
+                        <th>Kanban</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Complejidad</strong></td>
-                        <td>Mínima - "Scrum es suficiente"</td>
-                        <td>Alta - Múltiples niveles y roles</td>
-                        <td>Media - Escalamiento modular</td>
+                        <td><strong>Enfoque Principal</strong></td>
+                        <td>Prácticas técnicas de desarrollo</td>
+                        <td>Gestión de proyectos ágiles</td>
+                        <td>Flujo de trabajo visual</td>
                     </tr>
                     <tr>
-                        <td><strong>Product Owners</strong></td>
-                        <td>Uno para todo el producto</td>
-                        <td>Múltiples POs y PMs</td>
-                        <td>Múltiples POs coordinados</td>
+                        <td><strong>Iteraciones</strong></td>
+                        <td>1-2 semanas (muy cortas)</td>
+                        <td>2-4 semanas (sprints)</td>
+                        <td>Flujo continuo</td>
                     </tr>
                     <tr>
-                        <td><strong>Documentación</strong></td>
-                        <td>Mínima y esencial</td>
-                        <td>Extensa y prescriptiva</td>
-                        <td>Moderada</td>
+                        <td><strong>Roles Definidos</strong></td>
+                        <td>Pocos roles explícitos</td>
+                        <td>3 roles específicos</td>
+                        <td>Sin roles prescriptos</td>
                     </tr>
                     <tr>
-                        <td><strong>Adaptabilidad</strong></td>
-                        <td>Alta - Principios simples</td>
-                        <td>Baja - Framework rígido</td>
-                        <td>Alta - Modular</td>
+                        <td><strong>Prácticas de Ingeniería</strong></td>
+                        <td>Muy prescriptivo (TDD, Pair Programming)</td>
+                        <td>No prescribe prácticas técnicas</td>
+                        <td>No prescribe prácticas técnicas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Participación del Cliente</strong></td>
+                        <td>On-site customer (tiempo completo)</td>
+                        <td>Product Owner (representante)</td>
+                        <td>Stakeholders según necesidad</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h3>4.6 Implementando LeSS: Guía Práctica</h3>
+            <h3>4.5 Caso Práctico: Implementación de XP</h3>
             
-            <h5>🎯 Pasos para Adoptar LeSS:</h5>
-            <ol>
-                <li><strong>Evaluación inicial:</strong> Determinar si necesitas LeSS básico o LeSS Huge</li>
-                <li><strong>Educación:</strong> Capacitar a todos en principios LeSS</li>
-                <li><strong>Definir Product Owner:</strong> Seleccionar un PO con visión completa</li>
-                <li><strong>Formar equipos cross-funcionales:</strong> Equipos autónomos y completos</li>
-                <li><strong>Establecer Definition of Done:</strong> Criterios únicos para todo el producto</li>
-                <li><strong>Implementar eventos LeSS:</strong> Sprint Planning conjunto, Review integrado</li>
-                <li><strong>Iterar y mejorar:</strong> Retrospectivas para ajustar el proceso</li>
-            </ol>
+            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h5>🚀 Caso: Startup de Fintech aplicando XP</h5>
+                
+                <h6>Contexto:</h6>
+                <ul class="enhanced-list">
+                    <li>Equipo de 6 desarrolladores</li>
+                    <li>Aplicación móvil de pagos</li>
+                    <li>Requisitos cambiantes por regulaciones</li>
+                    <li>Necesidad de alta calidad y seguridad</li>
+                </ul>
 
-            <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); border: 2px solid #2196f3; border-radius: 15px; padding: 25px; margin: 25px 0;">
-                <h5>🏆 Principio Clave de LeSS:</h5>
-                <p><strong>"Más con LeSS"</strong> - En lugar de agregar procesos complejos para escalar, LeSS elimina elementos innecesarios y mantiene la simplicidad de Scrum, incluso a gran escala.</p>
-                <p><em>"LeSS no es un framework nuevo, es Scrum aplicado a múltiples equipos trabajando juntos en un producto."</em></p>
+                <h6>Implementación de Prácticas XP:</h6>
+                <ul class="enhanced-list">
+                    <li><strong>TDD:</strong> 95% de cobertura de código, cero defectos críticos en producción</li>
+                    <li><strong>Pair Programming:</strong> 80% del tiempo de desarrollo, rotación diaria</li>
+                    <li><strong>CI/CD:</strong> 15-20 deploys por día a staging, deploys diarios a producción</li>
+                    <li><strong>Customer Collaboration:</strong> Product Manager on-site, feedback cada 2 días</li>
+                    <li><strong>Small Releases:</strong> Features nuevos cada semana</li>
+                </ul>
+
+                <h6>Resultados Obtenidos:</h6>
+                <ul class="enhanced-list">
+                    <li>✅ 90% reducción en defectos de producción</li>
+                    <li>✅ Time-to-market 60% más rápido</li>
+                    <li>✅ Satisfacción del cliente: 4.8/5</li>
+                    <li>✅ Burnout del equipo prácticamente eliminado</li>
+                    <li>✅ Adaptación rápida a cambios regulatorios</li>
+                </ul>
             </div>
 
-            <h3>4.7 Diagramas de LeSS: Estructura Visual</h3>
+            <h3>4.6 Adopción Gradual de XP</h3>
             
-            <h4>LeSS Básico - Estructura Organizacional</h4>
+            <h5>🎯 Ruta de Implementación Sugerida:</h5>
+            <ol class="implementation-steps">
+                <li><strong>Semana 1-2:</strong> Implementar Test-Driven Development en módulos nuevos</li>
+                <li><strong>Semana 3-4:</strong> Introducir Pair Programming 2-3 horas por día</li>
+                <li><strong>Semana 5-6:</strong> Establecer Continuous Integration básico</li>
+                <li><strong>Semana 7-8:</strong> Implementar refactoring sistemático</li>
+                <li><strong>Semana 9-10:</strong> Introducir planning game y small releases</li>
+                <li><strong>Semana 11-12:</strong> Establecer collective ownership y coding standards</li>
+            </ol>
+
+            <div class="highlight-box">
+                <h4>🔑 Claves para el Éxito en XP</h4>
+                <ul class="enhanced-list">
+                    <li><strong>Commitment del equipo:</strong> XP requiere disciplina y práctica constante</li>
+                    <li><strong>Coaching técnico:</strong> Necesario para implementar TDD y refactoring efectivamente</li>
+                    <li><strong>Herramientas adecuadas:</strong> IDE que soporte refactoring, framework de testing robusto</li>
+                    <li><strong>Cliente comprometido:</strong> Disponibilidad real para feedback y decisiones</li>
+                </ul>
+            </div>
+
+            <h3>4.7 Diagramas de XP: Ciclos y Prácticas</h3>
+            
+            <h4>Ciclo de TDD (Test-Driven Development)</h4>
             <div class="diagram-container">
                 <div class="mermaid">
 %%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
-graph TD
-    PO[Product Owner<br/>👤 Una persona]
-    PB[Product Backlog<br/>📋 Único para todo el producto]
+graph LR
+    A[📝 Write Failing Test<br/>RED] --> B[✅ Write Minimal Code<br/>GREEN]
+    B --> C[🔧 Refactor<br/>REFACTOR]
+    C --> A
     
-    subgraph "Sprint Planning"
-        SP1[Sprint Planning 1<br/>🎯 Todos juntos]
-        SP2[Sprint Planning 2<br/>⚙️ Por equipo separado]
-    end
-    
-    subgraph "Equipos Scrum (2-8)"
-        T1[Equipo 1<br/>👥 Cross-funcional]
-        T2[Equipo 2<br/>👥 Cross-funcional]
-        T3[Equipo 3<br/>👥 Cross-funcional]
-        T4[...]
-    end
-    
-    subgraph "Eventos"
-        DS[Daily Scrum<br/>📅 Por equipo]
-        SR[Sprint Review<br/>🔍 Todos juntos]
-        RT[Retrospectiva<br/>🔄 General + Equipos]
-    end
-    
-    PI[Product Increment<br/>🚀 Integrado]
-    
-    PO --> PB
-    PB --> SP1
-    SP1 --> SP2
-    SP2 --> T1
-    SP2 --> T2
-    SP2 --> T3
-    SP2 --> T4
-    
-    T1 --> DS
-    T2 --> DS
-    T3 --> DS
-    T4 --> DS
-    
-    T1 --> SR
-    T2 --> SR
-    T3 --> SR
-    T4 --> SR
-    
-    SR --> RT
-    RT --> PI
-    
-    style PO fill:#3498db,stroke:#2980b9,color:#fff
-    style PB fill:#e74c3c,stroke:#c0392b,color:#fff
-    style PI fill:#27ae60,stroke:#229954,color:#fff
+    style A fill:#e74c3c,stroke:#c0392b,color:#fff
+    style B fill:#27ae60,stroke:#229954,color:#fff
+    style C fill:#3498db,stroke:#2980b9,color:#fff
                 </div>
             </div>
 
-            <h4>LeSS Huge - Estructura con Requirement Areas</h4>
+            <h4>Flujo de Desarrollo en XP</h4>
             <div class="diagram-container">
                 <div class="mermaid">
 %%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
 graph TD
-    CPO[Chief Product Owner<br/>👑 Visión completa]
+    PS[📋 Planning Game<br/>Historias y prioridades]
+    D[👥 Pair Programming<br/>Desarrollo colaborativo]
+    T[🧪 TDD<br/>Tests primero]
+    CI[🔄 Continuous Integration<br/>Integración frecuente]
+    R[🔧 Refactoring<br/>Mejora continua]
+    REL[🚀 Small Release<br/>Entrega frecuente]
+    F[📊 Feedback<br/>Cliente y tests]
     
-    subgraph "Requirement Area 1"
-        APO1[Area PO 1<br/>👤]
-        T1[Equipo 1<br/>👥]
-        T2[Equipo 2<br/>👥]
-        T3[Equipo 3<br/>👥]
-    end
+    PS --> D
+    D --> T
+    T --> R
+    R --> CI
+    CI --> REL
+    REL --> F
+    F --> PS
     
-    subgraph "Requirement Area 2"
-        APO2[Area PO 2<br/>👤]
-        T4[Equipo 4<br/>👥]
-        T5[Equipo 5<br/>👥]
-        T6[Equipo 6<br/>👥]
-    end
-    
-    subgraph "Requirement Area 3"
-        APO3[Area PO 3<br/>👤]
-        T7[Equipo 7<br/>👥]
-        T8[Equipo 8<br/>👥]
-        T9[Equipo 9<br/>👥]
-    end
-    
-    PI_HUGE[Product Increment<br/>🚀 Producto Completo]
-    
-    CPO --> APO1
-    CPO --> APO2
-    CPO --> APO3
-    
-    APO1 --> T1
-    APO1 --> T2
-    APO1 --> T3
-    
-    APO2 --> T4
-    APO2 --> T5
-    APO2 --> T6
-    
-    APO3 --> T7
-    APO3 --> T8
-    APO3 --> T9
-    
-    T1 --> PI_HUGE
-    T2 --> PI_HUGE
-    T3 --> PI_HUGE
-    T4 --> PI_HUGE
-    T5 --> PI_HUGE
-    T6 --> PI_HUGE
-    T7 --> PI_HUGE
-    T8 --> PI_HUGE
-    T9 --> PI_HUGE
-    
-    style CPO fill:#8e44ad,stroke:#7d3c98,color:#fff
-    style APO1 fill:#3498db,stroke:#2980b9,color:#fff
-    style APO2 fill:#3498db,stroke:#2980b9,color:#fff
-    style APO3 fill:#3498db,stroke:#2980b9,color:#fff
-    style PI_HUGE fill:#27ae60,stroke:#229954,color:#fff
+    style PS fill:#9b59b6,stroke:#8e44ad,color:#fff
+    style D fill:#e67e22,stroke:#d35400,color:#fff
+    style T fill:#e74c3c,stroke:#c0392b,color:#fff
+    style CI fill:#3498db,stroke:#2980b9,color:#fff
+    style R fill:#f39c12,stroke:#e67e22,color:#fff
+    style REL fill:#27ae60,stroke:#229954,color:#fff
+    style F fill:#16a085,stroke:#138d75,color:#fff
                 </div>
             </div>
         </div>
@@ -1090,18 +1642,18 @@ graph TD
         <div class="content-section">
             <h2>🔄 5. Transformación Cultural: Cambio de Paradigma Organizacional</h2>
             
-            <h3>4.1 De Metodologías Tradicionales a Ágiles</h3>
+            <h3>5.1 De Metodologías Tradicionales a Ágiles</h3>
             <p>La adopción de metodologías ágiles no es solo un cambio de proceso, sino una transformación cultural fundamental que afecta toda la organización.</p>
 
-            <h3>4.2 Desarrollo Iterativo e Incremental</h3>
+            <h3>5.2 Desarrollo Iterativo e Incremental</h3>
             <p>Las metodologías ágiles se basan en dos conceptos fundamentales:</p>
             
-            <ul>
+            <ul class="enhanced-list">
                 <li><strong>Iterativo:</strong> Repetir ciclos de desarrollo para refinar el producto</li>
                 <li><strong>Incremental:</strong> Agregar funcionalidad en cada ciclo, entregando valor continuo</li>
             </ul>
 
-            <h3>4.3 Cambio de Mindset Organizacional</h3>
+            <h3>5.3 Cambio de Mindset Organizacional</h3>
             
             <div class="synoptic-chart">
                 <div class="synoptic-title">Transformación del Mindset</div>
@@ -1125,30 +1677,30 @@ graph TD
                 </div>
             </div>
 
-            <h3>4.4 Valores Culturales en las Metodologías Ágiles</h3>
+            <h3>5.4 Valores Culturales en las Metodologías Ágiles</h3>
             <p>Las metodologías ágiles promueven valores específicos:</p>
             
-            <ul>
+            <ul class="enhanced-list">
                 <li><strong>Honestidad:</strong> Transparencia en comunicación y reporte de estado</li>
                 <li><strong>Coraje:</strong> Valentía para tomar decisiones difíciles y cambiar</li>
                 <li><strong>Avance colectivo:</strong> Éxito del equipo por encima del individual</li>
                 <li><strong>Respeto:</strong> Valorar las contribuciones y perspectivas de todos</li>
             </ul>
 
-            <h3>4.5 Gestión del Cambio y Desvíos</h3>
+            <h3>5.5 Gestión del Cambio y Desvíos</h3>
             <p>En las metodologías ágiles, los desvíos no son problemas sino oportunidades:</p>
             
-            <ul>
+            <ul class="enhanced-list">
                 <li><strong>Desvío como normalidad:</strong> Se espera y planifica para el cambio</li>
                 <li><strong>Gestión efectiva:</strong> Procesos para manejar cambios rápidamente</li>
                 <li><strong>Ambiente colaborativo:</strong> Trabajo en equipo para resolver desafíos</li>
                 <li><strong>Comunicación abierta:</strong> Informar cambios de manera transparente</li>
             </ul>
 
-            <h3>4.6 Implementación de la Transformación</h3>
+            <h3>5.6 Implementación de la Transformación</h3>
             
             <h4>Fases de Adopción Ágil:</h4>
-            <ol>
+            <ol class="implementation-steps">
                 <li><strong>Concienciación:</strong> Entender la necesidad de cambio</li>
                 <li><strong>Educación:</strong> Capacitar en principios y valores ágiles</li>
                 <li><strong>Experimentación:</strong> Pilotos controlados en equipos pequeños</li>
@@ -1157,7 +1709,7 @@ graph TD
             </ol>
 
             <h4>Factores Críticos de Éxito:</h4>
-            <ul>
+            <ul class="enhanced-list">
                 <li><strong>Sponsorship ejecutivo:</strong> Apoyo visible de la alta dirección</li>
                 <li><strong>Comunicación clara:</strong> Explicar el "por qué" del cambio</li>
                 <li><strong>Entrenamiento continuo:</strong> Capacitación sostenida en el tiempo</li>
@@ -1372,6 +1924,31 @@ mindmap
                 question: "¿Cuál es el objetivo principal de la transformación ágil?",
                 options: ["Reducir costos", "Acelerar entregas", "Cambio cultural organizacional", "Eliminar documentación"],
                 correct: 2
+            },
+            {
+                question: "¿Quién desarrolló Extreme Programming (XP)?",
+                options: ["Martin Fowler", "Kent Beck", "Jeff Sutherland", "Ken Schwaber"],
+                correct: 1
+            },
+            {
+                question: "¿Cuántos valores tiene XP?",
+                options: ["4", "5", "12", "3"],
+                correct: 1
+            },
+            {
+                question: "¿Cuál NO es un valor de XP?",
+                options: ["Comunicación", "Simplicidad", "Documentación", "Coraje"],
+                correct: 2
+            },
+            {
+                question: "¿Qué significan las siglas TDD?",
+                options: ["Total Development Design", "Test-Driven Development", "Technical Design Document", "Time-Driven Delivery"],
+                correct: 1
+            },
+            {
+                question: "¿Cuántas prácticas originales tiene XP?",
+                options: ["10", "12", "15", "8"],
+                correct: 1
             }
         ];
 
