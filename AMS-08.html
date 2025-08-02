@@ -7,7 +7,10 @@
     <meta name="description" content="Control de versiones con Git: workflows, colaboración, code review e integración continua">
     <meta name="keywords" content="git, control versiones, colaboración, branching, code review, integración continua">
     <meta name="author" content="Curso AMS">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@11.4.0/dist/mermaid.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <style>
         :root {
             /* Colores principales */
@@ -294,6 +297,31 @@
         .command-box .output {
             color: #fbb6ce;
         }
+
+        /* Prism code highlighting adjustments */
+        pre[class*="language-"] {
+            background: #2d3748 !important;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: auto;
+            border-left: 4px solid var(--success-color);
+        }
+
+        code[class*="language-"] {
+            color: #e2e8f0;
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+        }
+
+        /* Dark theme tokens for better visibility */
+        .token.comment { color: #718096; }
+        .token.string { color: #68d391; }
+        .token.number { color: #fbb6ce; }
+        .token.keyword { color: #90cdf4; }
+        .token.operator { color: #cbd5e0; }
+        .token.punctuation { color: #cbd5e0; }
 
         /* Branch visualization */
         .branch-diagram {
@@ -642,6 +670,315 @@
             outline: 2px solid var(--secondary-color);
             outline-offset: 2px;
         }
+
+        /* Nuevos estilos para componentes expandidos */
+
+        /* Command showcase */
+        .command-showcase {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .command-group {
+            margin: 20px 0;
+        }
+
+        .command-group h5 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 1.1em;
+        }
+
+        /* Conflict resolution styles */
+        .conflict-resolution {
+            background: var(--bg-secondary);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--accent-color);
+        }
+
+        .conflict-example {
+            margin: 20px 0;
+        }
+
+        .code-before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 15px 0;
+        }
+
+        .before, .after {
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+        .before {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid var(--accent-color);
+        }
+
+        .after {
+            background: rgba(39, 174, 96, 0.1);
+            border: 1px solid var(--success-color);
+        }
+
+        .before h6, .after h6 {
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+
+        /* Collaboration tools */
+        .collaboration-tools {
+            margin: 20px 0;
+        }
+
+        .platform-features {
+            margin: 25px 0;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary-color);
+        }
+
+        .feature-card h5 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Hooks examples */
+        .hooks-examples {
+            margin: 25px 0;
+        }
+
+        .hook-example {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            border-left: 5px solid var(--info-color);
+        }
+
+        .hook-example h5 {
+            color: var(--info-color);
+            margin-bottom: 15px;
+        }
+
+        /* Release strategies */
+        .release-strategies {
+            margin: 25px 0;
+        }
+
+        .version-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .version-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .version-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--secondary-color);
+        }
+
+        .version-card h5 {
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+
+        /* Repository comparison */
+        .repo-comparison {
+            margin: 25px 0;
+        }
+
+        .comparison-table {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .comparison-table th {
+            background: var(--secondary-color);
+            color: white;
+            font-weight: bold;
+        }
+
+        .comparison-table tr:hover {
+            background: var(--bg-secondary);
+        }
+
+        /* Security styles */
+        .security-section {
+            margin: 25px 0;
+        }
+
+        .security-practices {
+            margin: 25px 0;
+        }
+
+        .practice-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .practice-card {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 20px;
+            border: 2px solid var(--border-color);
+        }
+
+        .practice-card.danger {
+            border-color: var(--accent-color);
+            background: rgba(231, 76, 60, 0.05);
+        }
+
+        .practice-card.success {
+            border-color: var(--success-color);
+            background: rgba(39, 174, 96, 0.05);
+        }
+
+        .practice-card h5 {
+            margin-bottom: 15px;
+        }
+
+        /* Advanced workflows */
+        .advanced-workflows {
+            margin: 25px 0;
+        }
+
+        .enterprise-scenarios {
+            margin: 25px 0;
+        }
+
+        .scenario {
+            background: var(--bg-card);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 1px solid var(--border-color);
+        }
+
+        .scenario h5 {
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .scenario-steps {
+            margin: 20px 0;
+        }
+
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin: 20px 0;
+            padding: 20px;
+            background: var(--bg-secondary);
+            border-radius: 10px;
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .step-number {
+            background: var(--secondary-color);
+            color: white;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h6 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        /* Responsive improvements for new components */
+        @media (max-width: 768px) {
+            .code-before-after {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .version-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .practice-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-table {
+                font-size: 0.9em;
+            }
+            
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .step-number {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -769,7 +1106,7 @@
             <div class="diagram-container">
                 <div class="diagram-title">🔄 Flujo de Trabajo en Git</div>
                 <div class="mermaid">
-                    graph LR
+                    graph TD
                         A[Working Directory] -->|git add| B[Staging Area]
                         B -->|git commit| C[Repository Local]
                         C -->|git push| D[Repository Remoto]
@@ -784,23 +1121,25 @@
                 </div>
             </div>
 
-            <div class="command-box">
-                <div class="prompt">$</div> <span class="command">git init</span>
-                <div class="output">Inicializado repositorio Git vacío en /proyecto/.git/</div>
-                
-                <div class="prompt">$</div> <span class="command">git add .</span>
-                <div class="output">Archivos agregados al staging area</div>
-                
-                <div class="prompt">$</div> <span class="command">git commit -m "Initial commit"</span>
-                <div class="output">[main 1a2b3c4] Initial commit
-                 5 files changed, 100 insertions(+)</div>
-                 
-                <div class="prompt">$</div> <span class="command">git push origin main</span>
-                <div class="output">Enumerando objetos: 5, listo.
-                Contando objetos: 100% (5/5), listo.
-                To https://github.com/user/repo.git
-                   a1b2c3d..1a2b3c4  main -> main</div>
-            </div>
+            <pre><code class="language-bash"># Inicializar un nuevo repositorio Git
+$ git init
+# Inicializado repositorio Git vacío en /proyecto/.git/
+
+# Agregar archivos al staging area
+$ git add .
+# Archivos agregados al staging area
+
+# Crear el primer commit
+$ git commit -m "Initial commit"
+# [main 1a2b3c4] Initial commit
+#  5 files changed, 100 insertions(+)
+
+# Subir cambios al repositorio remoto
+$ git push origin main
+# Enumerando objetos: 5, listo.
+# Contando objetos: 100% (5/5), listo.
+# To https://github.com/user/repo.git
+#    a1b2c3d..1a2b3c4  main -> main</code></pre>
 
             <div class="content-box success">
                 <h3>🎯 Estados de Archivos en Git</h3>
@@ -843,30 +1182,82 @@
             </div>
 
             <div class="diagram-container">
-                <div class="diagram-title">🌊 Git Flow Workflow</div>
+                <div class="diagram-title">🌱 Conceptos Básicos de Branching</div>
                 <div class="mermaid">
-                    gitgraph
+                    gitGraph
+                        commit id: "Initial commit"
+                        commit id: "Add README"
+                        branch feature
+                        checkout feature
+                        commit id: "Start feature"
+                        commit id: "Feature work"
+                        checkout main
+                        commit id: "Fix typo"
+                        checkout feature
+                        commit id: "Complete feature"
+                        checkout main
+                        merge feature
+                        commit id: "Feature integrated"
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🚀 GitHub Flow - Simple y Efectivo</div>
+                <div class="mermaid">
+                    gitGraph
+                        commit id: "Production"
+                        branch feature/auth
+                        checkout feature/auth
+                        commit id: "Add login"
+                        commit id: "Add tests"
+                        commit id: "Update docs"
+                        checkout main
+                        merge feature/auth
+                        commit id: "Deploy v1.1"
+                        branch feature/payment
+                        checkout feature/payment
+                        commit id: "Payment API"
+                        commit id: "Validation"
+                        checkout main
+                        merge feature/payment
+                        commit id: "Deploy v1.2"
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🌊 Git Flow Workflow Completo</div>
+                <div class="mermaid">
+                    gitGraph
                         commit id: "Initial"
                         branch develop
                         checkout develop
-                        commit id: "Setup"
+                        commit id: "Setup develop"
                         
                         branch feature/login
                         checkout feature/login
-                        commit id: "Add login form"
-                        commit id: "Add validation"
+                        commit id: "Login form"
+                        commit id: "Validation"
+                        commit id: "Tests"
                         
                         checkout develop
                         merge feature/login
                         commit id: "Integrate login"
                         
+                        branch release/v1.0
+                        checkout release/v1.0
+                        commit id: "Version bump"
+                        commit id: "Bug fixes"
+                        
                         checkout main
-                        merge develop
+                        merge release/v1.0
                         commit id: "Release v1.0"
+                        
+                        checkout develop
+                        merge release/v1.0
                         
                         branch hotfix/security
                         checkout hotfix/security
-                        commit id: "Fix security issue"
+                        commit id: "Security fix"
                         
                         checkout main
                         merge hotfix/security
@@ -874,6 +1265,28 @@
                         
                         checkout develop
                         merge hotfix/security
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🎯 Feature Branch Workflow</div>
+                <div class="mermaid">
+                    gitGraph
+                        commit id: "Production"
+                        branch feature/dashboard
+                        checkout feature/dashboard
+                        commit id: "Dashboard UI"
+                        commit id: "Add charts"
+                        checkout main
+                        branch feature/api
+                        checkout feature/api
+                        commit id: "API endpoints"
+                        commit id: "Tests"
+                        checkout main
+                        merge feature/api
+                        commit id: "API deployed"
+                        merge feature/dashboard
+                        commit id: "Dashboard live"
                 </div>
             </div>
 
@@ -900,22 +1313,24 @@
                 </div>
             </div>
 
-            <div class="command-box">
-                <div class="prompt">$</div> <span class="command">git checkout -b feature/user-authentication</span>
-                <div class="output">Cambiado a nueva rama 'feature/user-authentication'</div>
-                
-                <div class="prompt">$</div> <span class="command">git push -u origin feature/user-authentication</span>
-                <div class="output">Rama 'feature/user-authentication' configurada para seguir rama remota</div>
-                
-                <div class="prompt">$</div> <span class="command">git checkout main</span>
-                <div class="output">Cambiado a rama 'main'</div>
-                
-                <div class="prompt">$</div> <span class="command">git merge feature/user-authentication</span>
-                <div class="output">Actualizando a1b2c3d..4e5f6g7
-                Fast-forward
-                 auth.js | 45 +++++++++++++++++++++++++++++++++++
-                 1 file changed, 45 insertions(+)</div>
-            </div>
+            <pre><code class="language-bash"># Crear y cambiar a nueva rama feature
+$ git checkout -b feature/user-authentication
+# Cambiado a nueva rama 'feature/user-authentication'
+
+# Publicar la rama en el repositorio remoto
+$ git push -u origin feature/user-authentication
+# Rama 'feature/user-authentication' configurada para seguir rama remota
+
+# Cambiar de vuelta a la rama main
+$ git checkout main
+# Cambiado a rama 'main'
+
+# Integrar los cambios de la feature
+$ git merge feature/user-authentication
+# Actualizando a1b2c3d..4e5f6g7
+# Fast-forward
+#  auth.js | 45 +++++++++++++++++++++++++++++++++++
+#  1 file changed, 45 insertions(+)</code></pre>
         </section>
 
         <section class="content-section">
@@ -995,7 +1410,7 @@
             <div class="diagram-container">
                 <div class="diagram-title">🚀 Pipeline CI/CD con Git</div>
                 <div class="mermaid">
-                    graph LR
+                    graph TD
                         A[Developer Push] --> B[Git Webhook]
                         B --> C[CI Pipeline]
                         C --> D[Build & Test]
@@ -1018,23 +1433,23 @@
             <div class="git-workflow">
                 <h3>🛠️ Configuración CI con GitHub Actions</h3>
                 
-                <div class="command-box">
-                    <div># .github/workflows/ci.yml</div>
-                    <div>name: CI Pipeline</div>
-                    <div>on: [push, pull_request]</div>
-                    <div>jobs:</div>
-                    <div>  test:</div>
-                    <div>    runs-on: ubuntu-latest</div>
-                    <div>    steps:</div>
-                    <div>      - uses: actions/checkout@v2</div>
-                    <div>      - name: Setup Node.js</div>
-                    <div>        uses: actions/setup-node@v2</div>
-                    <div>        with:</div>
-                    <div>          node-version: '16'</div>
-                    <div>      - run: npm install</div>
-                    <div>      - run: npm test</div>
-                    <div>      - run: npm run build</div>
-                </div>
+                <pre><code class="language-yaml"># .github/workflows/ci.yml
+name: CI Pipeline
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm test
+      - run: npm run build</code></pre>
             </div>
 
             <div class="content-box info">
@@ -1109,18 +1524,16 @@
                 <p>Dos desarrolladores modificaron las mismas líneas de código.</p>
                 <div class="solution">
                     <strong>Solución:</strong>
-                    <div class="command-box">
-                        <div class="prompt">$</div> <span class="command">git merge feature-branch</span>
-                        <div class="output">Auto-merging file.js
-                        CONFLICT (content): Merge conflict in file.js</div>
-                        
-                        <div class="prompt">$</div> <span class="command">git status</span>
-                        <div class="output">both modified: file.js</div>
-                        
-                        <div># Editar file.js manualmente, resolver conflictos</div>
-                        <div class="prompt">$</div> <span class="command">git add file.js</span>
-                        <div class="prompt">$</div> <span class="command">git commit -m "Resolve merge conflict"</span>
-                    </div>
+                    <pre><code class="language-bash">$ git merge feature-branch
+# Auto-merging file.js
+# CONFLICT (content): Merge conflict in file.js
+
+$ git status
+# both modified: file.js
+
+# Editar file.js manualmente, resolver conflictos
+$ git add file.js
+$ git commit -m "Resolve merge conflict"</code></pre>
                 </div>
             </div>
 
@@ -1129,16 +1542,14 @@
                 <p>Se hizo commit de código con errores que necesita corrección.</p>
                 <div class="solution">
                     <strong>Soluciones:</strong>
-                    <div class="command-box">
-                        <div># Deshacer commit pero mantener cambios en working directory</div>
-                        <div class="prompt">$</div> <span class="command">git reset --soft HEAD~1</span>
-                        
-                        <div># Deshacer commit y cambios (PELIGROSO)</div>
-                        <div class="prompt">$</div> <span class="command">git reset --hard HEAD~1</span>
-                        
-                        <div># Crear nuevo commit que deshace cambios</div>
-                        <div class="prompt">$</div> <span class="command">git revert HEAD</span>
-                    </div>
+                    <pre><code class="language-bash"># Deshacer commit pero mantener cambios en working directory
+$ git reset --soft HEAD~1
+
+# Deshacer commit y cambios (PELIGROSO)
+$ git reset --hard HEAD~1
+
+# Crear nuevo commit que deshace cambios
+$ git revert HEAD</code></pre>
                 </div>
             </div>
 
@@ -1147,28 +1558,340 @@
                 <p>Necesito encontrar en qué commit se introdujo un problema específico.</p>
                 <div class="solution">
                     <strong>Solución con Git Bisect:</strong>
-                    <div class="command-box">
-                        <div class="prompt">$</div> <span class="command">git bisect start</span>
-                        <div class="prompt">$</div> <span class="command">git bisect bad</span>
-                        <div class="prompt">$</div> <span class="command">git bisect good v1.0</span>
-                        <div class="output">Bisecting: 12 revisions left to test after this</div>
+                    <pre><code class="language-bash">$ git bisect start
+$ git bisect bad
+$ git bisect good v1.0
+# Bisecting: 12 revisions left to test after this
+
+# Probar el código, marcar como good o bad
+$ git bisect good
+# Bisecting: 6 revisions left to test after this
+
+# Continuar hasta encontrar el commit problemático
+$ git bisect reset</code></pre>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="content-section">
+            <h2 class="section-title">⚔️ 8. Gestión de Conflictos</h2>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">⚔️ Flujo de Resolución de Conflictos</div>
+                <div class="mermaid">
+                    graph TD
+                        A[git pull/merge] --> B{¿Conflicto?}
+                        B -->|No| C[Merge exitoso]
+                        B -->|Sí| D[Git marca conflictos]
+                        D --> E[Editar archivos manualmente]
+                        E --> F[git add archivos-resueltos]
+                        F --> G[git commit]
+                        G --> H[Conflicto resuelto]
                         
-                        <div># Probar el código, marcar como good o bad</div>
-                        <div class="prompt">$</div> <span class="command">git bisect good</span>
-                        <div class="output">Bisecting: 6 revisions left to test after this</div>
+                        style B fill:#fff3cd
+                        style D fill:#ffebee
+                        style E fill:#e3f2fd
+                        style H fill:#d4edda
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🔧 Resolución Básica de Conflictos</h3>
+                <pre><code class="language-bash"># Detectar conflictos
+$ git status
+# both modified:   src/auth.js
+
+# Ver conflictos en el archivo
+$ git diff
+# <<<<<<< HEAD
+# código de tu rama
+# =======  
+# código de la otra rama
+# >>>>>>> feature/auth
+
+# Después de resolver manualmente
+$ git add src/auth.js
+$ git commit -m "Resolve merge conflict in auth.js"</code></pre>
+            </div>
+
+            <div class="content-box info">
+                <h3>🛠️ Herramientas Útiles</h3>
+                <pre><code class="language-bash"># Configurar herramienta visual
+$ git config --global merge.tool vscode
+
+# Usar herramienta de merge
+$ git mergetool
+
+# Abortar merge si es complejo
+$ git merge --abort</code></pre>
+            </div>
+
+            <div class="content-box success">
+                <h3>💡 Mejores Prácticas</h3>
+                <ul>
+                    <li><strong>Pull frecuente:</strong> Mantén tu rama actualizada</li>
+                    <li><strong>Commits pequeños:</strong> Facilita la resolución</li>
+                    <li><strong>Comunicación:</strong> Coordina cambios en archivos críticos</li>
+                    <li><strong>Feature branches:</strong> Aísla cambios experimentales</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🤝 9. Herramientas de Colaboración</h2>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">🏗️ Ecosistema de Colaboración Git</div>
+                <div class="mermaid">
+                    graph TD
+                        A[Desarrollador Local] --> B[GitHub/GitLab]
+                        B --> C[Pull Requests]
+                        B --> D[Issues]
+                        B --> E[CI/CD]
+                        C --> F[Code Review]
+                        F --> G[Merge]
+                        E --> H[Deploy]
                         
-                        <div># Continuar hasta encontrar el commit problemático</div>
-                        <div class="prompt">$</div> <span class="command">git bisect reset</span>
+                        style B fill:#e3f2fd
+                        style C fill:#fff3cd
+                        style F fill:#d4edda
+                        style H fill:#f3e5f5
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>📋 GitHub CLI Básico</h3>
+                <pre><code class="language-bash"># Autenticarse
+$ gh auth login
+
+# Crear repositorio
+$ gh repo create mi-proyecto --public
+
+# Ver estado de PRs
+$ gh pr status
+
+# Crear PR
+$ gh pr create --title "Nueva feature" --body "Descripción"</code></pre>
+            </div>
+
+            <div class="content-box info">
+                <h3>🔄 Flujo de Pull Request</h3>
+                <ol>
+                    <li><strong>Crear rama:</strong> <code>git checkout -b feature/nueva-funcionalidad</code></li>
+                    <li><strong>Hacer cambios:</strong> Editar código y hacer commits</li>
+                    <li><strong>Push:</strong> <code>git push -u origin feature/nueva-funcionalidade</code></li>
+                    <li><strong>Crear PR:</strong> A través de la web o CLI</li>
+                    <li><strong>Code Review:</strong> Revisión por el equipo</li>
+                    <li><strong>Merge:</strong> Integrar cambios a main</li>
+                </ol>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🪝 10. Git Hooks y Automatización</h2>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">🪝 Flujo de Git Hooks</div>
+                <div class="mermaid">
+                    graph TD
+                        A[git commit] --> B[pre-commit hook]
+                        B --> C{Tests Pass?}
+                        C -->|Yes| D[commit-msg hook]
+                        C -->|No| E[Reject commit]
+                        D --> F[post-commit hook]
+                        F --> G[Commit successful]
+                        
+                        style B fill:#fff3cd
+                        style C fill:#e3f2fd
+                        style E fill:#ffebee
+                        style G fill:#d4edda
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🔧 Hooks Más Comunes</h3>
+                <ul>
+                    <li><strong>pre-commit:</strong> Validar código antes de commit</li>
+                    <li><strong>commit-msg:</strong> Validar formato de mensajes</li>
+                    <li><strong>pre-push:</strong> Ejecutar tests antes de push</li>
+                    <li><strong>post-commit:</strong> Notificaciones automáticas</li>
+                </ul>
+            </div>
+
+            <div class="content-box info">
+                <h3>🛠️ Configuración con Husky</h3>
+                <pre><code class="language-bash"># Instalar Husky
+$ npm install --save-dev husky
+
+# Activar git hooks
+$ npx husky install
+
+# Crear hook pre-commit
+$ npx husky add .husky/pre-commit "npm test"</code></pre>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🚀 11. Release Management</h2>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">🚀 Estrategias de Release</div>
+                <div class="mermaid">
+                    graph TD
+                        A[Desarrollo] --> B[Testing]
+                        B --> C[Staging]
+                        C --> D[Production]
+                        
+                        E[Semantic Versioning] --> F[1.0.0]
+                        F --> G[1.0.1 - Patch]
+                        F --> H[1.1.0 - Minor]
+                        F --> I[2.0.0 - Major]
+                        
+                        style D fill:#d4edda
+                        style G fill:#fff3cd
+                        style H fill:#e3f2fd
+                        style I fill:#ffebee
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>📋 Semantic Versioning</h3>
+                <ul>
+                    <li><strong>MAJOR (2.0.0):</strong> Cambios incompatibles</li>
+                    <li><strong>MINOR (1.1.0):</strong> Nueva funcionalidad compatible</li>
+                    <li><strong>PATCH (1.0.1):</strong> Bug fixes compatibles</li>
+                </ul>
+                
+                <pre><code class="language-bash"># Crear tag de release
+$ git tag -a v1.0.0 -m "Release version 1.0.0"
+$ git push origin v1.0.0
+
+# Crear release en GitHub
+$ gh release create v1.0.0 --title "v1.0.0" --notes "Nueva version"</code></pre>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🏗️ 12. Monorepos vs Multirepos</h2>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">🏗️ Comparación de Estrategias</div>
+                <div class="mermaid">
+                    graph TD
+                        A[Proyecto] --> B{¿Estrategia?}
+                        B -->|Un repo| C[Monorepo]
+                        B -->|Múltiples repos| D[Multirepo]
+                        
+                        C --> E[✅ Código compartido<br/>✅ Refactoring fácil<br/>❌ Repos grandes]
+                        D --> F[✅ Independencia<br/>✅ Permisos granulares<br/>❌ Duplicación]
+                        
+                        style C fill:#e3f2fd
+                        style D fill:#fff3cd
+                        style E fill:#d4edda
+                        style F fill:#d4edda
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🤔 ¿Cuándo usar cada uno?</h3>
+                <div class="workflow-grid">
+                    <div class="workflow-card">
+                        <h4>🏢 Monorepo</h4>
+                        <ul>
+                            <li>Equipos pequeños/medianos</li>
+                            <li>Código muy relacionado</li>
+                            <li>Refactoring frecuente</li>
+                        </ul>
+                    </div>
+                    <div class="workflow-card">
+                        <h4>📦 Multirepo</h4>
+                        <ul>
+                            <li>Equipos grandes</li>
+                            <li>Proyectos independientes</li>
+                            <li>Diferentes tecnologías</li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Quiz de evaluación -->
+        <section class="content-section">
+            <h2 class="section-title">🔐 13. Seguridad en Git</h2>
+            
+            <div class="content-box warning">
+                <h3>🛡️ Buenas Prácticas de Seguridad</h3>
+                <ul>
+                    <li><strong>No commitear secretos:</strong> API keys, passwords, tokens</li>
+                    <li><strong>Usar SSH keys:</strong> Más seguro que HTTPS con contraseña</li>
+                    <li><strong>Firmar commits:</strong> Verificar identidad del autor</li>
+                    <li><strong>Branch protection:</strong> Proteger ramas importantes</li>
+                </ul>
+                
+                <pre><code class="language-bash"># Configurar firma de commits con GPG
+$ git config --global commit.gpgsign true
+
+# Verificar commits firmados
+$ git log --show-signature
+
+# Buscar secretos accidentales
+$ git log --all --grep="password\|secret\|key"</code></pre>
+            </div>
+
+            <div class="content-box info">
+                <h3>🔍 Herramientas de Escaneo</h3>
+                <ul>
+                    <li><strong>git-secrets:</strong> Prevenir commits con secretos</li>
+                    <li><strong>TruffleHog:</strong> Buscar secretos en historial</li>
+                    <li><strong>GitLeaks:</strong> Scanner de secretos ligero</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">💼 14. Mejores Prácticas</h2>
+            
+            <div class="content-box success">
+                <h3>✅ Resumen de Mejores Prácticas</h3>
+                <ul>
+                    <li><strong>Commits frecuentes y pequeños:</strong> Facilita el tracking y rollback</li>
+                    <li><strong>Mensajes descriptivos:</strong> Explica el "por qué", no solo el "qué"</li>
+                    <li><strong>Branching strategy:</strong> Usa un workflow consistente en el equipo</li>
+                    <li><strong>Pull requests:</strong> Siempre revisar código antes de merge</li>
+                    <li><strong>Tests automatizados:</strong> CI/CD con hooks y pipelines</li>
+                    <li><strong>Documentación:</strong> README claro y actualizado</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🎯 Flujo de Trabajo Ideal</div>
+                <div class="mermaid">
+                    graph TD
+                        A[Planificar] --> B[Crear rama]
+                        B --> C[Desarrollar]
+                        C --> D[Commit frecuente]
+                        D --> E[Push a remoto]
+                        E --> F[Crear PR]
+                        F --> G[Code Review]
+                        G --> H{Approved?}
+                        H -->|No| I[Hacer cambios]
+                        I --> D
+                        H -->|Yes| J[Merge]
+                        J --> K[Deploy]
+                        K --> L[Monitorear]
+                        
+                        style A fill:#e3f2fd
+                        style G fill:#fff3cd
+                        style J fill:#d4edda
+                        style L fill:#f3e5f5
+                </div>
+            </div>
+        </section>
+
         <section class="quiz-container">
             <h2>🧠 Evaluación de Conocimientos - 20 Preguntas</h2>
             <p style="text-align: center; margin-bottom: 30px; color: var(--text-secondary);">
-                Responde todas las preguntas para evaluar tu comprensión de Control de Versiones y Git
+                Responde todas las preguntas para evaluar tu comprensión de Git y colaboración en equipos
             </p>
             
             <div id="quiz-questions">
@@ -1371,9 +2094,7 @@
                         <li onclick="selectOption(this, false)">D) Tamaño de los pull requests</li>
                     </ul>
                 </div>
-            </div>
 
-            <div style="text-align: center; margin: 30px 0;">
                 <button class="btn btn-primary" onclick="submitQuiz()">📊 Evaluar Respuestas</button>
                 <button class="btn btn-warning" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
             </div>
@@ -1383,7 +2104,7 @@
                     <span id="score-percentage">0%</span>
                 </div>
                 <h3 id="score-message">¡Excelente trabajo!</h3>
-                <p id="score-details">Has respondido correctamente X de 20 preguntas.</p>
+                <p id="score-details">Has respondido correctamente X de 35 preguntas.</p>
                 <div id="score-feedback"></div>
             </div>
         </section>

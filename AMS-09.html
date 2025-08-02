@@ -457,21 +457,61 @@
                 </ul>
             </div>
 
+            <div class="content-box info">
+                <h3>📋 ¿Para Qué se Usa el Diagrama de Contexto?</h3>
+                <p>El diagrama de contexto es una herramienta <strong>fundamental</strong> en el análisis de sistemas que cumple múltiples propósitos estratégicos:</p>
+                
+                <h4>🎯 Propósitos Principales:</h4>
+                <ul>
+                    <li><strong>Definir Alcance:</strong> Establece claramente qué está <em>dentro</em> y qué está <em>fuera</em> del sistema a desarrollar</li>
+                    <li><strong>Comunicación con Stakeholders:</strong> Proporciona una vista simple que todos pueden entender, desde usuarios hasta directivos</li>
+                    <li><strong>Documentar Interfaces:</strong> Identifica todos los puntos de intercambio de información con el exterior</li>
+                    <li><strong>Validar Requerimientos:</strong> Ayuda a verificar que no se olviden entidades externas importantes</li>
+                    <li><strong>Base para Descomposición:</strong> Sirve como punto de partida para crear DFDs más detallados</li>
+                </ul>
+
+                <h4>📈 Beneficios en el Proyecto:</h4>
+                <ul>
+                    <li><strong>Evita Malentendidos:</strong> Todos los involucrados ven la misma perspectiva del sistema</li>
+                    <li><strong>Detecta Omisiones:</strong> Identifica entidades externas que podrían pasarse por alto</li>
+                    <li><strong>Facilita Estimaciones:</strong> Ayuda a dimensionar la complejidad de las interfaces</li>
+                    <li><strong>Reduce Riesgos:</strong> Minimiza cambios de alcance durante el desarrollo</li>
+                    <li><strong>Guía la Arquitectura:</strong> Informa decisiones sobre integración y conectividad</li>
+                </ul>
+
+                <div class="alert alert-info">
+                    <strong>💡 Momento Clave:</strong> El diagrama de contexto debe crearse al <strong>inicio del proyecto</strong>, después de entender los objetivos pero <strong>antes</strong> de diseñar la solución. Es el primer paso para transformar ideas en especificaciones técnicas.
+                </div>
+            </div>
+
             <div class="diagram-card">
                 <h3>🎨 Componentes del Diagrama de Contexto</h3>
                 <div class="symbol-grid">
                     <div class="symbol-card">
-                        <div class="symbol-visual">⭕</div>
+                        <div class="mermaid">
+                            graph LR
+                                A((Sistema))
+                                style A fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+                        </div>
                         <h4>Sistema</h4>
                         <p>Círculo que representa todo el sistema como una unidad</p>
                     </div>
                     <div class="symbol-card">
-                        <div class="symbol-visual">⬜</div>
+                        <div class="mermaid">
+                            graph LR
+                                A[Entidad<br/>Externa]
+                                style A fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        </div>
                         <h4>Entidad Externa</h4>
-                        <p>Rectángulo que representa actores externos al sistema</p>
+                        <p>Cuadrado que representa actores externos al sistema</p>
                     </div>
                     <div class="symbol-card">
-                        <div class="symbol-visual">➡️</div>
+                        <div class="mermaid">
+                            graph LR
+                                A[Origen] -->|Flujo de Datos| B[Destino]
+                                style A fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                                style B fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        </div>
                         <h4>Flujo de Datos</h4>
                         <p>Flecha etiquetada que muestra movimiento de información</p>
                     </div>
@@ -488,6 +528,13 @@
                         B -->|Datos de Nuevo Libro| S
                         P[Proveedor] -->|Catálogo de Libros| S
                         S -->|Orden de Compra| P
+                        
+                        %% Estilos
+                        classDef entidadExterna fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20,font-size:12px
+                        classDef sistema fill:#e1f5fe,stroke:#01579b,stroke-width:3px,color:#0d47a1
+                        
+                        class U,B,P entidadExterna
+                        class S sistema
                 </div>
                 <p><strong>Análisis:</strong> El sistema interactúa con tres entidades externas: Usuario (préstamos), Bibliotecario (gestión) y Proveedor (adquisiciones).</p>
             </div>
@@ -518,28 +565,153 @@
                 </ul>
             </div>
 
+            <div class="content-box">
+                <h3>🔄 ¿Por qué Flujos de Datos para Procesos?</h3>
+                <p>Los <strong>flujos de datos</strong> son fundamentales en el análisis estructurado porque:</p>
+                
+                <div class="alert alert-info">
+                    <strong>💡 Principio Clave:</strong> Los datos son el <strong>corazón</strong> de todo sistema de información. Los procesos existen para <strong>transformar, validar, almacenar y recuperar</strong> datos.
+                </div>
+
+                <h4>🎯 Razones Fundamentales:</h4>
+                <ul>
+                    <li><strong>Propósito del Sistema:</strong> Todo sistema de información procesa datos para generar información útil</li>
+                    <li><strong>Transformación:</strong> Los procesos toman datos de entrada y los convierten en datos de salida</li>
+                    <li><strong>Dependencias:</strong> Los procesos necesitan datos específicos para funcionar correctamente</li>
+                    <li><strong>Validación:</strong> Los flujos muestran qué datos son necesarios y cuáles se producen</li>
+                    <li><strong>Trazabilidad:</strong> Permiten seguir el origen y destino de cada dato</li>
+                </ul>
+
+                <h4>📋 Tipos de Transformaciones de Datos:</h4>
+                <div class="symbol-grid">
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A(Conversión)
+                                style A fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+                        </div>
+                        <h4>Conversión</h4>
+                        <p>Cambiar formato o estructura de los datos</p>
+                    </div>
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A(Validación)
+                                style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        </div>
+                        <h4>Validación</h4>
+                        <p>Verificar integridad y reglas de negocio</p>
+                    </div>
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A(Cálculo)
+                                style A fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        </div>
+                        <h4>Cálculo</h4>
+                        <p>Realizar operaciones matemáticas o lógicas</p>
+                    </div>
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A(Agregación)
+                                style A fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        </div>
+                        <h4>Agregación</h4>
+                        <p>Combinar o resumir múltiples datos</p>
+                    </div>
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A(Filtrado)
+                                style A fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+                        </div>
+                        <h4>Filtrado</h4>
+                        <p>Seleccionar datos que cumplen criterios</p>
+                    </div>
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A(Clasificación)
+                                style A fill:#fff8e1,stroke:#ff8f00,stroke-width:2px
+                        </div>
+                        <h4>Clasificación</h4>
+                        <p>Ordenar o categorizar información</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>📝 Ejemplo: Transformaciones en Sistema de Nómina</h3>
+                <div class="mermaid">
+                    graph LR
+                        E[Empleado] -->|Horas Trabajadas| P1(1<br/>Validar<br/>Datos)
+                        P1 -->|Horas Válidas| P2(2<br/>Calcular<br/>Salario Base)
+                        P2 -->|Salario Base| P3(3<br/>Calcular<br/>Descuentos)
+                        P3 -->|Salario Neto| P4(4<br/>Generar<br/>Recibo)
+                        P4 -->|Recibo de Pago| E
+                        
+                        D1[(D1: Tarifas)] -->|Tarifa por Hora| P2
+                        D2[(D2: Impuestos)] -->|% Descuentos| P3
+                        P4 -->|Registro Pago| D3[(D3: Nóminas)]
+                        
+                        %% Estilos
+                        classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#0d47a1
+                        classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
+                        
+                        class E entidad
+                        class P1,P2,P3,P4 proceso
+                        class D1,D2,D3 almacen
+                </div>
+                <p><strong>Análisis de Flujos:</strong></p>
+                <ul>
+                    <li><strong>Horas Trabajadas → Validar:</strong> Verificar formato y rangos válidos</li>
+                    <li><strong>Horas Válidas → Calcular Salario:</strong> Multiplicar por tarifa</li>
+                    <li><strong>Salario Base → Calcular Descuentos:</strong> Aplicar impuestos</li>
+                    <li><strong>Salario Neto → Generar Recibo:</strong> Formatear para impresión</li>
+                </ul>
+            </div>
+
             <div class="diagram-card">
                 <h3>🔧 Elementos de un DFD</h3>
                 <div class="symbol-grid">
                     <div class="symbol-card">
-                        <div class="symbol-visual">⭕</div>
+                        <div class="mermaid">
+                            graph LR
+                                A(1. Proceso)
+                                style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        </div>
                         <h4>Proceso</h4>
                         <p>Círculo numerado que transforma datos de entrada en datos de salida</p>
                     </div>
                     <div class="symbol-card">
-                        <div class="symbol-visual">⬜</div>
+                        <div class="mermaid">
+                            graph LR
+                                A[Entidad Externa]
+                                style A fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        </div>
                         <h4>Entidad Externa</h4>
-                        <p>Fuente o destino de datos fuera del sistema</p>
+                        <p>Cuadrado que representa fuente o destino externo de datos</p>
                     </div>
                     <div class="symbol-card">
-                        <div class="symbol-visual">📁</div>
+                        <div class="mermaid">
+                            graph LR
+                                A[(D1: Almacén)]
+                                style A fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        </div>
                         <h4>Almacén de Datos</h4>
-                        <p>Líneas paralelas que representan datos almacenados</p>
+                        <p>Cilindro (D1: Nombre) que representa datos almacenados</p>
                     </div>
                     <div class="symbol-card">
-                        <div class="symbol-visual">➡️</div>
+                        <div class="mermaid">
+                            graph LR
+                                A[Origen] -->|Flujo de Datos| B[Destino]
+                                style A fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                                style B fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        </div>
                         <h4>Flujo de Datos</h4>
-                        <p>Flecha que muestra movimiento de información</p>
+                        <p>Flecha etiquetada que muestra movimiento de información</p>
                     </div>
                 </div>
             </div>
@@ -583,30 +755,100 @@
                         SV -->|Reporte de Ventas| G[Gerencia]
                         P[Proveedor] -->|Lista de Precios| SV
                         SV -->|Orden de Compra| P
-                        SV -->|Estado de Inventario| I[Inventario]
-                        I -->|Disponibilidad| SV
+                        B[Banco] -->|Confirmación Pago| SV
+                        SV -->|Solicitud Autorización| B
+                        
+                        %% Estilos para hacer más cuadradas las entidades
+                        classDef entidadExterna fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20,font-size:12px
+                        classDef sistema fill:#e1f5fe,stroke:#01579b,stroke-width:3px,color:#0d47a1
+                        
+                        class C,G,P,B entidadExterna
+                        class SV sistema
                 </div>
+                <p><strong>Entidades Externas:</strong></p>
+                <ul>
+                    <li><strong>Cliente:</strong> Origen de pedidos, destino de facturas</li>
+                    <li><strong>Gerencia:</strong> Receptor de reportes de gestión</li>
+                    <li><strong>Proveedor:</strong> Fuente de productos y precios</li>
+                    <li><strong>Banco:</strong> Procesamiento de pagos y autorizaciones</li>
+                </ul>
             </div>
 
             <div class="content-box">
                 <h3>📊 DFD Nivel 1 - Sistema de Ventas</h3>
                 <div class="mermaid">
                     graph TD
-                        C[Cliente] -->|Pedido| P1((1<br/>Procesar<br/>Pedido))
-                        P1 -->|Consulta Stock| D1[D1: Inventario]
-                        D1 -->|Disponibilidad| P1
-                        P1 -->|Pedido Válido| P2((2<br/>Generar<br/>Factura))
-                        P2 -->|Factura| C
-                        P2 -->|Datos Venta| D2[D2: Ventas]
-                        P2 -->|Actualización Stock| P3((3<br/>Actualizar<br/>Inventario))
-                        P3 -->|Nuevo Stock| D1
-                        P3 -->|Stock Bajo| P4((4<br/>Generar<br/>Reporte))
-                        P4 -->|Reporte| G[Gerencia]
-                        D2 -->|Datos Históricos| P4
+                        C[Cliente] -->|Pedido| P1(1<br/>Procesar<br/>Pedido)
+                        P1 -->|Consulta Producto| D1[(D1: Productos)]
+                        D1 -->|Info Producto| P1
+                        P1 -->|Consulta Stock| D2[(D2: Inventario)]
+                        D2 -->|Disponibilidad| P1
+                        P1 -->|Pedido Válido| P2(2<br/>Procesar<br/>Pago)
+                        P2 -->|Solicitud Autorización| B[Banco]
+                        B -->|Confirmación Pago| P2
+                        P2 -->|Pago Autorizado| P3(3<br/>Generar<br/>Factura)
+                        P3 -->|Factura| C
+                        P3 -->|Registro Venta| D3[(D3: Ventas)]
+                        P3 -->|Reducir Stock| P4(4<br/>Actualizar<br/>Inventario)
+                        P4 -->|Stock Actualizado| D2
+                        P4 -->|Alerta Stock Bajo| P5(5<br/>Generar<br/>Reportes)
+                        P5 -->|Reporte Ventas| G[Gerencia]
+                        P5 -->|Solicitud Reposición| P[Proveedor]
+                        D3 -->|Datos Históricos| P5
+                        D2 -->|Niveles Stock| P5
+                        
+                        %% Estilos
+                        classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#0d47a1
+                        classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
+                        
+                        class C,B,G,P entidad
+                        class P1,P2,P3,P4,P5 proceso
+                        class D1,D2,D3 almacen
                 </div>
                 
                 <div class="alert alert-info">
-                    <strong>💡 Análisis:</strong> El sistema se descompone en 4 procesos principales: procesar pedidos, generar facturas, actualizar inventario y generar reportes.
+                    <strong>💡 Análisis Mejorado:</strong> El sistema ahora incluye 5 procesos: procesar pedidos, procesar pagos, generar facturas, actualizar inventario y generar reportes. Se agregó validación de productos y gestión de pagos.
+                </div>
+                
+                <h4>🔍 Flujos de Datos Detallados:</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Flujo</th>
+                                <th>Contenido</th>
+                                <th>Propósito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Pedido</strong></td>
+                                <td>ID Cliente, Lista Productos, Cantidades, Fecha</td>
+                                <td>Iniciar proceso de venta</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Info Producto</strong></td>
+                                <td>Precio, Descripción, Categoría, Estado</td>
+                                <td>Validar productos solicitados</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Disponibilidad</strong></td>
+                                <td>Stock Actual, Stock Mínimo, Ubicación</td>
+                                <td>Verificar disponibilidad</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Confirmación Pago</strong></td>
+                                <td>ID Transacción, Monto, Estado, Fecha</td>
+                                <td>Autorizar la venta</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Factura</strong></td>
+                                <td>Número, Fecha, Detalle, Total, IVA</td>
+                                <td>Comprobante legal de venta</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -614,15 +856,93 @@
                 <h3>🔍 DFD Nivel 2 - Proceso "Procesar Pedido"</h3>
                 <div class="mermaid">
                     graph TD
-                        C[Cliente] -->|Pedido| P11((1.1<br/>Validar<br/>Cliente))
-                        P11 -->|Cliente Válido| P12((1.2<br/>Verificar<br/>Productos))
-                        P12 -->|Consulta| D1[D1: Inventario]
-                        D1 -->|Stock Disponible| P12
-                        P12 -->|Productos OK| P13((1.3<br/>Calcular<br/>Total))
-                        P13 -->|Pedido Completo| P2[Proceso 2]
-                        DC[DC: Clientes] -->|Datos Cliente| P11
-                        P11 -->|Cliente No Válido| C
-                        P12 -->|Sin Stock| C
+                        C[Cliente] -->|Pedido| P11(1.1<br/>Validar<br/>Cliente)
+                        DC[(DC: Clientes)] -->|Datos Cliente| P11
+                        P11 -->|Cliente Válido| P12(1.2<br/>Verificar<br/>Productos)
+                        P12 -->|Consulta Producto| D1[(D1: Productos)]
+                        D1 -->|Info Producto| P12
+                        P12 -->|Productos Válidos| P13(1.3<br/>Verificar<br/>Disponibilidad)
+                        P13 -->|Consulta Stock| D2[(D2: Inventario)]
+                        D2 -->|Stock Disponible| P13
+                        P13 -->|Stock OK| P14(1.4<br/>Calcular<br/>Total)
+                        DP[(DP: Precios)] -->|Lista Precios| P14
+                        P14 -->|Pedido Completo| P2[Proceso 2: Procesar Pago]
+                        
+                        P11 -.->|Cliente No Válido| C
+                        P12 -.->|Producto No Existe| C
+                        P13 -.->|Sin Stock Suficiente| C
+                        
+                        %% Estilos
+                        classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#0d47a1
+                        classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
+                        classDef procesoExterno fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c
+                        
+                        class C entidad
+                        class P11,P12,P13,P14 proceso
+                        class DC,D1,D2,DP almacen
+                        class P2 procesoExterno
+                </div>
+                
+                <h4>📋 Especificación de Subprocesos:</h4>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <h4>1.1 Validar Cliente</h4>
+                        <p><strong>Entrada:</strong> Pedido (ID Cliente)<br>
+                        <strong>Proceso:</strong> Verificar existencia y estado del cliente<br>
+                        <strong>Salida:</strong> Cliente Válido o Rechazo</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>1.2 Verificar Productos</h4>
+                        <p><strong>Entrada:</strong> Lista de Productos<br>
+                        <strong>Proceso:</strong> Validar existencia y estado activo<br>
+                        <strong>Salida:</strong> Productos Válidos o Error</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>1.3 Verificar Disponibilidad</h4>
+                        <p><strong>Entrada:</strong> Productos + Cantidades<br>
+                        <strong>Proceso:</strong> Comparar stock disponible vs solicitado<br>
+                        <strong>Salida:</strong> Confirmación de Stock o Alerta</p>
+                    </div>
+                    <div class="process-step">
+                        <h4>1.4 Calcular Total</h4>
+                        <p><strong>Entrada:</strong> Productos + Cantidades + Precios<br>
+                        <strong>Proceso:</strong> Subtotal + IVA + Descuentos<br>
+                        <strong>Salida:</strong> Pedido con Total Calculado</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>💡 Ejemplo de Flujos de Datos Específicos</h3>
+                <h4>Flujo "Pedido" contiene:</h4>
+                <div class="code-block">
+                    ID_Cliente: "CLI001"<br>
+                    Fecha_Pedido: "2024-03-15"<br>
+                    Items: [<br>
+                    &nbsp;&nbsp;{Producto: "PROD123", Cantidad: 5},<br>
+                    &nbsp;&nbsp;{Producto: "PROD456", Cantidad: 2}<br>
+                    ]<br>
+                    Método_Pago: "Tarjeta_Crédito"
+                </div>
+                
+                <h4>Flujo "Info Producto" contiene:</h4>
+                <div class="code-block">
+                    ID_Producto: "PROD123"<br>
+                    Nombre: "Laptop HP Pavilion"<br>
+                    Precio_Unitario: 850.00<br>
+                    Categoría: "Electrónicos"<br>
+                    Estado: "Activo"<br>
+                    IVA_Aplicable: 21%
+                </div>
+                
+                <h4>Flujo "Stock Disponible" contiene:</h4>
+                <div class="code-block">
+                    ID_Producto: "PROD123"<br>
+                    Stock_Actual: 15<br>
+                    Stock_Mínimo: 3<br>
+                    Ubicación: "Almacén A - Estante 12"<br>
+                    Estado_Stock: "Disponible"
                 </div>
             </div>
         </section>
@@ -784,7 +1104,482 @@
         </section>
 
         <section class="content-section">
-            <h2 class="section-title">🎓 8. Resumen y Puntos Clave</h2>
+            <h2 class="section-title">📐 8. Aprendiendo a Hacer DFD: Símbolos de Mermaid Flowchart</h2>
+            
+            <div class="content-box">
+                <h3>🎨 Introducción a los Símbolos de Mermaid</h3>
+                <p><strong>Mermaid</strong> es una herramienta de diagramación que nos permite crear DFDs usando diferentes formas geométricas. Cada símbolo tiene un <strong>propósito específico</strong> en el modelado de sistemas:</p>
+                
+                <div class="alert alert-info">
+                    <strong>💡 Principio Clave:</strong> La <strong>forma del símbolo</strong> comunica visualmente el <strong>tipo de elemento</strong> y su función en el sistema.
+                </div>
+            </div>
+
+            <div class="diagram-card">
+                <h3>🔧 Símbolos Básicos para DFD</h3>
+                <div class="symbol-grid">
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A(Proceso)
+                                style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        </div>
+                        <h4>Círculo</h4>
+                        <code>A(Proceso)</code>
+                        <p><strong>Uso:</strong> Representa <strong>procesos</strong> que transforman datos</p>
+                        <p><strong>Ejemplo:</strong> Validar cliente, Calcular total</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A[Entidad Externa]
+                                style A fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        </div>
+                        <h4>Cuadrado</h4>
+                        <code>A[Entidad Externa]</code>
+                        <p><strong>Uso:</strong> Representa <strong>entidades externas</strong> o terminadores</p>
+                        <p><strong>Ejemplo:</strong> Cliente, Proveedor, Sistema externo</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A[(D1: Almacén)]
+                                style A fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        </div>
+                        <h4>Cilindro</h4>
+                        <code>A[(Almacén)]</code>
+                        <p><strong>Uso:</strong> Representa <strong>almacenes de datos</strong> o bases de datos</p>
+                        <p><strong>Ejemplo:</strong> D1: Productos, D2: Clientes</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A{Decisión}
+                                style A fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        </div>
+                        <h4>Rombo</h4>
+                        <code>A{Decisión}</code>
+                        <p><strong>Uso:</strong> Representa <strong>decisiones</strong> o puntos de control</p>
+                        <p><strong>Ejemplo:</strong> ¿Stock disponible?, ¿Cliente válido?</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🔄 Símbolos Avanzados para Casos Especiales</h3>
+                <div class="symbol-grid">
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A(Subproceso)
+                                style A fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+                        </div>
+                        <h4>Rectángulo Redondeado</h4>
+                        <code>A(Subproceso)</code>
+                        <p><strong>Uso:</strong> <strong>Subprocesos</strong> o procesos que se descomponen</p>
+                        <p><strong>Ejemplo:</strong> Procesar pedido completo</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A{{Preparación}}
+                                style A fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+                        </div>
+                        <h4>Estrella/Hexágono</h4>
+                        <code>A{{Preparación}}</code>
+                        <p><strong>Uso:</strong> <strong>Procesos de preparación</strong> o inicialización</p>
+                        <p><strong>Ejemplo:</strong> Configurar sistema, Inicializar variables</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A[/Input/]
+                                style A fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+                        </div>
+                        <h4>Trapecio</h4>
+                        <code>A[/Input/]</code>
+                        <p><strong>Uso:</strong> <strong>Entrada manual</strong> de datos</p>
+                        <p><strong>Ejemplo:</strong> Formulario, Teclado, Scanner</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A[\Output\]
+                                style A fill:#fff8e1,stroke:#ff8f00,stroke-width:2px
+                        </div>
+                        <h4>Trapecio Invertido</h4>
+                        <code>A[\Output\]</code>
+                        <p><strong>Uso:</strong> <strong>Salida de datos</strong> o reportes</p>
+                        <p><strong>Ejemplo:</strong> Impresión, Pantalla, Archivo</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A((Inicio/Fin))
+                                style A fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+                        </div>
+                        <h4>Círculo Doble</h4>
+                        <code>A((Inicio/Fin))</code>
+                        <p><strong>Uso:</strong> <strong>Puntos de inicio y fin</strong> del flujo</p>
+                        <p><strong>Ejemplo:</strong> Inicio del proceso, Fin del sistema</p>
+                    </div>
+                    
+                    <div class="symbol-card">
+                        <div class="mermaid">
+                            graph LR
+                                A>Etiqueta]
+                                style A fill:#f1f8e9,stroke:#689f38,stroke-width:2px
+                        </div>
+                        <h4>Etiqueta/Flag</h4>
+                        <code>A>Etiqueta]</code>
+                        <p><strong>Uso:</strong> <strong>Referencias</strong> o conectores</p>
+                        <p><strong>Ejemplo:</strong> Continúa en página 2, Referencia A</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>📝 Ejemplo Práctico: Sistema de Login con Todos los Símbolos</h3>
+                <div class="mermaid">
+                    graph TD
+                        Start((Inicio)) --> Input[/Ingreso Credenciales/]
+                        Input --> Prep{{Preparar Validación}}
+                        Prep --> Validate(Validar Usuario)
+                        Validate --> Users[(D1: Usuarios)]
+                        Users --> Check{¿Usuario Válido?}
+                        Check -->|Sí| Success(Crear Sesión)
+                        Check -->|No| Attempts{¿Intentos < 3?}
+                        Attempts -->|Sí| Retry>Intentar Nuevamente]
+                        Retry --> Input
+                        Attempts -->|No| Block(Bloquear Usuario)
+                        Block --> Log[(D2: Log Seguridad)]
+                        Block --> Report[\Reporte Bloqueo\]
+                        Success --> Session[(D3: Sesiones)]
+                        Success --> Dashboard[Sistema Principal]
+                        Report --> Admin[Administrador]
+                        Success --> End((Fin))
+                        Report --> End
+                </div>
+                
+                <h4>🔍 Análisis de Símbolos Utilizados:</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Símbolo</th>
+                                <th>Código Mermaid</th>
+                                <th>Propósito en el Ejemplo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A((Inicio)); style A fill:#ffebee,stroke:#d32f2f,stroke-width:2px</div></td>
+                                <td><code>Start((Inicio))</code></td>
+                                <td>Punto de inicio y fin del proceso</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A[/Input/]; style A fill:#e3f2fd,stroke:#1565c0,stroke-width:2px</div></td>
+                                <td><code>Input[/Ingreso Credenciales/]</code></td>
+                                <td>Entrada manual de datos por el usuario</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A{{Prep}}; style A fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px</div></td>
+                                <td><code>Prep{{Preparar Validación}}</code></td>
+                                <td>Proceso de preparación/inicialización</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A(Validate); style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px</div></td>
+                                <td><code>Validate(Validar Usuario)</code></td>
+                                <td>Proceso principal de transformación</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A[(D1: Users)]; style A fill:#fff3e0,stroke:#f57c00,stroke-width:2px</div></td>
+                                <td><code>Users[(D1: Usuarios)]</code></td>
+                                <td>Almacén de datos / Base de datos</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A{Check}; style A fill:#fce4ec,stroke:#c2185b,stroke-width:2px</div></td>
+                                <td><code>Check{¿Usuario Válido?}</code></td>
+                                <td>Punto de decisión con múltiples salidas</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A>Retry]; style A fill:#f1f8e9,stroke:#689f38,stroke-width:2px</div></td>
+                                <td><code>Retry>Intentar Nuevamente]</code></td>
+                                <td>Conector para evitar líneas cruzadas</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A[\Report\]; style A fill:#fff8e1,stroke:#ff8f00,stroke-width:2px</div></td>
+                                <td><code>Report[\Reporte Bloqueo\]</code></td>
+                                <td>Salida de datos/reporte</td>
+                            </tr>
+                            <tr>
+                                <td><div class="mermaid" style="transform: scale(0.7);">graph LR; A[Admin]; style A fill:#e8f5e8,stroke:#388e3c,stroke-width:2px</div></td>
+                                <td><code>Admin[Administrador]</code></td>
+                                <td>Entidad externa que recibe información</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🎯 Guía de Selección de Símbolos para DFD</h3>
+                
+                <h4>📋 Decisiones de Diseño:</h4>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <h4>1. ¿Es una Transformación de Datos?</h4>
+                        <p><strong>Usar:</strong> Rectángulo Redondeado <code>(Proceso)</code></p>
+                        <div class="mermaid">
+                            graph LR
+                                A(Calcular Impuestos)
+                                style A fill:#e1f5fe,stroke:#01579b,stroke-width:2px,color:#0d47a1
+                        </div>
+                        <p><strong>Ejemplo:</strong> Calcular impuestos, Validar datos, Generar reporte</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h4>2. ¿Es una Fuente/Destino Externo?</h4>
+                        <p><strong>Usar:</strong> Rectángulo <code>[Entidad]</code></p>
+                        <div class="mermaid">
+                            graph LR
+                                A[Cliente]
+                                style A fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+                        </div>
+                        <p><strong>Ejemplo:</strong> Cliente, Proveedor, Sistema bancario</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h4>3. ¿Es Almacenamiento de Datos?</h4>
+                        <p><strong>Usar:</strong> Cilindro <code>[(Almacén)]</code></p>
+                        <div class="mermaid">
+                            graph LR
+                                A[(D1: Productos)]
+                                style A fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
+                        </div>
+                        <p><strong>Ejemplo:</strong> Base de datos, Archivo, Repositorio</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h4>4. ¿Es un Punto de Decisión?</h4>
+                        <p><strong>Usar:</strong> Rombo <code>{Decisión}</code></p>
+                        <div class="mermaid">
+                            graph LR
+                                A{¿Stock Disponible?}
+                                style A fill:#fce4ec,stroke:#c2185b,stroke-width:2px,color:#ad1457
+                        </div>
+                        <p><strong>Ejemplo:</strong> ¿Stock disponible?, ¿Pago autorizado?</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h4>5. ¿Es Entrada/Salida Manual?</h4>
+                        <p><strong>Usar:</strong> Trapecio <code>[/Input/]</code> o <code>[\Output\]</code></p>
+                        <div class="symbol-grid">
+                            <div class="symbol-card" style="flex: 1;">
+                                <div class="mermaid">
+                                    graph LR
+                                        A[/Formulario Web/]
+                                        style A fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1
+                                </div>
+                                <h5>Entrada</h5>
+                            </div>
+                            <div class="symbol-card" style="flex: 1;">
+                                <div class="mermaid">
+                                    graph LR
+                                        A[\Reporte Impreso\]
+                                        style A fill:#fff8e1,stroke:#ff8f00,stroke-width:2px,color:#ef6c00
+                                </div>
+                                <h5>Salida</h5>
+                            </div>
+                        </div>
+                        <p><strong>Ejemplo:</strong> Formulario web, Impresión, Pantalla</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>⚡ Sintaxis Completa de Mermaid para DFD</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 20px 0;">
+                    <div>
+                        <h4>🔧 Tipos de Nodos</h4>
+                        <div class="code-block">
+A[Rectángulo]              <span style="color: #666;">-- Entidad Externa</span><br>
+A(Círculo)                 <span style="color: #666;">-- Proceso</span><br>
+A((Círculo Doble))         <span style="color: #666;">-- Inicio/Fin</span><br>
+A{Rombo}                   <span style="color: #666;">-- Decisión</span><br>
+A[(Cilindro)]              <span style="color: #666;">-- Almacén de Datos</span><br>
+A{{Hexágono}}              <span style="color: #666;">-- Preparación</span><br>
+A[/Trapecio/]              <span style="color: #666;">-- Entrada Manual</span><br>
+A[\Trapecio Invertido\]    <span style="color: #666;">-- Salida</span><br>
+A>Etiqueta]                <span style="color: #666;">-- Conector/Referencia</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4>🔗 Tipos de Conexiones</h4>
+                        <div class="code-block">
+A --> B                    <span style="color: #666;">-- Flecha Simple</span><br>
+A -.-> B                   <span style="color: #666;">-- Flecha Punteada</span><br>
+A ==> B                    <span style="color: #666;">-- Flecha Gruesa</span><br>
+A -->|Etiqueta| B          <span style="color: #666;">-- Flecha con Etiqueta</span><br>
+A -.->|Etiqueta| B         <span style="color: #666;">-- Punteada con Etiqueta</span><br>
+A ==>|Etiqueta| B          <span style="color: #666;">-- Gruesa con Etiqueta</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>🎨 Estilos y Clases</h4>
+                <div class="code-block">
+<span style="color: #666;">%% Estilo individual</span><br>
+style A fill:#f9f,stroke:#333,stroke-width:2px<br><br>
+
+<span style="color: #666;">%% Definir clase de estilo</span><br>
+classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px<br>
+classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px<br>
+classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px<br><br>
+
+<span style="color: #666;">%% Aplicar clase a múltiples nodos</span><br>
+class A,B,C proceso<br>
+class D1,D2,D3 almacen<br>
+class Cliente,Proveedor entidad
+                </div>
+
+                <h4>📝 Ejemplo Completo</h4>
+                <div class="code-block">
+graph TD<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666;">%% Nodos</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Cliente[Cliente]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Proceso1(1. Validar Pedido)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Almacen[(D1: Productos)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Decision{¿Válido?}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Salida[\Factura\]<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666;">%% Conexiones</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;Cliente -->|Pedido| Proceso1<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Proceso1 --> Almacen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Almacen -->|Info Producto| Decision<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Decision -->|Sí| Salida<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Decision -.->|No| Cliente<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #666;">%% Estilos</span><br>
+&nbsp;&nbsp;&nbsp;&nbsp;classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px<br>
+&nbsp;&nbsp;&nbsp;&nbsp;classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px<br>
+&nbsp;&nbsp;&nbsp;&nbsp;classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px<br>
+&nbsp;&nbsp;&nbsp;&nbsp;classDef decision fill:#fce4ec,stroke:#c2185b,stroke-width:2px<br>
+&nbsp;&nbsp;&nbsp;&nbsp;classDef salida fill:#fff8e1,stroke:#ff8f00,stroke-width:2px<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;class Cliente entidad<br>
+&nbsp;&nbsp;&nbsp;&nbsp;class Proceso1 proceso<br>
+&nbsp;&nbsp;&nbsp;&nbsp;class Almacen almacen<br>
+&nbsp;&nbsp;&nbsp;&nbsp;class Decision decision<br>
+&nbsp;&nbsp;&nbsp;&nbsp;class Salida salida
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>💡 Consejos para Crear DFDs Efectivos:</strong>
+                <ul>
+                    <li><strong>Consistencia:</strong> Usa el mismo símbolo para el mismo tipo de elemento</li>
+                    <li><strong>Claridad:</strong> Etiqueta todos los flujos con nombres descriptivos</li>
+                    <li><strong>Simplicidad:</strong> No más de 7±2 elementos por diagrama</li>
+                    <li><strong>Balance:</strong> Mantén simetría visual en el diseño</li>
+                    <li><strong>Colores:</strong> Usa colores para agrupar elementos relacionados</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <h3>🏆 Ejemplo Completo: E-commerce con Simbolos Optimizados</h3>
+                <div class="mermaid">
+                    graph TD
+                        %% Entidades Externas
+                        Cliente[Cliente]
+                        Banco[Sistema Bancario]
+                        Inventario[Sistema Inventario]
+                        
+                        %% Entrada Manual
+                        Pedido[/Datos del Pedido/]
+                        
+                        %% Preparación
+                        Init{{Inicializar Proceso}}
+                        
+                        %% Procesos Principales
+                        ValidarPedido(1. Validar Pedido)
+                        ProcesarPago(2. Procesar Pago)
+                        GenerarFactura(3. Generar Factura)
+                        
+                        %% Decisiones
+                        PedidoValido{¿Pedido Válido?}
+                        PagoOK{¿Pago Autorizado?}
+                        
+                        %% Almacenes
+                        Productos[(D1: Productos)]
+                        Clientes[(D2: Clientes)]
+                        Ventas[(D3: Ventas)]
+                        
+                        %% Salidas
+                        Factura[\Factura Impresa\]
+                        Error[\Mensaje Error\]
+                        
+                        %% Conectores
+                        Continua>Proceso de Envío]
+                        
+                        %% Flujo Principal
+                        Cliente --> Pedido
+                        Pedido --> Init
+                        Init --> ValidarPedido
+                        ValidarPedido --> Productos
+                        ValidarPedido --> Clientes
+                        Productos --> PedidoValido
+                        Clientes --> PedidoValido
+                        
+                        PedidoValido -->|Sí| ProcesarPago
+                        PedidoValido -->|No| Error
+                        
+                        ProcesarPago --> Banco
+                        Banco --> PagoOK
+                        PagoOK -->|Sí| GenerarFactura
+                        PagoOK -->|No| Error
+                        
+                        GenerarFactura --> Ventas
+                        GenerarFactura --> Factura
+                        GenerarFactura --> Continua
+                        
+                        Factura --> Cliente
+                        Error --> Cliente
+                        Continua --> Inventario
+                        
+                        %% Estilos
+                        classDef entidad fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+                        classDef proceso fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        classDef decision fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        classDef io fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+                        
+                        class Cliente,Banco,Inventario entidad
+                        class ValidarPedido,ProcesarPago,GenerarFactura proceso
+                        class Productos,Clientes,Ventas almacen
+                        class PedidoValido,PagoOK decision
+                        class Pedido,Factura,Error io
+                </div>
+                
+                <p><strong>📊 Análisis del Diagrama:</strong></p>
+                <ul>
+                    <li><strong>Azul:</strong> Entidades externas (Cliente, Banco, Inventario)</li>
+                    <li><strong>Verde:</strong> Procesos de transformación (Validar, Procesar, Generar)</li>
+                    <li><strong>Naranja:</strong> Almacenes de datos (D1, D2, D3)</li>
+                    <li><strong>Rosa:</strong> Puntos de decisión (¿Válido?, ¿Autorizado?)</li>
+                    <li><strong>Morado:</strong> Entrada/Salida manual (Formularios, Reportes)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🎓 9. Resumen y Puntos Clave</h2>
             
             <div class="content-box">
                 <h3>🔑 Conceptos Fundamentales</h3>
@@ -811,7 +1606,342 @@
                 <strong>🎯 Próxima Clase:</strong> Estudiaremos el <strong>Diagrama de Entidad-Relación</strong> y el <strong>Diccionario de Datos</strong>, herramientas complementarias que nos permitirán modelar la estructura de los datos que fluyen por nuestros sistemas.
             </div>
         </section>
+
+        <!-- Quiz de evaluación -->
+        <section class="quiz-container">
+            <h2>🧠 Evaluación - 20 Preguntas Multiple Choice</h2>
+            
+            <div class="quiz-instructions">
+                <p><strong>Instrucciones:</strong></p>
+                <p>• Cada pregunta tiene 4 opciones (A, B, C, D)</p>
+                <p>• Selecciona la respuesta que consideres correcta</p>
+                <p>• Al finalizar podrás ver tu puntuación y las respuestas correctas</p>
+                <p>• Se requiere responder todas las preguntas para obtener el resultado</p>
+            </div>
+
+            <div id="quiz-questions">
+                <!-- Pregunta 1 -->
+                <div class="question">
+                    <h4>1. ¿Cuál es la principal característica del análisis estructurado?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Se enfoca en objetos y clases</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Se centra en el flujo de datos a través del sistema</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Prioriza la interfaz de usuario</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Se basa en diagramas de secuencia</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 2 -->
+                <div class="question">
+                    <h4>2. ¿Qué representa el Diagrama de Contexto?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Los procesos internos detallados del sistema</div>
+                        <div class="option" onclick="selectOption(this, true)">B) El sistema como un único proceso y sus entidades externas</div>
+                        <div class="option" onclick="selectOption(this, false)">C) La arquitectura técnica del sistema</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Los almacenes de datos principales</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 3 -->
+                <div class="question">
+                    <h4>3. En Mermaid, ¿cuál es la sintaxis correcta para crear un proceso?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) A[Proceso]</div>
+                        <div class="option" onclick="selectOption(this, true)">B) A(Proceso)</div>
+                        <div class="option" onclick="selectOption(this, false)">C) A{Proceso}</div>
+                        <div class="option" onclick="selectOption(this, false)">D) A[(Proceso)]</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 4 -->
+                <div class="question">
+                    <h4>4. ¿Qué símbolo se usa para representar almacenes de datos en un DFD?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Rectángulo</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Círculo</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Cilindro</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Rombo</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 5 -->
+                <div class="question">
+                    <h4>5. ¿Cuál es la principal función de los flujos de datos en un DFD?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Mostrar el control del programa</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Mostrar el movimiento de información entre elementos</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Indicar la secuencia temporal</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Representar decisiones lógicas</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 6 -->
+                <div class="question">
+                    <h4>6. ¿Qué tipo de transformación de datos implica verificar reglas de negocio?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Conversión</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Validación</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Agregación</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Clasificación</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 7 -->
+                <div class="question">
+                    <h4>7. En la jerarquía de DFDs, ¿qué viene después del Diagrama de Contexto?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) DFD Nivel 1</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Procesos primitivos</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Especificaciones de proceso</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Diccionario de datos</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 8 -->
+                <div class="question">
+                    <h4>8. ¿Cuál es una regla importante para nombrar procesos en DFDs?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Usar solo sustantivos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Usar verbo + objeto</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Usar nombres técnicos</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Usar abreviaciones</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 9 -->
+                <div class="question">
+                    <h4>9. ¿Qué significa que un DFD esté "balanceado"?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Tiene el mismo número de entradas y salidas</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Los flujos del nivel padre aparecen en el nivel hijo</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Todos los procesos tienen la misma complejidad</div>
+                        <div class="option" onclick="selectOption(this, false)">D) No hay almacenes de datos</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 10 -->
+                <div class="question">
+                    <h4>10. ¿Cuál es el propósito principal del Diagrama de Contexto?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Mostrar la arquitectura técnica</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Definir el alcance y límites del sistema</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Detallar los procesos internos</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Documentar la base de datos</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 11 -->
+                <div class="question">
+                    <h4>11. En Mermaid, ¿cómo se representa una entidad externa?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) A[Entidad]</div>
+                        <div class="option" onclick="selectOption(this, false)">B) A(Entidad)</div>
+                        <div class="option" onclick="selectOption(this, false)">C) A{Entidad}</div>
+                        <div class="option" onclick="selectOption(this, false)">D) A((Entidad))</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 12 -->
+                <div class="question">
+                    <h4>12. ¿Qué error es común al etiquetar flujos de datos?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Usar nombres muy largos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Usar nombres de acciones en lugar de sustantivos</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Incluir números en el nombre</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Usar mayúsculas</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 13 -->
+                <div class="question">
+                    <h4>13. ¿Cuál es una ventaja del análisis estructurado?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Es ideal para sistemas orientados a objetos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Proporciona representación gráfica fácil de entender</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Modela bien el comportamiento en tiempo real</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Se enfoca en la interfaz de usuario</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 14 -->
+                <div class="question">
+                    <h4>14. ¿Qué criterio indica cuándo descomponer un proceso?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Cuando tiene menos de 3 flujos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Cuando realiza múltiples funciones no relacionadas</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Cuando es muy pequeño</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Cuando no tiene entradas</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 15 -->
+                <div class="question">
+                    <h4>15. En Mermaid, ¿cómo se representa un punto de decisión?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) A(Decisión)</div>
+                        <div class="option" onclick="selectOption(this, false)">B) A[Decisión]</div>
+                        <div class="option" onclick="selectOption(this, true)">C) A{Decisión}</div>
+                        <div class="option" onclick="selectOption(this, false)">D) A[(Decisión)]</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 16 -->
+                <div class="question">
+                    <h4>16. ¿Cuál es una limitación del análisis estructurado?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) No puede modelar datos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Dificultad para modelar sistemas orientados a objetos</div>
+                        <div class="option" onclick="selectOption(this, false)">C) No permite descomposición</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Es muy complejo de entender</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 17 -->
+                <div class="question">
+                    <h4>17. ¿Qué debe contener un almacén de datos bien nombrado?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Nombre en singular</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Nombre en plural e identificación única</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Solo números</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Nombres técnicos complejos</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 18 -->
+                <div class="question">
+                    <h4>18. ¿Cuándo es apropiado usar análisis estructurado?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) Para sistemas de información de gestión</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Para interfaces gráficas complejas</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Para sistemas de tiempo real</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Para aplicaciones web interactivas</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 19 -->
+                <div class="question">
+                    <h4>19. ¿Qué representa el "backbone" en un story map?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, true)">A) El flujo principal de actividades del usuario</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Los procesos más complejos</div>
+                        <div class="option" onclick="selectOption(this, false)">C) La arquitectura del sistema</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Los almacenes de datos</div>
+                    </div>
+                </div>
+
+                <!-- Pregunta 20 -->
+                <div class="question">
+                    <h4>20. ¿Cuál es el primer paso en la construcción de DFDs?</h4>
+                    <div class="options">
+                        <div class="option" onclick="selectOption(this, false)">A) Identificar almacenes de datos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Construir el Diagrama de Contexto</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Definir procesos detallados</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Crear especificaciones técnicas</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Botones de control -->
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="btn btn-primary" onclick="submitQuiz()" style="margin: 0 10px;">📊 Evaluar Respuestas</button>
+                <button class="btn btn-warning" onclick="resetQuiz()" style="margin: 0 10px;">🔄 Reiniciar Quiz</button>
+            </div>
+
+            <!-- Resultados -->
+            <div id="quiz-results" style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 10px; display: none;">
+                <h3 id="score-text" style="text-align: center; margin-bottom: 15px;"></h3>
+                <p id="feedback-text" style="text-align: center; margin-bottom: 20px;"></p>
+                <div id="detailed-results"></div>
+            </div>
+        </section>
     </div>
+
+    <!-- Estilos para el quiz -->
+    <style>
+        .quiz-container {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            margin-top: 40px;
+            border: 1px solid var(--border-color);
+        }
+        .quiz-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+        .quiz-instructions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .question h4 {
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: white;
+        }
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+        .option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        .option:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(5px);
+        }
+        .option.selected {
+            background: rgba(255, 255, 255, 0.4);
+            border-color: white;
+            transform: translateX(5px);
+        }
+        .option.correct {
+            background: #27ae60 !important;
+            border-color: #2ecc71 !important;
+        }
+        .option.incorrect {
+            background: #e74c3c !important;
+            border-color: #c0392b !important;
+        }
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+        .btn-primary {
+            background: rgba(52, 152, 219, 0.8);
+            border-color: #3498db;
+        }
+        .btn-warning {
+            background: rgba(243, 156, 18, 0.8);
+            border-color: #f39c12;
+        }
+    </style>
 
     <script>
         // Configuración de Mermaid
@@ -853,6 +1983,97 @@
                 mermaid.initialize({ theme: 'dark' });
             }
         });
+
+        // Sistema de Quiz
+        let selectedAnswers = {};
+        const totalQuestions = 20;
+
+        function selectOption(element, isCorrect) {
+            const questionDiv = element.closest('.question');
+            const questionNumber = Array.from(document.querySelectorAll('.question')).indexOf(questionDiv) + 1;
+            
+            // Remover selección anterior
+            questionDiv.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Seleccionar nueva opción
+            element.classList.add('selected');
+            
+            // Guardar respuesta
+            selectedAnswers[questionNumber] = isCorrect;
+        }
+
+        function submitQuiz() {
+            const answeredQuestions = Object.keys(selectedAnswers).length;
+            
+            if (answeredQuestions < totalQuestions) {
+                alert(`Por favor responde todas las preguntas. Has respondido ${answeredQuestions} de ${totalQuestions}.`);
+                return;
+            }
+
+            // Calcular resultados
+            const correctAnswers = Object.values(selectedAnswers).filter(answer => answer === true).length;
+            const incorrectAnswers = totalQuestions - correctAnswers;
+            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+
+            // Mostrar respuestas correctas e incorrectas
+            document.querySelectorAll('.question').forEach((questionDiv, index) => {
+                const questionNumber = index + 1;
+                const isCorrect = selectedAnswers[questionNumber];
+                
+                questionDiv.querySelectorAll('.option').forEach(opt => {
+                    const optionIsCorrect = opt.onclick.toString().includes('true');
+                    
+                    if (optionIsCorrect) {
+                        opt.classList.add('correct');
+                    } else if (opt.classList.contains('selected') && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                });
+            });
+
+            // Mostrar resultados
+            displayResults(correctAnswers, incorrectAnswers, percentage);
+        }
+
+        function displayResults(correct, incorrect, percentage) {
+            const resultsDiv = document.getElementById('quiz-results');
+            const scoreText = document.getElementById('score-text');
+            const feedbackText = document.getElementById('feedback-text');
+
+            scoreText.textContent = `Puntuación: ${correct}/${totalQuestions} (${percentage}%)`;
+            
+            let feedback = '';
+            if (percentage >= 90) {
+                feedback = '🎉 ¡Excelente! Tienes un dominio sobresaliente de los conceptos de DFD y Análisis Estructurado.';
+            } else if (percentage >= 75) {
+                feedback = '👏 ¡Muy bien! Tienes una comprensión sólida de los temas tratados.';
+            } else if (percentage >= 60) {
+                feedback = '📚 Buen trabajo. Te recomendamos revisar los conceptos donde tuviste dificultades.';
+            } else {
+                feedback = '💪 Te sugerimos repasar el material y practicar más con los ejemplos proporcionados.';
+            }
+            
+            feedbackText.textContent = feedback;
+            resultsDiv.style.display = 'block';
+            resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function resetQuiz() {
+            selectedAnswers = {};
+            
+            // Limpiar todas las selecciones y colores
+            document.querySelectorAll('.option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Ocultar resultados
+            document.getElementById('quiz-results').style.display = 'none';
+            
+            // Volver al inicio del quiz
+            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth' });
+        }
 
         // Efecto de aparición suave
         window.addEventListener('load', function() {

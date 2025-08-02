@@ -3,48 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AMS - Clase 12: Trazabilidad y Gestión de Cambios</title>
-    <meta name="description" content="Implementación de trazabilidad completa entre artefactos del análisis y gestión efectiva del impacto de cambios">
-    <meta name="keywords" content="análisis, sistemas, metodología, AMS, trazabilidad, gestión de cambios">
-    <meta name="author" content="Curso AMS">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <title>AMS-12: Trazabilidad y Gestión de Cambios - Atlassian University</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
     <style>
         :root {
-            /* Colores principales */
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --info-color: #17a2b8;
-            
-            /* Sistema de colores para modo claro */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8f9fa;
-            --bg-card: rgba(255, 255, 255, 0.95);
-            --text-primary: #2c3e50;
-            --text-secondary: #6c757d;
-            --border-color: #dee2e6;
-            --shadow: rgba(0, 0, 0, 0.1);
-            
-            /* Gradientes */
-            --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-secondary: linear-gradient(45deg, #3498db, #2980b9);
-        }
-        
-        [data-theme="dark"] {
-            /* Sistema de colores para modo oscuro */
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d3748;
-            --bg-card: rgba(26, 26, 26, 0.95);
-            --text-primary: #ffffff;
-            --text-secondary: #a0aec0;
-            --border-color: #4a5568;
-            --shadow: rgba(0, 0, 0, 0.3);
-            
-            /* Gradientes modo oscuro */
-            --gradient-primary: linear-gradient(135deg, #232526 0%, #414345 100%);
-            --gradient-secondary: linear-gradient(45deg, #2c3e50, #34495e);
+            --atlassian-blue: #0052CC;
+            --atlassian-blue-light: #E6F3FF;
+            --atlassian-blue-dark: #003D99;
+            --atlassian-neutral: #091E42;
+            --atlassian-red: #DE350B;
+            --atlassian-green: #00875A;
+            --atlassian-yellow: #FFAB00;
+            --atlassian-purple: #6554C0;
+            --atlassian-bg: #F4F5F7;
+            --atlassian-border: #DFE1E6;
         }
 
         * {
@@ -56,1163 +28,1628 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--gradient-primary);
-            min-height: 100vh;
-            transition: all 0.3s ease;
+            color: var(--atlassian-neutral);
+            background-color: var(--atlassian-bg);
         }
 
-        /* Botón de tema */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-
-        /* Contenedor principal */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
-            position: relative;
         }
 
-        /* Header del curso */
-        .course-header {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 32px var(--shadow);
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .course-title {
-            font-size: 2.5em;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px var(--shadow);
-        }
-
-        .course-meta {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .meta-card {
-            background: var(--gradient-secondary);
+        .header {
+            background: linear-gradient(135deg, var(--atlassian-blue), var(--atlassian-blue-dark));
             color: white;
-            padding: 20px;
-            border-radius: 15px;
+            padding: 40px 0;
+            margin-bottom: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 82, 204, 0.2);
+        }
+
+        .header h1 {
+            font-size: 2.5em;
             text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        .meta-card h4 {
             margin-bottom: 10px;
-            font-size: 1.1em;
+            font-weight: 600;
         }
 
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: var(--bg-secondary);
-            border-radius: 4px;
-            margin-top: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
+        .header p {
+            text-align: center;
+            font-size: 1.2em;
+            opacity: 0.9;
         }
 
-        .progress-fill {
-            height: 100%;
-            background: var(--success-color);
-            border-radius: 4px;
-            transition: width 0.3s ease;
-        }
-
-        /* Secciones de contenido */
-        .content-section {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 40px;
+        .section {
+            background: white;
+            padding: 30px;
             margin-bottom: 30px;
-            box-shadow: 0 8px 32px var(--shadow);
-            transition: transform 0.3s ease;
-            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--atlassian-blue);
         }
 
-        .content-section:hover {
-            transform: translateY(-2px);
-        }
-
-        .section-title {
+        .section h2 {
+            color: var(--atlassian-blue);
             font-size: 1.8em;
             margin-bottom: 20px;
+            border-bottom: 2px solid var(--atlassian-border);
             padding-bottom: 10px;
-            border-bottom: 3px solid var(--secondary-color);
-            color: var(--text-primary);
         }
 
-        /* Objetivos de aprendizaje */
-        .objectives {
-            background: linear-gradient(45deg, var(--success-color), #2ecc71);
-            color: white;
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
+        .section h3 {
+            color: var(--atlassian-blue-dark);
+            font-size: 1.4em;
+            margin: 25px 0 15px 0;
         }
 
-        .objectives h2 {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .objectives ul {
-            list-style: none;
-            display: grid;
-            gap: 15px;
-        }
-
-        .objectives li {
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            position: relative;
-            padding-left: 45px;
-        }
-
-        .objectives li::before {
-            content: '✓';
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #fff;
-            font-weight: bold;
+        .section h4 {
+            color: var(--atlassian-neutral);
             font-size: 1.2em;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
         }
 
-        /* Cajas de información */
-        .info-box {
-            background: var(--bg-secondary);
-            border: 2px solid var(--info-color);
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            position: relative;
-            border-left: 6px solid var(--info-color);
-        }
-
-        .synopsis-box {
-            background: linear-gradient(45deg, var(--info-color), #138496);
-            color: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            border: 1px solid var(--border-color);
-        }
-
-        .warning-box {
-            background: linear-gradient(45deg, var(--warning-color), #e67e22);
-            color: white;
-            border-radius: 15px;
-            padding: 25px;
-            margin: 25px 0;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Contenedor de diagramas */
-        .diagram-container {
-            background: var(--bg-secondary);
-            border-radius: 15px;
-            padding: 30px;
-            margin: 25px 0;
-            text-align: center;
-            border: 1px solid var(--border-color);
-        }
-
-        /* Tablas */
-        .styled-table {
-            width: 100%;
-            border-collapse: collapse;
+        .atlassian-card {
+            background: var(--atlassian-blue-light);
+            padding: 20px;
+            border-radius: 8px;
             margin: 20px 0;
-            background: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid var(--atlassian-blue);
         }
 
-        .styled-table th,
-        .styled-table td {
+        .atlassian-card h4 {
+            color: var(--atlassian-blue-dark);
+            margin-bottom: 10px;
+        }
+
+        .best-practice {
+            background: #E3FCEF;
+            border-left: 4px solid var(--atlassian-green);
             padding: 15px;
-            text-align: left;
-            border-bottom: 1px solid #eee;
+            margin: 15px 0;
+            border-radius: 5px;
         }
 
-        .styled-table th {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
+        .best-practice::before {
+            content: "✅ ";
             font-weight: bold;
+            color: var(--atlassian-green);
         }
 
-        .styled-table tr:hover {
-            background: #f5f7fa;
+        .warning {
+            background: #FFF4E6;
+            border-left: 4px solid var(--atlassian-yellow);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
         }
 
-        .matrix-cell {
-            text-align: center;
+        .warning::before {
+            content: "⚠️ ";
             font-weight: bold;
+            color: var(--atlassian-yellow);
         }
 
-        .matrix-cell.linked {
-            background-color: #4CAF50;
-            color: white;
+        .critical {
+            background: #FFEBE6;
+            border-left: 4px solid var(--atlassian-red);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
         }
 
-        .matrix-cell.not-linked {
-            background-color: #f44336;
-            color: white;
+        .critical::before {
+            content: "🚨 ";
+            font-weight: bold;
+            color: var(--atlassian-red);
         }
 
-        /* Sistema de Quiz estandarizado */
-        .quiz-container {
-            background: linear-gradient(45deg, var(--warning-color), #e67e22);
-            color: white;
-            padding: 40px;
-            border-radius: 20px;
-            margin-top: 40px;
-            border: 1px solid var(--border-color);
-        }
-
-        .quiz-container h2 {
+        .diagram-container {
+            margin: 30px 0;
             text-align: center;
-            margin-bottom: 30px;
-            font-size: 2em;
-        }
-
-        .quiz-instructions {
-            background: rgba(255, 255, 255, 0.1);
+            background: white;
             padding: 20px;
             border-radius: 10px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .question {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .question h4 {
-            margin-bottom: 15px;
-            font-size: 1.1em;
-            color: white;
-        }
-
-        .options {
-            display: grid;
-            gap: 10px;
-        }
-
-        .option {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-        }
-
-        .option:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateX(5px);
-        }
-
-        .option.selected {
-            background: rgba(255, 255, 255, 0.4);
-            border-color: white;
-            transform: translateX(5px);
-        }
-
-        .option.correct {
-            background: var(--success-color) !important;
-            border-color: #27ae60 !important;
-        }
-
-        .option.incorrect {
-            background: var(--accent-color) !important;
-            border-color: #c0392b !important;
-        }
-
-        /* Botones */
-        .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            margin: 10px 5px;
-        }
-
-        .btn-primary {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .btn-success {
-            background: var(--success-color);
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px var(--shadow);
-        }
-
-        /* Resultados del quiz */
-        .quiz-results {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 30px;
-            border-radius: 15px;
-            margin-top: 30px;
-            text-align: center;
-            display: none;
-        }
-
-        .results-chart {
-            width: 200px;
-            height: 200px;
-            margin: 20px auto;
-        }
-
-        .score-text {
-            font-size: 2em;
-            font-weight: bold;
-            margin: 20px 0;
-        }
-
-        /* Recursos adicionales */
-        .resources {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
-            margin-top: 30px;
-            border: 1px solid var(--border-color);
-        }
-
-        .resources h2 {
-            color: var(--primary-color);
-            margin-bottom: 20px;
-        }
-
-        .resources ul {
-            list-style: none;
-        }
-
-        .resources li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .resources li:last-child {
-            border-bottom: none;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-            
-            .course-header {
-                padding: 25px;
-            }
-            
-            .course-title {
-                font-size: 2em;
-            }
-            
-            .content-section {
-                padding: 25px;
-            }
-            
-            .quiz-container {
-                padding: 25px;
-            }
-            
-            .theme-toggle {
-                top: 15px;
-                right: 15px;
-                width: 45px;
-                height: 45px;
-            }
-        }
-
-        /* Animaciones */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .content-section {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        /* Scroll suave */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Estilos específicos del contenido */
-        .highlight {
-            background-color: #ffffcc;
-            padding: 2px 4px;
-            border-radius: 3px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .code-block {
             background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 25px;
-            border-radius: 8px;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-            overflow-x: auto;
-            margin: 20px 0;
-            line-height: 1.6;
-            font-size: 14px;
-        }
-
-        .interactive-demo {
-            background: #f8f9fa;
-            border: 2px dashed #6c757d;
+            border: 1px solid #3c3c3c;
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            overflow-x: auto;
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .code-block .comment { color: #6a9955; }
+        .code-block .keyword { color: #569cd6; font-weight: bold; }
+        .code-block .string { color: #ce9178; }
+        .code-block .number { color: #b5cea8; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .variable { color: #9cdcfe; }
+        .code-block .operator { color: #d4d4d4; }
+        .code-block .property { color: #92c5f8; }
+        .code-block .type { color: #4ec9b0; }
+        .code-block .constant { color: #4fc1ff; }
+
+        .workflow-step {
+            background: white;
+            border: 2px solid var(--atlassian-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .workflow-step::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--atlassian-blue);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .jira-feature {
+            display: inline-block;
+            background: var(--atlassian-blue);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.9em;
+            margin: 5px;
+        }
+
+        .quiz-section {
+            background: var(--atlassian-purple);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 40px;
+        }
+
+        .quiz-section h2 {
+            color: white;
             text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .question {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .question h4 {
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .toc {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .toc h3 {
+            color: var(--atlassian-blue);
+            margin-bottom: 15px;
+        }
+
+        .toc ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            padding: 5px 0;
+            border-bottom: 1px solid var(--atlassian-border);
+        }
+
+        .toc a {
+            color: var(--atlassian-neutral);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .toc a:hover {
+            color: var(--atlassian-blue);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid var(--atlassian-border);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: var(--atlassian-blue);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: var(--atlassian-bg);
+        }
+
+        .metric-card {
+            background: white;
+            border: 1px solid var(--atlassian-border);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 10px;
+            display: inline-block;
+            width: calc(33.333% - 20px);
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .metric-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--atlassian-blue);
+        }
+
+        .atlassian-logo {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: var(--atlassian-blue);
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .metric-card {
+                width: calc(50% - 20px);
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Botón de cambio de tema -->
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
-        <span id="theme-icon">🌓</span>
-    </button>
-
     <div class="container">
-        <!-- Header del curso -->
-        <header class="course-header">
-            <h1 class="course-title">🔗 Clase 12: Trazabilidad y Gestión de Cambios</h1>
-            <p class="course-subtitle">Mantenimiento de la integridad del sistema a través de la gestión efectiva de cambios</p>
-            
-            <div class="course-meta">
-                <div class="meta-card">
-                    <h4>📚 Curso</h4>
-                    <p>Análisis y Metodología de Sistemas</p>
-                </div>
-                <div class="meta-card">
-                    <h4>📊 Progreso</h4>
-                    <p>Clase 12 de 16</p>
-                </div>
-                <div class="meta-card">
-                    <h4>⏱️ Duración</h4>
-                    <p>90 minutos</p>
-                </div>
-                <div class="meta-card">
-                    <h4>🎯 Nivel</h4>
-                    <p>Avanzado</p>
-                </div>
-            </div>
-            
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 75%"></div>
-            </div>
-        </header>
+        <div class="header">
+            <h1><span class="atlassian-logo"></span> Trazabilidad y Gestión de Cambios</h1>
+            <p>Metodología Atlassian University - Implementación Profesional en Jira</p>
+        </div>
 
-        <!-- Objetivos de aprendizaje -->
-        <section class="objectives">
-            <h2>🎯 Objetivos de Aprendizaje</h2>
+        <div class="toc">
+            <h3>📋 Índice de Contenidos</h3>
             <ul>
-                <li>Implementar trazabilidad completa entre artefactos del análisis</li>
-                <li>Gestionar el impacto de cambios en cascada</li>
-                <li>Mantener consistencia en modelos y documentación</li>
-                <li>Aplicar métricas de calidad en gestión de cambios</li>
+                <li><a href="#fundamentos">1. Fundamentos de Trazabilidad según Atlassian</a></li>
+                <li><a href="#arquitectura">2. Arquitectura de Trazabilidad en el Ecosistema Atlassian</a></li>
+                <li><a href="#implementacion">3. Implementación de Trazabilidad en Jira</a></li>
+                <li><a href="#gestion-cambios">4. Gestión de Cambios con Atlassian</a></li>
+                <li><a href="#automatizacion">5. Automatización y Escalabilidad</a></li>
+                <li><a href="#integraciones">6. Integraciones del Ecosistema Atlassian</a></li>
+                <li><a href="#gobierno">7. Gobierno y Compliance</a></li>
+                <li><a href="#casos-uso">8. Casos de Uso Empresariales</a></li>
+                <li><a href="#mejores-practicas">9. Mejores Prácticas y Lecciones Aprendidas</a></li>
+                <li><a href="#quiz">10. Evaluación de Conocimientos</a></li>
             </ul>
-        </section>
+        </div>
 
-        <!-- Conceptos Fundamentales de Trazabilidad -->
-        <section class="content-section">
-            <h2 class="section-title">🎯 1. Conceptos Fundamentales de Trazabilidad</h2>
+        <section id="fundamentos" class="section">
+            <h2>1. 🎯 Fundamentos de Trazabilidad según Atlassian</h2>
             
-            <p>La trazabilidad en el análisis de sistemas es la capacidad de describir y seguir la vida de un requisito en ambas direcciones: hacia su origen y hacia su implementación, a través de todas las especificaciones generadas durante el proceso de desarrollo.</p>
-
-            <div class="synopsis-box">
-                <h4>Definición e Importancia</h4>
-                <p>La trazabilidad es el <span class="highlight">hilo conductor</span> que conecta todos los artefactos del desarrollo de software, desde las necesidades del negocio hasta el código implementado. Sin trazabilidad adecuada, los equipos de desarrollo operan en silos, perdiendo la visión integral del sistema.</p>
+            <div class="atlassian-card">
+                <h4>Definición Atlassian de Trazabilidad</h4>
+                <p>Según Atlassian University, la trazabilidad es la capacidad de rastrear y documentar la relación entre requisitos, código, pruebas y despliegues a lo largo de todo el ciclo de vida del desarrollo de software, proporcionando visibilidad completa y accountability en cada etapa del proceso.</p>
             </div>
 
-            <h3>Dimensiones de la Trazabilidad</h3>
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>Dimensión</th>
-                        <th>Descripción</th>
-                        <th>Beneficios</th>
-                        <th>Herramientas</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Horizontal</strong></td>
-                        <td>Entre artefactos del mismo nivel de abstracción</td>
-                        <td>Consistencia en el mismo nivel</td>
-                        <td>Matrices de dependencia</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Vertical</strong></td>
-                        <td>Entre diferentes niveles de abstracción</td>
-                        <td>Completitud de implementación</td>
-                        <td>Herramientas CASE</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pre-especificación</strong></td>
-                        <td>Hacia las fuentes originales</td>
-                        <td>Justificación de decisiones</td>
-                        <td>Gestores de requisitos</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Post-especificación</strong></td>
-                        <td>Hacia la implementación</td>
-                        <td>Verificación de completitud</td>
-                        <td>IDEs integrados</td>
-                    </tr>
-                </tbody>
-            </table>
+            <h3>1.1 Marco Conceptual Atlassian</h3>
+            <p>Atlassian define cuatro pilares fundamentales para una trazabilidad efectiva:</p>
+
+            <div class="workflow-step" data-step="PILAR 1">
+                <h4>Conectividad de Artefactos</h4>
+                <p>Establecimiento de vínculos bidireccionales entre todos los elementos del proceso de desarrollo: épicas, historias, tareas, commits, builds, despliegues y incidentes.</p>
+                <div class="jira-feature">Jira Issues</div>
+                <div class="jira-feature">Bitbucket Commits</div>
+                <div class="jira-feature">Bamboo Builds</div>
+                <div class="jira-feature">Confluence Docs</div>
+            </div>
+
+            <div class="workflow-step" data-step="PILAR 2">
+                <h4>Visibilidad Temporal</h4>
+                <p>Capacidad de rastrear cambios a través del tiempo, manteniendo un historial completo de modificaciones, decisiones y rationale.</p>
+            </div>
+
+            <div class="workflow-step" data-step="PILAR 3">
+                <h4>Impacto y Dependencias</h4>
+                <p>Análisis automatizado de impacto que identifica qué componentes se verán afectados por un cambio específico.</p>
+            </div>
+
+            <div class="workflow-step" data-step="PILAR 4">
+                <h4>Auditoría y Compliance</h4>
+                <p>Mantenimiento automático de logs de auditoría que cumplen con estándares regulatorios como SOX, GDPR, HIPAA, etc.</p>
+            </div>
 
             <div class="diagram-container">
-                <h4>📊 Flujo de Trazabilidad Bidireccional</h4>
                 <div class="mermaid">
-                    graph LR
-                        A[Necesidades del Negocio] --> B[Requisitos del Sistema]
-                        B --> C[Diseño del Sistema]
-                        C --> D[Código Fuente]
-                        
-                        D -.->|backward| C
-                        C -.->|backward| B
-                        B -.->|backward| A
-                        
-                        A -->|forward| B
-                        B -->|forward| C
-                        C -->|forward| D
+                graph TD
+                    A[Epic] --> B[Story 1]
+                    A --> C[Story 2]
+                    A --> D[Story 3]
+                    B --> E[Subtask 1.1]
+                    B --> F[Subtask 1.2]
+                    C --> G[Subtask 2.1]
+                    D --> H[Subtask 3.1]
+                    E --> I[Commit ABC123]
+                    F --> J[Commit DEF456]
+                    G --> K[Commit GHI789]
+                    H --> L[Commit JKL012]
+                    I --> M[Build #45]
+                    J --> M
+                    K --> N[Build #46]
+                    L --> N
+                    M --> O[Deploy PROD-v1.2.1]
+                    N --> P[Deploy PROD-v1.2.2]
+                    
+                    style A fill:#0052CC,stroke:#fff,stroke-width:2px,color:#fff
+                    style M fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style N fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style O fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
+                    style P fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
                 </div>
             </div>
 
-            <h3>Tipos de Trazabilidad</h3>
-            <ol>
-                <li><strong>Forward Traceability:</strong> Permite seguir un requisito desde su origen hasta su implementación final</li>
-                <li><strong>Backward Traceability:</strong> Permite rastrear desde cualquier artefacto hasta su origen o justificación</li>
-                <li><strong>Bidirectional Traceability:</strong> Combina ambas direcciones, proporcionando una visión completa</li>
-            </ol>
-
-            <h3>Matrices de Trazabilidad</h3>
-            <p>Las matrices de trazabilidad son herramientas fundamentales para documentar y gestionar las relaciones entre diferentes artefactos del proyecto:</p>
-
-            <table class="styled-table">
+            <h3>1.2 Tipos de Trazabilidad en el Ecosistema Atlassian</h3>
+            
+            <table>
                 <thead>
                     <tr>
-                        <th>Requisitos \ Componentes</th>
-                        <th>C1: Login</th>
-                        <th>C2: Usuario</th>
-                        <th>C3: Reporte</th>
-                        <th>C4: Seguridad</th>
-                        <th>C5: Base Datos</th>
+                        <th>Tipo de Trazabilidad</th>
+                        <th>Herramientas Atlassian</th>
+                        <th>Casos de Uso</th>
+                        <th>Nivel de Automatización</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>R1: Autenticación</strong></td>
-                        <td class="matrix-cell linked">X</td>
-                        <td class="matrix-cell linked">X</td>
-                        <td class="matrix-cell not-linked">-</td>
-                        <td class="matrix-cell linked">X</td>
-                        <td class="matrix-cell linked">X</td>
+                        <td><strong>Forward Traceability</strong></td>
+                        <td>Jira + Confluence + Bitbucket</td>
+                        <td>Requisito → Código → Prueba</td>
+                        <td>Alto (Smart Commits)</td>
                     </tr>
                     <tr>
-                        <td><strong>R2: Gestión Usuarios</strong></td>
-                        <td class="matrix-cell not-linked">-</td>
-                        <td class="matrix-cell linked">X</td>
-                        <td class="matrix-cell not-linked">-</td>
-                        <td class="matrix-cell linked">X</td>
-                        <td class="matrix-cell linked">X</td>
+                        <td><strong>Backward Traceability</strong></td>
+                        <td>Jira + Bamboo + Xray</td>
+                        <td>Defecto → Código → Requisito</td>
+                        <td>Medio (Configuración manual)</td>
                     </tr>
                     <tr>
-                        <td><strong>R3: Generación Reportes</strong></td>
-                        <td class="matrix-cell not-linked">-</td>
-                        <td class="matrix-cell linked">X</td>
-                        <td class="matrix-cell linked">X</td>
-                        <td class="matrix-cell not-linked">-</td>
-                        <td class="matrix-cell linked">X</td>
+                        <td><strong>Horizontal Traceability</strong></td>
+                        <td>Portfolio + Structure for Jira</td>
+                        <td>Requisitos relacionados</td>
+                        <td>Medio (Vínculos manuales)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vertical Traceability</strong></td>
+                        <td>Advanced Roadmaps + Jira</td>
+                        <td>Estrategia → Ejecución</td>
+                        <td>Alto (Jerarquías automáticas)</td>
                     </tr>
                 </tbody>
             </table>
-        </section>
 
-        <!-- Gestión de Cambios -->
-        <section class="content-section">
-            <h2 class="section-title">⚙️ 2. Gestión de Cambios en el Análisis</h2>
-            
-            <p>La gestión de cambios es un proceso sistemático para manejar todas las modificaciones realizadas en el sistema y su documentación. En el contexto del análisis de sistemas, es crucial porque los cambios en requisitos o diseño pueden tener efectos en cascada.</p>
-
-            <h3>Procedimientos de Control de Cambios</h3>
-            <div class="info-box">
-                <h4>Proceso Estándar de Gestión de Cambios</h4>
-                <ol>
-                    <li><strong>Solicitud de Cambio (RFC):</strong> Documentación formal del cambio propuesto</li>
-                    <li><strong>Evaluación de Impacto:</strong> Análisis sistemático de todos los artefactos afectados</li>
-                    <li><strong>Aprobación del Comité:</strong> Revisión por el Change Control Board (CCB)</li>
-                    <li><strong>Implementación Controlada:</strong> Ejecución del cambio siguiendo el plan aprobado</li>
-                    <li><strong>Verificación y Validación:</strong> Confirmación de que el cambio se implementó correctamente</li>
-                    <li><strong>Actualización de Documentación:</strong> Modificación de todos los artefactos afectados</li>
-                    <li><strong>Comunicación a Stakeholders:</strong> Notificación a todas las partes afectadas</li>
-                </ol>
+            <div class="best-practice">
+                <strong>Best Practice Atlassian:</strong> Implementar trazabilidad gradual comenzando con Forward Traceability usando Smart Commits, ya que proporciona el mayor ROI con menor esfuerzo de configuración.
             </div>
 
-            <h3>Análisis de Impacto en Cascada</h3>
-            <p>El análisis de impacto es el proceso de identificar todas las consecuencias potenciales de un cambio propuesto. Este análisis debe ser exhaustivo y sistemático.</p>
+            <h3>1.3 Arquitectura de Información para Trazabilidad</h3>
+            <p>Atlassian recomienda una estructura jerárquica específica para maximizar la trazabilidad:</p>
 
             <div class="diagram-container">
-                <h4>Sistema de Gestión de Cambios</h4>
                 <div class="mermaid">
-                    graph TD
-                        A[Analista] --> B[Crear RFC]
-                        B --> C[Evaluar Impacto]
-                        C --> D[Generar Matriz de Impacto]
-                        D --> E[Aprobar Cambio]
-                        E --> F[Implementar Cambio]
-                        F --> G[Actualizar Documentación]
-                        
-                        H[CCB] --> E
-                        I[Desarrollador] --> F
+                graph TB
+                    subgraph "Portfolio Level"
+                        A[Initiative] --> B[Epic]
+                    end
+                    
+                    subgraph "Team Level"
+                        B --> C[Story]
+                        C --> D[Task]
+                        C --> E[Sub-task]
+                    end
+                    
+                    subgraph "Development Level"
+                        D --> F[Branch]
+                        E --> G[Commit]
+                        F --> H[Pull Request]
+                        G --> H
+                    end
+                    
+                    subgraph "Quality Level"
+                        H --> I[Build]
+                        I --> J[Test Execution]
+                        J --> K[Test Results]
+                    end
+                    
+                    subgraph "Deployment Level"
+                        K --> L[Release]
+                        L --> M[Environment]
+                        M --> N[Monitoring]
+                    end
+                    
+                    style A fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
+                    style L fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style N fill:#DE350B,stroke:#fff,stroke-width:2px,color:#fff
                 </div>
-            </div>
-
-            <div class="interactive-demo">
-                <h4>Simulador de Análisis de Impacto</h4>
-                <p>Seleccione un componente para ver su impacto en el sistema:</p>
-                <div id="impact-simulator">
-                    <button class="btn btn-primary" onclick="showImpact('auth')">Módulo Autenticación</button>
-                    <button class="btn btn-primary" onclick="showImpact('db')">Base de Datos</button>
-                    <button class="btn btn-primary" onclick="showImpact('ui')">Interfaz Usuario</button>
-                </div>
-                <div id="impact-result" style="margin-top: 20px; text-align: left;"></div>
             </div>
         </section>
 
-        <!-- Consistencia de Modelos -->
-        <section class="content-section">
-            <h2 class="section-title">🔄 3. Consistencia de Modelos</h2>
+        <section id="arquitectura" class="section">
+            <h2>2. 🏗️ Arquitectura de Trazabilidad en el Ecosistema Atlassian</h2>
             
-            <p>Mantener la consistencia entre diferentes modelos y artefactos es uno de los desafíos más significativos en el análisis de sistemas. La inconsistencia puede llevar a interpretaciones erróneas e implementaciones incorrectas.</p>
+            <h3>2.1 Modelo de Datos Unificado</h3>
+            <p>Atlassian utiliza un modelo de datos unificado que permite la trazabilidad seamless entre productos:</p>
 
-            <h3>Reglas de Consistencia</h3>
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>Tipo de Regla</th>
-                        <th>Descripción</th>
-                        <th>Ejemplo</th>
-                        <th>Verificación</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Sintácticas</strong></td>
-                        <td>Correcta formación de los modelos</td>
-                        <td>Todos los flujos en DFD deben tener origen y destino</td>
-                        <td>Automática</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Semánticas</strong></td>
-                        <td>Significado coherente entre modelos</td>
-                        <td>Un proceso en DFD debe corresponder a un caso de uso</td>
-                        <td>Semi-automática</td>
-                    </tr>
-                    <tr>
-                        <td><strong>De Integridad</strong></td>
-                        <td>Completitud y no redundancia</td>
-                        <td>Cada requisito debe estar implementado una sola vez</td>
-                        <td>Manual + Herramientas</td>
-                    </tr>
-                    <tr>
-                        <td><strong>De Evolución</strong></td>
-                        <td>Consistencia temporal</td>
-                        <td>Las versiones sucesivas deben ser compatibles</td>
-                        <td>Control de versiones</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>Validación Automática</h3>
-            <p>La validación automática de consistencia utiliza algoritmos y herramientas para detectar violaciones de las reglas establecidas:</p>
-
-            <div class="code-block">
-// Ejemplo de validación automática de consistencia
-function validateModelConsistency(model1, model2) {
-    const violations = [];
-    
-    // Verificar que todos los elementos tienen correspondencia
-    for (const element of model1.elements) {
-        if (!model2.hasCorrespondingElement(element)) {
-            violations.push({
-                type: 'MISSING_CORRESPONDENCE',
-                element: element.id,
-                message: `Elemento ${element.name} no tiene correspondencia en modelo 2`
-            });
-        }
-    }
-    
-    // Verificar restricciones semánticas
-    for (const constraint of consistencyRules) {
-        if (!constraint.validate(model1, model2)) {
-            violations.push({
-                type: 'SEMANTIC_VIOLATION',
-                rule: constraint.name,
-                message: constraint.getViolationMessage()
-            });
-        }
-    }
-    
-    return violations;
-}
+            <div class="atlassian-card">
+                <h4>Atlassian Connect Framework</h4>
+                <p>Base tecnológica que permite la integración profunda entre Jira, Confluence, Bitbucket, Bamboo y herramientas de terceros, manteniendo contexto y metadatos compartidos.</p>
             </div>
-        </section>
-
-        <!-- Métricas de Calidad -->
-        <section class="content-section">
-            <h2 class="section-title">📊 4. Métricas de Calidad en Trazabilidad</h2>
-            
-            <p>Las métricas son esenciales para evaluar objetivamente la calidad de la trazabilidad y la gestión de cambios en un proyecto.</p>
 
             <div class="diagram-container">
-                <h4>Dashboard de Métricas de Trazabilidad</h4>
                 <div class="mermaid">
-                    pie title Cobertura de Trazabilidad
-                        "Con trazabilidad" : 85
-                        "Sin trazabilidad" : 15
+                graph LR
+                    subgraph "Data Layer"
+                        A[Atlassian Identity]
+                        B[Unified Issue Model]
+                        C[Activity Stream]
+                        D[Metadata Store]
+                    end
+                    
+                    subgraph "Integration Layer"
+                        E[Atlassian Connect]
+                        F[REST APIs]
+                        G[Webhooks]
+                        H[GraphQL]
+                    end
+                    
+                    subgraph "Application Layer"
+                        I[Jira Software]
+                        J[Confluence]
+                        K[Bitbucket]
+                        L[Bamboo]
+                        M[Opsgenie]
+                    end
+                    
+                    A --> E
+                    B --> F
+                    C --> G
+                    D --> H
+                    
+                    E --> I
+                    F --> J
+                    G --> K
+                    H --> L
+                    H --> M
+                    
+                    style A fill:#0052CC,stroke:#fff,stroke-width:2px,color:#fff
+                    style E fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style I fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
                 </div>
             </div>
 
-            <h3>Fórmulas de Métricas de Calidad</h3>
-            <table class="styled-table">
+            <h3>2.2 Patrones de Integración Atlassian</h3>
+            
+            <h4>2.2.1 Smart Commits Pattern</h4>
+            <div class="atlassian-card">
+                <p>Los Smart Commits permiten automatizar acciones en Jira directamente desde los mensajes de commit. Al incluir la clave del issue y comandos específicos (#comment, #time, #transition), se pueden actualizar automáticamente el estado de tareas, registrar tiempo trabajado y agregar comentarios. Esta funcionalidad establece trazabilidad bidireccional entre código y gestión de proyectos sin intervención manual.</p>
+            </div>
+
+            <div class="best-practice">
+                Los Smart Commits deben seguir el patrón: [ISSUE-KEY] [#command] [valor] para mantener consistencia y automatización efectiva.
+            </div>
+
+            <h4>2.2.2 Webhook Architecture Pattern</h4>
+            <div class="diagram-container">
+                <div class="mermaid">
+                sequenceDiagram
+                    participant D as Developer
+                    participant B as Bitbucket
+                    participant J as Jira
+                    participant Ba as Bamboo
+                    participant C as Confluence
+                    
+                    D->>B: Push code with Smart Commit
+                    B->>J: Webhook: Commit linked to issue
+                    J->>J: Update issue status
+                    B->>Ba: Trigger build webhook
+                    Ba->>Ba: Execute build & tests
+                    Ba->>J: Webhook: Build status
+                    J->>C: Auto-update documentation
+                    C->>J: Webhook: Doc updated
+                    J->>D: Notification: Full traceability chain
+                </div>
+            </div>
+
+            <h3>2.3 Modelo de Metadatos Extendido</h3>
+            <p>Atlassian define un conjunto estándar de metadatos para asegurar trazabilidad completa:</p>
+
+            <table>
                 <thead>
                     <tr>
-                        <th>Métrica</th>
-                        <th>Fórmula</th>
-                        <th>Interpretación</th>
-                        <th>Valor Objetivo</th>
+                        <th>Categoría</th>
+                        <th>Metadatos Estándar</th>
+                        <th>Fuente</th>
+                        <th>Automatización</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Cobertura Forward</strong></td>
-                        <td>CF = (Requisitos con traza / Total requisitos) × 100</td>
-                        <td>% de requisitos trazados hacia diseño</td>
-                        <td>&gt; 95%</td>
+                        <td><strong>Identidad</strong></td>
+                        <td>Author, Assignee, Reporter, Approver</td>
+                        <td>Atlassian Identity</td>
+                        <td>Automático</td>
                     </tr>
                     <tr>
-                        <td><strong>Cobertura Backward</strong></td>
-                        <td>CB = (Elementos con origen / Total elementos) × 100</td>
-                        <td>% de elementos con justificación</td>
-                        <td>&gt; 90%</td>
+                        <td><strong>Temporal</strong></td>
+                        <td>Created, Updated, Resolved, Due Date</td>
+                        <td>Sistema</td>
+                        <td>Automático</td>
                     </tr>
                     <tr>
-                        <td><strong>Densidad de Enlaces</strong></td>
-                        <td>DE = Enlaces totales / (Requisitos × Componentes)</td>
-                        <td>Complejidad de relaciones</td>
-                        <td>0.15 - 0.35</td>
+                        <td><strong>Relacional</strong></td>
+                        <td>Parent, Linked Issues, Dependencies</td>
+                        <td>Usuario/Sistema</td>
+                        <td>Semi-automático</td>
                     </tr>
                     <tr>
-                        <td><strong>Volatilidad</strong></td>
-                        <td>V = Cambios mensuales / Total artefactos</td>
-                        <td>Tasa de cambio del sistema</td>
-                        <td>&lt; 0.10</td>
+                        <td><strong>Contextual</strong></td>
+                        <td>Environment, Version, Component, Label</td>
+                        <td>Usuario/Automatización</td>
+                        <td>Configurable</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Calidad</strong></td>
+                        <td>Test Results, Code Coverage, Security Scan</td>
+                        <td>Herramientas integradas</td>
+                        <td>Automático</td>
                     </tr>
                 </tbody>
             </table>
+        </section>
 
-            <div class="info-box">
-                <h4>Cálculo del Índice de Impacto</h4>
-                <p>El índice de impacto se calcula mediante la siguiente fórmula:</p>
-                <p style="text-align: center; font-size: 1.2em; margin: 20px 0;">
-                    <strong>II = (AD × 1.0 + AI × 0.5 + AP × 0.3) / TC</strong>
-                </p>
-                <p>Donde:</p>
+        <section id="implementacion" class="section">
+            <h2>3. ⚙️ Implementación de Trazabilidad en Jira</h2>
+            
+            <h3>3.1 Configuración de Proyecto según Atlassian University</h3>
+            
+            <div class="workflow-step" data-step="FASE 1">
+                <h4>Definición de Jerarquía de Issues</h4>
+                <p>Configurar la jerarquía estándar recomendada por Atlassian:</p>
                 <ul>
-                    <li>AD = Artefactos Directamente afectados</li>
-                    <li>AI = Artefactos Indirectamente afectados</li>
-                    <li>AP = Artefactos Potencialmente afectados</li>
-                    <li>TC = Total de Cambios en el período</li>
+                    <li><strong>Epic:</strong> Grandes funcionalidades o temas de negocio</li>
+                    <li><strong>Story:</strong> Requisitos funcionales desde perspectiva del usuario</li>
+                    <li><strong>Task:</strong> Trabajo técnico específico</li>
+                    <li><strong>Sub-task:</strong> Descomposición granular de trabajo</li>
+                </ul>
+            </div>
+
+            <div class="workflow-step" data-step="FASE 2">
+                <h4>Configuración de Issue Linking</h4>
+                <p>Atlassian define tipos de vínculos estándar que establecen relaciones semánticas entre issues: dependencias (Blocks/Is blocked by), duplicación (Clones/Duplicates), relaciones generales (Relates to), y jerarquías (Epic-Story, Parent-Child). Adicionalmente, se pueden crear vínculos personalizados como Dependency Links para gestión de dependencias técnicas y Test-Requirement Links para trazabilidad de calidad.</p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph TD
+                    subgraph "Epic: E-commerce Checkout"
+                        A[ECOM-100: Epic]
+                        B[ECOM-101: Payment Integration]
+                        C[ECOM-102: Order Confirmation]
+                        D[ECOM-103: Inventory Check]
+                    end
+                    
+                    subgraph "Story Details"
+                        B --> E[ECOM-104: Stripe Integration]
+                        B --> F[ECOM-105: PayPal Integration]
+                        C --> G[ECOM-106: Email Notification]
+                        C --> H[ECOM-107: SMS Notification]
+                        D --> I[ECOM-108: Stock Validation]
+                    end
+                    
+                    subgraph "Technical Tasks"
+                        E --> J[ECOM-109: API Development]
+                        E --> K[ECOM-110: Unit Tests]
+                        F --> L[ECOM-111: UI Components]
+                        G --> M[ECOM-112: Template Design]
+                    end
+                    
+                    style A fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
+                    style E fill:#0052CC,stroke:#fff,stroke-width:2px,color:#fff
+                    style J fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <h3>3.2 Implementación de Custom Fields para Trazabilidad</h3>
+            
+            <div class="atlassian-card">
+                <h4>Custom Fields Recomendados por Atlassian</h4>
+                <ul>
+                    <li><strong>Requirement Source:</strong> Origen del requisito (Business Analyst, Customer, Regulatory)</li>
+                    <li><strong>Test Coverage:</strong> Porcentaje de cobertura de pruebas</li>
+                    <li><strong>Risk Level:</strong> Nivel de riesgo asociado (High, Medium, Low)</li>
+                    <li><strong>Compliance Tags:</strong> Etiquetas regulatorias (SOX, GDPR, PCI-DSS)</li>
+                    <li><strong>Architecture Decision:</strong> Referencia a ADR (Architecture Decision Record)</li>
+                </ul>
+            </div>
+
+            <h3>3.3 Automation Rules para Trazabilidad Automática</h3>
+            
+            <div class="atlassian-card">
+                <p>Las reglas de automatización de Jira permiten crear flujos de trabajo que mantienen la trazabilidad sin intervención manual. Por ejemplo, cuando se procesa un Smart Commit, el sistema puede automáticamente crear vínculos de desarrollo, actualizar el estado del issue a "In Progress", agregar comentarios con detalles del commit y notificar a asignados y observadores, asegurando que toda actividad de desarrollo quede registrada y vinculada.</p>
+            </div>
+
+            <div class="warning">
+                Las reglas de automatización deben probarse en entorno de desarrollo antes de implementarse en producción para evitar loops infinitos o actualizaciones no deseadas.
+            </div>
+
+            <h3>3.4 JQL Avanzado para Consultas de Trazabilidad</h3>
+            
+            <div class="atlassian-card">
+                <p>JQL (Jira Query Language) permite crear consultas sofisticadas para análisis de trazabilidad. Se pueden identificar issues sin cobertura de pruebas, encontrar desarrollos recientes con builds fallidos, realizar análisis de impacto por componentes usando funciones como linkedIssuesOf() y subtasksOf(), y obtener vistas completas de la trazabilidad de un epic incluyendo todas sus tareas relacionadas y sub-tareas.</p>
+            </div>
+
+            <h3>3.5 Dashboards de Trazabilidad</h3>
+            
+            <div class="metric-card">
+                <div class="metric-value">92%</div>
+                <div>Stories con Test Coverage</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">156</div>
+                <div>Vínculos Automáticos Creados</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">23</div>
+                <div>Issues sin Trazabilidad</div>
+            </div>
+
+            <div class="best-practice">
+                Implementar dashboards de trazabilidad que se actualicen en tiempo real y muestren métricas clave como cobertura de pruebas, vínculos faltantes y análisis de impacto.
+            </div>
+        </section>
+
+        <section id="gestion-cambios" class="section">
+            <h2>4. 🔄 Gestión de Cambios con Atlassian</h2>
+            
+            <div class="atlassian-card">
+                <h4>Marco ITIL + Atlassian</h4>
+                <p>Atlassian University integra los principios ITIL de gestión de cambios con las capacidades nativas de Jira, proporcionando un flujo de trabajo completo desde la solicitud hasta la implementación y revisión post-cambio.</p>
+            </div>
+
+            <h3>4.1 Tipos de Cambios según Atlassian</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tipo de Cambio</th>
+                        <th>Proceso Jira</th>
+                        <th>Aprobación Requerida</th>
+                        <th>Herramientas Asociadas</th>
+                        <th>SLA Típico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Standard Change</strong></td>
+                        <td>Workflow automatizado</td>
+                        <td>Automática (pre-aprobado)</td>
+                        <td>Jira + Bamboo + Bitbucket</td>
+                        <td>2-4 horas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Normal Change</strong></td>
+                        <td>RFC + CAB Review</td>
+                        <td>Change Advisory Board</td>
+                        <td>Jira + Confluence + Calendarios</td>
+                        <td>5-10 días</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Emergency Change</strong></td>
+                        <td>Flujo acelerado</td>
+                        <td>Emergency CAB</td>
+                        <td>Jira + Opsgenie + Slack</td>
+                        <td>1-2 horas</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High Risk Change</strong></td>
+                        <td>Proceso extendido</td>
+                        <td>Executive CAB</td>
+                        <td>Portfolio + Advanced Roadmaps</td>
+                        <td>2-4 semanas</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>4.2 Workflow de Change Management</h3>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+                stateDiagram-v2
+                    [*] --> RFC_Draft
+                    RFC_Draft --> RFC_Submitted : Submit RFC
+                    RFC_Submitted --> Impact_Assessment : Auto-assign
+                    Impact_Assessment --> CAB_Review : Complete Assessment
+                    Impact_Assessment --> More_Info_Needed : Insufficient Data
+                    More_Info_Needed --> Impact_Assessment : Information Provided
+                    CAB_Review --> Approved : CAB Approval
+                    CAB_Review --> Rejected : CAB Rejection
+                    CAB_Review --> Deferred : Need More Analysis
+                    Deferred --> Impact_Assessment : Re-assess
+                    Approved --> Scheduled : Plan Implementation
+                    Scheduled --> In_Progress : Begin Implementation
+                    In_Progress --> Implemented : Complete Implementation
+                    In_Progress --> Failed : Implementation Failed
+                    Failed --> Rollback : Execute Rollback
+                    Rollback --> Post_Implementation : Rollback Complete
+                    Implemented --> Post_Implementation : Success
+                    Post_Implementation --> Closed : PIR Complete
+                    Rejected --> [*]
+                    
+                    state CAB_Review {
+                        [*] --> Technical_Review
+                        Technical_Review --> Business_Review
+                        Business_Review --> Risk_Assessment
+                        Risk_Assessment --> Final_Decision
+                        Final_Decision --> [*]
+                    }
+                </div>
+            </div>
+
+            <h3>4.3 RFC (Request for Change) Template Atlassian</h3>
+            
+            <div class="atlassian-card">
+                <p>La plantilla RFC de Atlassian University estructura la información crítica de cambios en secciones bien definidas: información básica (ID, tipo, prioridad, riesgo), descripción del cambio (justificación de negocio y descripción técnica), análisis de impacto (sistemas afectados y dependencias automáticas via vínculos de Jira), plan de implementación (pre-requisitos, pasos detallados, criterios de éxito), plan de rollback (condiciones y pasos), y estrategia de testing (ambientes y casos de prueba vinculados a Xray).</p>
+            </div>
+
+            <div class="workflow-step" data-step="AUTOMATIZACIÓN">
+                <h4>Automation Rules para Change Management</h4>
+                <p>Las reglas de automatización para gestión de cambios incluyen: asignación automática de RFCs basada en componentes (ej: cambios de base de datos al equipo DBA), escalación de cambios de alto riesgo que permanecen más de 24 horas sin revisión (notificación a CAB-Leads y creación de alertas en Opsgenie), y vinculación automática de issues relacionados cuando se detectan claves de issue en las descripciones de RFC.</p>
+            </div>
+
+            <h3>4.4 Change Advisory Board (CAB) Digital</h3>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph LR
+                    subgraph "CAB Composition"
+                        A[Change Manager]
+                        B[Technical Lead]
+                        C[Security Officer]
+                        D[Business Rep]
+                        E[Operations]
+                    end
+                    
+                    subgraph "Jira Integration"
+                        F[RFC Dashboard]
+                        G[Risk Assessment]
+                        H[Impact Analysis]
+                        I[Decision Matrix]
+                    end
+                    
+                    subgraph "Supporting Tools"
+                        J[Confluence Wiki]
+                        K[Calendars]
+                        L[Slack Integration]
+                        M[Voting Plugin]
+                    end
+                    
+                    A --> F
+                    B --> G
+                    C --> H
+                    D --> I
+                    E --> I
+                    
+                    F --> J
+                    G --> K
+                    H --> L
+                    I --> M
+                    
+                    style A fill:#0052CC,stroke:#fff,stroke-width:2px,color:#fff
+                    style F fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style J fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <div class="best-practice">
+                <strong>Best Practice Atlassian:</strong> Implementar un CAB digital usando Jira dashboards con votación automatizada y criterios de aprobación predefinidos para acelerar el proceso de toma de decisiones.
+            </div>
+        </section>
+
+        <section id="automatizacion" class="section">
+            <h2>5. 🤖 Automatización y Escalabilidad</h2>
+            
+            <h3>5.1 Automation Engine de Atlassian</h3>
+            <p>Atlassian University define tres niveles de automatización para trazabilidad y gestión de cambios:</p>
+
+            <div class="workflow-step" data-step="NIVEL 1">
+                <h4>Automatización Básica - Rule Builder</h4>
+                <p>Reglas simples usando la interfaz visual de Jira Automation:</p>
+                <ul>
+                    <li>Auto-transiciones basadas en commits</li>
+                    <li>Notificaciones automáticas</li>
+                    <li>Vinculación de issues relacionados</li>
+                    <li>Actualización de campos personalizados</li>
+                </ul>
+            </div>
+
+            <div class="workflow-step" data-step="NIVEL 2">
+                <h4>Automatización Intermedia - ScriptRunner</h4>
+                <p>Scripts Groovy personalizados para lógica compleja:</p>
+                <div class="atlassian-card">
+                    <p>ScriptRunner permite crear scripts Groovy personalizados para análisis automático de impacto. Un script típico puede acceder a los componentes de un RFC, encontrar todos los issues relacionados con esos componentes, crear vínculos automáticos de impacto, y devolver métricas sobre el alcance del cambio. Esta automatización intermedia proporciona análisis de dependencias más sofisticado que las reglas básicas.</p>
+                </div>
+            </div>
+
+            <div class="workflow-step" data-step="NIVEL 3">
+                <h4>Automatización Avanzada - API Integration</h4>
+                <p>Integración con sistemas externos vía REST API:</p>
+                <div class="atlassian-card">
+                    <p>La automatización avanzada utiliza integraciones API para conectar Jira con sistemas externos como CMDB. Un sistema de sincronización puede obtener RFCs de Jira, extraer componentes afectados, consultar la base de datos de configuración por dependencias, calcular análisis de impacto automático, actualizar campos en Jira con los resultados, y crear vínculos automáticos entre RFCs e issues relacionados basados en elementos de configuración del CMDB.</p>
+                </div>
+            </div>
+
+            <h3>5.2 Pipelines de CI/CD con Trazabilidad</h3>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph TD
+                    subgraph "Development"
+                        A[Feature Branch] --> B[Smart Commit]
+                        B --> C[Pull Request]
+                    end
+                    
+                    subgraph "CI Pipeline - Bamboo"
+                        C --> D[Code Analysis]
+                        D --> E[Unit Tests]
+                        E --> F[Integration Tests]
+                        F --> G[Security Scan]
+                    end
+                    
+                    subgraph "Change Management"
+                        G --> H{Auto RFC?}
+                        H -->|Yes| I[Create RFC Automatically]
+                        H -->|No| J[Manual RFC Required]
+                        I --> K[CAB Auto-Approval]
+                        J --> L[CAB Manual Review]
+                    end
+                    
+                    subgraph "Deployment"
+                        K --> M[Deploy to Staging]
+                        L --> M
+                        M --> N[Automated Testing]
+                        N --> O[Production Deployment]
+                    end
+                    
+                    subgraph "Monitoring & Feedback"
+                        O --> P[Performance Monitoring]
+                        P --> Q[Success Metrics]
+                        Q --> R[Auto-close RFC]
+                        P --> S[Rollback if Issues]
+                        S --> T[Create Incident]
+                    end
+                    
+                    style I fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style K fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style R fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
+                    style T fill:#DE350B,stroke:#fff,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <h3>5.3 Métricas de Automatización</h3>
+            
+            <div class="metric-card">
+                <div class="metric-value">78%</div>
+                <div>RFCs Auto-aprobados</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">4.2min</div>
+                <div>Tiempo Promedio RFC → Deploy</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value">99.7%</div>
+                <div>Precisión Auto-linking</div>
+            </div>
+
+            <div class="critical">
+                <strong>Consideración Crítica:</strong> La automatización debe mantener puntos de control humano para cambios de alto riesgo y preservar la capacidad de auditoría completa.
+            </div>
+        </section>
+
+        <section id="integraciones" class="section">
+            <h2>6. 🔗 Integraciones del Ecosistema Atlassian</h2>
+            
+            <h3>6.1 Integración Jira + Confluence</h3>
+            
+            <div class="atlassian-card">
+                <h4>Documentation as Code</h4>
+                <p>Atlassian promueve el concepto de "Documentation as Code" donde la documentación se mantiene sincronizada automáticamente con el estado del desarrollo usando macros inteligentes de Confluence.</p>
+            </div>
+
+            <div class="atlassian-card">
+                <p>Los macros de Confluence permiten mostrar trazabilidad en tiempo real usando consultas JQL embebidas. Un macro personalizado puede mostrar automáticamente todos los issues de un epic específico, incluyendo información de desarrollo como commits, y configurar columnas personalizadas. Además, la automatización de Confluence puede actualizar la documentación automáticamente cuando cambia el estado de issues relacionados, manteniendo la documentación siempre sincronizada.</p>
+            </div>
+
+            <h3>6.2 Integración Bitbucket + Bamboo</h3>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+                sequenceDiagram
+                    participant Dev as Developer
+                    participant BB as Bitbucket
+                    participant Bam as Bamboo
+                    participant J as Jira
+                    participant Conf as Confluence
+                    participant Ops as Opsgenie
+                    
+                    Dev->>BB: Push with Smart Commit
+                    BB->>J: Update Issue Status
+                    BB->>Bam: Trigger Build Plan
+                    Bam->>Bam: Execute Tests & Analysis
+                    Bam->>J: Report Build Status
+                    
+                    alt Build Success
+                        Bam->>BB: Update Commit Status ✅
+                        J->>Conf: Auto-update Documentation
+                        J->>Dev: Notification: Ready for Review
+                    else Build Failure
+                        Bam->>BB: Update Commit Status ❌
+                        Bam->>Ops: Create Alert
+                        Ops->>Dev: Incident Notification
+                        J->>J: Reopen Issue
+                    end
+                    
+                    Note over Dev,Ops: Full traceability chain maintained
+                </div>
+            </div>
+
+            <h3>6.3 Integración con Herramientas de Terceros</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Herramienta</th>
+                        <th>Integración Atlassian</th>
+                        <th>Datos Trazables</th>
+                        <th>Automatización</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Monitoring</strong></td>
+                        <td>Datadog, New Relic</td>
+                        <td>Webhooks + Custom Fields</td>
+                        <td>Performance, Errors, SLA</td>
+                        <td>Auto-create incidents</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Security</strong></td>
+                        <td>Snyk, SonarQube</td>
+                        <td>Build Integration</td>
+                        <td>Vulnerabilities, Code Quality</td>
+                        <td>Block deployment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Testing</strong></td>
+                        <td>Selenium, TestRail</td>
+                        <td>Xray Integration</td>
+                        <td>Test Results, Coverage</td>
+                        <td>Auto-update status</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ITSM</strong></td>
+                        <td>ServiceNow, BMC</td>
+                        <td>REST API + Webhooks</td>
+                        <td>Change Records, Incidents</td>
+                        <td>Bi-directional sync</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cloud</strong></td>
+                        <td>AWS, Azure, GCP</td>
+                        <td>CloudFormation + APIs</td>
+                        <td>Infrastructure Changes</td>
+                        <td>Deploy automation</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="warning">
+                Las integraciones con herramientas externas deben implementar manejo de errores robusto y logging detallado para mantener la integridad de la trazabilidad.
+            </div>
+        </section>
+
+        <section id="gobierno" class="section">
+            <h2>7. 🏛️ Gobierno y Compliance</h2>
+            
+            <h3>7.1 Framework de Gobierno Atlassian</h3>
+            <p>Atlassian University define un marco de gobierno basado en roles, responsabilidades y políticas automatizadas:</p>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph TB
+                    subgraph "Executive Layer"
+                        A[IT Steering Committee]
+                        B[Change Advisory Board]
+                        C[Architecture Review Board]
+                    end
+                    
+                    subgraph "Management Layer"
+                        D[Project Managers]
+                        E[Product Owners]
+                        F[Release Managers]
+                        G[Compliance Officers]
+                    end
+                    
+                    subgraph "Operational Layer"
+                        H[Development Teams]
+                        I[QA Teams]
+                        J[DevOps Teams]
+                        K[Security Teams]
+                    end
+                    
+                    subgraph "Jira Governance"
+                        L[Permission Schemes]
+                        M[Workflow Controls]
+                        N[Field Configurations]
+                        O[Automation Rules]
+                    end
+                    
+                    A --> D
+                    B --> E
+                    C --> F
+                    A --> G
+                    
+                    D --> H
+                    E --> I
+                    F --> J
+                    G --> K
+                    
+                    H --> L
+                    I --> M
+                    J --> N
+                    K --> O
+                    
+                    style A fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
+                    style L fill:#0052CC,stroke:#fff,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <h3>7.2 Compliance Frameworks Soportados</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Framework</th>
+                        <th>Controles Implementados</th>
+                        <th>Herramientas Atlassian</th>
+                        <th>Automatización</th>
+                        <th>Reporting</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>SOX (Sarbanes-Oxley)</strong></td>
+                        <td>Segregación de funciones, Auditoría de cambios</td>
+                        <td>Jira + Confluence + Bamboo</td>
+                        <td>Workflow controls, Approval gates</td>
+                        <td>Dashboard ejecutivo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>GDPR</strong></td>
+                        <td>Data privacy, Right to be forgotten</td>
+                        <td>Jira + Custom fields + APIs</td>
+                        <td>Data masking, Retention policies</td>
+                        <td>Privacy impact reports</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HIPAA</strong></td>
+                        <td>Data encryption, Access controls</td>
+                        <td>Jira + SSO + Audit logs</td>
+                        <td>Access restrictions, Logging</td>
+                        <td>Security compliance dashboard</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PCI-DSS</strong></td>
+                        <td>Secure development, Vulnerability management</td>
+                        <td>Jira + Security scanning tools</td>
+                        <td>Security gates, Vulnerability tracking</td>
+                        <td>Security posture reports</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ISO 27001</strong></td>
+                        <td>ISMS, Risk management</td>
+                        <td>Jira + Risk register + Confluence</td>
+                        <td>Risk assessment workflows</td>
+                        <td>ISO compliance reports</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>7.3 Políticas de Trazabilidad Automatizadas</h3>
+            
+            <div class="atlassian-card">
+                <p>Las políticas automatizadas definen reglas de negocio que se ejecutan tecnológicamente. Por ejemplo, la política de "Trazabilidad Crítica" requiere que cambios de alta prioridad o componentes sensibles tengan Epic Link, cobertura de pruebas ≥90%, Architecture Decision Record, y aprobaciones de seguridad y negocio, bloqueando transiciones si no se cumplen. La política de "Auditoría de Producción" exige que todo deployment esté vinculado a RFC aprobado, con análisis de impacto completo y plan de rollback probado.</p>
+            </div>
+
+            <div class="critical">
+                <strong>Consideración Crítica:</strong> Las políticas de compliance deben ser enforced tecnológicamente, no solo documentadas, para garantizar adherencia consistente.
+            </div>
+
+            <h3>7.4 Auditoría y Reporting</h3>
+            
+            <div class="atlassian-card">
+                <h4>Audit Trail Completo</h4>
+                <p>Atlassian mantiene un registro completo de actividades que incluye: quién hizo qué, cuándo, por qué (justificación), y qué cambió (before/after state). Este audit trail es inmutable y cumple con requisitos regulatorios.</p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                sequenceDiagram
+                    participant User as Usuario
+                    participant Jira as Jira
+                    participant Audit as Audit Service
+                    participant DB as Audit Database
+                    participant Report as Reporting Engine
+                    
+                    User->>Jira: Perform Action
+                    Jira->>Audit: Log Action Event
+                    Note over Audit: Event includes:<br/>- User ID<br/>- Timestamp<br/>- Action Type<br/>- Before/After State<br/>- Business Justification
+                    Audit->>DB: Store Immutable Record
+                    
+                    loop Periodic Reporting
+                        Report->>DB: Query Audit Data
+                        DB->>Report: Return Audit Records
+                        Report->>Report: Generate Compliance Reports
+                    end
+                    
+                    Note over User,Report: Full audit trail maintained<br/>for regulatory compliance
+                </div>
+            </div>
+        </section>
+
+        <section id="casos-uso" class="section">
+            <h2>8. 🎯 Casos de Uso Empresariales</h2>
+            
+            <h3>8.1 Caso de Uso: Institución Financiera</h3>
+            
+            <div class="atlassian-card">
+                <h4>Contexto: Banco Multinacional con Regulación SOX</h4>
+                <p><strong>Desafío:</strong> Implementar trazabilidad completa para sistemas críticos de core banking con requisitos SOX, manteniendo agilidad en el desarrollo.</p>
+                <p><strong>Solución Atlassian:</strong> Framework de trazabilidad automatizada con controles de compliance integrados.</p>
+            </div>
+
+            <div class="workflow-step" data-step="IMPLEMENTACIÓN">
+                <h4>Arquitectura de Solución</h4>
+                <ul>
+                    <li><strong>Jira Software:</strong> Gestión de épicas, historias y cambios con workflows SOX-compliant</li>
+                    <li><strong>Bitbucket:</strong> Control de versiones con Smart Commits y revisión obligatoria</li>
+                    <li><strong>Bamboo:</strong> CI/CD con gates de compliance y testing automatizado</li>
+                    <li><strong>Confluence:</strong> Documentación living con macros de trazabilidad</li>
+                    <li><strong>Advanced Roadmaps:</strong> Visibilidad ejecutiva de iniciativas y dependencies</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph TD
+                    subgraph "Business Layer"
+                        A[Business Requirement] --> B[Epic]
+                        B --> C[Regulatory Impact Assessment]
+                    end
+                    
+                    subgraph "Development Layer"
+                        C --> D[User Stories]
+                        D --> E[Technical Tasks]
+                        E --> F[Code Development]
+                        F --> G[Peer Review]
+                    end
+                    
+                    subgraph "Compliance Layer"
+                        G --> H[SOX Controls Check]
+                        H --> I[Security Review]
+                        I --> J[Change Approval]
+                    end
+                    
+                    subgraph "Deployment Layer"
+                        J --> K[Staging Deployment]
+                        K --> L[Compliance Testing]
+                        L --> M[Production Deployment]
+                        M --> N[Post-deployment Validation]
+                    end
+                    
+                    style C fill:#DE350B,stroke:#fff,stroke-width:2px,color:#fff
+                    style H fill:#DE350B,stroke:#fff,stroke-width:2px,color:#fff
+                    style J fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style N fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <div class="best-practice">
+                <strong>Resultado:</strong> 40% reducción en tiempo de auditorías, 99.7% compliance rate, y mantenimiento de velocity de desarrollo.
+            </div>
+
+            <h3>8.2 Caso de Uso: Empresa de E-commerce</h3>
+            
+            <div class="atlassian-card">
+                <h4>Contexto: Plataforma de E-commerce con Alto Volumen</h4>
+                <p><strong>Desafío:</strong> Coordinar deployments frecuentes (50+ por día) manteniendo trazabilidad completa y minimizando riesgo de downtime.</p>
+                <p><strong>Solución Atlassian:</strong> Automatización completa del pipeline con trazabilidad end-to-end.</p>
+            </div>
+
+            <div class="atlassian-card">
+                <p>El pipeline automatizado para e-commerce maneja deployments frecuentes con trazabilidad completa. Los triggers automáticos crean issues para branches de features, RFCs para pull requests, y activan deployment en merges a main. Las etapas incluyen: desarrollo (validación de Smart Commits, vinculación automática a epics, actualización de estados), integración (detección de conflictos, análisis de dependencias, creación automática de RFCs, notificaciones), y deployment (blue-green deployment, canary testing, rollback automático en fallos, notificaciones de éxito, cierre automático de RFCs).</p>
+            </div>
+
+            <h3>8.3 Caso de Uso: Startup Tech Scaling</h3>
+            
+            <div class="workflow-step" data-step="EVOLUCIÓN">
+                <h4>Fase 1: Startup (10-50 empleados)</h4>
+                <ul>
+                    <li>Jira Core con workflows básicos</li>
+                    <li>Bitbucket para código</li>
+                    <li>Smart Commits para trazabilidad básica</li>
+                </ul>
+            </div>
+
+            <div class="workflow-step" data-step="CRECIMIENTO">
+                <h4>Fase 2: Scale-up (50-200 empleados)</h4>
+                <ul>
+                    <li>Jira Software con Advanced Roadmaps</li>
+                    <li>Bamboo para CI/CD</li>
+                    <li>Confluence para documentación</li>
+                    <li>Automation rules para eficiencia</li>
+                </ul>
+            </div>
+
+            <div class="workflow-step" data-step="EMPRESA">
+                <h4>Fase 3: Enterprise (200+ empleados)</h4>
+                <ul>
+                    <li>Portfolio completo Atlassian</li>
+                    <li>Integraciones con ITSM externos</li>
+                    <li>Compliance frameworks</li>
+                    <li>Analytics y reporting avanzado</li>
                 </ul>
             </div>
         </section>
 
-        <!-- Herramientas y Tecnologías -->
-        <section class="content-section">
-            <h2 class="section-title">🛠️ 5. Herramientas y Tecnologías</h2>
+        <section id="mejores-practicas" class="section">
+            <h2>9. 🏆 Mejores Prácticas y Lecciones Aprendidas</h2>
             
-            <h3>Herramientas de Gestión de Requisitos</h3>
-            <ul>
-                <li><strong>IBM DOORS:</strong> Solución enterprise para gestión completa de requisitos con trazabilidad bidireccional</li>
-                <li><strong>Jama Connect:</strong> Plataforma colaborativa con análisis de impacto en tiempo real</li>
-                <li><strong>Polarion:</strong> ALM unificado con trazabilidad end-to-end</li>
-                <li><strong>ReqView:</strong> Herramienta ligera con matrices de trazabilidad personalizables</li>
-            </ul>
-
-            <h3>Flujo de trabajo con Git</h3>
-            <div class="code-block">
-# Ejemplo de gestión de cambios con Git
-git checkout -b feature/RFC-2024-001
-# Implementar cambios según RFC aprobado
-
-# Verificar impacto de cambios
-git diff --name-only main..feature/RFC-2024-001
-
-# Crear commit con referencia a RFC
-git commit -m "RFC-2024-001: Actualización módulo autenticación
-
-- Modificados: auth.py, user_model.py
-- Impacto: Tests de autenticación requieren actualización
-- Trazabilidad: Requisitos R1.1, R1.2, R1.5"
-
-# Merge tras aprobación
-git checkout main
-git merge --no-ff feature/RFC-2024-001
+            <h3>9.1 Mejores Prácticas de Implementación</h3>
+            
+            <div class="best-practice">
+                <strong>Práctica 1:</strong> Comenzar con trazabilidad forward (requisito → código) antes de implementar backward traceability, ya que proporciona mayor ROI inmediato.
             </div>
-        </section>
 
-        <!-- Mejores Prácticas -->
-        <section class="content-section">
-            <h2 class="section-title">✅ 6. Mejores Prácticas y Recomendaciones</h2>
+            <div class="best-practice">
+                <strong>Práctica 2:</strong> Implementar Smart Commits como primer paso de automatización - es simple pero poderoso para establecer vínculos automáticos.
+            </div>
+
+            <div class="best-practice">
+                <strong>Práctica 3:</strong> Usar naming conventions consistentes para issues, branches y commits para facilitar la automatización y búsquedas.
+            </div>
+
+            <div class="best-practice">
+                <strong>Práctica 4:</strong> Establecer custom fields estándar desde el inicio - es más fácil que migrar datos posteriormente.
+            </div>
+
+            <div class="best-practice">
+                <strong>Práctica 5:</strong> Implementar dashboards de trazabilidad en tiempo real para detectar gaps proactivamente.
+            </div>
+
+            <h3>9.2 Antipatrones Comunes a Evitar</h3>
             
-            <div class="info-box">
-                <h4>Checklist de Mejores Prácticas</h4>
+            <div class="warning">
+                <strong>Antipatrón 1:</strong> Crear vínculos manuales excesivos - usar automatización siempre que sea posible para mantener consistencia.
+            </div>
+
+            <div class="warning">
+                <strong>Antipatrón 2:</strong> Implementar toda la trazabilidad de una vez - adopción gradual es más efectiva y reduce resistencia al cambio.
+            </div>
+
+            <div class="warning">
+                <strong>Antipatrón 3:</strong> Ignorar la educación de usuarios - la mejor herramienta falla sin adopción adecuada.
+            </div>
+
+            <div class="critical">
+                <strong>Antipatrón 4:</strong> Sacrificar trazabilidad por velocidad - la deuda técnica en trazabilidad es muy costosa de resolver posteriormente.
+            </div>
+
+            <h3>9.3 Roadmap de Adopción Atlassian</h3>
+            
+            <div class="diagram-container">
+                <div class="mermaid">
+                gantt
+                    title Roadmap de Implementación de Trazabilidad Atlassian
+                    dateFormat  YYYY-MM-DD
+                    section Fundación
+                    Setup Básico Jira          :done, setup, 2024-01-01, 2024-01-15
+                    Configuración Workflows    :done, workflows, 2024-01-16, 2024-01-31
+                    Training Básico             :done, training1, 2024-02-01, 2024-02-15
+                    
+                    section Automatización
+                    Smart Commits              :done, smart, 2024-02-16, 2024-03-01
+                    Automation Rules           :active, auto, 2024-03-01, 2024-03-31
+                    Integración Bitbucket      :auto2, 2024-04-01, 2024-04-15
+                    
+                    section Avanzado  
+                    Advanced Roadmaps          :roadmap, 2024-04-16, 2024-05-15
+                    Analytics & Reporting      :analytics, 2024-05-16, 2024-06-15
+                    Compliance Controls        :compliance, 2024-06-16, 2024-07-31
+                    
+                    section Optimización
+                    Performance Tuning         :perf, 2024-08-01, 2024-08-31
+                    Advanced Integrations      :integrations, 2024-09-01, 2024-10-31
+                    Continuous Improvement     :ci, 2024-11-01, 2024-12-31
+                </div>
+            </div>
+
+            <div class="atlassian-card">
+                <h4>Factores Críticos de Éxito</h4>
                 <ul>
-                    <li>✓ Definir niveles de granularidad apropiados para los enlaces</li>
-                    <li>✓ Establecer convenciones de nomenclatura consistentes</li>
-                    <li>✓ Documentar el propósito de cada enlace de trazabilidad</li>
-                    <li>✓ Implementar revisiones periódicas de la matriz de trazabilidad</li>
-                    <li>✓ Automatizar la creación de enlaces cuando sea posible</li>
-                    <li>✓ Capacitar al equipo en la importancia de mantener trazabilidad</li>
-                    <li>✓ Establecer métricas y objetivos de calidad medibles</li>
+                    <li><strong>Executive Sponsorship:</strong> Apoyo visible de liderazgo senior</li>
+                    <li><strong>Change Management:</strong> Plan estructurado de adopción</li>
+                    <li><strong>Training Continuo:</strong> Educación ongoing sobre nuevas features</li>
+                    <li><strong>Feedback Loops:</strong> Mecanismos para capturar y actuar sobre feedback de usuarios</li>
+                    <li><strong>Measurement:</strong> Métricas claras de éxito y ROI</li>
                 </ul>
             </div>
-
-            <h3>Antipatrones en Trazabilidad y Gestión de Cambios</h3>
-            <table class="styled-table">
-                <thead>
-                    <tr>
-                        <th>Antipatrón</th>
-                        <th>Síntomas</th>
-                        <th>Consecuencias</th>
-                        <th>Solución</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Trazabilidad Superficial</strong></td>
-                        <td>Enlaces sin significado real</td>
-                        <td>Falsa sensación de control</td>
-                        <td>Definir propósito claro para cada enlace</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sobretrazabilidad</strong></td>
-                        <td>Enlaces excesivos y redundantes</td>
-                        <td>Mantenimiento costoso</td>
-                        <td>Establecer criterios de granularidad</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Cambios Ad-hoc</strong></td>
-                        <td>Modificaciones sin proceso formal</td>
-                        <td>Pérdida de control</td>
-                        <td>Implementar proceso obligatorio</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Análisis Superficial</strong></td>
-                        <td>Impactos no identificados</td>
-                        <td>Efectos secundarios graves</td>
-                        <td>Herramientas de análisis automático</td>
-                    </tr>
-                </tbody>
-            </table>
         </section>
 
-        <!-- Sistema de Quiz estandarizado -->
-        <section class="quiz-container">
-            <h2>🧠 Evaluación - 20 Preguntas Multiple Choice</h2>
+        <div class="quiz-section" id="quiz">
+            <h2>🎓 Evaluación de Conocimientos - 20 Preguntas</h2>
             
-            <div class="quiz-instructions">
-                <p><strong>Instrucciones:</strong></p>
-                <p>• Cada pregunta tiene 4 opciones (A, B, C, D)</p>
-                <p>• Selecciona la respuesta que consideres correcta</p>
-                <p>• Al finalizar podrás ver tu puntuación y las respuestas correctas</p>
-                <p>• Se requiere responder todas las preguntas para obtener el resultado</p>
-            </div>
-
-            <div id="quiz-questions">
+            <div class="quiz-container">
                 <!-- Pregunta 1 -->
                 <div class="question">
-                    <h4>1. ¿Cuál es la principal diferencia entre trazabilidad forward y backward?</h4>
+                    <h4>1. ¿Cuáles son los cuatro pilares fundamentales de la trazabilidad según Atlassian University?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Forward va del código a los requisitos, backward de requisitos al código</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Forward va de requisitos a implementación, backward de implementación a requisitos</div>
-                        <div class="option" onclick="selectOption(this, false)">C) No hay diferencia, son términos sinónimos</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Forward es manual, backward es automática</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Conectividad, Visibilidad, Seguridad, Performance</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Conectividad de Artefactos, Visibilidad Temporal, Impacto y Dependencias, Auditoría y Compliance</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Integración, Automatización, Reporting, Governance</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Planning, Development, Testing, Deployment</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 2 -->
                 <div class="question">
-                    <h4>2. ¿Qué información NO debe incluirse típicamente en una RFC (Request for Change)?</h4>
+                    <h4>2. ¿Qué permite hacer el patrón Smart Commits de Atlassian?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Justificación del cambio</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Código fuente completo de la solución</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Estimación de impacto</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Prioridad del cambio</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo vincular commits con issues</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Automatizar transiciones, registrar tiempo y agregar comentarios desde commits</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Crear branches automáticamente</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Generar reportes de código</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 3 -->
                 <div class="question">
-                    <h4>3. En una matriz de trazabilidad, ¿qué indica una fila sin marcas?</h4>
+                    <h4>3. ¿Cuál es la función principal de los webhooks en la arquitectura Atlassian?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) El requisito está completamente implementado</div>
-                        <div class="option" onclick="selectOption(this, true)">B) El requisito no tiene implementación asociada</div>
-                        <div class="option" onclick="selectOption(this, false)">C) El requisito es de baja prioridad</div>
-                        <div class="option" onclick="selectOption(this, false)">D) El requisito fue eliminado</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Almacenar datos de configuración</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Permitir comunicación en tiempo real entre productos</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Crear copias de seguridad automáticas</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Gestionar usuarios y permisos</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 4 -->
                 <div class="question">
-                    <h4>4. ¿Cuál es el objetivo principal del análisis de impacto?</h4>
+                    <h4>4. ¿Cuáles son tipos de vínculos estándar en Jira según Atlassian?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Reducir el número de cambios</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Identificar todos los elementos afectados por un cambio</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Aumentar la velocidad de desarrollo</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Eliminar requisitos obsoletos</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo Parent-Child y Epic-Story</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Blocks/Blocked by, Clones, Duplicates, Relates to, Epic-Story</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente vínculos personalizados</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo vínculos automáticos</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 5 -->
                 <div class="question">
-                    <h4>5. ¿Qué métrica indica mejor la estabilidad de los requisitos?</h4>
+                    <h4>5. ¿Para qué sirven las funciones issueFunction en JQL?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Número total de requisitos</div>
-                        <div class="option" onclick="selectOption(this, false)">B) Cobertura de trazabilidad</div>
-                        <div class="option" onclick="selectOption(this, true)">C) Volatilidad (cambios por período)</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Densidad de enlaces</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo para búsquedas simples</div>
+                        <div class="option" onclick="selectOption(this, false)">B) Para crear issues automáticamente</div>
+                        <div class="option" onclick="selectOption(this, true)">C) Para análisis de trazabilidad y dependencias complejas</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Para generar reportes de tiempo</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 6 -->
                 <div class="question">
-                    <h4>6. ¿Cuándo debe actualizarse la matriz de trazabilidad?</h4>
+                    <h4>6. ¿Cuáles son los cuatro tipos de cambios definidos por Atlassian?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Solo al final del proyecto</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Cada vez que se modifica un artefacto relacionado</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Una vez al mes</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Solo cuando lo solicita el cliente</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Minor, Major, Critical, Emergency</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Standard, Normal, Emergency, High Risk</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Fast, Medium, Slow, Manual</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Simple, Complex, Automated, Controlled</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 7 -->
                 <div class="question">
-                    <h4>7. ¿Qué rol típicamente aprueba los cambios en un CCB?</h4>
+                    <h4>7. ¿Qué estados debe incluir un workflow SOX-compliant según Atlassian?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Solo desarrolladores</div>
-                        <div class="option" onclick="selectOption(this, false)">B) Solo el gerente de proyecto</div>
-                        <div class="option" onclick="selectOption(this, true)">C) Representantes de múltiples áreas (desarrollo, QA, negocio)</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Solo el cliente</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo Draft y Approved</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Draft, Impact Assessment, CAB Review, Approved/Rejected, Implementation, Post-Implementation</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Open, In Progress, Done</div>
+                        <div class="option" onclick="selectOption(this, false)">D) New, Assigned, Resolved, Closed</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 8 -->
                 <div class="question">
-                    <h4>8. ¿Cuál es un ejemplo de regla de consistencia sintáctica?</h4>
+                    <h4>8. ¿Qué componentes integra un CAB digital según Atlassian?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Todo caso de uso debe tener sentido de negocio</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Todo flujo de datos debe tener origen y destino definidos</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Los requisitos deben ser alcanzables</div>
-                        <div class="option" onclick="selectOption(this, false)">D) El presupuesto debe ser realista</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo Jira y email</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Jira dashboards, Confluence, Calendarios, Slack/Teams, Voting plugins</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente herramientas de Atlassian</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo sistemas de votación manual</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 9 -->
                 <div class="question">
-                    <h4>9. ¿Qué indica una alta densidad de enlaces en la matriz de trazabilidad?</h4>
+                    <h4>9. ¿Cuáles son los tres niveles de automatización de Atlassian University?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Sistema bien documentado</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Posible complejidad excesiva o acoplamiento</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Requisitos de alta calidad</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Proyecto casi terminado</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Low, Medium, High</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Rule Builder (Básico), ScriptRunner (Intermedio), API Integration (Avanzado)</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Manual, Semi-automático, Automático</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Simple, Complex, Enterprise</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 10 -->
                 <div class="question">
-                    <h4>10. ¿Cuál es la principal ventaja de automatizar el análisis de impacto?</h4>
+                    <h4>10. ¿Qué elementos debe incluir un pipeline CI/CD con trazabilidad completa?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Elimina la necesidad de documentación</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Reduce errores y tiempo de análisis</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Permite cambios sin aprobación</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Reduce el costo del proyecto a cero</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo build y deploy</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Smart Commits, análisis de código, testing, gates de aprobación, deployment, monitoring</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente testing automático</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo integración con Jira</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 11 -->
                 <div class="question">
-                    <h4>11. ¿Qué herramienta es más apropiada para gestión enterprise de requisitos?</h4>
+                    <h4>11. ¿Qué caracteriza la integración "Documentation as Code" de Confluence?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Microsoft Word</div>
-                        <div class="option" onclick="selectOption(this, true)">B) IBM DOORS</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Notepad++</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Paint</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Documentación estática únicamente</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Macros JQL dinámicos y actualización automática basada en cambios de issues</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Solo vínculos manuales</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Exportación de reportes estáticos</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 12 -->
                 <div class="question">
-                    <h4>12. ¿Cuál es el antipatrón "sobretrazabilidad"?</h4>
+                    <h4>12. ¿Cómo se integra Jira con sistemas de monitoreo externos?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) No documentar enlaces</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Crear enlaces excesivos e innecesarios</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Usar herramientas obsoletas</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Cambiar requisitos frecuentemente</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo mediante reportes manuales</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Webhooks, custom fields, APIs REST, y creación automática de incidents</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente email notifications</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo via plugins de terceros</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 13 -->
                 <div class="question">
-                    <h4>13. ¿Qué debe incluir una especificación de cambio completa?</h4>
+                    <h4>13. ¿Qué frameworks de compliance soporta Atlassian según su universidad?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Solo la descripción del cambio</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Descripción, impacto, riesgos, plan de implementación</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Solo el código modificado</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Solo la aprobación del gerente</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo SOX</div>
+                        <div class="option" onclick="selectOption(this, true)">B) SOX, GDPR, HIPAA, PCI-DSS, ISO 27001</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente regulaciones financieras</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo estándares internos</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 14 -->
                 <div class="question">
-                    <h4>14. ¿Cuándo se considera que un modelo tiene consistencia temporal?</h4>
+                    <h4>14. ¿Cómo se implementan políticas de trazabilidad automatizadas?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Cuando se actualiza diariamente</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Cuando las versiones sucesivas mantienen compatibilidad</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Cuando nunca cambia</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Cuando tiene timestamps</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo mediante documentación</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Workflow controls, automation rules, validation gates, y reporting automático</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente revisiones manuales</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo mediante training</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 15 -->
                 <div class="question">
-                    <h4>15. ¿Qué métrica calcula: "Enlaces totales / (Requisitos × Componentes)"?</h4>
+                    <h4>15. ¿Cuál es un KPI crítico para trazabilidad según Atlassian?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Cobertura de trazabilidad</div>
-                        <div class="option" onclick="selectOption(this, false)">B) Volatilidad</div>
-                        <div class="option" onclick="selectOption(this, true)">C) Densidad de enlaces</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Índice de cambio</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo velocidad de desarrollo</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Cobertura de trazabilidad, precisión de auto-linking, tiempo de análisis de impacto</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente número de issues</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo satisfacción del usuario</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 16 -->
                 <div class="question">
-                    <h4>16. ¿Cuál es el propósito principal de las retrospectivas post-cambio?</h4>
+                    <h4>16. ¿Qué permite el análisis predictivo en Atlassian Analytics?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Asignar culpas por problemas</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Identificar mejoras para futuros cambios</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Reducir el presupuesto</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Eliminar la documentación</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo reportes históricos</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Scoring de riesgo automático y categorización predictiva de cambios</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente estadísticas básicas</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo gráficos estáticos</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 17 -->
                 <div class="question">
-                    <h4>17. ¿Qué tipo de validación puede ser completamente automatizada?</h4>
+                    <h4>17. ¿Cómo se balancea agilidad y compliance SOX en instituciones financieras?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Validación de valor de negocio</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Validación sintáctica de modelos</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Validación de satisfacción del usuario</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Validación de presupuesto</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Eliminando la agilidad completamente</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Automatización de controles, workflows inteligentes, y gates de aprobación eficientes</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Solo procesos manuales</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Ignorando los requerimientos SOX</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 18 -->
                 <div class="question">
-                    <h4>18. ¿Cuál es el valor objetivo típico para cobertura forward de trazabilidad?</h4>
+                    <h4>18. ¿Qué estrategia usa Atlassian para e-commerce con 50+ deployments diarios?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) > 50%</div>
-                        <div class="option" onclick="selectOption(this, false)">B) > 70%</div>
-                        <div class="option" onclick="selectOption(this, true)">C) > 95%</div>
-                        <div class="option" onclick="selectOption(this, false)">D) 100% obligatorio</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Deployments manuales únicamente</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Pipeline completamente automatizado con trazabilidad end-to-end y rollback automático</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Solo testing manual</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Deployments una vez por semana</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 19 -->
                 <div class="question">
-                    <h4>19. ¿Qué indica un valor de volatilidad de 0.25?</h4>
+                    <h4>19. ¿Cuál es una mejor práctica clave de Atlassian University?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Sistema muy estable</div>
-                        <div class="option" onclick="selectOption(this, true)">B) 25% de artefactos cambian mensualmente</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Proyecto completado en 25%</div>
-                        <div class="option" onclick="selectOption(this, false)">D) 25 cambios totales</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Implementar toda la trazabilidad de una vez</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Comenzar con Forward Traceability usando Smart Commits</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Usar solo vínculos manuales</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Ignorar la automatización</div>
                     </div>
                 </div>
 
                 <!-- Pregunta 20 -->
                 <div class="question">
-                    <h4>20. ¿Cuál es la mejor práctica para documentar decisiones de cambios?</h4>
+                    <h4>20. ¿Qué fases incluye el roadmap de adopción Atlassian?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Solo registrar el cambio final</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Documentar alternativas consideradas y rationale de decisión</div>
-                        <div class="option" onclick="selectOption(this, false)">C) No documentar para ahorrar tiempo</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Documentar solo si el cliente lo pide</div>
+                        <div class="option" onclick="selectOption(this, false)">A) Solo setup y training</div>
+                        <div class="option" onclick="selectOption(this, true)">B) Fundación, Automatización, Avanzado, Optimización</div>
+                        <div class="option" onclick="selectOption(this, false)">C) Únicamente implementación técnica</div>
+                        <div class="option" onclick="selectOption(this, false)">D) Solo migración de datos</div>
                     </div>
                 </div>
             </div>
@@ -1225,267 +1662,244 @@ git merge --no-ff feature/RFC-2024-001
             <!-- Resultados del quiz -->
             <div class="quiz-results" id="quiz-results">
                 <h3>📊 Resultados de la Evaluación</h3>
-                <div class="results-chart">
-                    <canvas id="results-chart" width="200" height="200"></canvas>
+                <div class="score" id="score-display">
+                    <p>Puntuación: <span id="score">0</span>/20</p>
+                    <div class="score-bar">
+                        <div class="score-fill" id="score-fill"></div>
+                    </div>
                 </div>
-                <div class="score-text" id="score-text"></div>
-                <div id="feedback-text"></div>
+                <div id="feedback"></div>
             </div>
-        </section>
+        </div>
 
-        <!-- Recursos adicionales -->
-        <section class="resources">
-            <h2>📚 Recursos Adicionales</h2>
-            <ul>
-                <li><strong>📖 Bibliografía:</strong> Wiegers, K. "Software Requirements", Capítulos 18-19</li>
-                <li><strong>🔗 Enlaces útiles:</strong> Herramientas de gestión de requisitos y trazabilidad</li>
-                <li><strong>▶️ Próxima clase:</strong> AMS-13: Fundamentos del Análisis Orientado a Objetos</li>
-                <li><strong>🔍 Palabras clave:</strong> Trazabilidad, Gestión de cambios, RFC, CCB, Matrices de impacto</li>
-            </ul>
-        </section>
-    </div>
-
-    <!-- Scripts JavaScript -->
-    <script>
-        // Configuración de Mermaid
-        const mermaidConfig = {
-            startOnLoad: false,
-            theme: 'default',
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true
-            },
-            themeVariables: {
-                primaryColor: '#3498db',
-                primaryTextColor: '#2c3e50',
-                primaryBorderColor: '#2980b9',
-                lineColor: '#34495e'
-            }
-        };
-        mermaid.initialize(mermaidConfig);
-
-        // Sistema de temas
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            
-            // Actualizar icono
-            const icon = document.getElementById('theme-icon');
-            icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-        }
-
-        // Cargar tema guardado
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            document.body.setAttribute('data-theme', savedTheme);
-            
-            const icon = document.getElementById('theme-icon');
-            icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
-        }
-
-        // Sistema de Quiz
-        let selectedAnswers = {};
-        const totalQuestions = 20;
-
-        function selectOption(element, isCorrect) {
-            const questionDiv = element.closest('.question');
-            const questionNumber = Array.from(document.querySelectorAll('.question')).indexOf(questionDiv) + 1;
-            
-            // Remover selección anterior
-            questionDiv.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // Seleccionar nueva opción
-            element.classList.add('selected');
-            
-            // Guardar respuesta
-            selectedAnswers[questionNumber] = isCorrect;
-        }
-
-        function submitQuiz() {
-            const answeredQuestions = Object.keys(selectedAnswers).length;
-            
-            if (answeredQuestions < totalQuestions) {
-                alert(`Por favor responde todas las preguntas. Has respondido ${answeredQuestions} de ${totalQuestions}.`);
-                return;
+        <style>
+            .quiz-container {
+                max-width: 800px;
+                margin: 0 auto;
             }
 
-            // Calcular resultados
-            const correctAnswers = Object.values(selectedAnswers).filter(answer => answer === true).length;
-            const incorrectAnswers = totalQuestions - correctAnswers;
-            const percentage = Math.round((correctAnswers / totalQuestions) * 100);
+            .question {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 20px;
+                border-radius: 8px;
+                margin: 20px 0;
+            }
 
-            // Mostrar respuestas correctas e incorrectas
-            document.querySelectorAll('.question').forEach((questionDiv, index) => {
-                const questionNumber = index + 1;
-                const selectedOption = questionDiv.querySelector('.option.selected');
-                const isCorrect = selectedAnswers[questionNumber];
+            .question h4 {
+                color: white;
+                margin-bottom: 15px;
+                font-size: 1.1em;
+            }
+
+            .options {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .option {
+                background: rgba(255, 255, 255, 0.1);
+                padding: 12px 15px;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                border: 2px solid transparent;
+            }
+
+            .option:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateX(5px);
+            }
+
+            .option.selected {
+                border-color: #FFAB00;
+                background: rgba(255, 171, 0, 0.2);
+            }
+
+            .option.correct {
+                border-color: #00875A;
+                background: rgba(0, 135, 90, 0.2);
+            }
+
+            .option.incorrect {
+                border-color: #DE350B;
+                background: rgba(222, 53, 11, 0.2);
+            }
+
+            .btn {
+                background: var(--atlassian-blue);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 1em;
+                margin: 0 10px;
+                transition: background-color 0.3s;
+            }
+
+            .btn:hover {
+                background: var(--atlassian-blue-dark);
+            }
+
+            .btn-success {
+                background: var(--atlassian-green);
+            }
+
+            .btn-primary {
+                background: var(--atlassian-blue);
+            }
+
+            .quiz-results {
+                display: none;
+                background: rgba(255, 255, 255, 0.1);
+                padding: 20px;
+                border-radius: 8px;
+                margin-top: 20px;
+                text-align: center;
+            }
+
+            .score {
+                margin-bottom: 20px;
+            }
+
+            .score-bar {
+                width: 100%;
+                height: 20px;
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 10px;
+                overflow: hidden;
+                margin-top: 10px;
+            }
+
+            .score-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #DE350B, #FFAB00, #00875A);
+                width: 0%;
+                transition: width 1s ease-in-out;
+                border-radius: 10px;
+            }
+
+            #feedback {
+                margin-top: 15px;
+                font-size: 1.1em;
+            }
+        </style>
+
+        <script>
+            let selectedAnswers = [];
+            let totalQuestions = 20;
+
+            function selectOption(element, isCorrect) {
+                const question = element.closest('.question');
+                const options = question.querySelectorAll('.option');
+                const questionIndex = Array.from(document.querySelectorAll('.question')).indexOf(question);
                 
-                questionDiv.querySelectorAll('.option').forEach(opt => {
-                    const optionIsCorrect = opt.onclick.toString().includes('true');
-                    
-                    if (optionIsCorrect) {
-                        opt.classList.add('correct');
-                    } else if (opt.classList.contains('selected') && !isCorrect) {
-                        opt.classList.add('incorrect');
-                    }
-                });
-            });
-
-            // Mostrar resultados
-            displayResults(correctAnswers, incorrectAnswers, percentage);
-        }
-
-        function displayResults(correct, incorrect, percentage) {
-            const resultsDiv = document.getElementById('quiz-results');
-            const scoreText = document.getElementById('score-text');
-            const feedbackText = document.getElementById('feedback-text');
-            
-            // Mostrar puntuación
-            scoreText.textContent = `${correct}/${totalQuestions} (${percentage}%)`;
-            
-            // Feedback basado en la puntuación
-            let feedback = '';
-            if (percentage >= 90) {
-                feedback = '🎉 ¡Excelente! Dominas muy bien el tema.';
-            } else if (percentage >= 80) {
-                feedback = '👏 ¡Muy bien! Tienes un buen entendimiento.';
-            } else if (percentage >= 70) {
-                feedback = '👍 Bien. Te recomendamos repasar algunos conceptos.';
-            } else if (percentage >= 60) {
-                feedback = '📚 Necesitas estudiar más el material.';
-            } else {
-                feedback = '⚠️ Te recomendamos repasar todo el contenido de la clase.';
+                // Clear previous selections
+                options.forEach(opt => opt.classList.remove('selected'));
+                
+                // Mark current selection
+                element.classList.add('selected');
+                
+                // Store answer
+                selectedAnswers[questionIndex] = isCorrect;
             }
-            
-            feedbackText.innerHTML = `<p><strong>${feedback}</strong></p>`;
-            
-            // Crear gráfico de resultados
-            createResultsChart(correct, incorrect);
-            
-            // Mostrar resultados
-            resultsDiv.style.display = 'block';
-            resultsDiv.scrollIntoView({ behavior: 'smooth' });
-        }
 
-        function createResultsChart(correct, incorrect) {
-            const canvas = document.getElementById('results-chart');
-            const ctx = canvas.getContext('2d');
-            
-            // Limpiar canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Configuración del gráfico
-            const centerX = canvas.width / 2;
-            const centerY = canvas.height / 2;
-            const radius = 80;
-            
-            // Calcular ángulos
-            const correctAngle = (correct / totalQuestions) * 2 * Math.PI;
-            const incorrectAngle = (incorrect / totalQuestions) * 2 * Math.PI;
-            
-            // Dibujar sector de respuestas correctas
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.arc(centerX, centerY, radius, 0, correctAngle);
-            ctx.closePath();
-            ctx.fillStyle = '#27ae60';
-            ctx.fill();
-            
-            // Dibujar sector de respuestas incorrectas
-            ctx.beginPath();
-            ctx.moveTo(centerX, centerY);
-            ctx.arc(centerX, centerY, radius, correctAngle, correctAngle + incorrectAngle);
-            ctx.closePath();
-            ctx.fillStyle = '#e74c3c';
-            ctx.fill();
-            
-            // Añadir texto en el centro
-            ctx.fillStyle = '#2c3e50';
-            ctx.font = 'bold 16px Arial';
-            ctx.textAlign = 'center';
-            ctx.fillText(`${correct}/${totalQuestions}`, centerX, centerY + 5);
-            
-            // Leyenda
-            ctx.font = '12px Arial';
-            ctx.textAlign = 'left';
-            ctx.fillStyle = '#27ae60';
-            ctx.fillText(`✓ Correctas: ${correct}`, 10, canvas.height - 30);
-            ctx.fillStyle = '#e74c3c';
-            ctx.fillText(`✗ Incorrectas: ${incorrect}`, 10, canvas.height - 10);
-        }
-
-        function resetQuiz() {
-            // Limpiar respuestas
-            selectedAnswers = {};
-            
-            // Remover todas las clases de selección y resultados
-            document.querySelectorAll('.option').forEach(opt => {
-                opt.classList.remove('selected', 'correct', 'incorrect');
-            });
-            
-            // Ocultar resultados
-            document.getElementById('quiz-results').style.display = 'none';
-            
-            // Scroll al inicio del quiz
-            document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Interactive Impact Simulator
-        function showImpact(module) {
-            const impacts = {
-                'auth': {
-                    direct: ['Base de Datos - Tabla usuarios', 'API de Login', 'Módulo de Sesiones'],
-                    indirect: ['Dashboard de Usuario', 'Reportes de Acceso', 'Logs de Auditoría', 'Tests de Integración', 'Documentación de API'],
-                    metrics: 'Impacto Alto: 3 componentes directos, 5 indirectos. Tiempo estimado: 16 horas.'
-                },
-                'db': {
-                    direct: ['Capa de Persistencia', 'Modelos de Datos', 'Migraciones', 'Backups'],
-                    indirect: ['Todos los módulos de la aplicación', 'Scripts de deployment', 'Tests unitarios', 'Performance del sistema'],
-                    metrics: 'Impacto Crítico: 4 componentes directos, 15+ indirectos. Tiempo estimado: 40 horas.'
-                },
-                'ui': {
-                    direct: ['Componentes React', 'Hojas de Estilo', 'Assets gráficos'],
-                    indirect: ['Tests de UI', 'Documentación de usuario', 'Accesibilidad'],
-                    metrics: 'Impacto Medio: 3 componentes directos, 3 indirectos. Tiempo estimado: 8 horas.'
+            function submitQuiz() {
+                const score = selectedAnswers.filter(answer => answer === true).length;
+                const percentage = (score / totalQuestions) * 100;
+                
+                // Show results
+                document.getElementById('quiz-results').style.display = 'block';
+                document.getElementById('score').textContent = score;
+                document.getElementById('score-fill').style.width = percentage + '%';
+                
+                // Provide feedback
+                let feedback = '';
+                if (percentage >= 90) {
+                    feedback = '🏆 ¡Excelente! Dominas muy bien los conceptos de trazabilidad y gestión de cambios con Atlassian.';
+                } else if (percentage >= 70) {
+                    feedback = '👍 ¡Muy bien! Tienes un buen entendimiento de los conceptos principales.';
+                } else if (percentage >= 50) {
+                    feedback = '📚 Bien, pero podrías beneficiarte de revisar algunos conceptos adicionales.';
+                } else {
+                    feedback = '📖 Te recomendamos revisar el material nuevamente para reforzar los conceptos.';
                 }
-            };
+                
+                document.getElementById('feedback').innerHTML = feedback;
+                
+                // Highlight correct/incorrect answers
+                document.querySelectorAll('.question').forEach((questionDiv, index) => {
+                    const isCorrect = selectedAnswers[index] === true;
+                    
+                    questionDiv.querySelectorAll('.option').forEach(opt => {
+                        const optionIsCorrect = opt.onclick.toString().includes('true');
+                        
+                        if (optionIsCorrect) {
+                            opt.classList.add('correct');
+                        } else if (opt.classList.contains('selected') && !isCorrect) {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                });
+                
+                // Scroll to results
+                document.getElementById('quiz-results').scrollIntoView({ behavior: 'smooth' });
+            }
 
-            const impact = impacts[module];
-            const resultDiv = document.getElementById('impact-result');
-            
-            resultDiv.innerHTML = `
-                <h4>Análisis de Impacto: ${module.toUpperCase()}</h4>
-                <p><strong>Componentes Directamente Afectados:</strong></p>
-                <ul>${impact.direct.map(item => `<li>${item}</li>`).join('')}</ul>
-                <p><strong>Componentes Indirectamente Afectados:</strong></p>
-                <ul>${impact.indirect.map(item => `<li>${item}</li>`).join('')}</ul>
-                <p><strong>Métricas de Impacto:</strong> ${impact.metrics}</p>
-            `;
-        }
+            function resetQuiz() {
+                selectedAnswers = [];
+                document.getElementById('quiz-results').style.display = 'none';
+                
+                // Clear all selections and highlights
+                document.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Scroll to top of quiz
+                document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+            }
+        </script>
 
-        // Renderizar diagramas Mermaid
-        function renderMermaid() {
-            mermaid.run();
-        }
-
-        // Inicialización
-        document.addEventListener('DOMContentLoaded', function() {
-            loadTheme();
-            setTimeout(renderMermaid, 500);
-        });
-
-        // Scroll suave para navegación
-        function smoothScroll(target) {
-            document.querySelector(target).scrollIntoView({
-                behavior: 'smooth'
+        <script>
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'base',
+                themeVariables: {
+                    primaryColor: '#E3F2FD',
+                    primaryTextColor: '#1976D2',
+                    primaryBorderColor: '#BBDEFB',
+                    lineColor: '#42A5F5',
+                    sectionBkgColor: '#F8F9FA',
+                    altSectionBkgColor: '#E8F5E8',
+                    gridColor: '#E1F5FE',
+                    secondaryColor: '#C8E6C9',
+                    tertiaryColor: '#E1BEE7',
+                    background: '#FAFAFA',
+                    mainBkg: '#E3F2FD',
+                    secondBkg: '#C8E6C9',
+                    tertiaryBkg: '#E1BEE7',
+                    primaryBorderColor: '#90CAF9',
+                    primaryTextColor: '#0D47A1',
+                    primaryColor: '#E3F2FD',
+                    primaryColorLight: '#F3E5F5',
+                    secondaryColor: '#E8F5E8',
+                    tertiaryColor: '#F3E5F5',
+                    specialStateColor: '#FFE0B2',
+                    cScale0: '#E3F2FD',
+                    cScale1: '#BBDEFB',
+                    cScale2: '#90CAF9',
+                    fillType0: '#E3F2FD',
+                    fillType1: '#E8F5E8',
+                    fillType2: '#F3E5F5',
+                    fillType3: '#FFE0B2',
+                    fillType4: '#FFCDD2',
+                    fillType5: '#F1F8E9',
+                    fillType6: '#FFF3E0',
+                    fillType7: '#E0F2F1'
+                }
             });
-        }
-    </script>
+        </script>
+    </div>
 </body>
 </html>

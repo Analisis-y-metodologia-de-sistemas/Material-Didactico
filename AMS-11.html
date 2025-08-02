@@ -591,152 +591,594 @@
             </ul>
         </section>
 
-        <!-- Introducción -->
+        <!-- Introducción EXPANDIDA -->
         <section class="content-section">
             <h2 class="section-title">📝 1. Introducción a las Herramientas del Análisis Estructurado</h2>
             
             <div class="concept-box">
-                <p>El análisis estructurado es una metodología tradicional que considera los datos y los procesos que los transforman como entidades separadas. Esta aproximación utiliza un conjunto específico de herramientas que permiten modelar de manera clara y precisa los requerimientos de un sistema.</p>
+                <p>El análisis estructurado es una metodología tradicional que considera los datos y los procesos que los transforman como entidades separadas. Esta aproximación utiliza un conjunto específico de herramientas que permiten modelar de manera clara y precisa los requerimientos de un sistema, proporcionando una base sólida para el desarrollo de software confiable y mantenible.</p>
+            </div>
+
+            <h3>1.1 Evolución Histórica del Análisis Estructurado</h3>
+            
+            <p>El análisis estructurado surgió en la década de 1970 como respuesta a la crisis del software y la necesidad de metodologías más rigurosas para el desarrollo de sistemas. Los pioneros como Tom DeMarco, Ed Yourdon y Chris Gane establecieron los fundamentos teóricos que aún utilizamos hoy.</p>
+
+            <div class="diagram-container">
+                <h4>📈 Línea de Tiempo: Evolución del Análisis Estructurado</h4>
+                <div class="mermaid">
+                    graph LR
+                        A[1970: Crisis del Software] --> B[1975: Primeros DFD<br/>by Larry Constantine]
+                        B --> C[1978: Structured Analysis<br/>by Tom DeMarco]
+                        C --> D[1989: Modern Structured Analysis<br/>by Edward Yourdon]
+                        D --> E[1990s: Herramientas CASE]
+                        E --> F[2000s: Integración con<br/>Metodologías Ágiles]
+                        
+                        classDef milestone fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        class A,B,C,D,E,F milestone
+                </div>
             </div>
 
             <p>En esta clase estudiaremos las cuatro herramientas fundamentales del análisis estructurado que constituyen el núcleo de esta metodología:</p>
             
-            <ul style="margin: 20px 0; padding-left: 30px;">
-                <li><strong>Diagrama de Contexto:</strong> Define los límites del sistema y su relación con el entorno</li>
-                <li><strong>Diagramas de Flujo de Datos (DFD):</strong> Muestran cómo los datos fluyen a través del sistema</li>
-                <li><strong>Diccionario de Datos:</strong> Especifica la composición y estructura de todos los datos</li>
-                <li><strong>Especificaciones de Procesos:</strong> Detallan la lógica de los procesos primitivos</li>
-            </ul>
-
-            <div class="important-note">
-                <strong>Nota Importante:</strong> Estas herramientas trabajan de manera coordinada y deben mantener consistencia entre sí. La trazabilidad entre artefactos es fundamental para garantizar la calidad del análisis.
+            <div class="diagram-container">
+                <h4>🔧 Las Cuatro Herramientas Fundamentales</h4>
+                <div class="mermaid">
+                    graph LR
+                        AS[ANÁLISIS ESTRUCTURADO] --> DC[Diagrama de Contexto]
+                        AS --> DFD[Diagramas de Flujo de Datos]
+                        AS --> DD[Diccionario de Datos]
+                        AS --> PSPEC[Especificaciones de Procesos]
+                        
+                        DC --> DC1[Define límites del sistema<br/>Identifica entidades externas<br/>Establece alcance del proyecto]
+                        
+                        DFD --> DFD1[Modela flujo de información<br/>Descompone funcionalidad<br/>Representa procesos de negocio]
+                        
+                        DD --> DD1[Especifica estructura de datos<br/>Define composición de elementos<br/>Estandariza nomenclatura]
+                        
+                        PSPEC --> PSPEC1[Detalla lógica de procesos<br/>Especifica transformaciones<br/>Valida coherencia funcional]
+                        
+                        classDef herramienta fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef proposito fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        
+                        class DC,DFD,DD,PSPEC herramienta
+                        class DC1,DFD1,DD1,PSPEC1 proposito
+                </div>
             </div>
 
-            <p>Según Pressman, "el propósito de los diagramas de flujo de datos es proveer un puente semántico entre los usuarios y los desarrolladores de sistemas". Esta capacidad de comunicación es lo que hace tan valiosas estas herramientas en el proceso de análisis.</p>
+            <h3>1.2 Principios Fundamentales</h3>
+
+            <div class="balancing-rule">
+                <strong>Principio de Separación:</strong> Los datos y los procesos se modelan independientemente para reducir acoplamiento
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Principio de Jerarquía:</strong> Los sistemas complejos se descomponen en niveles manejables de abstracción
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Principio de Balanceo:</strong> Cada nivel de descomposición debe ser consistente con el nivel superior
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Principio de Trazabilidad:</strong> Todos los elementos deben ser rastreables a través de los artefactos
+            </div>
+
+
+            <div class="important-note">
+                <strong>Integración Metodológica:</strong> Estas herramientas trabajan de manera coordinada y deben mantener consistencia entre sí. La trazabilidad entre artefactos es fundamental para garantizar la calidad del análisis. La metodología requiere un enfoque disciplinado pero flexible para adaptarse a las necesidades específicas de cada proyecto.
+            </div>
+
+            <h3>1.3 Aplicabilidad en el Contexto Actual</h3>
+
+            <p>Aunque surgió en la era del desarrollo estructurado, el análisis estructurado mantiene relevancia en el contexto actual por varias razones fundamentales:</p>
+
+            <ul style="margin: 15px 0; padding-left: 30px;">
+                <li><strong>Sistemas Legacy:</strong> Muchos sistemas críticos fueron desarrollados usando análisis estructurado</li>
+                <li><strong>Regulaciones y Auditorías:</strong> Industrias reguladas requieren documentación detallada</li>
+                <li><strong>Sistemas Complejos:</strong> La descomposición jerárquica sigue siendo efectiva para sistemas grandes</li>
+                <li><strong>Integración de Sistemas:</strong> Los DFD son excelentes para modelar interfaces entre sistemas</li>
+                <li><strong>Formación Conceptual:</strong> Proporciona bases sólidas para entender otros paradigmas</li>
+            </ul>
+
+            <div class="synopsis-box">
+                <h4>💡 Síntesis Conceptual</h4>
+                <p>Según Pressman, "el propósito de los diagramas de flujo de datos es proveer un puente semántico entre los usuarios y los desarrolladores de sistemas". Esta capacidad de comunicación es lo que hace tan valiosas estas herramientas en el proceso de análisis.</p>
+                <p><strong>Objetivo de la clase:</strong> Dominar el uso integrado de las cuatro herramientas para crear modelos de análisis coherentes, trazables y mantenibles que sirvan como base sólida para el diseño e implementación de sistemas de información robustos.</p>
+            </div>
         </section>
 
-        <!-- Diagrama de Contexto -->
+        <!-- Diagrama de Contexto EXPANDIDO -->
         <section class="content-section">
             <h2 class="section-title">🎯 2. Diagrama de Contexto</h2>
 
-            <h3>Definición y Propósito</h3>
-            <p>El diagrama de contexto, también conocido como DFD de Nivel 0, es la representación más alta del sistema en el análisis estructurado. Su función principal es definir claramente los límites del sistema y mostrar cómo interactúa con las entidades externas de su entorno.</p>
+            <h3>2.1 Definición y Propósito Fundamental</h3>
+            <p>El diagrama de contexto, también conocido como DFD de Nivel 0, es la representación más alta del sistema en el análisis estructurado. Su función principal es definir claramente los límites del sistema y mostrar cómo interactúa con las entidades externas de su entorno. Esta herramienta constituye el punto de partida para todo el análisis posterior y sirve como contrato inicial entre analistas, desarrolladores y stakeholders.</p>
 
             <div class="concept-box">
-                <p><strong>Objetivo Principal:</strong> Establecer el alcance del sistema identificando qué está dentro y qué está fuera de los límites del sistema a desarrollar.</p>
+                <p><strong>Objetivo Principal:</strong> Establecer el alcance del sistema identificando qué está dentro y qué está fuera de los límites del sistema a desarrollar, creando una vista de "caja negra" que enfoca en las interfaces sin revelar la complejidad interna.</p>
             </div>
+
+            <h3>2.2 Elementos Constitutivos</h3>
 
             <div class="diagram-container">
-                <h4>📊 Estructura Multinivel de DFDs</h4>
-                <div class="mermaid">
-                    graph TD
-                        A[Nivel 0: Diagrama de Contexto] --> B[Nivel 1: DFD Principal]
-                        B --> C[Nivel 2: DFD Detallado]
-                        C --> D[Nivel N: DFD Primitivo]
-                        
-                        A1[Vista general del sistema] --> A
-                        B1[Procesos principales] --> B
-                        C1[Subprocesos específicos] --> C
-                        D1[Procesos no descomponibles] --> D
-                </div>
-            </div>
-
-            <h3>Reglas de Construcción</h3>
-            
-            <div class="balancing-rule">
-                Regla 1: Un diagrama de contexto debe contener exactamente un proceso
-            </div>
-            
-            <div class="balancing-rule">
-                Regla 2: No debe mostrar almacenes de datos internos
-            </div>
-            
-            <div class="balancing-rule">
-                Regla 3: Todos los flujos deben conectar el sistema central con entidades externas
-            </div>
-
-            <h3>Ejemplo Práctico: Sistema CasaSegura</h3>
-            <div class="diagram-container">
-                <h4>Diagrama de Contexto - Sistema CasaSegura</h4>
+                <h4>🧩 Componentes del Diagrama de Contexto</h4>
                 <div class="mermaid">
                     graph LR
-                        PC[Panel de Control] --> |Comandos y datos| CS((SOFTWARE CASASEGURA))
-                        CS --> |Información en pantalla| PC
+                        DC[DIAGRAMA DE CONTEXTO] --> SP((Sistema Principal))
+                        DC --> EE[Entidades Externas]
+                        DC --> FD[Flujos de Datos]
                         
-                        S[Sensores] --> |Estado del sensor| CS
-                        CS --> |Tipo de alarma| A[Alarma]
-                        CS --> |Tonos telefónicos| LT[Línea Telefónica]
+                        SP --> SP1[Única caja negra]
+                        SP --> SP2[Representa todo el sistema]
+                        SP --> SP3[Sin descomposición interna]
+                        
+                        EE --> EE1[Actores externos]
+                        EE --> EE2[Sistemas relacionados]
+                        EE --> EE3[Fuentes y destinos de datos]
+                        
+                        FD --> FD1[Información de entrada]
+                        FD --> FD2[Información de salida]
+                        FD --> FD3[Etiquetas descriptivas]
+                        
+                        classDef principal fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef componente fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        classDef detalle fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        
+                        class DC,SP,EE,FD principal
+                        class SP1,SP2,SP3,EE1,EE2,EE3,FD1,FD2,FD3 detalle
                 </div>
+            </div>
+
+            <h3>2.3 Metodología de Construcción</h3>
+
+            <div class="diagram-container">
+                <h4>🔄 Proceso Sistemático de Desarrollo</h4>
+                <div class="mermaid">
+                    graph TD
+                        START((Inicio)) --> REQ[Analizar Requerimientos<br/>del Sistema]
+                        REQ --> ID_EXT[Identificar Entidades<br/>Externas]
+                        ID_EXT --> DEF_FLUJOS[Definir Flujos<br/>de Entrada y Salida]
+                        DEF_FLUJOS --> DRAW[Dibujar Diagrama<br/>Inicial]
+                        DRAW --> REVIEW[Revisar con<br/>Stakeholders]
+                        REVIEW --> ISSUES{¿Problemas<br/>Identificados?}
+                        
+                        ISSUES -->|Sí| REFINE[Refinar y<br/>Ajustar]
+                        ISSUES -->|No| VALIDATE[Validar<br/>Completitud]
+                        REFINE --> DRAW
+                        VALIDATE --> APPROVE[Aprobar<br/>Diagrama Final]
+                        APPROVE --> END((Diagrama<br/>Completado))
+                        
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef decision fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        classDef terminal fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        
+                        class REQ,ID_EXT,DEF_FLUJOS,DRAW,REVIEW,REFINE,VALIDATE,APPROVE proceso
+                        class ISSUES decision
+                        class START,END terminal
+                </div>
+            </div>
+
+            <h3>2.4 Reglas de Construcción Detalladas</h3>
+            
+            <div class="balancing-rule">
+                <strong>Regla 1 - Unicidad del Proceso:</strong> Un diagrama de contexto debe contener exactamente un proceso central que represente todo el sistema
+            </div>
+            
+            <div class="balancing-rule">
+                <strong>Regla 2 - Ausencia de Almacenes:</strong> No debe mostrar almacenes de datos internos, solo el flujo de información hacia y desde el exterior
+            </div>
+            
+            <div class="balancing-rule">
+                <strong>Regla 3 - Conectividad Externa:</strong> Todos los flujos deben conectar el sistema central con entidades externas, nunca entre entidades externas
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Regla 4 - Nomenclatura Descriptiva:</strong> Cada flujo debe tener un nombre que describa claramente qué información contiene
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Regla 5 - Bidireccionalidad Explícita:</strong> Si hay comunicación bidireccional, debe representarse con flujos separados claramente etiquetados
+            </div>
+
+            <h3>2.5 Técnicas de Identificación de Entidades Externas</h3>
+
+            <table class="notation-table">
+                <thead>
+                    <tr>
+                        <th>Tipo de Entidad</th>
+                        <th>Criterios de Identificación</th>
+                        <th>Ejemplos Típicos</th>
+                        <th>Preguntas Clave</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Actores Humanos</strong></td>
+                        <td>Personas que interactúan directamente</td>
+                        <td>Usuario, Administrador, Cliente</td>
+                        <td>¿Quién proporciona datos? ¿Quién recibe información?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sistemas Externos</strong></td>
+                        <td>Sistemas que intercambian datos</td>
+                        <td>Base de datos externa, API, ERP</td>
+                        <td>¿Con qué sistemas debe integrarse?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Dispositivos</strong></td>
+                        <td>Hardware que genera o recibe datos</td>
+                        <td>Sensores, Impresoras, Pantallas</td>
+                        <td>¿Qué dispositivos están involucrados?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Organizaciones</strong></td>
+                        <td>Entidades organizacionales externas</td>
+                        <td>Proveedores, Bancos, Reguladores</td>
+                        <td>¿Qué organizaciones intercambian información?</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>2.6 Ejemplo Detallado: Sistema CasaSegura</h3>
+            
+            <div class="diagram-container">
+                <h4>🏠 Diagrama de Contexto - Sistema CasaSegura (Versión Detallada)</h4>
+                <div class="mermaid">
+                    graph LR
+                        PC[Panel de<br/>Control] -->|Comandos de Configuración<br/>+ Consultas de Estado| CS((SOFTWARE<br/>CASASEGURA))
+                        CS -->|Información de Estado<br/>+ Mensajes de Confirmación| PC
+                        
+                        S[Sensores<br/>Múltiples] -->|Señales de Estado<br/>+ Datos de Activación| CS
+                        CS -->|Comandos de Test<br/>+ Configuración| S
+                        
+                        CS -->|Señales de Activación<br/>+ Tipo de Alarma| A[Sistema de<br/>Alarma]
+                        CS -->|Marcación Automática<br/>+ Mensajes de Voz| LT[Línea<br/>Telefónica]
+                        
+                        OP[Operador de<br/>Monitoreo] -->|Códigos de Desactivación<br/>+ Consultas Remotas| CS
+                        CS -->|Alertas de Emergencia<br/>+ Estados del Sistema| OP
+                        
+                        ADMIN[Administrador<br/>del Sistema] -->|Configuración Avanzada<br/>+ Parámetros de Seguridad| CS
+                        CS -->|Logs de Actividad<br/>+ Reportes de Estado| ADMIN
+                        
+                        classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,font-size:11px
+                        classDef sistema fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+                        
+                        class PC,S,A,LT,OP,ADMIN entidad
+                        class CS sistema
+                </div>
+            </div>
+
+            <h3>2.7 Análisis de Stakeholders y Entidades</h3>
+
+            <div class="concept-box">
+                <h5>Análisis Detallado de Entidades Externas - CasaSegura</h5>
+                <ul style="margin: 10px 0; padding-left: 30px;">
+                    <li><strong>Panel de Control:</strong> Interfaz física principal para configuración y monitoreo local</li>
+                    <li><strong>Sensores Múltiples:</strong> Conjunto de dispositivos de detección (puertas, ventanas, movimiento)</li>
+                    <li><strong>Sistema de Alarma:</strong> Dispositivos de alerta (sirenas, luces, notificaciones)</li>
+                    <li><strong>Línea Telefónica:</strong> Medio de comunicación para alertas automáticas</li>
+                    <li><strong>Operador de Monitoreo:</strong> Personal especializado para respuesta a emergencias</li>
+                    <li><strong>Administrador del Sistema:</strong> Técnico responsable de mantenimiento y configuración avanzada</li>
+                </ul>
+            </div>
+
+            <h3>2.8 Validación y Verificación del Diagrama de Contexto</h3>
+
+            <div class="diagram-container">
+                <h4>✅ Lista de Verificación para Diagrama de Contexto</h4>
+                <div class="mermaid">
+                    graph LR
+                        CHECK[VERIFICACIÓN DEL DIAGRAMA] --> STRUCT[Verificación Estructural]
+                        CHECK --> CONTENT[Verificación de Contenido]
+                        CHECK --> QUALITY[Verificación de Calidad]
+                        
+                        STRUCT --> S1[Un solo proceso central<br/>Sin almacenes internos<br/>Flujos solo hacia/desde exterior]
+                        
+                        CONTENT --> C1[Todas las entidades identificadas<br/>Todos los flujos etiquetados<br/>Correspondencia con requerimientos]
+                        
+                        QUALITY --> Q1[Claridad y comprensibilidad<br/>Consistencia en nomenclatura<br/>Validación con stakeholders]
+                        
+                        classDef categoria fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef criterio fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        
+                        class CHECK,STRUCT,CONTENT,QUALITY categoria
+                        class S1,C1,Q1 criterio
+                </div>
+            </div>
+
+            <div class="important-note">
+                <strong>Criterios de Calidad:</strong> Un diagrama de contexto efectivo debe ser comprensible por stakeholders no técnicos, completo en términos de interfaces externas, y servir como base sólida para la descomposición posterior. La validación temprana con usuarios finales es crucial para evitar retrabajos costosos en etapas posteriores del proyecto.
             </div>
         </section>
 
-        <!-- Diagramas de Flujo de Datos -->
+        <!-- Diagramas de Flujo de Datos EXPANDIDO -->
         <section class="content-section">
             <h2 class="section-title">🌊 3. Diagramas de Flujo de Datos (DFD)</h2>
 
-            <h3>Fundamentos de los DFD</h3>
-            <p>Los Diagramas de Flujo de Datos representan el corazón del análisis estructurado. Adoptan un punto de vista "entrada-proceso-salida" para modelar cómo los datos fluyen a través del sistema y cómo son transformados por los diferentes procesos.</p>
+            <h3>3.1 Fundamentos Teóricos de los DFD</h3>
+            <p>Los Diagramas de Flujo de Datos representan el corazón del análisis estructurado. Adoptan un punto de vista "entrada-proceso-salida" para modelar cómo los datos fluyen a través del sistema y cómo son transformados por los diferentes procesos. Esta aproximación funcional permite abstraer la complejidad organizacional y tecnológica para enfocarse en las transformaciones esenciales de información.</p>
 
             <div class="concept-box">
-                <p><strong>Definición:</strong> Un DFD es una representación gráfica que muestra el flujo de datos a través de un sistema de información, los procesos que transforman estos datos, y los lugares donde se almacenan.</p>
+                <p><strong>Definición Formal:</strong> Un DFD es una representación gráfica que muestra el flujo de datos a través de un sistema de información, los procesos que transforman estos datos, los lugares donde se almacenan, y las fuentes y destinos externos de información. Proporciona una vista lógica independiente de la implementación física.</p>
             </div>
 
-            <h3>Jerarquía de DFD</h3>
+            <h3>3.2 Elementos Constitutivos de los DFD</h3>
+
             <div class="diagram-container">
-                <div style="text-align: center;">
-                    <div class="hierarchy-level">
-                        <strong>Nivel 0</strong><br>
-                        Diagrama de Contexto<br>
-                        <small>Vista general del sistema</small>
-                    </div>
-                    <div class="data-flow-arrow">↓</div>
-                    <div class="hierarchy-level">
-                        <strong>Nivel 1</strong><br>
-                        DFD Principal<br>
-                        <small>Procesos principales</small>
-                    </div>
-                    <div class="data-flow-arrow">↓</div>
-                    <div class="hierarchy-level">
-                        <strong>Nivel 2</strong><br>
-                        DFD Detallado<br>
-                        <small>Subprocesos específicos</small>
-                    </div>
+                <h4>🧩 Los Cuatro Elementos Fundamentales</h4>
+                <div class="mermaid">
+                    graph LR
+                        DFD[DIAGRAMA DE FLUJO DE DATOS] --> P[PROCESOS]
+                        DFD --> F[FLUJOS DE DATOS]
+                        DFD --> A[ALMACENES DE DATOS]
+                        DFD --> E[ENTIDADES EXTERNAS]
+                        
+                        P --> P1[Transforman datos<br/>Numeración jerárquica<br/>Nombres descriptivos]
+                        
+                        F --> F1[Paquetes de información<br/>Etiquetas significativas<br/>Dirección específica]
+                        
+                        A --> A1[Datos en reposo<br/>Identificador único<br/>Almacenamiento lógico]
+                        
+                        E --> E1[Fuentes de datos<br/>Destinos de información<br/>Límites del sistema]
+                        
+                        classDef principal fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef elemento fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        classDef caracteristica fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        
+                        class DFD principal
+                        class P,F,A,E elemento
+                        class P1,F1,A1,E1 caracteristica
                 </div>
             </div>
 
-            <h3>Reglas de Construcción de DFD</h3>
+            <h3>3.3 Jerarquía y Descomposición de DFD</h3>
+            
+            <div class="diagram-container">
+                <h4>📈 Estructura Jerárquica Completa</h4>
+                <div class="mermaid">
+                    graph TD
+                        NIVEL0[NIVEL 0<br/>Diagrama de Contexto] --> NIVEL1[NIVEL 1<br/>DFD Principal]
+                        NIVEL1 --> NIVEL2[NIVEL 2<br/>DFD Detallado]
+                        NIVEL2 --> NIVELN[NIVEL N<br/>DFD Primitivo]
+                        
+                        NIVEL0 --> C0[• Vista global del sistema<br/>• Una sola caja negra<br/>• Entidades externas definidas]
+                        NIVEL1 --> C1[• 5-9 procesos principales<br/>• Almacenes principales<br/>• Flujos entre procesos]
+                        NIVEL2 --> C2[• Descomposición de procesos complejos<br/>• Subprocesos específicos<br/>• Almacenes detallados]
+                        NIVELN --> CN[• Procesos no descomponibles<br/>• Lógica específica<br/>• Listos para especificación]
+                        
+                        classDef nivel fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef descripcion fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        
+                        class NIVEL0,NIVEL1,NIVEL2,NIVELN nivel
+                        class C0,C1,C2,CN descripcion
+                </div>
+            </div>
+
+            <h3>3.4 Reglas de Construcción Detalladas</h3>
 
             <div class="balancing-rule">
-                Regla de Balanceo: Las entradas y salidas de un proceso en un nivel deben coincidir con las entradas y salidas de su descomposición en el nivel inferior
+                <strong>Regla de Balanceo Fundamental:</strong> Las entradas y salidas de un proceso en un nivel deben coincidir exactamente con las entradas y salidas de su descomposición en el nivel inferior
             </div>
 
             <div class="balancing-rule">
-                Regla de Numeración: Los procesos se numeran jerárquicamente (1, 2, 3 en nivel 1; 1.1, 1.2, 1.3 para subprocesos del proceso 1)
+                <strong>Regla de Numeración Jerárquica:</strong> Los procesos se numeran sistemáticamente (1, 2, 3 en nivel 1; 1.1, 1.2, 1.3 para subprocesos del proceso 1)
             </div>
 
             <div class="balancing-rule">
-                Regla de Etiquetado: Todos los flujos, procesos y almacenes deben tener nombres descriptivos y únicos
+                <strong>Regla de Etiquetado Descriptivo:</strong> Todos los flujos, procesos y almacenes deben tener nombres descriptivos y únicos que reflejen su propósito funcional
             </div>
 
-            <h3>Técnica del Análisis Gramatical</h3>
-            <p>El análisis gramatical es una técnica fundamental para identificar elementos del DFD a partir de descripciones textuales:</p>
+            <div class="balancing-rule">
+                <strong>Regla de Conectividad:</strong> Cada elemento debe estar conectado al menos a otro elemento; no pueden existir elementos aislados
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Regla de Simplicidad:</strong> Evitar cruces de líneas innecesarios y mantener el diagrama legible y comprensible
+            </div>
+
+            <h3>3.5 Técnica Avanzada del Análisis Gramatical</h3>
+            
+            <p>El análisis gramatical es una técnica sistemática fundamental para identificar elementos del DFD a partir de descripciones textuales de requerimientos:</p>
+
+            <div class="diagram-container">
+                <h4>🔍 Metodología de Análisis Gramatical</h4>
+                <div class="mermaid">
+                    graph TD
+                        TEXTO[TEXTO DE REQUERIMIENTOS] --> PARSE[Análisis Gramatical]
+                        PARSE --> SUST[Sustantivos y<br/>Frases Sustantivadas]
+                        PARSE --> VERB[Verbos y<br/>Frases Verbales]
+                        PARSE --> ADJ[Adjetivos y<br/>Modificadores]
+                        
+                        SUST --> CAND1[Candidatos a:<br/>• Entidades externas<br/>• Almacenes de datos<br/>• Flujos de información]
+                        
+                        VERB --> CAND2[Candidatos a:<br/>• Procesos<br/>• Transformaciones<br/>• Funciones del sistema]
+                        
+                        ADJ --> CAND3[Candidatos a:<br/>• Atributos de datos<br/>• Características<br/>• Restricciones]
+                        
+                        CAND1 --> VALID[Validación y<br/>Refinamiento]
+                        CAND2 --> VALID
+                        CAND3 --> VALID
+                        VALID --> DFD_ELEMENTS[Elementos del DFD<br/>Validados]
+                        
+                        classDef input fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef analisis fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        classDef output fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        
+                        class TEXTO input
+                        class PARSE,VALID proceso
+                        class SUST,VERB,ADJ analisis
+                        class CAND1,CAND2,CAND3,DFD_ELEMENTS output
+                </div>
+            </div>
+
+            <h3>3.6 Ejemplo Detallado de Análisis Gramatical</h3>
+
+            <div class="content-section" style="background: #f8f9fa; padding: 20px; border-left: 4px solid #007acc; margin: 15px 0;">
+                <p style="text-align: justify; line-height: 1.6; margin: 0;">
+                    <strong>Análisis de Requerimientos de Ejemplo:</strong> El texto de requerimientos presenta una descripción narrativa de un sistema de seguridad domiciliaria. Durante el análisis gramatical, se identifican sistemáticamente las entidades externas (propietario, sensores, panel de control), los procesos principales (configurar, vigilar, procesar alertas, almacenar, generar reportes, notificar) y los flujos de datos críticos (comandos de configuración, datos de sensores, alertas, reportes, notificaciones). Esta descomposición sistemática permite construir el diagrama de contexto que captura la esencia funcional del sistema desde una perspectiva externa, aplicando la técnica de análisis gramatical para identificar sustantivos como entidades potenciales y verbos como procesos candidatos.
+                </p>
+            </div>
+
+            <h4>Resultado del Análisis Gramatical:</h4>
+
+            <table class="notation-table">
+                <thead>
+                    <tr>
+                        <th>Elemento Identificado</th>
+                        <th>Categoría Gramatical</th>
+                        <th>Tipo de Elemento DFD</th>
+                        <th>Justificación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Propietario</strong></td>
+                        <td>Sustantivo</td>
+                        <td>Entidad Externa</td>
+                        <td>Actor externo que interactúa con el sistema</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Configurar</strong></td>
+                        <td>Verbo</td>
+                        <td>Proceso</td>
+                        <td>Acción de transformación que establece parámetros</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sistema de seguridad</strong></td>
+                        <td>Frase sustantiva</td>
+                        <td>Proceso central</td>
+                        <td>El sistema completo que se está modelando</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Sensores</strong></td>
+                        <td>Sustantivo</td>
+                        <td>Entidad Externa</td>
+                        <td>Fuente externa de datos de estado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vigila/Procesa</strong></td>
+                        <td>Verbos</td>
+                        <td>Procesos</td>
+                        <td>Transformaciones de datos de entrada</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Registro de eventos</strong></td>
+                        <td>Frase sustantiva</td>
+                        <td>Almacén de Datos</td>
+                        <td>Datos almacenados para uso posterior</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Reportes de actividad</strong></td>
+                        <td>Frase sustantiva</td>
+                        <td>Flujo de Datos</td>
+                        <td>Información procesada que sale del sistema</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Panel de control</strong></td>
+                        <td>Frase sustantiva</td>
+                        <td>Entidad Externa</td>
+                        <td>Interfaz externa para interacción del usuario</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>3.7 Construcción del DFD Nivel 1 - Sistema CasaSegura</h3>
+
+            <div class="diagram-container">
+                <h4>🏠 DFD Nivel 1 - Sistema CasaSegura (Basado en Análisis Gramatical)</h4>
+                <div class="mermaid">
+                    graph TD
+                        %% Entidades Externas
+                        PROP[Propietario] -->|Comandos de Configuración| P1(1<br/>Configurar<br/>Sistema)
+                        PROP -->|Consultas de Estado| P4(4<br/>Generar<br/>Reportes)
+                        
+                        SENS[Sensores] -->|Señales de Estado| P2(2<br/>Monitorear<br/>Sensores)
+                        
+                        PC[Panel de Control] -->|Solicitudes de Usuario| P4
+                        
+                        %% Procesos principales
+                        P1 -->|Parámetros de Configuración| D1[(D1: Configuración<br/>del Sistema)]
+                        D1 -->|Configuración Actual| P2
+                        
+                        P2 -->|Eventos Detectados| P3(3<br/>Procesar<br/>Alertas)
+                        P2 -->|Estados de Sensores| D2[(D2: Estado<br/>de Sensores)]
+                        
+                        P3 -->|Registros de Eventos| D3[(D3: Log de<br/>Eventos)]
+                        P3 -->|Señales de Alarma| ALARM[Sistema de Alarma]
+                        P3 -->|Notificaciones| TEL[Línea Telefónica]
+                        
+                        D2 -->|Histórico de Estados| P4
+                        D3 -->|Eventos Registrados| P4
+                        P4 -->|Reportes de Actividad| PROP
+                        P4 -->|Estado del Sistema| PC
+                        
+                        %% Estilos
+                        classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,font-size:11px
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        
+                        class PROP,SENS,PC,ALARM,TEL entidad
+                        class P1,P2,P3,P4 proceso
+                        class D1,D2,D3 almacen
+                </div>
+            </div>
+
+            <h3>3.8 Técnicas de Descomposición</h3>
 
             <div class="concept-box">
-                <p><strong>Sustantivos y frases sustantivadas</strong> → Candidatos a objetos de datos, entidades externas, almacenes</p>
-                <p><strong>Verbos y frases verbales</strong> → Candidatos a procesos</p>
-                <p><strong>Adjetivos</strong> → Candidatos a atributos</p>
+                <h5>Criterios para la Descomposición de Procesos</h5>
+                <p>Un proceso debe descomponerse cuando presenta una o más de las siguientes características:</p>
+                <ul style="margin: 10px 0; padding-left: 30px;">
+                    <li><strong>Alta complejidad funcional:</strong> Realiza múltiples transformaciones no cohesivas</li>
+                    <li><strong>Múltiples responsabilidades:</strong> Maneja diferentes tipos de datos o funciones</li>
+                    <li><strong>Difícil especificación:</strong> La lógica interna es demasiado compleja para una sola especificación</li>
+                    <li><strong>Reutilización:</strong> Contiene subprocesos que podrían ser reutilizados</li>
+                    <li><strong>Mantenibilidad:</strong> La descomposición facilita modificaciones futuras</li>
+                </ul>
             </div>
 
-            <div class="example-notation">
-"La función de seguridad CasaSegura permite que el propietario configure el sistema de seguridad cuando se instala, vigila todos los sensores conectados al sistema de seguridad e interactúa con el propietario a través de internet, una PC o un panel de control."
+            <h3>3.9 Validación y Verificación de DFD</h3>
+
+            <div class="diagram-container">
+                <h4>✅ Proceso de Validación de DFD</h4>
+                <div class="mermaid">
+                    graph TD
+                        INICIO[Diagrama DFD<br/>Completado] --> CHECK1[Verificación<br/>Sintáctica]
+                        CHECK1 --> SINT_OK{¿Sintaxis<br/>Correcta?}
+                        
+                        SINT_OK -->|No| FIX_SINT[Corregir Errores<br/>Sintácticos]
+                        FIX_SINT --> CHECK1
+                        
+                        SINT_OK -->|Sí| CHECK2[Verificación<br/>Semántica]
+                        CHECK2 --> SEM_OK{¿Semántica<br/>Correcta?}
+                        
+                        SEM_OK -->|No| FIX_SEM[Corregir Errores<br/>Semánticos]
+                        FIX_SEM --> CHECK2
+                        
+                        SEM_OK -->|Sí| CHECK3[Verificación de<br/>Balanceo]
+                        CHECK3 --> BAL_OK{¿Balanceo<br/>Correcto?}
+                        
+                        BAL_OK -->|No| FIX_BAL[Corregir<br/>Desbalanceo]
+                        FIX_BAL --> CHECK3
+                        
+                        BAL_OK -->|Sí| APPROVE[DFD<br/>Aprobado]
+                        
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef decision fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        classDef accion fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        classDef terminal fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        
+                        class CHECK1,CHECK2,CHECK3 proceso
+                        class SINT_OK,SEM_OK,BAL_OK decision
+                        class FIX_SINT,FIX_SEM,FIX_BAL accion
+                        class INICIO,APPROVE terminal
+                </div>
             </div>
 
-            <p>De este análisis obtenemos:</p>
-            <ul style="margin: 15px 0; padding-left: 30px;">
-                <li><strong>Entidades:</strong> Propietario, Panel de control, Sensores</li>
-                <li><strong>Procesos:</strong> Configurar, Vigilar, Interactuar</li>
-                <li><strong>Datos:</strong> Configuración del sistema, Estado de sensores</li>
-            </ul>
+            <div class="important-note">
+                <strong>Mejores Prácticas para DFD:</strong> Mantenga cada diagrama simple y enfocado (máximo 7±2 procesos por nivel), use nombres significativos y consistentes, evite cruces innecesarios de flujos, y asegure que cada elemento tenga un propósito claro. La iteración y refinamiento son parte normal del proceso de construcción de DFD efectivos.
+            </div>
         </section>
 
         <!-- Diccionario de Datos -->
@@ -804,17 +1246,10 @@
 
             <h3>Ejemplos Prácticos de Definiciones</h3>
 
-            <div class="example-notation">
-Comandos_usuario = [Comando_configuración | Comando_activación | Comando_consulta]
-
-Comando_configuración = Tipo_comando + Parámetros_configuración
-    Tipo_comando = "CONFIG"
-    Parámetros_configuración = {Sensor_ID + Estado_deseado}
-
-Estado_sensor = @Sensor_ID + Tipo_sensor + Ubicación + Estado_actual + (Timestamp)
-    Sensor_ID = Número *1 a 999*
-    Tipo_sensor = [Puerta | Ventana | Movimiento | Humo]
-    Estado_actual = [Activado | Desactivado | Alarma | Error]
+            <div class="content-section" style="background: #f8f9fa; padding: 20px; border-left: 4px solid #28a745; margin: 15px 0;">
+                <p style="text-align: justify; line-height: 1.6; margin: 0;">
+                    <strong>Ejemplo de Diccionario de Datos:</strong> Las definiciones en el diccionario de datos establecen la estructura precisa de la información que fluye por el sistema. Cada entrada describe elementos como comandos de usuario que pueden ser de configuración, activación o consulta, junto con sus parámetros específicos. Los registros de estado de sensores incluyen identificadores únicos, tipos de sensor (puerta, ventana, movimiento, humo), ubicación física y estados posibles (activado, desactivado, alarma, error). Esta documentación formal garantiza la consistencia en el diseño y facilita la implementación posterior del sistema, proporcionando especificaciones detalladas de formatos, rangos de valores y estructuras de datos complejas.
+                </p>
             </div>
         </section>
 
@@ -832,19 +1267,10 @@ Estado_sensor = @Sensor_ID + Tipo_sensor + Ubicación + Estado_actual + (Timesta
             <h3>Técnicas de Especificación</h3>
 
             <h4>1. Lenguaje Estructurado (Pseudocódigo)</h4>
-            <div class="example-notation">
-SI password_ingresado = password_maestro ENTONCES
-    validación = verdadero
-    mensaje = "Acceso autorizado"
-SINO
-    PARA cada entrada en tabla_passwords_secundarios
-        SI password_ingresado = entrada.password ENTONCES
-            validación = verdadero
-            mensaje = "Acceso temporal autorizado"
-            SALIR DEL BUCLE
-        FIN SI
-    FIN PARA
-FIN SI
+            <div class="content-section" style="background: #f8f9fa; padding: 20px; border-left: 4px solid #007acc; margin: 15px 0;">
+                <p style="text-align: justify; line-height: 1.6; margin: 0;">
+                    <strong>Especificación con Lenguaje Estructurado:</strong> El pseudocódigo proporciona una descripción algorítmica precisa de la lógica del proceso, utilizando estructuras de control estándar como condicionales y bucles. En este ejemplo, se especifica el comportamiento de validación de contraseñas, donde primero se verifica contra el password maestro y, en caso de no coincidir, se recorre una tabla de passwords secundarios. Esta técnica permite especificar procesos complejos de manera comprensible para analistas y programadores, manteniendo la independencia del lenguaje de implementación mientras garantiza que toda la lógica del negocio quede completamente documentada y sea verificable.
+                </p>
             </div>
 
             <h4>2. Tablas de Decisión</h4>
@@ -908,21 +1334,486 @@ FIN SI
             </div>
         </section>
 
-        <!-- Integración y Balanceo -->
+        <!-- Integración y Balanceo - SECCIÓN EXPANDIDA -->
         <section class="content-section">
             <h2 class="section-title">🔄 6. Integración y Balanceo de Herramientas</h2>
 
-            <h3>Principios de Trazabilidad</h3>
-            <p>La efectividad del análisis estructurado depende de la correcta integración entre sus herramientas. Cada elemento debe ser trazable a través de todos los artefactos:</p>
-
             <div class="concept-box">
-                <p><strong>Trazabilidad Horizontal:</strong> Entre elementos del mismo nivel (procesos, flujos, almacenes)</p>
-                <p><strong>Trazabilidad Vertical:</strong> Entre diferentes niveles de abstracción (contexto → DFD nivel 1 → nivel 2...)</p>
-                <p><strong>Trazabilidad Cruzada:</strong> Entre diferentes tipos de artefactos (DFD ↔ Diccionario ↔ Especificaciones)</p>
+                <p><strong>Introducción:</strong> La integración y balanceo de las cuatro herramientas fundamentales del análisis estructurado (Diagrama de Contexto, DFD, Diccionario de Datos y Especificaciones de Procesos) junto con el análisis de requerimientos, constituye la base para construir modelos sistemáticos coherentes, completos y verificables que representen fielmente el sistema bajo análisis.</p>
+            </div>
+
+            <h3>6.1 Marco de Integración de Herramientas Fundamentales</h3>
+            
+            <p>La integración efectiva requiere comprender las relaciones bidireccionales entre las herramientas y establecer puntos de control que garanticen la consistencia en cada fase del análisis estructurado.</p>
+
+            <div class="diagram-container">
+                <h4>🔗 Ecosistema de Herramientas del Análisis Estructurado</h4>
+                <div class="mermaid">
+                    graph LR
+                        REQ[📋 Análisis de<br/>Requerimientos] --> DC[🎯 Diagrama de<br/>Contexto]
+                        REQ --> DIC[📚 Diccionario<br/>de Datos]
+                        
+                        DC --> DFD1[📊 DFD<br/>Nivel 1]
+                        DFD1 --> DFD2[📊 DFD<br/>Nivel 2]
+                        DFD2 --> DFDN[📊 DFD<br/>Nivel N]
+                        
+                        DC -.-> DIC
+                        DFD1 -.-> DIC
+                        DFD2 -.-> DIC
+                        DFDN -.-> DIC
+                        
+                        DFDN --> PSPEC[⚙️ Especificaciones<br/>de Procesos]
+                        DIC --> PSPEC
+                        
+                        %% Retroalimentación
+                        DIC -.-> REQ
+                        PSPEC -.-> REQ
+                        
+                        classDef origen fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+                        classDef diagrama fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef diccionario fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        classDef especificacion fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        
+                        class REQ origen
+                        class DC,DFD1,DFD2,DFDN diagrama
+                        class DIC diccionario
+                        class PSPEC especificacion
+                </div>
+            </div>
+
+            <h4>Principios de Integración</h4>
+
+            <div class="balancing-rule">
+                <strong>Principio de Origen Único:</strong> Los requerimientos constituyen la fuente primaria de toda la información del modelo
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Principio de Consistencia Bidireccional:</strong> Toda información debe ser coherente en ambas direcciones del flujo de análisis
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Principio de Completitud:</strong> Cada elemento debe tener representación y justificación en todas las herramientas relevantes
+            </div>
+
+            <div class="balancing-rule">
+                <strong>Principio de No Redundancia:</strong> Evita duplicación innecesaria de información entre artefactos
+            </div>
+
+            <h3>6.2 Integración Requerimientos ↔ Diagrama de Contexto</h3>
+
+            <p>La primera integración crítica establece la correspondencia directa entre los requerimientos funcionales del sistema y su representación en el diagrama de contexto, asegurando que todas las funcionalidades estén capturadas.</p>
+
+            <h4>6.2.1 Matriz de Trazabilidad Requerimientos-Contexto</h4>
+
+            <table class="notation-table">
+                <thead>
+                    <tr>
+                        <th>Requerimiento Funcional</th>
+                        <th>Actor/Entidad Externa</th>
+                        <th>Proceso en Diagrama de Contexto</th>
+                        <th>Flujos de Datos Asociados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>RF01:</strong> El sistema debe permitir registro de usuarios</td>
+                        <td>Usuario</td>
+                        <td>Sistema de Gestión</td>
+                        <td>Datos_Usuario, Confirmación_Registro</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RF02:</strong> El sistema debe procesar pedidos de clientes</td>
+                        <td>Cliente</td>
+                        <td>Sistema de Gestión</td>
+                        <td>Pedido, Estado_Pedido</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RF03:</strong> El sistema debe generar reportes para gerencia</td>
+                        <td>Gerencia</td>
+                        <td>Sistema de Gestión</td>
+                        <td>Solicitud_Reporte, Reporte_Generado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RF04:</strong> El sistema debe notificar sobre stock bajo</td>
+                        <td>Almacén</td>
+                        <td>Sistema de Gestión</td>
+                        <td>Estado_Inventario, Alerta_Stock</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>6.2.2 Técnicas de Validación de Completitud</h4>
+
+            <div class="diagram-container">
+                <h4>🔍 Proceso de Validación Requerimientos ↔ Contexto</h4>
+                <div class="mermaid">
+                    graph LR
+                        REQ[📋 Lista de<br/>Requerimientos] --> ANAL[🔍 Análisis<br/>Funcional]
+                        ANAL --> IDENT[👥 Identificación<br/>de Actores]
+                        ANAL --> FLUJOS[📊 Identificación<br/>de Flujos]
+                        
+                        IDENT --> DC[🎯 Construcción<br/>Diagrama Contexto]
+                        FLUJOS --> DC
+                        
+                        DC --> VALID[✅ Validación<br/>Cruzada]
+                        REQ --> VALID
+                        
+                        VALID --> COMPL{¿Completo?}
+                        COMPL -->|No| REFIN[🔄 Refinamiento]
+                        COMPL -->|Sí| APROV[✅ Aprobación]
+                        
+                        REFIN --> REQ
+                        
+                        classDef inicio fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef decision fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        classDef final fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        
+                        class REQ inicio
+                        class ANAL,IDENT,FLUJOS,DC,VALID,REFIN proceso
+                        class COMPL decision
+                        class APROV final
+                </div>
+            </div>
+
+            <h3>6.3 Integración Diagrama de Contexto ↔ DFD</h3>
+
+            <p>La transición del diagrama de contexto al primer nivel de DFD representa la descomposición inicial del sistema, donde el proceso único se expande en múltiples procesos interconectados manteniendo la coherencia con las entidades externas identificadas.</p>
+
+            <h4>6.3.1 Reglas de Descomposición Balanceada</h4>
+
+            <div class="diagram-container">
+                <h4>📊 Ejemplo: De Contexto a DFD Nivel 1</h4>
+                
+                <h5>Diagrama de Contexto</h5>
+                <div class="mermaid">
+                    graph LR
+                        CLIENTE[Cliente] -->|Pedido| SISTEMA((Sistema de<br/>Gestión))
+                        PROVEEDOR[Proveedor] -->|Lista_Productos| SISTEMA
+                        SISTEMA -->|Confirmación_Pedido| CLIENTE
+                        SISTEMA -->|Orden_Compra| PROVEEDOR
+                        SISTEMA -->|Reporte_Ventas| GERENCIA[Gerencia]
+                        
+                        classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        classDef sistema fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+                        
+                        class CLIENTE,PROVEEDOR,GERENCIA entidad
+                        class SISTEMA sistema
+                </div>
+
+                <h5>DFD Nivel 1 - Descomposición Balanceada</h5>
+                <div class="mermaid">
+                    graph LR
+                        CLIENTE[Cliente] -->|Pedido| P1(1<br/>Procesar<br/>Pedido)
+                        PROVEEDOR[Proveedor] -->|Lista_Productos| P2(2<br/>Actualizar<br/>Catálogo)
+                        
+                        P1 -->|Confirmación_Pedido| CLIENTE
+                        P1 -->|Solicitud_Stock| P3(3<br/>Gestionar<br/>Inventario)
+                        P2 -->|Productos_Nuevos| P3
+                        P3 -->|Stock_Insuficiente| P4(4<br/>Generar<br/>Orden)
+                        P4 -->|Orden_Compra| PROVEEDOR
+                        
+                        P1 -->|Datos_Venta| P5(5<br/>Generar<br/>Reportes)
+                        P5 -->|Reporte_Ventas| GERENCIA[Gerencia]
+                        
+                        classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        
+                        class CLIENTE,PROVEEDOR,GERENCIA entidad
+                        class P1,P2,P3,P4,P5 proceso
+                </div>
+            </div>
+
+            <h4>6.3.2 Lista de Verificación del Balanceo</h4>
+
+            <table class="notation-table">
+                <thead>
+                    <tr>
+                        <th>Aspecto</th>
+                        <th>Verificación Contexto → DFD</th>
+                        <th>Estado</th>
+                        <th>Observaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Entidades Externas</strong></td>
+                        <td>Todas las entidades del contexto aparecen en DFD</td>
+                        <td>✅</td>
+                        <td>Cliente, Proveedor, Gerencia presentes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flujos de Entrada</strong></td>
+                        <td>Pedido, Lista_Productos conservados</td>
+                        <td>✅</td>
+                        <td>Mismo nombre y contenido</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flujos de Salida</strong></td>
+                        <td>Confirmación, Orden_Compra, Reporte generados</td>
+                        <td>✅</td>
+                        <td>Trazabilidad verificada</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Funcionalidad</strong></td>
+                        <td>Todos los procesos del contexto descompuestos</td>
+                        <td>✅</td>
+                        <td>Sistema único → 5 procesos interconectados</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.4 Integración DFD ↔ Diccionario de Datos</h3>
+
+            <p>La sincronización entre DFD y diccionario de datos garantiza que todos los flujos, almacenes y procesos tengan definiciones precisas y consistentes, estableciendo un lenguaje común para todo el modelo del sistema.</p>
+
+            <h4>6.4.1 Proceso de Sincronización Bidireccional</h4>
+
+            <div class="diagram-container">
+                <h4>🔄 Sincronización DFD ↔ Diccionario de Datos</h4>
+                <div class="mermaid">
+                    graph LR
+                        DFD[📊 DFD<br/>Flujos y Procesos] --> EXTRACT[📋 Extraer<br/>Elementos]
+                        EXTRACT --> FLUJOS[Flujos de Datos]
+                        EXTRACT --> ALMACENES[Almacenes]
+                        EXTRACT --> PROCESOS[Procesos]
+                        
+                        FLUJOS --> CHECK1{¿Existe en<br/>Diccionario?}
+                        ALMACENES --> CHECK2{¿Existe en<br/>Diccionario?}
+                        PROCESOS --> CHECK3{¿Existe en<br/>Diccionario?}
+                        
+                        CHECK1 -->|No| CREATE1[Crear Definición<br/>de Flujo]
+                        CHECK2 -->|No| CREATE2[Crear Definición<br/>de Almacén]
+                        CHECK3 -->|No| CREATE3[Crear Definición<br/>de Proceso]
+                        
+                        CHECK1 -->|Sí| VERIFY1[Verificar<br/>Consistencia]
+                        CHECK2 -->|Sí| VERIFY2[Verificar<br/>Consistencia]
+                        CHECK3 -->|Sí| VERIFY3[Verificar<br/>Consistencia]
+                        
+                        CREATE1 --> DD[📚 Diccionario<br/>de Datos]
+                        CREATE2 --> DD
+                        CREATE3 --> DD
+                        VERIFY1 --> DD
+                        VERIFY2 --> DD
+                        VERIFY3 --> DD
+                        
+                        classDef origen fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef proceso fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        classDef decision fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        classDef destino fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        
+                        class DFD origen
+                        class EXTRACT,CREATE1,CREATE2,CREATE3,VERIFY1,VERIFY2,VERIFY3 proceso
+                        class CHECK1,CHECK2,CHECK3 decision
+                        class DD destino
+                </div>
+            </div>
+
+            <h4>6.4.2 Matriz de Correspondencia DFD-Diccionario</h4>
+
+            <table class="notation-table">
+                <thead>
+                    <tr>
+                        <th>Elemento DFD</th>
+                        <th>Entrada en Diccionario</th>
+                        <th>Tipo de Definición</th>
+                        <th>Verificación Required</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Pedido</strong> (flujo)</td>
+                        <td>Pedido = @Num_Pedido + Fecha + {Linea_Pedido}</td>
+                        <td>Estructura de datos</td>
+                        <td>Componentes, formato, restricciones</td>
+                    </tr>
+                    <tr>
+                        <td><strong>D1: Inventario</strong> (almacén)</td>
+                        <td>Inventario = {Registro_Producto}</td>
+                        <td>Archivo de datos</td>
+                        <td>Clave primaria, organización</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lista_Productos</strong> (flujo)</td>
+                        <td>Lista_Productos = {Producto_Info}</td>
+                        <td>Flujo de datos</td>
+                        <td>Formato, periodicidad, volumen</td>
+                    </tr>
+                    <tr>
+                        <td><strong>1. Procesar_Pedido</strong> (proceso)</td>
+                        <td>Procesar_Pedido: Transformar pedido en confirmación</td>
+                        <td>Especificación funcional</td>
+                        <td>Entradas, salidas, lógica de negocio</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.5 Integración Análisis Funcional ↔ Especificaciones de Procesos</h3>
+
+            <p>El análisis funcional proporciona la lógica detallada que debe implementarse en las especificaciones de procesos, estableciendo el puente entre el modelo conceptual y la implementación algorítmica del sistema.</p>
+
+            <h4>6.5.1 Técnicas de Especificación Funcional</h4>
+
+            <p>Las técnicas de análisis funcional (lenguaje estructurado, tablas de decisión, árboles de decisión) se integran sistemáticamente con las especificaciones de procesos para documentar la lógica de cada proceso primitivo identificado en el DFD.</p>
+
+            <div class="diagram-container">
+                <h4>⚙️ Integración Proceso DFD → Análisis Funcional → PSPEC</h4>
+                <div class="mermaid">
+                    graph LR
+                        DFD_PROC[📊 Proceso en DFD<br/>3. Procesar_Alarma] --> ANAL_FUNC[🔍 Análisis<br/>Funcional]
+                        
+                        ANAL_FUNC --> TECNICA1[📝 Lenguaje<br/>Estructurado]
+                        ANAL_FUNC --> TECNICA2[📋 Tabla de<br/>Decisión]
+                        ANAL_FUNC --> TECNICA3[🌳 Árbol de<br/>Decisión]
+                        
+                        TECNICA1 --> PSPEC[⚙️ Especificación<br/>del Proceso]
+                        TECNICA2 --> PSPEC
+                        TECNICA3 --> PSPEC
+                        
+                        DD[📚 Diccionario<br/>de Datos] --> ANAL_FUNC
+                        DD --> PSPEC
+                        
+                        PSPEC --> VALID[✅ Validación<br/>Cruzada]
+                        DFD_PROC --> VALID
+                        
+                        classDef origen fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        classDef analisis fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                        classDef tecnica fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+                        classDef destino fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                        classDef diccionario fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+                        
+                        class DFD_PROC origen
+                        class ANAL_FUNC analisis
+                        class TECNICA1,TECNICA2,TECNICA3 tecnica
+                        class PSPEC,VALID destino
+                        class DD diccionario
+                </div>
+            </div>
+
+            <h4>6.5.2 Matriz de Selección de Técnicas</h4>
+
+            <table class="notation-table">
+                <thead>
+                    <tr>
+                        <th>Características del Proceso</th>
+                        <th>Técnica Recomendada</th>
+                        <th>Ventajas</th>
+                        <th>Ejemplo de Aplicación</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Lógica secuencial simple</strong></td>
+                        <td>Lenguaje Estructurado</td>
+                        <td>Fácil comprensión, implementación directa</td>
+                        <td>Validar formato de datos</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Múltiples condiciones combinadas</strong></td>
+                        <td>Tabla de Decisión</td>
+                        <td>Exhaustividad, verificación completa</td>
+                        <td>Determinar descuentos por categoría</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Decisiones anidadas complejas</strong></td>
+                        <td>Árbol de Decisión</td>
+                        <td>Visualización clara, navegación lógica</td>
+                        <td>Clasificar tipos de alarma</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cálculos matemáticos</strong></td>
+                        <td>Lenguaje Estructurado + Fórmulas</td>
+                        <td>Precisión, trazabilidad de cálculos</td>
+                        <td>Calcular impuestos y totales</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>6.6 Metodología de Verificación y Validación</h3>
+
+            <div class="content-section">
+                <p style="text-align: justify; line-height: 1.8; margin: 20px 0;">
+                    La verificación y validación en el análisis estructurado constituyen procesos fundamentales para garantizar la calidad y corrección de los modelos desarrollados. La <strong>verificación</strong> se enfoca en asegurar que los artefactos cumplan con las reglas sintácticas y semánticas establecidas, verificando que el modelo esté construido correctamente según las convenciones del método. Este proceso incluye la revisión de la nomenclatura consistente, el balanceo apropiado entre niveles de descomposición, la conectividad válida de los flujos de datos y la coherencia entre los diferentes diagramas.
+                </p>
+                
+                <p style="text-align: justify; line-height: 1.8; margin: 20px 0;">
+                    Por otro lado, la <strong>validación</strong> se concentra en confirmar que el modelo representa fielmente los requerimientos del negocio y las necesidades reales de los usuarios. Este proceso implica la revisión exhaustiva de que todos los procesos identificados correspondan a funciones genuinas del sistema, que los flujos de datos representen información real y necesaria, y que el modelo completo cubra todos los casos de uso relevantes. La combinación efectiva de ambos procesos garantiza modelos robustos, mantenibles y alineados con los objetivos organizacionales.
+                </p>
+            </div>
+
+            <h3>6.7 Herramientas de Soporte para la Integración</h3>
+
+            <div class="content-section" style="background: #f8f9fa; padding: 20px; border-left: 4px solid #007acc; margin: 15px 0;">
+                <p style="text-align: justify; line-height: 1.6; margin: 0;">
+                    <strong>Scripts de Verificación Automatizada:</strong> Las herramientas de verificación automatizada permiten detectar sistemáticamente inconsistencias y errores en los modelos de análisis estructurado. Estos scripts implementan algoritmos que validan el balanceo entre niveles jerárquicos del DFD, verificando que todos los flujos de entrada y salida del proceso padre tengan correspondencia exacta en los subprocesos del nivel inferior. La automatización de estas verificaciones reduce significativamente el tiempo de revisión manual y elimina la posibilidad de errores humanos en la detección de discrepancias. Los scripts pueden integrar múltiples reglas de validación, generar reportes detallados de errores y facilitar el mantenimiento de la consistencia durante la evolución del modelo, proporcionando un framework robusto para la calidad del análisis.
+                </p>
             </div>
 
             <div class="important-note">
-                <strong>Metodología de Verificación:</strong> Use herramientas automatizadas cuando sea posible, pero siempre complete con revisión manual para verificar la coherencia semántica y la calidad del análisis.
+                <strong>Recomendación Final:</strong> La integración efectiva de las herramientas del análisis estructurado requiere un enfoque sistemático que combine metodología disciplinada, herramientas automatizadas y revisión experta. Establezca puntos de control regulares, mantenga documentación de decisiones de diseño y asegure la trazabilidad bidireccional entre todos los artefactos para facilitar el mantenimiento futuro del modelo del sistema.
+            </div>
+
+            <div class="content-section">
+                <p style="text-align: justify; line-height: 1.8; margin: 20px 0;">
+                    La verificación y validación en el análisis estructurado constituyen procesos fundamentales para garantizar la calidad y corrección de los modelos desarrollados. La <strong>verificación</strong> se enfoca en asegurar que los artefactos cumplan con las reglas sintácticas y semánticas establecidas, verificando que el modelo esté construido correctamente según las convenciones del método. Este proceso incluye la revisión de la nomenclatura consistente, el balanceo apropiado entre niveles de descomposición, la conectividad válida de los flujos de datos y la coherencia entre los diferentes diagramas.
+                </p>
+                
+                <p style="text-align: justify; line-height: 1.8; margin: 20px 0;">
+                    Por otro lado, la <strong>validación</strong> se concentra en confirmar que el modelo representa fielmente los requerimientos del negocio y las necesidades reales de los usuarios. Este proceso implica la revisión exhaustiva de que todos los procesos identificados correspondan a funciones genuinas del sistema, que los flujos de datos representen información real y necesaria, y que el modelo completo cubra todos los casos de uso relevantes. La combinación efectiva de ambos procesos garantiza modelos robustos, mantenibles y alineados con los objetivos organizacionales.
+                </p>
+            </div>
+
+            <h3>6.7 Herramientas de Soporte</h3>
+
+            <h4>6.7.1 Herramientas CASE Recomendadas</h4>
+
+            <table class="notation-table">
+                <thead>
+                    <tr>
+                        <th>Herramienta</th>
+                        <th>Capacidades</th>
+                        <th>Fortalezas</th>
+                        <th>Limitaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Visio + Add-ins</strong></td>
+                        <td>DFD, Diccionario básico</td>
+                        <td>Facilidad de uso, integración Office</td>
+                        <td>Verificación limitada</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Enterprise Architect</strong></td>
+                        <td>DFD, Diccionario, PSPEC, Trazabilidad</td>
+                        <td>Verificación automática, reportes</td>
+                        <td>Curva de aprendizaje alta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lucidchart</strong></td>
+                        <td>DFD colaborativo</td>
+                        <td>Colaboración en tiempo real</td>
+                        <td>Sin diccionario integrado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Draw.io + Scripts</strong></td>
+                        <td>DFD, verificación personalizada</td>
+                        <td>Gratuito, extensible</td>
+                        <td>Requiere configuración manual</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>6.7.2 Scripts de Verificación Automatizada</h4>
+
+            <div class="content-section" style="background: #f8f9fa; padding: 20px; border-left: 4px solid #007acc; margin: 15px 0;">
+                <p style="text-align: justify; line-height: 1.6; margin: 0;">
+                    <strong>Scripts de Verificación Automatizada:</strong> Las herramientas de verificación automatizada permiten detectar sistemáticamente inconsistencias y errores en los modelos de análisis estructurado. Estos scripts implementan algoritmos que validan el balanceo entre niveles jerárquicos del DFD, verificando que todos los flujos de entrada y salida del proceso padre tengan correspondencia exacta en los subprocesos del nivel inferior. La automatización de estas verificaciones reduce significativamente el tiempo de revisión manual y elimina la posibilidad de errores humanos en la detección de discrepancias. Los scripts pueden integrar múltiples reglas de validación, generar reportes detallados de errores y facilitar el mantenimiento de la consistencia durante la evolución del modelo, proporcionando un framework robusto para la calidad del análisis.
+                </p>
+            </div>
+
+            <div class="important-note">
+                <strong>Recomendación Final:</strong> La integración efectiva requiere un enfoque sistemático que combine herramientas automatizadas con revisión experta. Establezca puntos de control regulares y mantenga documentación de decisiones de diseño para facilitar el mantenimiento futuro del modelo.
             </div>
         </section>
 
