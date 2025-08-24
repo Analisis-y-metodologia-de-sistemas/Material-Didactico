@@ -391,6 +391,18 @@
             margin-left: 60px;
         }
 
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -819,24 +831,25 @@
     </style>
 </head>
 <body>
-    <button class="toggle-btn" onclick="toggleTheme()">🌓</button>
+    <button class="toggle-btn" onclick="toggleTheme()" aria-label="Alternar tema claro/oscuro"><span aria-hidden="true">🌓</span></button>
     
     <div class="container">
         <div class="header">
-            <h1>📚 Análisis y Metodología de Sistemas</h1>
+            <h1><span aria-hidden="true">📚</span> Análisis y Metodología de Sistemas</h1>
             <h2 style="color: var(--secondary-color); border: none;">Clase 4: Fundamentos de Metodologías Ágiles</h2>
-            <div class="course-info">
-                <div class="info-card">
-                    <strong>🎯 Carrera:</strong> Tecnicatura Superior en Análisis de Sistemas
+            <div class="course-info" role="group" aria-labelledby="course-info-heading">
+                <h3 id="course-info-heading" class="sr-only">Información del curso</h3>
+                <div class="info-card" role="listitem">
+                    <strong><span aria-hidden="true">🎯</span> Carrera:</strong> Tecnicatura Superior en Análisis de Sistemas
                 </div>
-                <div class="info-card">
-                    <strong>⏱️ Duración:</strong> 16 semanas
+                <div class="info-card" role="listitem">
+                    <strong><span aria-hidden="true">⏱️</span> Duración:</strong> 16 semanas
                 </div>
-                <div class="info-card">
-                    <strong>📖 Modalidad:</strong> Teórico-práctico
+                <div class="info-card" role="listitem">
+                    <strong><span aria-hidden="true">📖</span> Modalidad:</strong> Teórico-práctico
                 </div>
-                <div class="info-card">
-                    <strong>📊 Clase:</strong> 4 de 16
+                <div class="info-card" role="listitem">
+                    <strong><span aria-hidden="true">📊</span> Clase:</strong> 4 de 16
                 </div>
             </div>
             <div class="progress-bar">
@@ -844,9 +857,10 @@
             </div>
         </div>
 
-        <div class="content-section">
-            <div class="objectives">
-                <h2>🎯 Objetivos de Aprendizaje</h2>
+        <div class="content-section" role="main">
+            <div class="objectives" role="region" aria-labelledby="objectives-heading">
+                <div id="objectives-heading" style="display: none;">Objetivos de aprendizaje de la clase</div>
+                <h2><span aria-hidden="true">🎯</span> Objetivos de Aprendizaje</h2>
                 <ul>
                     <li>Analizar el contexto histórico que llevó al surgimiento del Manifiesto Ágil en 2001</li>
                     <li>Comprender los 4 valores fundamentales del Manifiesto Ágil y su aplicación práctica</li>
@@ -857,14 +871,14 @@
             </div>
         </div>
 
-        <div class="content-section">
-            <h2>📖 1. Contexto Histórico: Crisis del Software y Surgimiento del Agilismo (1990-2001)</h2>
+        <div class="content-section" role="main">
+            <h2><span aria-hidden="true">📖</span> 1. Contexto Histórico: Crisis del Software y Surgimiento del Agilismo (1990-2001)</h2>
             
             <h3>1.1 La Crisis de las Metodologías Tradicionales</h3>
             <p>Durante la década de 1990, la industria del software enfrentó una crisis significativa. Según el Standish Group, solo el 16% de los proyectos de software se completaban exitosamente utilizando metodologías tradicionales como el modelo en cascada.</p>
             
             <h4>Problemas Identificados en las Metodologías Tradicionales:</h4>
-            <ul class="enhanced-list">
+            <ul class="enhanced-list" role="list">
                 <li><strong>Rigidez excesiva:</strong> Los procesos lineales no se adaptaban a los cambios de requisitos</li>
                 <li><strong>Documentación excesiva:</strong> Se invertía más tiempo documentando que desarrollando</li>
                 <li><strong>Poca participación del cliente:</strong> Los usuarios finales solo veían el producto al final</li>
@@ -874,7 +888,7 @@
 
             <h3>1.2 Antecedentes del Movimiento Ágil</h3>
             <p>Antes del 2001, varios enfoques ya estaban emergiendo como alternativas:</p>
-            <ul class="enhanced-list">
+            <ul class="enhanced-list" role="list">
                 <li><strong>Extreme Programming (XP):</strong> Desarrollado por Kent Beck</li>
                 <li><strong>Scrum:</strong> Creado por Jeff Sutherland y Ken Schwaber</li>
                 <li><strong>Crystal:</strong> Propuesto por Alistair Cockburn</li>
@@ -884,30 +898,30 @@
             <h3>1.3 La Reunión de Snowbird (Febrero 2001)</h3>
             <p>Del 11 al 13 de febrero de 2001, 17 desarrolladores de software se reunieron en el Snowbird Ski Resort en Utah. Este evento histórico marcó el nacimiento formal del movimiento ágil.</p>
 
-            <div class="synoptic-chart">
+            <div class="synoptic-chart" role="region" aria-labelledby="synoptic-chart-title">
                 <div class="synoptic-title">Los 17 Firmantes del Manifiesto Ágil</div>
                 <div class="synoptic-grid">
-                    <div class="synoptic-item">
+                    <div class="synoptic-item" role="article">
                         <h4>Kent Beck</h4>
                         <p>Creador de XP y TDD</p>
                     </div>
-                    <div class="synoptic-item">
+                    <div class="synoptic-item" role="article">
                         <h4>Martin Fowler</h4>
                         <p>Experto en refactoring</p>
                     </div>
-                    <div class="synoptic-item">
+                    <div class="synoptic-item" role="article">
                         <h4>Jeff Sutherland</h4>
                         <p>Co-creador de Scrum</p>
                     </div>
-                    <div class="synoptic-item">
+                    <div class="synoptic-item" role="article">
                         <h4>Ken Schwaber</h4>
                         <p>Co-creador de Scrum</p>
                     </div>
-                    <div class="synoptic-item">
+                    <div class="synoptic-item" role="article">
                         <h4>Alistair Cockburn</h4>
                         <p>Metodología Crystal</p>
                     </div>
-                    <div class="synoptic-item">
+                    <div class="synoptic-item" role="article">
                         <h4>Robert C. Martin</h4>
                         <p>"Uncle Bob", Clean Code</p>
                     </div>
@@ -915,14 +929,15 @@
             </div>
         </div>
 
-        <div class="content-section">
-            <h2>📋 2. Los 4 Valores del Manifiesto Ágil</h2>
+        <div class="content-section" role="main">
+            <h2><span aria-hidden="true">📋</span> 2. Los 4 Valores del Manifiesto Ágil</h2>
             
             <p>El Manifiesto Ágil establece cuatro valores fundamentales que priorizan ciertos aspectos sobre otros, sin descartar completamente los elementos de menor prioridad.</p>
 
-            <div class="value-list">
-                <div class="value-item">
-                    <div class="value-title">👥 Individuos e Interacciones sobre Procesos y Herramientas</div>
+            <div class="value-list" role="group" aria-labelledby="valores-manifesto-heading">
+                <h3 id="valores-manifesto-heading" class="sr-only">Lista de valores del Manifiesto Ágil</h3>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">👥</span> Individuos e Interacciones sobre Procesos y Herramientas</div>
                     <div class="value-content">
                         <p style="margin-bottom: 15px; font-style: italic;">Este valor reconoce que el software es desarrollado por personas, no por procesos automatizados. Las herramientas y procesos son importantes, pero deben servir a las personas, no dominarlas.</p>
                         <strong>Comunicación directa:</strong> Preferir conversaciones cara a cara sobre documentos
@@ -932,8 +947,8 @@
                     </div>
                 </div>
 
-                <div class="value-item">
-                    <div class="value-title">💻 Software Funcionando sobre Documentación Exhaustiva</div>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">💻</span> Software Funcionando sobre Documentación Exhaustiva</div>
                     <div class="value-content">
                         <p style="margin-bottom: 15px; font-style: italic;">El valor principal reside en entregar software que realmente funcione y agregue valor al usuario. La documentación debe ser <strong>suficiente y útil</strong>, pero no el objetivo principal.</p>
                         <strong>Documentación justa:</strong> Crear solo la documentación necesaria
@@ -943,8 +958,8 @@
                     </div>
                 </div>
 
-                <div class="value-item">
-                    <div class="value-title">🤝 Colaboración con el Cliente sobre Negociación Contractual</div>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">🤝</span> Colaboración con el Cliente sobre Negociación Contractual</div>
                     <div class="value-content">
                         <p style="margin-bottom: 15px; font-style: italic;">Los contratos rígidos crean adversarios en lugar de colaboradores. La colaboración continua permite adaptar el producto a las necesidades reales que emergen durante el desarrollo.</p>
                         <strong>Cliente como socio:</strong> Involucrar al cliente como parte del equipo
@@ -955,8 +970,8 @@
                     </div>
                 </div>
 
-                <div class="value-item">
-                    <div class="value-title">🔄 Respuesta ante el Cambio sobre Seguir un Plan</div>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">🔄</span> Respuesta ante el Cambio sobre Seguir un Plan</div>
                     <div class="value-content">
                         <p style="margin-bottom: 15px; font-style: italic;">Los mercados, tecnologías y necesidades de negocio cambian constantemente. La capacidad de adaptarse rápidamente es más valiosa que seguir rígidamente un plan obsoleto.</p>
                         <strong>Planificación adaptativa:</strong> Crear planes flexibles que puedan ajustarse
@@ -967,9 +982,9 @@
                 </div>
             </div>
 
-            <div class="synoptic-chart">
+            <div class="synoptic-chart" role="region" aria-labelledby="synoptic-chart-title">
                 <div class="synoptic-title">Comparación: Tradicional vs Ágil</div>
-                <table class="comparison-table">
+                <table class="comparison-table" role="table" aria-label="Comparación entre enfoques tradicionales y ágiles">
                     <thead>
                         <tr>
                             <th>Aspecto</th>
@@ -1003,15 +1018,15 @@
             </div>
         </div>
 
-        <div class="content-section">
-            <h2>🎯 3. Los 12 Principios Ágiles: Análisis Detallado</h2>
+        <div class="content-section" role="main">
+            <h2><span aria-hidden="true">🎯</span> 3. Los 12 Principios Ágiles: Análisis Detallado</h2>
             
             <p>Los 12 principios del Manifiesto Ágil proporcionan guías específicas para implementar los valores ágiles en la práctica diaria. Están organizados en cuatro grupos temáticos.</p>
 
-            <div class="principles-category">
-                <div class="category-title">🎯 Principios Orientados al Cliente (1-4)</div>
+            <div class="principles-category" role="region">
+                <div class="category-title"><span aria-hidden="true">🎯</span> Principios Orientados al Cliente (1-4)</div>
                 <div class="principles-grid">
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">1</div>
                         <div class="principle-text">"Nuestra mayor prioridad es satisfacer al cliente mediante la entrega temprana y continua de software con valor"</div>
                         <div class="principle-details">
@@ -1030,7 +1045,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">2</div>
                         <div class="principle-text">"Aceptamos que los requisitos cambien, incluso en etapas tardías del desarrollo"</div>
                         <div class="principle-details">
@@ -1046,7 +1061,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">3</div>
                         <div class="principle-text">"Entregamos software funcional frecuentemente, entre dos semanas y dos meses, con preferencia al periodo más corto posible"</div>
                         <div class="principle-details">
@@ -1062,7 +1077,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">4</div>
                         <div class="principle-text">"Los responsables de negocio y los desarrolladores trabajamos juntos de forma cotidiana durante todo el proyecto"</div>
                         <div class="principle-details">
@@ -1080,10 +1095,10 @@
                 </div>
             </div>
 
-            <div class="principles-category">
-                <div class="category-title">👥 Principios Orientados al Equipo (5-8)</div>
+            <div class="principles-category" role="region">
+                <div class="category-title"><span aria-hidden="true">👥</span> Principios Orientados al Equipo (5-8)</div>
                 <div class="principles-grid">
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">5</div>
                         <div class="principle-text">"Los proyectos se desarrollan en torno a individuos motivados. Hay que darles el entorno y el apoyo que necesitan, y confiarles la ejecución del trabajo"</div>
                         <div class="principle-details">
@@ -1099,7 +1114,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">6</div>
                         <div class="principle-text">"El método más eficiente y efectivo de comunicar información al equipo de desarrollo y entre sus miembros es la conversación cara a cara"</div>
                         <div class="principle-details">
@@ -1115,7 +1130,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">7</div>
                         <div class="principle-text">"El software funcionando es la medida principal de progreso"</div>
                         <div class="principle-details">
@@ -1131,7 +1146,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">8</div>
                         <div class="principle-text">"Los procesos ágiles promueven el desarrollo sostenible. Los promotores, desarrolladores y usuarios debemos ser capaces de mantener un ritmo constante de forma indefinida"</div>
                         <div class="principle-details">
@@ -1149,10 +1164,10 @@
                 </div>
             </div>
 
-            <div class="principles-category">
-                <div class="category-title">⚙️ Principios Orientados al Producto (9-12)</div>
+            <div class="principles-category" role="region">
+                <div class="category-title"><span aria-hidden="true">⚙️</span> Principios Orientados al Producto (9-12)</div>
                 <div class="principles-grid">
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">9</div>
                         <div class="principle-text">"La atención continua a la excelencia técnica y al buen diseño mejora la agilidad"</div>
                         <div class="principle-details">
@@ -1168,7 +1183,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">10</div>
                         <div class="principle-text">"La simplicidad, o el arte de maximizar la cantidad de trabajo no realizado, es esencial"</div>
                         <div class="principle-details">
@@ -1184,7 +1199,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">11</div>
                         <div class="principle-text">"Las mejores arquitecturas, requisitos y diseños emergen de equipos auto-organizados"</div>
                         <div class="principle-details">
@@ -1200,7 +1215,7 @@
                         </div>
                     </div>
 
-                    <div class="principle-item">
+                    <div class="principle-item" role="article">
                         <div class="principle-number">12</div>
                         <div class="principle-text">"A intervalos regulares el equipo reflexiona sobre cómo ser más efectivo para a continuación ajustar y perfeccionar su comportamiento en consecuencia"</div>
                         <div class="principle-details">
@@ -1218,14 +1233,14 @@
                 </div>
             </div>
 
-            <div class="highlight-box">
-                <h4>🔍 Enfoque Práctico: Extreme Programming (XP)</h4>
+            <div class="highlight-box" role="note" aria-labelledby="highlight-heading">
+                <h4><span aria-hidden="true">🔍</span> Enfoque Práctico: Extreme Programming (XP)</h4>
                 <p>Un ejemplo concreto de aplicación del principio de simplicidad es <strong>Extreme Programming (XP)</strong>, que lleva las buenas prácticas de desarrollo al extremo para crear software de alta calidad.</p>
             </div>
         </div>
 
-        <div class="content-section">
-            <h2>⚡ 4. Extreme Programming (XP): Prácticas Técnicas para la Excelencia</h2>
+        <div class="content-section" role="main">
+            <h2><span aria-hidden="true">⚡</span> 4. Extreme Programming (XP): Prácticas Técnicas para la Excelencia</h2>
             
             <div class="synopsis-box">
                 <div class="synopsis-title">¿Qué es Extreme Programming (XP)?</div>
@@ -1233,7 +1248,7 @@
             </div>
 
             <h3>4.1 Historia y Contexto de XP</h3>
-            <ul class="enhanced-list">
+            <ul class="enhanced-list" role="list">
                 <li><strong>Creador:</strong> Kent Beck en Chrysler Comprehensive Compensation System (C3) en 1996</li>
                 <li><strong>Problema resuelto:</strong> Sistemas complejos con requisitos cambiantes</li>
                 <li><strong>Filosofía:</strong> "Si algo es bueno, llevémoslo al extremo"</li>
@@ -1242,250 +1257,162 @@
 
             <h3>4.2 Los 5 Valores de XP</h3>
             
-            <div class="highlight-box">
-                <h4>💎 Valores Fundamentales de XP</h4>
+            <div class="highlight-box" role="note" aria-labelledby="highlight-heading">
+                <h4><span aria-hidden="true">💎</span> Valores Fundamentales de XP</h4>
                 <p>XP se basa en cinco valores que guían todas las decisiones y prácticas del equipo.</p>
             </div>
 
-            <div class="value-list">
-                <div class="value-item">
-                    <div class="value-title">🗣️ Comunicación</div>
+            <div class="value-list" role="group" aria-labelledby="valores-manifesto-heading">
+                <h3 id="valores-manifesto-heading" class="sr-only">Lista de valores del Manifiesto Ágil</h3>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">🗣️</span> Comunicación</div>
                     <div class="value-content">
-                        <strong>Principio:</strong> Los problemas surgen por falta de comunicación
-                        <strong>Práctica:</strong> Conversaciones continuas entre todos los miembros
-                        <strong>Implementación:</strong> Pair programming, daily meetings, customer collaboration
+                        <p>La comunicación efectiva es fundamental en XP porque la mayoría de los problemas en el desarrollo de software surgen por falta de comunicación clara entre los miembros del equipo. Esta filosofía se traduce en conversaciones continuas entre todos los participantes del proyecto, desde desarrolladores hasta stakeholders.</p>
+                        <p>En la práctica, este valor se materializa a través del <em>pair programming</em> donde dos desarrolladores trabajan juntos constantemente intercambiando ideas, las <em>daily meetings</em> que mantienen a todo el equipo sincronizado, y la <em>customer collaboration</em> que asegura que los requisitos se entiendan correctamente desde el inicio.</p>
                     </div>
                 </div>
 
-                <div class="value-item">
-                    <div class="value-title">🎯 Simplicidad</div>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">🎯</span> Simplicidad</div>
                     <div class="value-content">
-                        <strong>Principio:</strong> Hacer lo más simple que funcione
-                        <strong>Práctica:</strong> YAGNI (You Aren't Gonna Need It)
-                        <strong>Implementación:</strong> Diseño simple, refactoring continuo
+                        <p>El principio de simplicidad en XP se resume en "hacer lo más simple que funcione". Este enfoque combate la tendencia natural de los desarrolladores a crear soluciones complejas y elegantes cuando lo que realmente se necesita es funcionalidad directa y fácil de mantener.</p>
+                        <p>La aplicación práctica de este valor se ve reflejada en el concepto YAGNI (“You Aren't Gonna Need It”), que desalienta implementar funcionalidades hasta que sean realmente necesarias. Esto se traduce en diseños simples que evolucionan mediante <em>refactoring continuo</em>, manteniendo el código limpio y adaptable sin complejidad innecesaria.</p>
                     </div>
                 </div>
 
-                <div class="value-item">
-                    <div class="value-title">📝 Feedback</div>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">📝</span> Feedback</div>
                     <div class="value-content">
-                        <strong>Principio:</strong> El feedback temprano guía mejores decisiones
-                        <strong>Práctica:</strong> Obtener retroalimentación lo más pronto posible
-                        <strong>Implementación:</strong> Tests automatizados, entregas frecuentes, pair programming
+                        <p>El feedback temprano es crucial porque guía mejores decisiones de desarrollo y previene costosos errores que podrían descubrirse demasiado tarde en el proceso. XP busca obtener retroalimentación lo más pronto posible en cada aspecto del desarrollo, desde la corrección del código hasta la validación de requisitos.</p>
+                        <p>Este valor se implementa a través de múltiples mecanismos: los <em>tests automatizados</em> proporcionan feedback inmediato sobre la calidad del código, las <em>entregas frecuentes</em> permiten validación temprana con usuarios reales, y el <em>pair programming</em> ofrece retroalimentación instantánea entre desarrolladores durante la escritura del código.</p>
                     </div>
                 </div>
 
-                <div class="value-item">
-                    <div class="value-title">💪 Coraje</div>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">💪</span> Coraje</div>
                     <div class="value-content">
-                        <strong>Principio:</strong> Hacer lo correcto aunque sea difícil
-                        <strong>Práctica:</strong> Cambios grandes cuando son necesarios
-                        <strong>Implementación:</strong> Refactoring agresivo, desechar código obsoleto
+                        <p>El coraje en XP significa hacer lo correcto aunque sea difícil o impopular. Este valor permite a los equipos tomar decisiones técnicas necesarias sin verse paralezados por el miedo al cambio o a las consecuencias de reescribir código existente cuando es evidente que la solución actual no funciona.</p>
+                        <p>En la práctica, el coraje se manifiesta en la disposición a realizar <em>refactoring agresivo</em> cuando la arquitectura lo requiere, desechar completamente código obsoleto que ya no aporta valor, y emprender cambios grandes en el sistema cuando las circunstancias lo demandan, siempre respaldados por una suite completa de tests automatizados.</p>
                     </div>
                 </div>
 
-                <div class="value-item">
-                    <div class="value-title">🤝 Respeto</div>
+                <div class="value-item" role="article">
+                    <div class="value-title"><span aria-hidden="true">🤝</span> Respeto</div>
                     <div class="value-content">
-                        <strong>Principio:</strong> Todos contribuyen valor al proyecto
-                        <strong>Práctica:</strong> Valorar las contribuciones de cada miembro
-                        <strong>Implementación:</strong> Propiedad colectiva del código, decisiones consensuadas
+                        <p>El respeto reconoce que todos los miembros del equipo contribuyen valor al proyecto, independientemente de su rol o nivel de experiencia. Este valor fundamental crea un ambiente de trabajo colaborativo donde cada persona se siente valorada y empoderada para contribuir con sus mejores ideas y esfuerzos.</p>
+                        <p>El respeto se materializa a través de la <em>propiedad colectiva del código</em>, donde cualquier desarrollador puede modificar cualquier parte del sistema, y las <em>decisiones consensuadas</em> que se toman considerando las perspectivas de todos los miembros del equipo. Esta cultura de respeto mutuo es esencial para que funcionen prácticas como el pair programming y la colaboración continua.</p>
                     </div>
                 </div>
             </div>
 
             <h3>4.3 Las 12 Prácticas de XP (Versión Original)</h3>
             
-            <div class="practice-category">
-                <div class="category-title">🏗️ Prácticas de Planificación y Gestión</div>
+            <div class="practice-category" role="region">
+                <div class="category-title"><span aria-hidden="true">🏗️</span> Prácticas de Planificación y Gestión</div>
                 <div class="practice-grid">
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">1. The Planning Game</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Qué es:</strong> Proceso colaborativo para decidir qué construir
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Participantes:</strong> Developers y Business
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Resultado:</strong> Prioridades claras y estimaciones realistas
-                            </div>
+                            <p><em>The Planning Game</em> es un proceso colaborativo diseñado para decidir qué construir y cuándo, involucrando tanto a desarrolladores como a representantes del negocio en una dinámica estructurada de planificación. Esta práctica reconoce que las mejores decisiones sobre el producto surgen cuando quienes entienden las necesidades del negocio trabajan directamente con quienes comprenden las limitaciones y posibilidades técnicas.</p>
+                            <p>El resultado de esta colaboración son prioridades claras basadas en valor de negocio y estimaciones realistas fundamentadas en el conocimiento técnico del equipo, creando un plan que es tanto ambicioso como alcanzable.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">2. Small Releases</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Frecuencia:</strong> Releases pequeños y frecuentes
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Beneficio:</strong> Feedback temprano y reducción de riesgo
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Duración:</strong> 1-2 meses máximo
-                            </div>
+                            <p>La práctica de <em>Small Releases</em> consiste en entregar releases pequeños y frecuentes, con duraciones máximas de 1-2 meses, contrastando deliberadamente con el enfoque tradicional de grandes entregas espaciadas en el tiempo.</p>
+                            <p>Esta estrategia proporciona feedback temprano y continuo de los usuarios reales, lo que permite ajustar el rumbo del desarrollo antes de invertir demasiado tiempo en direcciones incorrectas. Además, reduce significativamente el riesgo del proyecto al limitar la cantidad de trabajo que podría perderse si surge la necesidad de cambios importantes.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">3. Metaphor (Metáfora)</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Propósito:</strong> Lenguaje común para describir el sistema
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Ejemplo:</strong> "El sistema es como una línea de producción"
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Beneficio:</strong> Facilita comunicación y diseño
-                            </div>
+                            <p>La <em>Metáfora</em> del sistema establece un lenguaje común y compartido que permite a todos los miembros del equipo, técnicos y no técnicos, describir y entender el sistema de manera consistente. Por ejemplo, conceptualizar "el sistema como una línea de producción" ayuda a visualizar cómo fluyen los datos y se procesan las tareas.</p>
+                            <p>Esta práctica facilita enormemente tanto la comunicación entre diferentes roles del proyecto como el proceso de diseño del sistema, al proporcionar un marco mental común que simplifica la discusión de conceptos complejos y la toma de decisiones arquitectónicas.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">4. Simple Design</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Principios:</strong> Pasar tests, no duplicar, expresar intención, mínimas clases
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Enfoque:</strong> Diseño evolutivo vs. diseño anticipado
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Regla:</strong> "Hacer lo más simple que funcione"
-                            </div>
+                            <p>El <em>Simple Design</em> se fundamenta en cuatro principios esenciales: el código debe pasar todos los tests, no debe contener duplicación, debe expresar claramente su intención, y utilizar el mínimo número de clases y métodos necesarios. Esta filosofía abraza el diseño evolutivo por encima del diseño anticipado.</p>
+                            <p>La regla de oro es "hacer lo más simple que funcione", reconociendo que la simplicidad no es simplismo, sino elegancia en la solución. Este enfoque permite que la arquitectura del sistema evolucione orgánicamente en respuesta a las necesidades reales, en lugar de intentar anticipar todos los escenarios futuros posibles.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="practice-category">
-                <div class="category-title">🔧 Prácticas Técnicas</div>
+            <div class="practice-category" role="region">
+                <div class="category-title"><span aria-hidden="true">🔧</span> Prácticas Técnicas</div>
                 <div class="practice-grid">
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">5. Test-Driven Development (TDD)</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Ciclo:</strong> Red → Green → Refactor
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Proceso:</strong> Test que falle → Código mínimo → Refactorizar
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Beneficio:</strong> Diseño limpio y cobertura de tests del 100%
-                            </div>
+                            <p>El <em>Test-Driven Development</em> sigue el ciclo fundamental Red → Green → Refactor, donde primero se escribe un test que falla (Red), luego se implementa el código mínimo necesario para que pase (Green), y finalmente se refactoriza el código manteniendo los tests en verde.</p>
+                            <p>Esta disciplina garantiza un diseño limpio y evolutivo del código, ya que cada funcionalidad nace respaldada por tests automatizados. El resultado es una cobertura de tests cercana al 100% y un código que es inherentemente más modular y mantenible, pues ha sido diseñado desde el principio para ser fácilmente testeable.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">6. Refactoring</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Definición:</strong> Mejorar estructura sin cambiar funcionalidad
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Cuándo:</strong> Continuamente, cada vez que se toca el código
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Protección:</strong> Tests automáticos garantizan integridad
-                            </div>
+                            <p>El <em>Refactoring</em> es la práctica continua de mejorar la estructura interna del código sin cambiar su funcionalidad externa. Esta actividad se realiza constantemente, cada vez que se toca el código, como parte natural del proceso de desarrollo, no como una fase separada del proyecto.</p>
+                            <p>La protección que brindan los tests automáticos es fundamental para esta práctica, ya que garantizan que las mejoras estructurales no introduzcan regresiones funcionales. Esta confianza permite al equipo mejorar boldamente la calidad del código de manera continua, manteniendo la arquitectura limpia y adaptable.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">7. Pair Programming</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Estructura:</strong> Dos desarrolladores, una computadora
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Roles:</strong> Driver (escribe) y Navigator (revisa y guía)
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Beneficios:</strong> Mejor código, conocimiento compartido, menos defectos
-                            </div>
+                            <p>El <em>Pair Programming</em> involucra a dos desarrolladores trabajando juntos en una sola computadora, asumiendo roles complementarios: el Driver se encarga de escribir el código mientras que el Navigator revisa continuamente, guía la dirección del desarrollo y piensa estratégicamente sobre la solución.</p>
+                            <p>Esta práctica produce código de mayor calidad gracias a la revisión continua, facilita el conocimiento compartido entre los miembros del equipo, y reduce significativamente el número de defectos que llegan a producción. Además, acelera la transferencia de conocimiento y mejora las habilidades de programación de ambos participantes.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">8. Collective Ownership</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Principio:</strong> Todo el equipo responsable de todo el código
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Permiso:</strong> Cualquiera puede cambiar cualquier código
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Protección:</strong> Tests comprensivos evitan regresiones
-                            </div>
+                            <p>La <em>Collective Ownership</em> establece que todo el equipo es responsable de todo el código, otorgando permiso y responsabilidad a cualquier miembro para cambiar cualquier parte del sistema cuando sea necesario. Este enfoque elimina los silos de conocimiento y los cuellos de botella que surgen cuando solo una persona puede modificar ciertas áreas del código.</p>
+                            <p>La protección contra regresiones proviene de una suite comprensiva de tests automatizados que brinda la confianza necesaria para que cualquier desarrollador pueda modificar código escrito por otros. Esta práctica fomenta un sentido de responsabilidad compartida y acelera el desarrollo al eliminar dependencias entre personas.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="practice-category">
-                <div class="category-title">🏢 Prácticas Organizacionales</div>
+            <div class="practice-category" role="region">
+                <div class="category-title"><span aria-hidden="true">🏢</span> Prácticas Organizacionales</div>
                 <div class="practice-grid">
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">9. Continuous Integration</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Frecuencia:</strong> Integrar cambios varias veces al día
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Proceso:</strong> Check-in → Build → Run all tests
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Beneficio:</strong> Detección temprana de problemas
-                            </div>
+                            <p>La <em>Continuous Integration</em> requiere que los desarrolladores integren sus cambios al repositorio principal varias veces al día, siguiendo el proceso Check-in → Build → Run all tests de manera automatizada. Esta integración frecuente contrasta con el enfoque tradicional de integrar cambios grandes y complejos al final de largos períodos de desarrollo.</p>
+                            <p>El beneficio principal es la detección temprana de problemas de integración, conflictos de código y regresiones funcionales, cuando aún son baratos y fáciles de solucionar. Esto mantiene el código base siempre en un estado funcional y desplegable.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">10. 40-Hour Week</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Principio:</strong> Trabajar horas sostenibles
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Límite:</strong> Máximo una semana de overtime por mes
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Razón:</strong> El cansancio produce errores y menos creatividad
-                            </div>
+                            <p>La práctica de <em>40-Hour Week</em> establece el principio fundamental de trabajar horas sostenibles, con un límite estricto de máximo una semana de overtime por mes. Esta disciplina reconoce que el cansancio crónico produce errores, reduce la creatividad y disminuye la capacidad de resolución de problemas.</p>
+                            <p>XP entiende que un equipo descansado y motivado produce software de mayor calidad de manera más eficiente que un equipo agotado trabajando largas horas. Esta práctica también mejora la retención del talento y crea un ambiente laboral más saludable y productivo a largo plazo.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">11. On-Site Customer</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Presencia:</strong> Cliente real disponible para el equipo
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Rol:</strong> Define historias, prioridades, responde preguntas
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Beneficio:</strong> Feedback inmediato y decisiones rápidas
-                            </div>
+                            <p>El <em>On-Site Customer</em> requiere la presencia física de un cliente real o representante autorizado del negocio, disponible tiempo completo para el equipo de desarrollo. Esta persona asume la responsabilidad de definir user stories, establecer prioridades y responder preguntas que surgen durante el desarrollo.</p>
+                            <p>La ventaja de esta práctica es el feedback inmediato y la capacidad de tomar decisiones rápidas sin demoras burocráticas. Elimina los malentendidos que surgen de comunicación indirecta y asegura que el desarrollo se mantenga alineado con las necesidades reales del negocio en todo momento.</p>
                         </div>
                     </div>
 
-                    <div class="practice-item">
+                    <div class="practice-item" role="article">
                         <div class="practice-name">12. Coding Standards</div>
                         <div class="practice-details">
-                            <div class="practice-detail">
-                                <strong>Propósito:</strong> Código que parece escrito por una persona
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Elementos:</strong> Naming conventions, estructura, comentarios
-                            </div>
-                            <div class="practice-detail">
-                                <strong>Beneficio:</strong> Facilita la propiedad colectiva del código
-                            </div>
+                            <p>Los <em>Coding Standards</em> establecen convenciones uniformes para que todo el código del proyecto parezca escrito por una sola persona, independientemente de quién lo haya desarrollado. Estos estándares abarcan naming conventions, estructura del código, estilo de comentarios y organización de archivos.</p>
+                            <p>Esta uniformidad facilita enormemente la propiedad colectiva del código, ya que cualquier desarrollador puede leer y modificar código escrito por otros miembros del equipo sin tener que descifrar estilos personales. Los estándares reducen la fricción cognitiva y aceleran tanto el desarrollo como el mantenimiento del software.</p>
                         </div>
                     </div>
                 </div>
@@ -1493,7 +1420,7 @@
 
             <h3>4.4 XP vs. Otras Metodologías Ágiles</h3>
             
-            <table class="comparison-table">
+            <table class="comparison-table" role="table" aria-label="Comparación entre enfoques tradicionales y ágiles">
                 <thead>
                     <tr>
                         <th>Aspecto</th>
@@ -1539,10 +1466,10 @@
             <h3>4.5 Caso Práctico: Implementación de XP</h3>
             
             <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                <h5>🚀 Caso: Startup de Fintech aplicando XP</h5>
+                <h5><span aria-hidden="true">🚀</span> Caso: Startup de Fintech aplicando XP</h5>
                 
                 <h6>Contexto:</h6>
-                <ul class="enhanced-list">
+                <ul class="enhanced-list" role="list">
                     <li>Equipo de 6 desarrolladores</li>
                     <li>Aplicación móvil de pagos</li>
                     <li>Requisitos cambiantes por regulaciones</li>
@@ -1550,7 +1477,7 @@
                 </ul>
 
                 <h6>Implementación de Prácticas XP:</h6>
-                <ul class="enhanced-list">
+                <ul class="enhanced-list" role="list">
                     <li><strong>TDD:</strong> 95% de cobertura de código, cero defectos críticos en producción</li>
                     <li><strong>Pair Programming:</strong> 80% del tiempo de desarrollo, rotación diaria</li>
                     <li><strong>CI/CD:</strong> 15-20 deploys por día a staging, deploys diarios a producción</li>
@@ -1559,19 +1486,19 @@
                 </ul>
 
                 <h6>Resultados Obtenidos:</h6>
-                <ul class="enhanced-list">
-                    <li>✅ 90% reducción en defectos de producción</li>
-                    <li>✅ Time-to-market 60% más rápido</li>
-                    <li>✅ Satisfacción del cliente: 4.8/5</li>
-                    <li>✅ Burnout del equipo prácticamente eliminado</li>
-                    <li>✅ Adaptación rápida a cambios regulatorios</li>
+                <ul class="enhanced-list" role="list">
+                    <li role="listitem"><span aria-hidden="true">✅</span> 90% reducción en defectos de producción</li>
+                    <li role="listitem"><span aria-hidden="true">✅</span> Time-to-market 60% más rápido</li>
+                    <li role="listitem"><span aria-hidden="true">✅</span> Satisfacción del cliente: 4.8/5</li>
+                    <li role="listitem"><span aria-hidden="true">✅</span> Burnout del equipo prácticamente eliminado</li>
+                    <li role="listitem"><span aria-hidden="true">✅</span> Adaptación rápida a cambios regulatorios</li>
                 </ul>
             </div>
 
             <h3>4.6 Adopción Gradual de XP</h3>
             
-            <h5>🎯 Ruta de Implementación Sugerida:</h5>
-            <ol class="implementation-steps">
+            <h5><span aria-hidden="true">🎯</span> Ruta de Implementación Sugerida:</h5>
+            <ol class="implementation-steps" role="list" aria-label="Pasos de implementación">
                 <li><strong>Semana 1-2:</strong> Implementar Test-Driven Development en módulos nuevos</li>
                 <li><strong>Semana 3-4:</strong> Introducir Pair Programming 2-3 horas por día</li>
                 <li><strong>Semana 5-6:</strong> Establecer Continuous Integration básico</li>
@@ -1580,9 +1507,9 @@
                 <li><strong>Semana 11-12:</strong> Establecer collective ownership y coding standards</li>
             </ol>
 
-            <div class="highlight-box">
-                <h4>🔑 Claves para el Éxito en XP</h4>
-                <ul class="enhanced-list">
+            <div class="highlight-box" role="note" aria-labelledby="highlight-heading">
+                <h4><span aria-hidden="true">🔑</span> Claves para el Éxito en XP</h4>
+                <ul class="enhanced-list" role="list">
                     <li><strong>Commitment del equipo:</strong> XP requiere disciplina y práctica constante</li>
                     <li><strong>Coaching técnico:</strong> Necesario para implementar TDD y refactoring efectivamente</li>
                     <li><strong>Herramientas adecuadas:</strong> IDE que soporte refactoring, framework de testing robusto</li>
@@ -1593,7 +1520,29 @@
             <h3>4.7 Diagramas de XP: Ciclos y Prácticas</h3>
             
             <h4>Ciclo de TDD (Test-Driven Development)</h4>
-            <div class="diagram-container">
+            
+            <div class="diagram-description">
+                <p>El ciclo de Test-Driven Development (TDD) es un proceso cíclico continuo que consta de tres fases claramente definidas, cada una con un propósito específico y una duración muy corta (generalmente entre 5 y 10 minutos por ciclo completo):</p>
+                
+                <div class="cycle-phase" style="background: rgba(231, 76, 60, 0.1); padding: 15px; margin: 10px 0; border-left: 4px solid #e74c3c; border-radius: 5px;">
+                    <h5><strong>Fase RED (Rojo)</strong></h5>
+                    <p>El desarrollador escribe un test automatizado que describe el comportamiento deseado de una nueva funcionalidad. Este test debe fallar inicialmente porque la funcionalidad aún no existe. Esta fase fuerza a pensar en el diseño de la API y los requisitos antes de escribir código de implementación.</p>
+                </div>
+                
+                <div class="cycle-phase" style="background: rgba(39, 174, 96, 0.1); padding: 15px; margin: 10px 0; border-left: 4px solid #27ae60; border-radius: 5px;">
+                    <h5><strong>Fase GREEN (Verde)</strong></h5>
+                    <p>Se escribe el código mínimo indispensable para hacer que el test pase. En esta fase no importa la elegancia del código, sino únicamente hacer que funcione. Esto puede incluir hardcodear valores o usar implementaciones muy simples.</p>
+                </div>
+                
+                <div class="cycle-phase" style="background: rgba(52, 152, 219, 0.1); padding: 15px; margin: 10px 0; border-left: 4px solid #3498db; border-radius: 5px;">
+                    <h5><strong>Fase REFACTOR (Azul)</strong></h5>
+                    <p>Con el test en verde, se mejora la estructura y calidad del código sin cambiar su funcionalidad. Se eliminan duplicaciones, se mejoran nombres, se optimiza el diseño. Los tests garantizan que los cambios no rompan la funcionalidad.</p>
+                </div>
+                
+                <p><strong>Características del ciclo:</strong> Después de la fase de refactoring, el ciclo se reinicia con un nuevo test para la siguiente funcionalidad. La repetición rápida y constante de este ciclo asegura que el código mantenga alta calidad, cobertura completa de tests y diseño evolutivo.</p>
+            </div>
+            
+            <div class="diagram-container" aria-hidden="true">
                 <div class="mermaid">
 %%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
 graph LR
@@ -1608,7 +1557,51 @@ graph LR
             </div>
 
             <h4>Flujo de Desarrollo en XP</h4>
-            <div class="diagram-container">
+            
+            <div class="diagram-description">
+                <p>El flujo de desarrollo en Extreme Programming es un proceso cíclico integrado donde cada práctica se conecta naturalmente con las siguientes, creando un sistema de desarrollo coherente y autosostenido:</p>
+                
+                <div class="flow-sequence">
+                    <div class="flow-step" style="background: rgba(155, 89, 182, 0.1); padding: 12px; margin: 8px 0; border-left: 4px solid #9b59b6; border-radius: 5px;">
+                        <h6><strong>1. Planning Game</strong> → Define qué construir</h6>
+                        <p>El proceso inicia con la colaboración entre negocio y desarrollo para priorizar historias de usuario y planificar la siguiente iteración.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="background: rgba(230, 126, 34, 0.1); padding: 12px; margin: 8px 0; border-left: 4px solid #e67e22; border-radius: 5px;">
+                        <h6><strong>2. Pair Programming</strong> → Desarrollo colaborativo</h6>
+                        <p>Dos desarrolladores trabajan juntos implementando las historias seleccionadas, compartiendo conocimiento y mejorando la calidad.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="background: rgba(231, 76, 60, 0.1); padding: 12px; margin: 8px 0; border-left: 4px solid #e74c3c; border-radius: 5px;">
+                        <h6><strong>3. Test-Driven Development</strong> → Tests primero</h6>
+                        <p>Durante el desarrollo, se aplica TDD para asegurar calidad y diseño evolutivo del código.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="background: rgba(243, 156, 18, 0.1); padding: 12px; margin: 8px 0; border-left: 4px solid #f39c12; border-radius: 5px;">
+                        <h6><strong>4. Refactoring</strong> → Mejora continua</h6>
+                        <p>El código se mejora constantemente manteniendo los tests en verde, evolucionando el diseño.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="background: rgba(52, 152, 219, 0.1); padding: 12px; margin: 8px 0; border-left: 4px solid #3498db; border-radius: 5px;">
+                        <h6><strong>5. Continuous Integration</strong> → Integración frecuente</h6>
+                        <p>Los cambios se integran varias veces al día, manteniendo el sistema siempre funcional.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="background: rgba(39, 174, 96, 0.1); padding: 12px; margin: 8px 0; border-left: 4px solid #27ae60; border-radius: 5px;">
+                        <h6><strong>6. Small Release</strong> → Entrega frecuente</h6>
+                        <p>Las funcionalidades completadas se entregan en releases pequeños y frecuentes a los usuarios.</p>
+                    </div>
+                    
+                    <div class="flow-step" style="background: rgba(22, 160, 133, 0.1); padding: 12px; margin: 8px 0; border-left: 4px solid #16a085; border-radius: 5px;">
+                        <h6><strong>7. Feedback</strong> → Retroalimentación</h6>
+                        <p>Se recopila feedback tanto de los tests automatizados como de clientes y usuarios reales, informando la siguiente iteración del Planning Game.</p>
+                    </div>
+                </div>
+                
+                <p><strong>Naturaleza cíclica:</strong> Este flujo se repite continuamente, donde el feedback obtenido informa las decisiones del siguiente Planning Game, creando un ciclo de mejora continua y adaptación constante a las necesidades cambiantes.</p>
+            </div>
+            
+            <div class="diagram-container" aria-hidden="true">
                 <div class="mermaid">
 %%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
 graph TD
@@ -1639,90 +1632,113 @@ graph TD
             </div>
         </div>
 
-        <div class="content-section">
-            <h2>🔄 5. Transformación Cultural: Cambio de Paradigma Organizacional</h2>
+        <div class="content-section" role="main" aria-labelledby="transformacion-cultural-heading">
+            <h2 id="transformacion-cultural-heading"><span aria-hidden="true">🔄</span> 5. Transformación Cultural: Cambio de Paradigma Organizacional</h2>
             
-            <h3>5.1 De Metodologías Tradicionales a Ágiles</h3>
-            <p>La adopción de metodologías ágiles no es solo un cambio de proceso, sino una transformación cultural fundamental que afecta toda la organización.</p>
-
-            <h3>5.2 Desarrollo Iterativo e Incremental</h3>
-            <p>Las metodologías ágiles se basan en dos conceptos fundamentales:</p>
-            
-            <ul class="enhanced-list">
-                <li><strong>Iterativo:</strong> Repetir ciclos de desarrollo para refinar el producto</li>
-                <li><strong>Incremental:</strong> Agregar funcionalidad en cada ciclo, entregando valor continuo</li>
-            </ul>
-
-            <h3>5.3 Cambio de Mindset Organizacional</h3>
-            
-            <div class="synoptic-chart">
-                <div class="synoptic-title">Transformación del Mindset</div>
-                <div class="synoptic-grid">
-                    <div class="synoptic-item">
-                        <h4>🏗️ Comando y Control</h4>
-                        <p>Jerarquía, predicción, conformidad, documentación</p>
-                    </div>
-                    <div class="synoptic-item">
-                        <h4>🚀 Colaborativo</h4>
-                        <p>Autonomía, adaptación, creatividad, comunicación</p>
-                    </div>
-                    <div class="synoptic-item">
-                        <h4>👥 Liderazgo Servicial</h4>
-                        <p>Facilitación, remoción de obstáculos, desarrollo de personas</p>
-                    </div>
-                    <div class="synoptic-item">
-                        <h4>📊 Métricas de Valor</h4>
-                        <p>De métricas de actividad a métricas de resultados y valor</p>
-                    </div>
+            <nav role="navigation" aria-labelledby="seccion5-nav">
+                <h3 id="seccion5-nav" class="sr-only">Navegación de la sección 5: Transformación Cultural</h3>
+                <div class="sr-only">
+                    <p>Esta sección contiene 5 subsecciones principales:</p>
+                    <ul>
+                        <li><a href="#metodologias-tradicionales-heading">5.1 De Metodologías Tradicionales a Ágiles</a></li>
+                        <li><a href="#paradigma-organizacional-heading">5.2 La Transformación del Paradigma Organizacional</a></li>
+                        <li><a href="#valores-culturales-heading">5.3 Valores Culturales y Principios Éticos</a></li>
+                        <li><a href="#gestion-cambio-heading">5.4 Reconceptualización de la Gestión del Cambio</a></li>
+                        <li><a href="#marco-metodologico-heading">5.5 Marco Metodológico para la Implementación</a></li>
+                    </ul>
                 </div>
-            </div>
-
-            <h3>5.4 Valores Culturales en las Metodologías Ágiles</h3>
-            <p>Las metodologías ágiles promueven valores específicos:</p>
+            </nav>
             
-            <ul class="enhanced-list">
-                <li><strong>Honestidad:</strong> Transparencia en comunicación y reporte de estado</li>
-                <li><strong>Coraje:</strong> Valentía para tomar decisiones difíciles y cambiar</li>
-                <li><strong>Avance colectivo:</strong> Éxito del equipo por encima del individual</li>
-                <li><strong>Respeto:</strong> Valorar las contribuciones y perspectivas de todos</li>
-            </ul>
-
-            <h3>5.5 Gestión del Cambio y Desvíos</h3>
-            <p>En las metodologías ágiles, los desvíos no son problemas sino oportunidades:</p>
+            <!-- Navigation summary for screen readers -->
+            <nav aria-label="Navegación de subsecciones del punto 5" class="sr-only">
+                <p>Esta sección contiene 5 subsecciones sobre transformación ágil:</p>
+                <ul>
+                    <li><a href="#metodologias-tradicionales-heading">5.1 De Metodologías Tradicionales a Ágiles</a></li>
+                    <li><a href="#paradigma-organizacional-heading">5.2 La Transformación del Paradigma Organizacional</a></li>
+                    <li><a href="#valores-culturales-heading">5.3 Valores Culturales y Principios Éticos</a></li>
+                    <li><a href="#gestion-cambio-heading">5.4 Reconceptualización de la Gestión del Cambio</a></li>
+                    <li><a href="#marco-metodologico-heading">5.5 Marco Metodológico para la Implementación</a></li>
+                </ul>
+            </nav>
             
-            <ul class="enhanced-list">
-                <li><strong>Desvío como normalidad:</strong> Se espera y planifica para el cambio</li>
-                <li><strong>Gestión efectiva:</strong> Procesos para manejar cambios rápidamente</li>
-                <li><strong>Ambiente colaborativo:</strong> Trabajo en equipo para resolver desafíos</li>
-                <li><strong>Comunicación abierta:</strong> Informar cambios de manera transparente</li>
-            </ul>
-
-            <h3>5.6 Implementación de la Transformación</h3>
+            <section role="region" aria-labelledby="metodologias-tradicionales-heading" aria-describedby="metodologias-desc">
+                <h3 id="metodologias-tradicionales-heading">5.1 De Metodologías Tradicionales a Ágiles: Una Transformación Paradigmática</h3>
+                <p id="metodologias-desc" class="sr-only">Esta subsección explora el cambio fundamental desde modelos tradicionales hacia metodologías ágiles, enfocando en desarrollo iterativo e incremental.</p>
             
-            <h4>Fases de Adopción Ágil:</h4>
-            <ol class="implementation-steps">
-                <li><strong>Concienciación:</strong> Entender la necesidad de cambio</li>
-                <li><strong>Educación:</strong> Capacitar en principios y valores ágiles</li>
-                <li><strong>Experimentación:</strong> Pilotos controlados en equipos pequeños</li>
-                <li><strong>Escalamiento:</strong> Expansión gradual a toda la organización</li>
-                <li><strong>Institucionalización:</strong> Incorporación en la cultura organizacional</li>
-            </ol>
+            <p>La adopción de metodologías ágiles trasciende el ámbito meramente procesal para constituirse en una transformación cultural fundamental que permea todos los niveles organizacionales. Esta transición implica un cambio profundo en la mentalidad colectiva, desde estructuras jerárquicas rígidas hacia ecosistemas colaborativos y adaptativos que priorizan la respuesta al cambio por encima de la adherencia ciega a planes predeterminados.</p>
+            
+            <p>El desarrollo iterativo e incremental constituye el fundamento metodológico sobre el cual se erige esta nueva filosofía organizacional. Mientras que el aspecto <em>iterativo</em> se refiere a la repetición de actividades de desarrollo que permiten el refinamiento continuo del producto, el componente <em>incremental</em> enfatiza la adición progresiva de funcionalidades que entregan valor tangible en cada ciclo. Esta dualidad metodológica facilita la adaptación constante a requisitos cambiantes mientras mantiene un flujo continuo de valor hacia el cliente final.</p>
+            </section>
 
-            <h4>Factores Críticos de Éxito:</h4>
-            <ul class="enhanced-list">
-                <li><strong>Sponsorship ejecutivo:</strong> Apoyo visible de la alta dirección</li>
-                <li><strong>Comunicación clara:</strong> Explicar el "por qué" del cambio</li>
-                <li><strong>Entrenamiento continuo:</strong> Capacitación sostenida en el tiempo</li>
-                <li><strong>Paciencia:</strong> Reconocer que el cambio cultural toma tiempo</li>
-            </ul>
+            <section role="region" aria-labelledby="paradigma-organizacional-heading" aria-describedby="paradigma-desc">
+                <h3 id="paradigma-organizacional-heading">5.2 La Transformación del Paradigma Organizacional</h3>
+                <p id="paradigma-desc" class="sr-only">Analiza la transición desde modelos de comando y control hacia estructuras colaborativas y liderazgo servicial.</p>
+            
+            <p>La transición hacia metodologías ágiles requiere una reconceptualización fundamental de los modelos organizacionales tradicionales. El paradigma de <em>comando y control</em>, caracterizado por estructuras jerárquicas rígidas, enfoque predictivo y conformidad normativa, debe evolucionar hacia un modelo colaborativo que privilegie la autonomía, la adaptación y la creatividad como motores del éxito organizacional.</p>
+            
+            <p>Esta transformación se manifiesta particularmente en la evolución del liderazgo, que transita desde roles de supervisión directiva hacia funciones de liderazgo servicial. En este nuevo paradigma, los líderes asumen responsabilidades de facilitación, remoción proactiva de obstáculos y desarrollo integral de las capacidades del equipo. Simultaneamente, los sistemas de medición organizacional experimentan una reorientación significativa, desplazándose de métricas centradas en actividades hacia indicadores que reflejen resultados tangibles y generación de valor real para el cliente.</p>
+            </section>
+
+            <section role="region" aria-labelledby="valores-culturales-heading" aria-describedby="valores-desc">
+                <h3 id="valores-culturales-heading">5.3 Valores Culturales y Principios Éticos en el Contexto Ágil</h3>
+                <p id="valores-desc" class="sr-only">Examina los valores fundamentales: honestidad, coraje, avance colectivo y respeto como pilares de la cultura ágil.</p>
+            
+            <p>El ecosistema cultural de las metodologías ágiles se fundamenta en un conjunto de valores éticos que trascienden las prácticas operativas para convertirse en principios rectores de la interacción humana. La <em>honestidad</em> se manifiesta como transparencia radical en la comunicación y el reporte de estado, eliminando las barreras informacionales que tradicionalmente obstaculizan la toma de decisiones efectiva.</p>
+            
+            <p>El <em>coraje</em> organizacional se evidencia en la valentía colectiva para enfrentar decisiones difíciles y emprender cambios necesarios, aun cuando estos desafíen paradigmas establecidos. Este valor se complementa con el principio de <em>avance colectivo</em>, que privilegia el éxito del equipo por encima de logros individuales, fomentando una cultura de colaboración genuina. Finalmente, el <em>respeto</em> mutuo se materializa en el reconocimiento y valoración de las contribuciones diversas y perspectivas heterogéneas que cada miembro aporta al proyecto común.</p>
+            </section>
+
+            <section role="region" aria-labelledby="gestion-cambio-heading" aria-describedby="gestion-desc">
+                <h3 id="gestion-cambio-heading">5.4 Reconceptualización de la Gestión del Cambio</h3>
+                <p id="gestion-desc" class="sr-only">Redefine el cambio como oportunidad organizacional y establece marcos para la gestión adaptativa.</p>
+            
+            <p>Las metodologías ágiles operan bajo una premisa fundamental que redefine la naturaleza del cambio organizacional: los desvíos y modificaciones no constituyen anomalías problemáticas, sino oportunidades intrínsecas para la optimización y el aprendizaje organizacional. Esta perspectiva transforma el cambio de una eventualidad indeseable en un componente esperado y planificado del proceso de desarrollo.</p>
+            
+            <p>La gestión efectiva de estas variaciones requiere el establecimiento de procesos organizacionales que permitan respuestas rápidas y adaptativas, sustentados por un ambiente colaborativo donde los desafíos se abordan mediante el trabajo colectivo del equipo. La comunicación transparente se convierte en el mecanismo fundamental para la diseminación oportuna de información sobre cambios, garantizando que todos los stakeholders mantengan una comprensión actualizada del estado del proyecto y las modificaciones implementadas.</p>
+            </section>
+
+            <section role="region" aria-labelledby="marco-metodologico-heading" aria-describedby="marco-desc">
+                <h3 id="marco-metodologico-heading">5.5 Marco Metodológico para la Implementación de la Transformación Ágil</h3>
+                <p id="marco-desc" class="sr-only">Describe el proceso sistemático de transformación desde concienciación hasta institucionalización, incluyendo factores críticos de éxito.</p>
+            
+            <p>La implementación exitosa de metodologías ágiles requiere un enfoque sistemático que reconozca la complejidad inherente del cambio organizacional. El proceso de transformación se desarrolla a través de una progresión evolutiva que inicia con la <em>concienciación</em> organizacional sobre la necesidad imperiosa de cambio, seguida por una fase intensiva de <em>educación</em> que capacita a los miembros organizacionales en los principios y valores ágiles fundamentales.</p>
+            
+            <p>La fase de <em>experimentación</em> constituye un período crítico donde se implementan pilotos controlados en equipos reducidos, permitiendo la validación de conceptos y la identificación temprana de desafíos potenciales. Esta experimentación precede al <em>escalamiento</em> gradual de las prácticas ágiles a través de toda la estructura organizacional, culminando en la <em>institucionalización</em> definitiva de estos principios como componentes integrales de la cultura organizacional.</p>
+            
+            <p>El éxito de esta transformación depende críticamente de varios factores convergentes. El <em>sponsorship ejecutivo</em> visible y sostenido de la alta dirección proporciona la legitimidad y los recursos necesarios para la implementación efectiva. La <em>comunicación estratégica</em> que articula claramente la fundamentación del cambio genera comprensión y aceptación organizacional. El <em>entrenamiento continuo</em> asegura la capacitación sostenida necesaria para la adopción efectiva de nuevas prácticas. Finalmente, la <em>paciencia organizacional</em> reconoce que la transformación cultural genuina requiere tiempo considerable para su consolidación efectiva.</p>
+            
+            <p>Esta metodología de implementación reconoce que la adopción de prácticas ágiles trasciende la mera aplicación de técnicas para constituirse en una evolución fundamental de la identidad organizacional, donde los valores, comportamientos y estructuras operativas se realinean coherentemente con los principios de agilidad, colaboración y adaptación continua.</p>
+            </section>
         </div>
 
-        <div class="content-section">
-            <h2>📊 Diagramas Conceptuales y Visualizaciones</h2>
+        <div class="content-section" role="main">
+            <h2><span aria-hidden="true">📊</span> Diagramas Conceptuales y Visualizaciones</h2>
             
             <h3>Timeline: Evolución Histórica del Agilismo</h3>
-            <div class="diagram-container">
-                <div class="mermaid">
+            <div class="diagram-container" role="img" aria-labelledby="timeline-title" aria-describedby="timeline-desc">
+                <div id="timeline-title" class="sr-only">Línea de tiempo de la evolución de metodologías ágiles</div>
+                <div id="timeline-desc" class="sr-only">
+                    Esta línea de tiempo cronológica abarca desde 1990 hasta 2025, organizando la evolución 
+                    de las metodologías ágiles en cinco períodos históricos clave:
+                    
+                    Primera etapa - Crisis del Software (1990-1999): Período caracterizado por metodologías 
+                    rígidas y alto índice de proyectos fallidos que evidenció la necesidad de nuevos enfoques.
+                    
+                    Segunda etapa - Precursores Ágiles (1995-2000): Emergencia de marcos pioneros incluyendo 
+                    Scrum desarrollado por Sutherland en 1995, Extreme Programming desde 1996, y Crystal 
+                    Methods a partir de 1998.
+                    
+                    Tercera etapa - Nacimiento Formal (2001-2002): Momento histórico culminante con la reunión 
+                    de Snowbird del 11 al 13 de febrero de 2001 y la publicación oficial del Manifiesto Ágil.
+                    
+                    Cuarta etapa - Adopción y Expansión (2002-2012): Período de refinamiento de Scrum, adopción 
+                    empresarial generalizada y establecimiento de programas de certificaciones ágiles.
+                    
+                    Quinta etapa - Escalamiento (2011-2025): Era contemporánea marcada por el desarrollo del 
+                    SAFe Framework desde 2011, integración con DevOps desde 2013, y evolución hacia la 
+                    agilidad organizacional desde 2015.
+                </div>
+                <div class="mermaid" aria-hidden="true">
 %%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
 gantt
     title Evolución de las Metodologías Ágiles (1990-2025)
@@ -1755,8 +1771,30 @@ gantt
             </div>
 
             <h3>Mindmap: Los 12 Principios Organizados por Categorías</h3>
-            <div class="diagram-container">
-                <div class="mermaid">
+            <div class="diagram-container" role="img" aria-labelledby="mindmap-title" aria-describedby="mindmap-desc">
+                <div id="mindmap-title" class="sr-only">Mapa mental de los 12 principios ágiles</div>
+                <div id="mindmap-desc" class="sr-only">
+                    Mapa mental jerárquico organizando los 12 principios del Manifiesto Ágil en tres categorías estratégicas:
+                    
+                    Categoría 1 - Orientados al Cliente (Principios 1-4):
+                    Principio 1 "Satisfacción del cliente" enfocado en entrega temprana, continua y de software con valor.
+                    Principio 2 "Cambios bienvenidos" promoviendo flexibilidad como ventaja competitiva en etapas tardías.
+                    Principio 3 "Entregas frecuentes" estableciendo ciclos de 2 semanas a 2 meses con software funcional.
+                    Principio 4 "Colaboración diaria" integrando negocio y desarrollo mediante comunicación continua.
+                    
+                    Categoría 2 - Orientados al Equipo (Principios 5-8):
+                    Principio 5 "Individuos motivados" proporcionando entorno adecuado, apoyo necesario y confianza.
+                    Principio 6 "Conversación cara a cara" como método más eficiente para comunicación efectiva.
+                    Principio 7 "Software funcionando" como medida principal de progreso y valor tangible.
+                    Principio 8 "Desarrollo sostenible" manteniendo ritmo constante y equilibrio indefinidamente.
+                    
+                    Categoría 3 - Orientados al Producto (Principios 9-12):
+                    Principio 9 "Excelencia técnica" través de buen diseño para mejorar agilidad y calidad continua.
+                    Principio 10 "Simplicidad" como arte de maximizar trabajo no realizado, enfocándose en lo esencial.
+                    Principio 11 "Equipos auto-organizados" generando mejores arquitecturas mediante emergencia y autonomía.
+                    Principio 12 "Reflexión regular" para ajustar comportamiento en intervalos y lograr mejora continua.
+                </div>
+                <div class="mermaid" aria-hidden="true">
 %%{init: {'theme': 'default', 'securityLevel': 'loose'}}%%
 mindmap
   root((12 Principios Ágiles))
@@ -1815,8 +1853,9 @@ mindmap
             </div>
         </div>
 
-        <div class="quiz-container">
-            <h2>🧠 Quiz Interactivo: Fundamentos de Metodologías Ágiles</h2>
+        <div class="quiz-container" role="region" aria-labelledby="quiz-heading">
+            <div id="quiz-heading" style="display: none;">Quiz interactivo sobre fundamentos de metodologías ágiles</div>
+            <h2><span aria-hidden="true">🧠</span> Quiz Interactivo: Fundamentos de Metodologías Ágiles</h2>
             <div id="quiz"></div>
             <button onclick="submitQuiz()" style="background: #3498db; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 16px; cursor: pointer; margin-top: 20px;">Enviar Respuestas</button>
             <div id="results"></div>

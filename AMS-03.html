@@ -600,47 +600,111 @@
             color: var(--secondary-color);
             margin-bottom: 15px;
         }
+        
+        /* Accessibility improvements */
+        .skip-to-main {
+            position: absolute;
+            left: -10000px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 0 0 5px 0;
+            font-weight: bold;
+            z-index: 10000;
+        }
+        
+        .skip-to-main:focus {
+            position: fixed;
+            left: 10px;
+            top: 10px;
+            width: auto;
+            height: auto;
+            overflow: visible;
+        }
+        
+        /* Screen reader only text */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* Diagram description */
+        .diagram-description {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-style: italic;
+            color: var(--text-secondary);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        /* Focus indicators for keyboard navigation */
+        .quiz-container .option:focus,
+        .btn:focus,
+        .theme-toggle:focus {
+            outline: 3px solid var(--secondary-color);
+            outline-offset: 2px;
+        }
     </style>
 </head>
 <body>
+    <!-- Skip to main content link for screen readers -->
+    <a href="#main-content" class="skip-to-main" aria-label="Saltar al contenido principal" aria-hidden="true">Saltar al contenido principal</a>
+    
     <!-- Botón de cambio de tema -->
-    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema">
-        <span id="theme-icon">🌓</span>
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Cambiar tema" type="button" aria-hidden="true">
+        <span id="theme-icon" aria-hidden="true">🌓</span>
     </button>
 
     <div class="container">
+        <!-- Contenido principal -->
+        <main id="main-content">
+        
         <!-- Header del curso -->
         <header class="course-header">
-            <h1 class="course-title">🔄 Clase 3: Desarrollo Iterativo e Incremental</h1>
+            <h1 class="course-title"><span aria-hidden="true">🔄</span> Clase 3: Desarrollo Iterativo e Incremental</h1>
             <p class="course-subtitle">Fundamentos conceptuales, timeboxing y gestión de proyectos ágiles</p>
             
-            <div class="course-meta">
+            <div class="course-meta" aria-label="Información del curso">
                 <div class="meta-card">
-                    <h4>📚 Curso</h4>
+                    <h4><span aria-hidden="true">📚</span> Curso</h4>
                     <p>Análisis y Metodología de Sistemas</p>
                 </div>
                 <div class="meta-card">
-                    <h4>📊 Progreso</h4>
-                    <p>Clase 3 de 16</p>
+                    <h4><span aria-hidden="true">📊</span> Progreso</h4>
+                    <p>Esta es la clase número 3 de un total de 16 clases</p>
                 </div>
                 <div class="meta-card">
-                    <h4>⏱️ Duración</h4>
-                    <p>90 minutos</p>
+                    <h4><span aria-hidden="true">⏱️</span> Duración</h4>
+                    <p>La duración estimada es de 90 minutos</p>
                 </div>
                 <div class="meta-card">
-                    <h4>🎯 Nivel</h4>
+                    <h4><span aria-hidden="true">🎯</span> Nivel</h4>
                     <p>Intermedio</p>
                 </div>
             </div>
             
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: 18.75%"></div>
+            <div class="progress-bar" role="progressbar" aria-valuenow="18.75" aria-valuemin="0" aria-valuemax="100" aria-label="Progreso del curso: 18 punto 75 por ciento completado">
+                <div class="progress-fill" style="width: 18.75%" aria-hidden="true"></div>
             </div>
         </header>
 
         <!-- Objetivos de aprendizaje -->
-        <section class="objectives">
-            <h2>🎯 Objetivos de Aprendizaje</h2>
+        <section class="objectives" aria-labelledby="objectives-heading">
+            <h2 id="objectives-heading"><span aria-hidden="true">🎯</span> Objetivos de Aprendizaje</h2>
             <ul>
                 <li>Comprender los principios fundamentales del desarrollo iterativo e incremental</li>
                 <li>Analizar las ventajas y desafíos de este enfoque metodológico</li>
@@ -649,20 +713,20 @@
                 <li>Evaluar métricas y control de progreso en proyectos iterativos</li>
             </ul>
         </section>
-
+        
         <!-- Sección 1: Fundamentos Conceptuales -->
-        <section class="content-section">
-            <h2 class="section-title">📚 1. Fundamentos Conceptuales</h2>
+        <section class="content-section" aria-labelledby="section-1-heading">
+            <h2 id="section-1-heading" class="section-title"><span aria-hidden="true">📚</span> 1. Fundamentos Conceptuales</h2>
             
-            <div class="highlight-box">
-                <h3>🔑 Concepto Central</h3>
+            <div class="highlight-box" role="region" aria-labelledby="concept-central-heading">
+                <h3 id="concept-central-heading"><span aria-hidden="true">🔑</span> Concepto Central</h3>
                 <p>El desarrollo iterativo e incremental es un enfoque que organiza el trabajo en ciclos cortos y repetitivos (iteraciones), donde cada ciclo produce un incremento funcional del sistema. Este método permite la adaptación continua, la gestión temprana de riesgos y la entrega de valor constante a los stakeholders.</p>
             </div>
 
-            <h3>1.1 Diferenciación: Iterativo vs Incremental</h3>
+            <h3 id="diferenciacion-heading">1.1 Diferenciación: Iterativo vs Incremental</h3>
             
-            <div class="concept-box">
-                <h4>🔄 Desarrollo Iterativo</h4>
+            <div class="concept-box" role="region" aria-labelledby="iterativo-heading">
+                <h4 id="iterativo-heading"><span aria-hidden="true">🔄</span> Desarrollo Iterativo</h4>
                 <p><strong>Definición:</strong> Se refiere a la repetición cíclica de actividades de desarrollo (análisis, diseño, implementación, pruebas) en períodos cortos de tiempo.</p>
                 <p><strong>Características:</strong></p>
                 <ul>
@@ -673,8 +737,8 @@
                 </ul>
             </div>
 
-            <div class="concept-box">
-                <h4>📈 Desarrollo Incremental</h4>
+            <div class="concept-box" role="region" aria-labelledby="incremental-heading">
+                <h4 id="incremental-heading"><span aria-hidden="true">📈</span> Desarrollo Incremental</h4>
                 <p><strong>Definición:</strong> Se refiere a la construcción del sistema mediante la adición sucesiva de componentes funcionales, donde cada incremento agrega valor al producto.</p>
                 <p><strong>Características:</strong></p>
                 <ul>
@@ -685,82 +749,85 @@
                 </ul>
             </div>
 
-            <div class="synoptic-chart">
-                <div class="central-concept">
+            <div class="synoptic-chart" role="img" aria-labelledby="synoptic-heading" aria-describedby="synoptic-description">
+                <h4 id="synoptic-heading" class="central-concept">
                     DESARROLLO ITERATIVO E INCREMENTAL
-                </div>
+                </h4>
+                <p id="synoptic-description" class="sr-only">Diagrama sinóptico que muestra los cuatro aspectos principales del desarrollo iterativo e incremental: principios, beneficios, técnicas y métricas.</p>
                 <div class="synoptic-branches">
                     <div class="synoptic-branch">
-                        <h4>🎯 PRINCIPIOS</h4>
+                        <h5><span aria-hidden="true">🎯</span> PRINCIPIOS</h5>
                         <ul style="text-align: left; list-style: none; padding: 0;">
-                            <li>• Ciclos cortos</li>
-                            <li>• Retroalimentación temprana</li>
-                            <li>• Adaptación continua</li>
-                            <li>• Entrega de valor</li>
+                            <li><span aria-hidden="true">•</span> Ciclos cortos</li>
+                            <li><span aria-hidden="true">•</span> Retroalimentación temprana</li>
+                            <li><span aria-hidden="true">•</span> Adaptación continua</li>
+                            <li><span aria-hidden="true">•</span> Entrega de valor</li>
                         </ul>
                     </div>
                     <div class="synoptic-branch">
-                        <h4>📊 BENEFICIOS</h4>
+                        <h5><span aria-hidden="true">📊</span> BENEFICIOS</h5>
                         <ul style="text-align: left; list-style: none; padding: 0;">
-                            <li>• Gestión de riesgos</li>
-                            <li>• Flexibilidad</li>
-                            <li>• Calidad mejorada</li>
-                            <li>• Satisfacción del cliente</li>
+                            <li><span aria-hidden="true">•</span> Gestión de riesgos</li>
+                            <li><span aria-hidden="true">•</span> Flexibilidad</li>
+                            <li><span aria-hidden="true">•</span> Calidad mejorada</li>
+                            <li><span aria-hidden="true">•</span> Satisfacción del cliente</li>
                         </ul>
                     </div>
                     <div class="synoptic-branch">
-                        <h4>🛠️ TÉCNICAS</h4>
+                        <h5><span aria-hidden="true">🛠️</span> TÉCNICAS</h5>
                         <ul style="text-align: left; list-style: none; padding: 0;">
-                            <li>• Timeboxing</li>
-                            <li>• Priorización</li>
-                            <li>• Retrospectivas</li>
-                            <li>• Integración continua</li>
+                            <li><span aria-hidden="true">•</span> <abbr title="Desarrollo en cajas de tiempo">Timeboxing</abbr></li>
+                            <li><span aria-hidden="true">•</span> Priorización</li>
+                            <li><span aria-hidden="true">•</span> Retrospectivas</li>
+                            <li><span aria-hidden="true">•</span> Integración continua</li>
                         </ul>
                     </div>
                     <div class="synoptic-branch">
-                        <h4>📈 MÉTRICAS</h4>
+                        <h5><span aria-hidden="true">📈</span> MÉTRICAS</h5>
                         <ul style="text-align: left; list-style: none; padding: 0;">
-                            <li>• Velocity</li>
-                            <li>• Burndown</li>
-                            <li>• Burnup</li>
-                            <li>• Cumulative flow</li>
+                            <li><span aria-hidden="true">•</span> <abbr title="Velocidad del equipo">Velocity</abbr></li>
+                            <li><span aria-hidden="true">•</span> <abbr title="Gráfico de trabajo restante">Burndown</abbr></li>
+                            <li><span aria-hidden="true">•</span> <abbr title="Gráfico de trabajo completado">Burnup</abbr></li>
+                            <li><span aria-hidden="true">•</span> <abbr title="Flujo acumulativo">Cumulative flow</abbr></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </section>
 
+        </section>
+        
         <!-- Sección 2: Principios y Prácticas -->
-        <section class="content-section">
-            <h2 class="section-title">⚙️ 2. Principios y Prácticas Fundamentales</h2>
+        <section class="content-section" aria-labelledby="section-2-heading">
+            <h2 id="section-2-heading" class="section-title"><span aria-hidden="true">⚙️</span> 2. Principios y Prácticas Fundamentales</h2>
             
-            <h3>2.1 Timeboxing y Planificación por Iteraciones</h3>
-            <p>El timeboxing es una técnica fundamental que establece períodos fijos de tiempo para las iteraciones, típicamente de 1 a 4 semanas. Esta práctica genera múltiples beneficios organizacionales y psicológicos:</p>
+            <h3 id="timeboxing-heading">2.1 Timeboxing y Planificación por Iteraciones</h3>
+            <p>El <strong>timeboxing</strong> es una técnica fundamental que establece períodos fijos de tiempo para las iteraciones. Típicamente, estas iteraciones duran de 1 a 4 semanas. Esta práctica genera múltiples beneficios organizacionales y psicológicos:</p>
             
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <h4>⏰ Ley de Parkinson</h4>
-                    <p>Las fechas fijas evitan que el trabajo se expanda innecesariamente. Frederick Brooks señala que "el trabajo se expande para llenar el tiempo disponible", por lo que los plazos cortos fuerzan la eficiencia.</p>
+            <div class="benefits-grid" role="group" aria-labelledby="timeboxing-heading">
+                <div class="benefit-card" role="article">
+                    <h4><span aria-hidden="true">⏰</span> Ley de Parkinson</h4>
+                    <p>Las fechas fijas evitan que el trabajo se expanda innecesariamente. Frederick Brooks señala que: <em>"el trabajo se expande para llenar el tiempo disponible"</em>. Por lo tanto, los plazos cortos fuerzan la eficiencia.</p>
                 </div>
-                <div class="benefit-card">
-                    <h4>🎯 Foco y Priorización</h4>
-                    <p>Las iteraciones cortas obligan a tomar decisiones sobre qué es realmente prioritario, identificando el mayor valor de negocio o técnico para el período establecido.</p>
+                <div class="benefit-card" role="article">
+                    <h4><span aria-hidden="true">🎯</span> Foco y Priorización</h4>
+                    <p>Las iteraciones cortas obligan a tomar decisiones sobre qué es realmente prioritario. Esto permite identificar el mayor valor de negocio o técnico para el período establecido.</p>
                 </div>
-                <div class="benefit-card">
-                    <h4>😊 Satisfacción del Equipo</h4>
-                    <p>Los ciclos cortos proporcionan sensaciones regulares de finalización y logro, manteniendo la motivación alta y generando confianza en el equipo.</p>
+                <div class="benefit-card" role="article">
+                    <h4><span aria-hidden="true">😊</span> Satisfacción del Equipo</h4>
+                    <p>Los ciclos cortos proporcionan sensaciones regulares de finalización y logro. Esto mantiene la motivación alta y genera confianza en el equipo.</p>
                 </div>
-                <div class="benefit-card">
-                    <h4>🤝 Confianza de Stakeholders</h4>
-                    <p>Las entregas frecuentes y predecibles construyen confianza con el negocio y otras partes interesadas, demostrando capacidad de ejecución.</p>
+                <div class="benefit-card" role="article">
+                    <h4><span aria-hidden="true">🤝</span> Confianza de Stakeholders</h4>
+                    <p>Las entregas frecuentes y predecibles construyen confianza con el negocio y otras partes interesadas. Esto demuestra la capacidad de ejecución del equipo.</p>
                 </div>
             </div>
 
-            <h3>2.2 Priorización Basada en Valor de Negocio</h3>
+            <h3 id="priorizacion-valor-heading">2.2 Priorización Basada en Valor de Negocio</h3>
             <p>Cada iteración debe maximizar el valor entregado. Los criterios típicos incluyen:</p>
             
             <div class="concept-box">
-                <h4>Criterios de Priorización:</h4>
+                <h4 id="criterios-priorizacion-heading">Criterios de Priorización:</h4>
                 <ul>
                     <li><strong>Valor de negocio:</strong> Retorno de inversión esperado, impacto en usuarios</li>
                     <li><strong>Riesgo técnico:</strong> Complejidad, dependencias, incertidumbre</li>
@@ -770,16 +837,16 @@
                 </ul>
             </div>
 
-            <h3>2.3 Entrega Continua de Valor</h3>
+            <h3 id="entrega-continua-heading">2.3 Entrega Continua de Valor</h3>
             <p>Cada iteración debe producir algo tangible y potencialmente entregable. Esto requiere:</p>
             
-            <div class="timeline-item" onclick="toggleDetails('iteration-planning')">
-                <div class="phase">📋 Planificación de Iteración</div>
+            <div class="timeline-item" onclick="toggleDetails('iteration-planning')" role="button" tabindex="0" aria-expanded="false" aria-controls="iteration-planning">
+                <div class="phase"><span aria-hidden="true">📋</span> Planificación de Iteración</div>
                 <p>Selección de elementos del backlog, estimación y definición de objetivos específicos</p>
                 <div id="iteration-planning" class="toggle-content">
                     <p><strong>Actividades clave:</strong></p>
                     <ul>
-                        <li>Review del backlog priorizado</li>
+                        <li>Revisión del backlog priorizado</li>
                         <li>Estimación de esfuerzo para cada elemento</li>
                         <li>Definición de objetivos de la iteración</li>
                         <li>Asignación de tareas al equipo</li>
@@ -787,13 +854,13 @@
                 </div>
             </div>
             
-            <div class="timeline-item" onclick="toggleDetails('daily-execution')">
-                <div class="phase">🔨 Ejecución Diaria</div>
+            <div class="timeline-item" onclick="toggleDetails('daily-execution')" role="button" tabindex="0" aria-expanded="false" aria-controls="daily-execution">
+                <div class="phase"><span aria-hidden="true">🔨</span> Ejecución Diaria</div>
                 <p>Desarrollo, pruebas, integración y sincronización del equipo</p>
                 <div id="daily-execution" class="toggle-content">
                     <p><strong>Prácticas diarias:</strong></p>
                     <ul>
-                        <li>Sincronización del equipo (daily standup)</li>
+                        <li>Sincronización del equipo mediante reuniones diarias de seguimiento</li>
                         <li>Desarrollo y pruebas unitarias</li>
                         <li>Integración continua</li>
                         <li>Resolución de impedimentos</li>
@@ -801,14 +868,14 @@
                 </div>
             </div>
             
-            <div class="timeline-item" onclick="toggleDetails('iteration-review')">
-                <div class="phase">👥 Revisión y Retrospectiva</div>
+            <div class="timeline-item" onclick="toggleDetails('iteration-review')" role="button" tabindex="0" aria-expanded="false" aria-controls="iteration-review">
+                <div class="phase"><span aria-hidden="true">👥</span> Revisión y Retrospectiva</div>
                 <p>Demostración del incremento y reflexión sobre el proceso</p>
                 <div id="iteration-review" class="toggle-content">
                     <p><strong>Objetivos de revisión:</strong></p>
                     <ul>
                         <li>Demostración del incremento funcional</li>
-                        <li>Recolección de feedback de stakeholders</li>
+                        <li>Recolección de retroalimentación de las partes interesadas</li>
                         <li>Análisis de velocidad y métricas</li>
                         <li>Identificación de mejoras del proceso</li>
                     </ul>
@@ -817,72 +884,84 @@
         </section>
 
         <!-- Sección 3: Comparación Iterativo vs Cascada -->
-        <section class="content-section">
-            <h2 class="section-title">🆚 3. Comparación: Iterativo vs Cascada</h2>
+        <section class="content-section" aria-labelledby="section-3-heading">
+            <h2 id="section-3-heading" class="section-title"><span aria-hidden="true">🆚</span> 3. Comparación: Iterativo vs Cascada</h2>
             
             <p>El contraste entre el desarrollo iterativo e incremental y el modelo en cascada ilustra diferencias fundamentales en filosofía y práctica:</p>
             
-            <table class="comparison-table">
+            <table class="comparison-table" role="table" aria-labelledby="comparison-caption">
+                <caption id="comparison-caption" class="sr-only">Tabla comparativa entre el Modelo en Cascada y el Desarrollo Iterativo/Incremental, mostrando las diferencias en estructura, requisitos, retroalimentación, gestión de riesgos, flexibilidad, entrega de valor y documentación.</caption>
                 <thead>
                     <tr>
-                        <th>Aspecto</th>
-                        <th>Modelo en Cascada</th>
-                        <th>Desarrollo Iterativo/Incremental</th>
+                        <th scope="col">Aspecto</th>
+                        <th scope="col">Modelo en Cascada</th>
+                        <th scope="col">Desarrollo Iterativo/Incremental</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><strong>Estructura</strong></td>
+                        <th scope="row">Estructura</th>
                         <td>Fases secuenciales lineales</td>
                         <td>Ciclos cortos repetitivos</td>
                     </tr>
                     <tr>
-                        <td><strong>Requisitos</strong></td>
+                        <th scope="row">Requisitos</th>
                         <td>Definición completa inicial</td>
                         <td>Evolución y refinamiento continuo</td>
                     </tr>
                     <tr>
-                        <td><strong>Retroalimentación</strong></td>
+                        <th scope="row">Retroalimentación</th>
                         <td>Al final del proyecto</td>
                         <td>En cada iteración</td>
                     </tr>
                     <tr>
-                        <td><strong>Gestión de Riesgos</strong></td>
+                        <th scope="row">Gestión de Riesgos</th>
                         <td>Tardía, en fases finales</td>
                         <td>Temprana y continua</td>
                     </tr>
                     <tr>
-                        <td><strong>Flexibilidad</strong></td>
+                        <th scope="row">Flexibilidad</th>
                         <td>Baja, cambios costosos</td>
                         <td>Alta, adaptación incorporada</td>
                     </tr>
                     <tr>
-                        <td><strong>Entrega de Valor</strong></td>
+                        <th scope="row">Entrega de Valor</th>
                         <td>Una sola entrega final</td>
                         <td>Entregas frecuentes incrementales</td>
                     </tr>
                     <tr>
-                        <td><strong>Documentación</strong></td>
+                        <th scope="row">Documentación</th>
                         <td>Exhaustiva antes de implementar</td>
                         <td>Evolutiva, enfoque en software funcionando</td>
                     </tr>
                 </tbody>
             </table>
 
-            <div class="highlight-box">
-                <h3>💡 Reflexión de Frederick Brooks</h3>
-                <p><em>"Las estructuras conceptuales que construimos hoy son demasiado complicadas para especificarse con precisión por adelantado, y demasiado complejas para construirse sin errores. Por tanto, debemos utilizar un enfoque radicalmente diferente: desarrollo iterativo e incremental."</em></p>
-                <p>- "No Silver Bullet", The Mythical Man-Month</p>
+            <div class="highlight-box" role="region" aria-labelledby="brooks-quote-heading">
+                <h3 id="brooks-quote-heading"><span aria-hidden="true">💡</span> Reflexión de Frederick Brooks</h3>
+                <p><em>"Las estructuras conceptuales que construimos hoy son demasiado complicadas para especificarse con precisión por adelantado. También son demasiado complejas para construirse sin errores. Por tanto, debemos utilizar un enfoque radicalmente diferente: desarrollo iterativo e incremental."</em></p>
+                <p><strong>Fuente:</strong> "No Silver Bullet", The Mythical Man-Month</p>
             </div>
         </section>
 
         <!-- Sección 4: Métricas y Herramientas -->
-        <section class="content-section">
-            <h2 class="section-title">📊 4. Métricas y Herramientas de Control</h2>
+        <section class="content-section" aria-labelledby="section-4-heading">
+            <h2 id="section-4-heading" class="section-title"><span aria-hidden="true">📊</span> 4. Métricas y Herramientas de Control</h2>
             
-            <div class="diagram-container">
-                <h4>📈 Métricas Clave del Desarrollo Iterativo</h4>
-                <div class="mermaid">
+            <div class="diagram-container" role="img" aria-labelledby="metricas-diagram-title" aria-describedby="metricas-diagram-desc">
+                <h4 id="metricas-diagram-title"><span aria-hidden="true">📈</span> Métricas Clave del Desarrollo Iterativo</h4>
+                
+                <!-- Descripción del gráfico -->
+                <div id="metricas-diagram-desc" class="diagram-description">
+                    Diagrama jerárquico que muestra las métricas clave del desarrollo iterativo. El nodo central se llama "Métricas de Desarrollo Iterativo" y se conecta a cuatro métricas principales. 
+                    Primera métrica: <abbr title="Velocidad del equipo">Velocity</abbr>, que incluye puntos de historia por iteración y capacidad del equipo.
+                    Segunda métrica: gráfico <abbr title="Trabajo restante">Burndown</abbr>, que comprende trabajo restante versus tiempo y tendencia de progreso.
+                    Tercera métrica: gráfico <abbr title="Trabajo completado">Burnup</abbr>, que abarca trabajo completado acumulado y alcance total del proyecto.
+                    Cuarta métrica: flujo acumulativo, que incluye estados de elementos de trabajo y identificación de cuellos de botella.
+                    Cada métrica principal está codificada por colores para facilitar su identificación visual.
+                </div>
+                
+                <div class="mermaid" aria-hidden="true">
                     graph LR
                         A[Métricas de Desarrollo Iterativo] --> B[Velocity]
                         A --> C[Burndown Chart]
@@ -911,110 +990,131 @@
 
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <h4>📏 Velocity</h4>
+                    <h4><span aria-hidden="true">📏</span> <abbr title="Velocidad del equipo">Velocity</abbr></h4>
                     <p>Mide la cantidad de trabajo (story points) completado por el equipo en una iteración. Es fundamental para planificación y forecasting de entregas futuras.</p>
                 </div>
                 <div class="benefit-card">
-                    <h4>📉 Burndown Chart</h4>
+                    <h4><span aria-hidden="true">📉</span> Gráfico <abbr title="Trabajo restante">Burndown</abbr></h4>
                     <p>Muestra gráficamente cómo se reduce el trabajo restante a lo largo del tiempo. Ayuda a identificar si el equipo va en camino de cumplir los objetivos.</p>
                 </div>
                 <div class="benefit-card">
-                    <h4>📈 Burnup Chart</h4>
+                    <h4><span aria-hidden="true">📈</span> Gráfico <abbr title="Trabajo completado">Burnup</abbr></h4>
                     <p>Visualiza el trabajo completado acumulativo y el alcance total del proyecto. Útil para detectar cambios de alcance y progreso real.</p>
                 </div>
                 <div class="benefit-card">
-                    <h4>🌊 Cumulative Flow</h4>
+                    <h4><span aria-hidden="true">🌊</span> Flujo Acumulativo</h4>
                     <p>Representa el flujo de work items a través de diferentes estados. Identifica cuellos de botella y problemas en el proceso de desarrollo.</p>
                 </div>
             </div>
 
-            <h3>4.1 Product Roadmap y Release Planning</h3>
-            <div class="concept-box">
-                <h4>Product Roadmap:</h4>
-                <ul>
-                    <li><strong>Visión del producto:</strong> Dirección estratégica y objetivos principales</li>
-                    <li><strong>Temas épicos:</strong> Agrupaciones de funcionalidad mayor</li>
-                    <li><strong>Timeline aproximado:</strong> Estimaciones de alto nivel por trimestres</li>
-                    <li><strong>Dependencias clave:</strong> Integraciones, recursos, hitos externos</li>
+            <h3 id="roadmap-heading">4.1 Product Roadmap y Release Planning</h3>
+            
+            <div class="concept-box" role="region" aria-labelledby="product-roadmap-definition-heading">
+                <h4 id="product-roadmap-definition-heading"><span aria-hidden="true">🗺️</span> ¿Qué es un Product Roadmap?</h4>
+                <p><strong>Definición:</strong> Un Product Roadmap es un documento estratégico visual que comunica la dirección y el progreso del desarrollo de un producto a lo largo del tiempo. Actúa como un plan de alto nivel que alinea a los equipos de desarrollo, stakeholders y ejecutivos sobre las prioridades del producto.</p>
+                <p><strong>Propósito:</strong> Proporcionar una visión compartida de hacia dónde se dirige el producto, qué características se desarrollarán y cuándo, basándose en los objetivos de negocio y las necesidades de los usuarios.</p>
+            </div>
+
+            <div class="concept-box" role="region" aria-labelledby="product-roadmap-heading">
+                <h4 id="product-roadmap-heading">Componentes del Product Roadmap:</h4>
+                <ul role="list" aria-label="Lista de componentes del Product Roadmap">
+                    <li role="listitem"><strong>Visión del producto:</strong> Dirección estratégica y objetivos principales</li>
+                    <li role="listitem"><strong>Temas épicos:</strong> Agrupaciones de funcionalidad mayor</li>
+                    <li role="listitem"><strong>Timeline aproximado:</strong> Estimaciones de alto nivel por trimestres</li>
+                    <li role="listitem"><strong>Dependencias clave:</strong> Integraciones, recursos, hitos externos</li>
                 </ul>
             </div>
 
-            <div class="concept-box">
-                <h4>Release Planning:</h4>
-                <ul>
-                    <li><strong>Incrementos entregables:</strong> Versiones específicas con valor de negocio</li>
-                    <li><strong>Criterios de aceptación:</strong> Definición de "terminado" para cada release</li>
-                    <li><strong>Estimación de capacidad:</strong> Velocity histórica y capacidad del equipo</li>
-                    <li><strong>Gestión de riesgo:</strong> Identificación y mitigación de riesgos por release</li>
+            <div class="concept-box" role="region" aria-labelledby="release-planning-definition-heading">
+                <h4 id="release-planning-definition-heading"><span aria-hidden="true">🚀</span> ¿Qué es Release Planning?</h4>
+                <p><strong>Definición:</strong> Release Planning es el proceso de planificación que determina qué características y funcionalidades se incluirán en una versión específica del producto y cuándo estará lista para ser entregada a los usuarios finales.</p>
+                <p><strong>Propósito:</strong> Traducir la visión estratégica del roadmap en planes de trabajo ejecutables, estableciendo fechas de entrega realistas y coordinando los recursos necesarios para cada release.</p>
+            </div>
+
+            <div class="concept-box" role="region" aria-labelledby="release-planning-heading">
+                <h4 id="release-planning-heading">Elementos del Release Planning:</h4>
+                <ul role="list" aria-label="Lista de elementos del Release Planning">
+                    <li role="listitem"><strong>Incrementos entregables:</strong> Versiones específicas con valor de negocio</li>
+                    <li role="listitem"><strong>Criterios de aceptación:</strong> Definición de "terminado" para cada release</li>
+                    <li role="listitem"><strong>Estimación de capacidad:</strong> Velocity histórica y capacidad del equipo</li>
+                    <li role="listitem"><strong>Gestión de riesgo:</strong> Identificación y mitigación de riesgos por release</li>
                 </ul>
             </div>
+
         </section>
 
-        <!-- Sección 5: Técnicas Avanzadas de Timeboxing y Gestión Iterativa -->
-        <section class="content-section">
-            <h2 class="section-title">⏱️ 5. Técnicas Avanzadas de Timeboxing y Gestión Iterativa</h2>
+        <!-- Sección 5: Técnicas Avanzadas -->
+        <section class="content-section" aria-labelledby="section-5-heading">
+            <h2 id="section-5-heading" class="section-title"><span aria-hidden="true">⏱️</span> 5. Técnicas Avanzadas de Timeboxing y Gestión Iterativa</h2>
             
             <div class="highlight-box">
-                <h3>🎯 Timeboxing: Más Allá de los Fundamentos</h3>
+                <h3><span aria-hidden="true">🎯</span> Timeboxing: Más Allá de los Fundamentos</h3>
                 <p>El timeboxing no es simplemente establecer fechas límite. Es una disciplina que requiere técnicas específicas para maximizar la productividad y mantener el enfoque del equipo en los objetivos más importantes.</p>
             </div>
 
-            <h3>5.1 Técnicas de Timeboxing Efectivo</h3>
+            <h3 id="tecnicas-timeboxing-heading">5.1 Técnicas de Timeboxing Efectivo</h3>
             
             <div class="benefits-grid">
                 <div class="benefit-card">
-                    <h4>⚡ Técnica Pomodoro Adaptada</h4>
+                    <h4><span aria-hidden="true">⚡</span> Técnica Pomodoro Adaptada</h4>
                     <p><strong>Aplicación:</strong> Sesiones de trabajo de 25-50 minutos con descansos estructurados.</p>
                     <p><strong>Beneficio:</strong> Mantiene la concentración y reduce el burnout durante sesiones intensivas de desarrollo.</p>
-                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
-                        <li>• 25 min: Tareas simples</li>
-                        <li>• 50 min: Tareas complejas</li>
-                        <li>• 90 min: Sesiones de arquitectura</li>
+                    <ul style="text-align: left; margin-top: 10px; margin-left: 10px; font-size: 0.9em;">
+                        <li>25 minutos: Tareas simples</li>
+                        <li>50 minutos: Tareas complejas</li>
+                        <li>90 minutos: Sesiones de arquitectura</li>
                     </ul>
                 </div>
                 
                 <div class="benefit-card">
-                    <h4>📊 Buffer Time Planning</h4>
+                    <h4><span aria-hidden="true">📊</span> Buffer Time Planning</h4>
                     <p><strong>Regla 80/20:</strong> Asignar 80% del tiempo a tareas planificadas, 20% para imprevistos.</p>
                     <p><strong>Implementación:</strong> En una iteración de 10 días, dedicar 8 días a tareas específicas y 2 días como buffer.</p>
-                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
-                        <li>• Reduce estrés del equipo</li>
-                        <li>• Permite manejar impedimentos</li>
-                        <li>• Mejora predictibilidad</li>
+                    <ul style="text-align: left; margin-top: 10px; margin-left: 10px; font-size: 0.9em;">
+                        <li>Reduce estrés del equipo</li>
+                        <li>Permite manejar impedimentos</li>
+                        <li>Mejora predictibilidad</li>
                     </ul>
                 </div>
                 
                 <div class="benefit-card">
-                    <h4>🔄 Time Slicing</h4>
+                    <h4><span aria-hidden="true">🔄</span> Time Slicing</h4>
                     <p><strong>Concepto:</strong> Dividir tareas grandes en fragmentos de tiempo manejables.</p>
                     <p><strong>Práctica:</strong> Una tarea de 3 días se divide en 6 sesiones de medio día con objetivos específicos.</p>
-                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
-                        <li>• Mayor visibilidad de progreso</li>
-                        <li>• Feedback más frecuente</li>
-                        <li>• Detección temprana de problemas</li>
+                    <ul style="text-align: left; margin-top: 10px; margin-left: 10px; font-size: 0.9em;">
+                        <li>Mayor visibilidad de progreso</li>
+                        <li><abbr title="Retroalimentación">Feedback</abbr> más frecuente</li>
+                        <li>Detección temprana de problemas</li>
                     </ul>
                 </div>
                 
                 <div class="benefit-card">
-                    <h4>⏰ Deadline Pressure Management</h4>
+                    <h4><span aria-hidden="true">⏰</span> Deadline Pressure Management</h4>
                     <p><strong>Técnica:</strong> Crear "mini-deadlines" internos antes del deadline real.</p>
                     <p><strong>Ejemplo:</strong> Si el deadline es viernes, establecer deadline interno el miércoles.</p>
-                    <ul style="text-align: left; margin-top: 10px; font-size: 0.9em;">
-                        <li>• Tiempo para ajustes de calidad</li>
-                        <li>• Reduce ansiedad del equipo</li>
-                        <li>• Permite validación extra</li>
+                    <ul style="text-align: left; margin-top: 10px; margin-left: 10px; font-size: 0.9em;">
+                        <li>Tiempo para ajustes de calidad</li>
+                        <li>Reduce ansiedad del equipo</li>
+                        <li>Permite validación extra</li>
                     </ul>
                 </div>
             </div>
 
-            <h3>5.2 Priorización Avanzada: Técnicas MoSCoW y Value-Based</h3>
+            <h3 id="priorizacion-avanzada-heading">5.2 Priorización Avanzada: Técnicas MoSCoW y Value-Based</h3>
             
             <div class="concept-box">
-                <h4>🎯 Técnica MoSCoW</h4>
-                <p><strong>Must have:</strong> Funcionalidades críticas sin las cuales el incremento no tiene valor</p>
-                <p><strong>Should have:</strong> Importantes pero el incremento puede funcionar sin ellas</p>
-                <p><strong>Could have:</strong> Deseables si el tiempo lo permite</p>
-                <p><strong>Won't have (this time):</strong> Explícitamente excluidas de esta iteración</p>
+                <h4><span aria-hidden="true">🎯</span> Técnica <abbr title="Must have, Should have, Could have, Won't have">MoSCoW</abbr></h4>
+                <p><strong>Definición:</strong> MoSCoW es una técnica de priorización que categoriza los requerimientos del proyecto en cuatro grupos según su criticidad e importancia. Fue desarrollada por Dai Clegg en Oracle y permite al equipo y stakeholders tener una comprensión compartida sobre qué es esencial para el éxito del proyecto.</p>
+                
+                <p><strong>Proceso de Evaluación:</strong> El proceso de priorización con MoSCoW involucra sesiones colaborativas donde Product Owners, stakeholders y el equipo de desarrollo analizan cada funcionalidad y la clasifican según el impacto en el valor del producto y la viabilidad técnica dentro del timeframe establecido.</p>
+                
+                <div style="margin-top: 15px; padding: 15px; background: rgba(255, 193, 7, 0.1); border-left: 4px solid #ffc107;">
+                    <h5><strong>Las Cuatro Categorías MoSCoW:</strong></h5>
+                    <p><strong>Must have (Debe tener):</strong> Funcionalidades críticas sin las cuales el incremento no tiene valor comercial o técnico. Si no se incluyen, el proyecto se considera un fracaso.</p>
+                    <p><strong>Should have (Debería tener):</strong> Funcionalidades importantes que agregan valor significativo, pero el incremento puede funcionar sin ellas. Se incluyen si el tiempo y recursos lo permiten.</p>
+                    <p><strong>Could have (Podría tener):</strong> Funcionalidades deseables que mejorarían la experiencia del usuario, pero que pueden postergarse sin impacto crítico en el negocio.</p>
+                    <p><strong>Won't have (No tendrá - esta vez):</strong> Funcionalidades explícitamente excluidas de esta iteración, pero que pueden considerarse para futuras versiones.</p>
+                </div>
                 
                 <div style="margin-top: 15px; padding: 15px; background: rgba(52, 152, 219, 0.1); border-radius: 8px;">
                     <strong>Ejemplo práctico en una iteración de e-commerce:</strong>
@@ -1028,8 +1128,23 @@
             </div>
 
             <div class="concept-box">
-                <h4>💰 Value-Based Prioritization</h4>
+                <h4><span aria-hidden="true">💰</span> Value-Based Prioritization</h4>
+                <p><strong>Definición:</strong> La Priorización Basada en Valor es un enfoque sistemático que evalúa y ordena las funcionalidades del producto según su contribución al valor total, considerando tanto beneficios como costos asociados. Este método permite tomar decisiones objetivas sobre qué desarrollar primero.</p>
+                
+                <p><strong>Proceso de Evaluación:</strong> El equipo asigna puntuaciones numéricas (típicamente escala 1-10) a cuatro dimensiones clave para cada funcionalidad. Luego aplica la fórmula de valor para obtener un score objetivo que facilita la comparación y ranking de prioridades.</p>
+                
+                <div style="margin-top: 15px; padding: 15px; background: rgba(40, 167, 69, 0.1); border-left: 4px solid #28a745;">
+                    <h5><strong>Dimensiones de Evaluación:</strong></h5>
+                    <ul>
+                        <li><strong>Beneficio del Cliente:</strong> Impacto directo en la satisfacción, usabilidad y valor percibido por el usuario final</li>
+                        <li><strong>Beneficio del Negocio:</strong> Contribución a ingresos, reducción de costos, ventaja competitiva o posicionamiento estratégico</li>
+                        <li><strong>Costo:</strong> Esfuerzo de desarrollo, recursos necesarios, complejidad técnica y tiempo requerido</li>
+                        <li><strong>Riesgo:</strong> Incertidumbre técnica, dependencias externas, posibilidad de fallas o impacto en otros sistemas</li>
+                    </ul>
+                </div>
+                
                 <p><strong>Fórmula de Valor:</strong> Valor = (Beneficio del Cliente + Beneficio del Negocio) / (Costo + Riesgo)</p>
+                <p><em>Un score más alto indica mayor prioridad para desarrollo.</em></p>
                 
                 <table class="comparison-table" style="margin-top: 15px;">
                     <thead>
@@ -1071,10 +1186,10 @@
                 </table>
             </div>
 
-            <h3>5.3 Técnicas de Estimación para Timeboxing</h3>
+            <h3 id="estimacion-heading">5.3 Técnicas de Estimación para Timeboxing</h3>
             
             <div class="timeline-item" onclick="toggleDetails('planning-poker')">
-                <div class="phase">🃏 Planning Poker</div>
+                <div class="phase"><span aria-hidden="true">🃏</span> Planning Poker</div>
                 <p>Técnica colaborativa de estimación usando secuencia de Fibonacci</p>
                 <div id="planning-poker" class="toggle-content">
                     <p><strong>Proceso paso a paso:</strong></p>
@@ -1091,30 +1206,30 @@
             </div>
             
             <div class="timeline-item" onclick="toggleDetails('three-point')">
-                <div class="phase">📊 Estimación de Tres Puntos</div>
+                <div class="phase"><span aria-hidden="true">📊</span> Estimación de Tres Puntos</div>
                 <p>Técnica que considera escenarios optimista, pesimista y más probable</p>
                 <div id="three-point" class="toggle-content">
-                    <p><strong>Fórmula PERT:</strong> Estimación = (Optimista + 4×Probable + Pesimista) / 6</p>
+                    <p><strong>Fórmula <abbr title="Evaluación y revisión de programas">PERT</abbr>:</strong> Estimación igual a optimista más cuatro veces probable más pesimista, dividido entre seis</p>
                     <p><strong>Ejemplo práctico:</strong></p>
                     <ul>
                         <li><strong>Optimista:</strong> 2 días (todo sale perfecto)</li>
                         <li><strong>Probable:</strong> 5 días (desarrollo normal)</li>
                         <li><strong>Pesimista:</strong> 10 días (muchos problemas)</li>
-                        <li><strong>Estimación PERT:</strong> (2 + 4×5 + 10) / 6 = 5.3 días</li>
+                        <li><strong>Estimación <abbr title="Evaluación y revisión de programas">PERT</abbr>:</strong> dos más cuatro por cinco más diez, dividido entre seis, igual a cinco punto tres días</li>
                     </ul>
                     <p><strong>Desviación estándar:</strong> (Pesimista - Optimista) / 6 = 1.33 días</p>
                 </div>
             </div>
             
             <div class="timeline-item" onclick="toggleDetails('affinity-estimation')">
-                <div class="phase">🎯 Affinity Estimation</div>
+                <div class="phase"><span aria-hidden="true">🎯</span> Affinity Estimation</div>
                 <p>Estimación rápida por agrupación de historias similares</p>
                 <div id="affinity-estimation" class="toggle-content">
                     <p><strong>Proceso:</strong></p>
                     <ol>
                         <li><strong>Preparación:</strong> Escribir user stories en post-its</li>
                         <li><strong>Agrupación inicial:</strong> Colocar historias similares juntas</li>
-                        <li><strong>Creación de buckets:</strong> Definir categorías (XS, S, M, L, XL)</li>
+                        <li><strong>Creación de categorías:</strong> Definir tamaños extra pequeño, pequeño, mediano, grande y extra grande</li>
                         <li><strong>Distribución:</strong> Mover historias a buckets apropiados</li>
                         <li><strong>Calibración:</strong> Asignar story points a cada bucket</li>
                     </ol>
@@ -1122,11 +1237,22 @@
                 </div>
             </div>
 
-            <h3>5.4 Métricas Avanzadas de Control Temporal</h3>
+            <h3 id="metricas-temporales-heading">5.4 Métricas Avanzadas de Control Temporal</h3>
             
-            <div class="diagram-container">
-                <h4>📈 Dashboard de Métricas Temporales</h4>
-                <div class="mermaid">
+            <div class="diagram-container" role="img" aria-labelledby="temporales-diagram-title" aria-describedby="temporales-diagram-desc">
+                <h4 id="temporales-diagram-title"><span aria-hidden="true">📈</span> Dashboard de Métricas Temporales</h4>
+                
+                <!-- Descripción alternativa para lectores de pantalla -->
+                <div id="temporales-diagram-desc" class="sr-only">
+                    Diagrama de dashboard que organiza las métricas de control temporal en tres categorías principales. 
+                    Desde el nodo central "Métricas de Control Temporal" se ramifican:
+                    1. Métricas de Entrada: incluye Lead Time (tiempo total de proceso), Cycle Time (tiempo activo de trabajo), y Throughput (capacidad de procesamiento);
+                    Segunda categoría, métricas de proceso: comprende trabajo en curso o <abbr title="Work In Progress">WIP</abbr>, tasa de elementos bloqueados, y tasa de retrabajo.
+                    3. Métricas de Salida: abarca Delivery Frequency (frecuencia de entrega), Change Failure Rate (tasa de fallas en cambios), y Mean Time to Recovery (tiempo promedio de recuperación).
+                    Cada categoría está representada con colores distintivos para facilitar su comprensión visual.
+                </div>
+                
+                <div class="mermaid" aria-hidden="true">
                     graph LR
                         A[Métricas de Control Temporal] --> B[Métricas de Entrada]
                         A --> C[Métricas de Proceso]
@@ -1151,43 +1277,43 @@
                 </div>
             </div>
 
-            <div class="benefits-grid">
-                <div class="benefit-card">
-                    <h4>⏱️ Lead Time vs Cycle Time</h4>
+            <div class="benefits-grid" role="group" aria-labelledby="metricas-temporales-heading">
+                <div class="benefit-card" role="article">
+                    <h4><span aria-hidden="true">⏱️</span> Lead Time vs Cycle Time</h4>
                     <p><strong>Lead Time:</strong> Tiempo total desde solicitud hasta entrega</p>
                     <p><strong>Cycle Time:</strong> Tiempo de trabajo activo en la tarea</p>
                     <p><strong>Optimización:</strong> Reducir Lead Time mejorando handoffs y eliminando wait times.</p>
                 </div>
                 
-                <div class="benefit-card">
-                    <h4>🚦 Control WIP (Work In Progress)</h4>
-                    <p><strong>Ley de Little:</strong> Lead Time = WIP / Throughput</p>
+                <div class="benefit-card" role="article">
+                    <h4><span aria-hidden="true">🚦</span> Control <abbr title="Work In Progress - Trabajo en curso">WIP</abbr></h4>
+                    <p><strong>Ley de Little:</strong> el tiempo de entrega es igual al trabajo en curso dividido por la productividad</p>
                     <p><strong>Práctica:</strong> Limitar elementos en progreso para mejorar flow y reducir context switching.</p>
-                    <p><strong>Regla:</strong> WIP óptimo = Número de desarrolladores × 1.5</p>
+                    <p><strong>Regla:</strong> el trabajo en curso óptimo es igual al número de desarrolladores multiplicado por uno punto cinco</p>
                 </div>
                 
-                <div class="benefit-card">
-                    <h4>📊 Throughput y Predictibilidad</h4>
+                <div class="benefit-card" role="article">
+                    <h4><span aria-hidden="true">📊</span> Throughput y Predictibilidad</h4>
                     <p><strong>Throughput:</strong> Número de items completados por unidad de tiempo</p>
                     <p><strong>Estabilidad:</strong> Throughput estable = mayor predictibilidad</p>
                     <p><strong>Meta:</strong> Optimizar para throughput sostenible, no máximo.</p>
                 </div>
                 
-                <div class="benefit-card">
-                    <h4>🔧 Métricas de Calidad Temporal</h4>
+                <div class="benefit-card" role="article">
+                    <h4><span aria-hidden="true">🔧</span> Métricas de Calidad Temporal</h4>
                     <p><strong>Rework Rate:</strong> % de trabajo que debe rehacerse</p>
                     <p><strong>Defect Escape Rate:</strong> Bugs que llegan a producción</p>
                     <p><strong>Technical Debt Ratio:</strong> Tiempo dedicado a deuda técnica vs nuevas funcionalidades</p>
                 </div>
             </div>
 
-            <h3>5.5 Técnicas de Retrospectiva y Mejora Continua</h3>
+            <h3 id="retrospectivas-heading">5.5 Técnicas de Retrospectiva y Mejora Continua</h3>
             
             <div class="concept-box">
-                <h4>🔄 Técnicas de Retrospectiva Avanzadas</h4>
+                <h4 id="tecnicas-retrospectiva-heading"><span aria-hidden="true">🔄</span> Técnicas de Retrospectiva Avanzadas</h4>
                 
                 <div style="margin-top: 15px;">
-                    <h5>1. Técnica Starfish (Estrella de Mar)</h5>
+                    <h5 id="starfish-heading">1. Técnica Starfish (Estrella de Mar)</h5>
                     <ul>
                         <li><strong>Keep doing:</strong> Prácticas que funcionan bien</li>
                         <li><strong>Less of:</strong> Prácticas que reducir</li>
@@ -1198,18 +1324,18 @@
                 </div>
                 
                 <div style="margin-top: 15px;">
-                    <h5>2. Timeline Retrospective</h5>
+                    <h5 id="timeline-heading">2. Timeline Retrospective</h5>
                     <p>Crear línea temporal de la iteración marcando eventos significativos:</p>
                     <ul>
-                        <li>📈 Momentos de alta energía y productividad</li>
-                        <li>📉 Momentos de baja energía o frustración</li>
-                        <li>🎯 Hitos y logros importantes</li>
-                        <li>🚫 Impedimentos y blockers</li>
+                        <li><span aria-hidden="true">📈</span> Momentos de alta energía y productividad</li>
+                        <li><span aria-hidden="true">📉</span> Momentos de baja energía o frustración</li>
+                        <li><span aria-hidden="true">🎯</span> Hitos y logros importantes</li>
+                        <li><span aria-hidden="true">🚫</span> Impedimentos y blockers</li>
                     </ul>
                 </div>
                 
                 <div style="margin-top: 15px;">
-                    <h5>3. Five Whys para Root Cause Analysis</h5>
+                    <h5 id="five-whys-heading">3. Five Whys para Root Cause Analysis</h5>
                     <p><strong>Ejemplo:</strong></p>
                     <ol>
                         <li><strong>¿Por qué llegamos tarde?</strong> Porque hubo muchos bugs</li>
@@ -1222,7 +1348,7 @@
             </div>
 
             <div class="warning-box">
-                <h3>⚠️ Antipatrones Comunes en Timeboxing</h3>
+                <h3 id="antipatrones-heading"><span aria-hidden="true">⚠️</span> Antipatrones Comunes en Timeboxing</h3>
                 <ul>
                     <li><strong>Timebox Stuffing:</strong> Intentar meter más trabajo del que cabe en una iteración</li>
                     <li><strong>Zero-Buffer Planning:</strong> No dejar tiempo para imprevistos</li>
@@ -1234,16 +1360,19 @@
             </div>
         </section>
 
+        </main>
+        
         <!-- Sistema de Quiz estandarizado -->
-        <section class="quiz-container">
-            <h2>🧠 Evaluación - 20 Preguntas Multiple Choice</h2>
+        <section class="quiz-container" role="complementary" aria-labelledby="quiz-heading">
+            <h2 id="quiz-heading"><span aria-hidden="true">🧠</span> Evaluación - 20 Preguntas Multiple Choice</h2>
             
-            <div class="quiz-instructions">
+            <div class="quiz-instructions" role="region" aria-labelledby="quiz-instructions-heading">
+                <h3 id="quiz-instructions-heading" class="sr-only">Instrucciones del Quiz</h3>
                 <p><strong>Instrucciones:</strong></p>
-                <p>• Cada pregunta tiene 4 opciones (A, B, C, D)</p>
-                <p>• Selecciona la respuesta que consideres correcta</p>
-                <p>• Al finalizar podrás ver tu puntuación y las respuestas correctas</p>
-                <p>• Se requiere responder todas las preguntas para obtener el resultado</p>
+                <p><span aria-hidden="true">•</span> Cada pregunta tiene 4 opciones: A, B, C y D</p>
+                <p><span aria-hidden="true">•</span> Selecciona la respuesta que consideres correcta</p>
+                <p><span aria-hidden="true">•</span> Al finalizar podrás ver tu puntuación y las respuestas correctas</p>
+                <p><span aria-hidden="true">•</span> Se requiere responder todas las preguntas para obtener el resultado</p>
             </div>
 
             <!-- Las 20 preguntas -->
@@ -1252,10 +1381,10 @@
                 <div class="question">
                     <h4>1. ¿Cuál es la principal diferencia entre desarrollo iterativo e incremental?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Iterativo se refiere a ciclos largos, incremental a ciclos cortos</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Iterativo enfatiza la repetición de actividades, incremental la adición progresiva de funcionalidad</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Son sinónimos y pueden usarse indistintamente</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Iterativo es para proyectos grandes, incremental para proyectos pequeños</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción A">A</abbr>) Iterativo se refiere a ciclos largos, incremental a ciclos cortos</div>
+                        <div class="option" onclick="selectOption(this, true)"><abbr title="Opción B">B</abbr>) Iterativo enfatiza la repetición de actividades, incremental la adición progresiva de funcionalidad</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción C">C</abbr>) Son sinónimos y pueden usarse indistintamente</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción D">D</abbr>) Iterativo es para proyectos grandes, incremental para proyectos pequeños</div>
                     </div>
                 </div>
                 
@@ -1263,10 +1392,10 @@
                 <div class="question">
                     <h4>2. Según la Ley de Parkinson mencionada en el contexto iterativo, ¿qué efecto tienen las fechas fijas cortas?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) Aumentan el estrés del equipo innecesariamente</div>
-                        <div class="option" onclick="selectOption(this, true)">B) Evitan que el trabajo se expanda para llenar el tiempo disponible</div>
-                        <div class="option" onclick="selectOption(this, false)">C) Reducen la calidad por presión temporal</div>
-                        <div class="option" onclick="selectOption(this, false)">D) Son irrelevantes para la productividad</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción A">A</abbr>) Aumentan el estrés del equipo innecesariamente</div>
+                        <div class="option" onclick="selectOption(this, true)"><abbr title="Opción B">B</abbr>) Evitan que el trabajo se expanda para llenar el tiempo disponible</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción C">C</abbr>) Reducen la calidad por presión temporal</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción D">D</abbr>) Son irrelevantes para la productividad</div>
                     </div>
                 </div>
                 
@@ -1274,10 +1403,10 @@
                 <div class="question">
                     <h4>3. ¿Cuál es el principal problema del modelo en cascada que mitiga el desarrollo iterativo?</h4>
                     <div class="options">
-                        <div class="option" onclick="selectOption(this, false)">A) El costo elevado de desarrollo</div>
-                        <div class="option" onclick="selectOption(this, true)">B) La gestión tardía de riesgos y falta de retroalimentación temprana</div>
-                        <div class="option" onclick="selectOption(this, false)">C) La necesidad de documentación técnica</div>
-                        <div class="option" onclick="selectOption(this, false)">D) La complejidad de gestión de equipos</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción A">A</abbr>) El costo elevado de desarrollo</div>
+                        <div class="option" onclick="selectOption(this, true)"><abbr title="Opción B">B</abbr>) La gestión tardía de riesgos y falta de retroalimentación temprana</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción C">C</abbr>) La necesidad de documentación técnica</div>
+                        <div class="option" onclick="selectOption(this, false)"><abbr title="Opción D">D</abbr>) La complejidad de gestión de equipos</div>
                     </div>
                 </div>
                 
@@ -1470,13 +1599,13 @@
             </div>
 
             <div style="text-align: center; margin-top: 30px;">
-                <button class="btn btn-success" onclick="submitQuiz()">📊 Ver Resultados</button>
-                <button class="btn btn-primary" onclick="resetQuiz()">🔄 Reiniciar Quiz</button>
+                <button class="btn btn-success" onclick="submitQuiz()" type="button"><span aria-hidden="true">📊</span> Ver Resultados</button>
+                <button class="btn btn-primary" onclick="resetQuiz()" type="button"><span aria-hidden="true">🔄</span> Reiniciar Quiz</button>
             </div>
 
             <!-- Resultados del quiz -->
             <div class="quiz-results" id="quiz-results">
-                <h3>📊 Resultados de la Evaluación</h3>
+                <h3><span aria-hidden="true">📊</span> Resultados de la Evaluación</h3>
                 <div class="results-chart">
                     <canvas id="results-chart" width="200" height="200"></canvas>
                 </div>
@@ -1486,13 +1615,13 @@
         </section>
 
         <!-- Recursos adicionales -->
-        <section class="resources">
-            <h2>📚 Recursos Adicionales</h2>
+        <section class="resources" role="complementary" aria-labelledby="resources-heading">
+            <h2 id="resources-heading"><span aria-hidden="true">📚</span> Recursos Adicionales</h2>
             <ul>
-                <li><strong>📖 Bibliografía:</strong> Larman, C. (2003). UML y Patrones | Pressman, R. (1998). Ingeniería de Software | Brooks, F. "No Silver Bullet" - The Mythical Man-Month</li>
-                <li><strong>🔗 Enlaces útiles:</strong> Manifesto Ágil - Principios fundamentales | Martin Fowler - Iterative Development | MIT Sloan Study sobre factores de éxito</li>
-                <li><strong>▶️ Próxima clase:</strong> Clase 4: Fundamentos de Metodologías Ágiles - Manifiesto Ágil, valores y principios</li>
-                <li><strong>🔍 Palabras clave:</strong> Iterativo, Incremental, Timeboxing, Velocity, Burndown, Retrospectivas, Priorización, Valor de negocio</li>
+                <li><strong><span aria-hidden="true">📖</span> Bibliografía:</strong> Larman, C. (2003). UML y Patrones | Pressman, R. (1998). Ingeniería de Software | Brooks, F. "No Silver Bullet" - The Mythical Man-Month</li>
+                <li><strong><span aria-hidden="true">🔗</span> Enlaces útiles:</strong> Manifesto Ágil - Principios fundamentales | Martin Fowler - Iterative Development | MIT Sloan Study sobre factores de éxito</li>
+                <li><strong><span aria-hidden="true">▶️</span> Próxima clase:</strong> Clase 4: Fundamentos de Metodologías Ágiles - Manifiesto Ágil, valores y principios</li>
+                <li><strong><span aria-hidden="true">🔍</span> Palabras clave:</strong> Iterativo, Incremental, Timeboxing, Velocity, Burndown, Retrospectivas, Priorización, Valor de negocio</li>
             </ul>
         </section>
     </div>
@@ -1550,10 +1679,15 @@
             // Remover selección anterior
             questionDiv.querySelectorAll('.option').forEach(opt => {
                 opt.classList.remove('selected');
+                opt.setAttribute('aria-checked', 'false');
             });
             
             // Seleccionar nueva opción
             element.classList.add('selected');
+            element.setAttribute('aria-checked', 'true');
+            
+            // Anunciar selección para lectores de pantalla
+            element.setAttribute('aria-label', 'Opción seleccionada: ' + element.textContent);
             
             // Guardar respuesta
             selectedAnswers[questionNumber] = isCorrect;
@@ -1691,8 +1825,17 @@
         // Funcionalidad de toggle para detalles
         function toggleDetails(id) {
             const element = document.getElementById(id);
+            const trigger = document.querySelector(`[aria-controls="${id}"]`);
             const isVisible = element.style.display === 'block';
+            
             element.style.display = isVisible ? 'none' : 'block';
+            
+            // Actualizar atributos ARIA
+            if (trigger) {
+                trigger.setAttribute('aria-expanded', !isVisible);
+                const actionText = isVisible ? 'expandir' : 'contraer';
+                trigger.setAttribute('aria-label', `${actionText} detalles de ${trigger.textContent}`);
+            }
         }
 
         // Renderizar diagramas Mermaid

@@ -642,7 +642,15 @@
             <h2 class="section-title">🏗️ 1. Modelos Tradicionales</h2>
             
             <h3>1.1 Modelo en Cascada (Waterfall)</h3>
-            <p>El modelo en cascada, propuesto por Winston Royce en 1970, representa el enfoque más tradicional del desarrollo de software. Según Pressman, sugiere un enfoque secuencial donde el desarrollo fluye hacia abajo a través de las fases como una cascada.</p>
+            
+            <div class="info-box">
+                <h4>📋 Definición del Modelo en Cascada</h4>
+                <p>El <strong>Modelo en Cascada</strong> es una metodología de desarrollo de software lineal y secuencial, propuesta por Winston Royce en 1970, que organiza el proceso de desarrollo en fases distintas y ordenadas. Cada fase debe completarse totalmente antes de pasar a la siguiente, sin posibilidad de retroceso, similar al flujo descendente de una cascada.</p>
+                
+                <p>Esta metodología se caracteriza por su enfoque predictivo y disciplinado, donde los requisitos se definen completamente al inicio del proyecto y permanecen estables durante todo el desarrollo. Las fases típicas incluyen: análisis de requisitos, diseño del sistema, implementación, pruebas, despliegue y mantenimiento. Cada fase produce entregables específicos que sirven como entrada para la fase siguiente.</p>
+                
+                <p>El modelo en cascada es especialmente apropiado para proyectos con requisitos bien definidos, tecnologías maduras y donde los cambios son costosos o riesgosos. Es ampliamente utilizado en industrias reguladas como la aeroespacial, médica y de defensa, donde la documentación exhaustiva y la trazabilidad son requisitos críticos. Aunque ha sido criticado por su rigidez, sigue siendo fundamental para entender la evolución de las metodologías de desarrollo de software.</p>
+            </div>
             
             <div class="diagram-container">
                 <h4>📊 Modelo en Cascada - Flujo Secuencial</h4>
@@ -679,7 +687,15 @@
             </div>
 
             <h3>1.2 Modelo en V</h3>
-            <p>El Modelo V es una extensión del modelo cascada que enfatiza las actividades de verificación y validación, mostrando la relación entre cada fase de desarrollo y su correspondiente fase de pruebas.</p>
+            
+            <div class="info-box">
+                <h4>📐 Definición del Modelo en V</h4>
+                <p>El <strong>Modelo en V</strong> es una metodología de desarrollo de software que extiende y mejora el modelo en cascada mediante la incorporación explícita de actividades de verificación y validación. Su nombre deriva de la forma visual que adopta cuando se representa gráficamente, donde las fases de desarrollo forman el lado izquierdo descendente de la "V" y las fases de pruebas forman el lado derecho ascendente.</p>
+                
+                <p>La característica distintiva de esta metodología es la correspondencia directa entre cada fase de desarrollo y su respectiva fase de pruebas. Por ejemplo, los requisitos del usuario se validan mediante pruebas de aceptación, el diseño del sistema se verifica con pruebas de sistema, y el código se valida con pruebas unitarias. Esta relación simétrica garantiza que cada aspecto del desarrollo tenga su correspondiente actividad de calidad.</p>
+                
+                <p>El Modelo en V enfatiza la diferencia crucial entre verificación (¿estamos construyendo el producto correctamente?) y validación (¿estamos construyendo el producto correcto?). Es particularmente efectivo en proyectos donde la calidad y la confiabilidad son críticas, como sistemas embedded, automotrices, médicos y de aviación. Aunque mantiene la estructura secuencial del cascada, su enfoque dual en desarrollo y pruebas proporciona mayor confianza en la calidad del producto final.</p>
+            </div>
 
             <div class="diagram-container">
                 <h4>📊 Modelo V - Verificación y Validación</h4>
@@ -724,8 +740,16 @@
             <h2 class="section-title">🚀 2. Modelos Modernos</h2>
             
             <h3>2.1 Modelo en Espiral</h3>
-            <p>Propuesto por Barry Boehm en 1986, el modelo espiral combina elementos del modelo cascada con el enfoque iterativo del prototipado, añadiendo un elemento crucial: el análisis de riesgo.</p>
-
+            
+            <div class="info-box">
+                <h4>🌀 Definición del Modelo en Espiral</h4>
+                <p>El <strong>Modelo en Espiral</strong>, desarrollado por Barry Boehm en 1986, es una metodología de desarrollo de software que combina el enfoque iterativo con un análisis sistemático de riesgos. Se representa como una espiral donde cada vuelta representa una iteración completa del proceso de desarrollo, y el radio de la espiral refleja el costo acumulativo del proyecto.</p>
+                
+                <p>Esta metodología se estructura en cuatro cuadrantes principales que se repiten en cada iteración: planificación (definir objetivos, alternativas y restricciones), análisis de riesgo (identificar y resolver riesgos potenciales), desarrollo (crear prototipos y productos), y evaluación (revisar resultados con stakeholders). La característica revolucionaria del modelo espiral es su enfoque proactivo hacia la gestión de riesgos, evaluando sistemáticamente amenazas técnicas, de cronograma, operacionales y de negocio en cada iteración.</p>
+                
+                <p>El modelo espiral es especialmente valioso para proyectos grandes, complejos e innovadores donde el riesgo es significativo y los requisitos pueden evolucionar. Es ideal para proyectos de investigación y desarrollo, sistemas críticos de gran escala, y cuando se utilizan tecnologías nuevas o no probadas. Su flexibilidad permite adaptarse a diferentes situaciones, incorporando elementos de otros modelos según las necesidades específicas de cada fase del proyecto.</p>
+            </div>
+            
             <div class="diagram-container">
                 <h4>📊 Modelo Espiral - Cuatro Cuadrantes</h4>
                 <div class="mermaid">
@@ -756,7 +780,15 @@
             </div>
 
             <h3>2.2 RAD (Rapid Application Development)</h3>
-            <p>RAD es un modelo incremental que enfatiza un ciclo de desarrollo extremadamente corto (60-90 días), utilizando un enfoque de construcción basado en componentes.</p>
+            
+            <div class="info-box">
+                <h4>⚡ Definición de RAD (Rapid Application Development)</h4>
+                <p>El <strong>Desarrollo Rápido de Aplicaciones (RAD)</strong> es una metodología ágil que prioriza la velocidad de entrega sobre la documentación exhaustiva, enfocándose en ciclos de desarrollo extremadamente cortos de 60 a 90 días. RAD utiliza un enfoque de construcción basado en componentes, herramientas automatizadas y técnicas de desarrollo visual para acelerar significativamente el proceso de creación de software.</p>
+                
+                <p>La metodología RAD se estructura en fases paralelas que incluyen modelado de negocio, modelado de datos, modelado de procesos, generación de aplicaciones, y pruebas y entrega. Su filosofía se basa en la reutilización de componentes existentes, el desarrollo mediante herramientas CASE (Computer-Aided Software Engineering), la participación activa del usuario final, y equipos pequeños altamente capacitados trabajando en paralelo. RAD sacrifica conscientemente la optimización y el refinamiento en favor de la funcionalidad rápida.</p>
+                
+                <p>RAD es especialmente efectivo para aplicaciones de gestión, sistemas de información empresarial, prototipos funcionales y proyectos donde el tiempo de comercialización es crítico. Requiere equipos experimentados, stakeholders comprometidos, y un alcance que permita la modularización. No es apropiado para sistemas de tiempo real, aplicaciones de alta performance, o proyectos donde la escalabilidad y optimización son prioritarias sobre la velocidad de entrega.</p>
+            </div>
 
             <div class="diagram-container">
                 <h4>📊 Modelo RAD - Desarrollo Rápido</h4>
@@ -781,8 +813,16 @@
             </div>
 
             <h3>2.3 Prototipado</h3>
-            <p>El prototipado permite al desarrollador crear un modelo del software que debe construirse, facilitando la comunicación con el cliente y la validación temprana de requisitos.</p>
-
+            
+            <div class="info-box">
+                <h4>🔧 Definición de Prototipado</h4>
+                <p>El <strong>Prototipado</strong> es una metodología de desarrollo de software que se centra en la construcción rápida de versiones preliminares y funcionales del sistema para validar requisitos, explorar soluciones de diseño y facilitar la comunicación entre desarrolladores y stakeholders. Un prototipo es una versión temprana y experimental del software que implementa aspectos clave de la funcionalidad final, permitiendo obtener retroalimentación valiosa antes de comprometerse con la implementación completa.</p>
+                
+                <p>Existen dos enfoques principales en prototipado: el <strong>prototipado evolutivo</strong>, donde el prototipo se refina continuamente hasta convertirse en el sistema final, y el <strong>prototipado desechable (throwaway)</strong>, donde el prototipo se utiliza únicamente para clarificar requisitos y se descarta antes de comenzar el desarrollo real. El prototipado es especialmente valioso cuando los requisitos son ambiguos, cuando se necesita validar conceptos de interfaz de usuario, o cuando existe incertidumbre sobre la viabilidad técnica de una solución.</p>
+                
+                <p>Esta metodología es ideal para sistemas interactivos, interfaces de usuario complejas, algoritmos innovadores, y situaciones donde la comunicación con el cliente es desafiante. El prototipado reduce significativamente el riesgo de malentendidos sobre requisitos, permite experimentación temprana con alternativas de diseño, y proporciona una base tangible para discusiones técnicas. Sin embargo, requiere disciplina para evitar que prototipos de baja calidad se conviertan inadvertidamente en productos finales.</p>
+            </div>
+            
             <div class="pros-cons">
                 <div class="pros">
                     <h4>✅ Prototipado Evolutivo</h4>
