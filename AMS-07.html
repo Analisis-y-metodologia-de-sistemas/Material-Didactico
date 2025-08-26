@@ -650,6 +650,383 @@
             outline: 2px solid var(--secondary-color);
             outline-offset: 2px;
         }
+
+        /* Nuevos estilos para refinamiento, splitting y estimación */
+        .before-after {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .before, .after {
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid transparent;
+        }
+
+        .before {
+            background: linear-gradient(145deg, #ffebee, #fce4ec);
+            border-color: #f44336;
+        }
+
+        .after {
+            background: linear-gradient(145deg, #e8f5e8, #f1f8e9);
+            border-color: #4caf50;
+        }
+
+        [data-theme="dark"] .before {
+            background: linear-gradient(145deg, #4a2c2a, #5d4037);
+            border-color: #f44336;
+        }
+
+        [data-theme="dark"] .after {
+            background: linear-gradient(145deg, #2e4a2e, #388e3c);
+            border-color: #4caf50;
+        }
+
+        .user-story {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        [data-theme="dark"] .user-story {
+            background: rgba(42, 42, 42, 0.9);
+            border-color: var(--border-color);
+        }
+
+        .story-points {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-top: 0.5rem;
+            text-align: right;
+        }
+
+        .issues {
+            margin-top: 1rem;
+            color: var(--accent-color);
+            font-size: 0.9rem;
+        }
+
+        .issues ul {
+            margin-left: 1rem;
+        }
+
+        /* Estilos de técnicas de splitting */
+        .splitting-technique {
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            background: var(--bg-card);
+        }
+
+        .epic-example {
+            background: rgba(52, 152, 219, 0.1);
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem;
+            border-radius: 5px;
+            margin-top: 1rem;
+        }
+
+        .split-stories {
+            margin-top: 1rem;
+        }
+
+        .split-stories .user-story {
+            margin: 0.5rem 0;
+            position: relative;
+        }
+
+        .points {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--success-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        /* Estilos de estimación */
+        .estimation-level {
+            margin-bottom: 3rem;
+        }
+
+        .epic-estimation {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .epic-item {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        .epic-header {
+            background: var(--gradient-secondary);
+            color: white;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .epic-points {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .epic-breakdown {
+            padding: 1.5rem;
+        }
+
+        .epic-breakdown ul {
+            margin-left: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .epic-confidence {
+            font-size: 0.9rem;
+            color: var(--warning-color);
+            font-weight: bold;
+        }
+
+        /* Stories por complejidad */
+        .stories-by-complexity {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .complexity-group {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        .complexity-group h6 {
+            padding: 1rem;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .complexity-group h6:contains("🟢") {
+            background: linear-gradient(45deg, #4caf50, #66bb6a);
+            color: white;
+        }
+
+        .complexity-group h6:contains("🟡") {
+            background: linear-gradient(45deg, #ff9800, #ffb74d);
+            color: white;
+        }
+
+        .complexity-group h6:contains("🟠") {
+            background: linear-gradient(45deg, #f44336, #ef5350);
+            color: white;
+        }
+
+        .story-examples, .task-examples {
+            padding: 1rem;
+        }
+
+        .story-item, .task-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        [data-theme="dark"] .story-item,
+        [data-theme="dark"] .task-item {
+            background: rgba(42, 42, 42, 0.5);
+        }
+
+        .story-text, .task-text {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .story-meta, .task-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        .story-meta .points,
+        .task-meta .points {
+            background: var(--secondary-color);
+            color: white;
+            padding: 0.2rem 0.8rem;
+            border-radius: 15px;
+            font-weight: bold;
+            position: static;
+            transform: none;
+        }
+
+        .reasoning {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        /* Tareas técnicas */
+        .technical-tasks {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .task-group {
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+            background: var(--bg-card);
+        }
+
+        .task-group h6 {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 1rem;
+            margin: 0;
+        }
+
+        /* Planning Poker */
+        .planning-session {
+            border: 2px solid var(--secondary-color);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            background: var(--bg-card);
+        }
+
+        .story-to-estimate {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .estimation-round {
+            margin: 2rem 0;
+        }
+
+        .team-estimates {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .estimate-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .discussion {
+            background: rgba(241, 196, 15, 0.1);
+            border-left: 4px solid var(--warning-color);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 5px;
+        }
+
+        .discussion ul {
+            margin-left: 1rem;
+        }
+
+        .final-estimate {
+            background: rgba(39, 174, 96, 0.1);
+            border: 2px solid var(--success-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .final-points {
+            color: var(--success-color);
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .estimate-reasoning {
+            margin-top: 1rem;
+            font-style: italic;
+        }
+
+        .refinement-suggestion {
+            background: rgba(23, 162, 184, 0.1);
+            border: 2px solid var(--info-color);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .split-proposals {
+            margin: 1rem 0;
+        }
+
+        .split-story {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+        }
+
+        [data-theme="dark"] .split-story {
+            background: rgba(42, 42, 42, 0.8);
+        }
+
+        .split-story .points {
+            background: var(--success-color);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-left: 0.5rem;
+        }
+
+        .team-agreement {
+            background: rgba(39, 174, 96, 0.1);
+            border-left: 4px solid var(--success-color);
+            padding: 1rem;
+            margin-top: 1rem;
+            border-radius: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .before-after {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .team-estimates {
+                grid-template-columns: 1fr;
+            }
+
+            .planning-session {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1447,6 +1824,517 @@
                         style I fill:#fef7e0
                         style J fill:#e8eaf6
                         style K fill:#e0f2f1
+                </div>
+            </div>
+            
+            <!-- Refinamiento de User Stories -->
+            <div class="content-box warning">
+                <h3>🔍 Refinamiento de User Stories para E-commerce</h3>
+                <p>El refinamiento permite tomar épicas y user stories grandes o vagas y convertirlas en elementos más pequeños, claros y manejables.</p>
+            </div>
+
+            <div class="example-container">
+                <h4>📝 Ejemplos de Refinamiento - E-commerce</h4>
+                
+                <div class="grid-container">
+                    <div class="before-after">
+                        <div class="before">
+                            <h5>❌ Historia Original (Vaga)</h5>
+                            <div class="user-story">
+                                <strong>Como usuario</strong>, quiero gestionar mi cuenta para tener control sobre mi perfil.
+                                <div class="story-points">Story Points: ? (No estimable)</div>
+                            </div>
+                            <div class="issues">
+                                <strong>Problemas:</strong>
+                                <ul>
+                                    <li>Muy vaga - "gestionar" es ambiguo</li>
+                                    <li>No especifica qué aspectos</li>
+                                    <li>Demasiado grande</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="after">
+                            <h5>✅ Historias Refinadas</h5>
+                            <div class="user-story">
+                                <strong>Como usuario registrado</strong>, quiero actualizar mi información personal (nombre, teléfono, dirección) para mantener mis datos actualizados.
+                                <div class="story-points">Story Points: 3</div>
+                            </div>
+                            <div class="user-story">
+                                <strong>Como usuario</strong>, quiero cambiar mi contraseña para mejorar la seguridad de mi cuenta.
+                                <div class="story-points">Story Points: 2</div>
+                            </div>
+                            <div class="user-story">
+                                <strong>Como usuario</strong>, quiero ver mi historial de pedidos para hacer seguimiento de mis compras.
+                                <div class="story-points">Story Points: 5</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-container">
+                    <div class="before-after">
+                        <div class="before">
+                            <h5>❌ Historia Original (Muy Grande)</h5>
+                            <div class="user-story">
+                                <strong>Como usuario</strong>, quiero un sistema de búsqueda para encontrar productos.
+                                <div class="story-points">Story Points: 21+ (Epic)</div>
+                            </div>
+                            <div class="issues">
+                                <strong>Problemas:</strong>
+                                <ul>
+                                    <li>Demasiado amplia</li>
+                                    <li>Múltiples funcionalidades</li>
+                                    <li>Requiere varios sprints</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="after">
+                            <h5>✅ Historias Refinadas por Funcionalidad</h5>
+                            <div class="user-story">
+                                <strong>Como usuario</strong>, quiero buscar productos por nombre para encontrar artículos específicos.
+                                <div class="story-points">Story Points: 5</div>
+                            </div>
+                            <div class="user-story">
+                                <strong>Como usuario</strong>, quiero filtrar productos por categoría para navegar más fácilmente.
+                                <div class="story-points">Story Points: 3</div>
+                            </div>
+                            <div class="user-story">
+                                <strong>Como usuario</strong>, quiero filtrar por rango de precio para ajustarme a mi presupuesto.
+                                <div class="story-points">Story Points: 3</div>
+                            </div>
+                            <div class="user-story">
+                                <strong>Como usuario</strong>, quiero ver sugerencias de búsqueda mientras escribo para encontrar productos más rápido.
+                                <div class="story-points">Story Points: 8</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Técnicas de Splitting -->
+            <div class="content-box success">
+                <h3>✂️ Técnicas de Splitting para E-commerce</h3>
+                <p>El splitting es el arte de dividir historias grandes en pedazos más pequeños y manejables, manteniendo el valor de negocio.</p>
+            </div>
+
+            <div class="example-container">
+                <h4>🎯 Técnicas de Splitting con Ejemplos</h4>
+
+                <div class="splitting-technique">
+                    <h5>1. 🎭 Split por Roles de Usuario</h5>
+                    <div class="epic-example">
+                        <strong>Epic:</strong> Como usuario, quiero gestionar mis productos favoritos
+                        <div class="split-stories">
+                            <div class="user-story">👤 <strong>Como comprador</strong>, quiero agregar productos a mis favoritos para guardarlos para después. <span class="points">3 pts</span></div>
+                            <div class="user-story">👤 <strong>Como comprador</strong>, quiero ver mi lista de favoritos para revisar productos guardados. <span class="points">2 pts</span></div>
+                            <div class="user-story">👤 <strong>Como comprador</strong>, quiero eliminar productos de favoritos cuando ya no me interesan. <span class="points">1 pt</span></div>
+                            <div class="user-story">🏪 <strong>Como vendedor</strong>, quiero ver cuántas veces mis productos fueron agregados a favoritos para analizar el interés. <span class="points">5 pts</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="splitting-technique">
+                    <h5>2. 💾 Split por Operaciones CRUD</h5>
+                    <div class="epic-example">
+                        <strong>Epic:</strong> Como administrador, quiero gestionar el catálogo de productos
+                        <div class="split-stories">
+                            <div class="user-story">➕ <strong>Crear:</strong> Como administrador, quiero agregar nuevos productos al catálogo. <span class="points">5 pts</span></div>
+                            <div class="user-story">👀 <strong>Leer:</strong> Como administrador, quiero ver la lista completa de productos. <span class="points">3 pts</span></div>
+                            <div class="user-story">✏️ <strong>Actualizar:</strong> Como administrador, quiero editar información de productos existentes. <span class="points">3 pts</span></div>
+                            <div class="user-story">🗑️ <strong>Eliminar:</strong> Como administrador, quiero desactivar productos que ya no se venden. <span class="points">2 pts</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="splitting-technique">
+                    <h5>3. 📱 Split por Plataformas/Canales</h5>
+                    <div class="epic-example">
+                        <strong>Epic:</strong> Como usuario, quiero recibir notificaciones sobre mis pedidos
+                        <div class="split-stories">
+                            <div class="user-story">📧 <strong>Email:</strong> Como usuario, quiero recibir confirmación por email al realizar un pedido. <span class="points">3 pts</span></div>
+                            <div class="user-story">📱 <strong>SMS:</strong> Como usuario, quiero recibir SMS cuando mi pedido esté en camino. <span class="points">5 pts</span></div>
+                            <div class="user-story">🔔 <strong>Push:</strong> Como usuario, quiero notificaciones push en la app móvil para actualizaciones importantes. <span class="points">8 pts</span></div>
+                            <div class="user-story">📞 <strong>WhatsApp:</strong> Como usuario, quiero recibir updates por WhatsApp sobre el estado de entrega. <span class="points">8 pts</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="splitting-technique">
+                    <h5>4. 🚀 Split por Niveles de Sofisticación</h5>
+                    <div class="epic-example">
+                        <strong>Epic:</strong> Como usuario, quiero un sistema de recomendaciones personalizado
+                        <div class="split-stories">
+                            <div class="user-story">🎯 <strong>Básico:</strong> Como usuario, quiero ver productos relacionados basados en la categoría actual. <span class="points">5 pts</span></div>
+                            <div class="user-story">📊 <strong>Intermedio:</strong> Como usuario, quiero recomendaciones basadas en mi historial de compras. <span class="points">13 pts</span></div>
+                            <div class="user-story">🤖 <strong>Avanzado:</strong> Como usuario, quiero recomendaciones usando machine learning basadas en usuarios similares. <span class="points">21 pts</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="splitting-technique">
+                    <h5>5. 📋 Split por Flujos de Trabajo</h5>
+                    <div class="epic-example">
+                        <strong>Epic:</strong> Como usuario, quiero procesar devoluciones
+                        <div class="split-stories">
+                            <div class="user-story">📝 <strong>Solicitar:</strong> Como usuario, quiero solicitar la devolución de un producto. <span class="points">5 pts</span></div>
+                            <div class="user-story">✅ <strong>Aprobar:</strong> Como atención al cliente, quiero revisar y aprobar solicitudes de devolución. <span class="points">3 pts</span></div>
+                            <div class="user-story">📦 <strong>Enviar:</strong> Como usuario, quiero generar etiquetas de envío para devolver el producto. <span class="points">8 pts</span></div>
+                            <div class="user-story">💰 <strong>Reembolsar:</strong> Como sistema, quiero procesar el reembolso automáticamente al recibir el producto. <span class="points">13 pts</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estimación Detallada -->
+            <div class="content-box info">
+                <h3>📏 Estimación Detallada con Story Points - E-commerce</h3>
+                <p>Ejemplos prácticos de estimación para épicas, user stories y tareas en un proyecto de e-commerce real.</p>
+            </div>
+
+            <div class="example-container">
+                <h4>🎯 Estimación por Niveles</h4>
+
+                <!-- Épicas -->
+                <div class="estimation-level">
+                    <h5>🌟 ÉPICAS (50-200+ story points)</h5>
+                    <div class="epic-estimation">
+                        <div class="epic-item">
+                            <div class="epic-header">
+                                <h6>🛒 Sistema de Carrito de Compras Completo</h6>
+                                <div class="epic-points">89 story points total</div>
+                            </div>
+                            <div class="epic-breakdown">
+                                <strong>Desglose:</strong>
+                                <ul>
+                                    <li>Agregar productos al carrito (5 pts)</li>
+                                    <li>Modificar cantidades (3 pts)</li>
+                                    <li>Eliminar productos (2 pts)</li>
+                                    <li>Persistir carrito entre sesiones (8 pts)</li>
+                                    <li>Calcular totales con impuestos (5 pts)</li>
+                                    <li>Aplicar cupones de descuento (13 pts)</li>
+                                    <li>Carrito abandonado - email recovery (21 pts)</li>
+                                    <li>Carrito compartido entre dispositivos (21 pts)</li>
+                                    <li>Checkout básico (11 pts)</li>
+                                </ul>
+                                <div class="epic-confidence">Confianza: 75% | Riesgo: Medio</div>
+                            </div>
+                        </div>
+
+                        <div class="epic-item">
+                            <div class="epic-header">
+                                <h6>💳 Sistema de Pagos Integrado</h6>
+                                <div class="epic-points">144 story points total</div>
+                            </div>
+                            <div class="epic-breakdown">
+                                <strong>Desglose:</strong>
+                                <ul>
+                                    <li>Pago con tarjeta de crédito (21 pts)</li>
+                                    <li>Pago con PayPal (13 pts)</li>
+                                    <li>Pago con transferencia bancaria (8 pts)</li>
+                                    <li>Almacenar métodos de pago (13 pts)</li>
+                                    <li>Facturación automática (21 pts)</li>
+                                    <li>Manejo de pagos fallidos (13 pts)</li>
+                                    <li>Reembolsos automáticos (21 pts)</li>
+                                    <li>Dashboard de transacciones (21 pts)</li>
+                                    <li>Compliance PCI DSS (13 pts)</li>
+                                </ul>
+                                <div class="epic-confidence">Confianza: 60% | Riesgo: Alto</div>
+                            </div>
+                        </div>
+
+                        <div class="epic-item">
+                            <div class="epic-header">
+                                <h6>📊 Sistema de Analytics y Reporting</h6>
+                                <div class="epic-points">233 story points total</div>
+                            </div>
+                            <div class="epic-breakdown">
+                                <strong>Desglose:</strong>
+                                <ul>
+                                    <li>Tracking de eventos de usuario (21 pts)</li>
+                                    <li>Dashboard de ventas (34 pts)</li>
+                                    <li>Reportes de productos más vendidos (13 pts)</li>
+                                    <li>Analytics de comportamiento de usuario (55 pts)</li>
+                                    <li>Reportes financieros (34 pts)</li>
+                                    <li>Integración con Google Analytics (21 pts)</li>
+                                    <li>Alertas automáticas (21 pts)</li>
+                                    <li>Export de datos (21 pts)</li>
+                                    <li>Predicciones con ML (13 pts)</li>
+                                </ul>
+                                <div class="epic-confidence">Confianza: 45% | Riesgo: Muy Alto</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Stories -->
+                <div class="estimation-level">
+                    <h5>📝 USER STORIES (1-21 story points)</h5>
+                    <div class="stories-by-complexity">
+                        <div class="complexity-group">
+                            <h6>🟢 Simples (1-3 story points)</h6>
+                            <div class="story-examples">
+                                <div class="story-item">
+                                    <div class="story-text">Como usuario, quiero ver el precio total de mi carrito para saber cuánto voy a pagar.</div>
+                                    <div class="story-meta">
+                                        <span class="points">2 pts</span>
+                                        <span class="reasoning">Simple cálculo y display</span>
+                                    </div>
+                                </div>
+                                <div class="story-item">
+                                    <div class="story-text">Como usuario, quiero eliminar productos de mi carrito cuando cambie de opinión.</div>
+                                    <div class="story-meta">
+                                        <span class="points">1 pt</span>
+                                        <span class="reasoning">CRUD básico, función simple</span>
+                                    </div>
+                                </div>
+                                <div class="story-item">
+                                    <div class="story-text">Como administrador, quiero activar/desactivar productos para controlar disponibilidad.</div>
+                                    <div class="story-meta">
+                                        <span class="points">3 pts</span>
+                                        <span class="reasoning">Lógica de estado + validaciones</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="complexity-group">
+                            <h6>🟡 Moderadas (5-8 story points)</h6>
+                            <div class="story-examples">
+                                <div class="story-item">
+                                    <div class="story-text">Como usuario, quiero buscar productos por nombre y categoría para encontrar lo que necesito.</div>
+                                    <div class="story-meta">
+                                        <span class="points">5 pts</span>
+                                        <span class="reasoning">Lógica de búsqueda + filtros múltiples</span>
+                                    </div>
+                                </div>
+                                <div class="story-item">
+                                    <div class="story-text">Como usuario, quiero recibir notificaciones por email sobre el estado de mi pedido.</div>
+                                    <div class="story-meta">
+                                        <span class="points">8 pts</span>
+                                        <span class="reasoning">Sistema email + templates + triggers</span>
+                                    </div>
+                                </div>
+                                <div class="story-item">
+                                    <div class="story-text">Como vendedor, quiero subir múltiples imágenes de producto con vista previa.</div>
+                                    <div class="story-meta">
+                                        <span class="points">8 pts</span>
+                                        <span class="reasoning">Upload files + validación + optimización</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="complexity-group">
+                            <h6>🟠 Complejas (13-21 story points)</h6>
+                            <div class="story-examples">
+                                <div class="story-item">
+                                    <div class="story-text">Como usuario, quiero aplicar cupones de descuento con validaciones automáticas.</div>
+                                    <div class="story-meta">
+                                        <span class="points">13 pts</span>
+                                        <span class="reasoning">Lógica compleja de descuentos + validaciones + edge cases</span>
+                                    </div>
+                                </div>
+                                <div class="story-item">
+                                    <div class="story-text">Como sistema, quiero sincronizar inventario en tiempo real entre múltiples canales.</div>
+                                    <div class="story-meta">
+                                        <span class="points">21 pts</span>
+                                        <span class="reasoning">Integración compleja + tiempo real + manejo de conflictos</span>
+                                    </div>
+                                </div>
+                                <div class="story-item">
+                                    <div class="story-text">Como usuario, quiero recomendaciones personalizadas basadas en mi historial de compras.</div>
+                                    <div class="story-meta">
+                                        <span class="points">21 pts</span>
+                                        <span class="reasoning">Algoritmo ML + análisis de datos + personalización</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tareas Técnicas -->
+                <div class="estimation-level">
+                    <h5>⚙️ TAREAS TÉCNICAS (1-13 story points)</h5>
+                    <div class="technical-tasks">
+                        <div class="task-group">
+                            <h6>🔧 Configuración e Infraestructura</h6>
+                            <div class="task-examples">
+                                <div class="task-item">
+                                    <div class="task-text">Configurar base de datos PostgreSQL para producción</div>
+                                    <div class="task-meta">
+                                        <span class="points">5 pts</span>
+                                        <span class="reasoning">Setup estándar + configuraciones</span>
+                                    </div>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-text">Implementar CI/CD pipeline con testing automático</div>
+                                    <div class="task-meta">
+                                        <span class="points">13 pts</span>
+                                        <span class="reasoning">Pipeline complejo + integración múltiple</span>
+                                    </div>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-text">Configurar Redis para caché de sesiones</div>
+                                    <div class="task-meta">
+                                        <span class="points">3 pts</span>
+                                        <span class="reasoning">Configuración conocida + documentada</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-group">
+                            <h6>🛡️ Seguridad y Performance</h6>
+                            <div class="task-examples">
+                                <div class="task-item">
+                                    <div class="task-text">Implementar autenticación JWT con refresh tokens</div>
+                                    <div class="task-meta">
+                                        <span class="points">8 pts</span>
+                                        <span class="reasoning">Seguridad compleja + manejo de tokens</span>
+                                    </div>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-text">Optimizar queries de base de datos con índices</div>
+                                    <div class="task-meta">
+                                        <span class="points">5 pts</span>
+                                        <span class="reasoning">Análisis + optimización específica</span>
+                                    </div>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-text">Implementar rate limiting para APIs públicas</div>
+                                    <div class="task-meta">
+                                        <span class="points">3 pts</span>
+                                        <span class="reasoning">Middleware estándar + configuración</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-group">
+                            <h6>🧪 Testing y Calidad</h6>
+                            <div class="task-examples">
+                                <div class="task-item">
+                                    <div class="task-text">Escribir tests unitarios para servicios de pago</div>
+                                    <div class="task-meta">
+                                        <span class="points">8 pts</span>
+                                        <span class="reasoning">Tests complejos + mocks + edge cases</span>
+                                    </div>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-text">Configurar tests de integración para APIs</div>
+                                    <div class="task-meta">
+                                        <span class="points">5 pts</span>
+                                        <span class="reasoning">Setup testing + casos básicos</span>
+                                    </div>
+                                </div>
+                                <div class="task-item">
+                                    <div class="task-text">Implementar logging estructurado con ELK stack</div>
+                                    <div class="task-meta">
+                                        <span class="points">13 pts</span>
+                                        <span class="reasoning">Configuración compleja + integración</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Guía de Planning Poker para E-commerce -->
+            <div class="content-box success">
+                <h3>🃏 Planning Poker Session - E-commerce Stories</h3>
+                <p>Ejemplo práctico de una sesión de Planning Poker estimando stories reales de e-commerce.</p>
+            </div>
+
+            <div class="example-container">
+                <h4>🎯 Simulación de Planning Poker</h4>
+                
+                <div class="planning-session">
+                    <div class="story-to-estimate">
+                        <h5>📋 Story a Estimar:</h5>
+                        <div class="user-story">
+                            <strong>Como usuario</strong>, quiero filtrar productos por múltiples criterios (precio, marca, rating, disponibilidad) para encontrar exactamente lo que busco.
+                        </div>
+                    </div>
+
+                    <div class="estimation-round">
+                        <h6>🔄 Primera Ronda de Estimación:</h6>
+                        <div class="team-estimates">
+                            <div class="estimate-card">👩‍💻 <strong>Ana (Frontend)</strong>: 8 puntos<br><small>"UI compleja con múltiples filtros"</small></div>
+                            <div class="estimate-card">👨‍💻 <strong>Carlos (Backend)</strong>: 3 puntos<br><small>"Solo queries con WHERE"</small></div>
+                            <div class="estimate-card">🧪 <strong>María (QA)</strong>: 13 puntos<br><small>"Muchos casos de test"</small></div>
+                            <div class="estimate-card">🎨 <strong>Luis (UX)</strong>: 5 puntos<br><small>"Interfaz moderadamente compleja"</small></div>
+                        </div>
+
+                        <div class="discussion">
+                            <h6>💬 Discusión:</h6>
+                            <ul>
+                                <li><strong>Ana:</strong> "Necesitamos componentes complejos de filtros con estado múltiple"</li>
+                                <li><strong>Carlos:</strong> "Pero ya tenemos la estructura de base de datos lista"</li>
+                                <li><strong>María:</strong> "Hay que testear todas las combinaciones posibles de filtros"</li>
+                                <li><strong>Luis:</strong> "La UX debe ser intuitiva pero no es súper compleja"</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="estimation-round">
+                        <h6>🔄 Segunda Ronda (después de discusión):</h6>
+                        <div class="team-estimates">
+                            <div class="estimate-card">👩‍💻 <strong>Ana:</strong> 5 puntos<br><small>"Reutilizando componentes existentes"</small></div>
+                            <div class="estimate-card">👨‍💻 <strong>Carlos:</strong> 5 puntos<br><small>"Incluyendo optimización de queries"</small></div>
+                            <div class="estimate-card">🧪 <strong>María:</strong> 8 puntos<br><small>"Tests automatizados más eficientes"</small></div>
+                            <div class="estimate-card">🎨 <strong>Luis:</strong> 5 puntos<br><small>"Diseño consistente con el sistema"</small></div>
+                        </div>
+
+                        <div class="final-estimate">
+                            <h6>✅ Estimación Final Consensuada: <span class="final-points">5 Story Points</span></h6>
+                            <div class="estimate-reasoning">
+                                <strong>Razonamiento:</strong> Funcionalidad moderadamente compleja que requiere desarrollo en frontend y backend, pero aprovecha infraestructura existente. Testing necesario pero manejable con herramientas automatizadas.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Otro ejemplo -->
+                <div class="planning-session">
+                    <div class="story-to-estimate">
+                        <h5>📋 Story a Estimar:</h5>
+                        <div class="user-story">
+                            <strong>Como administrador</strong>, quiero un dashboard en tiempo real que muestre métricas clave de ventas, inventario y usuarios para tomar decisiones informadas.
+                        </div>
+                    </div>
+
+                    <div class="estimation-round">
+                        <h6>🔄 Primera Ronda:</h6>
+                        <div class="team-estimates">
+                            <div class="estimate-card">👩‍💻 <strong>Ana:</strong> 21 puntos<br><small>"Dashboard complejo con tiempo real"</small></div>
+                            <div class="estimate-card">👨‍💻 <strong>Carlos:</strong> 13 puntos<br><small>"WebSockets + agregación de datos"</small></div>
+                            <div class="estimate-card">🧪 <strong>María:</strong> 21 puntos<br><small>"Testing de tiempo real es complejo"</small></div>
+                            <div class="estimate-card">🎨 <strong>Luis:</strong> 8 puntos<br><small>"Dashboard estándar de admin"</small></div>
+                        </div>
+
+                        <div class="refinement-suggestion">
+                            <h6>💡 Sugerencia del Scrum Master:</h6>
+                            <p><strong>Esta story parece muy grande. ¿Podemos dividirla?</strong></p>
+                            
+                            <div class="split-proposals">
+                                <div class="split-story">
+                                    <strong>Story 1:</strong> Dashboard estático con métricas básicas (ventas del día, productos en stock) - <span class="points">5 pts</span>
+                                </div>
+                                <div class="split-story">
+                                    <strong>Story 2:</strong> Actualización automática cada 30 segundos - <span class="points">8 pts</span>
+                                </div>
+                                <div class="split-story">
+                                    <strong>Story 3:</strong> Gráficos interactivos con drill-down - <span class="points">13 pts</span>
+                                </div>
+                            </div>
+
+                            <div class="team-agreement">
+                                <strong>✅ Acuerdo del equipo:</strong> Dividir la story y estimar cada parte por separado. Comenzar con la versión estática para el próximo sprint.
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

@@ -1384,8 +1384,8 @@
                 <h3>🎯 Oportunidades de Mejora Lean</h3>
                 <ul>
                     <li><strong>Reducir handoffs:</strong> Equipos cross-funcionales pueden eliminar 3 días de espera</li>
-                    <li><strong>Automatizar deploy:</strong> CI/CD reduce deployment de 1 día a 1 hora</li>
-                    <li><strong>Parallel testing:</strong> Testing en paralelo con desarrollo reduce 2 días</li>
+                    <li><strong>Automatizar despliegue:</strong> CI/CD reduce despliegue de 1 día a 1 hora</li>
+                    <li><strong>Pruebas paralelas:</strong> Pruebas en paralelo con desarrollo reduce 2 días</li>
                     <li><strong>Pre-approved designs:</strong> Design system reduce tiempo de diseño</li>
                 </ul>
                 <p><strong>Resultado:</strong> Lead Time de 30 días puede reducirse a 18 días (40% mejora)</p>
@@ -1507,6 +1507,2030 @@
                     <li>Resistencia al cambio</li>
                     <li>Sobrecarga de información visual</li>
                 </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🎯 9. Caso de Estudio Completo: Liskov Project</h2>
+            
+            <div class="content-box info">
+                <h3>🏢 Contexto del Proyecto</h3>
+                <p><strong>Empresa:</strong> TechLearn Solutions - Startup de EdTech (15 desarrolladores, 3 años en el mercado)</p>
+                <p><strong>Producto:</strong> Liskov Project - Plataforma de e-learning para universidades con IA adaptativa</p>
+                <p><strong>Usuarios:</strong> 50,000+ estudiantes activos, 200+ instituciones educativas</p>
+                <p><strong>Stack Técnico:</strong> React (Frontend), Node.js (Backend), PostgreSQL, AWS, Docker</p>
+                <p><strong>Desafío Principal:</strong> Gestionar desarrollo ágil con alta calidad mientras se escala el producto</p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🏗️ Arquitectura del Sistema Liskov Project</div>
+                <div class="mermaid">
+                    graph TD
+                        A[Estudiantes] --> B[React Web App]
+                        C[Profesores] --> B
+                        D[Administradores] --> B
+                        
+                        B --> E[API Gateway]
+                        E --> F[Auth Service]
+                        E --> G[Course Service]
+                        E --> H[AI Recommendation Service]
+                        E --> I[Analytics Service]
+                        
+                        F --> J[(PostgreSQL)]
+                        G --> J
+                        H --> K[(Vector DB)]
+                        I --> L[Data Warehouse]
+                        
+                        M[LMS Integrations] --> E
+                        N[Payment Gateway] --> E
+                        O[Video Streaming CDN] --> B
+                        
+                        style B fill:#e3f2fd
+                        style E fill:#fff3e0
+                        style J fill:#f3e5f5
+                        style K fill:#e8f5e8
+                </div>
+            </div>
+
+            <div class="content-box success">
+                <h3>👥 Equipo de Desarrollo</h3>
+                <ul>
+                    <li><strong>Sarah (Product Manager):</strong> 5 años exp, responsable de roadmap y métricas de negocio</li>
+                    <li><strong>Alex (Tech Lead):</strong> 8 años exp, arquitectura y decisiones técnicas</li>
+                    <li><strong>Maria (Senior Full-stack):</strong> 6 años exp, mentor técnico y experta móvil</li>
+                    <li><strong>David (Desarrollador Backend):</strong> 3 años exp, microservicios y APIs</li>
+                    <li><strong>Elena (Frontend Developer):</strong> 2 años exp, UI/UX implementation</li>
+                    <li><strong>Carlos (Ingeniero DevOps):</strong> 4 años exp, CI/CD e infraestructura</li>
+                    <li><strong>Ana (Ingeniera QA):</strong> 3 años exp, pruebas automatizadas y manuales</li>
+                </ul>
+            </div>
+
+            <h3 style="margin-top: 40px;">📊 Fase 1: Estado Inicial - Problemas Identificados</h3>
+            
+            <div class="content-box warning">
+                <h4>🚨 Métricas del Baseline (4 semanas de análisis)</h4>
+                <ul>
+                    <li><strong>Lead Time promedio:</strong> 23.5 días (desde request hasta producción)</li>
+                    <li><strong>Cycle Time promedio:</strong> 17.25 días (desde desarrollo hasta producción)</li>
+                    <li><strong>Throughput:</strong> 3.2 items/semana (muy bajo para el tamaño del equipo)</li>
+                    <li><strong>WIP promedio:</strong> 24 items sin límites (trabajo muy disperso)</li>
+                    <li><strong>Bugs en producción:</strong> 12/mes (alta tasa de defectos)</li>
+                    <li><strong>Satisfacción del equipo:</strong> 6.1/10 (burnout evidente)</li>
+                    <li><strong>Context switching:</strong> 6 tareas diferentes/día por desarrollador</li>
+                    <li><strong>Overtime promedio:</strong> 8 horas/semana/persona</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">📈 Problemática del Flujo Actual</div>
+                <div class="mermaid">
+                    flowchart TD
+                        A[Ideas/Requests<br/>📥 Sin priorización clara] --> B[Backlog Grooming<br/>🕐 2h/semana a menudo cancelada]
+                        B --> C[Development<br/>🔀 Developers toman trabajo sin criterio]
+                        C --> D[Code Review<br/>⏰ PRs acumulados por días]
+                        D --> E[Testing<br/>🚧 Cuello de botella con Ana]
+                        E --> F[Deployment<br/>🎲 Releases cada 2 semanas problemáticos]
+                        
+                        G[Métricas Problemáticas] --> H[Lead Time: 23.5 días<br/>Cycle Time: 17.25 días<br/>Throughput: 3.2 items/week<br/>WIP: 24 items<br/>Bugs: 12/month<br/>Satisfaction: 6.1/10]
+                        
+                        style A fill:#ffebee
+                        style D fill:#ffebee
+                        style E fill:#ffebee
+                        style F fill:#ffebee
+                        style H fill:#fff3e0
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">🎨 Fase 2: Diseño del Tablero Kanban</h3>
+
+            <div style="overflow-x: auto; padding: 10px 0;">
+                <div class="kanban-board" style="grid-template-columns: repeat(6, 280px); gap: 20px; min-width: 1680px;">
+                <div class="kanban-column">
+                    <div class="kanban-header">💡 Ideas/Requests</div>
+                    <div class="kanban-card" style="background: #e1f5fe; border-color: #0277bd;">
+                        <strong>LSK-127:</strong> Dashboard personalizado IA<br>
+                        <small>🎯 Epic | 👤 Sarah | 📊 13 pts</small><br>
+                        <small>📈 Target: +25% engagement</small>
+                    </div>
+                    <div class="kanban-card" style="background: #fff3e0; border-color: #ef6c00;">
+                        <strong>LSK-128:</strong> Integración API de Zoom<br>
+                        <small>🔧 Feature | 👤 Alex | 📊 8 pts</small><br>
+                        <small>🎓 Requested by 15 universities</small>
+                    </div>
+                    <div class="kanban-card" style="background: #ffebee; border-color: #c62828;">
+                        <strong>BUG-091:</strong> Video crash móvil iOS<br>
+                        <small>🐛 Critical Bug | 👤 Maria</small><br>
+                        <small>📱 32% usuarios afectados</small>
+                    </div>
+                    <div class="kanban-card">
+                        <strong>LSK-129:</strong> Notificaciones push<br>
+                        <small>🔧 Feature | 👤 Elena | 📊 3 pts</small>
+                    </div>
+                </div>
+                
+                <div class="kanban-column">
+                    <div class="kanban-header">📋 Ready <span class="wip-limit">5</span></div>
+                    <div class="kanban-card" style="background: #e8f5e8; border-color: #388e3c;">
+                        <strong>LSK-124:</strong> Export reportes PDF<br>
+                        <small>🔧 Feature | 👤 David | 📊 5 pts</small><br>
+                        <small>✅ AC definidos | ✅ Diseño aprobado<br>✅ Tech approach ready</small>
+                    </div>
+                    <div class="kanban-card" style="background: #fff3e0; border-color: #ef6c00;">
+                        <strong>LSK-125:</strong> Optimizar queries DB<br>
+                        <small>⚡ Performance | 👤 David | 📊 8 pts</small><br>
+                        <small>✅ Profiling completo<br>✅ Indexes identificados</small>
+                    </div>
+                    <div class="kanban-card" style="background: #f3e5f5; border-color: #7b1fa2;">
+                        <strong>MAIN-012:</strong> Dependencias de seguridad<br>
+                        <small>🔧 Mantenimiento | 👤 Carlos | 📊 2 pts</small><br>
+                        <small>✅ Auditoría de seguridad realizada</small>
+                    </div>
+                </div>
+                
+                <div class="kanban-column">
+                    <div class="kanban-header">🔄 In Progress <span class="wip-limit">3</span></div>
+                    <div class="kanban-card" style="background: #fff3e0; border-color: #ef6c00;">
+                        <strong>LSK-120:</strong> Chat en tiempo real<br>
+                        <small>🔧 Feature | 👤 Alex | 📊 13 pts</small><br>
+                        <small>🕐 Día 3/7 | WebSocket impl.<br>📈 60% completado</small>
+                    </div>
+                    <div class="kanban-card" style="background: #e8f5e8; border-color: #388e3c;">
+                        <strong>LSK-122:</strong> Mobile responsive<br>
+                        <small>🎨 UI/UX | 👤 Elena | 📊 8 pts</small><br>
+                        <small>🕐 Día 5/6 | Testing breakpoints<br>📈 85% completado</small>
+                    </div>
+                </div>
+                
+                <div class="kanban-column">
+                    <div class="kanban-header">🔍 Code Review <span class="wip-limit">2</span></div>
+                    <div class="kanban-card" style="background: #e1f5fe; border-color: #0277bd;">
+                        <strong>LSK-119:</strong> SSO integration<br>
+                        <small>🔐 Feature | 👤 Maria | 📊 8 pts</small><br>
+                        <small>👨‍💻 Revisor: Alex | ⏱️ 6h esperando<br>✅ Pipeline CI pasando</small>
+                    </div>
+                </div>
+                
+                <div class="kanban-column">
+                    <div class="kanban-header">🧪 Testing <span class="wip-limit">3</span></div>
+                    <div class="kanban-card" style="background: #fff3e0; border-color: #ef6c00;">
+                        <strong>LSK-117:</strong> Advanced search<br>
+                        <small>🔧 Feature | 👤 Ana | 📊 5 pts</small><br>
+                        <small>🧪 Pruebas manuales | 2/5 casos de prueba<br>🎯 Pruebas de casos límite</small>
+                    </div>
+                    <div class="kanban-card" style="background: #ffebee; border-color: #c62828;">
+                        <strong>BUG-089:</strong> Memory leak fix<br>
+                        <small>🐛 Bug | 👤 Ana | 📊 3 pts</small><br>
+                        <small>🔄 Pruebas de regresión</small>
+                    </div>
+                </div>
+                
+                <div class="kanban-column">
+                    <div class="kanban-header">✅ Done (Weekly)</div>
+                    <div class="kanban-card" style="background: #d4edda; border-color: #155724; color: #155724;">
+                        <strong>LSK-115:</strong> User analytics<br>
+                        <small>📊 Feature | Deployed Mon</small><br>
+                        <small>✅ 2.3% engagement ↑ | 🎯 Goal achieved</small>
+                    </div>
+                    <div class="kanban-card" style="background: #d4edda; border-color: #155724; color: #155724;">
+                        <strong>BUG-087:</strong> File upload fix<br>
+                        <small>🐛 Bug | Deployed Wed</small><br>
+                        <small>✅ Zero incidents | Upload success 99.1%</small>
+                    </div>
+                    <div class="kanban-card" style="background: #d4edda; border-color: #155724; color: #155724;">
+                        <strong>MAIN-010:</strong> DB backup automation<br>
+                        <small>🔧 Mantenimiento | Desplegado Vie</small><br>
+                        <small>✅ RTO reduced to 15 minutes</small>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">📊 Visualización Avanzada: Análisis de Flujo del Tablero</h3>
+            
+            <!-- Cuadro Pedagógico de Métricas -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; padding: 30px; margin: 30px 0; color: white; box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);">
+                <h4 style="margin: 0 0 25px 0; font-size: 24px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    🎓 Guía de Métricas: ¿Qué Significan Nuestros Dashboards?
+                </h4>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 20px 0;">
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #17a2b8; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">⏱️</span>
+                            Lead Time (Tiempo de Entrega)
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Tiempo total desde que el cliente solicita algo hasta que lo recibe. Incluye tiempo de espera y trabajo activo.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Predice cuándo entregaremos valor al cliente y ayuda a hacer compromisos realistas.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #28a745; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">📈</span>
+                            Throughput (Rendimiento)
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Número de elementos completados por unidad de tiempo (ej: 7.6 elementos/semana).
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Mide la velocidad sostenible del equipo y ayuda a planificar entregas futuras.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #ffc107; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">🚧</span>
+                            WIP Limits (Límites de Trabajo en Progreso)
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Cantidad máxima de elementos que pueden estar en cada etapa del proceso simultáneamente.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Evita sobrecarga, reduce multitasking y mejora el flujo de trabajo.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #dc3545; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">🎯</span>
+                            Quality Metrics (Métricas de Calidad)
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Cantidad de defectos, porcentaje de trabajo hecho correctamente la primera vez, cobertura de pruebas.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> La velocidad sin calidad genera deuda técnica y insatisfacción del cliente.
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px); margin-top: 20px;">
+                    <h5 style="color: #6610f2; margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="font-size: 1.3em; margin-right: 8px;">👥</span>
+                        Team Health (Salud del Equipo)
+                    </h5>
+                    <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                        Satisfacción, equilibrio vida-trabajo, claridad del proceso, oportunidades de crecimiento técnico.
+                    </p>
+                    <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                        <strong>¿Por qué importa?</strong> Equipos felices son más productivos, creativos y retienen talento. La sostenibilidad es clave.
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 10px;">
+                    <p style="margin: 0; font-size: 16px; font-weight: 500;">
+                        💡 <strong>Recuerda:</strong> Las métricas son un medio, no un fin. Su objetivo es mejorar la entrega de valor al cliente y la satisfacción del equipo.
+                    </p>
+                </div>
+            </div>
+            
+            <div style="overflow-x: auto; padding: 10px 0;">
+                <div style="display: grid; grid-template-columns: repeat(5, 320px); gap: 25px; min-width: 1600px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); padding: 30px; border-radius: 20px;">
+                    
+                    <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-left: 5px solid #17a2b8;">
+                        <h4 style="color: #17a2b8; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="font-size: 1.5em; margin-right: 10px;">⏱️</span>
+                            Análisis de Tiempo de Entrega
+                        </h4>
+                        
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <span style="font-weight: bold; color: #495057;">Línea Base</span>
+                                <span style="background: #dc3545; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em;">23.5 días</span>
+                            </div>
+                            <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                <div style="height: 100%; width: 95%; background: linear-gradient(90deg, #dc3545, #fd7e14); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 15px 0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                                <span style="font-weight: bold; color: #495057;">Actual</span>
+                                <span style="background: #28a745; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em;">9.2 días</span>
+                            </div>
+                            <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                <div style="height: 100%; width: 39%; background: linear-gradient(90deg, #28a745, #20c997); border-radius: 2px;"></div>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; padding: 15px; background: linear-gradient(135deg, #28a745, #20c997); border-radius: 10px; color: white; margin-top: 20px;">
+                            <div style="font-size: 2em; font-weight: bold; margin-bottom: 5px;">-61%</div>
+                            <div style="font-size: 0.9em;">Mejora lograda</div>
+                        </div>
+
+                        <div style="margin-top: 20px;">
+                            <h5 style="color: #495057; margin-bottom: 15px;">🎯 Breakdown por Fase:</h5>
+                            <div style="space-y: 8px;">
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                    <span style="color: #6c757d;">Ideas → Ready</span>
+                                    <span style="font-weight: bold; color: #17a2b8;">2.1d</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                                    <span style="color: #6c757d;">Ready → Done</span>
+                                    <span style="font-weight: bold; color: #17a2b8;">7.1d</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                                    <span style="color: #6c757d; font-weight: bold;">Total</span>
+                                    <span style="font-weight: bold; color: #28a745;">9.2d</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-left: 5px solid #28a745;">
+                        <h4 style="color: #28a745; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="font-size: 1.5em; margin-right: 10px;">📈</span>
+                            Monitor de Rendimiento
+                        </h4>
+
+                        <div style="text-align: center; margin: 20px 0;">
+                            <div style="font-size: 3.5em; font-weight: bold; color: #28a745; margin-bottom: 10px;">7.6</div>
+                            <div style="color: #6c757d; margin-bottom: 20px;">elementos/semana actual</div>
+                            
+                            <div style="background: linear-gradient(135deg, #e3f2fd, #bbdefb); padding: 15px; border-radius: 10px; margin: 15px 0;">
+                                <div style="font-size: 1.2em; color: #1976d2; margin-bottom: 5px;">Meta: 8.0 elementos/semana</div>
+                                <div style="height: 8px; background: #e3f2fd; border-radius: 4px; overflow: hidden;">
+                                    <div style="height: 100%; width: 95%; background: linear-gradient(90deg, #2196f3, #21cbf3); border-radius: 4px;"></div>
+                                </div>
+                                <div style="font-size: 0.9em; color: #1976d2; margin-top: 8px;">95% de la meta - ¡En camino!</div>
+                            </div>
+                        </div>
+
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px;">
+                            <h5 style="margin-bottom: 15px; color: #495057;">📊 Tendencia semanal:</h5>
+                            <div style="display: grid; grid-template-columns: repeat(8, 1fr); gap: 8px; margin-bottom: 10px;">
+                                <div style="background: linear-gradient(135deg, #28a745, #20c997); height: 30px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8em;">3.2</div>
+                                <div style="background: linear-gradient(135deg, #28a745, #20c997); height: 40px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8em;">4.5</div>
+                                <div style="background: linear-gradient(135deg, #28a745, #20c997); height: 50px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8em;">5.8</div>
+                                <div style="background: linear-gradient(135deg, #28a745, #20c997); height: 55px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8em;">6.2</div>
+                                <div style="background: linear-gradient(135deg, #28a745, #20c997); height: 65px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8em;">6.8</div>
+                                <div style="background: linear-gradient(135deg, #28a745, #20c997); height: 70px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8em;">7.2</div>
+                                <div style="background: linear-gradient(135deg, #28a745, #20c997); height: 75px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8em;">7.6</div>
+                                <div style="background: linear-gradient(135deg, #ffc107, #fd7e14); height: 80px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8em;">8.0?</div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #6c757d;">
+                                <span>S1</span><span>S2</span><span>S3</span><span>S4</span><span>S5</span><span>S6</span><span>S7</span><span>S8</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-left: 5px solid #ffc107;">
+                        <h4 style="color: #856404; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="font-size: 1.5em; margin-right: 10px;">🚧</span>
+                            Centro de Control WIP
+                        </h4>
+
+                        <div style="margin-bottom: 25px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                                <span style="font-weight: bold; color: #495057;">WIP Actual vs Límites</span>
+                                <span style="background: #28a745; color: white; padding: 4px 12px; border-radius: 15px; font-size: 0.9em;">✓ Bajo Control</span>
+                            </div>
+
+                            <div style="space-y: 12px;">
+                                <div style="margin-bottom: 12px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                        <span style="color: #495057; font-weight: 500;">Listo</span>
+                                        <span style="color: #6c757d; font-size: 0.9em;">3/5</span>
+                                    </div>
+                                    <div style="height: 6px; background: #e9ecef; border-radius: 3px; overflow: hidden;">
+                                        <div style="height: 100%; width: 60%; background: linear-gradient(90deg, #28a745, #20c997); border-radius: 3px;"></div>
+                                    </div>
+                                </div>
+
+                                <div style="margin-bottom: 12px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                        <span style="color: #495057; font-weight: 500;">En Progreso</span>
+                                        <span style="color: #6c757d; font-size: 0.9em;">2/3</span>
+                                    </div>
+                                    <div style="height: 6px; background: #e9ecef; border-radius: 3px; overflow: hidden;">
+                                        <div style="height: 100%; width: 67%; background: linear-gradient(90deg, #ffc107, #fd7e14); border-radius: 3px;"></div>
+                                    </div>
+                                </div>
+
+                                <div style="margin-bottom: 12px;">
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                        <span style="color: #495057; font-weight: 500;">Revisión de Código</span>
+                                        <span style="color: #6c757d; font-size: 0.9em;">1/2</span>
+                                    </div>
+                                    <div style="height: 6px; background: #e9ecef; border-radius: 3px; overflow: hidden;">
+                                        <div style="height: 100%; width: 50%; background: linear-gradient(90deg, #17a2b8, #20c997); border-radius: 3px;"></div>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                        <span style="color: #495057; font-weight: 500;">Pruebas</span>
+                                        <span style="color: #6c757d; font-size: 0.9em;">2/3</span>
+                                    </div>
+                                    <div style="height: 6px; background: #e9ecef; border-radius: 3px; overflow: hidden;">
+                                        <div style="height: 100%; width: 67%; background: linear-gradient(90deg, #6610f2, #6f42c1); border-radius: 3px;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: linear-gradient(135deg, #fff3cd, #ffeaa7); padding: 15px; border-radius: 10px; border: 1px solid #ffc107;">
+                            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                                <span style="font-size: 1.2em; margin-right: 8px;">⚠️</span>
+                                <span style="font-weight: bold; color: #856404;">Zona de Alerta</span>
+                            </div>
+                            <div style="font-size: 0.9em; color: #856404;">Revisión de Código acerca del límite (1/2). Considera asignar revisor adicional.</div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-left: 5px solid #dc3545;">
+                        <h4 style="color: #dc3545; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="font-size: 1.5em; margin-right: 10px;">🎯</span>
+                            Tablero de Calidad
+                        </h4>
+
+                        <div style="text-align: center; margin-bottom: 25px;">
+                            <div style="background: linear-gradient(135deg, #d4edda, #c3e6cb); padding: 20px; border-radius: 15px; border: 1px solid #28a745;">
+                                <div style="font-size: 2.5em; color: #28a745; margin-bottom: 5px;">3.2</div>
+                                <div style="color: #155724; font-weight: 500;">bugs/mes actual</div>
+                                <div style="font-size: 0.9em; color: #155724; margin-top: 5px;">vs 12 bugs/mes inicial</div>
+                            </div>
+                        </div>
+
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                            <h5 style="color: #495057; margin-bottom: 15px;">📊 Métricas de Calidad:</h5>
+                            
+                            <div style="margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #6c757d;">Primera Vez Correcto</span>
+                                    <span style="font-weight: bold; color: #28a745;">87%</span>
+                                </div>
+                                <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                    <div style="height: 100%; width: 87%; background: linear-gradient(90deg, #28a745, #20c997); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 15px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #6c757d;">Cobertura de Pruebas</span>
+                                    <span style="font-weight: bold; color: #17a2b8;">92%</span>
+                                </div>
+                                <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                    <div style="height: 100%; width: 92%; background: linear-gradient(90deg, #17a2b8, #20c997); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span style="color: #6c757d;">Tasa de Revisión de Código</span>
+                                    <span style="font-weight: bold; color: #6610f2;">100%</span>
+                                </div>
+                                <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                    <div style="height: 100%; width: 100%; background: linear-gradient(90deg, #6610f2, #6f42c1); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: linear-gradient(135deg, #d1ecf1, #bee5eb); padding: 15px; border-radius: 10px; border: 1px solid #17a2b8;">
+                            <div style="font-weight: bold; color: #0c5460; margin-bottom: 8px;">🎯 Meta de Calidad</div>
+                            <div style="font-size: 0.9em; color: #0c5460;">Mantener < 5 bugs/mes con >85% tasa Primera Vez Correcto</div>
+                        </div>
+                    </div>
+
+                    <div style="background: white; border-radius: 15px; padding: 25px; box-shadow: 0 8px 25px rgba(0,0,0,0.1); border-left: 5px solid #6610f2;">
+                        <h4 style="color: #6610f2; margin-bottom: 20px; display: flex; align-items: center;">
+                            <span style="font-size: 1.5em; margin-right: 10px;">👥</span>
+                            Monitor de Salud del Equipo
+                        </h4>
+
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <div style="font-size: 3em; color: #6610f2; margin-bottom: 10px;">😊</div>
+                            <div style="font-size: 2em; font-weight: bold; color: #6610f2; margin-bottom: 5px;">8.7/10</div>
+                            <div style="color: #6c757d;">Satisfacción del Equipo</div>
+                        </div>
+
+                        <div style="background: #f8f9fa; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                            <h5 style="color: #495057; margin-bottom: 15px;">📈 Factores de Satisfacción:</h5>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span style="color: #6c757d;">Equilibrio Vida-Trabajo</span>
+                                    <span style="color: #28a745; font-weight: bold;">9.1</span>
+                                </div>
+                                <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                    <div style="height: 100%; width: 91%; background: linear-gradient(90deg, #28a745, #20c997); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span style="color: #6c757d;">Claridad del Proceso</span>
+                                    <span style="color: #28a745; font-weight: bold;">8.8</span>
+                                </div>
+                                <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                    <div style="height: 100%; width: 88%; background: linear-gradient(90deg, #17a2b8, #20c997); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 12px;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span style="color: #6c757d;">Crecimiento Técnico</span>
+                                    <span style="color: #ffc107; font-weight: bold;">7.9</span>
+                                </div>
+                                <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                    <div style="height: 100%; width: 79%; background: linear-gradient(90deg, #ffc107, #fd7e14); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                    <span style="color: #6c757d;">Colaboración del Equipo</span>
+                                    <span style="color: #28a745; font-weight: bold;">9.2</span>
+                                </div>
+                                <div style="height: 4px; background: #e9ecef; border-radius: 2px; overflow: hidden;">
+                                    <div style="height: 100%; width: 92%; background: linear-gradient(90deg, #6610f2, #6f42c1); border-radius: 2px;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: linear-gradient(135deg, #e2e3f0, #d1d2e0); padding: 15px; border-radius: 10px; border: 1px solid #6610f2;">
+                            <div style="font-weight: bold; color: #3d1a5b; margin-bottom: 8px;">💡 Área de Enfoque</div>
+                            <div style="font-size: 0.9em; color: #3d1a5b;">Crecimiento Técnico necesita atención - Planear sesiones de aprendizaje</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cuadro Pedagógico de Métricas de Planificación y Capacidad -->
+            <div style="background: linear-gradient(135deg, #e17055 0%, #fdcb6e 100%); border-radius: 20px; padding: 30px; margin: 30px 0; color: white; box-shadow: 0 10px 30px rgba(225, 112, 85, 0.3);">
+                <h4 style="margin: 0 0 25px 0; font-size: 24px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    🎯 Guía de Métricas: Planificación y Capacidad del Equipo
+                </h4>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 20px 0;">
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #fdcb6e; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">📊</span>
+                            Distribución de Tiempo de Entrega
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Histograma que muestra la frecuencia de diferentes tiempos de entrega. Revela patrones y variabilidad.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Ayuda a establecer compromisos realistas y detectar entregas anómalas.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #fdcb6e; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">⚖️</span>
+                            Capacidad del Equipo por Tipo
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            División del esfuerzo entre desarrollo de nuevas funcionalidades vs mantenimiento del sistema.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Equilibra innovación con estabilidad y planifica recursos correctamente.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #fdcb6e; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">📅</span>
+                            Forecasting de Entregas
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Predicciones basadas en datos históricos sobre cuándo se completarán épicas y versiones.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Permite planificación estratégica y comunicación proactiva con stakeholders.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #fdcb6e; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">⚡</span>
+                            Utilización del Equipo
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Porcentaje de capacidad del equipo que está siendo utilizada actualmente (85% es óptimo).
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Evita sobrecarga (>90%) y subutilización (<70%) del equipo.
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 10px;">
+                    <p style="margin: 0; font-size: 16px; font-weight: 500;">
+                        📊 <strong>Clave:</strong> Estas métricas transforman el trabajo del equipo en información estratégica para la toma de decisiones de negocio.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Segunda Sección Visual: Métricas de Planificación y Capacidad -->
+            <div style="margin: 40px 0; padding: 30px; background: linear-gradient(135deg, #ff6b6b 0%, #feca57 100%); border-radius: 20px; color: white;">
+                <h3 style="margin: 0 0 25px 0; font-size: 28px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    📊 Métricas de Planificación y Capacidad del Equipo
+                </h3>
+                
+                <!-- Métricas de Planificación Visual -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 25px 0;">
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 15px; padding: 25px; backdrop-filter: blur(10px);">
+                        <h4 style="margin: 0 0 20px 0; color: #fff; text-align: center;">Distribución de Tiempo de Entrega</h4>
+                        <div style="position: relative; height: 200px; background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 10px; padding: 15px;">
+                            <!-- Histograma de tiempos reales -->
+                            <div style="display: flex; align-items: end; height: 100%; gap: 3px; justify-content: space-between;">
+                                <div style="background: #28a745; width: 12px; height: 15%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #28a745; width: 12px; height: 25%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #28a745; width: 12px; height: 45%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #ffc107; width: 12px; height: 70%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #ffc107; width: 12px; height: 100%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #ffc107; width: 12px; height: 85%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #fd7e14; width: 12px; height: 60%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #fd7e14; width: 12px; height: 35%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #e74c3c; width: 12px; height: 20%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #e74c3c; width: 12px; height: 10%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #e74c3c; width: 12px; height: 5%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                                <div style="background: #e74c3c; width: 12px; height: 3%; border-radius: 2px 2px 0 0; opacity: 0.8;"></div>
+                            </div>
+                            <div style="position: absolute; bottom: -25px; left: 0; right: 0; display: flex; justify-content: space-between; font-size: 10px; color: #495057;">
+                                <span>2d</span>
+                                <span>4d</span>
+                                <span>6d</span>
+                                <span>8d</span>
+                                <span>10d</span>
+                                <span>12d</span>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 15px; color: #fff;">
+                            <p style="margin: 5px 0; font-size: 14px; opacity: 0.9;">Promedio: <strong>7.2 días</strong></p>
+                            <p style="margin: 5px 0; font-size: 14px; opacity: 0.9;">Mediana: <strong>6.8 días</strong></p>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 15px; padding: 25px; backdrop-filter: blur(10px);">
+                        <h4 style="margin: 0 0 20px 0; color: #fff; text-align: center;">Capacidad del Equipo por Tipo</h4>
+                        <div style="display: flex; flex-direction: column; gap: 15px; height: 200px; justify-content: space-around;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 14px;">Desarrollo:</span>
+                                <div style="flex: 1; margin: 0 15px; background: rgba(255,255,255,0.3); height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 70%; height: 100%; background: #007bff; border-radius: 4px;"></div>
+                                </div>
+                                <span style="font-weight: bold; font-size: 16px;">14 SP</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 14px;">Mantenimiento:</span>
+                                <div style="flex: 1; margin: 0 15px; background: rgba(255,255,255,0.3); height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 20%; height: 100%; background: #17a2b8; border-radius: 4px;"></div>
+                                </div>
+                                <span style="font-weight: bold; font-size: 16px;">4 SP</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 14px;">Total Sprint:</span>
+                                <div style="flex: 1; margin: 0 15px; background: rgba(255,255,255,0.3); height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 90%; height: 100%; background: #28a745; border-radius: 4px;"></div>
+                                </div>
+                                <span style="font-weight: bold; font-size: 16px;">18 SP</span>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 14px;">Utilización:</span>
+                                <div style="flex: 1; margin: 0 15px; background: rgba(255,255,255,0.3); height: 8px; border-radius: 4px; overflow: hidden;">
+                                    <div style="width: 85%; height: 100%; background: #ffc107; border-radius: 4px;"></div>
+                                </div>
+                                <span style="font-weight: bold; font-size: 16px;">85%</span>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 15px; color: #fff;">
+                            <p style="margin: 5px 0; font-size: 12px; opacity: 0.8;">22% mantenimiento | 78% desarrollo</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Métricas de Planificación del Proyecto -->
+                <div style="background: rgba(255,255,255,0.15); border-radius: 15px; padding: 25px; backdrop-filter: blur(10px);">
+                    <h4 style="margin: 0 0 20px 0; color: #fff; text-align: center;">Métricas de Planificación del Proyecto</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 32px; margin-bottom: 10px;">📅</div>
+                            <h5 style="margin: 0; font-size: 14px; opacity: 0.9;">Próxima Versión</h5>
+                            <p style="margin: 8px 0 0 0; font-size: 22px; font-weight: bold;">15 Nov</p>
+                            <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Basado en velocidad actual</p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #ffeaa7 0%, #fab1a0 100%); padding: 20px; border-radius: 12px; text-align: center; color: #2d3436;">
+                            <div style="font-size: 32px; margin-bottom: 10px;">🎯</div>
+                            <h5 style="margin: 0; font-size: 14px; opacity: 0.9;">Épica "Auth 2.0"</h5>
+                            <p style="margin: 8px 0 0 0; font-size: 22px; font-weight: bold;">34 SP</p>
+                            <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">~2 sprints restantes</p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #81ecec 0%, #74b9ff 100%); padding: 20px; border-radius: 12px; text-align: center; color: #2d3436;">
+                            <div style="font-size: 32px; margin-bottom: 10px;">🔧</div>
+                            <h5 style="margin: 0; font-size: 14px; opacity: 0.9;">Tareas Mantenimiento</h5>
+                            <p style="margin: 8px 0 0 0; font-size: 22px; font-weight: bold;">4 SP</p>
+                            <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">22% de la capacidad</p>
+                        </div>
+                        
+                        <div style="background: linear-gradient(135deg, #fd79a8 0%, #e84393 100%); padding: 20px; border-radius: 12px; text-align: center;">
+                            <div style="font-size: 32px; margin-bottom: 10px;">⚡</div>
+                            <h5 style="margin: 0; font-size: 14px; opacity: 0.9;">Capacidad Equipo</h5>
+                            <p style="margin: 8px 0 0 0; font-size: 22px; font-weight: bold;">18 SP</p>
+                            <p style="margin: 5px 0 0 0; font-size: 12px; opacity: 0.8;">Por sprint (promedio)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cuadro Pedagógico de Métricas Ejecutivas -->
+            <div style="background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%); border-radius: 20px; padding: 30px; margin: 30px 0; color: white; box-shadow: 0 10px 30px rgba(44, 62, 80, 0.3);">
+                <h4 style="margin: 0 0 25px 0; font-size: 24px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    🎛️ Guía de Métricas: Tablero Ejecutivo - Vista 360°
+                </h4>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin: 20px 0;">
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #00b894; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">🏥</span>
+                            Puntuación de Salud del Proyecto
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Indicador agregado que combina múltiples factores: calidad, velocidad, satisfacción del equipo y riesgos.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Vista ejecutiva instantánea del estado general del proyecto para toma de decisiones rápidas.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #6c5ce7; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">📈</span>
+                            Tendencia de Velocidad
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Evolución de la productividad del equipo medida en Story Points completados por sprint a lo largo del tiempo.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Detecta tendencias de mejora o deterioro en la capacidad de entrega del equipo.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #fdcb6e; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">⚠️</span>
+                            Evaluación de Riesgos
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Análisis multidimensional de riesgos: dependencias externas, disponibilidad de recursos y complejidad técnica.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Permite anticipar problemas y tomar medidas preventivas antes que impacten el proyecto.
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="color: #74b9ff; margin-bottom: 15px; display: flex; align-items: center;">
+                            <span style="font-size: 1.3em; margin-right: 8px;">🗓️</span>
+                            Cronograma de Hitos Ejecutivos
+                        </h5>
+                        <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                            Timeline visual con fechas clave del proyecto: releases, demos, entregas a producción y retrospectivas.
+                        </p>
+                        <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                            <strong>¿Por qué importa?</strong> Facilita la comunicación con stakeholders y alineación estratégica del proyecto.
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px); margin-top: 20px;">
+                    <h5 style="color: #00cec9; margin-bottom: 15px; display: flex; align-items: center;">
+                        <span style="font-size: 1.3em; margin-right: 8px;">📊</span>
+                        Métricas de Progreso en Tiempo Real
+                    </h5>
+                    <p style="font-size: 14px; line-height: 1.6; margin-bottom: 12px;">
+                        Indicadores clave como porcentaje de funciones completas, pruebas pasando, días restantes y riesgos activos.
+                    </p>
+                    <div style="background: rgba(255,255,255,0.15); padding: 12px; border-radius: 8px; font-size: 13px;">
+                        <strong>¿Por qué importa?</strong> Proporciona visibilidad ejecutiva del progreso real versus planificado para ajustes estratégicos.
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 25px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 10px;">
+                    <p style="margin: 0; font-size: 16px; font-weight: 500;">
+                        🎯 <strong>Enfoque:</strong> Estas métricas traducen el trabajo técnico del equipo en información estratégica para executives y stakeholders.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Tercera Sección Visual: Tablero de Control Ejecutivo -->
+            <div style="margin: 40px 0; padding: 30px; background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%); border-radius: 20px; color: white;">
+                <h3 style="margin: 0 0 25px 0; font-size: 28px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    🎛️ Tablero de Control Ejecutivo - Vista 360°
+                </h3>
+                
+                <!-- Métricas Principales -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin: 25px 0;">
+                    <!-- Puntuación de Salud -->
+                    <div style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); padding: 25px; border-radius: 15px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -50px; right: -50px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 28px;">🏥</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 18px;">Puntuación de Salud</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Estado general del proyecto</p>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin: 20px 0;">
+                            <div style="width: 80px; height: 80px; margin: 0 auto; border: 8px solid rgba(255,255,255,0.3); border-top: 8px solid white; border-radius: 50%; position: relative;">
+                                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 24px; font-weight: bold;">87%</div>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold;">EXCELENTE</span>
+                        </div>
+                    </div>
+
+                    <!-- Tendencia de Velocidad -->
+                    <div style="background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); padding: 25px; border-radius: 15px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -30px; right: -30px; width: 80px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 28px;">📈</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 18px;">Tendencia de Velocidad</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Últimos 6 sprints</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; align-items: end; height: 60px; gap: 8px; justify-content: center; margin: 20px 0;">
+                            <div style="background: rgba(255,255,255,0.7); width: 18px; height: 35%; border-radius: 2px;"></div>
+                            <div style="background: rgba(255,255,255,0.7); width: 18px; height: 45%; border-radius: 2px;"></div>
+                            <div style="background: rgba(255,255,255,0.7); width: 18px; height: 65%; border-radius: 2px;"></div>
+                            <div style="background: rgba(255,255,255,0.7); width: 18px; height: 80%; border-radius: 2px;"></div>
+                            <div style="background: rgba(255,255,255,0.7); width: 18px; height: 90%; border-radius: 2px;"></div>
+                            <div style="background: white; width: 18px; height: 100%; border-radius: 2px;"></div>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="font-size: 22px; font-weight: bold;">22 SP</span>
+                            <span style="display: block; font-size: 12px; opacity: 0.8; margin-top: 5px;">▲ +15% vs sprint anterior</span>
+                        </div>
+                    </div>
+
+                    <!-- Indicador de Riesgo -->
+                    <div style="background: linear-gradient(135deg, #fdcb6e 0%, #e17055 100%); padding: 25px; border-radius: 15px; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -40px; right: -40px; width: 90px; height: 90px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 28px;">⚠️</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 18px;">Evaluación de Riesgos</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">Análisis de riesgos</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin: 20px 0;">
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 13px;">Dependencias:</span>
+                                <div style="display: flex; gap: 3px;">
+                                    <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                                    <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                                    <div style="width: 12px; height: 12px; background: #f39c12; border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 13px;">Recursos:</span>
+                                <div style="display: flex; gap: 3px;">
+                                    <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                                    <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                                    <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                            <div style="display: flex; align-items: center; justify-content: space-between;">
+                                <span style="font-size: 13px;">Técnico:</span>
+                                <div style="display: flex; gap: 3px;">
+                                    <div style="width: 12px; height: 12px; background: #27ae60; border-radius: 50%;"></div>
+                                    <div style="width: 12px; height: 12px; background: #f39c12; border-radius: 50%;"></div>
+                                    <div style="width: 12px; height: 12px; background: #e74c3c; border-radius: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 14px; font-weight: bold;">MEDIO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cronograma Ejecutivo -->
+                <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 25px; margin-top: 25px; backdrop-filter: blur(10px);">
+                    <h4 style="margin: 0 0 25px 0; color: #fff; text-align: center;">Cronograma Ejecutivo - Próximos Hitos</h4>
+                    <div style="position: relative; padding: 20px 0;">
+                        <!-- Línea de tiempo -->
+                        <div style="position: absolute; top: 50%; left: 50px; right: 50px; height: 4px; background: linear-gradient(90deg, #74b9ff 0%, #0984e3 50%, #6c5ce7 100%); border-radius: 2px;"></div>
+                        
+                        <!-- Hitos -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2;">
+                            <div style="text-align: center; background: #74b9ff; width: 80px; height: 80px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; border: 4px solid rgba(255,255,255,0.3);">
+                                <div style="font-size: 16px; font-weight: bold;">S9</div>
+                                <div style="font-size: 10px;">Sprint Review</div>
+                            </div>
+                            
+                            <div style="text-align: center; background: #0984e3; width: 80px; height: 80px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; border: 4px solid rgba(255,255,255,0.3);">
+                                <div style="font-size: 16px; font-weight: bold;">Oct</div>
+                                <div style="font-size: 10px;">Versión Beta</div>
+                            </div>
+                            
+                            <div style="text-align: center; background: #6c5ce7; width: 80px; height: 80px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; border: 4px solid rgba(255,255,255,0.3);">
+                                <div style="font-size: 16px; font-weight: bold;">Nov</div>
+                                <div style="font-size: 10px;">Producción</div>
+                            </div>
+                            
+                            <div style="text-align: center; background: #a29bfe; width: 80px; height: 80px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; border: 4px solid rgba(255,255,255,0.3);">
+                                <div style="font-size: 16px; font-weight: bold;">Dic</div>
+                                <div style="font-size: 10px;">Retrospectiva</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Métricas de progreso -->
+                    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 30px;">
+                        <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #74b9ff;">76%</div>
+                            <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">Funciones Completas</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #00cec9;">94%</div>
+                            <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">Pruebas Pasando</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #fdcb6e;">12</div>
+                            <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">Días Restantes</div>
+                        </div>
+                        <div style="text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+                            <div style="font-size: 24px; font-weight: bold; color: #e17055;">3</div>
+                            <div style="font-size: 12px; opacity: 0.8; margin-top: 5px;">Riesgos Activos</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cuadro Pedagógico de Políticas Explícitas y Flujo de Estados -->
+            <div style="background: linear-gradient(135deg, #00b894 0%, #00cec9 100%); border-radius: 20px; padding: 30px; margin: 30px 0; color: white; box-shadow: 0 10px 30px rgba(0, 184, 148, 0.3);">
+                <h4 style="margin: 0 0 25px 0; font-size: 24px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    📏 Guía de Políticas: Flujo de Estados y Criterios Explícitos
+                </h4>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                    
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="margin: 0 0 15px 0; color: #fdcb6e; font-size: 16px;">🎯 ¿Qué son las Políticas Explícitas?</h5>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.6;">
+                            Son reglas claras y visibles que definen cuándo una tarea puede moverse de un estado a otro. Eliminan ambigüedades y aseguran calidad consistente.
+                        </p>
+                        <div style="background: rgba(253, 203, 110, 0.2); border-left: 4px solid #fdcb6e; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                            <strong>💡 Clave:</strong> Si no está explícito, cada persona lo interpreta diferente
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="margin: 0 0 15px 0; color: #e17055; font-size: 16px;">🏃‍♂️ LISTO → EN PROGRESO</h5>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.6;">
+                            Criterios de entrada que aseguran que el trabajo está completamente preparado antes de comenzar el desarrollo.
+                        </p>
+                        <div style="background: rgba(225, 112, 85, 0.2); border-left: 4px solid #e17055; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                            <strong>📋 Incluye:</strong> Criterios de aceptación, diseños, arquitectura técnica
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="margin: 0 0 15px 0; color: #a29bfe; font-size: 16px;">🔍 EN PROGRESO → REVISIÓN</h5>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.6;">
+                            Transición que indica cuando el desarrollo está completo y listo para revisión de código y arquitectura.
+                        </p>
+                        <div style="background: rgba(162, 155, 254, 0.2); border-left: 4px solid #a29bfe; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                            <strong>✅ Requisitos:</strong> Código completo, tests unitarios, PR creado
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="margin: 0 0 15px 0; color: #fd79a8; font-size: 16px;">🧪 REVISIÓN → PRUEBAS</h5>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.6;">
+                            El código ha pasado revisión y está listo para validación funcional completa en ambiente de testing.
+                        </p>
+                        <div style="background: rgba(253, 121, 168, 0.2); border-left: 4px solid #fd79a8; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                            <strong>🎯 Validación:</strong> Code review aprobado, merge a develop/testing
+                        </div>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 15px; padding: 20px; backdrop-filter: blur(10px);">
+                        <h5 style="margin: 0 0 15px 0; color: #55a3ff; font-size: 16px;">🚀 PRUEBAS → COMPLETADO</h5>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.6;">
+                            La funcionalidad ha pasado todas las validaciones y está lista para despliegue a producción.
+                        </p>
+                        <div style="background: rgba(85, 163, 255, 0.2); border-left: 4px solid #55a3ff; padding: 10px; margin: 10px 0; border-radius: 5px;">
+                            <strong>🎉 Final:</strong> Testing completo, deployment, monitoring activo
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.15); border-radius: 15px; padding: 20px; margin: 20px 0; text-align: center; backdrop-filter: blur(10px);">
+                    <h5 style="margin: 0 0 10px 0; color: #ffeaa7;">🎯 ¿Por Qué Son Importantes las Políticas Explícitas?</h5>
+                    <p style="margin: 0; font-size: 14px;">
+                        <strong>Flujo Predecible:</strong> Todos saben qué se necesita para avanzar • 
+                        <strong>Calidad Consistente:</strong> No se saltan pasos críticos • 
+                        <strong>Visibilidad Total:</strong> Los bloqueos se identifican rápidamente
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sección Visual: Políticas Explícitas Definidas -->
+            <div style="margin: 40px 0; padding: 30px; background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); border-radius: 20px; color: white;">
+                <h3 style="margin: 0 0 25px 0; font-size: 28px; text-align: center; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    📏 Políticas Explícitas Definidas - Flujo de Estados
+                </h3>
+                
+                <!-- Flow States Visual -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 25px 0;">
+                    
+                    <!-- Ready State -->
+                    <div style="background: linear-gradient(135deg, #6c757d, #495057); padding: 25px; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 24px;">📋</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 18px; font-weight: bold;">LISTO</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">"Ready para desarrollar"</p>
+                            </div>
+                        </div>
+                        <div style="space-y: 10px;">
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Criterios de aceptación definidos por PM</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Diseños UI/UX aprobados (si aplica)</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Arquitectura técnica definida por Tech Lead</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Estimación con Planning Poker</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0;">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Dependencias identificadas y resueltas</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; text-align: center;">
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">ENTRADA AL FLUJO</span>
+                        </div>
+                    </div>
+
+                    <!-- In Progress State -->
+                    <div style="background: linear-gradient(135deg, #007bff, #0056b3); padding: 25px; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 24px;">🔄</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 18px; font-weight: bold;">EN PROGRESO</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">"Desarrollo activo"</p>
+                            </div>
+                        </div>
+                        <div style="space-y: 10px;">
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Developer asignado trabajando dedicadamente</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Branch creado con naming convention</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Tests unitarios en paralelo</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Daily updates en Slack #dev-team</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0;">
+                                <span style="margin-right: 10px; font-size: 16px;">🚫</span>
+                                <span style="font-size: 13px;">No context switching sin consultar</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; text-align: center;">
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">WIP LÍMITE: 3</span>
+                        </div>
+                    </div>
+
+                    <!-- Code Review State -->
+                    <div style="background: linear-gradient(135deg, #fd7e14, #e55a0c); padding: 25px; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 24px;">🔍</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 18px; font-weight: bold;">REVISIÓN</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">"Esperando revisión técnica"</p>
+                            </div>
+                        </div>
+                        <div style="space-y: 10px;">
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Pull request con template completo</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Pipeline CI/CD verde</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Auto-revisión completada por autor</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Revisor asignado según experiencia</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0;">
+                                <span style="margin-right: 10px; font-size: 16px;">⏰</span>
+                                <span style="font-size: 13px;">SLA: 24h máximo primera revisión</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; text-align: center;">
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">WIP LÍMITE: 2</span>
+                        </div>
+                    </div>
+
+                    <!-- Testing State -->
+                    <div style="background: linear-gradient(135deg, #6610f2, #520dc2); padding: 25px; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 24px;">🧪</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 18px; font-weight: bold;">PRUEBAS</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">"Validación de calidad"</p>
+                            </div>
+                        </div>
+                        <div style="space-y: 10px;">
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Revisión de código aprobada y fusionada</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Desplegado en entorno de pruebas</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Smoke tests automatizados pasando</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Casos de prueba manuales ejecutados</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0;">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Pruebas de rendimiento (elementos >5 pts)</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; text-align: center;">
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">WIP LÍMITE: 3</span>
+                        </div>
+                    </div>
+
+                    <!-- Done State -->
+                    <div style="background: linear-gradient(135deg, #28a745, #1e7e34); padding: 25px; border-radius: 15px; position: relative; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.3);">
+                        <div style="position: absolute; top: -20px; right: -20px; width: 60px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                            <div style="width: 50px; height: 50px; background: rgba(255,255,255,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 15px; font-size: 24px;">✅</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 18px; font-weight: bold;">COMPLETADO</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">"Entregado a usuarios"</p>
+                            </div>
+                        </div>
+                        <div style="space-y: 10px;">
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Deployed en producción exitosamente</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Métricas de monitoreo normales 24h</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Documentación técnica actualizada</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Comunicación a stakeholders realizada</span>
+                            </div>
+                            <div style="display: flex; align-items: center; padding: 8px 0;">
+                                <span style="margin-right: 10px; font-size: 16px;">✅</span>
+                                <span style="font-size: 13px;">Criterios validados en producción</span>
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; text-align: center;">
+                            <span style="display: inline-block; background: rgba(255,255,255,0.2); padding: 5px 15px; border-radius: 20px; font-size: 12px; font-weight: bold;">SALIDA DEL FLUJO</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flow Direction Arrows -->
+                <div style="margin: 30px 0; text-align: center;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap;">
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px; font-size: 14px; font-weight: bold;">LISTO</span>
+                        <span style="font-size: 24px; opacity: 0.8;">→</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px; font-size: 14px; font-weight: bold;">PROGRESO</span>
+                        <span style="font-size: 24px; opacity: 0.8;">→</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px; font-size: 14px; font-weight: bold;">REVISIÓN</span>
+                        <span style="font-size: 24px; opacity: 0.8;">→</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px; font-size: 14px; font-weight: bold;">PRUEBAS</span>
+                        <span style="font-size: 24px; opacity: 0.8;">→</span>
+                        <span style="background: rgba(255,255,255,0.2); padding: 10px 20px; border-radius: 25px; font-size: 14px; font-weight: bold;">COMPLETADO</span>
+                    </div>
+                    <p style="margin: 20px 0 0 0; font-size: 14px; opacity: 0.8; text-align: center;">
+                        🔄 <strong>Flujo Pull:</strong> Los elementos avanzan solo cuando la siguiente columna tiene capacidad disponible
+                    </p>
+                </div>
+            </div>
+
+            <!-- Sección Visual: Historias de Usuario Detalladas -->
+            <div style="margin: 40px 0;">
+                <h3 style="margin: 0 0 30px 0; font-size: 28px; text-align: center; color: #2c3e50;">
+                    👩‍💻 Historias de Usuario Detalladas - Casos Reales del Proyecto
+                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 25px; margin: 25px 0;">
+                    
+                    <!-- Epic: Dashboard con IA -->
+                    <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 30px; border-radius: 20px; color: white; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        
+                        <!-- Header -->
+                        <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                            <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-size: 28px;">🎯</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 20px; font-weight: bold;">EPIC: Dashboard Personalizado con IA</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">LSK-127 | 13 SP | 18 días estimados</p>
+                            </div>
+                        </div>
+
+                        <!-- User Story -->
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                            <p style="margin: 0; font-size: 15px; line-height: 1.6;">
+                                <strong style="color: #ffeaa7;">Como</strong> estudiante universitario de ingeniería,<br>
+                                <strong style="color: #ffeaa7;">Quiero</strong> un dashboard que se adapte automáticamente a mi estilo de aprendizaje,<br>
+                                <strong style="color: #ffeaa7;">Para que</strong> pueda optimizar mi tiempo de estudio y mejorar mis calificaciones en un 15%.
+                            </p>
+                        </div>
+
+                        <!-- Desglose -->
+                        <div style="margin-bottom: 20px;">
+                            <h5 style="margin: 0 0 15px 0; font-size: 16px; opacity: 0.9;">📊 Desglose en Historias de Usuario:</h5>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; font-size: 12px;">
+                                    <strong>LSK-127.1:</strong> Análisis de patrones de aprendizaje
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; font-size: 12px;">
+                                    <strong>LSK-127.2:</strong> Motor de recomendaciones
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; font-size: 12px;">
+                                    <strong>LSK-127.3:</strong> Visualización adaptiva
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; font-size: 12px;">
+                                    <strong>LSK-127.4:</strong> Predicción de dificultades
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Métricas -->
+                        <div style="display: flex; justify-content: space-between; gap: 10px;">
+                            <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; flex: 1;">
+                                <div style="font-size: 18px; font-weight: bold;">20+</div>
+                                <div style="font-size: 11px; opacity: 0.8;">Puntos de datos</div>
+                            </div>
+                            <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; flex: 1;">
+                                <div style="font-size: 18px; font-weight: bold;">+15%</div>
+                                <div style="font-size: 11px; opacity: 0.8;">Retención</div>
+                            </div>
+                            <div style="text-align: center; background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; flex: 1;">
+                                <div style="font-size: 18px; font-weight: bold;"><2s</div>
+                                <div style="font-size: 11px; opacity: 0.8;">Carga 3G</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Feature: Integración Zoom -->
+                    <div style="background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); padding: 30px; border-radius: 20px; color: white; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        
+                        <!-- Header -->
+                        <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                            <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-size: 28px;">🔧</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 20px; font-weight: bold;">FUNCIONALIDAD: Integración API de Zoom</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">LSK-128 | 8 SP | 12 días estimados</p>
+                            </div>
+                        </div>
+
+                        <!-- User Story -->
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                            <p style="margin: 0; font-size: 15px; line-height: 1.6;">
+                                <strong style="color: #ffeaa7;">Como</strong> profesor universitario que imparte clases híbridas,<br>
+                                <strong style="color: #ffeaa7;">Quiero</strong> que mis clases de Zoom se integren automáticamente,<br>
+                                <strong style="color: #ffeaa7;">Para que</strong> los estudiantes accedan sin cambiar aplicaciones.
+                            </p>
+                        </div>
+
+                        <!-- Flujo Kanban -->
+                        <div style="margin-bottom: 20px;">
+                            <h5 style="margin: 0 0 15px 0; font-size: 16px; opacity: 0.9;">📈 Análisis de Flujo en Kanban:</h5>
+                            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                                <span style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 15px; font-size: 12px;">Tiempo de Entrega: 12d</span>
+                                <span style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 15px; font-size: 12px;">Tiempo de Ciclo: 7d</span>
+                            </div>
+                            <div style="font-size: 13px; opacity: 0.9;">
+                                <strong>Desarrollador:</strong> Alex (experto en integraciones)<br>
+                                <strong>Dependencias:</strong> Aprobación API Zoom + Revisión legal<br>
+                                <strong>Riesgos:</strong> Límites de API, OAuth, cumplimiento FERPA
+                            </div>
+                        </div>
+
+                        <!-- Business Impact -->
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 15px;">
+                            <h5 style="margin: 0 0 10px 0; font-size: 14px;">💰 Impacto de Negocio:</h5>
+                            <div style="display: flex; justify-content: space-between; gap: 10px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px; font-weight: bold;">15</div>
+                                    <div style="font-size: 10px; opacity: 0.8;">Universidades</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px; font-weight: bold;">$120K</div>
+                                    <div style="font-size: 10px; opacity: 0.8;">Potencial ARR</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px; font-weight: bold;">🏆</div>
+                                    <div style="font-size: 10px; opacity: 0.8;">Diferenciador</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bug Crítico -->
+                    <div style="background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%); padding: 30px; border-radius: 20px; color: white; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        
+                        <!-- Header -->
+                        <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                            <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-size: 28px;">🐛</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 20px; font-weight: bold;">BUG CRÍTICO: Video Player Crash iOS Safari</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">BUG-091 | Expedite | SLA: 48h</p>
+                            </div>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                            <p style="margin: 0; font-size: 15px; line-height: 1.6;">
+                                La aplicación se cierra abruptamente cuando usuarios iOS intentan reproducir videos educativos en Safari, afectando significativamente la experiencia de aprendizaje.
+                            </p>
+                        </div>
+
+                        <!-- Impacto Cuantificado -->
+                        <div style="margin-bottom: 20px;">
+                            <h5 style="margin: 0 0 15px 0; font-size: 16px; opacity: 0.9;">📊 Impacto Cuantificado:</h5>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 18px; font-weight: bold;">16K</div>
+                                    <div style="font-size: 11px; opacity: 0.8;">Usuarios Afectados</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 18px; font-weight: bold;">$45K</div>
+                                    <div style="font-size: 11px; opacity: 0.8;">Ingresos en Riesgo/mes</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 18px; font-weight: bold;">-18%</div>
+                                    <div style="font-size: 11px; opacity: 0.8;">Sesiones completadas</div>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 18px; font-weight: bold;">3.6⭐</div>
+                                    <div style="font-size: 11px; opacity: 0.8;">Calificación App Store</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tratamiento Especial -->
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 15px;">
+                            <h5 style="margin: 0 0 10px 0; font-size: 14px;">🚨 Tratamiento Expedito:</h5>
+                            <div style="font-size: 12px; line-height: 1.5;">
+                                <strong>Clase de Servicio:</strong> Expedito (omite límites WIP)<br>
+                                <strong>Asignación:</strong> Maria (experta móvil + Safari)<br>
+                                <strong>Actualizaciones:</strong> Cada 6h a CEO + clientes
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mantenimiento -->
+                    <div style="background: linear-gradient(135deg, #27ae60 0%, #229954 100%); padding: 30px; border-radius: 20px; color: white; position: relative; overflow: hidden;">
+                        <div style="position: absolute; top: -30px; right: -30px; width: 100px; height: 100px; background: rgba(255,255,255,0.1); border-radius: 50%;"></div>
+                        
+                        <!-- Header -->
+                        <div style="display: flex; align-items: center; margin-bottom: 25px;">
+                            <div style="width: 60px; height: 60px; background: rgba(255,255,255,0.2); border-radius: 15px; display: flex; align-items: center; justify-content: center; margin-right: 20px; font-size: 28px;">🛡️</div>
+                            <div>
+                                <h4 style="margin: 0; font-size: 20px; font-weight: bold;">MANTENIMIENTO: Actualización de Dependencias de Seguridad</h4>
+                                <p style="margin: 5px 0 0 0; font-size: 14px; opacity: 0.9;">MAIN-012 | 20% rendimiento semanal</p>
+                            </div>
+                        </div>
+
+                        <!-- User Story -->
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px; margin-bottom: 20px;">
+                            <p style="margin: 0; font-size: 15px; line-height: 1.6;">
+                                <strong style="color: #ffeaa7;">Como</strong> equipo de desarrollo responsable de la seguridad,<br>
+                                <strong style="color: #ffeaa7;">Necesitamos</strong> mantener todas las dependencias actualizadas,<br>
+                                <strong style="color: #ffeaa7;">Para que</strong> el sistema sea estable y cumpla con estándares de seguridad.
+                            </p>
+                        </div>
+
+                        <!-- Estrategia -->
+                        <div style="margin-bottom: 20px;">
+                            <h5 style="margin: 0 0 15px 0; font-size: 16px; opacity: 0.9;">🛠️ Estrategia de Mantenimiento:</h5>
+                            <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 15px;">
+                                <span style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 15px; font-size: 12px;">20% Rendimiento</span>
+                                <span style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 15px; font-size: 12px;">1 Espacio WIP</span>
+                                <span style="background: rgba(255,255,255,0.2); padding: 5px 10px; border-radius: 15px; font-size: 12px;">Actualizaciones Auto</span>
+                            </div>
+                        </div>
+
+                        <!-- Métricas Health -->
+                        <div style="background: rgba(255,255,255,0.1); border-radius: 12px; padding: 15px;">
+                            <h5 style="margin: 0 0 10px 0; font-size: 14px;">📊 Métricas de Salud:</h5>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px; font-weight: bold;"><24h</div>
+                                    <div style="font-size: 10px; opacity: 0.8;">Tiempo de Exposición</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px; font-weight: bold;"><15%</div>
+                                    <div style="font-size: 10px; opacity: 0.8;">Deuda Técnica</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px; font-weight: bold;">Semanal</div>
+                                    <div style="font-size: 10px; opacity: 0.8;">Freq. Actualización</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div style="font-size: 16px; font-weight: bold;"><2%</div>
+                                    <div style="font-size: 10px; opacity: 0.8;">Tasa de Regresión</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">📈 Fase 3: Resultados de la Implementación</h3>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">🚀 Evolución de Métricas Clave - 8 Semanas de Implementación</div>
+                <div class="mermaid">
+                    xychart-beta
+                        title "Transformación de Indicadores Clave Durante Implementación Kanban"
+                        x-axis ["Línea Base", "Sem 1", "Sem 2", "Sem 3", "Sem 4", "Sem 5", "Sem 6", "Sem 7", "Sem 8"]
+                        y-axis "Días / Elementos por Semana" 0 --> 25
+                        line [23.5, 21, 18, 15, 13, 12, 10.5, 9.8, 9.2]
+                        line [17.25, 16, 14, 12, 10, 9, 8.2, 7.5, 7.1]
+                        line [3.2, 3.8, 4.5, 5.1, 5.8, 6.2, 6.8, 7.2, 7.6]
+                </div>
+                
+                <!-- Explicación del gráfico de evolución -->
+                <div style="background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%); border-radius: 15px; padding: 20px; margin: 20px 0; color: white; box-shadow: 0 8px 25px rgba(116, 185, 255, 0.3);">
+                    <h5 style="margin: 0 0 15px 0; color: #ffeaa7; font-size: 16px;">📊 Leyenda del Gráfico: Líneas por Orden</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #EDECFD; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>1ª Línea: Lead Time</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4;">
+                                Tiempo total desde que el cliente solicita hasta que recibe valor. Incluye tiempo de espera + tiempo de trabajo.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #8B92A4; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>2ª Línea: Cycle Time</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4;">
+                                Tiempo activo de trabajo en el ítem. Desde que comenzamos hasta que terminamos (excluyendo esperas).
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #EAC8A6; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>3ª Línea: Throughput</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4;">
+                                Elementos completados por semana. Indica la capacidad real de entrega del equipo.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; margin-top: 15px;">
+                        <p style="margin: 0; font-size: 14px; text-align: center;">
+                            <strong>📈 Lo que vemos:</strong> Mejora sostenida en todas las métricas durante 8 semanas. Lead Time y Cycle Time bajan consistentemente mientras Throughput sube, indicando que el sistema Kanban está funcionando correctamente.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <h3>📉 Tiempo de Entrega (Lead Time)</h3>
+                    <div class="metric-value">9.2</div>
+                    <div class="metric-label">días (-61%)</div>
+                    <p>De 23.5 → 9.2 días</p>
+                    <small style="color: #666; font-size: 12px; line-height: 1.3;">Tiempo total desde que el cliente hace el pedido hasta que recibe el valor. Incluye esperas + trabajo activo.</small>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>⚡ Tiempo de Ciclo (Cycle Time)</h3>
+                    <div class="metric-value">7.1</div>
+                    <div class="metric-label">días (-59%)</div>
+                    <p>De 17.25 → 7.1 días</p>
+                    <small style="color: #666; font-size: 12px; line-height: 1.3;">Tiempo activo de trabajo en el ítem. Solo cuenta cuando alguien está trabajando en él.</small>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>📈 Rendimiento (Throughput)</h3>
+                    <div class="metric-value">7.6</div>
+                    <div class="metric-label">elementos/semana (+138%)</div>
+                    <p>De 3.2 → 7.6 elementos/semana</p>
+                    <small style="color: #666; font-size: 12px; line-height: 1.3;">Número de elementos completados por unidad de tiempo. Indica la velocidad real de entrega.</small>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>😊 Satisfacción del Equipo</h3>
+                    <div class="metric-value">8.7</div>
+                    <div class="metric-label">de 10 (+43%)</div>
+                    <p>De 6.1 → 8.7 puntos</p>
+                    <small style="color: #666; font-size: 12px; line-height: 1.3;">Medición del bienestar y motivación del equipo. Mayor satisfacción = mejor productividad.</small>
+                </div>
+
+                <div class="metric-card">
+                    <h3>🎯 Predictibilidad</h3>
+                    <div class="metric-value">87%</div>
+                    <div class="metric-label">entregas a tiempo</div>
+                    <p>Confiabilidad en compromisos</p>
+                    <small style="color: #666; font-size: 12px; line-height: 1.3;">Porcentaje de entregas que cumplen con las fechas comprometidas. Base para la confianza del cliente.</small>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>🐛 Mejora de Calidad</h3>
+                    <div class="metric-value">-73%</div>
+                    <div class="metric-label">errores en producción</div>
+                    <p>De 12 → 3.2 errores/mes</p>
+                    <small style="color: #666; font-size: 12px; line-height: 1.3;">Reducción de defectos que llegan a producción. Mayor calidad = menos costos de soporte.</small>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>💰 Impacto de Negocio</h3>
+                    <div class="metric-value">+31%</div>
+                    <div class="metric-label">tasa de adopción de funciones</div>
+                    <p>Participación de usuarios mejorada</p>
+                    <small style="color: #666; font-size: 12px; line-height: 1.3;">Los usuarios adoptan y usan más las nuevas funcionalidades. Indica que entregamos valor real.</small>
+                </div>
+                
+                <div class="metric-card">
+                    <h3>⏰ Tiempo al Mercado (Time to Market)</h3>
+                    <div class="metric-value">-55%</div>
+                    <div class="metric-label">idea a producción</div>
+                    <p>Ventaja competitiva</p>
+                    <small style="color: #666; font-size: 12px; line-height: 1.3;">Velocidad desde que tenemos una idea hasta que está disponible para los usuarios. Clave competitiva.</small>
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">📊 Control Chart - Predictibilidad del Proceso</div>
+                <div class="mermaid">
+                    xychart-beta
+                        title "Gráfico de Control Tiempo de Entrega - Últimas 25 Entregas"
+                        x-axis ["1", "3", "5", "7", "9", "11", "13", "15", "17", "19", "21", "23", "25"]
+                        y-axis "Días de Tiempo de Entrega" 0 --> 18
+                        line [8, 11, 9, 7, 10, 12, 8, 9, 11, 6, 13, 10, 8, 12, 9, 7, 11, 8, 10, 9, 12, 8, 9, 11, 7]
+                        line [9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2, 9.2]
+                        line [15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15]
+                        line [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+                </div>
+                
+                <!-- Explicación de líneas del gráfico de control -->
+                <div style="background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); border-radius: 15px; padding: 20px; margin: 20px 0; color: white; box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);">
+                    <h5 style="margin: 0 0 15px 0; color: #ffeaa7; font-size: 16px;">📈 Leyenda: Control Chart por Orden</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #1f77b4; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>1ª Línea: Datos Reales</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4;">
+                                Tiempo de entrega de cada una de las últimas 25 entregas. Muestra la variación natural del proceso.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #ff7f0e; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>2ª Línea: Promedio (9.2 días)</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4;">
+                                Tiempo promedio actual. Es nuestro "centro" estadístico y base para forecasting.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #2ca02c; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>3ª Línea: Límite Superior (15 días)</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4;">
+                                Límite estadístico superior. Puntos fuera indican problemas que investigar.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #d62728; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>4ª Línea: Límite Inferior (3 días)</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4;">
+                                Límite estadístico inferior. Si vamos por debajo, puede indicar cambio en el proceso.
+                            </p>
+                        </div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; margin-top: 15px;">
+                        <p style="margin: 0; font-size: 14px; text-align: center;">
+                            <strong>📊 Lo que vemos:</strong> Sistema predecible y bajo control. Todas las entregas están dentro de límites, lo que nos permite hacer compromisos confiables con los clientes.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box info">
+                <h4>📊 Interpretación del Gráfico de Control</h4>
+                <ul>
+                    <li><strong>Promedio actual:</strong> 9.2 días de Tiempo de Entrega (línea verde)</li>
+                    <li><strong>Límite Superior de Control:</strong> 15 días (línea naranja)</li>
+                    <li><strong>Límite Inferior de Control:</strong> 3 días (línea roja)</li>
+                    <li><strong>Confianza predictiva:</strong> 87% de entregas entre 3-15 días</li>
+                    <li><strong>Sistema bajo control estadístico:</strong> No hay puntos fuera de límites</li>
+                    <li><strong>Acuerdo de Nivel de Servicio:</strong> "Entregaremos en máximo 15 días con 87% confianza"</li>
+                </ul>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">📊 Cumulative Flow Diagram - Análisis de 8 Semanas</div>
+                <div class="mermaid" style="--mermaid-color-0: #EDECFD; --mermaid-color-1: #8B92A4; --mermaid-color-2: #EAC8A6; --mermaid-color-3: #d62728; --mermaid-color-4: #9467bd; background: #2c3e50; border-radius: 10px; padding: 20px;">
+                    %%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#2c3e50', 'primaryTextColor': '#ffffff', 'primaryBorderColor': '#34495e', 'lineColor': '#ffffff', 'secondaryColor': '#34495e', 'tertiaryColor': '#2c3e50', 'background': '#2c3e50', 'cScale0': '#EDECFD', 'cScale1': '#8B92A4', 'cScale2': '#EAC8A6', 'cScale3': '#d62728', 'cScale4': '#9467bd' }}}%%
+                    xychart-beta
+                        title "CFD - Evolución del Flujo de Trabajo"
+                        x-axis ["Sem1", "Sem2", "Sem3", "Sem4", "Sem5", "Sem6", "Sem7", "Sem8"]
+                        y-axis "Items Acumulados" 0 --> 80
+                        line [8, 16, 27, 39, 54, 68, 78, 85]
+                        line [6, 13, 22, 33, 46, 59, 69, 77]
+                        line [4, 10, 18, 27, 38, 51, 63, 72]
+                        line [2, 6, 13, 20, 29, 40, 52, 63]
+                        line [1, 3, 8, 14, 22, 32, 43, 55]
+                </div>
+                
+                <!-- Explicación de líneas del CFD -->
+                <div style="background: linear-gradient(135deg, #e17055 0%, #fdcb6e 100%); border-radius: 15px; padding: 20px; margin: 20px 0; color: white; box-shadow: 0 8px 25px rgba(225, 112, 85, 0.3);">
+                    <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 16px;">📊 Leyenda: Cumulative Flow Diagram por Orden</h5>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #EDECFD; margin-right: 10px; border-radius: 2px; border: 1px solid rgba(0,0,0,0.2);"></div>
+                                <strong>1ª Línea: Total Entrada</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4; color: white; font-weight: bold;">
+                                Items que han entrado al sistema acumuladamente. La pendiente muestra la velocidad de llegada.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #8B92A4; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>2ª Línea: Después de Ready</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4; color: white; font-weight: bold;">
+                                Items que han pasado el estado "Ready". La diferencia con la 1ª línea = WIP en Ready.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #EAC8A6; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>3ª Línea: Después de Desarrollo</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4; color: white; font-weight: bold;">
+                                Items que han completado desarrollo. La banda entre líneas 2 y 3 = WIP en Desarrollo.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #d62728; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>4ª Línea: Después de Review</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4; color: white; font-weight: bold;">
+                                Items que han pasado revisión de código. La banda entre líneas 3 y 4 = WIP en Code Review.
+                            </p>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                                <div style="width: 20px; height: 3px; background: #9467bd; margin-right: 10px; border-radius: 2px;"></div>
+                                <strong>5ª Línea: Completado</strong>
+                            </div>
+                            <p style="margin: 0; font-size: 13px; line-height: 1.4; color: white; font-weight: bold;">
+                                Items entregados y terminados. La pendiente = velocidad de entrega (Throughput).
+                            </p>
+                        </div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; margin-top: 15px;">
+                        <p style="margin: 0; font-size: 14px; text-align: center;">
+                            <strong>📈 Lo que vemos:</strong> Las bandas mantienen grosor estable = WIP controlado. La pendiente constante = throughput predecible. Sin "barrigas" = flujo saludable sin acumulaciones problemáticas.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Explicación mejorada de CFD -->
+            <div style="background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%); border-radius: 15px; padding: 20px; margin: 20px 0; color: white; box-shadow: 0 8px 25px rgba(108, 92, 231, 0.3);">
+                <h4 style="margin: 0 0 15px 0; color: #fff; font-size: 18px;">🔍 Cómo Leer el Cumulative Flow Diagram</h4>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                        <h5 style="margin: 0 0 10px 0; color: #fff;">📏 ¿Qué son las "bandas"?</h5>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.5;">
+                            Las <strong>bandas de color</strong> son los espacios entre las líneas. Cada banda representa cuánto trabajo (WIP) hay en cada estado:
+                            <br>• Banda delgada = Poco WIP en ese estado
+                            <br>• Banda gruesa = Mucho WIP acumulado
+                            <br>• Banda que se ensancha = Cuello de botella
+                        </p>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                        <h5 style="margin: 0 0 10px 0; color: #fff;">✅ Señales de Flujo Saludable</h5>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.5;">
+                            <strong>Bandas estables:</strong> El grosor no cambia drásticamente
+                            <br><strong>Líneas paralelas:</strong> Trabajo entra y sale a ritmo similar
+                            <br><strong>Sin "barrigas":</strong> No hay ensanchamientos súbitos que indiquen atascos
+                            <br><strong>Pendientes consistentes:</strong> Velocidad de entrega predecible
+                        </p>
+                    </div>
+                    
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 10px; padding: 15px;">
+                        <h5 style="margin: 0 0 10px 0; color: #fff;">⚠️ Señales de Problemas</h5>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.5;">
+                            <strong>Banda que crece:</strong> Acumulación de trabajo (posible cuello de botella)
+                            <br><strong>Líneas que se alejan:</strong> Trabajo entra más rápido de lo que sale
+                            <br><strong>"Barriga" en banda:</strong> Problema temporal que se resolvió
+                            <br><strong>Línea plana:</strong> Estado donde no se está procesando trabajo
+                        </p>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(255,255,255,0.1); border-radius: 10px; padding: 15px; margin-top: 15px;">
+                    <p style="margin: 0; font-size: 14px; text-align: center;">
+                        <strong>💡 En este CFD:</strong> Las bandas mantienen grosor similar = WIP controlado. Code Review (banda entre líneas 3-4) es ligeramente más ancha = requiere atención pero no es crítico.
+                    </p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">🔄 Mejora Continua y Experimentos</h3>
+            
+            <div style="background: #1e3a8a; border-radius: 15px; padding: 25px; margin: 20px 0; color: white; box-shadow: 0 8px 25px rgba(30, 58, 138, 0.3);">
+                <h4 style="margin: 0 0 20px 0; color: #fff; font-size: 20px; text-align: center; font-weight: bold;">🧪 Experimentos de Mejora Exitosos Implementados</h4>
+                
+                <div style="display: grid; gap: 20px;">
+                    <!-- Experimento 1 -->
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px;">
+                        <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 16px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">🔬 Experimento 1: Pair Programming en Items Complejos (Semanas 4-5)</h5>
+                        <div style="display: grid; gap: 12px;">
+                            <div><strong style="color: #fbbf24;">Hipótesis:</strong> Pair programming reducirá cycle time en items >8 pts y mejorará calidad</div>
+                            <div><strong style="color: #fbbf24;">Métricas primaria:</strong> Cycle time promedio para items >8pts</div>
+                            <div><strong style="color: #fbbf24;">Métrica secundaria:</strong> Tasa de defectos post-despliegue</div>
+                            <div><strong style="color: #10b981;">Resultado primario:</strong> 22% reducción cycle time (14 → 11 días)</div>
+                            <div><strong style="color: #10b981;">Resultado secundario:</strong> 45% reducción en bugs post-release</div>
+                            <div><strong style="color: #10b981;">Cost/Benefit:</strong> Cost +15%, Value +35% = ROI positivo</div>
+                            <div style="margin-top: 10px; padding: 12px; background: #10b981; border-radius: 8px;"><strong style="color: #fff;">✅ Decisión:</strong> Adoptar para todos los items >5 pts y componentes críticos</div>
+                        </div>
+                    </div>
+
+                    <!-- Experimento 2 -->
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px;">
+                        <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 16px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">⚡ Experimento 2: Advanced CI/CD Pipeline con E2E Testing (Semanas 6-7)</h5>
+                        <div style="display: grid; gap: 12px;">
+                            <div><strong style="color: #fbbf24;">Hipótesis:</strong> Pipeline avanzado con E2E tests reducirá tiempo en Testing stage</div>
+                            <div><strong style="color: #fbbf24;">Métrica objetivo:</strong> Tiempo promedio en Testing stage</div>
+                            <div><strong style="color: #fbbf24;">Baseline:</strong> 3.2 días promedio en Testing</div>
+                            <div><strong style="color: #10b981;">Resultado:</strong> 35% reducción (3.2 → 2.1 días promedio)</div>
+                            <div><strong style="color: #10b981;">Beneficio lateral:</strong> 60% reducción en problemas post-despliegue</div>
+                            <div><strong style="color: #10b981;">Investment:</strong> 2 semanas de setup, payback en 4 semanas</div>
+                            <div style="margin-top: 10px; padding: 12px; background: #10b981; border-radius: 8px;"><strong style="color: #fff;">✅ Decisión:</strong> Expandir coverage al 85% de critical user journeys</div>
+                        </div>
+                    </div>
+
+                    <!-- Experimento 3 -->
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px;">
+                        <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 16px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">🔔 Experimento 3: Code Review SLA con Smart Notifications (Semana 8)</h5>
+                        <div style="display: grid; gap: 12px;">
+                            <div><strong style="color: #fbbf24;">Hipótesis:</strong> SLA estricto de 24h con alertas inteligentes mejorará flow efficiency</div>
+                            <div><strong style="color: #fbbf24;">Herramienta:</strong> Slack bot con escalation automático y context</div>
+                            <div><strong style="color: #fbbf24;">Métrica:</strong> Tiempo promedio en Code Review stage</div>
+                            <div><strong style="color: #10b981;">Resultado:</strong> 60% reducción (2.5 → 1 día promedio)</div>
+                            <div><strong style="color: #10b981;">Cultural impact:</strong> Mayor ownership y responsiveness del equipo</div>
+                            <div style="margin-top: 10px; padding: 12px; background: #10b981; border-radius: 8px;"><strong style="color: #fff;">✅ Política final:</strong> 24h SLA con escalation a Tech Lead si >36h</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #dc2626; border-radius: 15px; padding: 25px; margin: 20px 0; color: white; box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);">
+                <h4 style="margin: 0 0 20px 0; color: #fff; font-size: 20px; text-align: center; font-weight: bold;">⚠️ Desafíos Enfrentados y Soluciones Aplicadas</h4>
+                
+                <div style="display: grid; gap: 20px;">
+                    <!-- Desafío 1 -->
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px;">
+                        <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 16px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">🚧 Desafío 1: Resistencia a WIP Limits</h5>
+                        <div style="display: grid; gap: 12px;">
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Problema:</strong> Senior developers resistían límites, preferían multitasking tradicional</div>
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Manifestación:</strong> Bypass informal de policies, frustración expresada en retros</div>
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Root cause:</strong> Falta de entendimiento visceral del impacto en flow</div>
+                            <div style="margin-bottom: 12px;"><strong style="color: #f59e0b;">Solución:</strong> Data-driven coaching sessions 1-on-1 con métricas personales</div>
+                            <div style="padding: 12px; background: #10b981; border-radius: 8px;">
+                                <strong style="color: #fff;">✅ Resultado:</strong> 100% cumplimiento después de 3 semanas + propiedad mejorada
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desafío 2 -->
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px;">
+                        <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 16px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">🎯 Desafío 2: Inconsistencia en Estimaciones</h5>
+                        <div style="display: grid; gap: 12px;">
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Problema:</strong> 40% variance en story points entre developers</div>
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Impacto:</strong> Predictabilidad baja, planning sessions inefectivas</div>
+                            <div style="margin-bottom: 8px;"><strong style="color: #f59e0b;">Solución:</strong> Calibration sessions con reference stories + historical data</div>
+                            <div style="margin-bottom: 12px;"><strong style="color: #f59e0b;">Proceso:</strong> Planning poker obligatorio con anchor stories como baseline</div>
+                            <div style="padding: 12px; background: #10b981; border-radius: 8px;">
+                                <strong style="color: #fff;">✅ Resultado:</strong> Variance reducida a 15%, predictabilidad mejorada significativamente
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desafío 3 -->
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px;">
+                        <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 16px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">🔗 Desafío 3: Dependencias Externas Bloqueantes</h5>
+                        <div style="display: grid; gap: 12px;">
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Problema:</strong> 25% de elementos bloqueados por dependencias externas (legal, diseño, APIs)</div>
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Impacto:</strong> Flow disruption grave, delivery dates impredecibles</div>
+                            <div style="margin-bottom: 8px;"><strong style="color: #f59e0b;">Solución:</strong> Dependency tracking board separado + proactive communication</div>
+                            <div style="margin-bottom: 12px;"><strong style="color: #f59e0b;">Proceso nuevo:</strong> Revisión semanal de dependencias con todas las partes interesadas</div>
+                            <div style="padding: 12px; background: #10b981; border-radius: 8px;">
+                                <strong style="color: #fff;">✅ Resultado:</strong> Items bloqueados reducidos a 8% + early warning system
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Desafío 4 -->
+                    <div style="background: rgba(255,255,255,0.15); border-radius: 12px; padding: 20px;">
+                        <h5 style="margin: 0 0 15px 0; color: #fff; font-size: 16px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">📊 Desafío 4: Management Pressure por Fechas</h5>
+                        <div style="display: grid; gap: 12px;">
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Problema:</strong> Requests frecuentes para bypasear proceso en "emergencies"</div>
+                            <div style="margin-bottom: 8px;"><strong style="color: #fbbf24;">Riesgo:</strong> Process erosion, team morale impact, calidad comprometida</div>
+                            <div style="margin-bottom: 8px;"><strong style="color: #f59e0b;">Solución:</strong> Management dashboard con métricas transparentes + education</div>
+                            <div style="margin-bottom: 12px;"><strong style="color: #f59e0b;">Approach:</strong> Regular showcases de process benefits con data concreta</div>
+                            <div style="padding: 12px; background: #10b981; border-radius: 8px;">
+                                <strong style="color: #fff;">✅ Resultado:</strong> 95% reducción en bypass requests + management buy-in completo
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 40px;">🚀 Escalado y Evolución Futura</h3>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">🗺️ Roadmap de Escalado y Madurez - Próximos 6 Meses</div>
+                <div class="mermaid">
+                    gantt
+                        title Plan de Escalado Liskov Project Kanban
+                        dateFormat  YYYY-MM-DD
+                        
+                        section Optimización Interna
+                        Service Level Expectations      :a1, 2024-03-01, 2024-03-30
+                        Advanced Metrics & Dashboards   :a2, 2024-03-15, 2024-04-15
+                        Portfolio Kanban Implementation :a3, 2024-04-01, 2024-04-30
+                        Risk Management Integration     :a4, 2024-04-15, 2024-05-15
+                        
+                        section Cross-team Coordination
+                        UX/Design Kanban Integration    :b1, 2024-04-15, 2024-05-15
+                        Product-Eng Alignment Process   :b2, 2024-05-01, 2024-05-31
+                        Customer Success Integration    :b3, 2024-05-15, 2024-06-15
+                        Coordinación Ventas-Ingeniería :b4, 2024-06-01, 2024-06-30
+                        
+                        section Organizational Scaling
+                        Multi-team Flow Coordination    :c1, 2024-06-01, 2024-07-01
+                        Enterprise Kanban Training      :c2, 2024-06-15, 2024-07-15
+                        Continuous Improvement Culture  :c3, 2024-07-01, 2024-08-01
+                        Strategic Portfolio Management   :c4, 2024-07-15, 2024-08-15
+                        
+                        section Key Milestones
+                        Lead Time < 7 días             :milestone, 2024-04-01, 0d
+                        8+ items/week Throughput       :milestone, 2024-05-01, 0d
+                        3 Teams usando Kanban          :milestone, 2024-07-01, 0d
+                        Organization-wide Adoption     :milestone, 2024-08-15, 0d
+                </div>
+            </div>
+
+            <div style="background-color: #1e3a8a; border-radius: 15px; padding: 30px; margin: 25px 0; color: white; border-left: 6px solid #3b82f6;">
+                <h4 style="color: #fbbf24; font-size: 1.4em; margin-bottom: 25px; font-weight: bold;">🎯 Próximas Fases de Evolución Detalladas</h4>
+                
+                <div style="background-color: rgba(59, 130, 246, 0.15); border-radius: 12px; padding: 25px; margin-bottom: 25px;">
+                    <h5 style="color: #60a5fa; font-size: 1.2em; margin-bottom: 18px; font-weight: bold;">📊 Fase 1: Expectativas de Nivel de Servicio (SLE) y Métricas Avanzadas</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Expectativas de Nivel de Servicio por clase:</strong> <span style="color: #10b981;">Urgente &lt;48h, Estándar &lt;15d, Intangible &lt;30d, Fecha Fija = fecha objetivo</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Compromisos con clientes externos:</strong> <span style="color: #10b981;">Acuerdos de nivel de servicio basados en datos históricos confiables</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Monitoreo automatizado:</strong> <span style="color: #10b981;">Alertas proactivas cuando los elementos se acercan a los límites de tiempo</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Políticas de escalamiento:</strong> <span style="color: #10b981;">Escalamiento automático para elementos que excedan los límites sin justificación</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Análisis avanzados:</strong> <span style="color: #10b981;">Pronósticos Monte Carlo para planificación de releases</span></li>
+                    </ul>
+                </div>
+
+                <div style="background-color: rgba(59, 130, 246, 0.15); border-radius: 12px; padding: 25px; margin-bottom: 25px;">
+                    <h5 style="color: #60a5fa; font-size: 1.2em; margin-bottom: 18px; font-weight: bold;">🤝 Fase 2: Integración Multifuncional y Flujo de Extremo a Extremo</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Tableros Kanban compartidos:</strong> <span style="color: #10b981;">Integración con equipo de UX/Diseño usando el mismo flujo de trabajo</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Métricas de cadena de valor:</strong> <span style="color: #10b981;">Métricas desde el problema del cliente hasta el valor entregado</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Visualización de dependencias:</strong> <span style="color: #10b981;">Tablero dedicado para dependencias entre equipos</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Mejora conjunta:</strong> <span style="color: #10b981;">Retrospectivas conjuntas y experimentos coordinados</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Integración de feedback del cliente:</strong> <span style="color: #10b981;">Ciclos directos de retroalimentación en el flujo de desarrollo</span></li>
+                    </ul>
+                </div>
+
+                <div style="background-color: rgba(59, 130, 246, 0.15); border-radius: 12px; padding: 25px;">
+                    <h5 style="color: #60a5fa; font-size: 1.2em; margin-bottom: 18px; font-weight: bold;">🏢 Fase 3: Escalamiento Empresarial y Alineación Estratégica</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Kanban de Portfolio:</strong> <span style="color: #10b981;">Tablero ejecutivo para iniciativas estratégicas y asignación de presupuesto</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Programa de entrenamiento:</strong> <span style="color: #10b981;">Programa de certificación para otros equipos en la organización</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Comunidades de Práctica:</strong> <span style="color: #10b981;">Intercambio de conocimiento entre equipos y mejores prácticas</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Integración de OKRs:</strong> <span style="color: #10b981;">Alineación de métricas de flujo con objetivos de la empresa</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Gestión estratégica de portfolio:</strong> <span style="color: #10b981;">Decisiones de inversión basadas en eficiencia del flujo</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background-color: #1e3a8a; border-radius: 15px; padding: 30px; margin: 25px 0; color: white; border-left: 6px solid #10b981;">
+                <h4 style="color: #fbbf24; font-size: 1.4em; margin-bottom: 25px; font-weight: bold;">🏆 Resumen Final: Transformación Lograda</h4>
+                
+                <div style="background-color: rgba(16, 185, 129, 0.15); border-radius: 12px; padding: 25px; margin-bottom: 25px;">
+                    <h5 style="color: #34d399; font-size: 1.2em; margin-bottom: 18px; font-weight: bold;">📈 Resultados Cuantitativos Definitivos:</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Tiempo de Entrega:</strong> <span style="color: #10b981;">61% reducción (23.5 → 9.2 días) = Tiempo al mercado significativamente mejorado</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Tiempo de Ciclo:</strong> <span style="color: #10b981;">59% reducción (17.25 → 7.1 días) = Eficiencia de desarrollo duplicada</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Capacidad de Entrega:</strong> <span style="color: #10b981;">138% aumento (3.2 → 7.6 elementos/semana) = Transformación de productividad del equipo</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Calidad:</strong> <span style="color: #10b981;">73% menos errores en producción (12 → 3.2/mes) = Satisfacción del cliente mejorada</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Predictibilidad:</strong> <span style="color: #10b981;">87% confiabilidad en entregas a tiempo = Planificación de negocio habilitada</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Satisfacción del Equipo:</strong> <span style="color: #10b981;">43% mejora (6.1 → 8.7/10) = Aumento de retención y motivación</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Impacto en el Negocio:</strong> <span style="color: #10b981;">31% aumento en adopción de funcionalidades = Correlación con crecimiento de ingresos</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Deuda Técnica:</strong> <span style="color: #10b981;">Mantenida &lt;15% mediante asignación dedicada de mantenimiento</span></li>
+                    </ul>
+                </div>
+
+                <div style="background-color: rgba(16, 185, 129, 0.15); border-radius: 12px; padding: 25px; margin-bottom: 25px;">
+                    <h5 style="color: #34d399; font-size: 1.2em; margin-bottom: 18px; font-weight: bold;">🔑 Factores Críticos de Éxito Identificados:</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Compromiso del liderazgo:</strong> <span style="color: #10b981;">Apoyo consistente y resistencia a atajos durante tiempos difíciles</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Cultura basada en datos:</strong> <span style="color: #10b981;">Todas las decisiones respaldadas por métricas y transparencia en el intercambio</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Mentalidad de experimentación:</strong> <span style="color: #10b981;">Mejoras basadas en hipótesis y experimentos seguros para fallar</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Seguridad psicológica:</strong> <span style="color: #10b981;">Empoderamiento del equipo y aprendizaje de fallos sin culpa</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Obsesión por el cliente:</strong> <span style="color: #10b981;">Cada mejora vinculada directamente al valor del cliente</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Pensamiento sistémico:</strong> <span style="color: #10b981;">Optimización del flujo completo versus optimizaciones locales</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Persistencia:</strong> <span style="color: #10b981;">Compromiso durante la inevitable caída en la motivación</span></li>
+                    </ul>
+                </div>
+
+                <div style="background-color: rgba(16, 185, 129, 0.15); border-radius: 12px; padding: 25px; margin-bottom: 25px;">
+                    <h5 style="color: #34d399; font-size: 1.2em; margin-bottom: 18px; font-weight: bold;">💡 Lecciones Clave para Otros Equipos:</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Comienza con el estado actual:</strong> <span style="color: #10b981;">Sin rediseños, evoluciona incrementalmente desde el proceso existente</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Mide implacablemente:</strong> <span style="color: #10b981;">Sin datos objetivos, no hay posibilidad de mejora real</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Enfócate en el flujo:</strong> <span style="color: #10b981;">Optimiza el sistema extremo a extremo, no la productividad individual</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Abraza las restricciones:</strong> <span style="color: #10b981;">Los límites WIP crean enfoque y calidad por diseño</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">La cultura es fundamental:</strong> <span style="color: #10b981;">Los cambios técnicos requieren alineación cultural para sostenibilidad</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Paciencia requerida:</strong> <span style="color: #10b981;">La transformación real toma mínimo 6-8 semanas + compromiso continuo</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><strong style="color: #fbbf24;">Centrado en el cliente:</strong> <span style="color: #10b981;">Todas las mejoras de proceso deben beneficiar finalmente a los usuarios finales</span></li>
+                    </ul>
+                </div>
+
+                <div style="background-color: rgba(16, 185, 129, 0.15); border-radius: 12px; padding: 25px;">
+                    <h5 style="color: #34d399; font-size: 1.2em; margin-bottom: 18px; font-weight: bold;">📚 Próximos Temas Avanzados a Explorar:</h5>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><span style="color: #10b981;">Expectativas de Nivel de Servicio (SLE) y compromisos externos confiables</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><span style="color: #10b981;">Kanban de Portfolio para gestión de iniciativas estratégicas</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><span style="color: #10b981;">Escalamiento de Kanban a través de múltiples equipos y departamentos</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><span style="color: #10b981;">Integración con marcos ágiles (Scrum, SAFe) en organizaciones híbridas</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><span style="color: #10b981;">Métricas avanzadas: pronósticos Monte Carlo, eficiencia del flujo, optimización de cadena de valor</span></li>
+                        <li style="margin-bottom: 12px; padding-left: 20px; border-left: 3px solid #10b981;"><span style="color: #10b981;">Técnicas de transformación cultural para adopción ágil sostenible</span></li>
+                    </ul>
+                </div>
             </div>
         </section>
 
