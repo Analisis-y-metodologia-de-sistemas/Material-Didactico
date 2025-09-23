@@ -256,6 +256,10 @@
             overflow: hidden;
         }
 
+        .diagram-container .mermaid {
+            margin-bottom: 0;
+        }
+
         .diagram-title {
             font-size: 1.2em;
             font-weight: bold;
@@ -1250,6 +1254,84 @@
                     <li><strong>Features:</strong> Conjuntos de funcionalidades relacionadas</li>
                     <li><strong>User Stories:</strong> Funcionalidades específicas completables en 1-2 sprints</li>
                     <li><strong>Tasks:</strong> Actividades técnicas para implementar una story</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🛤️ 3.5. User Journey: El Camino del Usuario</h2>
+
+            <div class="content-box info">
+                <h3>🎯 ¿Qué es un User Journey?</h3>
+                <p>Un <strong>journey</strong> (viaje o recorrido) representa la secuencia completa de pasos, acciones y experiencias que un usuario realiza para lograr un objetivo específico con nuestro producto o servicio. Este concepto es fundamental para entender cómo organizar y priorizar las user stories.</p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🗺️ Journey del Usuario en E-commerce</div>
+                <div class="mermaid">
+                    journey
+                        title User Journey - Plataforma E-commerce
+                        section Descubrir Productos
+                            Buscar productos: 5: Usuario
+                            Ver catálogo: 4: Usuario
+                            Usar filtros: 3: Usuario
+                        section Evaluar Opciones
+                            Ver detalles producto: 5: Usuario
+                            Comparar productos: 4: Usuario
+                            Leer reviews: 3: Usuario
+                        section Realizar Compra
+                            Agregar al carrito: 5: Usuario
+                            Proceso checkout: 2: Usuario
+                            Completar pago: 1: Usuario
+                        section Recibir Producto
+                            Confirmar pedido: 5: Usuario
+                            Tracking envío: 4: Usuario
+                            Recibir producto: 5: Usuario
+                        section Gestionar Post-venta
+                            Calificar producto: 3: Usuario
+                            Soporte técnico: 2: Usuario
+                            Recomprar: 4: Usuario
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🔗 Relación Journey ↔ User Stories</h3>
+                <ul>
+                    <li><strong>Journey define el FLUJO:</strong> La secuencia lógica de actividades del usuario</li>
+                    <li><strong>User Stories definen las FUNCIONALIDADES:</strong> Qué necesita el usuario en cada paso</li>
+                    <li><strong>Epic agrupa OBJETIVOS:</strong> Conjunto de journeys relacionados</li>
+                    <li><strong>Tasks detallan la IMPLEMENTACIÓN:</strong> Cómo construir cada funcionalidad</li>
+                </ul>
+            </div>
+
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <h4>🎯 Touchpoints</h4>
+                    <p>Puntos específicos donde el usuario interactúa con el sistema</p>
+                    <div class="pros">✅ Identifican oportunidades de mejora</div>
+                </div>
+
+                <div class="workflow-card">
+                    <h4>😊 Pain Points</h4>
+                    <p>Momentos de frustración o dificultad en el journey</p>
+                    <div class="cons">❌ Deben ser priorizados para resolver</div>
+                </div>
+
+                <div class="workflow-card">
+                    <h4>💎 Moments of Truth</h4>
+                    <p>Experiencias críticas que definen la percepción del usuario</p>
+                    <div class="pros">✅ Determinan éxito o abandono</div>
+                </div>
+            </div>
+
+            <div class="content-box warning">
+                <h3>🎯 Importancia del Journey en Desarrollo Ágil</h3>
+                <p>Entender el journey del usuario es crucial porque:</p>
+                <ul>
+                    <li><strong>Priorización inteligente:</strong> Las funcionalidades se ordenan según el flujo natural del usuario</li>
+                    <li><strong>MVP coherente:</strong> El primer release cubre un journey completo básico</li>
+                    <li><strong>Validación temprana:</strong> Se puede testear cada etapa del journey con usuarios reales</li>
+                    <li><strong>Evita funcionalidades huérfanas:</strong> Cada story tiene su lugar en el flujo general</li>
                 </ul>
             </div>
         </section>
