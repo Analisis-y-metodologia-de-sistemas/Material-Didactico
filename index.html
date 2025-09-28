@@ -416,161 +416,52 @@
     </div>
 
     <script>
-        // Componentes JavaScript Centralizados
-        const AMS = {
-            // Configuración global
-            config: {
-                mermaidConfig: {
-                    startOnLoad: true,
-                    theme: 'default',
-                    flowchart: {
-                        useMaxWidth: true,
-                        htmlLabels: true
-                    }
-                }
-            },
-
-            // Utilidades DOM
-            dom: {
-                querySelector: (selector) => document.querySelector(selector),
-                querySelectorAll: (selector) => document.querySelectorAll(selector),
-                getElementById: (id) => document.getElementById(id),
-                createElement: (tag, className = null) => {
-                    const element = document.createElement(tag);
-                    if (className) element.className = className;
-                    return element;
-                }
-            },
-
-            // Gestión de temas
-            theme: {
-                toggle: () => {
-                    const body = document.body;
-                    const themeToggle = AMS.dom.querySelector('.theme-toggle');
-                    
-                    body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
-                    themeToggle.textContent = body.dataset.theme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Oscuro';
-                    
-                    AMS.storage.set('theme', body.dataset.theme);
-                },
-                
-                init: () => {
-                    const savedTheme = AMS.storage.get('theme') || 'light';
-                    const body = document.body;
-                    const themeToggle = AMS.dom.querySelector('.theme-toggle');
-                    
-                    body.dataset.theme = savedTheme;
-                    themeToggle.textContent = savedTheme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Oscuro';
-                }
-            },
-
-            // Gestión de localStorage
-            storage: {
-                set: (key, value) => localStorage.setItem(key, JSON.stringify(value)),
-                get: (key) => {
-                    const value = localStorage.getItem(key);
-                    return value ? JSON.parse(value) : null;
-                },
-                remove: (key) => localStorage.removeItem(key),
-                clear: () => localStorage.clear()
-            },
-
-            // Navegación
-            navigation: {
-                currentCourse: null,
-                
-                loadCourse: (courseFile) => {
-                    const frame = AMS.dom.getElementById('contentFrame');
-                    const welcomeScreen = AMS.dom.getElementById('welcomeScreen');
-                    const loadingSpinner = AMS.dom.getElementById('loadingSpinner');
-                    
-                    // Mostrar spinner
-                    loadingSpinner.style.display = 'block';
-                    welcomeScreen.style.display = 'none';
-                    frame.style.display = 'none';
-                    
-                    // Actualizar navegación
-                    AMS.navigation.updateActiveItem(courseFile);
-                    
-                    // Cargar contenido
-                    frame.src = courseFile;
-                    AMS.navigation.currentCourse = courseFile;
-                    
-                    // Guardar último curso visitado
-                    AMS.storage.set('lastCourse', courseFile);
-                    
-                    // Manejar carga del iframe
-                    frame.onload = () => {
-                        loadingSpinner.style.display = 'none';
-                        frame.style.display = 'block';
-                        
-                        // Inicializar componentes en el iframe
-                        AMS.navigation.initializeIframeContent();
-                    };
-                },
-                
-                updateActiveItem: (courseFile) => {
-                    const courseItems = AMS.dom.querySelectorAll('.course-item');
-                    courseItems.forEach(item => {
-                        item.classList.remove('active');
-                        const link = item.querySelector('.course-link');
-                        if (link.getAttribute('onclick').includes(courseFile)) {
-                            item.classList.add('active');
-                        }
-                    });
-                },
-                
-                initializeIframeContent: () => {
-                    try {
-                        const frame = AMS.dom.getElementById('contentFrame');
-                        const frameDoc = frame.contentDocument || frame.contentWindow.document;
-                        
-                        // Sincronizar tema con el iframe
-                        if (frameDoc.body) {
-                            frameDoc.body.dataset.theme = document.body.dataset.theme;
-                        }
-                        
-                        // Inicializar Mermaid en el iframe si está disponible
-                        if (frame.contentWindow.mermaid) {
-                            frame.contentWindow.mermaid.initialize(AMS.config.mermaidConfig);
-                        }
-                    } catch (error) {
-                        console.log('No se pudo acceder al contenido del iframe:', error);
-                    }
-                }
-            },
-
-            // Inicialización
-            init: () => {
-                // Inicializar tema
-                AMS.theme.init();
-                
-                // Cargar último curso visitado
-                const lastCourse = AMS.storage.get('lastCourse');
-                if (lastCourse) {
-                    AMS.navigation.loadCourse(lastCourse);
-                }
-                
-                // Inicializar Mermaid
-                if (typeof mermaid !== 'undefined') {
-                    mermaid.initialize(AMS.config.mermaidConfig);
-                }
-                
-                console.log('AMS Sistema inicializado correctamente');
-            }
-        };
-
-        // Funciones globales para compatibilidad
-        function toggleTheme() {
-            AMS.theme.toggle();
-        }
-
+        // Función simple para cargar curso en iframe
         function loadCourse(courseFile) {
-            AMS.navigation.loadCourse(courseFile);
+            const frame = document.getElementById('contentFrame');
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (!frame || !welcomeScreen || !loadingSpinner) {
+                return;
+            }
+
+            // Mostrar loading
+            loadingSpinner.style.display = 'block';
+            welcomeScreen.style.display = 'none';
+            frame.style.display = 'none';
+
+            // Actualizar clase activa
+            const courseItems = document.querySelectorAll('.course-item');
+            courseItems.forEach(item => {
+                item.classList.remove('active');
+                const link = item.querySelector('.course-link');
+                if (link && link.getAttribute('onclick') && link.getAttribute('onclick').includes(courseFile)) {
+                    item.classList.add('active');
+                }
+            });
+
+            // Cargar página en iframe
+            frame.src = courseFile;
+
+            frame.onload = function() {
+                loadingSpinner.style.display = 'none';
+                frame.style.display = 'block';
+            };
         }
 
-        // Inicializar cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', AMS.init);
+        // Función simple para toggle de tema
+        function toggleTheme() {
+            const body = document.body;
+            const themeToggle = document.querySelector('.theme-toggle');
+
+            if (!body || !themeToggle) {
+                return;
+            }
+
+            body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
+            themeToggle.textContent = body.dataset.theme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Oscuro';
+        }
     </script>
 </body>
 </html>
