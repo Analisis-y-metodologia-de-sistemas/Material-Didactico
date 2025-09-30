@@ -1611,42 +1611,31 @@ graph TD<br>
         <!-- EJEMPLO DIDÁCTICO COMPLETO: LISKOV PROJECT -->
         <!-- ============================================ -->
         <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
-            <h2 class="section-title" style="color: white; border-left-color: white;">🚀 EJEMPLO DIDÁCTICO COMPLETO: LISKOV PROJECT</h2>
+            <h2 class="section-title" style="color: white; border-left-color: white;">🚀 CASO DE ESTUDIO: LISKOV PROJECT</h2>
 
-            <div class="content-box" style="background: rgba(255, 255, 255, 0.95); color: #2c3e50;">
-                <h3 style="color: #667eea;">📋 Descripción del Sistema</h3>
-                <p><strong>Liskov Project</strong> es una herramienta de gestión de proyectos de software que permite a los equipos planificar, ejecutar y monitorear proyectos de desarrollo utilizando metodologías ágiles. El sistema integra múltiples funcionalidades para facilitar la colaboración, el seguimiento de tareas, la gestión de recursos y la generación de reportes.</p>
+            <div class="content-box" style="background: rgba(255, 255, 255, 0.95); color: #2c3e50; padding: 30px; line-height: 1.8; font-size: 1.05em;">
+                <p style="font-style: italic; color: #555; border-left: 4px solid #667eea; padding-left: 15px; margin-bottom: 20px;">
+                    <strong>La Historia:</strong> Un equipo de desarrollo de software se enfrenta al caos diario de gestionar proyectos con hojas de cálculo, emails dispersos y reuniones interminables. María, la project manager, propone crear <strong>Liskov Project</strong>: una herramienta que centralice la planificación ágil, vincule automáticamente código con tareas, y genere métricas en tiempo real.
+                </p>
 
-                <h4 style="color: #764ba2; margin-top: 20px;">🎯 Funcionalidades Principales:</h4>
-                <ul style="margin-left: 20px;">
-                    <li><strong>Gestión de Proyectos:</strong> Crear, configurar y administrar proyectos con múltiples equipos</li>
-                    <li><strong>Planificación de Sprints:</strong> Definir y gestionar sprints con asignación de tareas</li>
-                    <li><strong>Seguimiento de Tareas:</strong> Crear, asignar, actualizar y monitorear el progreso de tareas</li>
-                    <li><strong>Gestión de Backlog:</strong> Priorizar y refinar user stories y tareas pendientes</li>
-                    <li><strong>Integración con Git:</strong> Conectar con repositorios para vincular commits con tareas</li>
-                    <li><strong>Reportes y Métricas:</strong> Generar dashboards, burndown charts y reportes de productividad</li>
-                    <li><strong>Notificaciones:</strong> Alertar a usuarios sobre cambios, asignaciones y deadlines</li>
-                    <li><strong>Gestión de Usuarios:</strong> Administrar permisos, roles y equipos</li>
-                </ul>
+                <p>
+                    El equipo necesita modelar este sistema antes de construirlo. Utilizando <strong>Diagramas de Flujo de Datos</strong>, descompondrán la complejidad en capas: primero una vista de alto nivel que muestre el sistema y su entorno, luego los procesos principales, y finalmente el detalle de cada operación crítica.
+                </p>
 
-                <h4 style="color: #764ba2; margin-top: 20px;">👥 Usuarios del Sistema:</h4>
-                <ul style="margin-left: 20px;">
-                    <li><strong>Project Manager:</strong> Planifica proyectos, gestiona recursos y genera reportes</li>
-                    <li><strong>Scrum Master:</strong> Facilita ceremonias ágiles y gestiona sprints</li>
-                    <li><strong>Developer:</strong> Actualiza estado de tareas y registra tiempo trabajado</li>
-                    <li><strong>Product Owner:</strong> Prioriza backlog y define user stories</li>
-                    <li><strong>Stakeholder:</strong> Consulta reportes y monitorea progreso del proyecto</li>
-                </ul>
+                <p style="margin-top: 20px;">
+                    <strong>El objetivo:</strong> Crear un sistema que permita a equipos ágiles gestionar proyectos con sprints, tareas, backlogs, integraciones Git, reportes automatizados y notificaciones inteligentes. Todo orquestado por flujos de datos claros y procesos bien definidos.
+                </p>
             </div>
         </section>
 
         <!-- DIAGRAMA DE CONTEXTO -->
         <section class="content-section">
-            <h2 class="section-title">🌐 Diagrama de Contexto - Liskov Project</h2>
+            <h2 class="section-title">🌐 Nivel Contexto: La Vista de 30,000 Pies</h2>
 
             <div class="content-box">
-                <h3>📊 Visión General del Sistema</h3>
-                <p>El diagrama de contexto muestra a <strong>Liskov Project</strong> como un único proceso central que interactúa con diversas entidades externas. Este diagrama define claramente el <strong>alcance del sistema</strong> y sus interfaces con el mundo exterior.</p>
+                <p style="line-height: 1.7;">
+                    María comienza trazando el <strong>alcance del sistema</strong>. ¿Quiénes interactuarán con Liskov Project? ¿Qué sistemas externos necesita integrar? El diagrama de contexto responde estas preguntas mostrando el sistema como una <strong>caja negra central</strong> rodeada de actores y sistemas externos. Los flujos de datos representan las interfaces del sistema con el mundo exterior.
+                </p>
             </div>
 
             <div class="diagram-card">
@@ -1711,117 +1700,8 @@ graph TD<br>
                 </div>
             </div>
 
-            <div class="content-box">
-                <h3>🔍 Análisis del Diagrama de Contexto</h3>
-
-                <h4 style="color: #667eea;">📥 Flujos de Entrada:</h4>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Entidad Externa</th>
-                                <th>Flujo de Datos</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Project Manager</strong></td>
-                                <td>Configuración de Proyecto<br/>Solicitud de Reportes</td>
-                                <td>Define parámetros del proyecto (nombre, equipo, fechas) y solicita reportes ejecutivos</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Scrum Master</strong></td>
-                                <td>Planificación de Sprint<br/>Gestión de Ceremonias</td>
-                                <td>Define sprints (fechas, objetivos) y registra resultados de ceremonias ágiles</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Developer</strong></td>
-                                <td>Actualización de Tareas<br/>Registro de Tiempo</td>
-                                <td>Modifica estado de tareas asignadas y registra horas trabajadas</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Product Owner</strong></td>
-                                <td>Backlog Priorizado<br/>User Stories</td>
-                                <td>Define y prioriza funcionalidades a desarrollar</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Stakeholder</strong></td>
-                                <td>Consultas de Progreso</td>
-                                <td>Solicita información sobre el estado actual del proyecto</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Sistema Git</strong></td>
-                                <td>Eventos de Commits<br/>Pull Requests</td>
-                                <td>Webhooks con información de commits y PRs para vincular con tareas</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Sistema Autenticación</strong></td>
-                                <td>Token de Autenticación</td>
-                                <td>Respuesta con token de acceso tras validación de credenciales</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <h4 style="color: #764ba2; margin-top: 30px;">📤 Flujos de Salida:</h4>
-                <div class="table-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Entidad Externa</th>
-                                <th>Flujo de Datos</th>
-                                <th>Descripción</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><strong>Project Manager</strong></td>
-                                <td>Reportes Ejecutivos<br/>Dashboard de Métricas</td>
-                                <td>Información consolidada sobre productividad, costos y riesgos</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Scrum Master</strong></td>
-                                <td>Sprint Backlog<br/>Burndown Chart</td>
-                                <td>Lista de tareas del sprint y gráfico de progreso diario</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Developer</strong></td>
-                                <td>Tareas Asignadas<br/>Notificaciones</td>
-                                <td>Lista de tareas pendientes y alertas sobre cambios relevantes</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Product Owner</strong></td>
-                                <td>Backlog Refinado<br/>Velocidad del Equipo</td>
-                                <td>Backlog actualizado con estimaciones y métricas de capacidad</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Stakeholder</strong></td>
-                                <td>Reportes de Progreso<br/>Status del Proyecto</td>
-                                <td>Resúmenes ejecutivos con estado general y próximos hitos</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Sistema Git</strong></td>
-                                <td>Solicitud de Datos</td>
-                                <td>Peticiones API para obtener información de repositorios</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Sistema Notificaciones</strong></td>
-                                <td>Notificaciones Push</td>
-                                <td>Mensajes de email o Slack para alertar eventos importantes</td>
-                            </tr>
-                            <tr>
-                                <td><strong>Sistema Autenticación</strong></td>
-                                <td>Solicitud de Validación</td>
-                                <td>Petición para validar credenciales de usuarios</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="alert alert-info">
-                <strong>💡 Insight del Diagrama de Contexto:</strong> Este diagrama nos muestra que Liskov Project actúa como un <strong>hub central de información</strong> que orquesta la comunicación entre múltiples actores y sistemas. Observamos que el sistema tiene <strong>8 entidades externas</strong>, lo que indica un alto nivel de integración y complejidad en las interfaces.
+            <div class="alert alert-info" style="font-size: 1.05em; line-height: 1.8; padding: 25px;">
+                <strong>🔍 Lo que observamos:</strong> Liskov Project se posiciona al centro como <strong>hub de orquestación</strong>. A la izquierda, <strong>5 roles de usuarios</strong> envían y reciben información: los developers actualizan tareas y registran tiempo; los managers configuran proyectos y solicitan reportes; los product owners priorizan backlogs. A la derecha, <strong>3 sistemas externos</strong> integran: Git envía webhooks de commits automáticamente; el sistema de autenticación valida usuarios; el servicio de notificaciones distribuye alertas vía email y Slack. Cada flecha representa un <strong>contrato de interfaz</strong>: qué datos entran, qué datos salen, definiendo claramente el alcance y los límites del sistema.
             </div>
         </section>
 
@@ -1837,7 +1717,11 @@ graph TD<br>
 
             <div class="diagram-card">
                 <h3>🎨 DFD Nivel 0 - Liskov Project</h3>
-                <div class="mermaid">
+                <p style="color: #666; font-size: 0.9em; margin-bottom: 15px;">
+                    💡 <strong>Tip:</strong> Usa <kbd>Ctrl + Rueda</kbd> (o <kbd>Cmd + Rueda</kbd> en Mac) para hacer zoom en el diagrama.
+                </p>
+
+                <div class="mermaid" style="background: #f8f9fa; padding: 20px; border-radius: 8px;">
                     graph TB
                         %% Entidades Externas
                         PM[Project Manager]
@@ -1846,94 +1730,79 @@ graph TD<br>
                         PO[Product Owner]
                         SH[Stakeholder]
                         GIT[Sistema Git]
-                        EMAIL[Sistema Notificaciones]
-                        AUTH[Sistema Autenticación]
+                        EMAIL[Sistema Email]
+                        AUTH[Sistema Auth]
 
-                        %% Procesos Principales
-                        P1(1.0<br/>Gestionar<br/>Proyectos)
-                        P2(2.0<br/>Gestionar<br/>Sprints)
-                        P3(3.0<br/>Gestionar<br/>Tareas)
-                        P4(4.0<br/>Generar<br/>Reportes)
-                        P5(5.0<br/>Gestionar<br/>Usuarios)
+                        %% Procesos
+                        P1("1.0<br/>Gestionar<br/>Proyectos")
+                        P2("2.0<br/>Gestionar<br/>Sprints")
+                        P3("3.0<br/>Gestionar<br/>Tareas")
+                        P4("4.0<br/>Generar<br/>Reportes")
+                        P5("5.0<br/>Gestionar<br/>Usuarios")
 
-                        %% Almacenes de Datos
-                        D1[(D1: Proyectos)]
-                        D2[(D2: Sprints)]
-                        D3[(D3: Tareas)]
-                        D4[(D4: Usuarios)]
-                        D5[(D5: Reportes)]
-                        D6[(D6: Integraciones)]
+                        %% Almacenes
+                        D1[("D1<br/>Proyectos")]
+                        D2[("D2<br/>Sprints")]
+                        D3[("D3<br/>Tareas")]
+                        D4[("D4<br/>Usuarios")]
+                        D5[("D5<br/>Reportes")]
+                        D6[("D6<br/>Config")]
 
-                        %% Flujos PM -> Sistema
-                        PM -->|Datos de Proyecto| P1
-                        PM -->|Solicitud Reporte| P4
+                        %% Flujos Entrada
+                        PM -->|Datos Proyecto| P1
+                        PM -->|Solicitud| P4
+                        SM -->|Planificación| P2
+                        DEV -->|Estado| P3
+                        DEV -->|Tiempo| P3
+                        PO -->|Backlog| P3
+                        SH -->|Consulta| P4
+                        GIT -->|Eventos| P3
+                        AUTH -->|Token| P5
 
-                        %% Flujos SM -> Sistema
-                        SM -->|Planificación Sprint| P2
+                        %% Flujos Procesos-Almacenes
+                        P1 --> D1
+                        P1 --> D6
+                        D1 --> P2
+                        D1 --> P4
 
-                        %% Flujos DEV -> Sistema
-                        DEV -->|Actualización Estado| P3
-                        DEV -->|Registro Tiempo| P3
+                        P2 --> D2
+                        D2 --> P3
+                        D2 --> P4
 
-                        %% Flujos PO -> Sistema
-                        PO -->|Backlog Items| P3
-                        PO -->|Prioridades| P3
+                        P3 --> D3
+                        D3 --> P4
 
-                        %% Flujos SH -> Sistema
-                        SH -->|Consulta Status| P4
+                        P5 --> D4
+                        D4 --> P1
+                        D4 --> P3
+                        D4 --> P4
 
-                        %% Flujos Sistemas Externos -> Sistema
-                        GIT -->|Eventos Commit| P3
-                        AUTH -->|Token Validado| P5
+                        P4 --> D5
+                        D6 --> P3
 
-                        %% Procesos -> Almacenes
-                        P1 -->|Proyecto Creado| D1
-                        P1 -->|Configuración Git| D6
-                        D1 -->|Info Proyecto| P2
-                        D1 -->|Datos Proyecto| P4
-
-                        P2 -->|Sprint Definido| D2
-                        D2 -->|Tareas de Sprint| P3
-                        D2 -->|Datos Sprint| P4
-
-                        P3 -->|Tarea Creada/Actualizada| D3
-                        D3 -->|Estado Tareas| P4
-                        D3 -->|Historial| P4
-
-                        P5 -->|Usuario Creado| D4
-                        D4 -->|Info Usuario| P1
-                        D4 -->|Asignaciones| P3
-                        D4 -->|Permisos| P4
-
-                        P4 -->|Reporte Generado| D5
-
-                        D6 -->|Config Git| P3
-
-                        %% Procesos -> Entidades Externas
+                        %% Flujos Salida
                         P1 -->|Confirmación| PM
                         P2 -->|Sprint Backlog| SM
+                        P2 -->|Notificación| EMAIL
                         P3 -->|Tarea Asignada| DEV
-                        P3 -->|Solicitud API Git| GIT
-                        P4 -->|Dashboard Métricas| PM
-                        P4 -->|Burndown Chart| SM
-                        P4 -->|Status Proyecto| SH
-                        P4 -->|Velocidad Equipo| PO
-                        P5 -->|Solicitud Auth| AUTH
-
-                        %% Notificaciones
-                        P3 -->|Alerta Cambio| EMAIL
-                        P2 -->|Alerta Sprint| EMAIL
+                        P3 -->|Notificación| EMAIL
+                        P3 -->|API Request| GIT
+                        P4 -->|Dashboard| PM
+                        P4 -->|Burndown| SM
+                        P4 -->|Reporte| SH
+                        P4 -->|Velocidad| PO
+                        P5 -->|Request Auth| AUTH
 
                         %% Estilos
-                        classDef entidadExterna fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
-                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:3px,color:#0d47a1
-                        classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
-                        classDef sistemaExterno fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c
+                        classDef usuario fill:#c8e6c9,stroke:#2e7d32,stroke-width:3px,color:#1b5e20,font-weight:bold,font-size:13px
+                        classDef proceso fill:#bbdefb,stroke:#1565c0,stroke-width:4px,color:#0d47a1,font-weight:bold,font-size:14px
+                        classDef almacen fill:#ffe0b2,stroke:#e65100,stroke-width:3px,color:#bf360c,font-weight:bold,font-size:13px
+                        classDef externo fill:#ffcdd2,stroke:#c62828,stroke-width:3px,color:#b71c1c,font-weight:bold,font-size:13px
 
-                        class PM,SM,DEV,PO,SH entidadExterna
+                        class PM,SM,DEV,PO,SH usuario
                         class P1,P2,P3,P4,P5 proceso
                         class D1,D2,D3,D4,D5,D6 almacen
-                        class GIT,EMAIL,AUTH sistemaExterno
+                        class GIT,EMAIL,AUTH externo
                 </div>
             </div>
 
