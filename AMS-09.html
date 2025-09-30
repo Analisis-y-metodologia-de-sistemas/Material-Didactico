@@ -1607,6 +1607,1166 @@ graph TD<br>
             </div>
         </section>
 
+        <!-- ============================================ -->
+        <!-- EJEMPLO DIDÁCTICO COMPLETO: LISKOV PROJECT -->
+        <!-- ============================================ -->
+        <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+            <h2 class="section-title" style="color: white; border-left-color: white;">🚀 EJEMPLO DIDÁCTICO COMPLETO: LISKOV PROJECT</h2>
+
+            <div class="content-box" style="background: rgba(255, 255, 255, 0.95); color: #2c3e50;">
+                <h3 style="color: #667eea;">📋 Descripción del Sistema</h3>
+                <p><strong>Liskov Project</strong> es una herramienta de gestión de proyectos de software que permite a los equipos planificar, ejecutar y monitorear proyectos de desarrollo utilizando metodologías ágiles. El sistema integra múltiples funcionalidades para facilitar la colaboración, el seguimiento de tareas, la gestión de recursos y la generación de reportes.</p>
+
+                <h4 style="color: #764ba2; margin-top: 20px;">🎯 Funcionalidades Principales:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Gestión de Proyectos:</strong> Crear, configurar y administrar proyectos con múltiples equipos</li>
+                    <li><strong>Planificación de Sprints:</strong> Definir y gestionar sprints con asignación de tareas</li>
+                    <li><strong>Seguimiento de Tareas:</strong> Crear, asignar, actualizar y monitorear el progreso de tareas</li>
+                    <li><strong>Gestión de Backlog:</strong> Priorizar y refinar user stories y tareas pendientes</li>
+                    <li><strong>Integración con Git:</strong> Conectar con repositorios para vincular commits con tareas</li>
+                    <li><strong>Reportes y Métricas:</strong> Generar dashboards, burndown charts y reportes de productividad</li>
+                    <li><strong>Notificaciones:</strong> Alertar a usuarios sobre cambios, asignaciones y deadlines</li>
+                    <li><strong>Gestión de Usuarios:</strong> Administrar permisos, roles y equipos</li>
+                </ul>
+
+                <h4 style="color: #764ba2; margin-top: 20px;">👥 Usuarios del Sistema:</h4>
+                <ul style="margin-left: 20px;">
+                    <li><strong>Project Manager:</strong> Planifica proyectos, gestiona recursos y genera reportes</li>
+                    <li><strong>Scrum Master:</strong> Facilita ceremonias ágiles y gestiona sprints</li>
+                    <li><strong>Developer:</strong> Actualiza estado de tareas y registra tiempo trabajado</li>
+                    <li><strong>Product Owner:</strong> Prioriza backlog y define user stories</li>
+                    <li><strong>Stakeholder:</strong> Consulta reportes y monitorea progreso del proyecto</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- DIAGRAMA DE CONTEXTO -->
+        <section class="content-section">
+            <h2 class="section-title">🌐 Diagrama de Contexto - Liskov Project</h2>
+
+            <div class="content-box">
+                <h3>📊 Visión General del Sistema</h3>
+                <p>El diagrama de contexto muestra a <strong>Liskov Project</strong> como un único proceso central que interactúa con diversas entidades externas. Este diagrama define claramente el <strong>alcance del sistema</strong> y sus interfaces con el mundo exterior.</p>
+            </div>
+
+            <div class="diagram-card">
+                <h3>🎨 Diagrama de Contexto - Nivel 0</h3>
+                <div class="mermaid">
+                    graph LR
+                        %% Entidades Externas - Izquierda
+                        PM[Project Manager]
+                        SM[Scrum Master]
+                        DEV[Developer]
+                        PO[Product Owner]
+                        SH[Stakeholder]
+
+                        %% Sistema Central
+                        LISKOV((Liskov Project<br/>Sistema de Gestión<br/>de Proyectos))
+
+                        %% Sistemas Externos - Derecha
+                        GIT[Sistema Git<br/>GitHub/GitLab]
+                        EMAIL[Sistema de<br/>Notificaciones<br/>Email/Slack]
+                        AUTH[Sistema de<br/>Autenticación<br/>OAuth/LDAP]
+
+                        %% Flujos de Datos - Usuarios a Sistema
+                        PM -->|Configuración de Proyecto| LISKOV
+                        PM -->|Solicitud de Reportes| LISKOV
+                        SM -->|Planificación de Sprint| LISKOV
+                        SM -->|Gestión de Ceremonias| LISKOV
+                        DEV -->|Actualización de Tareas| LISKOV
+                        DEV -->|Registro de Tiempo| LISKOV
+                        PO -->|Backlog Priorizado| LISKOV
+                        PO -->|User Stories| LISKOV
+                        SH -->|Consultas de Progreso| LISKOV
+
+                        %% Flujos de Datos - Sistema a Usuarios
+                        LISKOV -->|Confirmación de Configuración| PM
+                        LISKOV -->|Reportes Ejecutivos| PM
+                        LISKOV -->|Dashboard de Métricas| PM
+                        LISKOV -->|Sprint Backlog| SM
+                        LISKOV -->|Burndown Chart| SM
+                        LISKOV -->|Tareas Asignadas| DEV
+                        LISKOV -->|Notificaciones de Cambios| DEV
+                        LISKOV -->|Backlog Refinado| PO
+                        LISKOV -->|Velocidad del Equipo| PO
+                        LISKOV -->|Reportes de Progreso| SH
+                        LISKOV -->|Status del Proyecto| SH
+
+                        %% Flujos con Sistemas Externos
+                        GIT -->|Eventos de Commits| LISKOV
+                        GIT -->|Pull Requests| LISKOV
+                        LISKOV -->|Solicitud de Datos de Repo| GIT
+                        AUTH -->|Token de Autenticación| LISKOV
+                        LISKOV -->|Solicitud de Autenticación| AUTH
+                        LISKOV -->|Notificaciones Push| EMAIL
+
+                        %% Estilos
+                        classDef entidadExterna fill:#e8f5e8,stroke:#388e3c,stroke-width:3px,color:#1b5e20
+                        classDef sistemaExterno fill:#fff3e0,stroke:#f57c00,stroke-width:3px,color:#e65100
+                        classDef sistemaCentral fill:#e1f5fe,stroke:#01579b,stroke-width:4px,color:#0d47a1,font-weight:bold
+
+                        class PM,SM,DEV,PO,SH entidadExterna
+                        class GIT,EMAIL,AUTH sistemaExterno
+                        class LISKOV sistemaCentral
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🔍 Análisis del Diagrama de Contexto</h3>
+
+                <h4 style="color: #667eea;">📥 Flujos de Entrada:</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Entidad Externa</th>
+                                <th>Flujo de Datos</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Project Manager</strong></td>
+                                <td>Configuración de Proyecto<br/>Solicitud de Reportes</td>
+                                <td>Define parámetros del proyecto (nombre, equipo, fechas) y solicita reportes ejecutivos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scrum Master</strong></td>
+                                <td>Planificación de Sprint<br/>Gestión de Ceremonias</td>
+                                <td>Define sprints (fechas, objetivos) y registra resultados de ceremonias ágiles</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Developer</strong></td>
+                                <td>Actualización de Tareas<br/>Registro de Tiempo</td>
+                                <td>Modifica estado de tareas asignadas y registra horas trabajadas</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Product Owner</strong></td>
+                                <td>Backlog Priorizado<br/>User Stories</td>
+                                <td>Define y prioriza funcionalidades a desarrollar</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Stakeholder</strong></td>
+                                <td>Consultas de Progreso</td>
+                                <td>Solicita información sobre el estado actual del proyecto</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistema Git</strong></td>
+                                <td>Eventos de Commits<br/>Pull Requests</td>
+                                <td>Webhooks con información de commits y PRs para vincular con tareas</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistema Autenticación</strong></td>
+                                <td>Token de Autenticación</td>
+                                <td>Respuesta con token de acceso tras validación de credenciales</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 style="color: #764ba2; margin-top: 30px;">📤 Flujos de Salida:</h4>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Entidad Externa</th>
+                                <th>Flujo de Datos</th>
+                                <th>Descripción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Project Manager</strong></td>
+                                <td>Reportes Ejecutivos<br/>Dashboard de Métricas</td>
+                                <td>Información consolidada sobre productividad, costos y riesgos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Scrum Master</strong></td>
+                                <td>Sprint Backlog<br/>Burndown Chart</td>
+                                <td>Lista de tareas del sprint y gráfico de progreso diario</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Developer</strong></td>
+                                <td>Tareas Asignadas<br/>Notificaciones</td>
+                                <td>Lista de tareas pendientes y alertas sobre cambios relevantes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Product Owner</strong></td>
+                                <td>Backlog Refinado<br/>Velocidad del Equipo</td>
+                                <td>Backlog actualizado con estimaciones y métricas de capacidad</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Stakeholder</strong></td>
+                                <td>Reportes de Progreso<br/>Status del Proyecto</td>
+                                <td>Resúmenes ejecutivos con estado general y próximos hitos</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistema Git</strong></td>
+                                <td>Solicitud de Datos</td>
+                                <td>Peticiones API para obtener información de repositorios</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistema Notificaciones</strong></td>
+                                <td>Notificaciones Push</td>
+                                <td>Mensajes de email o Slack para alertar eventos importantes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Sistema Autenticación</strong></td>
+                                <td>Solicitud de Validación</td>
+                                <td>Petición para validar credenciales de usuarios</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>💡 Insight del Diagrama de Contexto:</strong> Este diagrama nos muestra que Liskov Project actúa como un <strong>hub central de información</strong> que orquesta la comunicación entre múltiples actores y sistemas. Observamos que el sistema tiene <strong>8 entidades externas</strong>, lo que indica un alto nivel de integración y complejidad en las interfaces.
+            </div>
+        </section>
+
+        <!-- DFD NIVEL 0 -->
+        <section class="content-section">
+            <h2 class="section-title">📊 DFD Nivel 0 - Descomposición Funcional</h2>
+
+            <div class="content-box">
+                <span class="level-indicator">Nivel 0 - Vista General de Procesos</span>
+                <h3>🔄 Procesos Principales del Sistema</h3>
+                <p>En este nivel descomponemos el sistema en sus <strong>5 procesos principales</strong>, mostrando cómo interactúan entre sí y con los almacenes de datos. Cada proceso representa una función de alto nivel del sistema.</p>
+            </div>
+
+            <div class="diagram-card">
+                <h3>🎨 DFD Nivel 0 - Liskov Project</h3>
+                <div class="mermaid">
+                    graph TB
+                        %% Entidades Externas
+                        PM[Project Manager]
+                        SM[Scrum Master]
+                        DEV[Developer]
+                        PO[Product Owner]
+                        SH[Stakeholder]
+                        GIT[Sistema Git]
+                        EMAIL[Sistema Notificaciones]
+                        AUTH[Sistema Autenticación]
+
+                        %% Procesos Principales
+                        P1(1.0<br/>Gestionar<br/>Proyectos)
+                        P2(2.0<br/>Gestionar<br/>Sprints)
+                        P3(3.0<br/>Gestionar<br/>Tareas)
+                        P4(4.0<br/>Generar<br/>Reportes)
+                        P5(5.0<br/>Gestionar<br/>Usuarios)
+
+                        %% Almacenes de Datos
+                        D1[(D1: Proyectos)]
+                        D2[(D2: Sprints)]
+                        D3[(D3: Tareas)]
+                        D4[(D4: Usuarios)]
+                        D5[(D5: Reportes)]
+                        D6[(D6: Integraciones)]
+
+                        %% Flujos PM -> Sistema
+                        PM -->|Datos de Proyecto| P1
+                        PM -->|Solicitud Reporte| P4
+
+                        %% Flujos SM -> Sistema
+                        SM -->|Planificación Sprint| P2
+
+                        %% Flujos DEV -> Sistema
+                        DEV -->|Actualización Estado| P3
+                        DEV -->|Registro Tiempo| P3
+
+                        %% Flujos PO -> Sistema
+                        PO -->|Backlog Items| P3
+                        PO -->|Prioridades| P3
+
+                        %% Flujos SH -> Sistema
+                        SH -->|Consulta Status| P4
+
+                        %% Flujos Sistemas Externos -> Sistema
+                        GIT -->|Eventos Commit| P3
+                        AUTH -->|Token Validado| P5
+
+                        %% Procesos -> Almacenes
+                        P1 -->|Proyecto Creado| D1
+                        P1 -->|Configuración Git| D6
+                        D1 -->|Info Proyecto| P2
+                        D1 -->|Datos Proyecto| P4
+
+                        P2 -->|Sprint Definido| D2
+                        D2 -->|Tareas de Sprint| P3
+                        D2 -->|Datos Sprint| P4
+
+                        P3 -->|Tarea Creada/Actualizada| D3
+                        D3 -->|Estado Tareas| P4
+                        D3 -->|Historial| P4
+
+                        P5 -->|Usuario Creado| D4
+                        D4 -->|Info Usuario| P1
+                        D4 -->|Asignaciones| P3
+                        D4 -->|Permisos| P4
+
+                        P4 -->|Reporte Generado| D5
+
+                        D6 -->|Config Git| P3
+
+                        %% Procesos -> Entidades Externas
+                        P1 -->|Confirmación| PM
+                        P2 -->|Sprint Backlog| SM
+                        P3 -->|Tarea Asignada| DEV
+                        P3 -->|Solicitud API Git| GIT
+                        P4 -->|Dashboard Métricas| PM
+                        P4 -->|Burndown Chart| SM
+                        P4 -->|Status Proyecto| SH
+                        P4 -->|Velocidad Equipo| PO
+                        P5 -->|Solicitud Auth| AUTH
+
+                        %% Notificaciones
+                        P3 -->|Alerta Cambio| EMAIL
+                        P2 -->|Alerta Sprint| EMAIL
+
+                        %% Estilos
+                        classDef entidadExterna fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+                        classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:3px,color:#0d47a1
+                        classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
+                        classDef sistemaExterno fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c
+
+                        class PM,SM,DEV,PO,SH entidadExterna
+                        class P1,P2,P3,P4,P5 proceso
+                        class D1,D2,D3,D4,D5,D6 almacen
+                        class GIT,EMAIL,AUTH sistemaExterno
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🔍 Descripción de Procesos - Nivel 0</h3>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <h4>Proceso 1.0 - Gestionar Proyectos</h4>
+                        <p><strong>Descripción:</strong> Administra la creación, configuración y mantenimiento de proyectos.</p>
+                        <p><strong>Entradas:</strong> Datos de Proyecto (PM), Info Usuario (D4: Usuarios)</p>
+                        <p><strong>Salidas:</strong> Proyecto Creado (D1: Proyectos), Configuración Git (D6: Integraciones), Confirmación (PM)</p>
+                        <p><strong>Funciones:</strong></p>
+                        <ul>
+                            <li>Validar y crear nuevo proyecto</li>
+                            <li>Asignar equipo y roles</li>
+                            <li>Configurar integraciones (Git, Slack)</li>
+                            <li>Definir parámetros del proyecto (fechas, presupuesto)</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 2.0 - Gestionar Sprints</h4>
+                        <p><strong>Descripción:</strong> Planifica, crea y gestiona sprints del proyecto.</p>
+                        <p><strong>Entradas:</strong> Planificación Sprint (SM), Info Proyecto (D1: Proyectos)</p>
+                        <p><strong>Salidas:</strong> Sprint Definido (D2: Sprints), Sprint Backlog (SM), Alerta Sprint (EMAIL)</p>
+                        <p><strong>Funciones:</strong></p>
+                        <ul>
+                            <li>Crear nuevo sprint con fechas y objetivos</li>
+                            <li>Asignar tareas del backlog al sprint</li>
+                            <li>Calcular capacidad del equipo</li>
+                            <li>Notificar inicio y fin de sprint</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 3.0 - Gestionar Tareas</h4>
+                        <p><strong>Descripción:</strong> Administra el ciclo de vida completo de las tareas.</p>
+                        <p><strong>Entradas:</strong> Backlog Items (PO), Actualización Estado (DEV), Registro Tiempo (DEV), Eventos Commit (GIT), Tareas de Sprint (D2: Sprints), Asignaciones (D4: Usuarios), Config Git (D6: Integraciones)</p>
+                        <p><strong>Salidas:</strong> Tarea Creada/Actualizada (D3: Tareas), Tarea Asignada (DEV), Alerta Cambio (EMAIL), Solicitud API Git (GIT)</p>
+                        <p><strong>Funciones:</strong></p>
+                        <ul>
+                            <li>Crear y asignar tareas</li>
+                            <li>Actualizar estado (To Do, In Progress, Done)</li>
+                            <li>Registrar tiempo trabajado</li>
+                            <li>Vincular commits con tareas</li>
+                            <li>Gestionar dependencias entre tareas</li>
+                            <li>Enviar notificaciones de cambios</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 4.0 - Generar Reportes</h4>
+                        <p><strong>Descripción:</strong> Produce reportes, dashboards y métricas del proyecto.</p>
+                        <p><strong>Entradas:</strong> Solicitud Reporte (PM), Consulta Status (SH), Datos Proyecto (D1: Proyectos), Datos Sprint (D2: Sprints), Estado Tareas (D3: Tareas), Historial (D3: Tareas), Permisos (D4: Usuarios)</p>
+                        <p><strong>Salidas:</strong> Reporte Generado (D5: Reportes), Dashboard Métricas (PM), Burndown Chart (SM), Status Proyecto (SH), Velocidad Equipo (PO)</p>
+                        <p><strong>Funciones:</strong></p>
+                        <ul>
+                            <li>Calcular métricas (velocidad, burndown, lead time)</li>
+                            <li>Generar reportes ejecutivos</li>
+                            <li>Crear dashboards personalizados</li>
+                            <li>Analizar productividad del equipo</li>
+                            <li>Identificar cuellos de botella</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 5.0 - Gestionar Usuarios</h4>
+                        <p><strong>Descripción:</strong> Administra usuarios, autenticación, permisos y roles.</p>
+                        <p><strong>Entradas:</strong> Token Validado (AUTH)</p>
+                        <p><strong>Salidas:</strong> Usuario Creado (D4: Usuarios), Solicitud Auth (AUTH)</p>
+                        <p><strong>Funciones:</strong></p>
+                        <ul>
+                            <li>Autenticar usuarios</li>
+                            <li>Gestionar permisos y roles</li>
+                            <li>Asignar usuarios a equipos</li>
+                            <li>Administrar sesiones</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>💾 Almacenes de Datos - Nivel 0</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Almacén</th>
+                                <th>Contenido</th>
+                                <th>Procesos que Escriben</th>
+                                <th>Procesos que Leen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>D1: Proyectos</strong></td>
+                                <td>Información de proyectos: nombre, descripción, fechas, equipo, estado</td>
+                                <td>1.0 Gestionar Proyectos</td>
+                                <td>2.0 Gestionar Sprints, 4.0 Generar Reportes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D2: Sprints</strong></td>
+                                <td>Datos de sprints: fechas, objetivos, capacidad, tareas asignadas</td>
+                                <td>2.0 Gestionar Sprints</td>
+                                <td>3.0 Gestionar Tareas, 4.0 Generar Reportes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D3: Tareas</strong></td>
+                                <td>Información de tareas: título, descripción, estado, asignado, tiempo, historial</td>
+                                <td>3.0 Gestionar Tareas</td>
+                                <td>4.0 Generar Reportes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D4: Usuarios</strong></td>
+                                <td>Datos de usuarios: credenciales, perfil, roles, permisos, equipos</td>
+                                <td>5.0 Gestionar Usuarios</td>
+                                <td>1.0 Gestionar Proyectos, 3.0 Gestionar Tareas, 4.0 Generar Reportes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D5: Reportes</strong></td>
+                                <td>Reportes generados y métricas históricas</td>
+                                <td>4.0 Generar Reportes</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D6: Integraciones</strong></td>
+                                <td>Configuración de integraciones: tokens Git, webhooks, APIs externas</td>
+                                <td>1.0 Gestionar Proyectos</td>
+                                <td>3.0 Gestionar Tareas</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>⚖️ Principio de Balanceo:</strong> Observa cómo todos los flujos de datos del Diagrama de Contexto aparecen en este DFD Nivel 0, pero ahora distribuidos entre los 5 procesos principales. Este es un ejemplo de <strong>DFD balanceado</strong>, donde los flujos de entrada y salida del nivel superior se mantienen en el nivel inferior.
+            </div>
+        </section>
+
+        <!-- DFD NIVEL 1 -->
+        <section class="content-section">
+            <h2 class="section-title">🔬 DFD Nivel 1 - Descomposición del Proceso 3.0</h2>
+
+            <div class="content-box">
+                <span class="level-indicator">Nivel 1 - Detalle del Proceso "Gestionar Tareas"</span>
+                <h3>🎯 Enfoque en el Proceso Más Complejo</h3>
+                <p>Seleccionamos el proceso <strong>3.0 - Gestionar Tareas</strong> para descomponerlo, ya que es el más complejo y con mayor cantidad de interacciones. Este proceso se subdivide en <strong>6 subprocesos</strong> que detallan el ciclo de vida completo de una tarea.</p>
+            </div>
+
+            <div class="diagram-card">
+                <h3>🎨 DFD Nivel 1 - Proceso 3.0: Gestionar Tareas</h3>
+                <div class="mermaid">
+                    graph TB
+                        %% Entidades Externas
+                        DEV[Developer]
+                        PO[Product Owner]
+                        GIT[Sistema Git]
+                        EMAIL[Sistema Notificaciones]
+
+                        %% Subprocesos de Gestionar Tareas
+                        P31(3.1<br/>Crear<br/>Tarea)
+                        P32(3.2<br/>Asignar<br/>Tarea)
+                        P33(3.3<br/>Actualizar<br/>Estado)
+                        P34(3.4<br/>Registrar<br/>Tiempo)
+                        P35(3.5<br/>Vincular<br/>Commits)
+                        P36(3.6<br/>Enviar<br/>Notificaciones)
+
+                        %% Almacenes de Datos
+                        D2[(D2: Sprints)]
+                        D3[(D3: Tareas)]
+                        D4[(D4: Usuarios)]
+                        D6[(D6: Integraciones)]
+                        D7[(D7: Historial<br/>de Cambios)]
+                        D8[(D8: Registro<br/>de Tiempo)]
+
+                        %% Flujos PO -> Subprocesos
+                        PO -->|Backlog Items| P31
+                        PO -->|Prioridades| P31
+
+                        %% Flujos DEV -> Subprocesos
+                        DEV -->|Cambio de Estado| P33
+                        DEV -->|Horas Trabajadas| P34
+
+                        %% Flujos GIT -> Subprocesos
+                        GIT -->|Evento Commit| P35
+
+                        %% Proceso 3.1 - Crear Tarea
+                        P31 -->|Nueva Tarea| D3
+                        P31 -->|Solicitud Asignación| P32
+                        D2 -->|Info Sprint| P31
+
+                        %% Proceso 3.2 - Asignar Tarea
+                        D4 -->|Lista Usuarios| P32
+                        D3 -->|Tarea Sin Asignar| P32
+                        P32 -->|Tarea Asignada| D3
+                        P32 -->|Evento Asignación| P36
+
+                        %% Proceso 3.3 - Actualizar Estado
+                        D3 -->|Estado Actual| P33
+                        P33 -->|Estado Actualizado| D3
+                        P33 -->|Cambio Registrado| D7
+                        P33 -->|Evento Cambio Estado| P36
+
+                        %% Proceso 3.4 - Registrar Tiempo
+                        D3 -->|Info Tarea| P34
+                        D4 -->|Info Developer| P34
+                        P34 -->|Tiempo Registrado| D8
+                        P34 -->|Actualización Tiempo Total| D3
+
+                        %% Proceso 3.5 - Vincular Commits
+                        D6 -->|Config Git| P35
+                        D3 -->|Lista Tareas| P35
+                        P35 -->|Commit Vinculado| D3
+                        P35 -->|Historial Commit| D7
+                        P35 -->|Solicitud API| GIT
+
+                        %% Proceso 3.6 - Enviar Notificaciones
+                        D4 -->|Destinatarios| P36
+                        D3 -->|Info Tarea| P36
+                        P36 -->|Notificación Push| EMAIL
+
+                        %% Salidas a Entidades Externas
+                        P32 -->|Tarea Asignada| DEV
+                        P33 -->|Confirmación Estado| DEV
+                        P34 -->|Confirmación Registro| DEV
+                        P35 -->|Solicitud Datos Repo| GIT
+
+                        %% Estilos
+                        classDef entidadExterna fill:#e8f5e8,stroke:#388e3c,stroke-width:2px,color:#1b5e20
+                        classDef subproceso fill:#e1f5fe,stroke:#01579b,stroke-width:3px,color:#0d47a1
+                        classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px,color:#e65100
+                        classDef almacenNuevo fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c
+                        classDef sistemaExterno fill:#ffebee,stroke:#c62828,stroke-width:2px,color:#b71c1c
+
+                        class DEV,PO entidadExterna
+                        class P31,P32,P33,P34,P35,P36 subproceso
+                        class D2,D3,D4,D6 almacen
+                        class D7,D8 almacenNuevo
+                        class GIT,EMAIL sistemaExterno
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>🔍 Descripción de Subprocesos - Nivel 1</h3>
+
+                <div class="process-steps">
+                    <div class="process-step">
+                        <h4>Proceso 3.1 - Crear Tarea</h4>
+                        <p><strong>Descripción:</strong> Valida y crea una nueva tarea en el sistema.</p>
+                        <p><strong>Entradas:</strong></p>
+                        <ul>
+                            <li>Backlog Items (Product Owner)</li>
+                            <li>Prioridades (Product Owner)</li>
+                            <li>Info Sprint (D2: Sprints)</li>
+                        </ul>
+                        <p><strong>Salidas:</strong></p>
+                        <ul>
+                            <li>Nueva Tarea → D3: Tareas</li>
+                            <li>Solicitud Asignación → Proceso 3.2</li>
+                        </ul>
+                        <p><strong>Lógica:</strong></p>
+                        <ol>
+                            <li>Validar datos de entrada (título, descripción no vacíos)</li>
+                            <li>Verificar que el sprint existe y está activo</li>
+                            <li>Asignar ID único a la tarea</li>
+                            <li>Establecer estado inicial: "To Do"</li>
+                            <li>Guardar en almacén de tareas</li>
+                            <li>Iniciar proceso de asignación</li>
+                        </ol>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 3.2 - Asignar Tarea</h4>
+                        <p><strong>Descripción:</strong> Asigna una tarea a un desarrollador específico del equipo.</p>
+                        <p><strong>Entradas:</strong></p>
+                        <ul>
+                            <li>Solicitud Asignación (Proceso 3.1)</li>
+                            <li>Lista Usuarios (D4: Usuarios)</li>
+                            <li>Tarea Sin Asignar (D3: Tareas)</li>
+                        </ul>
+                        <p><strong>Salidas:</strong></p>
+                        <ul>
+                            <li>Tarea Asignada → D3: Tareas</li>
+                            <li>Tarea Asignada → Developer</li>
+                            <li>Evento Asignación → Proceso 3.6</li>
+                        </ul>
+                        <p><strong>Lógica:</strong></p>
+                        <ol>
+                            <li>Obtener lista de desarrolladores del proyecto</li>
+                            <li>Verificar disponibilidad y capacidad</li>
+                            <li>Asignar tarea al desarrollador seleccionado</li>
+                            <li>Actualizar registro de la tarea</li>
+                            <li>Notificar al desarrollador asignado</li>
+                            <li>Registrar evento para auditoría</li>
+                        </ol>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 3.3 - Actualizar Estado</h4>
+                        <p><strong>Descripción:</strong> Cambia el estado de una tarea en su ciclo de vida.</p>
+                        <p><strong>Entradas:</strong></p>
+                        <ul>
+                            <li>Cambio de Estado (Developer)</li>
+                            <li>Estado Actual (D3: Tareas)</li>
+                        </ul>
+                        <p><strong>Salidas:</strong></p>
+                        <ul>
+                            <li>Estado Actualizado → D3: Tareas</li>
+                            <li>Cambio Registrado → D7: Historial de Cambios</li>
+                            <li>Confirmación Estado → Developer</li>
+                            <li>Evento Cambio Estado → Proceso 3.6</li>
+                        </ul>
+                        <p><strong>Lógica:</strong></p>
+                        <ol>
+                            <li>Validar transición de estado (To Do → In Progress → Done)</li>
+                            <li>Verificar permisos del usuario</li>
+                            <li>Actualizar estado en base de datos</li>
+                            <li>Registrar cambio en historial con timestamp</li>
+                            <li>Calcular tiempo en cada estado</li>
+                            <li>Notificar a interesados del cambio</li>
+                        </ol>
+                        <p><strong>Transiciones Válidas:</strong></p>
+                        <ul>
+                            <li>To Do → In Progress</li>
+                            <li>In Progress → Done</li>
+                            <li>In Progress → To Do (rollback)</li>
+                            <li>Done → In Progress (reapertura)</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 3.4 - Registrar Tiempo</h4>
+                        <p><strong>Descripción:</strong> Registra las horas trabajadas por un desarrollador en una tarea.</p>
+                        <p><strong>Entradas:</strong></p>
+                        <ul>
+                            <li>Horas Trabajadas (Developer)</li>
+                            <li>Info Tarea (D3: Tareas)</li>
+                            <li>Info Developer (D4: Usuarios)</li>
+                        </ul>
+                        <p><strong>Salidas:</strong></p>
+                        <ul>
+                            <li>Tiempo Registrado → D8: Registro de Tiempo</li>
+                            <li>Actualización Tiempo Total → D3: Tareas</li>
+                            <li>Confirmación Registro → Developer</li>
+                        </ul>
+                        <p><strong>Lógica:</strong></p>
+                        <ol>
+                            <li>Validar cantidad de horas (0 < horas ≤ 24)</li>
+                            <li>Verificar que el usuario está asignado a la tarea</li>
+                            <li>Crear registro de tiempo con fecha y hora</li>
+                            <li>Actualizar tiempo total acumulado de la tarea</li>
+                            <li>Calcular tiempo restante estimado</li>
+                            <li>Generar alerta si se excede estimación original</li>
+                        </ol>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 3.5 - Vincular Commits</h4>
+                        <p><strong>Descripción:</strong> Asocia commits de Git con tareas del proyecto.</p>
+                        <p><strong>Entradas:</strong></p>
+                        <ul>
+                            <li>Evento Commit (Sistema Git)</li>
+                            <li>Config Git (D6: Integraciones)</li>
+                            <li>Lista Tareas (D3: Tareas)</li>
+                        </ul>
+                        <p><strong>Salidas:</strong></p>
+                        <ul>
+                            <li>Commit Vinculado → D3: Tareas</li>
+                            <li>Historial Commit → D7: Historial de Cambios</li>
+                            <li>Solicitud API → Sistema Git</li>
+                            <li>Solicitud Datos Repo → Sistema Git</li>
+                        </ul>
+                        <p><strong>Lógica:</strong></p>
+                        <ol>
+                            <li>Recibir webhook de Git con datos del commit</li>
+                            <li>Parsear mensaje del commit buscando patrón (ej: "TASK-123")</li>
+                            <li>Buscar tarea correspondiente en base de datos</li>
+                            <li>Extraer metadatos: autor, fecha, archivos modificados</li>
+                            <li>Vincular commit con la tarea</li>
+                            <li>Actualizar historial de la tarea</li>
+                            <li>Si hay PR asociado, vincular también</li>
+                        </ol>
+                        <p><strong>Ejemplos de Patrones:</strong></p>
+                        <ul>
+                            <li><code>feat: Add login [TASK-456]</code></li>
+                            <li><code>fix: Resolve bug #789</code></li>
+                            <li><code>[LISKOV-123] Update documentation</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Proceso 3.6 - Enviar Notificaciones</h4>
+                        <p><strong>Descripción:</strong> Gestiona el envío de notificaciones sobre cambios en tareas.</p>
+                        <p><strong>Entradas:</strong></p>
+                        <ul>
+                            <li>Evento Asignación (Proceso 3.2)</li>
+                            <li>Evento Cambio Estado (Proceso 3.3)</li>
+                            <li>Destinatarios (D4: Usuarios)</li>
+                            <li>Info Tarea (D3: Tareas)</li>
+                        </ul>
+                        <p><strong>Salidas:</strong></p>
+                        <ul>
+                            <li>Notificación Push → Sistema Notificaciones</li>
+                        </ul>
+                        <p><strong>Lógica:</strong></p>
+                        <ol>
+                            <li>Determinar tipo de evento (asignación, cambio estado, comentario)</li>
+                            <li>Identificar destinatarios según preferencias de usuario</li>
+                            <li>Construir mensaje personalizado</li>
+                            <li>Seleccionar canal: Email, Slack, In-App</li>
+                            <li>Enviar notificación al sistema externo</li>
+                            <li>Registrar envío para auditoría</li>
+                        </ol>
+                        <p><strong>Tipos de Notificaciones:</strong></p>
+                        <ul>
+                            <li><strong>Alta prioridad:</strong> Asignación de tarea, cambio a bloqueada</li>
+                            <li><strong>Media prioridad:</strong> Cambio de estado, nuevo comentario</li>
+                            <li><strong>Baja prioridad:</strong> Actualización de descripción, vinculación de commit</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>💾 Almacenes de Datos Adicionales - Nivel 1</h3>
+                <p>En este nivel de detalle, identificamos dos almacenes de datos adicionales que no eran visibles en el Nivel 0:</p>
+
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Almacén</th>
+                                <th>Contenido</th>
+                                <th>Procesos que Escriben</th>
+                                <th>Procesos que Leen</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>D7: Historial de Cambios</strong></td>
+                                <td>Registro cronológico de todos los cambios en tareas: quién, cuándo, qué cambió, valor anterior/nuevo</td>
+                                <td>3.3 Actualizar Estado<br/>3.5 Vincular Commits</td>
+                                <td>Proceso 4.0 (para auditoría y reportes)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>D8: Registro de Tiempo</strong></td>
+                                <td>Entradas de tiempo trabajado: usuario, tarea, fecha, horas, descripción de actividad</td>
+                                <td>3.4 Registrar Tiempo</td>
+                                <td>Proceso 4.0 (para métricas de productividad)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-info">
+                <strong>🔗 Principio de Descomposición:</strong> Observa cómo el proceso <strong>3.0 - Gestionar Tareas</strong> del Nivel 0 se ha descompuesto en 6 subprocesos numerados 3.1 a 3.6. Cada subproceso tiene una responsabilidad única y claramente definida. Los flujos de entrada y salida del proceso padre se mantienen, lo que garantiza el <strong>balanceo del DFD</strong>.
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>📊 Profundidad de Descomposición:</strong> Este nivel de detalle (Nivel 1) es suficiente para la mayoría de los subprocesos. Solo descompondríamos a Nivel 2 si algún subproceso fuera extremadamente complejo. En este caso, los procesos 3.1 a 3.6 son <strong>procesos primitivos</strong> que pueden describirse completamente con especificaciones de proceso (pseudocódigo, reglas de negocio, etc.).
+            </div>
+        </section>
+
+        <!-- ESCENARIOS DE USO CON DFD -->
+        <section class="content-section">
+            <h2 class="section-title">🎬 Escenarios de Uso: Trazando Flujos en el DFD</h2>
+
+            <div class="content-box">
+                <h3>🔄 Siguiendo el Flujo de Datos en Escenarios Reales</h3>
+                <p>Para comprender cómo funcionan los DFDs en la práctica, vamos a <strong>trazar el recorrido de los datos</strong> a través del sistema en escenarios de uso típicos. Esto nos ayudará a validar que nuestro modelo es correcto y completo.</p>
+            </div>
+
+            <div class="example-box">
+                <h3>📝 Escenario 1: Developer Completa una Tarea</h3>
+                <h4>🎯 Narrativa:</h4>
+                <p>María, una desarrolladora del equipo, acaba de terminar de implementar la funcionalidad de login. Ahora quiere actualizar el estado de la tarea y registrar las 6 horas que trabajó en ella.</p>
+
+                <h4>🔄 Trazado del Flujo en los DFD:</h4>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <h4>Paso 1: Actualización de Estado</h4>
+                        <p><strong>Nivel 0 - DFD General:</strong></p>
+                        <ol>
+                            <li><strong>Developer</strong> envía "Actualización Estado" → <strong>Proceso 3.0 (Gestionar Tareas)</strong></li>
+                            <li><strong>Proceso 3.0</strong> actualiza → <strong>D3: Tareas</strong></li>
+                            <li><strong>Proceso 3.0</strong> envía "Alerta Cambio" → <strong>Sistema Notificaciones</strong></li>
+                        </ol>
+
+                        <p><strong>Nivel 1 - Detalle del Proceso 3.0:</strong></p>
+                        <ol>
+                            <li><strong>Developer</strong> envía "Cambio de Estado" → <strong>Proceso 3.3 (Actualizar Estado)</strong></li>
+                            <li><strong>Proceso 3.3</strong> consulta "Estado Actual" desde → <strong>D3: Tareas</strong></li>
+                            <li><strong>Proceso 3.3</strong> valida transición: "In Progress" → "Done" ✓</li>
+                            <li><strong>Proceso 3.3</strong> escribe "Estado Actualizado" a → <strong>D3: Tareas</strong></li>
+                            <li><strong>Proceso 3.3</strong> guarda "Cambio Registrado" en → <strong>D7: Historial de Cambios</strong></li>
+                            <li><strong>Proceso 3.3</strong> envía "Evento Cambio Estado" → <strong>Proceso 3.6 (Enviar Notificaciones)</strong></li>
+                            <li><strong>Proceso 3.6</strong> consulta "Destinatarios" desde → <strong>D4: Usuarios</strong></li>
+                            <li><strong>Proceso 3.6</strong> envía "Notificación Push" → <strong>Sistema Notificaciones</strong></li>
+                        </ol>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>Paso 2: Registro de Tiempo</h4>
+                        <p><strong>Nivel 1 - Flujo de Datos:</strong></p>
+                        <ol>
+                            <li><strong>Developer</strong> envía "Horas Trabajadas" (6 horas) → <strong>Proceso 3.4 (Registrar Tiempo)</strong></li>
+                            <li><strong>Proceso 3.4</strong> consulta "Info Tarea" desde → <strong>D3: Tareas</strong></li>
+                            <li><strong>Proceso 3.4</strong> consulta "Info Developer" desde → <strong>D4: Usuarios</strong></li>
+                            <li><strong>Proceso 3.4</strong> valida: 0 < 6 ≤ 24 ✓</li>
+                            <li><strong>Proceso 3.4</strong> escribe "Tiempo Registrado" a → <strong>D8: Registro de Tiempo</strong></li>
+                            <li><strong>Proceso 3.4</strong> actualiza "Actualización Tiempo Total" en → <strong>D3: Tareas</strong></li>
+                            <li><strong>Proceso 3.4</strong> retorna "Confirmación Registro" → <strong>Developer</strong></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>💡 Observación:</strong> Este escenario demuestra cómo un mismo actor (Developer) puede interactuar con múltiples subprocesos del Nivel 1. Cada subproceso tiene una <strong>responsabilidad única</strong>, pero trabajan en conjunto para completar la funcionalidad del sistema.
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>📝 Escenario 2: Product Owner Crea y Prioriza una Nueva User Story</h3>
+                <h4>🎯 Narrativa:</h4>
+                <p>El Product Owner identifica que falta una funcionalidad crítica: "Como usuario quiero recuperar mi contraseña". Decide crear una nueva tarea con prioridad Alta y asignarla al Sprint 3.</p>
+
+                <h4>🔄 Trazado del Flujo Completo:</h4>
+
+                <div class="diagram-card">
+                    <h4>📊 Diagrama del Flujo - Escenario 2</h4>
+                    <div class="mermaid">
+                        graph LR
+                            PO[Product Owner]
+                            P31(3.1<br/>Crear Tarea)
+                            P32(3.2<br/>Asignar Tarea)
+                            P36(3.6<br/>Notificar)
+                            D2[(D2: Sprints)]
+                            D3[(D3: Tareas)]
+                            D4[(D4: Usuarios)]
+                            DEV[Developer]
+                            EMAIL[Email]
+
+                            PO -->|1. Backlog Item<br/>'Recuperar password'| P31
+                            D2 -->|2. Info Sprint 3| P31
+                            P31 -->|3. Nueva Tarea<br/>id=TASK-789| D3
+                            P31 -->|4. Solicitud Asignación| P32
+                            D4 -->|5. Lista Usuarios| P32
+                            D3 -->|6. Tarea Sin Asignar| P32
+                            P32 -->|7. Tarea Asignada<br/>to: Juan| D3
+                            P32 -->|8. Evento Asignación| P36
+                            D4 -->|9. Email: juan@...| P36
+                            P36 -->|10. Notificación| EMAIL
+                            P32 -->|11. Confirmación| DEV
+
+                            classDef entidad fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
+                            classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+                            classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+                            classDef sistema fill:#ffebee,stroke:#c62828,stroke-width:2px
+
+                            class PO,DEV entidad
+                            class P31,P32,P36 proceso
+                            class D2,D3,D4 almacen
+                            class EMAIL sistema
+                    </div>
+                </div>
+
+                <h4>📋 Análisis del Flujo (11 pasos):</h4>
+                <ol>
+                    <li><strong>Input Inicial:</strong> Product Owner ingresa datos de la user story</li>
+                    <li><strong>Validación Sprint:</strong> El proceso verifica que Sprint 3 existe y está activo</li>
+                    <li><strong>Creación:</strong> Se genera ID único TASK-789 y se almacena con estado "To Do"</li>
+                    <li><strong>Trigger Asignación:</strong> La creación exitosa dispara el subproceso de asignación</li>
+                    <li><strong>Consulta Equipo:</strong> Se obtienen los desarrolladores disponibles</li>
+                    <li><strong>Lectura Tarea:</strong> Se recupera la tarea recién creada</li>
+                    <li><strong>Asignación:</strong> Juan es seleccionado y la tarea se actualiza</li>
+                    <li><strong>Evento:</strong> Se genera un evento de asignación</li>
+                    <li><strong>Lookup Email:</strong> Se busca el email de Juan en la base de usuarios</li>
+                    <li><strong>Notificación:</strong> Se envía email a Juan informándole la nueva tarea</li>
+                    <li><strong>Confirmación:</strong> Juan recibe la notificación en su dashboard</li>
+                </ol>
+
+                <div class="alert alert-warning">
+                    <strong>🔍 Análisis de Complejidad:</strong> Este flujo atraviesa <strong>3 subprocesos</strong>, consulta <strong>3 almacenes de datos</strong> diferentes e involucra <strong>1 sistema externo</strong>. La descomposición en subprocesos permite gestionar esta complejidad de manera clara y estructurada.
+                </div>
+            </div>
+
+            <div class="example-box">
+                <h3>📝 Escenario 3: Commit de Git Vinculado Automáticamente</h3>
+                <h4>🎯 Narrativa:</h4>
+                <p>Pedro hace un commit en GitHub con el mensaje: "fix: Corregir validación de email [TASK-456]". El sistema detecta automáticamente la referencia a la tarea y la vincula.</p>
+
+                <h4>🔄 Flujo End-to-End con Sistema Externo:</h4>
+
+                <div class="diagram-card">
+                    <h4>📊 Diagrama del Flujo - Escenario 3</h4>
+                    <div class="mermaid">
+                        graph TB
+                            GIT[Sistema Git<br/>GitHub]
+                            P35(3.5<br/>Vincular<br/>Commits)
+                            D6[(D6:<br/>Integraciones)]
+                            D3[(D3:<br/>Tareas)]
+                            D7[(D7:<br/>Historial)]
+
+                            GIT -->|1. Webhook<br/>Evento Commit| P35
+                            D6 -->|2. Config Git<br/>API Token| P35
+                            P35 -->|3. Solicitud API<br/>GET commit details| GIT
+                            GIT -->|4. Commit Metadata<br/>autor, fecha, archivos| P35
+                            D3 -->|5. Búsqueda<br/>TASK-456| P35
+                            P35 -->|6. Commit Vinculado<br/>SHA: abc123| D3
+                            P35 -->|7. Registro Histórico| D7
+
+                            classDef sistema fill:#ffebee,stroke:#c62828,stroke-width:3px
+                            classDef proceso fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+                            classDef almacen fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+
+                            class GIT sistema
+                            class P35 proceso
+                            class D3,D6,D7 almacen
+                    </div>
+                </div>
+
+                <h4>🔧 Detalle del Procesamiento:</h4>
+                <div class="process-steps">
+                    <div class="process-step">
+                        <h4>1. Recepción del Webhook</h4>
+                        <ul>
+                            <li>GitHub envía POST con payload JSON</li>
+                            <li>Proceso 3.5 valida firma del webhook</li>
+                            <li>Extrae: SHA, mensaje, autor, timestamp</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>2. Parsing del Mensaje</h4>
+                        <ul>
+                            <li>Busca patrón: <code>[TASK-XXX]</code> o <code>#XXX</code></li>
+                            <li>Mensaje: "fix: Corregir validación de email [TASK-456]"</li>
+                            <li>Match encontrado: TASK-456</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>3. Consulta API de Git</h4>
+                        <ul>
+                            <li>Obtiene token de D6: Integraciones</li>
+                            <li>Llama: GET /repos/{owner}/{repo}/commits/{sha}</li>
+                            <li>Recibe: lista de archivos modificados, stats</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>4. Búsqueda y Vinculación</h4>
+                        <ul>
+                            <li>Query en D3: Tareas con id=456</li>
+                            <li>Verifica que la tarea existe y está activa</li>
+                            <li>Crea vínculo: TASK-456 ↔ Commit abc123</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step">
+                        <h4>5. Registro Histórico</h4>
+                        <ul>
+                            <li>Guarda en D7: "Commit vinculado por Pedro"</li>
+                            <li>Timestamp: 2024-03-15 14:32:00</li>
+                            <li>Archivos afectados: validation.js, email.utils.js</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="alert alert-info">
+                    <strong>🔄 Integración Bidireccional:</strong> Observa cómo el flujo de datos es <strong>bidireccional</strong> con el Sistema Git. Primero recibimos el webhook (entrada), luego hacemos una llamada API (salida), y finalmente recibimos los detalles (entrada nuevamente). Este patrón es común en integraciones con sistemas externos.
+                </div>
+            </div>
+
+            <div class="content-box">
+                <h3>📊 Comparación de Escenarios: Patrones de Flujo</h3>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Escenario</th>
+                                <th>Procesos Involucrados</th>
+                                <th>Almacenes Consultados</th>
+                                <th>Sistemas Externos</th>
+                                <th>Complejidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>1. Developer Completa Tarea</strong></td>
+                                <td>3.3, 3.4, 3.6 (3 subprocesos)</td>
+                                <td>D3, D4, D7, D8 (4 almacenes)</td>
+                                <td>Email (1 sistema)</td>
+                                <td>🟡 Media</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2. PO Crea User Story</strong></td>
+                                <td>3.1, 3.2, 3.6 (3 subprocesos)</td>
+                                <td>D2, D3, D4 (3 almacenes)</td>
+                                <td>Email (1 sistema)</td>
+                                <td>🟡 Media</td>
+                            </tr>
+                            <tr>
+                                <td><strong>3. Vinculación Automática Git</strong></td>
+                                <td>3.5 (1 subproceso)</td>
+                                <td>D3, D6, D7 (3 almacenes)</td>
+                                <td>Git (1 sistema, bidireccional)</td>
+                                <td>🟠 Media-Alta</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>✅ Validación del Modelo:</strong> Al trazar estos escenarios, hemos verificado que:
+                <ul>
+                    <li>Todos los flujos de datos tienen origen y destino claramente definidos</li>
+                    <li>No hay procesos "huérfanos" sin conexión</li>
+                    <li>Los almacenes tienen tanto productores como consumidores</li>
+                    <li>Las integraciones externas están correctamente modeladas</li>
+                    <li>El balanceo entre niveles se mantiene consistente</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- RESUMEN Y CONCLUSIONES DEL EJEMPLO -->
+        <section class="content-section" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border: none;">
+            <h2 class="section-title" style="color: white; border-left-color: white;">✅ Resumen del Ejemplo: Liskov Project</h2>
+
+            <div class="content-box" style="background: rgba(255, 255, 255, 0.95); color: #2c3e50;">
+                <h3 style="color: #11998e;">🎓 Lecciones Aprendidas</h3>
+
+                <div class="process-steps">
+                    <div class="process-step" style="border-left-color: #11998e;">
+                        <h4>1. Jerarquía de DFDs</h4>
+                        <p>Hemos desarrollado una jerarquía completa de 3 niveles:</p>
+                        <ul>
+                            <li><strong>Diagrama de Contexto:</strong> Vista de 30,000 pies - El sistema y su entorno</li>
+                            <li><strong>DFD Nivel 0:</strong> 5 procesos principales que descomponen el sistema</li>
+                            <li><strong>DFD Nivel 1:</strong> Descomposición de "Gestionar Tareas" en 6 subprocesos</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step" style="border-left-color: #38ef7d;">
+                        <h4>2. Balanceo de DFDs</h4>
+                        <p>Cada nivel mantiene consistencia con el anterior:</p>
+                        <ul>
+                            <li>Los flujos de entrada del Contexto aparecen distribuidos en Nivel 0</li>
+                            <li>Los flujos del proceso 3.0 se descomponen en los subprocesos 3.1-3.6</li>
+                            <li>No se pierde ni se inventa información entre niveles</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step" style="border-left-color: #06beb6;">
+                        <h4>3. Almacenes de Datos</h4>
+                        <p>Identificamos 8 almacenes de datos en total:</p>
+                        <ul>
+                            <li>6 almacenes principales (D1-D6) visibles en Nivel 0</li>
+                            <li>2 almacenes de detalle (D7-D8) que emergen en Nivel 1</li>
+                            <li>Cada almacén tiene productores y consumidores claramente definidos</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step" style="border-left-color: #48c6ef;">
+                        <h4>4. Escenarios de Uso</h4>
+                        <p>Trazamos flujos de datos en escenarios reales:</p>
+                        <ul>
+                            <li>Developer completando una tarea (2 procesos, 4 almacenes)</li>
+                            <li>Product Owner creando user story (3 procesos, 3 almacenes)</li>
+                            <li>Vinculación automática de commits Git (integración bidireccional)</li>
+                            <li>Validación de que todos los flujos tienen origen y destino</li>
+                        </ul>
+                    </div>
+
+                    <div class="process-step" style="border-left-color: #6f86d6;">
+                        <h4>5. Patrones de Integración</h4>
+                        <p>Modelado de interacciones con sistemas externos:</p>
+                        <ul>
+                            <li>Webhooks entrantes desde Git (eventos asíncronos)</li>
+                            <li>Llamadas API salientes para obtener detalles</li>
+                            <li>Notificaciones push a Email/Slack</li>
+                            <li>Autenticación con sistemas OAuth/LDAP</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="alert alert-info" style="margin-top: 30px;">
+                    <strong>🎯 Valor del Análisis Estructurado:</strong> Este ejemplo completo de Liskov Project demuestra cómo el análisis estructurado permite:
+                    <ul>
+                        <li><strong>Comunicación efectiva</strong> con stakeholders técnicos y no técnicos</li>
+                        <li><strong>Descomposición sistemática</strong> de sistemas complejos en partes manejables</li>
+                        <li><strong>Documentación precisa</strong> que sirve de base para el diseño e implementación</li>
+                        <li><strong>Validación de requerimientos</strong> antes de escribir código</li>
+                        <li><strong>Trazabilidad</strong> desde requisitos hasta procesos específicos</li>
+                    </ul>
+                </div>
+
+                <div style="text-align: center; margin-top: 30px; padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
+                    <h3 style="color: white; margin-bottom: 15px;">📊 Estadísticas del Modelo</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px;">
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 2em; font-weight: bold;">8</div>
+                            <div>Entidades Externas</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 2em; font-weight: bold;">11</div>
+                            <div>Procesos Totales</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 2em; font-weight: bold;">8</div>
+                            <div>Almacenes de Datos</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 2em; font-weight: bold;">25+</div>
+                            <div>Flujos de Datos</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 2em; font-weight: bold;">3</div>
+                            <div>Niveles de DFD</div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 8px;">
+                            <div style="font-size: 2em; font-weight: bold;">3</div>
+                            <div>Escenarios Trazados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Quiz de evaluación -->
         <section class="quiz-container">
             <h2>🧠 Evaluación - 20 Preguntas Multiple Choice</h2>
