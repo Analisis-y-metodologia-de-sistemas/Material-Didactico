@@ -1,0 +1,47 @@
+@startuml
+title Relación Generalization - Ejemplo Simple
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBackgroundColor<<abstract>> #FFE0B2
+skinparam usecaseBorderColor #1976D2
+
+actor Usuario
+
+rectangle "Sistema de Autenticación" {
+  usecase "Autenticar" as UC1 <<abstract>>
+  usecase "Autenticar con\nPassword" as UC2
+  usecase "Autenticar con\nBiometría" as UC3
+  usecase "Autenticar con\nOAuth 2.0" as UC4
+}
+
+Usuario --> UC1
+
+UC2 --|> UC1
+UC3 --|> UC1
+UC4 --|> UC1
+
+note right of UC1
+  Caso GENERAL (abstracto):
+  - Define comportamiento común
+  - No se instancia directamente
+  - Los hijos lo especializan
+end note
+
+note bottom of UC2
+  Casos ESPECÍFICOS:
+  - Heredan estructura del padre
+  - Implementan detalles específicos
+  - Principio LSP: un hijo puede
+    sustituir al padre
+end note
+
+note left of UC3
+  Relación "es-un-tipo-de":
+  - "Autenticar con Password"
+    ES UN TIPO DE "Autenticar"
+  - "Autenticar con Biometría"
+    ES UN TIPO DE "Autenticar"
+end note
+
+@enduml

@@ -1,0 +1,56 @@
+@startuml uc-26-generar-reporte-detallado
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam roundCorner 15
+skinparam shadowing false
+
+left to right direction
+
+actor "Scrum Master" as SM #7B1FA2
+actor "Product Owner" as PO #7B1FA2
+actor "Gerente" as MNG #7B1FA2
+actor "GitHub API" as GH #00BCD4
+actor "Sistema de\nReportes" as REP #9C27B0
+
+package "Reporting Module" {
+    usecase "CU-15:\nGenerar Reporte\nde Sprint" as UC15 #F3E5F5
+    usecase "Calcular\nMétricas" as CALC #E8F5E9
+    usecase "Generar\nGráficos" as GRAF #FFF9C4
+    usecase "Exportar PDF" as PDF #E3F2FD
+    usecase "Enviar Email" as EMAIL #FFEBEE
+    usecase "Autenticar\nUsuario" as AUTH #F5F5F5
+}
+
+SM --> UC15
+PO --> UC15
+MNG --> UC15
+UC15 ..> AUTH : <<include>>
+UC15 ..> CALC : <<include>>
+UC15 ..> GRAF : <<include>>
+UC15 ..> PDF : <<include>>
+UC15 ..> EMAIL : <<extend>>\n(opcional)
+UC15 --> GH : consulta métricas
+UC15 --> REP : genera reporte
+
+note top of UC15
+  <b>Nivel:</b> User-Goal (🌊)
+  <b>Complejidad:</b> Alta
+  <b>Tiempo:</b> <10 segundos
+  <b>Frecuencia:</b> 2-3 por sprint
+end note
+
+note right of CALC
+  <b>Métricas:</b>
+  • Velocity
+  • Burndown
+  • Distribución trabajo
+  • Impedimentos
+end note
+
+note bottom of EMAIL
+  <b>Extension Point:</b>
+  Usuario selecciona
+  "Email Report"
+end note
+
+@enduml

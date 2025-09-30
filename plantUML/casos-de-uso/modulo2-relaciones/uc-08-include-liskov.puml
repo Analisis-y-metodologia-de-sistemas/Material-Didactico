@@ -1,0 +1,59 @@
+@startuml
+title Liskov Project - Patrón Include Compartido
+
+left to right direction
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBorderColor #1976D2
+skinparam usecaseBackgroundColor<<shared>> #FFE082
+
+actor "Product Owner" as po
+actor "Scrum Master" as sm
+actor "Developer" as dev
+
+rectangle "Liskov Project" {
+  usecase "Autenticar Usuario" as auth <<shared>>
+  usecase "Validar Permisos" as perms <<shared>>
+
+  usecase "Crear User Story" as UC1
+  usecase "Planificar Sprint" as UC2
+  usecase "Actualizar Tarea" as UC3
+  usecase "Generar Reporte" as UC4
+  usecase "Configurar Proyecto" as UC5
+}
+
+po --> UC1
+sm --> UC2
+dev --> UC3
+sm --> UC4
+po --> UC5
+
+UC1 .> auth : <<include>>
+UC2 .> auth : <<include>>
+UC3 .> auth : <<include>>
+UC4 .> auth : <<include>>
+UC5 .> auth : <<include>>
+
+UC1 .> perms : <<include>>
+UC2 .> perms : <<include>>
+UC4 .> perms : <<include>>
+UC5 .> perms : <<include>>
+
+note top of auth
+  CASO INCLUIDO COMPARTIDO:
+  8 casos de uso diferentes
+  incluyen "Autenticar Usuario"
+
+  Evita duplicación de lógica
+end note
+
+note bottom of perms
+  VALIDACIÓN DE PERMISOS:
+  Cada rol tiene diferentes
+  permisos sobre cada CU
+
+  Se valida después de autenticar
+end note
+
+@enduml

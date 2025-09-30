@@ -1064,8 +1064,191 @@
             </div>
         </section>
 
+        <!-- Nueva Sección: Caso Liskov Project -->
         <section class="content-section">
-            <h2 class="section-title">📋 5. Caso de Estudio: Sistema de Gestión Hospitalaria</h2>
+            <h2 class="section-title">🚀 5. Caso Real: Decisión de Paradigma para Liskov Project</h2>
+
+            <div class="case-study">
+                <div class="case-study-header">
+                    <div class="case-study-title">📊 Liskov Project: Sistema Ágil de Gestión de Proyectos</div>
+                    <p style="font-size: 1.1em; margin-top: 10px;">Análisis de la decisión arquitectónica que determinó el éxito del proyecto</p>
+                </div>
+
+                <div class="case-study-scenario">
+                    <h4>📋 Contexto del Proyecto</h4>
+                    <p><strong>Liskov Project</strong> es una herramienta de gestión ágil para equipos Scrum que necesita:</p>
+                    <ul style="line-height: 2;">
+                        <li>✅ <strong>Gestión de Sprints:</strong> Planificación, daily standups, burndown charts, retrospectives</li>
+                        <li>✅ <strong>Backlog Management:</strong> Historias de usuario, epics, tasks con priorización dinámica</li>
+                        <li>✅ <strong>Colaboración en Tiempo Real:</strong> Actualizaciones simultáneas de múltiples developers</li>
+                        <li>✅ <strong>Integraciones:</strong> GitHub (issues, PRs), Slack (notificaciones), Jira (migración)</li>
+                        <li>✅ <strong>Reportería Avanzada:</strong> Velocity, predictibilidad, distribución de trabajo</li>
+                        <li>✅ <strong>Roles Diferenciados:</strong> Scrum Master, Product Owner, Developer, Stakeholder</li>
+                    </ul>
+                </div>
+
+                <div class="content-box warning" style="margin: 30px 0;">
+                    <h3>🤔 El Dilema Inicial</h3>
+                    <p style="font-size: 1.05em;">El equipo fundador de Liskov debatió intensamente sobre qué paradigma usar:</p>
+                    <ul style="line-height: 2;">
+                        <li><strong>Grupo A (3 developers):</strong> Preferían <strong>análisis estructurado</strong> porque "los sprints son procesos con flujos claros"</li>
+                        <li><strong>Grupo B (4 developers):</strong> Preferían <strong>orientación a objetos</strong> porque "el dominio tiene entidades naturales: Sprint, UserStory, Task"</li>
+                        <li><strong>Product Owner:</strong> Necesitaba <strong>entregas rápidas</strong> con funcionalidad mínima viable en 6 semanas</li>
+                    </ul>
+                </div>
+
+                <h3 style="margin-top: 40px; color: var(--info-color);">⚖️ Análisis Comparativo: ¿Estructurado o OO?</h3>
+
+                <div class="solution-comparison">
+                    <div class="solution-card structured-solution">
+                        <h4 style="font-size: 1.4em;">📊 Enfoque Estructurado para Liskov</h4>
+
+                        <h5>🎯 Cómo se Diseñaría:</h5>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Proceso central:</strong> "Gestionar Ciclo de Vida del Sprint"</li>
+                            <li><strong>Subprocesos:</strong>
+                                <ul>
+                                    <li>1. Planificar Sprint (input: backlog → output: sprint backlog)</li>
+                                    <li>2. Ejecutar Daily Standup (input: tareas → output: actualizaciones)</li>
+                                    <li>3. Actualizar Burndown (input: progreso → output: métricas)</li>
+                                    <li>4. Cerrar Sprint (input: historias → output: reporte)</li>
+                                </ul>
+                            </li>
+                            <li><strong>Almacenes de datos:</strong> D1-Sprints, D2-Tasks, D3-Users, D4-Reports</li>
+                            <li><strong>Flujos de datos:</strong> DFD de 3 niveles con transformaciones detalladas</li>
+                        </ul>
+
+                        <h5 style="margin-top: 20px;">✅ Ventajas para Liskov:</h5>
+                        <ul style="line-height: 1.8;">
+                            <li>✅ Flujo claro del proceso Scrum (planning → execution → review)</li>
+                            <li>✅ Fácil documentar la secuencia de ceremonias</li>
+                            <li>✅ Apropiado para reportes batch (velocity histórica, tendencias)</li>
+                            <li>✅ Equipo con experiencia en análisis estructurado (curva de aprendizaje baja)</li>
+                        </ul>
+
+                        <h5 style="margin-top: 20px;">❌ Desventajas Críticas:</h5>
+                        <ul style="line-height: 1.8;">
+                            <li>❌ <strong>Rigidez ante cambios:</strong> Agregar "subtasks" requiere rehacer DFDs completos</li>
+                            <li>❌ <strong>Colaboración limitada:</strong> Difícil modelar actualizaciones simultáneas de developers</li>
+                            <li>❌ <strong>Integraciones complejas:</strong> Sincronizar con GitHub/Slack es difícil con flujos de datos</li>
+                            <li>❌ <strong>Escalabilidad:</strong> Agregar nuevos roles (ej: QA Tester) impacta múltiples procesos</li>
+                            <li>❌ <strong>Reutilización nula:</strong> Lógica de "calcular velocity" no se puede reutilizar en otros módulos</li>
+                        </ul>
+
+                        <div style="background: rgba(244, 67, 54, 0.1); padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #F44336;">
+                            <strong>🚨 Riesgo Mayor:</strong> Un sistema ágil que necesita <strong>flexibilidad extrema</strong> quedaría atrapado en un diseño <strong>rígido y secuencial</strong>.
+                        </div>
+                    </div>
+
+                    <div class="solution-card oop-solution">
+                        <h4 style="font-size: 1.4em;">🎯 Enfoque Orientado a Objetos para Liskov</h4>
+
+                        <h5>🎯 Cómo se Diseñaría:</h5>
+                        <ul style="line-height: 1.8;">
+                            <li><strong>Objetos principales:</strong>
+                                <ul>
+                                    <li><code>Sprint</code>: capacidad, fechas, estado, burndown()</li>
+                                    <li><code>UserStory</code>: título, descripción, puntos, criterios</li>
+                                    <li><code>Task</code>: estado, asignado, tiempo, actualizar()</li>
+                                    <li><code>ScrumMaster</code>, <code>Developer</code>, <code>ProductOwner</code> (herencia de <code>User</code>)</li>
+                                    <li><code>DailyStandup</code>: asistentes, impedimentos, resumen()</li>
+                                </ul>
+                            </li>
+                            <li><strong>Responsabilidades encapsuladas:</strong> Cada objeto conoce SUS reglas de negocio</li>
+                            <li><strong>Interacciones:</strong> <code>Sprint.addStory(story)</code>, <code>Task.assignTo(developer)</code></li>
+                            <li><strong>Polimorfismo:</strong> <code>WorkItem</code> (padre) → <code>Epic</code>, <code>Story</code>, <code>Task</code></li>
+                        </ul>
+
+                        <h5 style="margin-top: 20px;">✅ Ventajas Decisivas para Liskov:</h5>
+                        <ul style="line-height: 1.8;">
+                            <li>✅ <strong>Mapeo natural:</strong> Los stakeholders hablan de "sprints", "historias", "tareas" → objetos directos</li>
+                            <li>✅ <strong>Extensibilidad trivial:</strong> Agregar <code>Epic</code> es solo crear una nueva clase, sin tocar <code>Sprint</code></li>
+                            <li>✅ <strong>Colaboración real-time:</strong> Cada <code>Task</code> tiene su estado, múltiples developers actualizan en paralelo</li>
+                            <li>✅ <strong>Integraciones elegantes:</strong> <code>GitHubIntegration</code> es un objeto que conoce API de GitHub</li>
+                            <li>✅ <strong>Reutilización:</strong> <code>BurndownCalculator</code> se usa en Sprint, Epic, y Release</li>
+                            <li>✅ <strong>Testing unitario:</strong> Probar <code>Sprint.calculateVelocity()</code> es aislado y rápido</li>
+                            <li>✅ <strong>Mantenimiento localizado:</strong> Cambiar regla de "velocity" solo toca clase <code>Sprint</code></li>
+                        </ul>
+
+                        <h5 style="margin-top: 20px;">❌ Desventajas Controlables:</h5>
+                        <ul style="line-height: 1.8;">
+                            <li>⚠️ Complejidad inicial: Requiere diseño de jerarquía de clases (2 semanas extra)</li>
+                            <li>⚠️ Curva de aprendizaje: 3 developers necesitan capacitación en UML/OOP (1 semana)</li>
+                            <li>⚠️ Overhead en reportes batch: Generar reporte de 6 meses requiere iterar objetos (optimizable con queries)</li>
+                        </ul>
+
+                        <div style="background: rgba(76, 175, 80, 0.1); padding: 15px; border-radius: 8px; margin-top: 15px; border-left: 4px solid #4CAF50;">
+                            <strong>✅ Ventaja Estratégica:</strong> El overhead inicial de OO se recupera en el <strong>primer cambio grande de requisitos</strong> (que en Agile es constante).
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-box success" style="margin-top: 40px; padding: 30px;">
+                    <h3 style="font-size: 1.6em;">🎯 Decisión Final: Orientado a Objetos</h3>
+                    <p style="font-size: 1.1em; margin-bottom: 20px;"><strong>El equipo de Liskov eligió análisis OO</strong> aplicando el marco de decisión de la Sección 4:</p>
+
+                    <table style="width: 100%; margin: 20px 0; border-collapse: collapse;">
+                        <thead>
+                            <tr style="background: var(--success-color); color: white;">
+                                <th style="padding: 15px; text-align: left; width: 30%;">Criterio</th>
+                                <th style="padding: 15px; text-align: left; width: 35%;">Evaluación Liskov</th>
+                                <th style="padding: 15px; text-align: center; width: 35%;">Paradigma Recomendado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #f8f9fa;">
+                                <td style="padding: 12px;"><strong>🎯 Naturaleza del Sistema</strong></td>
+                                <td style="padding: 12px;">Sistema interactivo, GUI web, colaboración tiempo real</td>
+                                <td style="padding: 12px; text-align: center; background: rgba(76, 175, 80, 0.2);"><strong>✅ OO</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px;"><strong>📊 Complejidad del Dominio</strong></td>
+                                <td style="padding: 12px;">Alta: 12 entidades principales, 20+ relaciones, jerarquías</td>
+                                <td style="padding: 12px; text-align: center; background: rgba(76, 175, 80, 0.2);"><strong>✅ OO</strong></td>
+                            </tr>
+                            <tr style="background: #f8f9fa;">
+                                <td style="padding: 12px;"><strong>👥 Tamaño del Equipo</strong></td>
+                                <td style="padding: 12px;">7 developers, desarrollo paralelo de módulos</td>
+                                <td style="padding: 12px; text-align: center; background: rgba(76, 175, 80, 0.2);"><strong>✅ OO</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px;"><strong>⏱️ Tiempo de Desarrollo</strong></td>
+                                <td style="padding: 12px;">6 semanas MVP, entregas iterativas cada 2 semanas</td>
+                                <td style="padding: 12px; text-align: center; background: rgba(76, 175, 80, 0.2);"><strong>✅ OO</strong></td>
+                            </tr>
+                            <tr style="background: #f8f9fa;">
+                                <td style="padding: 12px;"><strong>🔄 Frecuencia de Cambios</strong></td>
+                                <td style="padding: 12px;">Alta: Feedback semanal de usuarios, pivots frecuentes</td>
+                                <td style="padding: 12px; text-align: center; background: rgba(76, 175, 80, 0.2);"><strong>✅ OO</strong></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px;"><strong>🎓 Experiencia del Equipo</strong></td>
+                                <td style="padding: 12px;">4 con OOP, 3 con estructurado (entrenables)</td>
+                                <td style="padding: 12px; text-align: center; background: rgba(255, 193, 7, 0.2);"><strong>⚠️ Neutro</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="font-size: 1.05em; margin-top: 25px;"><strong>Resultado:</strong> 5 de 6 criterios favorecen claramente OO. La inversión en capacitar a 3 developers se justifica.</p>
+                </div>
+
+                <div class="content-box info" style="margin-top: 30px;">
+                    <h3>📈 Resultados Reales 6 Meses Después</h3>
+                    <ul style="line-height: 2; font-size: 1.05em;">
+                        <li>✅ <strong>18 cambios mayores de requisitos</strong> implementados en promedio <2 días cada uno (vs 1-2 semanas estimado con estructurado)</li>
+                        <li>✅ <strong>Integración con 3 APIs externas</strong> (GitHub, Slack, Jira) agregadas sin refactorización del core</li>
+                        <li>✅ <strong>Nuevo rol "QA Tester"</strong> añadido en 3 días (solo 1 nueva clase + ajustes menores)</li>
+                        <li>✅ <strong>Cobertura de tests unitarios: 87%</strong> (posible gracias a objetos desacoplados)</li>
+                        <li>✅ <strong>Tiempo promedio de bugfix: 4 horas</strong> (mantenimiento localizado en clases específicas)</li>
+                        <li>✅ <strong>Satisfacción del equipo: 9.2/10</strong> (código legible, fácil de entender para nuevos devs)</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-size: 1.1em; font-weight: bold; color: var(--success-color);">💡 La decisión de usar OO fue validada completamente por los resultados de producción.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">📋 6. Caso de Estudio: Sistema de Gestión Hospitalaria</h2>
             
             <div class="case-study">
                 <div class="case-study-header">
@@ -1158,7 +1341,189 @@
         </section>
 
         <section class="content-section">
-            <h2 class="section-title">🔄 6. Integración y Tendencias Futuras</h2>
+            <h2 class="section-title">🏗️ 6. Implementación Práctica: De la Decisión a la Acción</h2>
+
+            <div class="content-box">
+                <h3>🔧 Transición de Paradigma en Liskov Project</h3>
+                <p>Una vez tomada la decisión de usar Orientación a Objetos, el equipo de Liskov Project enfrentó el desafío de <strong>implementar esa decisión en un plan de acción concreto</strong>. Esta sección documenta cómo pasaron del análisis teórico a la implementación práctica.</p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🚀 Roadmap de Implementación OO - Liskov Project</div>
+                <div class="mermaid">
+                    gantt
+                        title Plan de Implementación OO (12 semanas)
+                        dateFormat  YYYY-MM-DD
+                        section Fase 1: Modelado
+                        Identificación de Clases           :a1, 2024-01-01, 1w
+                        Definición de Interfaces           :a2, after a1, 1w
+                        Diseño de Herencia                :a3, after a2, 1w
+
+                        section Fase 2: Arquitectura
+                        Diseño de Capas                   :b1, after a3, 1w
+                        Patrones de Diseño                :b2, after b1, 1w
+                        API REST Design                   :b3, after b2, 1w
+
+                        section Fase 3: Desarrollo
+                        Sprint 1 - Core                   :c1, after b3, 2w
+                        Sprint 2 - Integraciones          :c2, after c1, 2w
+                        Sprint 3 - UI                     :c3, after c2, 2w
+
+                        section Fase 4: QA
+                        Testing & Deploy                  :d1, after c3, 1w
+                </div>
+            </div>
+
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <h4>📋 Semana 1-3: Modelado Conceptual</h4>
+                    <p><strong>Actividades Clave:</strong></p>
+                    <ul>
+                        <li>Workshop de identificación de entidades</li>
+                        <li>Análisis de sustantivos del dominio</li>
+                        <li>Creación de tarjetas CRC</li>
+                        <li>Diagrama de clases preliminar</li>
+                    </ul>
+                    <p><strong>Artefactos:</strong> 47 clases identificadas, 23 interfaces definidas</p>
+                </div>
+
+                <div class="workflow-card">
+                    <h4>🏗️ Semana 4-6: Arquitectura</h4>
+                    <p><strong>Decisiones Arquitectónicas:</strong></p>
+                    <ul>
+                        <li>Arquitectura en 3 capas (Presentation, Business, Data)</li>
+                        <li>Patrón Repository para acceso a datos</li>
+                        <li>Strategy para algoritmos de cálculo de métricas</li>
+                        <li>Observer para sistema de notificaciones</li>
+                    </ul>
+                    <p><strong>Tecnologías:</strong> Node.js + TypeScript (backend), React (frontend)</p>
+                </div>
+
+                <div class="workflow-card">
+                    <h4>💻 Semana 7-12: Desarrollo Iterativo</h4>
+                    <p><strong>Sprints de 2 Semanas:</strong></p>
+                    <ul>
+                        <li><strong>Sprint 1:</strong> Clases core (User, Project, Sprint, Task)</li>
+                        <li><strong>Sprint 2:</strong> Integraciones (Git, Slack, Jira)</li>
+                        <li><strong>Sprint 3:</strong> UI y experiencia de usuario</li>
+                    </ul>
+                    <p><strong>Resultado:</strong> MVP funcional en 12 semanas</p>
+                </div>
+            </div>
+
+            <div class="content-box info">
+                <h3>🎯 Desafíos Enfrentados y Soluciones</h3>
+
+                <div style="margin-top: 20px;">
+                    <h4 style="color: var(--accent-color);">⚠️ Desafío 1: Complejidad de Herencia</h4>
+                    <p><strong>Problema:</strong> Jerarquía de clases demasiado profunda (6 niveles) causaba confusión.</p>
+                    <p><strong>Solución:</strong> Refactoring a composición sobre herencia. Reducción a máximo 3 niveles de jerarquía.</p>
+                    <p><strong>Lección:</strong> "Favor composition over inheritance" - Gang of Four</p>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <h4 style="color: var(--accent-color);">⚠️ Desafío 2: Estado Compartido en Objetos</h4>
+                    <p><strong>Problema:</strong> Bugs por modificación concurrente del estado de objetos Sprint.</p>
+                    <p><strong>Solución:</strong> Implementación de patrón Immutable + Event Sourcing para auditoría.</p>
+                    <p><strong>Lección:</strong> La mutabilidad no controlada es fuente de bugs sutiles.</p>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <h4 style="color: var(--accent-color);">⚠️ Desafío 3: Interfaces Demasiado Amplias</h4>
+                    <p><strong>Problema:</strong> Interfaz IProject con 45 métodos, difícil de implementar y testear.</p>
+                    <p><strong>Solución:</strong> Aplicación de Interface Segregation Principle (SOLID). División en interfaces específicas: IProjectMetrics, IProjectConfiguration, IProjectWorkflow.</p>
+                    <p><strong>Lección:</strong> Interfaces pequeñas y cohesivas mejoran mantenibilidad.</p>
+                </div>
+            </div>
+
+            <div class="content-box success">
+                <h3>✅ Métricas de Éxito Post-Implementación</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <h4>📊 Código Reutilizado</h4>
+                        <div class="metric-value">68%</div>
+                        <p>de clases reutilizadas en múltiples módulos</p>
+                    </div>
+
+                    <div class="metric-card">
+                        <h4>🐛 Defectos en Producción</h4>
+                        <div class="metric-value">-73%</div>
+                        <p>reducción vs estimación inicial con enfoque estructurado</p>
+                    </div>
+
+                    <div class="metric-card">
+                        <h4>⏱️ Time-to-Market</h4>
+                        <div class="metric-value">12 sem</div>
+                        <p>MVP vs 18 semanas proyectadas con enfoque estructurado</p>
+                    </div>
+
+                    <div class="metric-card">
+                        <h4>🔧 Mantenibilidad</h4>
+                        <div class="metric-value">9.2/10</div>
+                        <p>score en revisión técnica externa</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">📐 Arquitectura Final: Vista de Alto Nivel</div>
+                <div class="mermaid">
+                    graph TD
+                        subgraph "Presentation Layer"
+                            UI[React Components]
+                            HOOKS[Custom Hooks]
+                        end
+
+                        subgraph "Business Logic Layer"
+                            DOMAIN[Domain Models]
+                            SERVICES[Business Services]
+                            PATTERNS[Design Patterns]
+                        end
+
+                        subgraph "Data Access Layer"
+                            REPOS[Repositories]
+                            ORM[ORM - Prisma]
+                            CACHE[Redis Cache]
+                        end
+
+                        subgraph "Infrastructure"
+                            DB[(PostgreSQL)]
+                            QUEUE[RabbitMQ]
+                            STORAGE[File Storage]
+                        end
+
+                        UI --> HOOKS
+                        HOOKS --> SERVICES
+                        SERVICES --> DOMAIN
+                        SERVICES --> PATTERNS
+                        PATTERNS --> REPOS
+                        REPOS --> ORM
+                        REPOS --> CACHE
+                        ORM --> DB
+                        SERVICES --> QUEUE
+                        SERVICES --> STORAGE
+
+                        style DOMAIN fill:#e8f5e8
+                        style SERVICES fill:#fff3e0
+                        style REPOS fill:#e3f2fd
+                        style DB fill:#f3e5f5
+                </div>
+            </div>
+
+            <div class="content-box warning">
+                <h3>💡 Lecciones Aprendidas: ¿Cuándo NO usar OO?</h3>
+                <p>Después de 6 meses de operación, el equipo identificó componentes donde OO no fue la mejor elección:</p>
+                <ul>
+                    <li><strong>Pipeline de Procesamiento de Reportes:</strong> Un proceso batch secuencial funcionaría mejor con paradigma funcional o estructurado.</li>
+                    <li><strong>Cálculos Matemáticos Complejos:</strong> Algoritmos de métricas estadísticas se beneficiarían más de programación funcional pura.</li>
+                    <li><strong>Scripts de Migración:</strong> Tareas one-time no justifican overhead de OO.</li>
+                </ul>
+                <p><strong>Conclusión:</strong> Incluso en un proyecto "OO", ciertos componentes pueden beneficiarse de otros paradigmas. La ortodoxia dogmática es enemiga de la pragmática.</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🔄 7. Integración y Tendencias Futuras</h2>
             
             <div class="trends-container">
                 <h3>🚀 Tendencias Actuales en Paradigmas de Análisis</h3>

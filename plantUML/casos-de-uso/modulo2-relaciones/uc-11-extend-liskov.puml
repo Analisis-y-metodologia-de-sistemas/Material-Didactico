@@ -1,0 +1,71 @@
+@startuml
+title Liskov Project - Patrón Extend
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBackgroundColor<<optional>> #FFF3E0
+skinparam usecaseBorderColor #1976D2
+
+actor "Scrum Master" as sm
+actor "Slack" as slack <<system>>
+
+rectangle "Liskov Project" {
+  usecase "Ejecutar Daily\nStandup" as UC1
+
+  usecase "Notificar a Slack" as UC2 <<optional>>
+  usecase "Escalar\nImpedimento" as UC3 <<optional>>
+  usecase "Actualizar\nBurndown" as UC4 <<optional>>
+  usecase "Enviar Resumen\npor Email" as UC5 <<optional>>
+}
+
+sm --> UC1
+
+UC2 .> UC1 : <<extend>>
+UC3 .> UC1 : <<extend>>
+UC4 .> UC1 : <<extend>>
+UC5 .> UC1 : <<extend>>
+
+UC2 --> slack
+
+note top of UC1
+  Caso BASE: Daily Standup
+
+  Extension Points:
+  - after_member_update
+  - after_blocker_detected
+  - end_of_standup
+end note
+
+note right of UC2
+  Condición:
+  Integración con Slack activa
+
+  Extension Point:
+  end_of_standup
+end note
+
+note right of UC3
+  Condición:
+  Blocker crítico detectado
+
+  Extension Point:
+  after_blocker_detected
+end note
+
+note bottom of UC4
+  Condición:
+  Automático si hay cambios
+
+  Extension Point:
+  end_of_standup
+end note
+
+note bottom of UC5
+  Condición:
+  SM solicita resumen
+
+  Extension Point:
+  end_of_standup
+end note
+
+@enduml

@@ -1,0 +1,39 @@
+@startuml
+title Relación Include - Ejemplo Simple
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBorderColor #1976D2
+
+actor Cliente
+
+rectangle "Sistema de E-commerce" {
+  usecase "Comprar Producto" as UC1
+  usecase "Validar Usuario" as UC2
+}
+
+Cliente --> UC1
+UC1 .> UC2 : <<include>>
+
+note right of UC1
+  Caso BASE:
+  - Siempre necesita validación
+  - NO puede ejecutarse sin UC2
+  - Dirección: Base → Incluido
+end note
+
+note right of UC2
+  Caso INCLUIDO:
+  - Comportamiento común
+  - Reutilizable por otros CU
+  - Obligatorio cuando se invoca
+end note
+
+note bottom of UC1
+  "Comprar Producto" SIEMPRE
+  incluye "Validar Usuario"
+
+  No hay compra sin validación
+end note
+
+@enduml

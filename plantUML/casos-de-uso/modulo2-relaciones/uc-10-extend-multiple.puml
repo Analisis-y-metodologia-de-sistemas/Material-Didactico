@@ -1,0 +1,53 @@
+@startuml
+title Relación Extend - Múltiples Extensiones
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBackgroundColor<<optional>> #FFF3E0
+skinparam usecaseBorderColor #1976D2
+
+actor Vendedor
+
+rectangle "Sistema de Ventas" {
+  usecase "Procesar Venta" as UC1
+  usecase "Aplicar Cupón" as UC2 <<optional>>
+  usecase "Registrar Puntos\nLealtad" as UC3 <<optional>>
+  usecase "Emitir Factura\nElectrónica" as UC4 <<optional>>
+  usecase "Manejar\nDevolución" as UC5 <<optional>>
+}
+
+Vendedor --> UC1
+
+UC2 .> UC1 : <<extend>>
+UC3 .> UC1 : <<extend>>
+UC4 .> UC1 : <<extend>>
+UC5 .> UC1 : <<extend>>
+
+note right of UC1
+  Caso BASE robusto:
+  Funciona perfectamente
+  sin ninguna extensión
+
+  Extension Points:
+  - después de calcular total
+  - antes de confirmar
+  - después de pago
+end note
+
+note bottom of UC2
+  Condición: Cliente tiene cupón válido
+end note
+
+note bottom of UC3
+  Condición: Cliente es miembro del programa
+end note
+
+note bottom of UC4
+  Condición: Venta > $1000 o cliente lo solicita
+end note
+
+note bottom of UC5
+  Condición: Cliente solicita devolución
+end note
+
+@enduml

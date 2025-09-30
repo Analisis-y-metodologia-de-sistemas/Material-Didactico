@@ -1,0 +1,62 @@
+@startuml
+title Comparación de Relaciones: Include vs Extend vs Generalization
+
+left to right direction
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam packageBackgroundColor #E3F2FD
+skinparam usecaseBackgroundColor<<optional>> #FFF3E0
+skinparam usecaseBackgroundColor<<abstract>> #FFE0B2
+
+actor Cliente
+
+package "INCLUDE (Obligatorio)" #E8F5E9 {
+  usecase "Comprar" as buy
+  usecase "Validar" as validate
+  buy .> validate : <<include>>
+}
+
+package "EXTEND (Opcional)" #FFF3E0 {
+  usecase "Realizar Venta" as sell
+  usecase "Aplicar Cupón" as coupon <<optional>>
+  coupon .> sell : <<extend>>
+}
+
+package "GENERALIZATION (Herencia)" #E1F5FE {
+  usecase "Pagar" as pay <<abstract>>
+  usecase "Pagar con\nTarjeta" as card
+  usecase "Pagar con\nPayPal" as paypal
+  card --|> pay
+  paypal --|> pay
+}
+
+Cliente --> buy
+Cliente --> sell
+Cliente --> pay
+
+note bottom of buy
+  INCLUDE:
+  ✓ Dirección: Base → Incluido
+  ✓ Obligatorio (siempre se ejecuta)
+  ✓ Reutilización de comportamiento
+  ✓ "Comprar SIEMPRE INCLUYE Validar"
+end note
+
+note bottom of sell
+  EXTEND:
+  ✓ Dirección: Extensión → Base
+  ✓ Opcional (solo si se cumple condición)
+  ✓ Variaciones del flujo base
+  ✓ "Aplicar Cupón EXTIENDE Venta"
+    (solo si hay cupón válido)
+end note
+
+note bottom of pay
+  GENERALIZATION:
+  ✓ Dirección: Hijo → Padre
+  ✓ Relación "es-un-tipo-de"
+  ✓ Herencia de comportamiento
+  ✓ "Pagar con Tarjeta ES UN TIPO DE Pagar"
+end note
+
+@enduml

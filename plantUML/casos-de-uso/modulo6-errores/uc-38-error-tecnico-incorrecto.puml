@@ -1,0 +1,61 @@
+@startuml
+title ❌ ERROR: Casos de Uso Demasiado Técnicos
+
+skinparam actorBackgroundColor #FFCDD2
+skinparam usecaseBackgroundColor #FFCDD2
+skinparam usecaseBorderColor #C62828
+
+actor Usuario
+
+rectangle "Sistema ❌ MAL DISEÑADO" {
+  usecase "Ejecutar SELECT en\ntabla users WHERE\nid=?" as UC1
+  usecase "Llamar API REST\nPOST /api/auth\ncon JSON payload" as UC2
+  usecase "Actualizar registro\nen base de datos\ncon UPDATE statement" as UC3
+  usecase "Renderizar componente\nReact con useState\nhook" as UC4
+}
+
+Usuario --> UC1
+Usuario --> UC2
+Usuario --> UC3
+Usuario --> UC4
+
+note top of Usuario
+  ❌ PROBLEMA:
+  Los casos de uso describen
+  DETALLES DE IMPLEMENTACIÓN
+  en lugar de funcionalidades
+end note
+
+note right of UC1
+  ❌ Error: Expone tecnología (SQL)
+  ❌ Error: Menciona estructura de BD
+  ❌ Error: Demasiado técnico
+end note
+
+note right of UC2
+  ❌ Error: Expone protocolo (REST)
+  ❌ Error: Menciona endpoints
+  ❌ Error: Formato de datos (JSON)
+end note
+
+note bottom of UC3
+  ❌ Error: Comando SQL explícito
+  ❌ Error: Lenguaje técnico
+  ❌ Error: No comprensible por usuario
+end note
+
+note bottom of UC4
+  ❌ Error: Menciona framework (React)
+  ❌ Error: Detalles de código (hooks)
+  ❌ Error: Perspectiva del programador
+end note
+
+note left of "Sistema ❌ MAL DISEÑADO"
+  CONSECUENCIAS:
+  • Stakeholders no entienden
+  • Difícil de mantener
+  • Acoplado a tecnología
+  • No es independiente de implementación
+end note
+
+@enduml

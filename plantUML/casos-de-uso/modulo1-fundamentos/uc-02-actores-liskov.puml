@@ -1,0 +1,57 @@
+@startuml
+title Actores del Sistema Liskov Project
+
+skinparam actorBackgroundColor #E8F5E9
+skinparam actorBorderColor #388E3C
+skinparam packageBorderColor #1976D2
+skinparam packageBackgroundColor #E3F2FD
+
+package "Actores Humanos" #E8F5E9 {
+  actor "Developer" as dev
+  actor "Product Owner" as po
+  actor "Scrum Master" as sm
+  actor "Stakeholder" as stake
+}
+
+package "Sistemas Externos" #FFF3E0 {
+  actor "GitHub" as github <<system>>
+  actor "Jira" as jira <<system>>
+  actor "Slack" as slack <<system>>
+  actor "Auth Service" as auth <<system>>
+  actor "Email Service" as email <<system>>
+}
+
+note bottom of dev
+  Desarrollador:
+  - Actualiza tareas
+  - Registra tiempo
+  - Vincula commits
+end note
+
+note bottom of po
+  Product Owner:
+  - Gestiona backlog
+  - Prioriza historias
+  - Define criterios
+end note
+
+note bottom of sm
+  Scrum Master:
+  - Facilita ceremonias
+  - Remueve impedimentos
+  - Genera métricas
+end note
+
+note bottom of github
+  Sistema de control
+  de versiones que
+  notifica commits y PRs
+end note
+
+note bottom of slack
+  Plataforma de
+  comunicación para
+  notificaciones
+end note
+
+@enduml

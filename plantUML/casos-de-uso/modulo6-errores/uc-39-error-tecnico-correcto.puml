@@ -1,0 +1,63 @@
+@startuml
+title ✅ CORRECTO: Casos de Uso Centrados en el Usuario
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #C8E6C9
+skinparam usecaseBorderColor #388E3C
+
+actor Usuario
+
+rectangle "Sistema ✅ BIEN DISEÑADO" {
+  usecase "Consultar\nInformación\nde Usuario" as UC1
+  usecase "Autenticar\nUsuario" as UC2
+  usecase "Actualizar\nPerfil" as UC3
+  usecase "Visualizar\nDashboard" as UC4
+}
+
+Usuario --> UC1
+Usuario --> UC2
+Usuario --> UC3
+Usuario --> UC4
+
+note top of Usuario
+  ✅ CORRECTO:
+  Los casos de uso describen
+  FUNCIONALIDADES DE NEGOCIO
+  comprensibles por todos
+end note
+
+note right of UC1
+  ✅ Acierto: Funcionalidad clara
+  ✅ Acierto: Lenguaje del dominio
+  ✅ Acierto: Independiente de tecnología
+  ✅ Acierto: Valor para el usuario
+end note
+
+note right of UC2
+  ✅ Acierto: Describe QUÉ hace el sistema
+  ✅ Acierto: No describe CÓMO lo hace
+  ✅ Acierto: Comprensible por stakeholders
+end note
+
+note bottom of UC3
+  ✅ Acierto: Perspectiva del usuario
+  ✅ Acierto: Objetivo claro
+  ✅ Acierto: No menciona tecnología
+end note
+
+note bottom of UC4
+  ✅ Acierto: Funcionalidad de negocio
+  ✅ Acierto: Vocabulario no técnico
+  ✅ Acierto: Enfoque en el valor
+end note
+
+note left of "Sistema ✅ BIEN DISEÑADO"
+  BENEFICIOS:
+  • Comprensible por todos
+  • Fácil de mantener
+  • Independiente de tecnología
+  • Enfocado en el negocio
+  • Facilita comunicación
+end note
+
+@enduml

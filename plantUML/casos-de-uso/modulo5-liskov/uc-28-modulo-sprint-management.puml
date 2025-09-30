@@ -1,0 +1,56 @@
+@startuml uc-28-modulo-sprint-management
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam roundCorner 15
+skinparam shadowing false
+
+title Liskov Project - Módulo: Sprint Management
+
+left to right direction
+
+actor "Scrum Master" as SM #FF6F00
+actor "Developer" as DEV #4CAF50
+actor "GitHub API" as GH #00BCD4
+actor "Slack API" as SL #9C27B0
+
+rectangle "Sprint Management Module" #FFF3E0 {
+    usecase "Planificar Sprint" as UC08
+    usecase "Ejecutar Daily Standup" as UC09
+    usecase "Actualizar Burndown" as UC10
+    usecase "Cerrar Sprint" as UC11
+    usecase "Sprint Review" as UC12
+    usecase "Sprint Retrospective" as UC13
+}
+
+SM --> UC08
+SM --> UC09
+SM --> UC11
+SM --> UC12
+SM --> UC13
+
+DEV --> UC09
+DEV --> UC10
+
+UC08 --> GH : sincroniza milestone
+UC08 --> SL : notifica inicio
+UC09 --> SL : envía resumen
+UC11 --> GH : cierra milestone
+UC11 --> SL : notifica cierre
+
+UC10 ..> UC09 : <<include>>
+UC11 ..> UC12 : <<include>>
+UC11 ..> UC13 : <<include>>
+
+note top of UC08
+  <b>Frecuencia:</b> Cada 2 semanas
+  <b>Duración:</b> 2-4 horas
+  <b>Output:</b> Sprint Backlog
+end note
+
+note bottom of UC09
+  <b>Frecuencia:</b> Diaria
+  <b>Duración:</b> 15 minutos
+  <b>3 Preguntas:</b> Ayer/Hoy/Blockers
+end note
+
+@enduml

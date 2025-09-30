@@ -1,0 +1,54 @@
+@startuml uc-29-modulo-task-management
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam roundCorner 15
+skinparam shadowing false
+
+title Liskov Project - Módulo: Task Management
+
+left to right direction
+
+actor "Developer" as DEV #4CAF50
+actor "Scrum Master" as SM #FF6F00
+actor "GitHub API" as GH #00BCD4
+
+rectangle "Task Management Module" #E8F5E9 {
+    usecase "Crear Task" as UC14
+    usecase "Asignar Task" as UC15
+    usecase "Actualizar Estado\nde Task" as UC16
+    usecase "Registrar Tiempo\nTrabajado" as UC17
+    usecase "Añadir Comentarios" as UC18
+    usecase "Marcar como\nBloqueada" as UC19
+}
+
+DEV --> UC14
+DEV --> UC16
+DEV --> UC17
+DEV --> UC18
+DEV --> UC19
+
+SM --> UC15
+SM --> UC19
+
+UC16 --> GH : actualiza issue status
+UC17 --> GH : registra tiempo
+
+UC16 ..> UC17 : <<include>>
+
+note right of UC16
+  <b>Estados:</b>
+  • To Do
+  • In Progress
+  • Code Review
+  • Testing
+  • Done
+end note
+
+note bottom of UC19
+  <b>Trigger:</b>
+  Impedimento crítico detectado
+  <b>Acción:</b>
+  Notifica a Scrum Master
+end note
+
+@enduml

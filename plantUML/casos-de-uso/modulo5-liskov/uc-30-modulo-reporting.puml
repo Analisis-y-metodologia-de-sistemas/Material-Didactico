@@ -1,0 +1,61 @@
+@startuml uc-30-modulo-reporting
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam roundCorner 15
+skinparam shadowing false
+
+title Liskov Project - Módulo: Reporting & Metrics
+
+left to right direction
+
+actor "Scrum Master" as SM #FF6F00
+actor "Product Owner" as PO #2196F3
+actor "Gerente" as MNG #7B1FA2
+actor "Stakeholder" as STK #9E9E9E
+actor "GitHub API" as GH #00BCD4
+
+rectangle "Reporting Module" #F3E5F5 {
+    usecase "Generar Reporte\nde Sprint" as UC20
+    usecase "Ver Velocity\nHistórica" as UC21
+    usecase "Analizar Distribución\nde Trabajo" as UC22
+    usecase "Reportar\nImpedimentos" as UC23
+    usecase "Generar Métricas\nde Calidad" as UC24
+    usecase "Dashboard\nEjecutivo" as UC25
+}
+
+SM --> UC20
+SM --> UC23
+
+PO --> UC21
+PO --> UC22
+
+MNG --> UC25
+
+STK --> UC25
+
+UC20 --> GH : métricas commits/PRs
+UC24 --> GH : métricas code review
+
+UC20 ..> UC21 : <<include>>
+UC20 ..> UC22 : <<include>>
+UC20 ..> UC24 : <<include>>
+UC25 ..> UC21 : <<include>>
+
+note right of UC20
+  <b>Formatos:</b> PDF, Excel
+  <b>Contenido:</b>
+  • Burndown
+  • Velocity
+  • Stories completadas
+  • Impedimentos
+end note
+
+note bottom of UC25
+  <b>KPIs:</b>
+  • Predictibilidad
+  • Throughput
+  • Cycle Time
+  • Lead Time
+end note
+
+@enduml

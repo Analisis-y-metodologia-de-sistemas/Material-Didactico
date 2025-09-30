@@ -1343,6 +1343,260 @@
                     <li>Analytics y reporting avanzado</li>
                 </ul>
             </div>
+
+            <h3>8.4 Caso de Estudio Completo: Liskov Project - Trazabilidad en Sistema Ágil</h3>
+
+            <div class="atlassian-card" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-left: 4px solid #1976D2;">
+                <h4 style="color: #1976D2; font-size: 1.4em;">📊 Liskov Project: Plataforma de Gestión Ágil con Trazabilidad Extrema</h4>
+                <p style="font-size: 1.1em; margin-top: 10px;"><strong>Desafío:</strong> Construir una herramienta Scrum con trazabilidad completa desde requisitos de negocio hasta commits de código, integrando GitHub y Slack, manteniendo tiempo de desarrollo en 6 semanas.</p>
+                <p style="font-size: 1.1em;"><strong>Solución:</strong> Matriz de trazabilidad bidireccional automatizada con 5 niveles de granularidad.</p>
+            </div>
+
+            <div class="workflow-step" data-step="CONTEXTO" style="background: #FFF3E0; border-left: 4px solid #FF6F00;">
+                <h4>🎯 Contexto del Proyecto</h4>
+                <ul style="line-height: 2;">
+                    <li><strong>Stakeholders:</strong> Product Owner (define roadmap), Scrum Master (gestiona sprints), 7 Developers (implementan), CTO (aprueba cambios críticos)</li>
+                    <li><strong>Requisitos de Trazabilidad:</strong>
+                        <ul>
+                            <li>✅ De objetivos de negocio (OKRs) → Epics → Stories → Tasks → Commits → PRs → Deployments</li>
+                            <li>✅ Bidireccional: Desde commit, encontrar la historia de usuario que lo motivó</li>
+                            <li>✅ Impacto de cambios: Si un requisito cambia, ¿qué código se afecta?</li>
+                            <li>✅ Auditoría: ¿Quién aprobó cada cambio? ¿Por qué se hizo?</li>
+                        </ul>
+                    </li>
+                    <li><strong>Restricciones:</strong> Sin presupuesto para herramientas enterprise (Jira + Confluence), equipo prefiere ecosistema GitHub, entregas cada 2 semanas</li>
+                </ul>
+            </div>
+
+            <h4 style="margin-top: 30px; color: #1976D2;">🏗️ Arquitectura de Trazabilidad de Liskov</h4>
+
+            <div class="diagram-container">
+                <div class="mermaid">
+                graph TB
+                    subgraph "Nivel 1: Estrategia"
+                        A1[OKR Q1: Aumentar adopción 50%] --> A2[Epic #1: Onboarding Simplificado]
+                        A1 --> A3[Epic #2: Integraciones Slack/GitHub]
+                    end
+
+                    subgraph "Nivel 2: Producto"
+                        A2 --> B1[Story #12: Wizard de Configuración]
+                        A2 --> B2[Story #13: Templates de Proyecto]
+                        A3 --> B3[Story #18: Sincronización GitHub Issues]
+                    end
+
+                    subgraph "Nivel 3: Implementación"
+                        B1 --> C1[Task #45: UI del Wizard]
+                        B1 --> C2[Task #46: Backend API Wizard]
+                        B3 --> C3[Task #67: GitHub OAuth]
+                        B3 --> C4[Task #68: Webhook Listener]
+                    end
+
+                    subgraph "Nivel 4: Código"
+                        C1 --> D1[Commit abc123: Add WizardComponent.tsx]
+                        C2 --> D2[Commit def456: POST /api/wizard endpoint]
+                        C3 --> D3[Commit ghi789: GitHub OAuth flow]
+                    end
+
+                    subgraph "Nivel 5: Deployment"
+                        D1 --> E1[PR #234: Wizard Implementation]
+                        D2 --> E1
+                        E1 --> E2[Deploy Sprint 12 to Production]
+                        E2 --> E3[Release Notes v1.5.0]
+                    end
+
+                    style A1 fill:#FF6F00,stroke:#fff,stroke-width:2px,color:#fff
+                    style B3 fill:#1976D2,stroke:#fff,stroke-width:2px,color:#fff
+                    style E1 fill:#00875A,stroke:#fff,stroke-width:2px,color:#fff
+                    style E3 fill:#6554C0,stroke:#fff,stroke-width:2px,color:#fff
+                </div>
+            </div>
+
+            <div class="workflow-step" data-step="IMPLEMENTACIÓN">
+                <h4>⚙️ Mecanismos de Trazabilidad Implementados</h4>
+
+                <p style="font-weight: bold; margin-top: 15px;">1️⃣ Convenciones de Nomenclatura Estrictas:</p>
+                <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; overflow-x: auto;">
+<strong>Formato de Issues:</strong>
+- Epic:  [EPIC-001] Onboarding Simplificado
+- Story: [STORY-012] Como nuevo usuario, quiero wizard de configuración
+- Task:  [TASK-045] Implementar UI del wizard con React
+
+<strong>Formato de Branches:</strong>
+- feature/STORY-012-wizard-ui
+- bugfix/TASK-067-github-oauth-timeout
+- release/v1.5.0-sprint-12
+
+<strong>Formato de Commits (Smart Commits):</strong>
+git commit -m "[TASK-045] Add WizardComponent with step navigation #done"
+git commit -m "[STORY-012] Fix wizard validation #in-progress"
+git commit -m "[EPIC-001] Update onboarding docs #comment Added examples"
+                </pre>
+
+                <p style="font-weight: bold; margin-top: 20px;">2️⃣ Metadata en Base de Datos (PostgreSQL):</p>
+                <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; overflow-x: auto;">
+<strong>Tabla: traceability_matrix</strong>
+id | source_type | source_id | target_type | target_id | relationship | created_at
+---|-------------|-----------|-------------|-----------|--------------|------------
+1  | OKR         | Q1-2025   | EPIC        | EPIC-001  | decomposes   | 2025-01-15
+2  | EPIC        | EPIC-001  | STORY       | STORY-012 | implements   | 2025-01-20
+3  | STORY       | STORY-012 | TASK        | TASK-045  | breaks_into  | 2025-02-01
+4  | TASK        | TASK-045  | COMMIT      | abc123    | implements   | 2025-02-05
+5  | COMMIT      | abc123    | PR          | PR-234    | part_of      | 2025-02-07
+6  | PR          | PR-234    | DEPLOY      | v1.5.0    | included_in  | 2025-02-10
+
+<strong>Query de Trazabilidad Forward (OKR → Commits):</strong>
+WITH RECURSIVE trace AS (
+  SELECT source_id, target_id, relationship, 1 as level
+  FROM traceability_matrix
+  WHERE source_id = 'Q1-2025'
+
+  UNION ALL
+
+  SELECT tm.source_id, tm.target_id, tm.relationship, t.level + 1
+  FROM traceability_matrix tm
+  JOIN trace t ON tm.source_id = t.target_id
+  WHERE t.level < 5
+)
+SELECT * FROM trace ORDER BY level;
+
+<strong>Resultado:</strong> 127 commits vinculados al OKR Q1-2025
+                </pre>
+
+                <p style="font-weight: bold; margin-top: 20px;">3️⃣ Automatizaciones con GitHub Actions + Webhooks:</p>
+                <pre style="background: #f5f5f5; padding: 15px; border-radius: 5px; font-family: monospace; font-size: 0.9em; overflow-x: auto;">
+<strong>Trigger 1: Commit con Smart Commit → Actualiza Task</strong>
+- Regex: /\[TASK-(\d+)\].*#(done|in-progress|blocked)/
+- Acción: POST /api/tasks/{id}/update-status con estado extraído
+- Registra: traceability_matrix (TASK → COMMIT)
+
+<strong>Trigger 2: PR Abierto → Valida Trazabilidad</strong>
+- Valida: ¿Branch sigue nomenclatura? ¿Commits referencian tasks?
+- Si falla: Bloquea merge + comenta en PR con errores
+- Si pasa: Crea RFC automático para PRs a main (cambios críticos)
+
+<strong>Trigger 3: Merge a main → Deployment Pipeline</strong>
+- Extrae: Todos los STORY-IDs de commits en el merge
+- Actualiza: Estado de stories a "Deployed to Production"
+- Genera: Release notes automático listando stories incluidas
+- Notifica: Slack #deployments + email a stakeholders
+
+<strong>Trigger 4: Cambio en Epic → Alerta de Impacto</strong>
+- Detecta: Modificación en descripción/criterios de Epic
+- Query: Todos los commits vinculados (trazabilidad backward)
+- Genera: Reporte de impacto "47 commits afectados, revisar regresiones"
+- Asigna: Task de análisis de impacto a Tech Lead
+                </pre>
+
+                <p style="font-weight: bold; margin-top: 20px;">4️⃣ Dashboard de Trazabilidad en Tiempo Real:</p>
+                <ul style="line-height: 2;">
+                    <li><strong>Vista "Trace Forward":</strong> Selecciono Epic → Visualiza árbol completo hasta deployments</li>
+                    <li><strong>Vista "Trace Backward":</strong> Selecciono commit → Muestra la cadena hasta OKR</li>
+                    <li><strong>Vista "Coverage Matrix":</strong> Tabla de cobertura: % de stories con tasks, % de tasks con commits, etc.</li>
+                    <li><strong>Vista "Orphan Detector":</strong> Commits sin task asociado, tasks sin story, stories sin epic (gaps de trazabilidad)</li>
+                    <li><strong>Vista "Impact Analysis":</strong> Dado un requisito modificado, lista código afectado con prioridad de revisión</li>
+                </ul>
+            </div>
+
+            <div class="atlassian-card" style="background: #E8F5E9; border-left: 4px solid #00875A;">
+                <h4 style="color: #00875A;">📊 Matriz de Trazabilidad de Liskov (Snapshot Sprint 12)</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="background: #00875A; color: white;">
+                            <th style="padding: 12px; text-align: left;">Nivel</th>
+                            <th style="padding: 12px; text-align: center;">Elementos</th>
+                            <th style="padding: 12px; text-align: center;">Vínculos Forward</th>
+                            <th style="padding: 12px; text-align: center;">Vínculos Backward</th>
+                            <th style="padding: 12px; text-align: center;">Cobertura</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>OKRs</strong></td>
+                            <td style="padding: 10px; text-align: center;">3</td>
+                            <td style="padding: 10px; text-align: center;">8 Epics</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center; color: #00875A; font-weight: bold;">100%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><strong>Epics</strong></td>
+                            <td style="padding: 10px; text-align: center;">8</td>
+                            <td style="padding: 10px; text-align: center;">47 Stories</td>
+                            <td style="padding: 10px; text-align: center;">3 OKRs</td>
+                            <td style="padding: 10px; text-align: center; color: #00875A; font-weight: bold;">100%</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Stories</strong></td>
+                            <td style="padding: 10px; text-align: center;">47</td>
+                            <td style="padding: 10px; text-align: center;">142 Tasks</td>
+                            <td style="padding: 10px; text-align: center;">8 Epics</td>
+                            <td style="padding: 10px; text-align: center; color: #00875A; font-weight: bold;">98%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><strong>Tasks</strong></td>
+                            <td style="padding: 10px; text-align: center;">142</td>
+                            <td style="padding: 10px; text-align: center;">487 Commits</td>
+                            <td style="padding: 10px; text-align: center;">46 Stories</td>
+                            <td style="padding: 10px; text-align: center; color: #FF9800; font-weight: bold;">92%</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Commits</strong></td>
+                            <td style="padding: 10px; text-align: center;">487</td>
+                            <td style="padding: 10px; text-align: center;">67 PRs</td>
+                            <td style="padding: 10px; text-align: center;">131 Tasks</td>
+                            <td style="padding: 10px; text-align: center; color: #F44336; font-weight: bold;">87%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;"><strong>PRs</strong></td>
+                            <td style="padding: 10px; text-align: center;">67</td>
+                            <td style="padding: 10px; text-align: center;">12 Deployments</td>
+                            <td style="padding: 10px; text-align: center;">487 Commits</td>
+                            <td style="padding: 10px; text-align: center; color: #00875A; font-weight: bold;">100%</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;"><strong>Deployments</strong></td>
+                            <td style="padding: 10px; text-align: center;">12</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">67 PRs</td>
+                            <td style="padding: 10px; text-align: center; color: #00875A; font-weight: bold;">100%</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px; font-size: 0.95em;"><strong>Leyenda de Cobertura:</strong> 🟢 95-100% Excelente | 🟡 85-94% Aceptable | 🔴 <85% Requiere atención</p>
+                <p style="margin-top: 10px;"><strong>Hallazgos:</strong> 11 tasks sin commits (abandonadas o en progreso), 56 commits sin task (hotfixes urgentes, necesitan documentación retroactiva)</p>
+            </div>
+
+            <div class="best-practice" style="margin-top: 30px;">
+                <h4>✅ Resultados Cuantitativos (6 meses post-implementación)</h4>
+                <ul style="line-height: 2; font-size: 1.05em;">
+                    <li>✅ <strong>Tiempo de auditoría de cambios:</strong> De 2 horas → 5 minutos (96% reducción)</li>
+                    <li>✅ <strong>Cobertura de trazabilidad:</strong> 94% promedio (objetivo: 90%)</li>
+                    <li>✅ <strong>Bugs por falta de contexto:</strong> -67% (de 18 → 6 bugs/sprint)</li>
+                    <li>✅ <strong>Tiempo de onboarding de nuevos devs:</strong> De 3 semanas → 1 semana (con trazabilidad pueden entender el "por qué" del código)</li>
+                    <li>✅ <strong>Análisis de impacto de cambios:</strong> De 1 día → 15 minutos (automatizado)</li>
+                    <li>✅ <strong>Satisfacción del Product Owner:</strong> 9.5/10 (visibilidad completa de qué se implementó y por qué)</li>
+                    <li>✅ <strong>Esfuerzo de mantenimiento:</strong> 2% del tiempo de desarrollo (automatización reduce overhead)</li>
+                </ul>
+            </div>
+
+            <div class="critical" style="margin-top: 20px;">
+                <h4>🚨 Lecciones Aprendidas - Errores Cometidos</h4>
+                <ul style="line-height: 2;">
+                    <li><strong>Error 1:</strong> Inicialmente permitimos commits sin referencia a tasks → 200+ commits huérfanos en primeros 2 sprints → Solución: CI/CD check obligatorio</li>
+                    <li><strong>Error 2:</strong> No educamos al equipo sobre Smart Commits → Adopción del 30% → Solución: Sesión de 1 hora + cheatsheet impreso</li>
+                    <li><strong>Error 3:</strong> Trazabilidad muy granular al inicio (nivel de función) → Overhead insostenible → Solución: Granularidad a nivel de Task es suficiente</li>
+                    <li><strong>Error 4:</strong> No monitoreamos gaps de trazabilidad → Se acumularon 56 commits huérfanos → Solución: Dashboard semanal + alertas automáticas</li>
+                </ul>
+            </div>
+
+            <div class="workflow-step" data-step="CONCLUSIÓN" style="background: #F3E5F5; border-left: 4px solid #6554C0;">
+                <h4>💡 Conclusión del Caso Liskov</h4>
+                <p style="font-size: 1.1em; line-height: 2;">
+                    <strong>La trazabilidad no es documentación burocrática</strong> — es una inversión estratégica que reduce riesgos, acelera onboarding, y permite tomar decisiones informadas.
+                    En Liskov, el 2% de overhead de mantenimiento de trazabilidad se recuperó con creces en la <strong>reducción del 67% de bugs por falta de contexto</strong> y la
+                    <strong>aceleración de 96% en auditorías</strong>. La clave fue <strong>automatización máxima</strong> (Smart Commits + webhooks + CI/CD checks) para que la trazabilidad fuera
+                    un subproducto natural del desarrollo, no una tarea adicional.
+                </p>
+            </div>
         </section>
 
         <section id="mejores-practicas" class="section">

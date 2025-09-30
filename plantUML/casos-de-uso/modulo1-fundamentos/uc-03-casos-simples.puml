@@ -1,0 +1,40 @@
+@startuml
+title Casos de Uso Básicos
+
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBorderColor #1976D2
+skinparam actorBackgroundColor #C8E6C9
+skinparam actorBorderColor #388E3C
+
+actor Usuario
+
+rectangle "Sistema" {
+  usecase "Iniciar Sesión" as UC1
+  usecase "Consultar Información" as UC2
+  usecase "Cerrar Sesión" as UC3
+}
+
+Usuario --> UC1
+Usuario --> UC2
+Usuario --> UC3
+
+note right of UC1
+  Caso de uso simple:
+  - Verbo en infinitivo
+  - Objeto claro
+  - Proporciona valor al usuario
+end note
+
+note right of UC2
+  Granularidad apropiada:
+  No es "Click en botón"
+  ni "Gestionar todo el sistema"
+end note
+
+note right of UC3
+  Cada caso de uso representa
+  una meta alcanzable que
+  el usuario quiere lograr
+end note
+
+@enduml

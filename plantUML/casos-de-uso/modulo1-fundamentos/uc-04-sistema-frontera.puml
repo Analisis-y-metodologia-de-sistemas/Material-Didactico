@@ -1,0 +1,55 @@
+@startuml
+title Frontera del Sistema
+
+skinparam actorBackgroundColor #FFE082
+skinparam actorBorderColor #F57C00
+skinparam rectangleBorderColor #D32F2F
+skinparam rectangleBackgroundColor #FFEBEE
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBorderColor #1976D2
+
+' Actores externos (fuera del sistema)
+actor "Cliente" as client
+actor "Administrador" as admin
+actor "Sistema de\nPagos" as payment <<external>>
+
+' Frontera del sistema
+rectangle "Sistema de E-commerce" {
+  usecase "Navegar Catálogo" as UC1
+  usecase "Realizar Compra" as UC2
+  usecase "Gestionar Productos" as UC3
+  usecase "Procesar Pago" as UC4
+  usecase "Generar Reportes" as UC5
+}
+
+' Base de datos interna (dentro del sistema)
+database "Base de Datos" as db
+
+client --> UC1
+client --> UC2
+admin --> UC3
+admin --> UC5
+UC4 --> payment
+
+UC2 ..> db : usa
+UC3 ..> db : usa
+
+note top of client
+  Los actores están
+  FUERA del sistema
+end note
+
+note right of "Sistema de E-commerce"
+  El rectángulo define
+  LA FRONTERA del sistema:
+  - Dentro: lo que desarrollamos
+  - Fuera: actores externos
+end note
+
+note bottom of db
+  La base de datos está
+  DENTRO del sistema
+  (no es un actor)
+end note
+
+@enduml

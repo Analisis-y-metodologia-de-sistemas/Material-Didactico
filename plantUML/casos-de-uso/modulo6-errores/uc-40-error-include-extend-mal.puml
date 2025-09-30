@@ -1,0 +1,57 @@
+@startuml
+title ❌ ERROR: Confusión entre Include y Extend
+
+skinparam actorBackgroundColor #FFCDD2
+skinparam usecaseBackgroundColor #FFCDD2
+skinparam usecaseBorderColor #C62828
+
+actor Cliente
+
+rectangle "Sistema ❌ MAL DISEÑADO" {
+  usecase "Comprar Producto" as UC1
+  usecase "Login" as UC2
+  usecase "Aplicar Descuento" as UC3
+}
+
+Cliente --> UC1
+
+' ❌ ERROR 1: Include en dirección incorrecta
+UC2 .> UC1 : <<include>>
+
+' ❌ ERROR 2: Extend usado como include
+UC3 .> UC1 : <<extend>>
+
+note right of UC1
+  ❌ ERROR 1:
+  La flecha de include está invertida
+
+  Dice: "Login incluye Comprar"
+  Debería decir: "Comprar incluye Login"
+end note
+
+note left of UC2
+  Interpretación INCORRECTA:
+  "Al hacer login, automáticamente
+  se ejecuta una compra"
+
+  ¡Esto no tiene sentido!
+end note
+
+note bottom of UC3
+  ❌ ERROR 2:
+  "Aplicar Descuento" es OBLIGATORIO
+  para comprar, no opcional
+
+  Debería usar <<include>>
+  no <<extend>>
+end note
+
+note top of "Sistema ❌ MAL DISEÑADO"
+  PROBLEMAS:
+  • Semántica incorrecta
+  • Confusión de direcciones
+  • Mal uso de relaciones
+  • No representa la realidad
+end note
+
+@enduml

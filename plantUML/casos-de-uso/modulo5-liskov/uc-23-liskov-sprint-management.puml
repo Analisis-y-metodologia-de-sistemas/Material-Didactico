@@ -1,0 +1,98 @@
+@startuml
+title Liskov Project - Módulo Sprint Management (Detallado)
+
+left to right direction
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam packageBackgroundColor #E8F5E9
+skinparam usecaseBackgroundColor #A5D6A7
+skinparam usecaseBackgroundColor<<shared>> #FFE082
+skinparam usecaseBackgroundColor<<optional>> #FFF3E0
+
+actor "Product Owner" as po
+actor "Scrum Master" as sm
+actor "Developer" as dev
+actor "Slack" as slack <<system>>
+
+rectangle "Liskov Project" {
+  usecase "Autenticar Usuario" as auth <<shared>>
+
+  package "Sprint Management" {
+    usecase "Planificar Sprint" as UC1
+    usecase "Iniciar Sprint" as UC2
+    usecase "Ejecutar Daily Standup" as UC3
+    usecase "Actualizar Progreso Sprint" as UC4
+    usecase "Cerrar Sprint" as UC5
+    usecase "Cancelar Sprint" as UC6
+
+    usecase "Ajustar Capacidad Equipo" as EXT1 <<optional>>
+    usecase "Notificar Ausencias" as EXT2 <<optional>>
+    usecase "Escalar Impedimento" as EXT3 <<optional>>
+    usecase "Enviar Resumen Daily" as EXT4 <<optional>>
+  }
+}
+
+po --> UC1
+sm --> UC1
+sm --> UC2
+sm --> UC3
+dev --> UC3
+sm --> UC4
+sm --> UC5
+sm --> UC6
+
+' Include obligatorios
+UC1 .> auth : <<include>>
+UC2 .> auth : <<include>>
+UC3 .> auth : <<include>>
+UC4 .> auth : <<include>>
+UC5 .> auth : <<include>>
+UC6 .> auth : <<include>>
+
+' Extend opcionales
+EXT1 .> UC1 : <<extend>>
+EXT2 .> UC1 : <<extend>>
+EXT3 .> UC3 : <<extend>>
+EXT4 .> UC3 : <<extend>>
+
+EXT3 --> slack
+EXT4 --> slack
+
+note top of UC1
+  PLANIFICAR SPRINT:
+  1. Seleccionar items del backlog
+  2. Definir objetivo del sprint
+  3. Estimar capacidad del equipo
+  4. Asignar tareas iniciales
+  5. Confirmar compromiso
+
+  Extension Points:
+  - after_capacity_calculation
+  - after_item_selection
+end note
+
+note bottom of UC3
+  DAILY STANDUP:
+  1. Cada miembro reporta:
+     - ¿Qué hice ayer?
+     - ¿Qué haré hoy?
+     - ¿Tengo impedimentos?
+  2. SM registra blockers
+  3. Actualiza burndown automático
+
+  Extension Points:
+  - after_member_update
+  - after_blocker_detected
+  - end_of_standup
+end note
+
+note right of UC5
+  CERRAR SPRINT:
+  1. Verificar tareas completadas
+  2. Mover incompletas al backlog
+  3. Generar métricas finales
+  4. Calcular velocity real
+  5. Archivar sprint
+end note
+
+@enduml

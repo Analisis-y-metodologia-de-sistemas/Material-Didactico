@@ -1,0 +1,48 @@
+@startuml uc-27-modulo-backlog-management
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam roundCorner 15
+skinparam shadowing false
+
+title Liskov Project - Módulo: Backlog Management
+
+left to right direction
+
+actor "Product Owner" as PO #2196F3
+actor "Scrum Master" as SM #FF6F00
+actor "Developer" as DEV #4CAF50
+
+rectangle "Backlog Management Module" #E3F2FD {
+    usecase "Crear User Story" as UC01
+    usecase "Priorizar Backlog" as UC02
+    usecase "Estimar Story Points" as UC03
+    usecase "Refinar Backlog" as UC04
+    usecase "Crear Epic" as UC05
+    usecase "Descomponer Epic\nen Stories" as UC06
+}
+
+PO --> UC01
+PO --> UC02
+PO --> UC05
+PO --> UC06
+
+SM --> UC02
+SM --> UC04
+
+DEV --> UC03
+DEV --> UC04
+
+UC06 ..> UC01 : <<include>>
+
+note right of UC01
+  <b>Formato:</b> Como... quiero... para...
+  <b>Campos:</b> Título, Descripción,
+  Criterios Aceptación, Prioridad
+end note
+
+note bottom of UC03
+  <b>Técnica:</b> Planning Poker
+  <b>Escala:</b> Fibonacci (1,2,3,5,8,13)
+end note
+
+@enduml

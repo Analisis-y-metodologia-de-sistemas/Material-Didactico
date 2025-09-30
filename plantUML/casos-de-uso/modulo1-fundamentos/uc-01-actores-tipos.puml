@@ -1,0 +1,49 @@
+@startuml
+title Tipos de Actores en Casos de Uso
+
+skinparam actorBackgroundColor #E3F2FD
+skinparam actorBorderColor #1976D2
+skinparam noteBorderColor #FF9800
+skinparam noteBackgroundColor #FFF3E0
+
+actor "Usuario\nHumano" as human #lightblue
+actor "Administrador\n(Rol)" as admin #lightgreen
+actor "Cliente\nExterno" as external #lightyellow
+
+actor "Sistema de\nPagos" as payment <<system>>
+payment -[hidden]- external
+
+actor "Base de\nDatos" as db <<secondary>>
+db -[hidden]- payment
+
+note right of human
+  Actor primario:
+  Inicia la interacción
+  con el sistema
+end note
+
+note right of admin
+  Actor con rol específico:
+  Representa un conjunto
+  de permisos y responsabilidades
+end note
+
+note right of external
+  Actor externo:
+  Fuera de la organización
+  pero interactúa con el sistema
+end note
+
+note right of payment
+  Sistema como actor:
+  Sistemas externos que
+  proporcionan servicios
+end note
+
+note right of db
+  Actor secundario:
+  Proporciona servicios
+  al sistema principal
+end note
+
+@enduml

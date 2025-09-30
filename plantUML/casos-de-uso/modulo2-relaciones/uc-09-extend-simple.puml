@@ -1,0 +1,42 @@
+@startuml
+title Relación Extend - Ejemplo Simple
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBackgroundColor<<optional>> #FFF3E0
+skinparam usecaseBorderColor #1976D2
+
+actor Cliente
+
+rectangle "Sistema de Ventas" {
+  usecase "Realizar Compra" as UC1
+  usecase "Aplicar Descuento" as UC2 <<optional>>
+}
+
+Cliente --> UC1
+UC2 .> UC1 : <<extend>>
+
+note right of UC1
+  Caso BASE:
+  - Funciona independientemente
+  - NO depende de UC2
+  - Puede completarse sin descuento
+end note
+
+note right of UC2
+  Caso EXTENSIÓN:
+  - OPCIONAL y CONDICIONAL
+  - Solo si hay promoción activa
+  - Dirección: Extensión → Base
+end note
+
+note bottom of UC2
+  IMPORTANTE:
+  La flecha va desde la
+  extensión HACIA el base
+  (opuesto a include)
+
+  Condición: "Si existe cupón válido"
+end note
+
+@enduml

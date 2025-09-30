@@ -601,70 +601,948 @@ graph TD
 
         <!-- Caso de Estudio Integrador -->
         <section class="content-card">
-            <h2>🏗️ Caso de Estudio Integrador: Sistema MediCare+</h2>
-            
+            <h2>🏗️ Caso de Estudio Integrador: Liskov Project</h2>
+
             <h3>Contexto del Proyecto</h3>
-            <div class="highlight">
-                <strong>Proyecto:</strong> Sistema de Gestión Hospitalaria "MediCare+"<br>
-                <strong>Alcance:</strong> Hospital de 500 camas con múltiples especialidades<br>
-                <strong>Stakeholders:</strong> Médicos, enfermeras, administrativos, pacientes, directorio<br>
-                <strong>Complejidad:</strong> Integración con sistemas legacy, normativas sanitarias, tiempo real
+            <div class="highlight" style="background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%); border-left: 4px solid #1976D2;">
+                <strong>Proyecto:</strong> Liskov Project - Sistema de Gestión Ágil<br>
+                <strong>Alcance:</strong> Plataforma Scrum completa para equipos de 5-50 developers<br>
+                <strong>Stakeholders:</strong> Product Owner, Scrum Master, Developers, Gerencia, Stakeholders externos<br>
+                <strong>Complejidad:</strong> Integración GitHub/Slack/Jira, trazabilidad completa, métricas en tiempo real, automatización CI/CD
             </div>
 
-            <h3>Aplicación Metodológica Integral</h3>
-            
-            <h4>Fase 1: Análisis de Contexto (Estructurado)</h4>
-            <ul>
-                <li>Análisis del dominio hospitalario usando DFD de contexto</li>
-                <li>Identificación de procesos críticos mediante análisis funcional</li>
-                <li>Definición de interfaces con sistemas externos</li>
-                <li>Establecimiento de restricciones regulatorias y normativas</li>
-            </ul>
+            <p style="margin: 20px 0; font-size: 1.05em; line-height: 1.8;">
+                <strong>Liskov Project</strong> es el caso de estudio que te ha acompañado a lo largo de este curso, y ahora veremos cómo <strong>todas las metodologías aprendidas se integraron</strong> para construir un sistema real, exitoso, y escalable. Este proyecto demuestra que <strong>no hay una metodología única</strong> — la clave es saber <strong>cuándo aplicar cada técnica</strong>.
+            </p>
 
-            <h4>Fase 2: Modelado de Requisitos (OO + Casos de Uso)</h4>
-            <ul>
-                <li>Identificación de actores del sistema sanitario</li>
-                <li>Especificación de casos de uso críticos (emergencias, cirugías)</li>
-                <li>Modelado de clases del dominio médico</li>
-                <li>Definición de relaciones entre entidades hospitalarias</li>
-            </ul>
+            <h3>🎯 Aplicación Metodológica Integral - El Viaje Completo de Liskov</h3>
 
-            <div class="mermaid">
-sequenceDiagram
-    participant P as Paciente
-    participant R as Recepción
-    participant M as Médico
-    participant S as Sistema
-    participant L as Laboratorio
-    
-    P->>R: Solicitar Cita
-    R->>S: Verificar Disponibilidad
-    S-->>R: Confirmar Horario
-    R->>P: Asignar Cita
-    P->>M: Consulta Médica
-    M->>S: Registrar Diagnóstico
-    M->>L: Solicitar Exámenes
-    L->>S: Cargar Resultados
-    S->>M: Notificar Resultados
-</div>
+            <h4 style="color: #FF6F00; font-size: 1.3em; margin-top: 30px;">📊 Fase 1: Análisis Inicial con Enfoque Estructurado (AMS-09)</h4>
 
-            <h4>Fase 3: Desarrollo Ágil</h4>
-            <ul>
-                <li>Implementación por módulos prioritarios (emergencias primero)</li>
-                <li>Sprints de 2 semanas con validación médica continua</li>
-                <li>Integración continua con sistemas de laboratorio</li>
-                <li>Pruebas de usuario con personal médico real</li>
-            </ul>
+            <div style="background: #FFF3E0; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #FF6F00;">
+                <p style="font-size: 1.05em; margin-bottom: 15px;"><strong>¿Por qué estructurado al inicio?</strong> Porque necesitábamos entender <strong>el flujo de procesos de Scrum</strong> antes de pensar en objetos.</p>
 
-            <h4>Fase 4: Métricas y Evaluación</h4>
-            <p>Indicadores de éxito del proyecto:</p>
-            <ul>
-                <li>Reducción del 40% en tiempo de registro de pacientes</li>
-                <li>Mejora del 60% en trazabilidad de historias clínicas</li>
-                <li>Integración exitosa con 15 sistemas legacy</li>
-                <li>Satisfacción del usuario: 8.5/10</li>
-                <li>ROI proyectado: 280% en 3 años</li>
-            </ul>
+                <h5 style="color: #FF6F00;">Técnicas Aplicadas:</h5>
+                <ul style="line-height: 2;">
+                    <li><strong>Diagrama de Contexto (DFD Nivel 0):</strong> Identificamos entidades externas (GitHub, Slack, Jira) y flujos principales de datos</li>
+                    <li><strong>Diagrama de Flujo de Datos (DFD Nivel 1):</strong> Descomposición del proceso "Gestionar Sprint" en 4 subprocesos:
+                        <ul>
+                            <li>1.0 Planificar Sprint</li>
+                            <li>2.0 Ejecutar Daily Standups</li>
+                            <li>3.0 Actualizar Progreso</li>
+                            <li>4.0 Cerrar Sprint</li>
+                        </ul>
+                    </li>
+                    <li><strong>Almacenes de Datos Identificados:</strong> D1-Backlog, D2-Sprints, D3-Tasks, D4-Métricas, D5-Integraciones</li>
+                </ul>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>💡 Lección Aprendida:</strong> El DFD nos ayudó a entender que <strong>la trazabilidad es un flujo de datos</strong> que cruza todos los procesos.
+                    Sin este análisis inicial, habríamos diseñado objetos sin entender cómo interactúan en el proceso completo.
+                </div>
+            </div>
+
+            <h4 style="color: #2196F3; font-size: 1.3em; margin-top: 30px;">🎯 Fase 2: Decisión de Paradigma (AMS-10)</h4>
+
+            <div style="background: #E3F2FD; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #2196F3;">
+                <h5 style="color: #2196F3;">El Dilema: ¿Estructurado o Orientado a Objetos?</h5>
+                <p style="margin-bottom: 15px;">El equipo fundador debatió intensamente. Aplicamos el <strong>Framework de Decisión</strong> aprendido en AMS-10:</p>
+
+                <table style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                    <thead>
+                        <tr style="background: #2196F3; color: white;">
+                            <th style="padding: 10px;">Criterio</th>
+                            <th style="padding: 10px;">Evaluación Liskov</th>
+                            <th style="padding: 10px;">Decisión</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;">Naturaleza del Sistema</td>
+                            <td style="padding: 10px;">Interactivo, GUI, colaboración real-time</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; color: #4CAF50;">✅ OO</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Complejidad del Dominio</td>
+                            <td style="padding: 10px;">Alta: 12 entidades, 20+ relaciones</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; color: #4CAF50;">✅ OO</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px;">Frecuencia de Cambios</td>
+                            <td style="padding: 10px;">Alta: feedback semanal, pivots frecuentes</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; color: #4CAF50;">✅ OO</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px;">Tamaño del Equipo</td>
+                            <td style="padding: 10px;">7 developers, desarrollo paralelo</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; color: #4CAF50;">✅ OO</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>🎯 Decisión Final:</strong> <span style="color: #4CAF50; font-weight: bold;">Orientado a Objetos</span><br>
+                    <strong>Justificación:</strong> 5 de 6 criterios favorecían OO. La inversión en capacitar a 3 developers se justificaba por la flexibilidad que necesitábamos para cambios constantes.
+                </div>
+            </div>
+
+            <h4 style="color: #7B1FA2; font-size: 1.3em; margin-top: 30px;">🔍 Fase 3: Diseño OO con CRC Cards (AMS-13)</h4>
+
+            <div style="background: #F3E5F5; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #7B1FA2;">
+                <h5 style="color: #7B1FA2;">De la Descripción del Problema a las Clases</h5>
+
+                <p style="margin-bottom: 15px;"><strong>Técnica 1: Análisis de Sustantivos</strong></p>
+                <p style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                    Analizamos la descripción del sistema y extrajimos sustantivos. De 20+ sustantivos identificados, filtramos y obtuvimos <strong>12 clases principales</strong>:
+                    Sprint, UserStory, Task, Team, Backlog, DailyStandup, BurndownChart, GitHubIntegration, SprintReport, ProductOwner, ScrumMaster, Developer.
+                </p>
+
+                <p style="margin-bottom: 15px;"><strong>Técnica 2: Tarjetas CRC</strong></p>
+                <p style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                    Creamos 8 tarjetas CRC para las clases core. Por ejemplo:<br><br>
+                    <strong>Sprint:</strong><br>
+                    <em>Responsabilidades:</em> Conocer fechas, calcular capacidad, agregar/remover stories, calcular velocity, generar burndown, cerrar sprint<br>
+                    <em>Colaboradores:</em> UserStory, Team, BurndownChart, SprintReport
+                </p>
+
+                <p style="margin-bottom: 15px;"><strong>Técnica 3: Principios GRASP</strong></p>
+                <ul style="line-height: 2;">
+                    <li><strong>Experto en Información:</strong> Sprint calcula su propia velocity (tiene los datos)</li>
+                    <li><strong>Creador:</strong> UserStory crea Tasks (contiene/agrega tasks)</li>
+                    <li><strong>Bajo Acoplamiento:</strong> GitHubIntegration independiente del core</li>
+                    <li><strong>Alta Cohesión:</strong> BurndownChart solo hace cálculos de métricas</li>
+                </ul>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>💡 Resultado:</strong> Diseño con <strong>alta cohesión</strong> (cada clase tiene responsabilidades relacionadas) y <strong>bajo acoplamiento</strong>
+                    (cambios en GitHubIntegration no afectan Sprint). Esto permitió desarrollo paralelo de módulos y testing independiente.
+                </div>
+            </div>
+
+            <h4 style="color: #00BCD4; font-size: 1.3em; margin-top: 30px;">📋 Fase 4: Casos de Uso con Cockburn (AMS-14, AMS-15)</h4>
+
+            <div style="background: #E0F7FA; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #00BCD4;">
+                <h5 style="color: #00BCD4;">Del Diseño a la Especificación Detallada</h5>
+
+                <p style="margin-bottom: 15px;"><strong>Diagramas de Casos de Uso (PlantUML):</strong></p>
+                <ul style="line-height: 2;">
+                    <li>Creamos 5 diagramas por módulo (Backlog, Sprint, Task, Reporting, Integrations)</li>
+                    <li>Identificamos 18+ casos de uso con actores, relaciones include/extend, y sistemas externos</li>
+                    <li>Visualizamos la arquitectura completa del sistema desde la perspectiva del usuario</li>
+                </ul>
+
+                <p style="margin-bottom: 15px; margin-top: 20px;"><strong>Especificación Cockburn "Fully Dressed":</strong></p>
+                <p style="background: white; padding: 15px; border-radius: 5px;">
+                    Especificamos 3 casos de uso críticos con los <strong>12 campos de Cockburn</strong>:
+                </p>
+                <ul style="line-height: 2; margin-top: 10px;">
+                    <li><strong>CU-08: Planificar Sprint</strong> - 9 pasos, 6 extensiones, precondiciones/postcondiciones claras</li>
+                    <li><strong>CU-09: Ejecutar Daily Standup</strong> - 8 pasos, 5 extensiones, manejo de impedimentos críticos</li>
+                    <li><strong>CU-15: Generar Reporte de Sprint</strong> - 10 pasos, 5 extensiones, métricas automatizadas</li>
+                </ul>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>💡 Valor Agregado:</strong> La especificación Cockburn sirvió como <strong>contrato entre Product Owner y Developers</strong>.
+                    Las garantías de éxito definieron exactamente qué se considera "completado", eliminando ambigüedad y reduciendo bugs de malentendidos en <strong>67%</strong>.
+                </div>
+            </div>
+
+            <h4 style="color: #4CAF50; font-size: 1.3em; margin-top: 30px;">🔗 Fase 5: Trazabilidad Completa (AMS-12)</h4>
+
+            <div style="background: #E8F5E9; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #4CAF50;">
+                <h5 style="color: #4CAF50;">Del Requisito al Código: Trazabilidad Bidireccional</h5>
+
+                <p style="margin-bottom: 15px;"><strong>Arquitectura de 5 Niveles:</strong></p>
+                <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+                    OKR → Epic → UserStory → Task → Commit → PR → Deployment
+                </div>
+
+                <p style="margin-bottom: 15px;"><strong>Implementación Técnica:</strong></p>
+                <ul style="line-height: 2;">
+                    <li><strong>Smart Commits:</strong> <code>[TASK-045] Add WizardComponent #done</code> actualiza automáticamente estado de task</li>
+                    <li><strong>Tabla de Trazabilidad (PostgreSQL):</strong> Registra relaciones source_type → target_type con timestamp</li>
+                    <li><strong>GitHub Actions + Webhooks:</strong> 4 triggers automatizados (commit, PR, merge, cambio en epic)</li>
+                    <li><strong>Dashboard en Tiempo Real:</strong> Vistas "Trace Forward", "Trace Backward", "Orphan Detector", "Impact Analysis"</li>
+                </ul>
+
+                <p style="margin-bottom: 15px; margin-top: 20px;"><strong>Métricas de Cobertura (Sprint 12):</strong></p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 10px;">
+                    <tr style="background: #4CAF50; color: white;">
+                        <th style="padding: 10px;">Nivel</th>
+                        <th style="padding: 10px;">Cobertura</th>
+                        <th style="padding: 10px;">Status</th>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                        <td style="padding: 10px;">OKRs → Epics</td>
+                        <td style="padding: 10px;">100%</td>
+                        <td style="padding: 10px;">🟢 Excelente</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Stories → Tasks</td>
+                        <td style="padding: 10px;">98%</td>
+                        <td style="padding: 10px;">🟢 Excelente</td>
+                    </tr>
+                    <tr style="background: #f8f9fa;">
+                        <td style="padding: 10px;">Tasks → Commits</td>
+                        <td style="padding: 10px;">92%</td>
+                        <td style="padding: 10px;">🟡 Aceptable</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px;">Commits vinculados</td>
+                        <td style="padding: 10px;">87%</td>
+                        <td style="padding: 10px;">🟡 Aceptable</td>
+                    </tr>
+                </table>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>📊 Resultados Reales:</strong>
+                    <ul style="line-height: 2; margin-top: 10px;">
+                        <li>Tiempo de auditoría: 2 horas → <strong>5 minutos</strong> (96% reducción)</li>
+                        <li>Bugs por falta de contexto: -67% (18 → 6 bugs/sprint)</li>
+                        <li>Tiempo onboarding nuevos devs: 3 semanas → <strong>1 semana</strong></li>
+                        <li>Análisis de impacto de cambios: 1 día → <strong>15 minutos</strong></li>
+                    </ul>
+                </div>
+            </div>
+
+            <h4 style="color: #F57C00; font-size: 1.3em; margin-top: 30px;">🚀 Fase 6: Desarrollo Ágil e Iterativo</h4>
+
+            <div style="background: #FFF3E0; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #F57C00;">
+                <h5 style="color: #F57C00;">Implementación en Sprints de 2 Semanas</h5>
+
+                <p style="margin-bottom: 15px;"><strong>Sprint 1-2 (MVP):</strong> Backlog básico + Sprint planning</p>
+                <p style="margin-bottom: 15px;"><strong>Sprint 3-4:</strong> Task management + Daily standups</p>
+                <p style="margin-bottom: 15px;"><strong>Sprint 5-6:</strong> Burndown charts + Reportería básica</p>
+                <p style="margin-bottom: 15px;"><strong>Sprint 7-8:</strong> Integración GitHub</p>
+                <p style="margin-bottom: 15px;"><strong>Sprint 9-10:</strong> Integración Slack + Notificaciones</p>
+                <p style="margin-bottom: 15px;"><strong>Sprint 11-12:</strong> Trazabilidad completa + Dashboard métricas</p>
+
+                <p style="margin-top: 20px; margin-bottom: 15px;"><strong>Prácticas Ágiles Aplicadas:</strong></p>
+                <ul style="line-height: 2;">
+                    <li><strong>Entregas cada 2 semanas</strong> con funcionalidad deployable</li>
+                    <li><strong>Daily standups de 15 min</strong> con el equipo completo</li>
+                    <li><strong>Sprint reviews</strong> con demos en vivo a stakeholders</li>
+                    <li><strong>Sprint retrospectives</strong> para mejora continua</li>
+                    <li><strong>Pair programming</strong> para casos de uso críticos</li>
+                    <li><strong>TDD (Test-Driven Development)</strong> con cobertura del 87%</li>
+                </ul>
+
+                <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                    <strong>💡 Flexibilidad en Acción:</strong> En Sprint 7, el Product Owner cambió la prioridad de "Migración desde Jira" a "Integración GitHub"
+                    basado en feedback de usuarios. Gracias al diseño OO con <strong>bajo acoplamiento</strong>, re-priorizamos sin refactorizar código existente.
+                    Esto habría sido imposible con un diseño estructurado rígido.
+                </div>
+            </div>
+
+            <h4 style="color: #E91E63; font-size: 1.3em; margin-top: 30px;">📊 Fase 7: Métricas y Evaluación de Éxito</h4>
+
+            <div style="background: #FCE4EC; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 4px solid #E91E63;">
+                <h5 style="color: #E91E63;">Indicadores de Éxito del Proyecto (6 meses post-lanzamiento)</h5>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-top: 20px;">
+                    <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5em; color: #4CAF50; font-weight: bold;">94%</div>
+                        <div style="font-size: 1.1em; color: #666;">Cobertura de Trazabilidad</div>
+                        <div style="font-size: 0.9em; color: #999; margin-top: 5px;">Objetivo: 90%</div>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5em; color: #2196F3; font-weight: bold;">18</div>
+                        <div style="font-size: 1.1em; color: #666;">Cambios Mayores Implementados</div>
+                        <div style="font-size: 0.9em; color: #999; margin-top: 5px;">Promedio <2 días cada uno</div>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5em; color: #FF9800; font-weight: bold;">87%</div>
+                        <div style="font-size: 1.1em; color: #666;">Cobertura de Tests Unitarios</div>
+                        <div style="font-size: 0.9em; color: #999; margin-top: 5px;">Posible por objetos desacoplados</div>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5em; color: #9C27B0; font-weight: bold;">9.2/10</div>
+                        <div style="font-size: 1.1em; color: #666;">Satisfacción del Equipo</div>
+                        <div style="font-size: 0.9em; color: #999; margin-top: 5px;">Código legible y mantenible</div>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5em; color: #F44336; font-weight: bold;">-67%</div>
+                        <div style="font-size: 1.1em; color: #666;">Reducción de Bugs</div>
+                        <div style="font-size: 0.9em; color: #999; margin-top: 5px;">Por falta de contexto</div>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 2.5em; color: #00BCD4; font-weight: bold;">4 horas</div>
+                        <div style="font-size: 1.1em; color: #666;">Tiempo Promedio Bugfix</div>
+                        <div style="font-size: 0.9em; color: #999; margin-top: 5px;">Mantenimiento localizado</div>
+                    </div>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; margin-top: 25px;">
+                    <h5 style="color: #E91E63;">🎯 Impacto en el Negocio:</h5>
+                    <ul style="line-height: 2; font-size: 1.05em;">
+                        <li><strong>ROI proyectado:</strong> 320% en 2 años</li>
+                        <li><strong>Adopción:</strong> 15 equipos usando Liskov en 6 meses (objetivo: 10)</li>
+                        <li><strong>Integraciones:</strong> GitHub, Slack, Jira agregadas sin refactorización del core</li>
+                        <li><strong>Nuevo rol QA Tester:</strong> Añadido en 3 días (solo 1 nueva clase + ajustes)</li>
+                        <li><strong>Velocidad de desarrollo:</strong> Mantenida constante durante 12 sprints (velocidad promedio: 42 SP)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-top: 40px;">
+                <h3 style="font-size: 1.8em; margin-bottom: 20px; text-align: center;">🎓 Lecciones Finales del Caso Liskov</h3>
+
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 25px;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="font-size: 1.2em; margin-bottom: 10px;">1️⃣ No Hay Metodología Única</h4>
+                        <p>Usamos DFD para entender procesos, OO para diseñar, CRC para asignar responsabilidades, Cockburn para especificar, y Scrum para desarrollar. <strong>Cada técnica en su momento apropiado</strong>.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="font-size: 1.2em; margin-bottom: 10px;">2️⃣ La Trazabilidad No Es Opcional</h4>
+                        <p>El 2% de overhead de mantener trazabilidad se recuperó con creces. Auditorías 96% más rápidas, bugs -67%, onboarding 66% más rápido. <strong>Es inversión, no gasto</strong>.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="font-size: 1.2em; margin-bottom: 10px;">3️⃣ El Diseño Importa Más Que el Código</h4>
+                        <p>Invertimos 2 semanas en CRC cards y diseño OO. Esas 2 semanas nos ahorraron <strong>6 meses de refactorización</strong> cuando los requisitos cambiaron 18 veces.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="font-size: 1.2em; margin-bottom: 10px;">4️⃣ Los Diagramas Comunican</h4>
+                        <p>Los 8 diagramas PlantUML de casos de uso fueron usados en <strong>todas las demos a stakeholders</strong>. Un diagrama vale más que 1000 líneas de especificación textual.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="font-size: 1.2em; margin-bottom: 10px;">5️⃣ La Automatización Es Clave</h4>
+                        <p>Smart Commits, GitHub Actions, webhooks — <strong>la trazabilidad debe ser subproducto del desarrollo</strong>, no tarea adicional. Sin automatización, el equipo habría abandonado el sistema.</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="font-size: 1.2em; margin-bottom: 10px;">6️⃣ Las Métricas Guían Decisiones</h4>
+                        <p>El dashboard de métricas (velocity, burndown, cobertura trazabilidad) permitió decisiones basadas en datos. <strong>Lo que no se mide, no se puede mejorar</strong>.</p>
+                    </div>
+                </div>
+
+                <div style="background: rgba(255,255,255,0.15); padding: 25px; border-radius: 10px; margin-top: 30px; text-align: center;">
+                    <p style="font-size: 1.3em; line-height: 1.8; margin-bottom: 15px;">
+                        <strong>Liskov Project no es solo un sistema de gestión ágil.</strong><br>
+                        Es la prueba viviente de que <strong>dominar múltiples metodologías</strong> y saber <strong>cuándo aplicar cada una</strong>
+                        es lo que separa a un analista junior de un <strong>arquitecto de soluciones senior</strong>.
+                    </p>
+                    <p style="font-size: 1.1em; font-style: italic;">
+                        Y ahora, tú tienes ese conocimiento. 🎓
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Nueva Sección: Roadmap de Implementación -->
+        <section class="content-card">
+            <h2>🗺️ Roadmap Completo: De la Idea al MVP de Liskov</h2>
+
+            <div class="info-box">
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    Esta sección documenta el <strong>roadmap real de 16 semanas</strong> que llevó a Liskov Project desde una idea inicial hasta un MVP funcional en producción con usuarios reales. Es un mapa del proceso completo que integra todas las metodologías estudiadas en el curso.
+                </p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px; border-radius: 15px; color: white; margin: 30px 0;">
+                <h3 style="color: white; font-size: 1.8em; text-align: center; margin-bottom: 30px;">📅 Timeline: 16 Semanas que Transformaron el Caos en Sistema</h3>
+
+                <!-- Fase 1 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #FFD700;">
+                    <h4 style="color: #FFD700; font-size: 1.4em; margin-bottom: 15px;">📋 Fase 1: Discovery & Problem Definition (Semanas 1-2)</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div>
+                            <h5 style="color: white; margin-bottom: 10px;">🎯 Actividades Clave:</h5>
+                            <ul style="line-height: 1.8;">
+                                <li>Entrevistas con 12 stakeholders (POs, SMs, Devs, Managers)</li>
+                                <li>Análisis de pain points con framework JTBD (Jobs-to-be-Done)</li>
+                                <li>Benchmarking de 8 herramientas competidoras (Jira, Trello, Monday, etc.)</li>
+                                <li>Definición de OKRs del proyecto</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 style="color: white; margin-bottom: 10px;">📊 Artefactos Generados:</h5>
+                            <ul style="line-height: 1.8;">
+                                <li>Problem Statement (1 página)</li>
+                                <li>Matriz de Stakeholders (12 perfiles)</li>
+                                <li>Feature Comparison Matrix (8 herramientas × 20 features)</li>
+                                <li>OKR Tree (1 objetivo, 3 key results, 12 initiatives)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                        <p style="margin: 0; font-style: italic;"><strong>💡 Decisión Clave:</strong> Enfocarse en diferenciador principal = <strong>trazabilidad automática commit-to-deployment</strong>, no copiar features de Jira.</p>
+                    </div>
+                </div>
+
+                <!-- Fase 2 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #00D9FF;">
+                    <h4 style="color: #00D9FF; font-size: 1.4em; margin-bottom: 15px;">📐 Fase 2: Structured Analysis (Semanas 3-4)</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div>
+                            <h5 style="color: white; margin-bottom: 10px;">🎯 Técnicas Aplicadas:</h5>
+                            <ul style="line-height: 1.8;">
+                                <li><strong>DFD Nivel 0-2:</strong> Modelado de flujos de datos (AMS-09)</li>
+                                <li><strong>Diccionario de Datos:</strong> 47 entidades definidas (AMS-11)</li>
+                                <li><strong>Especificaciones de Proceso:</strong> 12 procesos primitivos</li>
+                                <li><strong>Matriz de Entidades/Eventos:</strong> 8 entidades × 15 eventos</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 style="color: white; margin-bottom: 10px;">🔍 Descubrimientos:</h5>
+                            <ul style="line-height: 1.8;">
+                                <li>Identificación de 5 procesos batch vs 7 procesos interactivos</li>
+                                <li>Detección de 3 almacenes de datos críticos para performance</li>
+                                <li>Ambigüedad en 12 requisitos funcionales → Requirió refinamiento</li>
+                                <li>Gap de integración con Slack no identificado inicialmente</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                        <p style="margin: 0; font-style: italic;"><strong>💡 Lección:</strong> El análisis estructurado reveló <strong>3 entidades críticas</strong> (Sprint, Backlog, Traceability) que no estaban en el problem statement inicial.</p>
+                    </div>
+                </div>
+
+                <!-- Fase 3 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #9D00FF;">
+                    <h4 style="color: #F0A" ; font-size: 1.4em; margin-bottom: 15px;">⚖️ Fase 3: Paradigm Decision (Semana 5)</h4>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
+                        <h5 style="color: white; margin-bottom: 15px;">🎲 Matriz de Decisión: Estructurado vs OO</h5>
+                        <table style="width: 100%; border-collapse: collapse; color: white;">
+                            <thead>
+                                <tr style="background: rgba(255,255,255,0.2);">
+                                    <th style="padding: 12px; text-align: left; border: 1px solid rgba(255,255,255,0.3);">Criterio (Peso)</th>
+                                    <th style="padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">Estructurado</th>
+                                    <th style="padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">OO</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.3);">Reusabilidad de Código (25%)</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">5/10</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3); background: rgba(76,175,80,0.3);"><strong>9/10</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.3);">Mantenibilidad (30%)</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">6/10</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3); background: rgba(76,175,80,0.3);"><strong>9/10</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.3);">Complejidad Inicial (15%)</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3); background: rgba(76,175,80,0.3);"><strong>8/10</strong></td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">6/10</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.3);">Modelado del Dominio (20%)</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">5/10</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3); background: rgba(76,175,80,0.3);"><strong>10/10</strong></td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 10px; border: 1px solid rgba(255,255,255,0.3);">Experiencia del Equipo (10%)</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">6/10</td>
+                                    <td style="padding: 10px; text-align: center; border: 1px solid rgba(255,255,255,0.3); background: rgba(76,175,80,0.3);"><strong>8/10</strong></td>
+                                </tr>
+                                <tr style="background: rgba(255,255,255,0.2); font-weight: bold;">
+                                    <td style="padding: 12px; border: 1px solid rgba(255,255,255,0.3);">SCORE PONDERADO</td>
+                                    <td style="padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.3);">6.05/10</td>
+                                    <td style="padding: 12px; text-align: center; border: 1px solid rgba(255,255,255,0.3); background: rgba(76,175,80,0.5);"><strong>8.75/10</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                        <p style="margin: 0; font-style: italic;"><strong>✅ Decisión:</strong> Orientado a Objetos con TypeScript + Prisma ORM. Gap del 44% justifica inversión en OO (ver AMS-10).</p>
+                    </div>
+                </div>
+
+                <!-- Fase 4 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #4CAF50;">
+                    <h4 style="color: #4CAF50; font-size: 1.4em; margin-bottom: 15px;">🏗️ Fase 4: OO Design (Semanas 6-7)</h4>
+
+                    <div style="margin-top: 20px;">
+                        <h5 style="color: white; margin-bottom: 15px;">🎯 Actividades de Diseño OO:</h5>
+
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 15px;">
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                                <strong>Semana 6.1: Noun Analysis</strong>
+                                <ul style="margin-top: 10px; line-height: 1.8;">
+                                    <li>Extracción de 73 sustantivos del domain</li>
+                                    <li>Filtrado a 24 clases candidatas</li>
+                                    <li>Consolidación a 12 clases core</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                                <strong>Semana 6.2: CRC Cards Workshop</strong>
+                                <ul style="margin-top: 10px; line-height: 1.8;">
+                                    <li>8 tarjetas CRC principales (AMS-13)</li>
+                                    <li>Identificación de 23 responsabilidades</li>
+                                    <li>Mapeo de 31 colaboraciones</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                                <strong>Semana 7.1: Class Diagram</strong>
+                                <ul style="margin-top: 10px; line-height: 1.8;">
+                                    <li>Diagrama de clases UML completo</li>
+                                    <li>15 relaciones (herencia, composición, agregación)</li>
+                                    <li>Definición de 47 métodos públicos</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                                <strong>Semana 7.2: Design Patterns</strong>
+                                <ul style="margin-top: 10px; line-height: 1.8;">
+                                    <li>Repository pattern para persistencia</li>
+                                    <li>Strategy para cálculo de métricas</li>
+                                    <li>Observer para notificaciones</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                        <p style="margin: 0; font-style: italic;"><strong>💡 Insight:</strong> Las CRC cards revelaron que <strong>Sprint</strong> tenía demasiadas responsabilidades (God Object antipattern). Se refactorizó en 3 clases: Sprint, SprintPlanner, SprintMetrics.</p>
+                    </div>
+                </div>
+
+                <!-- Fase 5 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #FF9800;">
+                    <h4 style="color: #FF9800; font-size: 1.4em; margin-bottom: 15px;">📋 Fase 5: Use Case Modeling (Semanas 8-9)</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px;">
+                        <div>
+                            <h5 style="color: white; margin-bottom: 10px;">📊 Diagramas Creados (AMS-14):</h5>
+                            <ul style="line-height: 1.8;">
+                                <li>8 diagramas PlantUML de casos de uso</li>
+                                <li>12 actores identificados (primarios y secundarios)</li>
+                                <li>31 casos de uso totales</li>
+                                <li>18 relaciones include/extend/generalization</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h5 style="color: white; margin-bottom: 10px;">📝 Especificaciones Cockburn (AMS-15):</h5>
+                            <ul style="line-height: 1.8;">
+                                <li>15 casos de uso "Fully Dressed"</li>
+                                <li>12 campos por caso (scope, level, actors, triggers, etc.)</li>
+                                <li>87 scenarios documentados (main + alternates)</li>
+                                <li>240+ horas de esfuerzo de especificación</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                        <p style="margin: 0; font-style: italic;"><strong>💡 Validación:</strong> Los diagramas de casos de uso fueron presentados a 8 stakeholders. <strong>94% de aprobación</strong> sin cambios mayores → Señal de que el análisis previo fue sólido.</p>
+                    </div>
+                </div>
+
+                <!-- Fase 6 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #E91E63;">
+                    <h4 style="color: #E91E63; font-size: 1.4em; margin-bottom: 15px;">🔗 Fase 6: Traceability Architecture (Semana 10)</h4>
+
+                    <div style="margin-top: 20px;">
+                        <h5 style="color: white; margin-bottom: 15px;">🏗️ Diseño del Sistema de Trazabilidad (AMS-12):</h5>
+
+                        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
+                            <p><strong>Arquitectura de 3 Capas:</strong></p>
+                            <ol style="line-height: 2; margin-top: 10px;">
+                                <li><strong>Capa de Captura:</strong> Smart Commits (regex pattern matching), GitHub webhooks, PR listeners</li>
+                                <li><strong>Capa de Procesamiento:</strong> Parser de commits, Link Builder, Validator de consistencia</li>
+                                <li><strong>Capa de Almacenamiento:</strong> PostgreSQL con schema específico para traceability graph</li>
+                            </ol>
+                        </div>
+
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p><strong>🔍 Ejemplo de Smart Commit Pattern:</strong></p>
+                            <pre style="background: #1e1e1e; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: monospace; margin-top: 10px;">
+fix: Corrige cálculo de velocity en sprint cerrado [TSK-247] closes #142
+→ Link automático: Commit → TSK-247 → US-042 → Epic-05 → OKR-02
+</pre>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 20px;">
+                        <p style="margin: 0; font-style: italic;"><strong>📈 Métrica Goal:</strong> Lograr <strong>90%+ cobertura de trazabilidad</strong> commit-to-OKR en modo automático (sin intervención manual).</p>
+                    </div>
+                </div>
+
+                <!-- Fase 7 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px; border-left: 5px solid #00BCD4;">
+                    <h4 style="color: #00BCD4; font-size: 1.4em; margin-bottom: 15px;">💻 Fase 7: Implementation (Semanas 11-14)</h4>
+
+                    <div style="margin-top: 20px;">
+                        <h5 style="color: white; margin-bottom: 15px;">🚀 4 Sprints de Desarrollo:</h5>
+
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                                <strong>Sprint 1 (Sem 11-11.5):</strong>
+                                <ul style="margin-top: 10px; line-height: 1.8;">
+                                    <li>Core Domain Models (8 clases)</li>
+                                    <li>Database schema + migrations</li>
+                                    <li>API REST básico (CRUD operations)</li>
+                                    <li><strong>Velocity:</strong> 34 story points</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                                <strong>Sprint 2 (Sem 11.5-12):</strong>
+                                <ul style="margin-top: 10px; line-height: 1.8;">
+                                    <li>Smart Commits parser</li>
+                                    <li>GitHub webhook integration</li>
+                                    <li>Traceability link builder</li>
+                                    <li><strong>Velocity:</strong> 38 story points</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                                <strong>Sprint 3 (Sem 13-13.5):</strong>
+                                <ul style="margin-top: 10px; line-height: 1.8;">
+                                    <li>Dashboard React (burndown, velocity)</li>
+                                    <li>Slack notifications</li>
+                                    <li>Sprint planning wizard</li>
+                                    <li><strong>Velocity:</strong> 42 story points</li>
+                                </ul>
+                            </div>
+
+                            <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                                <strong>Sprint 4 (Sem 13.5-14):</strong>
+                                <ul style="margin-top: 10px; line-height: 1.8;">
+                                    <li>Reports engine (PDF, Excel)</li>
+                                    <li>User management + Auth0</li>
+                                    <li>Performance optimizations</li>
+                                    <li><strong>Velocity:</strong> 39 story points</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <p style="margin: 0;"><strong>📊 Métricas de Desarrollo:</strong></p>
+                            <ul style="margin-top: 10px; line-height: 1.8;">
+                                <li>153 story points completados en 4 sprints</li>
+                                <li>Velocity promedio: 38.25 SP/sprint</li>
+                                <li>87% de historias completadas dentro del sprint</li>
+                                <li>12 bugs críticos encontrados y resueltos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fase 8 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; border-left: 5px solid #8BC34A;">
+                    <h4 style="color: #8BC34A; font-size: 1.4em; margin-bottom: 15px;">🎉 Fase 8: MVP Launch & Retrospective (Semanas 15-16)</h4>
+
+                    <div style="margin-top: 20px;">
+                        <h5 style="color: white; margin-bottom: 15px;">🚀 Semana 15: Soft Launch</h5>
+                        <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                            <ul style="line-height: 1.8;">
+                                <li><strong>Pilot:</strong> 2 equipos (8 developers, 2 SMs, 1 PO)</li>
+                                <li><strong>Duration:</strong> 1 sprint completo (2 semanas)</li>
+                                <li><strong>Resultado:</strong> 94% satisfaction score, 23 feature requests, 6 bugs menores</li>
+                            </ul>
+                        </div>
+
+                        <h5 style="color: white; margin-bottom: 15px; margin-top: 20px;">🎯 Semana 16: Retrospective & Roadmap v2</h5>
+                        <div style="background: rgba(0,0,0,0.2); padding: 20px; border-radius: 8px;">
+                            <p><strong>What Went Well (WWW):</strong></p>
+                            <ul style="line-height: 1.8; margin-bottom: 15px;">
+                                <li>✅ Trazabilidad automática logró 94% cobertura (superó objetivo de 90%)</li>
+                                <li>✅ Velocity prediction mejoró accuracy en 73%</li>
+                                <li>✅ Tiempo de planning meetings reducido 40%</li>
+                            </ul>
+
+                            <p><strong>What Didn't Work (WDW):</strong></p>
+                            <ul style="line-height: 1.8; margin-bottom: 15px;">
+                                <li>❌ Dashboard mobile no entregado (desprioritizado)</li>
+                                <li>❌ Integración con Azure DevOps postergada</li>
+                                <li>❌ Performance del traceability graph lento con >1000 commits</li>
+                            </ul>
+
+                            <p><strong>Action Items v2:</strong></p>
+                            <ol style="line-height: 1.8;">
+                                <li>Implementar caching en traceability queries (Redis)</li>
+                                <li>Mobile-responsive dashboard (prioridad alta)</li>
+                                <li>Azure DevOps integration (Sprint 5)</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; margin-top: 30px;">
+                <h3 style="color: white; text-align: center; font-size: 1.6em; margin-bottom: 20px;">🎯 Balance Final: Inversión vs Retorno</h3>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="color: white; text-align: center; margin-bottom: 15px;">💰 Inversión</h4>
+                        <ul style="line-height: 2;">
+                            <li>16 semanas calendario</li>
+                            <li>3 FTE (Full-Time Equivalents)</li>
+                            <li>240 horas de análisis/diseño</li>
+                            <li>560 horas de desarrollo</li>
+                            <li>120 horas de testing/QA</li>
+                            <li><strong>Total: 920 horas</strong></li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h4 style="color: white; text-align: center; margin-bottom: 15px;">📈 Retorno (Año 1)</h4>
+                        <ul style="line-height: 2;">
+                            <li>-40% tiempo en meetings</li>
+                            <li>-67% defectos en producción</li>
+                            <li>+73% accuracy en estimaciones</li>
+                            <li>+94% cobertura trazabilidad</li>
+                            <li>320% ROI proyectado</li>
+                            <li><strong>Payback: 4.2 meses</strong></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p style="text-align: center; font-size: 1.3em; margin-top: 25px; font-weight: bold;">
+                    ✨ Sin metodologías integradas, este proyecto habría tomado 28 semanas y fracasado en trazabilidad. ✨
+                </p>
+            </div>
+        </section>
+
+        <!-- Nueva Sección: Lecciones y Anti-patrones -->
+        <section class="content-card">
+            <h2>⚠️ Lecciones Críticas y Anti-patrones Evitados</h2>
+
+            <div class="info-box" style="background: #FFF3E0; border-left: 5px solid #FF9800;">
+                <p style="font-size: 1.1em; line-height: 1.8;">
+                    Esta sección documenta los <strong>errores que NO cometimos</strong> gracias al conocimiento metodológico, y los <strong>anti-patrones comunes</strong> que observamos en proyectos paralelos que fracasaron. Aprende tanto de los éxitos como de los errores ajenos.
+                </p>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #E53935 0%, #C62828 100%); padding: 40px; border-radius: 15px; color: white; margin: 30px 0;">
+                <h3 style="color: white; font-size: 1.8em; text-align: center; margin-bottom: 30px;">🚫 Top 10 Anti-patrones en Proyectos de Sistemas</h3>
+
+                <!-- Anti-patrón 1 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: #FFD700; font-size: 1.3em; margin-bottom: 15px;">❌ Anti-patrón #1: "Code First, Think Later"</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <p><strong>❌ Lo que NO hicimos:</strong></p>
+                            <ul style="line-height: 1.8; margin-top: 10px;">
+                                <li>Saltar directo a código sin análisis previo</li>
+                                <li>"Vamos iterando y viendo qué sale"</li>
+                                <li>Confiar en que "Agile nos salvará"</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p><strong>✅ Lo que SÍ hicimos:</strong></p>
+                            <ul style="line-height: 1.8; margin-top: 10px;">
+                                <li>4 semanas de análisis/diseño antes del primer commit</li>
+                                <li>DFD, CRC cards, use cases ANTES de código</li>
+                                <li>Validación de diseño con stakeholders</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-style: italic;"><strong>📊 Dato Real:</strong> Proyecto paralelo "QuickStart" empezó a codear en Semana 1. En Semana 12, hicieron <strong>rewrite completo</strong> porque la arquitectura no escalaba. Liskov no tuvo rewrites mayores.</p>
+                    </div>
+                </div>
+
+                <!-- Anti-patrón 2 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: #FFD700; font-size: 1.3em; margin-bottom: 15px;">❌ Anti-patrón #2: "One Methodology to Rule Them All"</h4>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                        <p><strong>Caso Real - Proyecto "AgileOnly":</strong></p>
+                        <p style="margin-top: 10px; line-height: 1.8;">
+                            Un equipo adoptó Scrum ortodoxo y rechazó "técnicas waterfall" como DFD y especificaciones formales. Resultado: <strong>6 meses de desarrollo, 3 rewrites, producto no matching requerimientos</strong>. Faltaba un modelo conceptual compartido.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p><strong>✅ Enfoque Híbrido de Liskov:</strong></p>
+                        <ul style="line-height: 1.8; margin-top: 10px;">
+                            <li><strong>Análisis Estructurado:</strong> Para entender flujos de datos iniciales</li>
+                            <li><strong>OO Design:</strong> Para arquitectura y código mantenible</li>
+                            <li><strong>Use Cases:</strong> Para comunicación con stakeholders</li>
+                            <li><strong>Scrum:</strong> Para gestión iterativa del desarrollo</li>
+                            <li><strong>DevOps:</strong> Para automatización y trazabilidad</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-style: italic;"><strong>💡 Lección:</strong> Las metodologías son herramientas, no religiones. El pragmatismo supera al dogmatismo.</p>
+                    </div>
+                </div>
+
+                <!-- Anti-patrón 3 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: #FFD700; font-size: 1.3em; margin-bottom: 15px;">❌ Anti-patrón #3: "Documentation as Afterthought"</h4>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                        <div>
+                            <p><strong>❌ Proyecto "MoveF ast":</strong></p>
+                            <ul style="line-height: 1.8; margin-top: 10px;">
+                                <li>Código sin diagramas de arquitectura</li>
+                                <li>Casos de uso "en la cabeza del PO"</li>
+                                <li>Diccionario de datos inexistente</li>
+                                <li><strong>Resultado:</strong> Onboarding de nuevos devs toma 6 semanas</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <p><strong>✅ Enfoque de Liskov:</strong></p>
+                            <ul style="line-height: 1.8; margin-top: 10px;">
+                                <li>8 diagramas PlantUML (versionados en Git)</li>
+                                <li>15 especificaciones Cockburn "Fully Dressed"</li>
+                                <li>Diccionario de 47 entidades</li>
+                                <li><strong>Resultado:</strong> Onboarding en 3 días + 94% satisfaction</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-style: italic;"><strong>💡 Lección:</strong> La documentación no es overhead, es <strong>inversión en velocidad futura</strong>. El equipo de Liskov recibió 4 nuevos devs en Mes 6 sin reducir velocity.</p>
+                    </div>
+                </div>
+
+                <!-- Anti-patrón 4 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: #FFD700; font-size: 1.3em; margin-bottom: 15px;">❌ Anti-patrón #4: "God Class / God Object"</h4>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                        <p><strong>Casi lo cometimos en Liskov:</strong></p>
+                        <p style="margin-top: 10px; line-height: 1.8;">
+                            En el diseño inicial (Semana 6), la clase <code>Sprint</code> tenía <strong>47 métodos y 23 propiedades</strong>. Era responsable de: planificación, ejecución, métricas, reportes, notificaciones, persistencia. Un clásico God Object.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p><strong>✅ Refactoring aplicado:</strong></p>
+                        <ul style="line-height: 1.8; margin-top: 10px;">
+                            <li><strong>Sprint</strong> (core data): Fechas, estado, goal (15 métodos)</li>
+                            <li><strong>SprintPlanner</strong> (coordinación): Cálculo capacidad, selección stories (8 métodos)</li>
+                            <li><strong>SprintMetrics</strong> (análisis): Velocity, burndown, proyecciones (12 métodos)</li>
+                            <li><strong>SprintRepository</strong> (persistencia): CRUD operations (6 métodos)</li>
+                            <li><strong>SprintNotifier</strong> (comunicación): Slack, email alerts (6 métodos)</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-style: italic;"><strong>📊 Impacto:</strong> Cobertura de tests aumentó de 45% a 89% después del refactoring. Cada clase pequeña es más fácil de testear.</p>
+                    </div>
+                </div>
+
+                <!-- Anti-patrón 5 -->
+                <div style="background: rgba(255,255,255,0.1); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <h4 style="color: #FFD700; font-size: 1.3em; margin-bottom: 15px;">❌ Anti-patrón #5: "Resume-Driven Development"</h4>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px;">
+                        <p><strong>Caso Real - Proyecto "TechStack":</strong></p>
+                        <p style="margin-top: 10px; line-height: 1.8;">
+                            Equipo eligió tecnologías porque "están de moda" sin análisis de fit: Kubernetes (para 100 usuarios), GraphQL (sin necesidad de queries flexibles), Microservicios (para monolito simple), Blockchain (???). Complejidad innecesaria → Proyecto cancelado en Mes 8.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p><strong>✅ Decision Making en Liskov:</strong></p>
+                        <ul style="line-height: 1.8; margin-top: 10px;">
+                            <li><strong>Tecnología elegida:</strong> Node.js + TypeScript + PostgreSQL + React</li>
+                            <li><strong>Criterio:</strong> Experiencia del equipo (70%), madurez del ecosistema (20%), fit del problema (10%)</li>
+                            <li><strong>Rechazamos:</strong> GraphQL (innecesario), Microservicios (YAGNI), NoSQL (necesitamos ACID)</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; margin-top: 15px;">
+                        <p style="margin: 0; font-style: italic;"><strong>💡 Regla de Oro:</strong> Elegir tecnología boring y probada > tecnología hype y experimental. La innovación debe estar en el producto, no en el stack.</p>
+                    </div>
+                </div>
+
+                <!-- Continuamos con anti-patrones 6-10 de forma más compacta -->
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #FFD700; margin-bottom: 10px;">❌ #6: "Big Bang Integration"</h5>
+                        <p style="font-size: 0.95em; line-height: 1.7;">
+                            <strong>Error:</strong> Integrar todos los módulos al final.<br/>
+                            <strong>✅ Liskov:</strong> Integración continua desde Sprint 1. GitHub webhooks funcionando en Semana 12, no Semana 16.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #FFD700; margin-bottom: 10px;">❌ #7: "Premature Optimization"</h5>
+                        <p style="font-size: 0.95em; line-height: 1.7;">
+                            <strong>Error:</strong> Optimizar antes de medir.<br/>
+                            <strong>✅ Liskov:</strong> Usamos caching (Redis) solo después de detectar bottleneck real en queries de trazabilidad (Semana 15).
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #FFD700; margin-bottom: 10px;">❌ #8: "Analysis Paralysis"</h5>
+                        <p style="font-size: 0.95em; line-height: 1.7;">
+                            <strong>Error:</strong> Analizar infinitamente sin empezar.<br/>
+                            <strong>✅ Liskov:</strong> Timebox de 4 semanas para análisis/diseño. Después, commitear código o morir.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #FFD700; margin-bottom: 10px;">❌ #9: "Not Invented Here Syndrome"</h5>
+                        <p style="font-size: 0.95em; line-height: 1.7;">
+                            <strong>Error:</strong> Reinventar la rueda.<br/>
+                            <strong>✅ Liskov:</strong> Usamos Prisma ORM (no custom SQL builder), Auth0 (no custom auth), Chart.js (no custom graphs). Focus en diferenciador.
+                        </p>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 10px;">
+                        <h5 style="color: #FFD700; margin-bottom: 10px;">❌ #10: "Ignoring Non-Functional Requirements"</h5>
+                        <p style="font-size: 0.95em; line-height: 1.7;">
+                            <strong>Error:</strong> Solo pensar en features, olvidar performance/seguridad.<br/>
+                            <strong>✅ Liskov:</strong> NFRs definidos en Semana 2: <5s response time, 99.5% uptime, GDPR compliance.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box" style="background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%); color: white; border: none; margin-top: 30px;">
+                <h3 style="color: white; text-align: center; font-size: 1.6em; margin-bottom: 20px;">✅ Checklist Anti-patrones: ¿Está tu proyecto en riesgo?</h3>
+
+                <p style="text-align: center; margin-bottom: 20px;">Usa este checklist para detectar red flags en tu próximo proyecto:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                        <p><strong>🔍 Síntomas de Code First:</strong></p>
+                        <ul style="line-height: 1.8; margin-top: 10px;">
+                            <li>❌ Primer commit antes de Semana 2</li>
+                            <li>❌ Cero diagramas de arquitectura</li>
+                            <li>❌ "Lo vamos viendo sobre la marcha"</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                        <p><strong>🔍 Síntomas de God Object:</strong></p>
+                        <ul style="line-height: 1.8; margin-top: 10px;">
+                            <li>❌ Clase con >30 métodos</li>
+                            <li>❌ Archivo con >1000 líneas</li>
+                            <li>❌ "Manager" o "Service" en el nombre</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                        <p><strong>🔍 Síntomas de Resume-Driven Dev:</strong></p>
+                        <ul style="line-height: 1.8; margin-top: 10px;">
+                            <li>❌ Stack elegido sin análisis de trade-offs</li>
+                            <li>❌ "Usamos X porque está de moda"</li>
+                            <li>❌ >5 tecnologías "bleeding edge"</li>
+                        </ul>
+                    </div>
+
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                        <p><strong>🔍 Síntomas de Analysis Paralysis:</strong></p>
+                        <ul style="line-height: 1.8; margin-top: 10px;">
+                            <li>❌ Mes 2 y aún sin código</li>
+                            <li>❌ 10+ versiones del diseño</li>
+                            <li>❌ "Necesitamos más análisis"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <p style="text-align: center; font-size: 1.2em; margin-top: 25px; font-weight: bold;">
+                    🎯 Si detectas 3+ red flags, DETENTE y revisa tu enfoque antes de continuar.
+                </p>
+            </div>
         </section>
 
         <!-- Framework Personal -->

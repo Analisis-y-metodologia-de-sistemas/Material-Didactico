@@ -1,0 +1,47 @@
+@startuml uc-25-daily-standup-detallado
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam roundCorner 15
+skinparam shadowing false
+
+left to right direction
+
+actor "Scrum Master" as SM #FF6F00
+actor "Developer" as DEV #4CAF50
+actor "Sistema de\nNotificaciones" as SN #FF9800
+actor "Slack API" as SL #00BCD4
+
+package "Sprint Management" {
+    usecase "CU-09:\nEjecutar Daily\nStandup" as UC09 #FFF3E0
+    usecase "Registrar\nImpedimentos" as IMP #FFEBEE
+    usecase "Actualizar\nBurndown" as BURN #E8F5E9
+    usecase "Autenticar\nUsuario" as AUTH #F5F5F5
+}
+
+SM --> UC09
+DEV --> UC09
+UC09 ..> AUTH : <<include>>
+UC09 ..> BURN : <<include>>
+UC09 ..> IMP : <<extend>>\n(si hay blockers)
+UC09 --> SN : notifica
+UC09 --> SL : envía resumen
+
+note top of UC09
+  <b>Nivel:</b> User-Goal (🌊)
+  <b>Duración:</b> 15 min (sugerido)
+  <b>Frecuencia:</b> Diaria
+end note
+
+note bottom of IMP
+  <b>Extension Point:</b>
+  Cuando developer reporta
+  impedimento crítico
+end note
+
+note right of BURN
+  <b>Actualización:</b>
+  • Story Points completados
+  • Progreso vs ideal
+end note
+
+@enduml

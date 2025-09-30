@@ -1,0 +1,65 @@
+@startuml
+title Liskov Project - Patrón Generalization
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBackgroundColor<<abstract>> #FFE0B2
+skinparam usecaseBorderColor #1976D2
+
+actor "Product Owner" as po
+actor "Developer" as dev
+
+rectangle "Liskov Project" {
+  usecase "Gestionar\nWork Item" as UC1 <<abstract>>
+
+  usecase "Gestionar Epic" as UC2
+  usecase "Gestionar\nUser Story" as UC3
+  usecase "Gestionar Task" as UC4
+}
+
+po --> UC1
+dev --> UC4
+
+UC2 --|> UC1
+UC3 --|> UC1
+UC4 --|> UC1
+
+note top of UC1
+  Caso GENERAL abstracto:
+
+  Comportamiento común:
+  - Crear
+  - Editar
+  - Eliminar
+  - Cambiar estado
+  - Asignar responsable
+end note
+
+note right of UC2
+  Epic:
+  + Gestiona múltiples stories
+  + Tiene roadmap
+  + Estimación en semanas
+end note
+
+note right of UC3
+  User Story:
+  + Pertenece a un Epic
+  + Tiene criterios de aceptación
+  + Estimación en puntos
+end note
+
+note right of UC4
+  Task:
+  + Pertenece a una Story
+  + Asignada a Developer
+  + Estimación en horas
+end note
+
+note bottom of UC1
+  Principio de Sustitución:
+  Donde se espera "Gestionar Work Item"
+  se puede usar cualquier especialización
+end note
+
+@enduml

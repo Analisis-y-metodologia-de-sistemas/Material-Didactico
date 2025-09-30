@@ -1,0 +1,47 @@
+@startuml uc-24-planificar-sprint-detallado
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam roundCorner 15
+skinparam shadowing false
+
+left to right direction
+
+actor "Scrum Master" as SM #1976D2
+actor "Sistema de\nNotificaciones" as SN #FF9800
+actor "GitHub API" as GH #00BCD4
+actor "Slack API" as SL #4CAF50
+
+package "Sprint Management" {
+    usecase "CU-08:\nPlanificar Sprint" as UC08 #E3F2FD
+    usecase "Validar Fechas" as VAL #FFF9C4
+    usecase "Calcular Capacidad" as CAP #FFF9C4
+    usecase "Autenticar Usuario" as AUTH #F5F5F5
+}
+
+SM --> UC08
+UC08 ..> VAL : <<include>>
+UC08 ..> CAP : <<include>>
+UC08 ..> AUTH : <<include>>
+UC08 --> SN : notifica
+UC08 --> GH : sincroniza
+UC08 --> SL : notifica
+
+note top of UC08
+  <b>Nivel:</b> User-Goal (🌊)
+  <b>Complejidad:</b> Alta
+  <b>Frecuencia:</b> 1 cada 2 semanas
+end note
+
+note right of VAL
+  <b>Validaciones:</b>
+  • Fechas no solapadas
+  • Sprint anterior cerrado
+end note
+
+note right of CAP
+  <b>Cálculo:</b>
+  Velocity × Disponibilidad
+  = Story Points disponibles
+end note
+
+@enduml

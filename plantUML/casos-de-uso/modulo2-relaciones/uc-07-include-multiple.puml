@@ -1,0 +1,41 @@
+@startuml
+title Relación Include - Múltiples Includes
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBorderColor #1976D2
+
+actor Cliente
+
+rectangle "Sistema de Pedidos" {
+  usecase "Procesar Pedido" as UC1
+  usecase "Validar Usuario" as UC2
+  usecase "Validar Stock" as UC3
+  usecase "Calcular Envío" as UC4
+}
+
+Cliente --> UC1
+
+UC1 .> UC2 : <<include>>
+UC1 .> UC3 : <<include>>
+UC1 .> UC4 : <<include>>
+
+note right of UC1
+  Un caso de uso puede
+  incluir MÚLTIPLES casos
+
+  Todos son obligatorios
+  y se ejecutan siempre
+end note
+
+note bottom of UC2
+  1. Validar Usuario
+  2. Validar Stock
+  3. Calcular Envío
+
+  Orden de ejecución
+  definido en la
+  especificación textual
+end note
+
+@enduml

@@ -1,0 +1,56 @@
+@startuml
+title Sistema de Biblioteca - Ejemplo Completo Básico
+
+left to right direction
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam actorBorderColor #388E3C
+skinparam usecaseBackgroundColor #E3F2FD
+skinparam usecaseBorderColor #1976D2
+skinparam packageBackgroundColor #FFF3E0
+
+actor "Lector" as reader
+actor "Bibliotecario" as librarian
+actor "Sistema de\nMultas" as fines <<system>>
+
+rectangle "Sistema de Biblioteca" {
+  usecase "Buscar Libro" as UC1
+  usecase "Solicitar Préstamo" as UC2
+  usecase "Devolver Libro" as UC3
+  usecase "Renovar Préstamo" as UC4
+  usecase "Registrar Nuevo Libro" as UC5
+  usecase "Calcular Multas" as UC6
+  usecase "Generar Reporte" as UC7
+}
+
+reader --> UC1
+reader --> UC2
+reader --> UC3
+reader --> UC4
+
+librarian --> UC2
+librarian --> UC3
+librarian --> UC5
+librarian --> UC7
+
+UC6 --> fines
+UC3 ..> UC6 : puede invocar
+
+note top of reader
+  Actor primario:
+  Usuario final del sistema
+end note
+
+note top of librarian
+  Actor con más permisos:
+  Puede hacer operaciones
+  administrativas
+end note
+
+note right of fines
+  Sistema externo:
+  Procesa cálculo de multas
+  según políticas de la biblioteca
+end note
+
+@enduml

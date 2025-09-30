@@ -1,0 +1,65 @@
+@startuml
+title ✅ CORRECTO: Include y Extend Bien Usados
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor #C8E6C9
+skinparam usecaseBackgroundColor<<optional>> #FFF3E0
+skinparam usecaseBorderColor #388E3C
+
+actor Cliente
+
+rectangle "Sistema ✅ BIEN DISEÑADO" {
+  usecase "Comprar Producto" as UC1
+  usecase "Login" as UC2
+  usecase "Aplicar Descuento" as UC3 <<optional>>
+}
+
+Cliente --> UC1
+
+' ✅ CORRECTO: Include en dirección correcta
+UC1 .> UC2 : <<include>>
+
+' ✅ CORRECTO: Extend cuando es opcional
+UC3 .> UC1 : <<extend>>
+
+note right of UC1
+  ✅ CORRECTO:
+  "Comprar incluye Login"
+
+  Para comprar SIEMPRE hay
+  que autenticarse primero
+end note
+
+note left of UC2
+  ✅ Interpretación CORRECTA:
+  "Al intentar comprar, el sistema
+  SIEMPRE ejecuta login"
+
+  Login es prerequisito obligatorio
+end note
+
+note bottom of UC3
+  ✅ CORRECTO:
+  "Aplicar Descuento" es OPCIONAL
+
+  Solo se ejecuta SI el cliente
+  tiene un cupón válido
+
+  Extend es la relación apropiada
+end note
+
+note top of "Sistema ✅ BIEN DISEÑADO"
+  REGLAS MNEMOTÉCNICAS:
+
+  INCLUDE:
+  • Base NECESITA al incluido
+  • Flecha: Base → Incluido
+  • Siempre obligatorio
+
+  EXTEND:
+  • Base puede vivir sin la extensión
+  • Flecha: Extensión → Base
+  • Condicional/opcional
+end note
+
+@enduml

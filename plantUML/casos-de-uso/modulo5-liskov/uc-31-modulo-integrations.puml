@@ -1,0 +1,56 @@
+@startuml uc-31-modulo-integrations
+!theme plain
+skinparam backgroundColor #FFFFFF
+skinparam roundCorner 15
+skinparam shadowing false
+
+title Liskov Project - Módulo: Integrations
+
+left to right direction
+
+actor "Administrator" as ADM #E91E63
+actor "Developer" as DEV #4CAF50
+actor "GitHub API" as GH #00BCD4
+actor "Slack API" as SL #9C27B0
+actor "Jira API" as JIRA #0052CC
+
+rectangle "Integrations Module" #FFF9C4 {
+    usecase "Configurar GitHub\nIntegration" as UC26
+    usecase "Sincronizar Issues\ncon GitHub" as UC27
+    usecase "Configurar Slack\nNotifications" as UC28
+    usecase "Migrar desde Jira" as UC29
+    usecase "Configurar Webhooks" as UC30
+    usecase "OAuth Authentication" as UC31
+}
+
+ADM --> UC26
+ADM --> UC28
+ADM --> UC29
+ADM --> UC30
+
+DEV --> UC27
+
+UC26 --> GH : OAuth flow
+UC26 ..> UC31 : <<include>>
+UC27 --> GH : API sync
+UC28 --> SL : webhook config
+UC29 --> JIRA : export data
+UC30 --> GH : register hooks
+
+note right of UC27
+  <b>Sincronización:</b>
+  • Issues ↔ Stories
+  • Milestones ↔ Sprints
+  • Labels ↔ Tags
+  • Commits ↔ Tasks
+end note
+
+note bottom of UC29
+  <b>Migración:</b>
+  • Mapeo de campos
+  • Preservación de historia
+  • Validación de datos
+  • Rollback si falla
+end note
+
+@enduml

@@ -1,0 +1,124 @@
+@startuml
+title Liskov Project - Vista General del Sistema
+
+left to right direction
+
+skinparam actorBackgroundColor #C8E6C9
+skinparam actorBorderColor #388E3C
+skinparam packageBackgroundColor #E3F2FD
+skinparam usecaseBackgroundColor #BBDEFB
+skinparam usecaseBackgroundColor<<shared>> #FFE082
+skinparam usecaseBackgroundColor<<optional>> #FFF3E0
+
+' Actores Humanos
+actor "Developer" as dev
+actor "Product Owner" as po
+actor "Scrum Master" as sm
+actor "Stakeholder" as stake
+
+' Sistemas Externos
+actor "GitHub" as github <<system>>
+actor "Slack" as slack <<system>>
+
+rectangle "Liskov Project" {
+
+  ' Casos de uso compartidos
+  usecase "Autenticar Usuario" as auth <<shared>>
+  usecase "Validar Permisos" as perms <<shared>>
+
+  package "Sprint Management" #E8F5E9 {
+    usecase "Planificar Sprint" as UC1
+    usecase "Iniciar Sprint" as UC2
+    usecase "Ejecutar Daily Standup" as UC3
+    usecase "Cerrar Sprint" as UC4
+  }
+
+  package "Backlog Management" #FFF3E0 {
+    usecase "Crear Epic" as UC5
+    usecase "Crear User Story" as UC6
+    usecase "Priorizar Backlog" as UC7
+    usecase "Refinar Backlog" as UC8
+  }
+
+  package "Task Management" #E1F5FE {
+    usecase "Crear Task" as UC9
+    usecase "Asignar Task" as UC10
+    usecase "Actualizar Estado" as UC11
+    usecase "Registrar Tiempo" as UC12
+    usecase "Vincular Commit" as UC13
+  }
+
+  package "Reporting & Metrics" #F3E5F5 {
+    usecase "Generar Burndown" as UC14
+    usecase "Calcular Velocity" as UC15
+    usecase "Generar Reporte Sprint" as UC16
+  }
+
+  package "Integrations" #FFEBEE {
+    usecase "Procesar Webhook GitHub" as UC17
+    usecase "Notificar a Slack" as UC18 <<optional>>
+  }
+}
+
+' Relaciones Actores - CU
+po --> UC1
+sm --> UC1
+sm --> UC3
+sm --> UC4
+po --> UC5
+po --> UC6
+po --> UC7
+po --> UC8
+dev --> UC9
+dev --> UC10
+dev --> UC11
+dev --> UC12
+sm --> UC14
+sm --> UC15
+sm --> UC16
+stake --> UC14
+stake --> UC16
+
+' Relaciones con sistemas externos
+github --> UC17
+UC18 --> slack
+
+' Include compartido (principales)
+UC1 .> auth : <<include>>
+UC3 .> auth : <<include>>
+UC5 .> auth : <<include>>
+UC6 .> auth : <<include>>
+UC9 .> auth : <<include>>
+UC11 .> auth : <<include>>
+
+UC1 .> perms : <<include>>
+UC5 .> perms : <<include>>
+UC7 .> perms : <<include>>
+
+' Extend (opcionales)
+UC18 .> UC3 : <<extend>>
+UC18 .> UC4 : <<extend>>
+
+' Relaciones entre módulos
+UC13 ..> UC17 : triggered by
+UC17 ..> UC11 : updates
+
+note top of auth
+  AUTENTICACIÓN:
+  Requerida para todos
+  los casos de uso principales
+end note
+
+note bottom of UC17
+  INTEGRACIÓN GITHUB:
+  Webhook automático al
+  hacer push/PR/commit
+end note
+
+note right of UC18
+  NOTIFICACIONES SLACK:
+  Opcionales según
+  configuración del proyecto
+end note
+
+@enduml

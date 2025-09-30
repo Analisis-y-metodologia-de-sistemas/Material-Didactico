@@ -1817,6 +1817,741 @@
             </div>
         </section>
 
+        <!-- ============================================ -->
+        <!-- CASO DE ESTUDIO INTEGRADOR: LISKOV PROJECT -->
+        <!-- ============================================ -->
+        <section class="content-section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+            <h2 class="section-title" style="color: white; border-bottom-color: white;">🚀 CASO DE ESTUDIO INTEGRADOR: LISKOV PROJECT</h2>
+
+            <div class="content-box" style="background: rgba(255, 255, 255, 0.95); color: #2c3e50;">
+                <h3 style="color: #667eea;">📋 Aplicación Completa de las 4 Herramientas</h3>
+                <p style="line-height: 1.8;">
+                    Este caso de estudio demuestra cómo las <strong>cuatro herramientas fundamentales del análisis estructurado</strong> trabajan juntas de forma integrada para documentar completamente el sistema Liskov Project. Veremos cómo el Diagrama de Contexto, los DFD multi-nivel, el Diccionario de Datos y las Especificaciones de Procesos se complementan para crear una especificación completa y verificable.
+                </p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🎯 Herramienta 1: Diagrama de Contexto de Liskov</h2>
+
+            <div class="content-box">
+                <p><strong>Propósito:</strong> Establecer el alcance y las interfaces externas del sistema.</p>
+            </div>
+
+            <div class="diagram-container">
+                <h4>🌐 Diagrama de Contexto - Liskov Project (Nivel 0)</h4>
+                <div class="mermaid">
+                    graph LR
+                        %% Actores Externos
+                        SM[Scrum Master]
+                        PO[Product Owner]
+                        DEV[Developer]
+                        MGR[Project Manager]
+
+                        %% Sistema Central
+                        LISKOV((Liskov Project<br/>System))
+
+                        %% Sistemas Externos
+                        GIT[GitHub API]
+                        SLACK[Slack API]
+                        JIRA[Jira API]
+                        AUTH[Auth Provider]
+
+                        %% Flujos Entrada
+                        SM -->|Sprint Planning Data| LISKOV
+                        PO -->|User Stories + Priorities| LISKOV
+                        DEV -->|Task Updates + Time Logs| LISKOV
+                        MGR -->|Report Requests| LISKOV
+                        GIT -->|Commit Data| LISKOV
+                        SLACK -->|Notification ACKs| LISKOV
+                        JIRA -->|External Task Status| LISKOV
+                        AUTH -->|Auth Tokens| LISKOV
+
+                        %% Flujos Salida
+                        LISKOV -->|Sprint Backlog| SM
+                        LISKOV -->|Burndown Charts| SM
+                        LISKOV -->|Refined Backlog| PO
+                        LISKOV -->|Velocity Metrics| PO
+                        LISKOV -->|Assigned Tasks| DEV
+                        LISKOV -->|Code Review Notifications| DEV
+                        LISKOV -->|Executive Dashboard| MGR
+                        LISKOV -->|Project Reports| MGR
+                        LISKOV -->|Webhook Events| GIT
+                        LISKOV -->|Team Notifications| SLACK
+                        LISKOV -->|Task Sync| JIRA
+                        LISKOV -->|Auth Requests| AUTH
+
+                        style LISKOV fill:#667eea,stroke:#764ba2,stroke-width:3px,color:#fff
+                        style SM fill:#e8f5e8,stroke:#388e3c
+                        style PO fill:#e8f5e8,stroke:#388e3c
+                        style DEV fill:#e8f5e8,stroke:#388e3c
+                        style MGR fill:#e8f5e8,stroke:#388e3c
+                        style GIT fill:#fff3e0,stroke:#f57c00
+                        style SLACK fill:#fff3e0,stroke:#f57c00
+                        style JIRA fill:#fff3e0,stroke:#f57c00
+                        style AUTH fill:#fff3e0,stroke:#f57c00
+                </div>
+            </div>
+
+            <div class="content-box info">
+                <h4>📊 Análisis del Diagrama de Contexto</h4>
+                <ul>
+                    <li><strong>Entidades Externas Humanas (4):</strong> Scrum Master, Product Owner, Developer, Project Manager</li>
+                    <li><strong>Sistemas Externos (4):</strong> GitHub API, Slack API, Jira API, Auth Provider</li>
+                    <li><strong>Flujos de Entrada (8):</strong> Datos de planificación, historias, actualizaciones, commits, tokens</li>
+                    <li><strong>Flujos de Salida (12):</strong> Backlogs, métricas, notificaciones, reportes, sincronizaciones</li>
+                    <li><strong>Balance:</strong> Todos los flujos tienen origen/destino claramente identificado</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">📊 Herramienta 2: DFD Multi-Nivel de Liskov</h2>
+
+            <div class="content-box">
+                <p><strong>Propósito:</strong> Descomponer el sistema en procesos jerárquicos mostrando transformación de datos.</p>
+            </div>
+
+            <div class="diagram-container">
+                <h4>📊 DFD Nivel 1 - Procesos Principales</h4>
+                <div class="mermaid">
+                    graph TD
+                        %% Entidades Externas
+                        SM[Scrum Master]
+                        PO[Product Owner]
+                        DEV[Developer]
+                        GIT[GitHub API]
+
+                        %% Procesos Nivel 1
+                        P1[1.0<br/>Gestionar<br/>Backlog]
+                        P2[2.0<br/>Planificar<br/>Sprint]
+                        P3[3.0<br/>Ejecutar<br/>Tareas]
+                        P4[4.0<br/>Integrar<br/>Repositorios]
+                        P5[5.0<br/>Generar<br/>Reportes]
+
+                        %% Almacenes de Datos
+                        D1[(D1: Backlog)]
+                        D2[(D2: Sprints)]
+                        D3[(D3: Tasks)]
+                        D4[(D4: Commits)]
+                        D5[(D5: Metrics)]
+
+                        %% Flujos
+                        PO -->|User Stories| P1
+                        P1 -->|Prioritized Backlog| D1
+                        D1 -->|Selected Stories| P2
+                        SM -->|Sprint Config| P2
+                        P2 -->|Sprint Plan| D2
+                        D2 -->|Sprint Tasks| P3
+                        DEV -->|Task Updates| P3
+                        P3 -->|Task Status| D3
+                        GIT -->|Commit Stream| P4
+                        P4 -->|Processed Commits| D4
+                        D3 -->|Task Data| P5
+                        D4 -->|Commit Data| P5
+                        D2 -->|Sprint Data| P5
+                        P5 -->|Burndown| SM
+                        P5 -->|Velocity| PO
+                        P5 -.->|Metrics| D5
+
+                        style P1 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        style P2 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        style P3 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        style P4 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        style P5 fill:#e1f5fe,stroke:#01579b,stroke-width:2px
+                        style D1 fill:#fff3e0,stroke:#f57c00
+                        style D2 fill:#fff3e0,stroke:#f57c00
+                        style D3 fill:#fff3e0,stroke:#f57c00
+                        style D4 fill:#fff3e0,stroke:#f57c00
+                        style D5 fill:#fff3e0,stroke:#f57c00
+                </div>
+            </div>
+
+            <div class="content-box warning">
+                <h4>⚖️ Verificación de Balance Nivel 0 → Nivel 1</h4>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="background: var(--warning-color); color: white;">
+                            <th style="padding: 10px; border: 1px solid var(--border-color);">Flujo en Contexto (Nivel 0)</th>
+                            <th style="padding: 10px; border: 1px solid var(--border-color);">Proceso en Nivel 1</th>
+                            <th style="padding: 10px; border: 1px solid var(--border-color);">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">User Stories + Priorities (PO → Sistema)</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">PO → 1.0 Gestionar Backlog</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Balanceado</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Sprint Planning Data (SM → Sistema)</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">SM → 2.0 Planificar Sprint</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Balanceado</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Task Updates (DEV → Sistema)</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">DEV → 3.0 Ejecutar Tareas</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Balanceado</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Commit Data (GitHub → Sistema)</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">GitHub → 4.0 Integrar Repositorios</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Balanceado</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Burndown Charts (Sistema → SM)</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">5.0 Generar Reportes → SM</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Balanceado</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px;"><strong>Resultado:</strong> El DFD Nivel 1 está completamente balanceado con el Diagrama de Contexto. Todos los flujos externos tienen correspondencia exacta.</p>
+            </div>
+
+            <div class="diagram-container">
+                <h4>🔍 DFD Nivel 2 - Descomposición del Proceso 2.0 (Planificar Sprint)</h4>
+                <div class="mermaid">
+                    graph TD
+                        %% Entidades Externas
+                        SM[Scrum Master]
+
+                        %% Procesos Nivel 2
+                        P21[2.1<br/>Validar<br/>Fechas]
+                        P22[2.2<br/>Calcular<br/>Capacidad]
+                        P23[2.3<br/>Seleccionar<br/>Stories]
+                        P24[2.4<br/>Crear<br/>Sprint]
+
+                        %% Almacenes
+                        D1[(D1: Backlog)]
+                        D2[(D2: Sprints)]
+                        D6[(D6: Team<br/>Capacity)]
+
+                        %% Flujos
+                        SM -->|Sprint Dates| P21
+                        P21 -->|Validated Dates| P22
+                        P22 <-->|Capacity Query| D6
+                        P22 -->|Available Capacity| P23
+                        D1 -->|Prioritized Stories| P23
+                        P23 -->|Selected Stories| P24
+                        P21 -->|Dates| P24
+                        P24 -->|New Sprint| D2
+                        P24 -->|Sprint Plan| SM
+
+                        style P21 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+                        style P22 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+                        style P23 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+                        style P24 fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+                        style D1 fill:#fff9c4,stroke:#f57f17
+                        style D2 fill:#fff9c4,stroke:#f57f17
+                        style D6 fill:#fff9c4,stroke:#f57f17
+                </div>
+            </div>
+
+            <div class="content-box success">
+                <h4>✅ Verificación de Balance Nivel 1 → Nivel 2</h4>
+                <p>El proceso <strong>2.0 Planificar Sprint</strong> en Nivel 1 tiene:</p>
+                <ul>
+                    <li><strong>Entrada:</strong> "Sprint Config" desde SM + "Selected Stories" desde D1</li>
+                    <li><strong>Salida:</strong> "Sprint Plan" hacia D2</li>
+                </ul>
+                <p>El Nivel 2 descompone esto en 4 subprocesos (2.1, 2.2, 2.3, 2.4) que en conjunto manejan exactamente las mismas entradas y salidas. ✅ <strong>Balance verificado.</strong></p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">📚 Herramienta 3: Diccionario de Datos de Liskov</h2>
+
+            <div class="content-box">
+                <p><strong>Propósito:</strong> Definir la estructura, formato y significado preciso de todos los flujos de datos y almacenes.</p>
+            </div>
+
+            <div class="content-box info">
+                <h4>📋 Notación del Diccionario de Datos</h4>
+                <ul>
+                    <li><strong>=</strong> : se compone de</li>
+                    <li><strong>+</strong> : y (concatenación)</li>
+                    <li><strong>[ | ]</strong> : o (selección)</li>
+                    <li><strong>{ }</strong> : iteración (0 o más)</li>
+                    <li><strong>( )</strong> : opcional</li>
+                    <li><strong>@</strong> : identificador clave</li>
+                    <li><strong>* *</strong> : comentario</li>
+                </ul>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h4 style="color: var(--secondary-color);">🔍 Definiciones de Flujos de Datos Principales</h4>
+
+                <div style="margin: 20px 0; padding: 15px; background: white; border-left: 4px solid #2196F3; border-radius: 5px;">
+                    <p><strong>User-Story</strong> = @Story-ID + Story-Title + Story-Description + Story-Points + Priority + Acceptance-Criteria + (Attachments) + Created-Date + Created-By</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #555;">
+                        <strong>Donde:</strong><br/>
+                        • Story-ID = "US-" + {digit}<br/>
+                        • Story-Title = {alphanumeric} *máximo 100 caracteres*<br/>
+                        • Story-Points = [1 | 2 | 3 | 5 | 8 | 13 | 21] *escala Fibonacci*<br/>
+                        • Priority = [Critical | High | Medium | Low]<br/>
+                        • Acceptance-Criteria = {Criterion} *al menos 1*<br/>
+                        • Created-Date = YYYY-MM-DD + "T" + HH:MM:SS + "Z"<br/>
+                        • Created-By = User-ID
+                    </p>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px; background: white; border-left: 4px solid #4CAF50; border-radius: 5px;">
+                    <p><strong>Sprint-Plan</strong> = @Sprint-ID + Sprint-Name + Start-Date + End-Date + Sprint-Goal + {Selected-Story} + Team-Capacity + Velocity-Target</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #555;">
+                        <strong>Donde:</strong><br/>
+                        • Sprint-ID = "SPR-" + {digit}<br/>
+                        • Sprint-Name = {alphanumeric} *ej: "Sprint 24 - Q2 2024"*<br/>
+                        • Start-Date = Date<br/>
+                        • End-Date = Date *debe ser posterior a Start-Date*<br/>
+                        • Sprint-Goal = {text} *objetivo del sprint en lenguaje natural*<br/>
+                        • Selected-Story = Story-ID *referencia al Backlog*<br/>
+                        • Team-Capacity = {Team-Member-Capacity}<br/>
+                        • Velocity-Target = numeric *story points objetivo*
+                    </p>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px; background: white; border-left: 4px solid #FF9800; border-radius: 5px;">
+                    <p><strong>Task-Update</strong> = @Task-ID + Status + (Time-Logged) + (Comments) + Updated-By + Updated-Date</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #555;">
+                        <strong>Donde:</strong><br/>
+                        • Task-ID = "TSK-" + {digit}<br/>
+                        • Status = [To-Do | In-Progress | In-Review | Blocked | Done]<br/>
+                        • Time-Logged = numeric *en horas, con 1 decimal*<br/>
+                        • Comments = {text} *notas del desarrollador*<br/>
+                        • Updated-By = User-ID<br/>
+                        • Updated-Date = Timestamp
+                    </p>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px; background: white; border-left: 4px solid #9C27B0; border-radius: 5px;">
+                    <p><strong>Burndown-Chart</strong> = @Sprint-ID + Chart-Type + {Data-Point} + Generated-Date</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #555;">
+                        <strong>Donde:</strong><br/>
+                        • Chart-Type = [Story-Points | Tasks | Hours]<br/>
+                        • Data-Point = Date + Ideal-Remaining + Actual-Remaining<br/>
+                        • Ideal-Remaining = numeric *línea ideal de progreso*<br/>
+                        • Actual-Remaining = numeric *progreso real del equipo*<br/>
+                        • Generated-Date = Timestamp
+                    </p>
+                </div>
+            </div>
+
+            <div style="background: var(--bg-secondary); padding: 20px; border-radius: 10px; margin: 20px 0;">
+                <h4 style="color: var(--secondary-color);">🗄️ Definiciones de Almacenes de Datos</h4>
+
+                <div style="margin: 20px 0; padding: 15px; background: white; border-left: 4px solid #673AB7; border-radius: 5px;">
+                    <p><strong>D1: Backlog</strong> = {User-Story}</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #555;">
+                        <strong>Descripción:</strong> Repositorio centralizado de todas las User Stories del producto, ordenadas por prioridad.<br/>
+                        <strong>Acceso:</strong> Lectura (Scrum Master, Developer), Escritura (Product Owner, Scrum Master)<br/>
+                        <strong>Organización:</strong> Índice primario por Story-ID, índice secundario por Priority<br/>
+                        <strong>Volumen estimado:</strong> 500-2000 stories por proyecto
+                    </p>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px; background: white; border-left: 4px solid #3F51B5; border-radius: 5px;">
+                    <p><strong>D2: Sprints</strong> = {Sprint-Record}</p>
+                    <p><strong>Sprint-Record</strong> = Sprint-Plan + Sprint-Status + {Sprint-Event} + Sprint-Metrics</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #555;">
+                        <strong>Descripción:</strong> Historial completo de todos los sprints del proyecto.<br/>
+                        <strong>Sprint-Status:</strong> [Planning | Active | Review | Retrospective | Closed]<br/>
+                        <strong>Sprint-Event:</strong> Event-Type + Event-Date + Event-Notes *planning, daily, review, retro*<br/>
+                        <strong>Sprint-Metrics:</strong> Velocity-Actual + Burndown-Data + Completion-Rate<br/>
+                        <strong>Retención:</strong> Histórico completo para análisis de tendencias
+                    </p>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px; background: white; border-left: 4px solid #009688; border-radius: 5px;">
+                    <p><strong>D3: Tasks</strong> = {Task-Record}</p>
+                    <p><strong>Task-Record</strong> = @Task-ID + Story-ID + Sprint-ID + Task-Description + Assigned-To + Status + Estimated-Hours + Actual-Hours + {Task-Update}</p>
+                    <p style="margin-top: 10px; font-size: 0.9em; color: #555;">
+                        <strong>Descripción:</strong> Descomposición granular de User Stories en tareas técnicas.<br/>
+                        <strong>Relaciones:</strong> N:1 con User-Story, N:1 con Sprint<br/>
+                        <strong>Auditoría:</strong> Todas las actualizaciones se registran en {Task-Update} para trazabilidad<br/>
+                        <strong>Volumen estimado:</strong> 5-10 tasks por story, 50-200 tasks por sprint
+                    </p>
+                </div>
+            </div>
+
+            <div class="content-box warning">
+                <h4>🔍 Validación de Consistencia Diccionario ↔ DFD</h4>
+                <p><strong>Regla:</strong> Todo flujo de datos en el DFD debe estar definido en el Diccionario de Datos.</p>
+                <p><strong>Verificación para Liskov:</strong></p>
+                <ul>
+                    <li>✅ "User Stories" en DFD → Definido como "User-Story" en diccionario</li>
+                    <li>✅ "Sprint Config" en DFD → Definido como "Sprint-Plan" en diccionario</li>
+                    <li>✅ "Task Updates" en DFD → Definido como "Task-Update" en diccionario</li>
+                    <li>✅ "Burndown Charts" en DFD → Definido como "Burndown-Chart" en diccionario</li>
+                </ul>
+                <p><strong>Estado:</strong> 100% de los flujos del DFD tienen definiciones correspondientes en el diccionario. ✅</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">⚙️ Herramienta 4: Especificaciones de Procesos de Liskov</h2>
+
+            <div class="content-box">
+                <p><strong>Propósito:</strong> Describir la lógica detallada de los procesos primitivos (aquellos que no se descomponen más).</p>
+            </div>
+
+            <div style="background: #e3f2fd; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #1976d2;">
+                <h4 style="color: #1976d2;">📝 Proceso 2.2: Calcular Capacidad del Equipo</h4>
+
+                <p><strong>Número de Proceso:</strong> 2.2 (subproceso de 2.0 Planificar Sprint)</p>
+                <p><strong>Tipo:</strong> Proceso Primitivo (no se descompone más)</p>
+
+                <h5 style="margin-top: 20px; color: #1976d2;">Entradas:</h5>
+                <ul>
+                    <li><strong>Validated Dates:</strong> Fechas de inicio y fin del sprint (desde proceso 2.1)</li>
+                    <li><strong>Team Capacity Data:</strong> Disponibilidad de cada miembro (desde almacén D6)</li>
+                </ul>
+
+                <h5 style="margin-top: 20px; color: #1976d2;">Salidas:</h5>
+                <ul>
+                    <li><strong>Available Capacity:</strong> Capacidad total del equipo en story points</li>
+                </ul>
+
+                <h5 style="margin-top: 20px; color: #1976d2;">Lógica del Proceso (Pseudocódigo Estructurado):</h5>
+                <pre style="background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'Courier New', monospace; line-height: 1.6;">
+PROCESO Calcular_Capacidad_Equipo
+ENTRADA:
+    sprint_start_date: Date
+    sprint_end_date: Date
+    team_members: Array[TeamMember]
+SALIDA:
+    total_capacity: Integer (story points)
+
+INICIO
+    // 1. Calcular días hábiles del sprint
+    working_days ← Contar_Dias_Habiles(sprint_start_date, sprint_end_date)
+
+    // 2. Descontar feriados
+    holidays ← Obtener_Feriados(sprint_start_date, sprint_end_date)
+    working_days ← working_days - COUNT(holidays)
+
+    // 3. Calcular capacidad individual de cada miembro
+    total_capacity ← 0
+
+    PARA CADA member EN team_members HACER
+        // 3.1 Obtener disponibilidad del miembro
+        member_availability ← member.availability_percentage / 100
+
+        // 3.2 Descontar vacaciones y ausencias
+        member_absences ← Contar_Ausencias(member, sprint_start_date, sprint_end_date)
+        member_working_days ← working_days - member_absences
+
+        // 3.3 Calcular horas disponibles
+        daily_hours ← 8  * constante: 8 horas por día *
+        focus_factor ← 0.7  * constante: 70% del tiempo en desarrollo puro *
+        member_hours ← member_working_days * daily_hours * member_availability * focus_factor
+
+        // 3.4 Convertir horas a story points según velocidad histórica
+        SI member.historical_velocity > 0 ENTONCES
+            hours_per_story_point ← member.historical_velocity
+        SINO
+            hours_per_story_point ← 6  * default: 6 horas por story point *
+        FIN SI
+
+        member_capacity ← REDONDEAR(member_hours / hours_per_story_point)
+
+        // 3.5 Acumular capacidad
+        total_capacity ← total_capacity + member_capacity
+
+        // 3.6 Registrar capacidad individual para auditoría
+        Registrar_Capacidad_Individual(member.id, member_capacity)
+    FIN PARA
+
+    // 4. Aplicar factor de contingencia
+    contingency_factor ← 0.9  * reservar 10% para imprevistos *
+    total_capacity ← REDONDEAR(total_capacity * contingency_factor)
+
+    // 5. Validar capacidad mínima
+    SI total_capacity < 10 ENTONCES
+        Generar_Alerta("Capacidad del equipo muy baja para el sprint")
+    FIN SI
+
+    RETORNAR total_capacity
+FIN PROCESO
+                </pre>
+
+                <h5 style="margin-top: 20px; color: #1976d2;">Reglas de Negocio:</h5>
+                <ul>
+                    <li><strong>RN-01:</strong> El focus factor estándar es 70% (30% para reuniones, emails, interrupciones)</li>
+                    <li><strong>RN-02:</strong> La capacidad debe ajustarse por factor de contingencia de 90% (reserva 10% para imprevistos)</li>
+                    <li><strong>RN-03:</strong> Si un miembro no tiene velocidad histórica, usar 6 horas por story point como default</li>
+                    <li><strong>RN-04:</strong> Generar alerta si la capacidad total es < 10 story points</li>
+                    <li><strong>RN-05:</strong> Los días feriados se obtienen del calendario configurado por el Project Manager</li>
+                </ul>
+
+                <h5 style="margin-top: 20px; color: #1976d2;">Casos de Excepción:</h5>
+                <ul>
+                    <li><strong>E-01:</strong> Si working_days ≤ 0 → Lanzar error "Rango de fechas inválido"</li>
+                    <li><strong>E-02:</strong> Si team_members está vacío → Lanzar error "No hay miembros asignados al equipo"</li>
+                    <li><strong>E-03:</strong> Si member_absences > working_days → Usar capacidad = 0 para ese miembro</li>
+                </ul>
+            </div>
+
+            <div style="background: #f3e5f5; padding: 25px; border-radius: 10px; margin: 20px 0; border-left: 5px solid #9c27b0;">
+                <h4 style="color: #9c27b0;">📝 Proceso 5.1: Generar Burndown Chart</h4>
+
+                <p><strong>Número de Proceso:</strong> 5.1 (subproceso de 5.0 Generar Reportes)</p>
+                <p><strong>Tipo:</strong> Proceso Primitivo</p>
+
+                <h5 style="margin-top: 20px; color: #9c27b0;">Entradas:</h5>
+                <ul>
+                    <li><strong>Sprint Data:</strong> Información del sprint activo (desde D2)</li>
+                    <li><strong>Task Data:</strong> Estado actual de todas las tareas (desde D3)</li>
+                </ul>
+
+                <h5 style="margin-top: 20px; color: #9c27b0;">Salidas:</h5>
+                <ul>
+                    <li><strong>Burndown Chart:</strong> Gráfico de progreso del sprint</li>
+                </ul>
+
+                <h5 style="margin-top: 20px; color: #9c27b0;">Lógica del Proceso (Tabla de Decisión):</h5>
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; margin-top: 15px; background: white;">
+                        <thead>
+                            <tr style="background: #9c27b0; color: white;">
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Condición</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: center;">Caso 1</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: center;">Caso 2</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: center;">Caso 3</th>
+                                <th style="padding: 12px; border: 1px solid #ddd; text-align: center;">Caso 4</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Sprint Status</strong></td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Planning</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Active</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Active</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Closed</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Progreso vs Ideal</strong></td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">N/A</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">On Track</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">Behind</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">N/A</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Días Restantes</strong></td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">> 10</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">> 2</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">≤ 2</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">0</td>
+                            </tr>
+                            <tr style="background: #f5f5f5;">
+                                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Acción: Generar Gráfico</strong></td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✅</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✅</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✅</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✅</td>
+                            </tr>
+                            <tr style="background: #f5f5f5;">
+                                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Acción: Alerta de Riesgo</strong></td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">❌</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">❌</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✅</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">❌</td>
+                            </tr>
+                            <tr style="background: #f5f5f5;">
+                                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Acción: Proyección Final</strong></td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">❌</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✅</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✅</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">❌</td>
+                            </tr>
+                            <tr style="background: #f5f5f5;">
+                                <td style="padding: 12px; border: 1px solid #ddd;"><strong>Acción: Archivar Métricas</strong></td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">❌</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">❌</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">❌</td>
+                                <td style="padding: 12px; border: 1px solid #ddd; text-align: center;">✅</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h5 style="margin-top: 20px; color: #9c27b0;">Algoritmo de Cálculo:</h5>
+                <pre style="background: #2d3748; color: #e2e8f0; padding: 15px; border-radius: 8px; overflow-x: auto; font-family: 'Courier New', monospace; line-height: 1.6;">
+PROCESO Generar_Burndown_Chart
+ENTRADA:
+    sprint: Sprint
+    tasks: Array[Task]
+SALIDA:
+    chart: BurndownChart
+
+INICIO
+    // 1. Calcular línea ideal
+    total_story_points ← sprint.velocity_target
+    sprint_days ← Calcular_Dias_Habiles(sprint.start_date, sprint.end_date)
+    ideal_burn_rate ← total_story_points / sprint_days
+
+    ideal_line ← []
+    PARA day ← 0 HASTA sprint_days HACER
+        remaining ← total_story_points - (day * ideal_burn_rate)
+        ideal_line.AGREGAR({date: sprint.start_date + day, value: remaining})
+    FIN PARA
+
+    // 2. Calcular línea real
+    actual_line ← []
+    current_date ← sprint.start_date
+
+    MIENTRAS current_date ≤ HOY Y current_date ≤ sprint.end_date HACER
+        // Sumar story points de tareas NO completadas al final del día
+        points_remaining ← 0
+        PARA CADA task EN tasks HACER
+            SI task.story.sprint_id = sprint.id ENTONCES
+                task_status_at_date ← Obtener_Estado_Historico(task, current_date)
+                SI task_status_at_date ≠ "Done" ENTONCES
+                    points_remaining ← points_remaining + task.story.story_points
+                FIN SI
+            FIN SI
+        FIN PARA
+
+        actual_line.AGREGAR({date: current_date, value: points_remaining})
+        current_date ← current_date + 1 día hábil
+    FIN MIENTRAS
+
+    // 3. Calcular proyección (si sprint está activo)
+    SI sprint.status = "Active" ENTONCES
+        days_elapsed ← actual_line.LENGTH
+        days_remaining ← sprint_days - days_elapsed
+
+        SI days_elapsed ≥ 3 ENTONCES  * requiere al menos 3 días de datos *
+            // Calcular velocidad real de los últimos 3 días
+            points_burned_last_3_days ←
+                actual_line[days_elapsed - 3].value - actual_line[days_elapsed - 1].value
+            actual_burn_rate ← points_burned_last_3_days / 3
+
+            // Proyectar al final del sprint
+            current_remaining ← actual_line[days_elapsed - 1].value
+            projected_final ← current_remaining - (actual_burn_rate * days_remaining)
+
+            // Generar alerta si proyección > 0
+            SI projected_final > 5 ENTONCES
+                Generar_Alerta("Riesgo: Sprint puede no completarse",
+                              "Proyección: " + projected_final + " story points sin completar")
+            FIN SI
+        FIN SI
+    FIN SI
+
+    // 4. Construir objeto de retorno
+    chart ← {
+        sprint_id: sprint.id,
+        ideal: ideal_line,
+        actual: actual_line,
+        projection: projected_final,
+        generated_at: TIMESTAMP_ACTUAL
+    }
+
+    RETORNAR chart
+FIN PROCESO
+                </pre>
+            </div>
+
+            <div class="content-box success">
+                <h4>✅ Verificación de Completitud</h4>
+                <p><strong>Criterio:</strong> Todo proceso primitivo en el DFD debe tener una especificación de proceso detallada.</p>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+                    <thead>
+                        <tr style="background: var(--success-color); color: white;">
+                            <th style="padding: 10px; border: 1px solid var(--border-color);">Proceso en DFD Nivel 2</th>
+                            <th style="padding: 10px; border: 1px solid var(--border-color);">Especificación</th>
+                            <th style="padding: 10px; border: 1px solid var(--border-color);">Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">2.1 Validar Fechas</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Lógica de validación de rangos y conflictos</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Especificado</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">2.2 Calcular Capacidad</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Pseudocódigo detallado (mostrado arriba)</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Especificado</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">2.3 Seleccionar Stories</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Algoritmo de selección por prioridad y capacidad</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Especificado</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">2.4 Crear Sprint</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Proceso de persistencia y notificación</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Especificado</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">5.1 Generar Burndown</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">Tabla de decisión + algoritmo (mostrado arriba)</td>
+                            <td style="padding: 10px; border: 1px solid var(--border-color);">✅ Especificado</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top: 15px;"><strong>Resultado:</strong> 100% de los procesos primitivos tienen especificaciones completas. ✅</p>
+            </div>
+        </section>
+
+        <section class="content-section">
+            <h2 class="section-title">🔗 Integración Completa: Las 4 Herramientas Trabajando Juntas</h2>
+
+            <div class="diagram-container">
+                <div class="diagram-title">🎯 Mapa de Trazabilidad Completa</div>
+                <div class="mermaid">
+                    graph TD
+                        DC[📍 Diagrama de Contexto<br/>Define alcance y fronteras]
+
+                        DFD1[📊 DFD Nivel 1<br/>5 procesos principales]
+                        DFD2[📊 DFD Nivel 2<br/>Descomposición detallada]
+
+                        DD[📚 Diccionario de Datos<br/>20+ definiciones]
+
+                        PS[⚙️ Especificaciones de Procesos<br/>5+ procesos primitivos]
+
+                        DC -->|Balance| DFD1
+                        DFD1 -->|Balance| DFD2
+                        DFD1 -.->|Define flujos| DD
+                        DFD2 -.->|Define flujos| DD
+                        DFD2 -->|Procesos primitivos| PS
+                        PS -.->|Usa estructuras de| DD
+
+                        style DC fill:#fff3e0,stroke:#f57c00,stroke-width:3px
+                        style DFD1 fill:#e1f5fe,stroke:#01579b,stroke-width:3px
+                        style DFD2 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+                        style DD fill:#e8f5e8,stroke:#388e3c,stroke-width:3px
+                        style PS fill:#f3e5f5,stroke:#7b1fa2,stroke-width:3px
+                </div>
+            </div>
+
+            <div class="content-box success">
+                <h3>✅ Checklist de Completitud para Liskov Project</h3>
+                <ul>
+                    <li>✅ <strong>Diagrama de Contexto:</strong> Define 8 entidades externas y 20 flujos de interface</li>
+                    <li>✅ <strong>DFD Nivel 1:</strong> Descompone en 5 procesos principales con balance completo</li>
+                    <li>✅ <strong>DFD Nivel 2:</strong> Muestra descomposición del proceso crítico 2.0 en 4 subprocesos</li>
+                    <li>✅ <strong>Diccionario de Datos:</strong> Define estructura de 15+ flujos principales y 5 almacenes</li>
+                    <li>✅ <strong>Especificaciones de Procesos:</strong> Documenta lógica de 5+ procesos primitivos con pseudocódigo/tablas</li>
+                    <li>✅ <strong>Balance Verificado:</strong> Consistencia 100% entre todos los niveles jerárquicos</li>
+                    <li>✅ <strong>Trazabilidad:</strong> Todos los elementos referenciados existen y están definidos</li>
+                </ul>
+                <p style="margin-top: 20px; font-size: 1.1em; color: var(--success-color);"><strong>Conclusión:</strong> El análisis estructurado de Liskov Project está completo, balanceado y listo para la fase de diseño. Las 4 herramientas se integran coherentemente para proporcionar una especificación verificable del sistema.</p>
+            </div>
+
+            <div class="content-box warning">
+                <h3>🎓 Lecciones Aprendidas del Caso Liskov</h3>
+                <ol>
+                    <li><strong>La integración es iterativa:</strong> No intentes completar un artefacto antes de empezar el siguiente. Trabaja en paralelo refinando constantemente.</li>
+                    <li><strong>El balance es no negociable:</strong> Invertir tiempo en verificar balance evita horas de debugging futuro de inconsistencias.</li>
+                    <li><strong>El diccionario de datos es subestimado:</strong> Es la piedra angular que une todos los diagramas. Mantenlo actualizado.</li>
+                    <li><strong>Las especificaciones de procesos revelan ambigüedades:</strong> Cuando intentas escribir pseudocódigo, descubres lógica que no estaba clara en los requerimientos.</li>
+                    <li><strong>La descomposición tiene límites:</strong> No todo proceso necesita ir a nivel 3 o 4. Detente cuando llegues a un nivel de detalle implementable.</li>
+                </ol>
+            </div>
+        </section>
+
         <!-- Sistema de Quiz estandarizado -->
         <section class="quiz-container">
             <h2>🧠 Evaluación - 20 Preguntas Multiple Choice</h2>
