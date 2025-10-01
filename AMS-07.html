@@ -7,7 +7,7 @@
     <meta name="description" content="User Stories y Story Mapping: técnicas ágiles para capturar requisitos y planificar productos">
     <meta name="keywords" content="user stories, story mapping, requisitos ágiles, INVEST, épicas, criterios aceptación">
     <meta name="author" content="Curso AMS">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="js/mermaid.min.js"></script>
     <style>
         :root {
             /* Colores principales */
@@ -99,12 +99,114 @@
         .course-header {
             background: var(--bg-card);
             backdrop-filter: blur(10px);
-            border-radius: 20px;
+            border-radius: 15px;
             padding: 40px;
             margin-bottom: 30px;
             box-shadow: 0 8px 32px var(--shadow);
             text-align: center;
             border: 1px solid var(--border-color);
+        }
+
+        .course-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .course-subtitle {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .meta-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .meta-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        [data-theme="dark"] .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .objectives {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 30px;
+            border-radius: 15px;
+            color: #000000;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(255, 245, 157, 0.4);
+            border: 2px solid #ffeb3b;
+        }
+
+        .objectives h2 {
+            color: #000000;
+            border: none;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .objectives ul li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #000000;
+            font-weight: 500;
+        }
+
+        .objectives ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 1.2em;
         }
 
         .course-title {
@@ -186,15 +288,7 @@
             margin-right: 10px;
         }
 
-        /* Objetivos de aprendizaje */
-        .objectives {
-            background: linear-gradient(45deg, var(--success-color), #2ecc71);
-            color: white;
-            padding: 30px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            border: 1px solid var(--border-color);
-        }
+        
 
         .objectives h2 {
             margin-bottom: 20px;
@@ -1041,29 +1135,15 @@
 
     <div class="container">
         <!-- Header del curso -->
-        <header class="course-header">
-            <h1 class="course-title">📝 Clase 7: User Stories y Story Mapping</h1>
-            <p class="course-subtitle">Técnicas ágiles para capturar requisitos de usuario y planificar productos</p>
-            
+                        <header class="course-header">
+            <h1 class="course-title">📚 Introducción a UML</h1>
+            <p class="course-subtitle">Lenguaje Unificado de Modelado para sistemas orientados a objetos</p>
             <div class="course-meta">
-                <div class="meta-card">
-                    <h4>📚 Curso</h4>
-                    <p>Análisis y Metodología de Sistemas</p>
-                </div>
-                <div class="meta-card">
-                    <h4>📊 Progreso</h4>
-                    <p>Clase 7 de 16</p>
-                </div>
-                <div class="meta-card">
-                    <h4>⏱️ Duración</h4>
-                    <p>3 horas académicas</p>
-                </div>
-                <div class="meta-card">
-                    <h4>🎯 Nivel</h4>
-                    <p>Intermedio</p>
-                </div>
+                <span class="meta-item">📚 Unidad 3: Modelado</span>
+                <span class="meta-item">🎯 Clase 07</span>
+                <span class="meta-item">⏱️ 90 minutos</span>
+                <span class="meta-item">📈 Nivel: Intermedio</span>
             </div>
-            
             <div class="progress-bar">
                 <div class="progress-fill" style="width: 43.75%"></div>
             </div>

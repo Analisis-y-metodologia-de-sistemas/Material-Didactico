@@ -7,7 +7,7 @@
     <meta name="description" content="Síntesis completa del curso, integración de metodologías y proyecto final de análisis de sistemas">
     <meta name="keywords" content="análisis, sistemas, metodología, AMS, síntesis, integración, proyecto final">
     <meta name="author" content="Curso AMS">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="js/mermaid.min.js"></script>
     <style>
         :root {
             /* Colores principales */
@@ -98,13 +98,115 @@
         /* Header del curso */
         .course-header {
             background: var(--bg-card);
-            border-radius: 20px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            backdrop-filter: blur(20px);
-            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
             box-shadow: 0 8px 32px var(--shadow);
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .course-title {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+        }
+
+        .course-subtitle {
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .course-meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .meta-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            transition: transform 0.2s ease;
+        }
+
+        .meta-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        [data-theme="dark"] .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .objectives {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 30px;
+            border-radius: 15px;
+            color: #000000;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(255, 245, 157, 0.4);
+            border: 2px solid #ffeb3b;
+        }
+
+        .objectives h2 {
+            color: #000000;
+            border: none;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .objectives ul li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #000000;
+            font-weight: 500;
+        }
+
+        .objectives ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 1.2em;
         }
 
         .course-header h1 {
@@ -196,38 +298,7 @@
             font-size: 1.3rem;
         }
 
-        /* Objetivos */
-        .objectives {
-            background: linear-gradient(135deg, var(--success-color)10, var(--success-color)20);
-            border-left: 5px solid var(--success-color);
-        }
-
-        .objectives h3 {
-            color: var(--success-color);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .objectives ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .objectives li {
-            padding: 0.5rem 0;
-            padding-left: 2rem;
-            position: relative;
-        }
-
-        .objectives li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: var(--success-color);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
+        /* Objetivos - CSS duplicado removido, usar el de arriba */
 
         /* Listas y contenido */
         .content-card ul, .content-card ol {
@@ -473,19 +544,23 @@
 
     <div class="container">
         <!-- Header del Curso -->
-        <header class="course-header">
-            <h1>Análisis y Metodología de Sistemas</h1>
-            <p class="course-subtitle">Clase 16: Integración y Síntesis del Curso</p>
-            <div class="progress-container">
-                <div class="progress-bar">
-                    🎉 100% Completado - ¡Felicitaciones!
-                </div>
+                        <header class="course-header">
+            <h1 class="course-title">📚 Diagramas de Componentes y Despliegue</h1>
+            <p class="course-subtitle">Modelado de la arquitectura física y lógica del sistema</p>
+            <div class="course-meta">
+                <span class="meta-item">📚 Unidad 4: Diseño</span>
+                <span class="meta-item">🎯 Clase 16</span>
+                <span class="meta-item">⏱️ 90 minutos</span>
+                <span class="meta-item">📈 Nivel: Avanzado</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 100%"></div>
             </div>
         </header>
 
         <!-- Objetivos de Aprendizaje -->
-        <section class="content-card objectives">
-            <h3>🎯 Objetivos Finales del Curso</h3>
+        <div class="objectives">
+            <h2>🎯 Objetivos de Aprendizaje</h2>
             <ul>
                 <li>Integrar todos los conocimientos adquiridos en el curso de AMS</li>
                 <li>Aplicar metodologías híbridas para proyectos complejos</li>
@@ -493,7 +568,7 @@
                 <li>Evaluar críticamente diferentes enfoques metodológicos</li>
                 <li>Prepararse para desafíos profesionales en análisis de sistemas</li>
             </ul>
-        </section>
+        </div>
 
         <!-- Síntesis Integral -->
         <section class="content-card">

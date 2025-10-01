@@ -7,7 +7,7 @@
     <meta name="description" content="Diagramas de Contexto y DFD: técnicas fundamentales del análisis estructurado para modelar sistemas de información">
     <meta name="keywords" content="diagrama contexto, DFD, análisis estructurado, flujo datos, yourdon, modelado sistemas">
     <meta name="author" content="Curso AMS">
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="js/mermaid.min.js"></script>
     <style>
         :root {
             /* Colores principales */
@@ -98,46 +98,118 @@
         /* Header del curso */
         .course-header {
             background: var(--bg-card);
-            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
             padding: 40px;
             margin-bottom: 30px;
+            box-shadow: 0 8px 32px var(--shadow);
             text-align: center;
-            box-shadow: 0 10px 30px var(--shadow);
-            backdrop-filter: blur(10px);
             border: 1px solid var(--border-color);
         }
 
         .course-title {
             font-size: 2.5em;
-            font-weight: 700;
-            margin-bottom: 10px;
-            background: var(--gradient-secondary);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
         }
 
         .course-subtitle {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: var(--text-secondary);
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            line-height: 1.6;
         }
 
         .course-meta {
             display: flex;
             justify-content: center;
-            gap: 30px;
             flex-wrap: wrap;
-            margin-top: 20px;
+            gap: 12px;
+            margin-bottom: 25px;
         }
 
         .meta-item {
-            background: var(--bg-secondary);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
             padding: 10px 20px;
             border-radius: 25px;
+            font-size: 0.9em;
             font-weight: 500;
-            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+            transition: transform 0.2s ease;
         }
+
+        .meta-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        [data-theme="dark"] .progress-bar {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #27ae60, #2ecc71);
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        .objectives {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 30px;
+            border-radius: 15px;
+            color: #000000;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(255, 245, 157, 0.4);
+            border: 2px solid #ffeb3b;
+        }
+
+        .objectives h2 {
+            color: #000000;
+            border: none;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .objectives ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .objectives ul li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #000000;
+            font-weight: 500;
+        }
+
+        .objectives ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        /* Duplicate course header styles removed - using the ones above */
 
         /* Secciones de contenido */
         .content-section {
@@ -410,16 +482,31 @@
     </button>
 
     <div class="container">
-        <header class="course-header">
-            <h1 class="course-title">📊 Diagrama de Contexto y Diagrama de Flujo de Datos</h1>
+                        <header class="course-header">
+            <h1 class="course-title">📚 Diagrama de Contexto y Diagrama de Flujo de Datos</h1>
             <p class="course-subtitle">Técnicas fundamentales del análisis estructurado para el modelado de sistemas de información</p>
             <div class="course-meta">
-                <span class="meta-item">📚 Unidad 3: Análisis Estructurado</span>
+                <span class="meta-item">📚 Unidad 3: Modelado</span>
                 <span class="meta-item">🎯 Clase 09</span>
                 <span class="meta-item">⏱️ 90 minutos</span>
                 <span class="meta-item">📈 Nivel: Intermedio</span>
             </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 56.25%"></div>
+            </div>
         </header>
+
+        <div class="objectives">
+            <h2>🎯 Objetivos de Aprendizaje</h2>
+            <ul>
+                <li>Comprender los fundamentos del análisis estructurado y su enfoque en el flujo de datos</li>
+                <li>Dominar la creación de Diagramas de Contexto para definir límites del sistema</li>
+                <li>Aplicar la técnica de DFD (Diagrama de Flujo de Datos) en sus diferentes niveles</li>
+                <li>Identificar y representar correctamente entidades externas, procesos, almacenes y flujos de datos</li>
+                <li>Realizar descomposición funcional mediante DFDs jerárquicos</li>
+                <li>Aplicar las reglas de notación Yourdon/DeMarco y Gane-Sarson</li>
+            </ul>
+        </div>
 
         <section class="content-section">
             <h2 class="section-title">🎯 1. Introducción al Análisis Estructurado</h2>

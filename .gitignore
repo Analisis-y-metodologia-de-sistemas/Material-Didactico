@@ -1,0 +1,43 @@
+# Node modules
+node_modules/
+package-lock.json
+
+# Playwright
+.playwright/
+playwright-report/
+test-results/
+
+# Scripts temporales de verificación y estandarización
+check-pages.js
+check-ams08.js
+verify-and-fix-objectives.js
+remove-duplicate-objectives.js
+standardize-headers.js
+fix-headers.js
+apply-modern-design.js
+update-objectives-style.js
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Backups
+*.bak
+*.backup

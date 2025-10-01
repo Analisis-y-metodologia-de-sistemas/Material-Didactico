@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clase 1: Fundamentos Teóricos del Análisis de Sistemas</title>
-    <script src="https://cdn.jsdelivr.net/npm/mermaid@10.6.1/dist/mermaid.min.js"></script>
+    <script src="js/mermaid.min.js"></script>
     <style>
         :root {
             --primary-color: #2c3e50;
@@ -142,30 +142,45 @@
         /* Los elementos heredan el color del body automáticamente */
 
         .objectives {
-            background: linear-gradient(45deg, var(--success-color), #2ecc71);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+            padding: 30px;
+            border-radius: 15px;
+            color: #000000;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(255, 245, 157, 0.4);
+            border: 2px solid #ffeb3b;
+        }
+
+        .objectives h2 {
+            color: #000000;
+            border: none;
             margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
         }
 
         .objectives ul {
             list-style: none;
-            padding-left: 0;
+            padding: 0;
         }
 
-        .objectives li {
-            margin-bottom: 10px;
-            padding-left: 25px;
+        .objectives ul li {
+            padding: 12px 0;
+            padding-left: 30px;
             position: relative;
+            font-size: 1.05em;
+            line-height: 1.6;
+            color: #000000;
+            font-weight: 500;
         }
 
-        .objectives li::before {
-            content: '✓';
+        .objectives ul li::before {
+            content: "✓";
             position: absolute;
             left: 0;
-            color: #fff;
+            color: #2ecc71;
             font-weight: bold;
+            font-size: 1.2em;
         }
 
         .synopsis-box {
@@ -215,10 +230,7 @@
         }
 
         /* Estilos adicionales para mejor contraste en modo oscuro */
-        .dark-mode .objectives {
-            background: linear-gradient(45deg, #1e3a2e, #27ae60);
-            color: var(--text-light);
-        }
+        /* Dark mode objectives removed - using yellow for all modes */
 
         .dark-mode .objectives h2 {
             color: var(--text-light);
@@ -507,14 +519,19 @@
     <button class="toggle-btn" onclick="toggleTheme()">🌓</button>
     
     <div class="container">
-        <div class="header">
-            <h1>📚 Análisis y Metodología de Sistemas</h1>
-            <h2 style="color: var(--secondary-color); border: none;">Clase 1: Fundamentos Teóricos del Análisis de Sistemas</h2>
-            <div class="course-info">
-                <div class="info-card">
-                    <strong>🎯 Carrera:</strong> Tecnicatura Superior en Análisis de Sistemas
-                </div>
-                <div class="info-card">
+                        <header class="course-header">
+            <h1 class="course-title">📚 Fundamentos Teóricos del Análisis de Sistemas</h1>
+            <p class="course-subtitle">Introducción a la teoría general de sistemas y su aplicación en el desarrollo de software</p>
+            <div class="course-meta">
+                <span class="meta-item">📚 Unidad 1: Fundamentos</span>
+                <span class="meta-item">🎯 Clase 01</span>
+                <span class="meta-item">⏱️ 90 minutos</span>
+                <span class="meta-item">📈 Nivel: Inicial</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 6.25%"></div>
+            </div>
+        </header><div class="info-card">
                     <strong>⏱️ Duración:</strong> 16 semanas
                 </div>
                 <div class="info-card">
