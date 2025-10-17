@@ -899,13 +899,23 @@
             🔄 Evolución de Paradigmas de Análisis
           </div>
           <div class="mermaid">
-            timeline title Evolución Histórica de Paradigmas 1960s :
-            Programación No Estructurada : Código espagueti : Sin metodología
-            formal 1970s : Paradigma Estructurado : Top-down design : DFD y
-            análisis funcional 1980s : Métodos Estructurados : SSADM, Yourdon :
-            Modelado de datos 1990s : Orientación a Objetos : UML : Casos de uso
-            2000s+ : Paradigmas Híbridos : Domain-Driven Design : Metodologías
-            ágiles
+timeline
+    title Evolución Histórica de Paradigmas
+    1960s : Programación No Estructurada
+          : Código espagueti
+          : Sin metodología formal
+    1970s : Paradigma Estructurado
+          : Top-down design
+          : DFD y análisis funcional
+    1980s : Métodos Estructurados
+          : SSADM, Yourdon
+          : Modelado de datos
+    1990s : Orientación a Objetos
+          : UML
+          : Casos de uso
+    2000s+ : Paradigmas Híbridos
+           : Domain-Driven Design
+           : Metodologías ágiles
           </div>
         </div>
 
@@ -999,13 +1009,28 @@
         <div class="diagram-container">
           <div class="diagram-title">🔄 Perspectivas de Modelado</div>
           <div class="mermaid">
-            graph LR subgraph "Paradigma Estructurado" A[Proceso Central] -->
-            B[Subproceso 1] A --> C[Subproceso 2] A --> D[Subproceso 3] E[Datos]
-            -.-> A A -.-> F[Resultados] end subgraph "Paradigma OO" G[Cliente]
-            --> H[Pedido] H --> I[Producto] G --> J[Factura] H --> J I -->
-            K[Inventario] end style A fill:#4facfe,color:#fff style G
-            fill:#2ecc71,color:#fff style H fill:#2ecc71,color:#fff style I
-            fill:#2ecc71,color:#fff style J fill:#2ecc71,color:#fff
+graph LR
+    subgraph Estructurado["Paradigma Estructurado"]
+        A[Proceso Central] --> B[Subproceso 1]
+        A --> C[Subproceso 2]
+        A --> D[Subproceso 3]
+        E[Datos] -.-> A
+        A -.-> F[Resultados]
+    end
+
+    subgraph OO["Paradigma Orientado a Objetos"]
+        G[Cliente] --> H[Pedido]
+        H --> I[Producto]
+        G --> J[Factura]
+        H --> J
+        I --> K[Inventario]
+    end
+
+    style A fill:#4facfe,color:#fff
+    style G fill:#2ecc71,color:#fff
+    style H fill:#2ecc71,color:#fff
+    style I fill:#2ecc71,color:#fff
+    style J fill:#2ecc71,color:#fff
           </div>
         </div>
       </section>
@@ -1898,15 +1923,23 @@
             🚀 Roadmap de Implementación OO - Liskov Project
           </div>
           <div class="mermaid">
-            gantt title Plan de Implementación OO (12 semanas) dateFormat
-            YYYY-MM-DD section Fase 1 Modelado Identificación de Clases :a1,
-            2024-01-01, 1w Definición de Interfaces :a2, after a1, 1w Diseño de
-            Herencia :a3, after a2, 1w section Fase 2 Arquitectura Diseño de
-            Capas :b1, after a3, 1w Patrones de Diseño :b2, after b1, 1w API
-            REST Design :b3, after b2, 1w section Fase 3 Desarrollo Sprint 1
-            Core :c1, after b3, 2w Sprint 2 Integraciones :c2, after c1, 2w
-            Sprint 3 UI :c3, after c2, 2w section Fase 4 QA Testing y Deploy
-            :d1, after c3, 1w
+gantt
+    title Plan de Implementación OO (12 semanas)
+    dateFormat YYYY-MM-DD
+    section Fase 1 Modelado
+    Identificación de Clases    :a1, 2024-01-01, 1w
+    Definición de Interfaces     :a2, after a1, 1w
+    Diseño de Herencia          :a3, after a2, 1w
+    section Fase 2 Arquitectura
+    Diseño de Capas             :b1, after a3, 1w
+    Patrones de Diseño          :b2, after b1, 1w
+    API REST Design             :b3, after b2, 1w
+    section Fase 3 Desarrollo
+    Sprint 1 Core               :c1, after b3, 2w
+    Sprint 2 Integraciones      :c2, after c1, 2w
+    Sprint 3 UI                 :c3, after c2, 2w
+    section Fase 4 QA
+    Testing y Deploy            :d1, after c3, 1w
           </div>
         </div>
 
@@ -2051,16 +2084,45 @@
             📐 Arquitectura Final: Vista de Alto Nivel
           </div>
           <div class="mermaid">
-            graph TD subgraph "Presentation Layer" UI[React Components]
-            HOOKS[Custom Hooks] end subgraph "Business Logic Layer"
-            DOMAIN[Domain Models] SERVICES[Business Services] PATTERNS[Design
-            Patterns] end subgraph "Data Access Layer" REPOS[Repositories]
-            ORM[ORM - Prisma] CACHE[Redis Cache] end subgraph "Infrastructure"
-            DB[(PostgreSQL)] QUEUE[RabbitMQ] STORAGE[File Storage] end UI -->
-            HOOKS HOOKS --> SERVICES SERVICES --> DOMAIN SERVICES --> PATTERNS
-            PATTERNS --> REPOS REPOS --> ORM REPOS --> CACHE ORM --> DB SERVICES
-            --> QUEUE SERVICES --> STORAGE style DOMAIN fill:#e8f5e8 style
-            SERVICES fill:#fff3e0 style REPOS fill:#e3f2fd style DB fill:#f3e5f5
+graph TD
+    subgraph Presentation["Presentation Layer"]
+        UI[React Components]
+        HOOKS[Custom Hooks]
+    end
+
+    subgraph Business["Business Logic Layer"]
+        DOMAIN[Domain Models]
+        SERVICES[Business Services]
+        PATTERNS[Design Patterns]
+    end
+
+    subgraph DataAccess["Data Access Layer"]
+        REPOS[Repositories]
+        ORM[ORM - Prisma]
+        CACHE[Redis Cache]
+    end
+
+    subgraph Infrastructure["Infrastructure"]
+        DB[(PostgreSQL)]
+        QUEUE[RabbitMQ]
+        STORAGE[File Storage]
+    end
+
+    UI --> HOOKS
+    HOOKS --> SERVICES
+    SERVICES --> DOMAIN
+    SERVICES --> PATTERNS
+    PATTERNS --> REPOS
+    REPOS --> ORM
+    REPOS --> CACHE
+    ORM --> DB
+    SERVICES --> QUEUE
+    SERVICES --> STORAGE
+
+    style DOMAIN fill:#e8f5e8
+    style SERVICES fill:#fff3e0
+    style REPOS fill:#e3f2fd
+    style DB fill:#f3e5f5
           </div>
         </div>
 
@@ -2160,14 +2222,26 @@
             🔮 Futuro de los Paradigmas de Análisis
           </div>
           <div class="mermaid">
-            graph TD A[Paradigmas Actuales] --> B[Estructurado] A -->
-            C[Orientado a Objetos] D[Paradigmas Emergentes] --> E[Domain-Driven
-            Design] D --> F[Event-Driven] D --> G[Reactive Systems] H[Enfoques
-            Híbridos] --> I[Microservicios] H --> J[Serverless] H -->
-            K[Container-Based] L[IA y Automatización] --> M[Code Generation] L
-            --> N[Pattern Recognition] L --> O[Optimal Architecture] style A
-            fill:#e8f5e8 style D fill:#fff3e0 style H fill:#e3f2fd style L
-            fill:#f3e5f5
+graph TD
+    A[Paradigmas Actuales] --> B[Estructurado]
+    A --> C[Orientado a Objetos]
+
+    D[Paradigmas Emergentes] --> E[Domain-Driven Design]
+    D --> F[Event-Driven]
+    D --> G[Reactive Systems]
+
+    H[Enfoques Híbridos] --> I[Microservicios]
+    H --> J[Serverless]
+    H --> K[Container-Based]
+
+    L[IA y Automatización] --> M[Code Generation]
+    L --> N[Pattern Recognition]
+    L --> O[Optimal Architecture]
+
+    style A fill:#e8f5e8
+    style D fill:#fff3e0
+    style H fill:#e3f2fd
+    style L fill:#f3e5f5
           </div>
         </div>
 
