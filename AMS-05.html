@@ -8773,15 +8773,36 @@ Evaluación de conceptos básicos de JavaScript incluyendo variables, funciones,
         }
       }
 
-      // Inicializar Mermaid
-      mermaid.initialize({
-        startOnLoad: true,
-        theme: "default",
-        securityLevel: "loose",
-      });
+      // Variable para rastrear si Mermaid ya fue inicializado
+      window.mermaidInitialized = false;
 
-      // Cargar quiz al iniciar
-      document.addEventListener("DOMContentLoaded", loadQuiz);
+      // Función para inicializar Mermaid una sola vez
+      function initializeMermaid() {
+        if (window.mermaidInitialized) return;
+
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: "default",
+          securityLevel: "loose",
+        });
+
+        window.mermaidInitialized = true;
+
+          // Renderizar manualmente para asegurar que funciona en iframes
+          try {
+              mermaid.run();
+          } catch (error) {
+              console.error('Error rendering Mermaid:', error);
+          }
+      }
+
+      // Cargar quiz e inicializar Mermaid al iniciar
+      document.addEventListener("DOMContentLoaded", function() {
+        // Inicializar Mermaid con un pequeño delay para iframes
+
+        setTimeout(initializeMermaid, 100);
+        loadQuiz();
+      });
     </script>
   </body>
 </html>

@@ -1821,80 +1821,6 @@
                 </p>
             </div>
 
-            <h3>6.7 Herramientas de Soporte para la Integración</h3>
-
-            <div class="content-section" style="background: #f8f9fa; padding: 20px; border-left: 4px solid #007acc; margin: 15px 0;">
-                <p style="text-align: justify; line-height: 1.6; margin: 0;">
-                    <strong>Scripts de Verificación Automatizada:</strong> Las herramientas de verificación automatizada permiten detectar sistemáticamente inconsistencias y errores en los modelos de análisis estructurado. Estos scripts implementan algoritmos que validan el balanceo entre niveles jerárquicos del DFD, verificando que todos los flujos de entrada y salida del proceso padre tengan correspondencia exacta en los subprocesos del nivel inferior. La automatización de estas verificaciones reduce significativamente el tiempo de revisión manual y elimina la posibilidad de errores humanos en la detección de discrepancias. Los scripts pueden integrar múltiples reglas de validación, generar reportes detallados de errores y facilitar el mantenimiento de la consistencia durante la evolución del modelo, proporcionando un framework robusto para la calidad del análisis.
-                </p>
-            </div>
-
-            <div class="important-note">
-                <strong>Recomendación Final:</strong> La integración efectiva de las herramientas del análisis estructurado requiere un enfoque sistemático que combine metodología disciplinada, herramientas automatizadas y revisión experta. Establezca puntos de control regulares, mantenga documentación de decisiones de diseño y asegure la trazabilidad bidireccional entre todos los artefactos para facilitar el mantenimiento futuro del modelo del sistema.
-            </div>
-
-            <div class="content-section">
-                <p style="text-align: justify; line-height: 1.8; margin: 20px 0;">
-                    La verificación y validación en el análisis estructurado constituyen procesos fundamentales para garantizar la calidad y corrección de los modelos desarrollados. La <strong>verificación</strong> se enfoca en asegurar que los artefactos cumplan con las reglas sintácticas y semánticas establecidas, verificando que el modelo esté construido correctamente según las convenciones del método. Este proceso incluye la revisión de la nomenclatura consistente, el balanceo apropiado entre niveles de descomposición, la conectividad válida de los flujos de datos y la coherencia entre los diferentes diagramas.
-                </p>
-                
-                <p style="text-align: justify; line-height: 1.8; margin: 20px 0;">
-                    Por otro lado, la <strong>validación</strong> se concentra en confirmar que el modelo representa fielmente los requerimientos del negocio y las necesidades reales de los usuarios. Este proceso implica la revisión exhaustiva de que todos los procesos identificados correspondan a funciones genuinas del sistema, que los flujos de datos representen información real y necesaria, y que el modelo completo cubra todos los casos de uso relevantes. La combinación efectiva de ambos procesos garantiza modelos robustos, mantenibles y alineados con los objetivos organizacionales.
-                </p>
-            </div>
-
-            <h3>6.7 Herramientas de Soporte</h3>
-
-            <h4>6.7.1 Herramientas CASE Recomendadas</h4>
-
-            <table class="notation-table">
-                <thead>
-                    <tr>
-                        <th>Herramienta</th>
-                        <th>Capacidades</th>
-                        <th>Fortalezas</th>
-                        <th>Limitaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Visio + Add-ins</strong></td>
-                        <td>DFD, Diccionario básico</td>
-                        <td>Facilidad de uso, integración Office</td>
-                        <td>Verificación limitada</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Enterprise Architect</strong></td>
-                        <td>DFD, Diccionario, PSPEC, Trazabilidad</td>
-                        <td>Verificación automática, reportes</td>
-                        <td>Curva de aprendizaje alta</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Lucidchart</strong></td>
-                        <td>DFD colaborativo</td>
-                        <td>Colaboración en tiempo real</td>
-                        <td>Sin diccionario integrado</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Draw.io + Scripts</strong></td>
-                        <td>DFD, verificación personalizada</td>
-                        <td>Gratuito, extensible</td>
-                        <td>Requiere configuración manual</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h4>6.7.2 Scripts de Verificación Automatizada</h4>
-
-            <div class="content-section" style="background: #f8f9fa; padding: 20px; border-left: 4px solid #007acc; margin: 15px 0;">
-                <p style="text-align: justify; line-height: 1.6; margin: 0;">
-                    <strong>Scripts de Verificación Automatizada:</strong> Las herramientas de verificación automatizada permiten detectar sistemáticamente inconsistencias y errores en los modelos de análisis estructurado. Estos scripts implementan algoritmos que validan el balanceo entre niveles jerárquicos del DFD, verificando que todos los flujos de entrada y salida del proceso padre tengan correspondencia exacta en los subprocesos del nivel inferior. La automatización de estas verificaciones reduce significativamente el tiempo de revisión manual y elimina la posibilidad de errores humanos en la detección de discrepancias. Los scripts pueden integrar múltiples reglas de validación, generar reportes detallados de errores y facilitar el mantenimiento de la consistencia durante la evolución del modelo, proporcionando un framework robusto para la calidad del análisis.
-                </p>
-            </div>
-
-            <div class="important-note">
-                <strong>Recomendación Final:</strong> La integración efectiva requiere un enfoque sistemático que combine herramientas automatizadas con revisión experta. Establezca puntos de control regulares y mantenga documentación de decisiones de diseño para facilitar el mantenimiento futuro del modelo.
-            </div>
         </section>
 
         <!-- ============================================ -->
@@ -2896,42 +2822,63 @@ FIN PROCESO
 
     <!-- Scripts JavaScript -->
     <script>
-        // Configuración de Mermaid
-        const mermaidConfig = {
-            startOnLoad: false,
-            theme: 'default',
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true
-            },
-            themeVariables: {
-                primaryColor: '#3498db',
-                primaryTextColor: '#2c3e50',
-                primaryBorderColor: '#2980b9',
-                lineColor: '#34495e'
+        // Variable para rastrear si Mermaid ya fue inicializado
+        window.mermaidInitialized = false;
+
+        // Función para inicializar Mermaid una sola vez
+        function initializeMermaid() {
+            if (window.mermaidInitialized) return;
+
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const mermaidTheme = savedTheme === 'dark' ? 'dark' : 'default';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: mermaidTheme,
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true
+                },
+                themeVariables: {
+                    primaryColor: '#3498db',
+                    primaryTextColor: '#2c3e50',
+                    primaryBorderColor: '#2980b9',
+                    lineColor: '#34495e'
+                }
+            });
+
+            window.mermaidInitialized = true;
+
+            // Renderizar manualmente para asegurar que funciona en iframes
+            try {
+                mermaid.run();
+            } catch (error) {
+                console.error('Error rendering Mermaid:', error);
             }
-        };
-        mermaid.initialize(mermaidConfig);
+        }
 
         // Sistema de temas
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            
+
             // Actualizar icono
             const icon = document.getElementById('theme-icon');
             icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+
+            // Recargar para aplicar el tema a los diagramas
+            location.reload();
         }
 
         // Cargar tema guardado
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.body.setAttribute('data-theme', savedTheme);
-            
+
             const icon = document.getElementById('theme-icon');
             icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
         }
@@ -3085,15 +3032,12 @@ FIN PROCESO
             document.querySelector('.quiz-container').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Renderizar diagramas Mermaid
-        function renderMermaid() {
-            mermaid.run();
-        }
-
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
             loadTheme();
-            setTimeout(renderMermaid, 500);
+            // Inicializar Mermaid con un pequeño delay para iframes
+
+            setTimeout(initializeMermaid, 100);
         });
 
         // Scroll suave para navegación

@@ -2116,22 +2116,29 @@ SELECT * FROM trace ORDER BY level;
         </script>
 
         <script>
-            mermaid.initialize({
-                startOnLoad: true,
-                theme: 'base',
-                themeVariables: {
-                    primaryColor: '#E3F2FD',
-                    primaryTextColor: '#1976D2',
-                    primaryBorderColor: '#BBDEFB',
-                    lineColor: '#42A5F5',
-                    sectionBkgColor: '#F8F9FA',
-                    altSectionBkgColor: '#E8F5E8',
-                    gridColor: '#E1F5FE',
-                    secondaryColor: '#C8E6C9',
-                    tertiaryColor: '#E1BEE7',
-                    background: '#FAFAFA',
-                    mainBkg: '#E3F2FD',
-                    secondBkg: '#C8E6C9',
+            // Variable para rastrear si Mermaid ya fue inicializado
+            window.mermaidInitialized = false;
+
+            // Función para inicializar Mermaid una sola vez
+            function initializeMermaid() {
+                if (window.mermaidInitialized) return;
+
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'base',
+                    themeVariables: {
+                        primaryColor: '#E3F2FD',
+                        primaryTextColor: '#1976D2',
+                        primaryBorderColor: '#BBDEFB',
+                        lineColor: '#42A5F5',
+                        sectionBkgColor: '#F8F9FA',
+                        altSectionBkgColor: '#E8F5E8',
+                        gridColor: '#E1F5FE',
+                        secondaryColor: '#C8E6C9',
+                        tertiaryColor: '#E1BEE7',
+                        background: '#FAFAFA',
+                        mainBkg: '#E3F2FD',
+                        secondBkg: '#C8E6C9',
                     tertiaryBkg: '#E1BEE7',
                     primaryBorderColor: '#90CAF9',
                     primaryTextColor: '#0D47A1',
@@ -2153,6 +2160,23 @@ SELECT * FROM trace ORDER BY level;
                     fillType7: '#E0F2F1'
                 }
             });
+
+            window.mermaidInitialized = true;
+
+            // Renderizar manualmente para asegurar que funciona en iframes
+            try {
+                mermaid.run();
+            } catch (error) {
+                console.error('Error rendering Mermaid:', error);
+            }
+        }
+
+        // Inicializar Mermaid al cargar el DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar Mermaid con un pequeño delay para iframes
+
+            setTimeout(initializeMermaid, 100);
+        });
         </script>
     </div>
 </body>

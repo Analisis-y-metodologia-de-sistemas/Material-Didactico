@@ -1708,42 +1708,63 @@
 
     <!-- Scripts JavaScript -->
     <script>
-        // Configuración de Mermaid
-        const mermaidConfig = {
-            startOnLoad: false,
-            theme: 'default',
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true
-            },
-            themeVariables: {
-                primaryColor: '#3498db',
-                primaryTextColor: '#2c3e50',
-                primaryBorderColor: '#2980b9',
-                lineColor: '#34495e'
+        // Variable para rastrear si Mermaid ya fue inicializado
+        window.mermaidInitialized = false;
+
+        // Función para inicializar Mermaid una sola vez
+        function initializeMermaid() {
+            if (window.mermaidInitialized) return;
+
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const mermaidTheme = savedTheme === 'dark' ? 'dark' : 'default';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: mermaidTheme,
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true
+                },
+                themeVariables: {
+                    primaryColor: '#3498db',
+                    primaryTextColor: '#2c3e50',
+                    primaryBorderColor: '#2980b9',
+                    lineColor: '#34495e'
+                }
+            });
+
+            window.mermaidInitialized = true;
+
+            // Renderizar manualmente para asegurar que funciona en iframes
+            try {
+                mermaid.run();
+            } catch (error) {
+                console.error('Error rendering Mermaid:', error);
             }
-        };
-        mermaid.initialize(mermaidConfig);
+        }
 
         // Sistema de temas
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            
+
             // Actualizar icono
             const icon = document.getElementById('theme-icon');
             icon.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+
+            // Recargar para aplicar el tema a los diagramas
+            location.reload();
         }
 
         // Cargar tema guardado
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.body.setAttribute('data-theme', savedTheme);
-            
+
             const icon = document.getElementById('theme-icon');
             icon.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
         }
@@ -1918,15 +1939,12 @@
             }
         }
 
-        // Renderizar diagramas Mermaid
-        function renderMermaid() {
-            mermaid.run();
-        }
-
         // Inicialización
         document.addEventListener('DOMContentLoaded', function() {
             loadTheme();
-            setTimeout(renderMermaid, 500);
+            // Inicializar Mermaid con un pequeño delay para iframes
+
+            setTimeout(initializeMermaid, 100);
         });
 
         // Scroll suave para navegación

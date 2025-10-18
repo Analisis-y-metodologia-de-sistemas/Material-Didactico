@@ -2697,6 +2697,31 @@ graph TD
         }
       }
 
+      // Variable para rastrear si Mermaid ya fue inicializado
+      window.mermaidInitialized = false;
+
+      // Función para inicializar Mermaid una sola vez
+      function initializeMermaid() {
+        if (window.mermaidInitialized) return;
+
+        const savedTheme = localStorage.getItem("theme");
+        const mermaidTheme = savedTheme === "dark" ? "dark" : "default";
+
+        mermaid.initialize({
+          startOnLoad: false,
+          theme: mermaidTheme,
+        });
+
+        window.mermaidInitialized = true;
+
+          // Renderizar manualmente para asegurar que funciona en iframes
+          try {
+              mermaid.run();
+          } catch (error) {
+              console.error('Error rendering Mermaid:', error);
+          }
+      }
+
       // Cargar tema guardado
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme");
@@ -2708,10 +2733,9 @@ graph TD
         }
 
         // Inicializar Mermaid
-        mermaid.initialize({
-          startOnLoad: true,
-          theme: savedTheme === "dark" ? "dark" : "default",
-        });
+        // Inicializar Mermaid con un pequeño delay para iframes
+
+        setTimeout(initializeMermaid, 100);
       });
 
       // Sistema de Quiz

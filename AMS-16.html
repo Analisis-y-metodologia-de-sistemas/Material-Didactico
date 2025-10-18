@@ -2133,11 +2133,36 @@ fix: Corrige cálculo de velocity en sprint cerrado [TSK-247] closes #142
     </div>
 
     <script>
+        // Variable para rastrear si Mermaid ya fue inicializado
+        window.mermaidInitialized = false;
+
+        // Función para inicializar Mermaid una sola vez
+        function initializeMermaid() {
+            if (window.mermaidInitialized) return;
+
+            const savedTheme = localStorage.getItem('theme');
+            const mermaidTheme = savedTheme === 'dark' ? 'dark' : 'default';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: mermaidTheme
+            });
+
+            window.mermaidInitialized = true;
+
+            // Renderizar manualmente para asegurar que funciona en iframes
+            try {
+                mermaid.run();
+            } catch (error) {
+                console.error('Error rendering Mermaid:', error);
+            }
+        }
+
         // Gestión del tema
         function toggleTheme() {
             const body = document.body;
             const themeToggle = document.querySelector('.theme-toggle');
-            
+
             if (body.getAttribute('data-theme') === 'dark') {
                 body.removeAttribute('data-theme');
                 themeToggle.textContent = '🌙';
@@ -2147,23 +2172,25 @@ fix: Corrige cálculo de velocity en sprint cerrado [TSK-247] closes #142
                 themeToggle.textContent = '☀️';
                 localStorage.setItem('theme', 'dark');
             }
+
+            // Recargar para aplicar el tema a los diagramas
+            location.reload();
         }
 
         // Cargar tema guardado
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme');
             const themeToggle = document.querySelector('.theme-toggle');
-            
+
             if (savedTheme === 'dark') {
                 document.body.setAttribute('data-theme', 'dark');
                 themeToggle.textContent = '☀️';
             }
 
             // Inicializar Mermaid
-            mermaid.initialize({ 
-                startOnLoad: true,
-                theme: savedTheme === 'dark' ? 'dark' : 'default'
-            });
+            // Inicializar Mermaid con un pequeño delay para iframes
+
+            setTimeout(initializeMermaid, 100);
         });
 
         // Respuestas correctas del quiz

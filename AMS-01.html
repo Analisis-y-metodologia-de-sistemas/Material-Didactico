@@ -1526,60 +1526,42 @@
     </div>
 
     <script>
-        // Configuración de Mermaid
-        const mermaidConfig = {
-            startOnLoad: false,
-            theme: 'default',
-            flowchart: {
-                useMaxWidth: true,
-                htmlLabels: true,
-                curve: 'basis'
-            },
-            gantt: {
-                useMaxWidth: true,
-                leftPadding: 150
-            },
-            timeline: {
-                useMaxWidth: true
-            },
-            mindmap: {
-                useMaxWidth: true
-            }
-        };
+        // Variable para rastrear si Mermaid ya fue inicializado
+        window.mermaidInitialized = false;
 
-        // Inicializar Mermaid
-        mermaid.initialize(mermaidConfig);
+        // Función para inicializar y renderizar Mermaid una sola vez
+        function initializeMermaid() {
+            if (window.mermaidInitialized) return;
 
-        // Función para renderizar diagramas Mermaid
-        function renderMermaid() {
+            const savedTheme = localStorage.getItem('darkMode') === 'true' ? 'dark' : 'default';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: savedTheme,
+                flowchart: {
+                    useMaxWidth: true,
+                    htmlLabels: true,
+                    curve: 'basis'
+                },
+                gantt: {
+                    useMaxWidth: true,
+                    leftPadding: 150
+                },
+                timeline: {
+                    useMaxWidth: true
+                },
+                mindmap: {
+                    useMaxWidth: true
+                }
+            });
+
+            window.mermaidInitialized = true;
+
+            // Renderizar manualmente para asegurar que funciona en iframes
             try {
-                // Limpiar diagramas existentes
-                document.querySelectorAll('.mermaid').forEach(element => {
-                    if (element.getAttribute('data-processed') === 'true') {
-                        element.removeAttribute('data-processed');
-                        // Restaurar contenido original
-                        const originalContent = element.getAttribute('data-original-content');
-                        if (originalContent) {
-                            element.innerHTML = originalContent;
-                        }
-                    } else {
-                        // Guardar contenido original
-                        element.setAttribute('data-original-content', element.innerHTML);
-                    }
-                });
-                
-                // Renderizar nuevamente
-                mermaid.init(undefined, document.querySelectorAll('.mermaid'));
+                mermaid.run();
             } catch (error) {
                 console.error('Error rendering Mermaid:', error);
-                // Fallback: intentar nuevamente después de un tiempo
-                setTimeout(() => {
-                    try {
-                        mermaid.init(undefined, document.querySelectorAll('.mermaid'));
-                    } catch (e) {
-                        console.error('Fallback Mermaid render failed:', e);
-                    }
-                }, 2000);
             }
         }
 
@@ -1587,24 +1569,20 @@
         function toggleTheme() {
             document.body.classList.toggle('dark-mode');
             localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-            
-            // Reinicializar Mermaid después del cambio de tema
-            setTimeout(renderMermaid, 100);
+
+            // Recargar la página para aplicar el nuevo tema a los diagramas
+            location.reload();
         }
 
-        // Cargar preferencia de tema
-        window.addEventListener('load', function() {
+        // Inicialización única al cargar el DOM
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cargar preferencia de tema
             if (localStorage.getItem('darkMode') === 'true') {
                 document.body.classList.add('dark-mode');
             }
-            
-            // Renderizar Mermaid después de cargar la página
-            setTimeout(renderMermaid, 1000);
-        });
 
-        // Listener adicional para DOM completamente cargado
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(renderMermaid, 500);
+            // Inicializar Mermaid con un pequeño delay para iframes
+            setTimeout(initializeMermaid, 100);
         });
 
         // Variables para el quiz

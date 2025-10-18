@@ -3060,44 +3060,57 @@ graph TD<br>
     </style>
 
     <script>
-        // Configuración de Mermaid
-        mermaid.initialize({
-            startOnLoad: true,
-            theme: 'default',
-            flowchart: {
-                htmlLabels: true,
-                curve: 'basis'
+        // Variable para rastrear si Mermaid ya fue inicializado
+        window.mermaidInitialized = false;
+
+        // Función para inicializar Mermaid una sola vez
+        function initializeMermaid() {
+            if (window.mermaidInitialized) return;
+
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const mermaidTheme = savedTheme === 'dark' ? 'dark' : 'default';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: mermaidTheme,
+                flowchart: {
+                    htmlLabels: true,
+                    curve: 'basis'
+                }
+            });
+
+            window.mermaidInitialized = true;
+
+            // Renderizar manualmente para asegurar que funciona en iframes
+            try {
+                mermaid.run();
+            } catch (error) {
+                console.error('Error rendering Mermaid:', error);
             }
-        });
+        }
 
         // Función para cambiar el tema
         function toggleTheme() {
             const body = document.body;
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
+
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
-            
-            // Reinicializar Mermaid con el nuevo tema
-            if (newTheme === 'dark') {
-                mermaid.initialize({ theme: 'dark' });
-            } else {
-                mermaid.initialize({ theme: 'default' });
-            }
-            
-            // Re-renderizar diagramas
+
+            // Recargar para aplicar el nuevo tema
             location.reload();
         }
 
-        // Cargar tema guardado
+        // Cargar tema guardado e inicializar Mermaid
         document.addEventListener('DOMContentLoaded', function() {
             const savedTheme = localStorage.getItem('theme') || 'light';
             document.body.setAttribute('data-theme', savedTheme);
-            
-            if (savedTheme === 'dark') {
-                mermaid.initialize({ theme: 'dark' });
-            }
+
+            // Inicializar Mermaid con un pequeño delay para iframes
+
+
+            setTimeout(initializeMermaid, 100);
         });
 
         // Sistema de Quiz
