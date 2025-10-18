@@ -1,24 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-53D9MP2H');</script>
+    <!-- End Google Tag Manager -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Curso AMS - Análisis y Metodología de Sistemas</title>
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #e74c3c;
-            --success-color: #27ae60;
-            --warning-color: #f39c12;
-            --bg-color: #ffffff;
-            --text-color: #333333;
-            --sidebar-bg: #f8f9fa;
-            --border-color: #e9ecef;
-            --shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        [data-theme="dark"] {
             --primary-color: #34495e;
             --secondary-color: #5dade2;
             --accent-color: #e74c3c;
@@ -70,28 +65,6 @@
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .theme-toggle {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .theme-toggle:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-1px);
         }
 
         .sidebar {
@@ -167,59 +140,106 @@
         }
 
         .welcome-screen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+            position: relative;
             height: 100%;
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, var(--bg-color), var(--sidebar-bg));
+            width: 100%;
+            overflow: hidden;
+            background: #000000;
         }
 
-        .welcome-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            color: var(--secondary-color);
+        #scene-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .welcome-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            text-align: center;
+            color: white;
+            padding: 60px 40px;
+            max-width: 1000px;
+            pointer-events: none;
         }
 
         .welcome-title {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--primary-color);
+            font-size: 5rem;
+            margin: 0 0 40px 0;
+            font-weight: 200;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            color: #ffffff;
+            opacity: 0;
+            animation: fadeInWelcome 2.5s ease-out 1s forwards;
+            text-shadow:
+                0 0 20px rgba(100, 180, 255, 0.5),
+                0 0 40px rgba(100, 180, 255, 0.3),
+                0 0 60px rgba(100, 180, 255, 0.2);
+        }
+
+        @keyframes fadeInWelcome {
+            to { opacity: 1; }
         }
 
         .welcome-subtitle {
+            font-size: 1.5rem;
+            margin: 40px 0;
+            font-weight: 300;
+            opacity: 0;
+            line-height: 2;
+            color: #c8d8e8;
+            letter-spacing: 2px;
+            animation: fadeInWelcome 2.5s ease-out 2.5s forwards;
+            text-shadow: 0 0 20px rgba(100, 180, 255, 0.3);
+        }
+
+        .welcome-cta {
+            margin-top: 80px;
+            opacity: 0;
+            animation: fadeInWelcome 2.5s ease-out 4s forwards;
+        }
+
+        .welcome-cta-text {
             font-size: 1.2rem;
-            color: var(--text-color);
-            opacity: 0.8;
-            margin-bottom: 30px;
+            font-weight: 300;
+            color: #8a9eb8;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        .course-stats {
-            display: flex;
-            gap: 30px;
-            margin-top: 30px;
+        .vignette {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+            z-index: 5;
         }
 
-        .stat-item {
-            text-align: center;
-            padding: 20px;
-            background: rgba(52, 152, 219, 0.1);
-            border-radius: 10px;
-            border: 1px solid rgba(52, 152, 219, 0.2);
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            opacity: 0.8;
+        .scanlines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(100, 180, 255, 0.02) 2px,
+                rgba(100, 180, 255, 0.02) 4px
+            );
+            z-index: 6;
+            opacity: 0.5;
         }
 
         .loading-spinner {
@@ -284,12 +304,14 @@
     </style>
 </head>
 <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53D9MP2H"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <div class="container">
         <header class="header">
-            <div class="logo">📚 Curso AMS</div>
-            <div class="header-controls">
-                <button class="theme-toggle" onclick="toggleTheme()">🌙 Modo Oscuro</button>
-            </div>
+            <div class="logo">📚 Análisis y Metodología de Sistemas</div>
         </header>
 
         <nav class="sidebar">
@@ -395,30 +417,32 @@
 
         <main class="content-area">
             <div class="loading-spinner" id="loadingSpinner"></div>
-            <iframe class="content-frame loading" id="contentFrame" title="Contenido del curso"></iframe>
-            <div class="welcome-screen" id="welcomeScreen">
-                <div class="welcome-icon">🎓</div>
-                <h1 class="welcome-title">Bienvenido al Curso AMS</h1>
-                <p class="welcome-subtitle">Análisis y Metodología de Sistemas</p>
-                <div class="course-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">16</div>
-                        <div class="stat-label">Clases</div>
+            <iframe class="content-frame loading" id="contentFrame" title="Contenido del curso" style="display: none;"></iframe>
+            <div class="welcome-screen" id="welcomeScreen" style="display: flex;">
+                <div id="scene-container"></div>
+                <div class="vignette"></div>
+                <div class="scanlines"></div>
+
+                <div class="welcome-content">
+                    <h1 class="welcome-title">
+                        Análisis y Metodología<br>
+                        de Sistemas
+                    </h1>
+
+                    <div class="welcome-subtitle">
+                        Donde la arquitectura encuentra el diseño<br>
+                        y los sistemas cobran vida
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-number">120+</div>
-                        <div class="stat-label">Horas</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">∞</div>
-                        <div class="stat-label">Conocimiento</div>
+
+                    <div class="welcome-cta">
+                        <span class="welcome-cta-text">Selecciona una clase para comenzar</span>
                     </div>
                 </div>
-                <p style="margin-top: 30px; opacity: 0.7;">Selecciona una clase del menú lateral para comenzar</p>
             </div>
         </main>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script>
         // Función simple para cargar curso en iframe
         function loadCourse(courseFile) {
@@ -430,9 +454,12 @@
                 return;
             }
 
-            // Mostrar loading
+            // Mostrar loading y ocultar welcome screen
             loadingSpinner.style.display = 'block';
             welcomeScreen.style.display = 'none';
+
+            // Mostrar iframe
+            frame.style.display = 'block';
 
             // Usar opacity en lugar de display para que Mermaid pueda renderizar
             frame.classList.add('loading');
@@ -471,18 +498,388 @@
             };
         }
 
-        // Función simple para toggle de tema
-        function toggleTheme() {
-            const body = document.body;
-            const themeToggle = document.querySelector('.theme-toggle');
-
-            if (!body || !themeToggle) {
+        // Three.js Neural Network Animation
+        function initWelcomeAnimation() {
+            const container = document.getElementById('scene-container');
+            if (!container) {
+                console.error('scene-container no encontrado');
                 return;
             }
 
-            body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
-            themeToggle.textContent = body.dataset.theme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Oscuro';
+            console.log('Iniciando animación Three.js...');
+
+            // Verificar que Three.js esté cargado
+            if (typeof THREE === 'undefined') {
+                console.error('Three.js no está cargado');
+                return;
+            }
+
+            // Scene setup
+            const scene = new THREE.Scene();
+            scene.fog = new THREE.FogExp2(0x000000, 0.012);
+
+            const camera = new THREE.PerspectiveCamera(
+                75,
+                container.clientWidth / container.clientHeight,
+                0.1,
+                1000
+            );
+            camera.position.set(0, 0, 60);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setClearColor(0x000000, 1);
+            container.appendChild(renderer.domElement);
+
+            // Neural network structure
+            const nodeGeometry = new THREE.SphereGeometry(0.4, 24, 24);
+            const nodes = [];
+            const connections = [];
+            const layers = [10, 15, 20, 25, 20, 15, 10];
+            const layerSpacing = 15;
+
+            function getNodeMaterial(layerIndex) {
+                const hue = (layerIndex / layers.length) * 0.3 + 0.55;
+                const color = new THREE.Color().setHSL(hue, 0.7, 0.5);
+                return new THREE.MeshBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.9
+                });
+            }
+
+            // Create network layers
+            layers.forEach((nodeCount, layerIndex) => {
+                const layerNodes = [];
+                const x = (layerIndex - layers.length / 2) * layerSpacing;
+                const radius = nodeCount * 0.4;
+
+                for (let i = 0; i < nodeCount; i++) {
+                    const angle = (i / nodeCount) * Math.PI * 2;
+                    const y = Math.cos(angle) * radius;
+                    const z = Math.sin(angle) * radius;
+
+                    const node = new THREE.Mesh(nodeGeometry, getNodeMaterial(layerIndex));
+                    node.position.set(x, y, z);
+
+                    node.userData = {
+                        originalPos: { x, y, z },
+                        phase: Math.random() * Math.PI * 2,
+                        speed: 0.2 + Math.random() * 0.3,
+                        amplitude: 0.5 + Math.random() * 0.5,
+                        layer: layerIndex,
+                        index: i
+                    };
+
+                    scene.add(node);
+                    layerNodes.push(node);
+
+                    const glowGeometry = new THREE.SphereGeometry(0.6, 16, 16);
+                    const glowMaterial = new THREE.MeshBasicMaterial({
+                        color: node.material.color,
+                        transparent: true,
+                        opacity: 0.2
+                    });
+                    const glow = new THREE.Mesh(glowGeometry, glowMaterial);
+                    node.add(glow);
+                    node.userData.glow = glow;
+                }
+                nodes.push(layerNodes);
+            });
+
+            // Create connections
+            const connectionMaterial = new THREE.LineBasicMaterial({
+                color: 0x4682b4,
+                transparent: true,
+                opacity: 0.1
+            });
+
+            for (let i = 0; i < nodes.length - 1; i++) {
+                const currentLayer = nodes[i];
+                const nextLayer = nodes[i + 1];
+
+                currentLayer.forEach((node1, idx1) => {
+                    const baseConnection = Math.floor((idx1 / currentLayer.length) * nextLayer.length);
+                    const connectionsPerNode = 3;
+
+                    for (let c = 0; c < connectionsPerNode; c++) {
+                        const offset = c - Math.floor(connectionsPerNode / 2);
+                        const targetIdx = (baseConnection + offset + nextLayer.length) % nextLayer.length;
+                        const node2 = nextLayer[targetIdx];
+
+                        if (Math.random() > 0.2) {
+                            const points = [node1.position, node2.position];
+                            const geometry = new THREE.BufferGeometry().setFromPoints(points);
+                            const line = new THREE.Line(geometry, connectionMaterial.clone());
+                            scene.add(line);
+                            connections.push({
+                                line: line,
+                                start: node1,
+                                end: node2,
+                                material: line.material
+                            });
+                        }
+                    }
+                });
+            }
+
+            // Particle system
+            const particleGeometry = new THREE.SphereGeometry(0.2, 12, 12);
+            const particles = [];
+
+            function createParticle() {
+                if (connections.length === 0) return;
+
+                const connection = connections[Math.floor(Math.random() * connections.length)];
+                const particleMaterial = new THREE.MeshBasicMaterial({
+                    color: connection.start.material.color,
+                    transparent: true,
+                    opacity: 1
+                });
+
+                const particle = new THREE.Mesh(particleGeometry, particleMaterial);
+                particle.position.copy(connection.start.position);
+
+                const trailGeometry = new THREE.SphereGeometry(0.4, 8, 8);
+                const trailMaterial = new THREE.MeshBasicMaterial({
+                    color: connection.start.material.color,
+                    transparent: true,
+                    opacity: 0.5
+                });
+                const trail = new THREE.Mesh(trailGeometry, trailMaterial);
+                particle.add(trail);
+
+                particle.userData = {
+                    connection: connection,
+                    progress: 0,
+                    speed: 0.004 + Math.random() * 0.008,
+                    trail: trail
+                };
+
+                scene.add(particle);
+                particles.push(particle);
+            }
+
+            // Ambient particles
+            const ambientParticles = new THREE.Group();
+            for (let i = 0; i < 200; i++) {
+                const size = 0.05 + Math.random() * 0.1;
+                const geometry = new THREE.SphereGeometry(size, 8, 8);
+                const material = new THREE.MeshBasicMaterial({
+                    color: new THREE.Color().setHSL(0.55 + Math.random() * 0.15, 0.6, 0.5),
+                    transparent: true,
+                    opacity: 0.3 + Math.random() * 0.4
+                });
+                const particle = new THREE.Mesh(geometry, material);
+                particle.position.set(
+                    (Math.random() - 0.5) * 120,
+                    (Math.random() - 0.5) * 120,
+                    (Math.random() - 0.5) * 120
+                );
+                particle.userData = {
+                    velocity: new THREE.Vector3(
+                        (Math.random() - 0.5) * 0.08,
+                        (Math.random() - 0.5) * 0.08,
+                        (Math.random() - 0.5) * 0.08
+                    ),
+                    rotationSpeed: (Math.random() - 0.5) * 0.02
+                };
+                ambientParticles.add(particle);
+            }
+            scene.add(ambientParticles);
+
+            // Geometric shapes
+            const geometricShapes = [];
+
+            const torus1 = new THREE.Mesh(
+                new THREE.TorusGeometry(50, 0.15, 16, 100),
+                new THREE.MeshBasicMaterial({
+                    color: 0x3498db,
+                    transparent: true,
+                    opacity: 0.05,
+                    wireframe: true
+                })
+            );
+            torus1.rotation.x = Math.PI / 3;
+            scene.add(torus1);
+            geometricShapes.push({ mesh: torus1, speed: { x: 0.0002, y: 0.0005, z: 0.0003 } });
+
+            const torus2 = new THREE.Mesh(
+                new THREE.TorusGeometry(35, 0.1, 16, 100),
+                new THREE.MeshBasicMaterial({
+                    color: 0x5dade2,
+                    transparent: true,
+                    opacity: 0.08,
+                    wireframe: true
+                })
+            );
+            torus2.rotation.y = Math.PI / 4;
+            scene.add(torus2);
+            geometricShapes.push({ mesh: torus2, speed: { x: -0.0003, y: -0.0004, z: 0.0002 } });
+
+            const icosahedron = new THREE.Mesh(
+                new THREE.IcosahedronGeometry(65, 1),
+                new THREE.MeshBasicMaterial({
+                    color: 0x2980b9,
+                    transparent: true,
+                    opacity: 0.03,
+                    wireframe: true
+                })
+            );
+            scene.add(icosahedron);
+            geometricShapes.push({ mesh: icosahedron, speed: { x: 0.0001, y: -0.0002, z: -0.0001 } });
+
+            // Energy pulses
+            const pulses = [];
+            function createPulse() {
+                const layerIndex = Math.floor(Math.random() * nodes.length);
+                const layer = nodes[layerIndex];
+                const node = layer[Math.floor(Math.random() * layer.length)];
+
+                const pulseGeometry = new THREE.RingGeometry(0.5, 0.6, 32);
+                const pulseMaterial = new THREE.MeshBasicMaterial({
+                    color: node.material.color,
+                    transparent: true,
+                    opacity: 0.8,
+                    side: THREE.DoubleSide
+                });
+                const pulse = new THREE.Mesh(pulseGeometry, pulseMaterial);
+                pulse.position.copy(node.position);
+                pulse.lookAt(camera.position);
+
+                pulse.userData = {
+                    scale: 1,
+                    maxScale: 3,
+                    speed: 0.02
+                };
+
+                scene.add(pulse);
+                pulses.push(pulse);
+            }
+
+            // Animation loop
+            let time = 0;
+            let lastParticleTime = 0;
+            let lastPulseTime = 0;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                time += 0.01;
+
+                // Camera movement
+                const cameraRadius = 65;
+                const cameraHeight = Math.sin(time * 0.08) * 15;
+                camera.position.x = Math.cos(time * 0.05) * cameraRadius;
+                camera.position.y = cameraHeight;
+                camera.position.z = Math.sin(time * 0.05) * cameraRadius;
+                camera.lookAt(0, 0, 0);
+
+                // Animate nodes
+                nodes.forEach((layer) => {
+                    layer.forEach(node => {
+                        const pulse = Math.sin(time * node.userData.speed + node.userData.phase);
+                        const scale = 1 + pulse * 0.15;
+                        node.scale.setScalar(scale);
+                        node.material.opacity = 0.7 + pulse * 0.2;
+                        if (node.userData.glow) {
+                            node.userData.glow.scale.setScalar(1 + pulse * 0.3);
+                            node.userData.glow.material.opacity = 0.1 + pulse * 0.15;
+                        }
+                        const offset = pulse * node.userData.amplitude * 0.3;
+                        node.position.y = node.userData.originalPos.y + offset;
+                    });
+                });
+
+                // Update connections
+                connections.forEach((conn) => {
+                    const points = [conn.start.position, conn.end.position];
+                    conn.line.geometry.setFromPoints(points);
+                    const activity = (conn.start.scale.x + conn.end.scale.x) / 2;
+                    conn.material.opacity = 0.05 + activity * 0.08;
+                });
+
+                // Update particles
+                particles.forEach((particle, index) => {
+                    particle.userData.progress += particle.userData.speed;
+
+                    if (particle.userData.progress >= 1) {
+                        scene.remove(particle);
+                        particles.splice(index, 1);
+                    } else {
+                        const start = particle.userData.connection.start.position;
+                        const end = particle.userData.connection.end.position;
+                        particle.position.lerpVectors(start, end, particle.userData.progress);
+
+                        const fadePoint = 0.8;
+                        if (particle.userData.progress > fadePoint) {
+                            const fadeProgress = (particle.userData.progress - fadePoint) / (1 - fadePoint);
+                            particle.material.opacity = 1 - fadeProgress;
+                            particle.userData.trail.material.opacity = 0.5 * (1 - fadeProgress);
+                        }
+                        particle.rotation.y += 0.1;
+                    }
+                });
+
+                if (time - lastParticleTime > 0.15 && Math.random() > 0.5) {
+                    createParticle();
+                    lastParticleTime = time;
+                }
+
+                // Ambient particles
+                ambientParticles.children.forEach(particle => {
+                    particle.position.add(particle.userData.velocity);
+                    particle.rotation.x += particle.userData.rotationSpeed;
+                    particle.rotation.y += particle.userData.rotationSpeed;
+
+                    ['x', 'y', 'z'].forEach(axis => {
+                        if (Math.abs(particle.position[axis]) > 60) {
+                            particle.position[axis] *= -1;
+                        }
+                    });
+                });
+
+                // Geometric shapes
+                geometricShapes.forEach(shape => {
+                    shape.mesh.rotation.x += shape.speed.x;
+                    shape.mesh.rotation.y += shape.speed.y;
+                    shape.mesh.rotation.z += shape.speed.z;
+                });
+
+                // Pulses
+                pulses.forEach((pulse, index) => {
+                    pulse.userData.scale += pulse.userData.speed;
+                    pulse.scale.setScalar(pulse.userData.scale);
+                    pulse.material.opacity = 0.8 * (1 - pulse.userData.scale / pulse.userData.maxScale);
+
+                    if (pulse.userData.scale >= pulse.userData.maxScale) {
+                        scene.remove(pulse);
+                        pulses.splice(index, 1);
+                    }
+                    pulse.lookAt(camera.position);
+                });
+
+                if (time - lastPulseTime > 1.5 && Math.random() > 0.6) {
+                    createPulse();
+                    lastPulseTime = time;
+                }
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // Handle resize
+            window.addEventListener('resize', () => {
+                if (container.clientWidth && container.clientHeight) {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                }
+            });
         }
+
+        // Initialize animation when page loads
+        window.addEventListener('load', initWelcomeAnimation);
     </script>
 </body>
 </html>
