@@ -508,6 +508,62 @@
             };
         }
 
+        // Fallback animation usando CSS cuando WebGL no está disponible
+        function showFallbackAnimation() {
+            console.log('Usando animación CSS fallback');
+            const container = document.getElementById('scene-container');
+            if (!container) return;
+
+            // Limpiar contenedor
+            container.innerHTML = '';
+
+            // Crear partículas CSS
+            const numParticles = 50;
+            for (let i = 0; i < numParticles; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 4px;
+                    height: 4px;
+                    background: rgba(100, 180, 255, 0.6);
+                    border-radius: 50%;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    animation: float ${5 + Math.random() * 10}s ease-in-out infinite;
+                    animation-delay: ${Math.random() * 5}s;
+                    box-shadow: 0 0 10px rgba(100, 180, 255, 0.5);
+                `;
+                container.appendChild(particle);
+            }
+
+            // Agregar animación CSS si no existe
+            if (!document.getElementById('fallback-animation-style')) {
+                const style = document.createElement('style');
+                style.id = 'fallback-animation-style';
+                style.textContent = `
+                    @keyframes float {
+                        0%, 100% {
+                            transform: translate(0, 0) scale(1);
+                            opacity: 0.3;
+                        }
+                        25% {
+                            transform: translate(20px, -30px) scale(1.2);
+                            opacity: 0.7;
+                        }
+                        50% {
+                            transform: translate(-20px, -60px) scale(0.8);
+                            opacity: 0.5;
+                        }
+                        75% {
+                            transform: translate(30px, -30px) scale(1.1);
+                            opacity: 0.6;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
         // Three.js Neural Network Animation
         function initWelcomeAnimation() {
             const container = document.getElementById('scene-container');
@@ -521,6 +577,7 @@
             // Verificar que Three.js esté cargado
             if (typeof THREE === 'undefined') {
                 console.error('Three.js no está cargado');
+                showFallbackAnimation();
                 return;
             }
 
@@ -536,10 +593,21 @@
             );
             camera.position.set(0, 0, 60);
 
-            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setClearColor(0x000000, 1);
-            container.appendChild(renderer.domElement);
+            let renderer;
+            try {
+                renderer = new THREE.WebGLRenderer({
+                    antialias: true,
+                    alpha: true,
+                    failIfMajorPerformanceCaveat: false
+                });
+                renderer.setSize(container.clientWidth, container.clientHeight);
+                renderer.setClearColor(0x000000, 1);
+                container.appendChild(renderer.domElement);
+            } catch (error) {
+                console.error('Error creando WebGL renderer:', error);
+                showFallbackAnimation();
+                return;
+            }
 
             // Neural network structure
             const nodeGeometry = new THREE.SphereGeometry(0.4, 24, 24);
